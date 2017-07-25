@@ -1,9 +1,10 @@
 group "build.dream"
-version "1.0.0"
+version "0.1.0"
 
 buildscript {
     ext {
         springBootVersion = "1.5.4.RELEASE"
+        projectName = "saas-common"
     }
     repositories {
         mavenLocal()
@@ -17,6 +18,7 @@ buildscript {
 apply plugin: "java"
 apply plugin: "org.springframework.boot"
 apply plugin: "idea"
+apply plugin: "maven-publish"
 
 repositories {
     mavenLocal()
@@ -33,4 +35,32 @@ dependencies {
     compile("com.google.zxing:javase:3.3.0")
     compile("dom4j:dom4j:1.6.1")
     compile("redis.clients:jedis:2.9.0")
+}
+
+task sourceJar (type:Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar (type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+publishing {
+    repositories {
+        maven {url "/Users/liuyandong/repositories/releases/"}
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+
+            artifact (javadocJar) {
+                classifier = 'javadoc'
+            }
+        }
+    }
 }
