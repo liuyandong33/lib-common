@@ -29,10 +29,6 @@ public class LogUtils {
         LOGGER.error(Constants.LOGGER_ERROR_FORMAT, errorMessage, controllerSimpleName, actionMethodName, exceptionSimpleName, exceptionMessage, null);
     }
 
-    public static void error(String errorMessage, String controllerSimpleName, String actionMethodName, String exceptionSimpleName, String exceptionMessage, JsonObject jsonObject) {
-        LOGGER.error(Constants.LOGGER_ERROR_FORMAT, errorMessage, controllerSimpleName, actionMethodName, exceptionSimpleName, exceptionMessage, jsonObject != null ? jsonObject.toString() : null);
-    }
-
     public static void error(String errorMessage) {
         LOGGER.error(errorMessage);
     }
