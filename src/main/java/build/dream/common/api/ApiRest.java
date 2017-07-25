@@ -95,5 +95,4 @@ public class ApiRest {
     public void setRequestId(String requestId) {
         this.requestId = requestId;
     }
-
 }
