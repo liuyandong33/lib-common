@@ -78,19 +78,19 @@ public class WebUtils {
         return result;
     }
 
-    public static String doPostWithFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
-        return doPostWithFiles(requestUrl, null, requestParameters);
+    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
+        return doPostWithRequestParametersAndFiles(requestUrl, null, requestParameters);
     }
 
-    public static String doPostWithFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters) throws IOException {
-        return doPostWithFiles(requestUrl, readTimeout, connectTimeout, null, requestParameters);
+    public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters) throws IOException {
+        return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, null, requestParameters);
     }
 
-    public static String doPostWithFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
-        return doPostWithFiles(requestUrl, 0, 0, headers, requestParameters);
+    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
+        return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, headers, requestParameters);
     }
 
-    public static String doPostWithFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
+    public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
         HttpURLConnection httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
         if (headers == null) {
             headers = new HashMap<String, String>();
