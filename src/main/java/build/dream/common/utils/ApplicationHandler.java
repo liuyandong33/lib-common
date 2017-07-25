@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -67,7 +68,7 @@ public class ApplicationHandler {
     public static <T> T instantiateDomain(Class<T> domainClass, Map<String, String> arguments) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
         T domain = domainClass.newInstance();
         Set<Map.Entry<String, String>> entries = arguments.entrySet();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
         for (Map.Entry<String, String> entry : entries) {
             String fieldName = entry.getKey();
             Field field = domainClass.getField(fieldName);
