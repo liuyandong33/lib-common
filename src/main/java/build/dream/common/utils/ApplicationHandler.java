@@ -70,8 +70,11 @@ public class ApplicationHandler {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         for (Map.Entry<String, String> entry : entries) {
             String fieldName = entry.getKey();
-            String fieldValue = entry.getValue();
             Field field = domainClass.getField(fieldName);
+            if (field == null) {
+                continue;
+            }
+            String fieldValue = entry.getValue();
             field.setAccessible(true);
             Class<?> fieldClass = field.getType();
             if (fieldClass == Byte.class || fieldClass == byte.class) {
