@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -103,5 +104,11 @@ public class ApplicationHandler {
             }
         }
         return domain;
+    }
+
+    public static void validateNotNull(Map<String, String> parameters, String... names) {
+        for (String name : names) {
+            Validate.notNull(parameters.get(name), "参数(" + name +")不能为空！");
+        }
     }
 }
