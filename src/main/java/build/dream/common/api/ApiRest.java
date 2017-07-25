@@ -8,7 +8,6 @@ import java.util.UUID;
  * Created by liuyandong on 2017/3/20.
  */
 public class ApiRest {
-
     private boolean successful;
     private Object data;
     private String message;
