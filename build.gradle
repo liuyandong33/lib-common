@@ -27,6 +27,8 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.springframework.security.oauth:spring-security-oauth2"
     compile("org.springframework.boot:spring-boot-devtools")
     compile("commons-lang:commons-lang:2.6")
     compile("com.google.code.gson:gson:2.8.0")
