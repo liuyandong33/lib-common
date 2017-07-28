@@ -50,7 +50,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 }
 publishing {
     repositories {
-        maven {url "/Users/liuyandong/repositories/releases/"}
+        maven { url "/Users/liuyandong/repositories/releases/" }
     }
     publications {
         mavenJava(MavenPublication) {
