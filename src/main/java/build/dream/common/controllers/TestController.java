@@ -1,8 +1,11 @@
 package build.dream.common.controllers;
 
-import build.dream.common.utils.SystemPartitionUtils;
+import build.dream.common.annotations.ObtainWeChatOpenId;
+import build.dream.common.api.ApiRest;
+import build.dream.common.utils.GsonUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
@@ -13,9 +16,11 @@ import java.io.IOException;
 @Controller
 @RequestMapping(value = "/test")
 public class TestController {
-    @RequestMapping(value = "/test")
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     @ResponseBody
-    public String test() throws IOException {
-        return SystemPartitionUtils.getUrl("za1", "out", "weiXinPay", "unifiedOrder");
+    @ObtainWeChatOpenId
+    public String test() {
+        ApiRest apiRest = new ApiRest();
+        return GsonUtils.toJson(apiRest);
     }
 }

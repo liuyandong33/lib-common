@@ -111,4 +111,8 @@ public class ApplicationHandler {
             Validate.notNull(parameters.get(name), "参数(" + name +")不能为空！");
         }
     }
+
+    public static String getRequestUrl() {
+        return getHttpServletRequest().getRequestURL().toString();
+    }
 }

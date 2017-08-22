@@ -37,6 +37,7 @@ dependencies {
     compile("com.google.zxing:javase:3.3.0")
     compile("dom4j:dom4j:1.6.1")
     compile("redis.clients:jedis:2.9.0")
+    compile "org.apache.commons:commons-collections4:4.1"
 }
 
 task sourceJar(type: Jar) {
