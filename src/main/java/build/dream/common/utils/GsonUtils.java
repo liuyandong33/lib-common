@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class GsonUtils {
     private static Gson instantiateGson(String datePattern) {
-        GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat(datePattern).serializeNulls();
+        GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat(datePattern).serializeNulls().disableHtmlEscaping();
         return gsonBuilder.create();
     }
 

@@ -1,11 +1,9 @@
 package build.dream.common.interceptors;
 
-import build.dream.common.Application;
 import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.api.ApiRest;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.GsonUtils;
-import build.dream.common.utils.PropertyUtils;
 import build.dream.common.utils.WeChatUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;

@@ -2,7 +2,6 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -41,13 +40,13 @@ public class ApplicationHandler {
         Map<String, String> requestParameters = new LinkedHashMap<>();
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         for (Map.Entry<String, String[]> parameterEntry : parameterMap.entrySet()) {
-            requestParameters.put(parameterEntry.getKey(), StringUtils.trimToNull(org.springframework.util.StringUtils.arrayToCommaDelimitedString(parameterEntry.getValue())));
+            requestParameters.put(parameterEntry.getKey(), StringUtils.trimToNull(StringUtils.join(parameterEntry.getValue(), ",")));
         }
         return requestParameters;
     }
 
     public static String getRequestParameter(String requestParameterName) {
-        return StringUtils.trimToNull(org.springframework.util.StringUtils.arrayToCommaDelimitedString(getHttpServletRequest().getParameterValues(requestParameterName)));
+        return StringUtils.trimToNull(StringUtils.join(getHttpServletRequest().getParameterValues(requestParameterName), ","));
     }
 
     public static String getSessionId() {
@@ -64,6 +63,10 @@ public class ApplicationHandler {
 
     public static HttpSession getHttpSession() {
         return getHttpServletRequest().getSession();
+    }
+
+    public static String getRequestUrl() {
+        return getHttpServletRequest().getRequestURL().toString();
     }
 
     public static <T> T instantiateDomain(Class<T> domainClass, Map<String, String> arguments) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
@@ -104,15 +107,5 @@ public class ApplicationHandler {
             }
         }
         return domain;
-    }
-
-    public static void validateNotNull(Map<String, String> parameters, String... names) {
-        for (String name : names) {
-            Validate.notNull(parameters.get(name), "参数(" + name +")不能为空！");
-        }
-    }
-
-    public static String getRequestUrl() {
-        return getHttpServletRequest().getRequestURL().toString();
     }
 }
