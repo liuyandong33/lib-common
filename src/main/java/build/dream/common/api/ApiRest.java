@@ -17,24 +17,29 @@ public class ApiRest {
 
     public ApiRest() {
         this.requestId = UUID.randomUUID().toString();
+        this.result = Constants.FAILURE;
+        this.successful = false;
     }
 
     public ApiRest(Exception e) {
         this.requestId = UUID.randomUUID().toString();
         this.error = e.getMessage();
-        this.setSuccessful(false);
+        this.result = Constants.FAILURE;
+        this.successful = false;
     }
 
     public ApiRest(Object data, String message) {
         this.data = data;
         this.message = message;
         this.requestId = UUID.randomUUID().toString();
+        this.result = Constants.SUCCESS;
         this.successful = true;
     }
 
     public ApiRest(String error) {
         this.error = error;
         this.requestId = UUID.randomUUID().toString();
+        this.result = Constants.FAILURE;
         this.successful = false;
     }
 

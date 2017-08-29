@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -107,5 +108,27 @@ public class ApplicationHandler {
             }
         }
         return domain;
+    }
+
+    private static ApplicationContext applicationContext = null;
+
+    public static void setApplicationContext(ApplicationContext applicationContext) {
+        ApplicationHandler.applicationContext = applicationContext;
+    }
+
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public static <T> T getBean(Class<T> beanClass) {
+        return applicationContext.getBean(beanClass);
+    }
+
+    public static <T> T getFromMap(Map<String, Object> map, String key, Class<T> clazz) {
+        Object value = map.get(key);
+        if (value != null) {
+            return (T) value;
+        }
+        return null;
     }
 }

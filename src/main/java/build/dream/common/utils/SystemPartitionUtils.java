@@ -1,9 +1,13 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.saas.domains.SystemPartition;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liuyandong on 2017/7/24.
@@ -33,5 +37,20 @@ public class SystemPartitionUtils {
 
     public static String getOutsideUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
         return getOutsideServiceDomain(partitionCode, serviceName) + "/" + controllerName + "/" + actionName;
+    }
+
+    public static void loadSystemPartition(List<SystemPartition> systemPartitions, String deploymentEnvironment) throws IOException {
+        Map<String, String> serviceDomainMap = new HashMap<String, String>();
+        Map<String, String> outsideServiceDomainMap = new HashMap<String, String>();
+        for (SystemPartition systemPartition : systemPartitions) {
+            String key = "_" + systemPartition.getDeploymentEnvironment() + "_" + systemPartition.getPartitionCode() + "_" + systemPartition.getServiceName();
+            serviceDomainMap.put(key, systemPartition.getServiceDomain());
+            outsideServiceDomainMap.put(key, systemPartition.getOutsideServiceDomain());
+        }
+        String serviceDomainKey = Constants.KEY_SERVICE_DOMAIN + "_" + deploymentEnvironment;
+        String outsideServiceDomainKey = Constants.KEY_OUTSIDE_SERVICE_DOMAIN + "_" + deploymentEnvironment;
+        CacheUtils.del(serviceDomainKey, outsideServiceDomainKey);
+        CacheUtils.hmset(serviceDomainKey, serviceDomainMap);
+        CacheUtils.hmset(outsideServiceDomainKey, outsideServiceDomainMap);
     }
 }

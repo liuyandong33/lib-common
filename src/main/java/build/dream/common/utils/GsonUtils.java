@@ -54,4 +54,8 @@ public class GsonUtils {
     public static String toJson(Object object) {
         return toJson(object, Constants.DEFAULT_DATE_PATTERN);
     }
+
+    public static <T> T fromJson(String jsonString, Class<T> clazz) {
+        return instantiateGson().fromJson(jsonString, clazz);
+    }
 }
