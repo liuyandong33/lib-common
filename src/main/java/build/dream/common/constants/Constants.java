@@ -43,4 +43,10 @@ public class Constants {
 
     public static final String KEY_SERVICE_DOMAIN = "_service_domain";
     public static final String KEY_OUTSIDE_SERVICE_DOMAIN = "_outside_service_domain";
+
+    public static final String SERVICE_NAME_CATERING = "catering";
+    public static final String SERVICE_NAME_RETAIL = "retail";
+    public static final String SERVICE_NAME_PLATFORM = "platform";
+    public static final String BUSINESS_CATERING = "1";
+    public static final String BUSINESS_RETAIL = "2";
 }
