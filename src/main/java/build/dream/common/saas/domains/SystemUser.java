@@ -9,7 +9,11 @@ public class SystemUser {
     private String email;
     private String mobile;
     private Integer userType;
-    private Integer status;
+    private boolean accountNonExpired;
+    private boolean accountNonLocked;
+    private boolean credentialsNonExpired;
+    private boolean enabled;
+    private String password;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -56,12 +60,44 @@ public class SystemUser {
         this.userType = userType;
     }
 
-    public Integer getStatus() {
-        return status;
+    public boolean isAccountNonExpired() {
+        return accountNonExpired;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public boolean isCredentialsNonExpired() {
+        return credentialsNonExpired;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Date getCreateTime() {
