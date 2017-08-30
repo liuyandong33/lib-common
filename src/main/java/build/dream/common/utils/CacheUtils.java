@@ -226,6 +226,24 @@ public class CacheUtils {
         return returnValue;
     }
 
+    public static Long setnx(String key, String value) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.setnx(key, value);
+        jedis.close();
+        return returnValue;
+    }
+
+    public static Long setnx(byte[] key, byte[] value) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.setnx(key, value);
+        jedis.close();
+        return returnValue;
+    }
+
+    public static void closeJedis(Jedis jedis) {
+        jedis.close();
+    }
+
     public static String getSessionId(String sessionId) {
         return SESSION_PREFIX + sessionId.toLowerCase();
     }
