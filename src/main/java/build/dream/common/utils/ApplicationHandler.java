@@ -76,7 +76,12 @@ public class ApplicationHandler {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
         for (Map.Entry<String, String> entry : entries) {
             String fieldName = entry.getKey();
-            Field field = domainClass.getField(fieldName);
+            Field field = null;
+            try {
+                field = domainClass.getDeclaredField(fieldName);
+            } catch (Exception e) {
+
+            }
             if (field == null) {
                 continue;
             }
@@ -97,6 +102,8 @@ public class ApplicationHandler {
                 field.set(domain, Double.valueOf(fieldValue));
             } else if (fieldClass == Character.class || fieldClass == char.class) {
                 field.set(domain, fieldValue.charAt(0));
+            } else if (fieldClass == String.class) {
+                field.set(domain, fieldValue);
             } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
                 field.set(domain, Boolean.valueOf(fieldValue));
             } else if (fieldClass == Date.class) {
