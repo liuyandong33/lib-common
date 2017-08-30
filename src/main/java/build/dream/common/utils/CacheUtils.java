@@ -198,47 +198,35 @@ public class CacheUtils {
         return hmset(getSessionId(sessionId), hash);
     }
 
-    public static String getSessionId(String sessionId) {
-        return SESSION_PREFIX + sessionId.toLowerCase();
-    }
-
-    public static String setObject(String key, Object object) throws IOException {
+    public static Long expire(String key, int seconds) throws IOException {
         Jedis jedis = getJedis();
-        String returnValue = jedis.set(serialize(key), serialize(object));
+        Long returnValue = jedis.expire(key, seconds);
         jedis.close();
         return returnValue;
     }
 
-    public static Object getObject(String key) throws IOException, ClassNotFoundException {
+    public static Long expire(byte[] key, int seconds) throws IOException {
         Jedis jedis = getJedis();
-        Object object = deserialize(jedis.get(serialize(key)));
+        Long returnValue = jedis.expire(key, seconds);
         jedis.close();
-        return object;
+        return returnValue;
     }
 
-    public static <T> T getObject(String key, Class<T> clazz) throws IOException, ClassNotFoundException {
-        return (T) getObject(key);
+    public static Long expireAt(String key, long unixTime) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.expireAt(key, unixTime);
+        jedis.close();
+        return returnValue;
     }
 
-    public static byte[] serialize(Object object) throws IOException {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-        objectOutputStream.writeObject(object);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        byteArrayOutputStream.close();
-        objectOutputStream.close();
-        return bytes;
+    public static Long expireAt(byte[] key, long unixTime) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.expireAt(key, unixTime);
+        jedis.close();
+        return returnValue;
     }
 
-    public static Object deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
-        if (bytes == null) {
-            return null;
-        }
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
-        Object object = objectInputStream.readObject();
-        objectInputStream.close();
-        byteArrayInputStream.close();
-        return object;
+    public static String getSessionId(String sessionId) {
+        return SESSION_PREFIX + sessionId.toLowerCase();
     }
 }
