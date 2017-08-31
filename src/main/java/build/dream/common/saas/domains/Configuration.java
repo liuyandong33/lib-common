@@ -1,4 +1,4 @@
-package build.dream.common;
+package build.dream.common.saas.domains;
 
 import java.math.BigInteger;
 import java.util.Date;

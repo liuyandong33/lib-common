@@ -40,6 +40,8 @@ public class Constants {
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";
+    public static final String PARTITION_CODE = "partition.code";
+    public static final String SERVICE_NAME = "service.name";
 
     public static final String KEY_SERVICE_DOMAIN = "_service_domain";
     public static final String KEY_OUTSIDE_SERVICE_DOMAIN = "_outside_service_domain";

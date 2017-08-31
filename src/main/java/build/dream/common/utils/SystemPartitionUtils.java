@@ -39,7 +39,7 @@ public class SystemPartitionUtils {
         return getOutsideServiceDomain(partitionCode, serviceName) + "/" + controllerName + "/" + actionName;
     }
 
-    public static void loadSystemPartition(List<SystemPartition> systemPartitions, String deploymentEnvironment) throws IOException {
+    public static void loadSystemPartitions(List<SystemPartition> systemPartitions, String deploymentEnvironment) throws IOException {
         Map<String, String> serviceDomainMap = new HashMap<String, String>();
         Map<String, String> outsideServiceDomainMap = new HashMap<String, String>();
         for (SystemPartition systemPartition : systemPartitions) {
