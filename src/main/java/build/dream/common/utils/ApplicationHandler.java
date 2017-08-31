@@ -131,10 +131,28 @@ public class ApplicationHandler {
         return applicationContext.getBean(beanClass);
     }
 
-    public static <T> T getFromMap(Map<String, Object> map, String key, Class<T> clazz) {
+    public static BigInteger getBigIntegerFromMap(Map<String, Object> map, String key) {
         Object value = map.get(key);
-        if (value != null) {
-            return (T) value;
+        if (value == null) {
+            return null;
+        } else if (value instanceof Integer || value instanceof Long) {
+            return BigInteger.valueOf(Long.valueOf(value.toString()));
+        } else if (value instanceof Float) {
+            return BigInteger.valueOf(Float.valueOf(value.toString()).intValue());
+        } else if (value instanceof Double) {
+            return BigInteger.valueOf(Double.valueOf(value.toString()).longValue());
+        } else if (value instanceof BigDecimal) {
+            return BigInteger.valueOf(BigDecimal.valueOf(Double.valueOf(value.toString())).longValue());
+        }
+        return null;
+    }
+
+    public static Integer getIntegerFromMap(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) {
+            return null;
+        } else if (value instanceof Number) {
+            return Double.valueOf(value.toString()).intValue();
         }
         return null;
     }
