@@ -7,6 +7,7 @@ public class SystemPartition {
     private BigInteger id;
     private String deploymentEnvironment;
     private String partitionCode;
+    private Integer type;
     private String serviceName;
     private String serviceDomain;
     private String outsideServiceDomain;
@@ -38,6 +39,14 @@ public class SystemPartition {
 
     public void setPartitionCode(String partitionCode) {
         this.partitionCode = partitionCode;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getServiceName() {
