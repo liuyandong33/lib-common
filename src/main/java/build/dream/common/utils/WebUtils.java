@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.dom4j.Document;
@@ -8,6 +9,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -44,7 +46,7 @@ public class WebUtils {
         String result = null;
         HttpURLConnection httpURLConnection = null;
         try {
-            if (requestParameters != null && !requestParameters.isEmpty()) {
+            if (MapUtils.isNotEmpty(requestParameters)) {
                 requestUrl = requestUrl + "?" + buildQueryString(requestParameters);
             }
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout);
@@ -52,7 +54,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doGetWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+                return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream());
                 httpURLConnection.disconnect();
@@ -93,7 +95,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doPostWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+                return doPostWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream());
                 httpURLConnection.disconnect();
@@ -169,7 +171,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+                return doPostWithRequestParametersAndFiles(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream());
                 httpURLConnection.disconnect();
@@ -209,7 +211,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, headers, requestBody);
+                return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream());
                 httpURLConnection.disconnect();
@@ -226,7 +228,7 @@ public class WebUtils {
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers) {
-        if (headers != null && !headers.isEmpty()) {
+        if (MapUtils.isNotEmpty(headers)) {
             Set<Map.Entry<String, String>> entries = headers.entrySet();
             for (Map.Entry<String, String> entry : entries) {
                 httpURLConnection.setRequestProperty(entry.getKey(), entry.getValue());
