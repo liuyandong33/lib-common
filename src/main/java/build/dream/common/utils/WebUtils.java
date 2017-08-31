@@ -54,7 +54,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters);
+                return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream());
                 httpURLConnection.disconnect();
