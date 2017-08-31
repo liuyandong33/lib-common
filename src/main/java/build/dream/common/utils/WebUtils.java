@@ -1,8 +1,11 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,15 +41,30 @@ public class WebUtils {
     }
 
     public static String doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
-        if (requestParameters != null && !requestParameters.isEmpty()) {
-            requestUrl = requestUrl + "?" + buildQueryString(requestParameters);
+        String result = null;
+        HttpURLConnection httpURLConnection = null;
+        try {
+            if (requestParameters != null && !requestParameters.isEmpty()) {
+                requestUrl = requestUrl + "?" + buildQueryString(requestParameters);
+            }
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout);
+            setRequestProperties(httpURLConnection, headers);
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doGetWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
+                result = inputStreamToString(httpURLConnection.getInputStream());
+                httpURLConnection.disconnect();
+            } else {
+                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
         }
-        HttpURLConnection httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout);
-        setRequestProperties(httpURLConnection, headers);
-        InputStream inputStream = httpURLConnection.getInputStream();
-        String result = inputStreamToString(inputStream);
-        inputStream.close();
-        httpURLConnection.disconnect();
         return result;
     }
 
@@ -63,18 +81,31 @@ public class WebUtils {
     }
 
     public static String doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
-        HttpURLConnection httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
-        setRequestProperties(httpURLConnection, headers);
-        httpURLConnection.setDoInput(true);
-        httpURLConnection.setDoOutput(true);
-        OutputStream outputStream = httpURLConnection.getOutputStream();
-        String requestBody = buildQueryString(requestParameters);
-        outputStream.write(requestBody.getBytes(Constants.CHARSET_UTF_8));
-        InputStream inputStream = httpURLConnection.getInputStream();
-        String result = inputStreamToString(inputStream);
-        inputStream.close();
-        outputStream.close();
-        httpURLConnection.disconnect();
+        String result = null;
+        HttpURLConnection httpURLConnection =  null;
+        try {
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+            setRequestProperties(httpURLConnection, headers);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            String requestBody = buildQueryString(requestParameters);
+            httpURLConnection.getOutputStream().write(requestBody.getBytes(Constants.CHARSET_UTF_8));
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doPostWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
+                result = inputStreamToString(httpURLConnection.getInputStream());
+                httpURLConnection.disconnect();
+            } else {
+                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
+        }
         return result;
     }
 
@@ -91,76 +122,107 @@ public class WebUtils {
     }
 
     public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
-        HttpURLConnection httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
-        if (headers == null) {
-            headers = new HashMap<String, String>();
-            headers.put("Content-Type", "multipart/form-data;boundary=" + boundary);
-        }
-        setRequestProperties(httpURLConnection, headers);
-        httpURLConnection.setDoInput(true);
-        httpURLConnection.setDoOutput(true);
-        OutputStream outputStream = httpURLConnection.getOutputStream();
-        Set<Map.Entry<String, Object>> entries = requestParameters.entrySet();
-        for (Map.Entry<String, Object> entry : entries) {
-            outputStream.write((twoHyphens + boundary + enterNewline).getBytes(Constants.CHARSET_UTF_8));
-            String key = entry.getKey();
-            Object value = entry.getValue();
-            if (value instanceof String) {
-                outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
-                outputStream.write((value.toString()).getBytes(Constants.CHARSET_UTF_8));
-            } else if (value instanceof MultipartFile || value instanceof File) {
-                InputStream inputStream = null;
-                String fileName = null;
-                if (value instanceof MultipartFile) {
-                    MultipartFile multipartFile = (MultipartFile) value;
-                    inputStream = multipartFile.getInputStream();
-                    fileName = multipartFile.getOriginalFilename();
-                } else if (value instanceof File) {
-                    File file = (File) value;
-                    inputStream = new FileInputStream(file);
-                    fileName = file.getName();
-                }
-                outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + enterNewline).getBytes(Constants.CHARSET_UTF_8));
-                outputStream.write(("Content-Type:application/octet-stream" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
-                int length = 0;
-                byte[] buffer = new byte[1024];
-                while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
-                    outputStream.write(buffer, 0, length);
-                }
-                inputStream.close();
+        String result = null;
+        HttpURLConnection httpURLConnection = null;
+        httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+        try {
+            if (headers == null) {
+                headers = new HashMap<String, String>();
+                headers.put("Content-Type", "multipart/form-data;boundary=" + boundary);
             }
-            outputStream.write(enterNewline.getBytes(Constants.CHARSET_UTF_8));
+            setRequestProperties(httpURLConnection, headers);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            Set<Map.Entry<String, Object>> entries = requestParameters.entrySet();
+            for (Map.Entry<String, Object> entry : entries) {
+                outputStream.write((twoHyphens + boundary + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                String key = entry.getKey();
+                Object value = entry.getValue();
+                if (value instanceof String) {
+                    outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                    outputStream.write((value.toString()).getBytes(Constants.CHARSET_UTF_8));
+                } else if (value instanceof MultipartFile || value instanceof File) {
+                    InputStream inputStream = null;
+                    String fileName = null;
+                    if (value instanceof MultipartFile) {
+                        MultipartFile multipartFile = (MultipartFile) value;
+                        inputStream = multipartFile.getInputStream();
+                        fileName = multipartFile.getOriginalFilename();
+                    } else if (value instanceof File) {
+                        File file = (File) value;
+                        inputStream = new FileInputStream(file);
+                        fileName = file.getName();
+                    }
+                    outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                    outputStream.write(("Content-Type:application/octet-stream" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                    int length = 0;
+                    byte[] buffer = new byte[1024];
+                    while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
+                        outputStream.write(buffer, 0, length);
+                    }
+                    inputStream.close();
+                }
+                outputStream.write(enterNewline.getBytes(Constants.CHARSET_UTF_8));
+            }
+            outputStream.write((twoHyphens + boundary + twoHyphens).getBytes(Constants.CHARSET_UTF_8));
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, headers, requestParameters);
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
+                result = inputStreamToString(httpURLConnection.getInputStream());
+                httpURLConnection.disconnect();
+            } else {
+                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
         }
-        outputStream.write((twoHyphens + boundary + twoHyphens).getBytes(Constants.CHARSET_UTF_8));
-        InputStream inputStream = httpURLConnection.getInputStream();
-        String result = inputStreamToString(inputStream);
-        inputStream.close();
-        outputStream.close();
         return result;
     }
 
-    public static InputStream doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
+    public static String doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
         return doPostWithRequestBody(requestUrl, null, requestBody);
     }
 
-    public static InputStream doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody) throws IOException {
+    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody) throws IOException {
         return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody);
     }
 
-    public static InputStream doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody) throws IOException {
+    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody) throws IOException {
         return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody);
     }
 
-    public static InputStream doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody) throws IOException {
-        HttpURLConnection httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
-        setRequestProperties(httpURLConnection, headers);
-        httpURLConnection.setDoInput(true);
-        httpURLConnection.setDoOutput(true);
-        OutputStream outputStream = httpURLConnection.getOutputStream();
-        outputStream.write(requestBody.getBytes(Constants.CHARSET_UTF_8));
-        InputStream inputStream = httpURLConnection.getInputStream();
-        outputStream.close();
-        return inputStream;
+    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody) throws IOException {
+        String result = null;
+        HttpURLConnection httpURLConnection = null;
+        try {
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+            setRequestProperties(httpURLConnection, headers);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            httpURLConnection.getOutputStream().write(requestBody.getBytes(Constants.CHARSET_UTF_8));
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, headers, requestBody);
+            } else if (responseCode == HttpURLConnection.HTTP_OK) {
+                result = inputStreamToString(httpURLConnection.getInputStream());
+                httpURLConnection.disconnect();
+            } else {
+                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
+        }
+        return result;
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers) {
@@ -185,12 +247,12 @@ public class WebUtils {
     }
 
     public static String buildQueryString(Map<String, String> requestParameters) {
+        List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
-        StringBuffer queryString = new StringBuffer();
         for (Map.Entry<String, String> entry : entries) {
-            queryString.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            requestParameterPairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        return queryString.deleteCharAt(queryString.length() - 1).toString();
+        return StringUtils.join(requestParameterPairs, "&");
     }
 
     public static String inputStreamToString(InputStream inputStream) throws IOException {
@@ -203,9 +265,18 @@ public class WebUtils {
         return result.toString();
     }
 
+    public static Map<String, String> xmlStringToMap(String xmlString) throws DocumentException {
+        Document document = DocumentHelper.parseText(xmlString);
+        return xmlDocumentToMap(document);
+    }
+
     public static Map<String, String> xmlInputStreamToMap(InputStream inputStream) throws DocumentException {
         SAXReader saxReader = new SAXReader();
         Document document = saxReader.read(inputStream);
+        return xmlDocumentToMap(document);
+    }
+
+    private static Map<String, String> xmlDocumentToMap(Document document) {
         Element rootElement = document.getRootElement();
         List<Element> elements = rootElement.elements();
         Map<String, String> returnValue = new HashMap<String, String>();
