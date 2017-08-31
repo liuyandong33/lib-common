@@ -9,6 +9,7 @@ public class SystemUser {
     private String email;
     private String mobile;
     private Integer userType;
+    private BigInteger tenantId;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -58,6 +59,14 @@ public class SystemUser {
 
     public void setUserType(Integer userType) {
         this.userType = userType;
+    }
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
     }
 
     public boolean isAccountNonExpired() {
