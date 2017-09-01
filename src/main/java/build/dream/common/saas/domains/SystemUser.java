@@ -5,16 +5,17 @@ import java.util.Date;
 
 public class SystemUser {
     private BigInteger id;
-    private String loginName;
-    private String email;
+    private String name;
     private String mobile;
+    private String email;
+    private String loginName;
+    private String password;
     private Integer userType;
     private BigInteger tenantId;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    private String password;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -29,12 +30,20 @@ public class SystemUser {
         this.id = id;
     }
 
-    public String getLoginName() {
-        return loginName;
+    public String getName() {
+        return name;
     }
 
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getEmail() {
@@ -45,12 +54,20 @@ public class SystemUser {
         this.email = email;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getLoginName() {
+        return loginName;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Integer getUserType() {
@@ -99,14 +116,6 @@ public class SystemUser {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Date getCreateTime() {
