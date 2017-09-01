@@ -10,8 +10,6 @@ public class Configuration {
     private String serviceName;
     private String configurationKey;
     private String configurationValue;
-    private Integer type;
-    private String path;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -64,22 +62,6 @@ public class Configuration {
 
     public void setConfigurationValue(String configurationValue) {
         this.configurationValue = configurationValue;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
     }
 
     public Date getCreateTime() {

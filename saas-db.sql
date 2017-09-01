@@ -23,8 +23,6 @@ CREATE TABLE configuration (
     service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
     configuration_key VARCHAR(200) COMMENT '配置key',
     configuration_value VARCHAR(200) COMMENT '配置value',
-    `type` TINYINT(4) DEFAULT 1 COMMENT '配置类型，1-application.properties，2-logback.properties，3.pro.properties',
-    path VARCHAR(200) COMMENT '配置文件路径',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id INT(11) NOT NULL COMMENT '创建人id',
     last_update_time DATETIME DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -76,4 +74,50 @@ CREATE TABLE `system_user`
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id INT(11) NOT NULL COMMENT '最后更新人id',
     deleted TINYINT(4) NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS sequence;
+CREATE TABLE sequence
+(
+    name VARCHAR(50) PRIMARY KEY NOT NULL COMMENT '序列名称',
+    current_value INT(11) unsigned NOT NULL COMMENT '当前值',
+    increment INT(11) unsigned DEFAULT '1' NOT NULL COMMENT '每次增长的值'
+);
+
+DROP FUNCTION IF EXISTS current_value;
+CREATE FUNCTION current_value(seq_name VARCHAR(20)) RETURNS INT(11)
+BEGIN
+    DECLARE value int;
+    SET value = 0;
+    SELECT current_value INTO value FROM sequence WHERE name = seq_name;
+    IF value = 0 THEN
+        SET value = 1;
+        INSERT INTO sequence(name, current_value) VALUES(seq_name, value);
+    END if;
+    return value;
+END;
+
+DROP FUNCTION IF EXISTS next_value;
+CREATE FUNCTION next_value(seq_name VARCHAR(20)) RETURNS INT(11)
+BEGIN
+    UPDATE sequence SET current_value = current_value + increment where name = seq_name;
+    return current_value(seq_name);
+END ;
+
+#微信支付配置表
+CREATE TABLE wei_xin_pay_configuration
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    wei_xin_pay_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    wei_xin_pay_mch_id VARCHAR(50) NOT NULL,
+    wei_xin_pay_key VARCHAR(50) NOT NULL,
+    wei_xin_pay_sub_app_id VARCHAR(50),
+    wei_xin_pay_sub_mch_id VARCHAR(50),
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );

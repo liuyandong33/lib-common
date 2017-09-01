@@ -34,9 +34,6 @@ public class Constants {
     public static final String HTTP = "http://";
     public static final String HTTPS = "https://";
 
-    /** 错误日志格式化，错误描述：controllerName.actionName-exceptionSimpleName-exceptionMessage-请求参数*/
-    public static final String LOGGER_ERROR_FORMAT = "{}:{}.{}-{}-{}-{}";
-
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";

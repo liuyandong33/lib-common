@@ -1,7 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
-import com.google.gson.JsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,12 +19,20 @@ public class LogUtils {
         LOGGER.warn(message);
     }
 
-    public static void error(String errorMessage, String controllerSimpleName, String actionMethodName, String exceptionSimpleName, String exceptionMessage, Map<String, String> requestParameters) {
-        LOGGER.error(Constants.LOGGER_ERROR_FORMAT, errorMessage, controllerSimpleName, actionMethodName, exceptionSimpleName, exceptionMessage, requestParameters != null ? requestParameters.toString() : null);
+    public static void error(String errorMessage, String classSimpleName, String methodName, String exceptionSimpleName, String exceptionMessage, Map<String, String> parameters) {
+        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, classSimpleName, methodName, exceptionSimpleName, exceptionMessage, parameters);
     }
 
-    public static void error(String errorMessage, String controllerSimpleName, String actionMethodName, String exceptionSimpleName, String exceptionMessage) {
-        LOGGER.error(Constants.LOGGER_ERROR_FORMAT, errorMessage, controllerSimpleName, actionMethodName, exceptionSimpleName, exceptionMessage, null);
+    public static void error(String errorMessage, String classSimpleName, String methodName, String exceptionSimpleName, String exceptionMessage) {
+        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, classSimpleName, methodName, exceptionSimpleName, exceptionMessage);
+    }
+
+    public static void error(String errorMessage, String classSimpleName, String methodName, Exception exception, Map<String, String> parameters) {
+        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, classSimpleName, methodName, exception.getClass().getSimpleName(), exception.getMessage(), parameters);
+    }
+
+    public static void error(String errorMessage, String classSimpleName, String methodName, Exception exception) {
+        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, classSimpleName, methodName, exception.getClass().getSimpleName(), exception.getMessage());
     }
 
     public static void error(String errorMessage) {
