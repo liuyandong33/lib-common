@@ -131,7 +131,7 @@ public class ApplicationHandler {
         return applicationContext.getBean(beanClass);
     }
 
-    public static BigInteger getBigIntegerFromMap(Map<String, Object> map, String key) {
+    public static BigInteger obtainBigIntegerFromMap(Map<String, Object> map, String key) {
         Object value = map.get(key);
         if (value == null) {
             return null;
@@ -143,11 +143,23 @@ public class ApplicationHandler {
             return BigInteger.valueOf(Double.valueOf(value.toString()).longValue());
         } else if (value instanceof BigDecimal) {
             return BigInteger.valueOf(BigDecimal.valueOf(Double.valueOf(value.toString())).longValue());
+        } else if (value instanceof BigInteger) {
+            return (BigInteger) value;
         }
         return null;
     }
 
-    public static Integer getIntegerFromMap(Map<String, Object> map, String key) {
+    public static Long obtainLongFromMap(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) {
+            return null;
+        } else if (value instanceof Number) {
+            return Double.valueOf(value.toString()).longValue();
+        }
+        return null;
+    }
+
+    public static Integer obtainIntegerFromMap(Map<String, Object> map, String key) {
         Object value = map.get(key);
         if (value == null) {
             return null;
@@ -155,5 +167,23 @@ public class ApplicationHandler {
             return Double.valueOf(value.toString()).intValue();
         }
         return null;
+    }
+
+    public static BigDecimal obtainBigDecimalFromMap(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) {
+            return null;
+        } else if (value instanceof Number) {
+            return BigDecimal.valueOf(Double.valueOf(value.toString()));
+        }
+        return null;
+    }
+
+    public static String obtainStringFromMap(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
     }
 }
