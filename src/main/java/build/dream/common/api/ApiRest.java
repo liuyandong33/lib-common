@@ -132,7 +132,7 @@ public class ApiRest {
         return apiRest;
     }
 
-    public static ApiRest fromJson(String jsonString) throws IOException, ClassNotFoundException {
+    public static ApiRest fromJson(String jsonString) throws IOException {
         return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
     }
 
