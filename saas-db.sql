@@ -43,8 +43,6 @@ CREATE TABLE tenant
     province_code VARCHAR(10) NOT NULL COMMENT '省编码',
     city_code VARCHAR(10) NOT NULL COMMENT '市编码',
     district_code VARCHAR(10) NOT NULL COMMENT '区编码',
-    goods_table_name VARCHAR(20) NOT NULL COMMENT '产品表表名',
-    sale_table_name VARCHAR(20) NOT NULL COMMENT '销售流水表表名',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     user_id BIGINT NOT NULL COMMENT '用户ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
