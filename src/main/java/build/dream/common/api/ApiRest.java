@@ -1,7 +1,12 @@
 package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.utils.GsonUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang.StringUtils;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 /**
@@ -10,6 +15,7 @@ import java.util.UUID;
 public class ApiRest {
     private boolean successful;
     private Object data;
+    private String className;
     private String message;
     private String error;
     private String result;
@@ -64,6 +70,14 @@ public class ApiRest {
         return data;
     }
 
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -99,5 +113,34 @@ public class ApiRest {
 
     public void setRequestId(String requestId) {
         this.requestId = requestId;
+    }
+
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
+    public static ApiRest fromJson(String jsonString, String datePattern) throws IOException {
+        objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
+        ApiRest apiRest = objectMapper.readValue(jsonString, ApiRest.class);
+        if (StringUtils.isNotBlank(apiRest.className)) {
+            Class<?> clazz = null;
+            try {
+                clazz = Class.forName(apiRest.className);
+            } catch (ClassNotFoundException e) {}
+            if (clazz != null) {
+                apiRest.setData(objectMapper.readValue(objectMapper.writeValueAsString(apiRest.data), clazz));
+            }
+        }
+        return apiRest;
+    }
+
+    public static ApiRest fromJson(String jsonString) throws IOException, ClassNotFoundException {
+        return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public String toJson() {
+        return GsonUtils.toJson(this);
+    }
+
+    public String toJson(String datePattern) {
+        return GsonUtils.toJson(this, datePattern);
     }
 }
