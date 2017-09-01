@@ -51,4 +51,7 @@ public class Constants {
     public static final String SERVICE_NAME_PLATFORM = "platform";
     public static final String BUSINESS_CATERING = "1";
     public static final String BUSINESS_RETAIL = "2";
+
+    public static final Integer USER_TYPE_TENANT = 1;
+    public static final Integer USER_TYPE_TENANT_EMPLOYEE = 2;
 }
