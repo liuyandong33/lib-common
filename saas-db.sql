@@ -37,7 +37,7 @@ CREATE TABLE tenant
     id BIGINT NOT NULL PRIMARY KEY COMMENT 'ID',
     `code` VARCHAR(20) NOT NULL COMMENT '商户编码',
     `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
-    modile VARCHAR(20) NOT NULL COMMENT '联系电话',
+    mobile VARCHAR(20) NOT NULL COMMENT '联系电话',
     email VARCHAR(20) NOT NULL COMMENT '邮箱',
     linkman VARCHAR(20) NOT NULL COMMENT '联系人',
     business VARCHAR(10) NOT NULL COMMENT '业态',
