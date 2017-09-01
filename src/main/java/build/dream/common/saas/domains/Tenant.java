@@ -14,8 +14,6 @@ public class Tenant {
     private String provinceCode;
     private String cityCode;
     private String districtCode;
-    private String goodsTableName;
-    private String saleTableName;
     private String partitionCode;
     private BigInteger userId;
     private Date createTime;
@@ -102,22 +100,6 @@ public class Tenant {
 
     public void setDistrictCode(String districtCode) {
         this.districtCode = districtCode;
-    }
-
-    public String getGoodsTableName() {
-        return goodsTableName;
-    }
-
-    public void setGoodsTableName(String goodsTableName) {
-        this.goodsTableName = goodsTableName;
-    }
-
-    public String getSaleTableName() {
-        return saleTableName;
-    }
-
-    public void setSaleTableName(String saleTableName) {
-        this.saleTableName = saleTableName;
     }
 
     public String getPartitionCode() {
