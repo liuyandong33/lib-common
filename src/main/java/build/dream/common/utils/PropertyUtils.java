@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import org.apache.commons.collections4.MapUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class PropertyUtils {
     }
 
     public static Properties getProperties() throws IOException {
-        if (properties == null || properties.isEmpty()) {
+        if (MapUtils.isEmpty(properties)) {
             loadProperties();
         }
         return properties;

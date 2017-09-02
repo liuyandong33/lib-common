@@ -16,11 +16,15 @@ public class ConfigurationUtils {
     }
 
     public static String getConfiguration(String configurationKey) throws IOException {
-        String deploymentEnvironment = PropertyUtils.getProperty(Constants.DEPLOYMENT_ENVIRONMENT);
-        String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
-        String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
-        String key = String.format("_%s_%s_%s", deploymentEnvironment, partitionCode, serviceName);
-        return CacheUtils.hget(key, configurationKey);
+        String configurationValue = PropertyUtils.getProperty(configurationKey);
+        if (StringUtils.isBlank(configurationValue)) {
+            String deploymentEnvironment = PropertyUtils.getProperty(Constants.DEPLOYMENT_ENVIRONMENT);
+            String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
+            String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
+            String key = String.format("_%s_%s_%s", deploymentEnvironment, partitionCode, serviceName);
+            configurationValue = CacheUtils.hget(key, configurationKey);
+        }
+        return configurationValue;
     }
 
     public static String getConfiguration(String configurationKey, String defaultValue) throws IOException {
