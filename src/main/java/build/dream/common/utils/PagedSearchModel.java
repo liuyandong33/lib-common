@@ -1,15 +1,15 @@
 package build.dream.common.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class PagedSearchModel {
+public class PagedSearchModel extends SearchModel {
     private Integer offset;
     private Integer maxResults;
-    private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
 
-    public void addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
-        searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+    public PagedSearchModel() {
+
+    }
+
+    public PagedSearchModel(boolean setDeletedSearchCondition) {
+        super(setDeletedSearchCondition);
     }
 
     public Integer getOffset() {
@@ -20,11 +20,6 @@ public class PagedSearchModel {
         this.offset = offset;
     }
 
-    public void setOffsetAndMaxResults(Integer page, Integer rows) {
-        this.offset = (page - 1) * rows;
-        this.maxResults = rows;
-    }
-
     public Integer getMaxResults() {
         return maxResults;
     }
@@ -33,11 +28,8 @@ public class PagedSearchModel {
         this.maxResults = maxResults;
     }
 
-    public List<SearchCondition> getSearchConditions() {
-        return searchConditions;
-    }
-
-    public void setSearchConditions(List<SearchCondition> searchConditions) {
-        this.searchConditions = searchConditions;
+    public void setOffsetAndMaxResults(Integer page, Integer rows) {
+        this.offset = (page - 1) * rows;
+        this.maxResults = rows;
     }
 }

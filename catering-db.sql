@@ -4,7 +4,8 @@ CREATE TABLE merge_user_branch
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     user_id BIGINT NOT NULL COMMENT '用户ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    branch_id BIGINT NOT NULL COMMENT '门店ID'
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
 DROP TABLE IF EXISTS branch;
