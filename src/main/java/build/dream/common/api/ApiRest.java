@@ -115,9 +115,12 @@ public class ApiRest {
         this.requestId = requestId;
     }
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = null;
 
     public static ApiRest fromJson(String jsonString, String datePattern) throws IOException {
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
+        }
         objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
         ApiRest apiRest = objectMapper.readValue(jsonString, ApiRest.class);
         if (StringUtils.isNotBlank(apiRest.className)) {
