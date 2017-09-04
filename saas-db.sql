@@ -136,3 +136,42 @@ CREATE TABLE eleme_authorized_tenant (
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS order;
+CREATE TABLE order (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    order_number VARCHAR(20) NOT NULL COMMENT '订单号',
+    order_type TINYINT NOT NULL COMMENT '订单类型，1-商户订单，2-代理商订单',
+    order_status TINYINT NOT NULL COMMENT '订单状态，1-未付款，2-已付款',
+    tenant_id BIGINT COMMENT '商户ID',
+    agent_id BIGINT COMMENT '代理商ID',
+    total_amount DECIMAL(11, 3) COMMENT '总金额',
+    discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
+    payable_amount DECIMAL(11, 3) COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实付金额',
+    paid_type TINYINT COMMENT '支付类型，1-微信支付，2-支付宝支付',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS order_detail;
+CREATE TABLE order_detail (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    order_id BIGINT NOT NULL COMMENT '订单ID',
+    goods_id BIGINT NOT NULL COMMENT '商品ID',
+    goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
+    price DECIMAL(11, 3) NOT NULL COMMENT '单价',
+    discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
+    real_price DECIMAL(11, 3) NOT NULL COMMENT '实际价格',
+    amount INT NOT NULL COMMENT '数量',
+    user_id BIGINT NOT NULL COMMENT '用户ID',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
