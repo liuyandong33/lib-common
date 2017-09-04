@@ -15,7 +15,7 @@ public class ElemeAuthorizedTenant {
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
-    private Date lastUpdateUserId;
+    private BigInteger lastUpdateUserId;
     private String lastUpdateRemark;
     private boolean deleted;
 
@@ -107,11 +107,11 @@ public class ElemeAuthorizedTenant {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public Date getLastUpdateUserId() {
+    public BigInteger getLastUpdateUserId() {
         return lastUpdateUserId;
     }
 
-    public void setLastUpdateUserId(Date lastUpdateUserId) {
+    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
         this.lastUpdateUserId = lastUpdateUserId;
     }
 

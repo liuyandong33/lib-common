@@ -240,6 +240,20 @@ public class CacheUtils {
         return returnValue;
     }
 
+    public static Long hdel(String key, String... field) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.hdel(key, field);
+        jedis.close();
+        return returnValue;
+    }
+
+    public static Long hdel(byte[] key, byte[]... field) throws IOException {
+        Jedis jedis = getJedis();
+        Long returnValue = jedis.hdel(key, field);
+        jedis.close();
+        return returnValue;
+    }
+
     public static void closeJedis(Jedis jedis) {
         jedis.close();
     }

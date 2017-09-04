@@ -1,9 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -57,5 +55,15 @@ public class GsonUtils {
 
     public static <T> T fromJson(String jsonString, Class<T> clazz) {
         return instantiateGson().fromJson(jsonString, clazz);
+    }
+
+    public static JsonObject parseJsonObject(String jsonString) {
+        JsonParser jsonParser = new JsonParser();
+        return jsonParser.parse(jsonString).getAsJsonObject();
+    }
+
+    public static JsonArray parseJsonArray(String jsonString) {
+        JsonParser jsonParser = new JsonParser();
+        return jsonParser.parse(jsonString).getAsJsonArray();
     }
 }
