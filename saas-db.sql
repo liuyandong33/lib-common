@@ -175,3 +175,35 @@ CREATE TABLE order_detail (
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS goods;
+CREATE TABLE goods (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    name VARCHAR(20) NOT NULL COMMENT '产品名称',
+    goods_type TINYINT NOT NULL COMMENT '产品类型，1-设备，2-基础服务，2-增至服务',
+    goods_status TINYINT NOT NULL COMMENT '状态，1-正常，2-停售',
+    goods_photo_url VARCHAR(255) NOT NULL COMMENT '产品图片路径',
+    metering_mode TINYINT NOT NULL COMMENT '计量方式，1-按时间，按数量',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS goods_specification;
+CREATE TABLE goods_specification (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    name VARCHAR(20) NOT NULL COMMENT '产品名称',
+    goods_id BIGINT NOT NULL COMMENT '产品ID',
+    allow_tenant_buy TINYINT NOT NULL COMMENT '是否允许商户购买',
+    allow_agent_buy TINYINT NOT NULL COMMENT '是否允许代理商购买',
+    renewal_time TINYINT NOT NULL COMMENT '续费时间',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
