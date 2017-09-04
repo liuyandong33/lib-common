@@ -62,4 +62,6 @@ public class Constants {
 
     public static final Integer BRANCH_STATUS_ENABLED = 1;
     public static final Integer BRANCH_STATUS_DISABLED = 2;
+
+    public static final String CLIENT_INFO_KEY_PREFIX = "_router_client_info_";
 }

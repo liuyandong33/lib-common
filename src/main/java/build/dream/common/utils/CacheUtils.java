@@ -129,7 +129,7 @@ public class CacheUtils {
         return returnValue;
     }
 
-    public static Long del(String...keys) throws IOException {
+    public static Long del(String... keys) throws IOException {
         Jedis jedis = getJedis();
         Long returnValue = jedis.del(keys);
         jedis.close();
