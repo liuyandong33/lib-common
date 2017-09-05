@@ -186,4 +186,22 @@ public class ApplicationHandler {
         }
         return value.toString();
     }
+
+    public static Boolean obtainBooleanFromMap(Map<String, Object> map, String key) {
+        Object value = map.get(key);
+        if (value == null) {
+            return null;
+        } else if (value instanceof Boolean) {
+            return (Boolean) value;
+        } else if (value instanceof Number) {
+            double number = Double.valueOf(value.toString());
+            if (number == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return Boolean.valueOf(value.toString());
+        }
+    }
 }

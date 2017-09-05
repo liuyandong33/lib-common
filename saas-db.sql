@@ -137,8 +137,8 @@ CREATE TABLE eleme_authorized_tenant (
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS order;
-CREATE TABLE order (
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     order_number VARCHAR(20) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-商户订单，2-代理商订单',
