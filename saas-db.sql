@@ -164,6 +164,7 @@ CREATE TABLE order_detail (
     order_id BIGINT NOT NULL COMMENT '订单ID',
     goods_id BIGINT NOT NULL COMMENT '商品ID',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
+    branch_id BIGINT COMMENT '门店ID',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
