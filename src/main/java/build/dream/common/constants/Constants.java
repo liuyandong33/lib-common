@@ -72,4 +72,6 @@ public class Constants {
     public static final String SQL_OPERATION_SYMBOL_LESS_THAN_EQUALS = "<=";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN = ">";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN_EQUALS = ">=";
+
+    public static final String ELEME_ORDER_MESSAGE_CHANNEL = "eleme.order.message.channel";
 }
