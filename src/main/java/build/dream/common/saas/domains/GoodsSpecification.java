@@ -1,15 +1,42 @@
 package build.dream.common.saas.domains;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
 public class GoodsSpecification {
+    /**
+     * ID
+     */
     private BigInteger id;
+    /**
+     * 规格名称
+     */
     private String name;
+    /**
+     * 产品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 是否允许商户购买
+     */
     private boolean allowTenantBuy;
+    /**
+     * 是否允许代理商购买
+     */
     private boolean allowAgentBuy;
+    /**
+     * 续费时间
+     */
     private Integer renewalTime;
+    /**
+     * 商户价格
+     */
+    private BigDecimal tenantPrice;
+    /**
+     * 代理商价格
+     */
+    private BigDecimal agentPrice;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -63,6 +90,22 @@ public class GoodsSpecification {
 
     public void setRenewalTime(Integer renewalTime) {
         this.renewalTime = renewalTime;
+    }
+
+    public BigDecimal getTenantPrice() {
+        return tenantPrice;
+    }
+
+    public void setTenantPrice(BigDecimal tenantPrice) {
+        this.tenantPrice = tenantPrice;
+    }
+
+    public BigDecimal getAgentPrice() {
+        return agentPrice;
+    }
+
+    public void setAgentPrice(BigDecimal agentPrice) {
+        this.agentPrice = agentPrice;
     }
 
     public Date getCreateTime() {

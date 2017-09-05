@@ -166,7 +166,7 @@ CREATE TABLE order_detail (
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
-    real_price DECIMAL(11, 3) NOT NULL COMMENT '实际价格',
+    payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     amount INT NOT NULL COMMENT '数量',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -180,7 +180,7 @@ DROP TABLE IF EXISTS goods;
 CREATE TABLE goods (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     name VARCHAR(20) NOT NULL COMMENT '产品名称',
-    goods_type TINYINT NOT NULL COMMENT '产品类型，1-设备，2-基础服务，2-增至服务',
+    goods_type TINYINT NOT NULL COMMENT '产品类型，1-设备，2-基础服务，3-增至服务',
     goods_status TINYINT NOT NULL COMMENT '状态，1-正常，2-停售',
     goods_photo_url VARCHAR(255) NOT NULL COMMENT '产品图片路径',
     metering_mode TINYINT NOT NULL COMMENT '计量方式，1-按时间，按数量',
@@ -195,11 +195,13 @@ CREATE TABLE goods (
 DROP TABLE IF EXISTS goods_specification;
 CREATE TABLE goods_specification (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    name VARCHAR(20) NOT NULL COMMENT '产品名称',
+    `name` VARCHAR(20) NOT NULL COMMENT '产品名称',
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     allow_tenant_buy TINYINT NOT NULL COMMENT '是否允许商户购买',
     allow_agent_buy TINYINT NOT NULL COMMENT '是否允许代理商购买',
     renewal_time TINYINT NOT NULL COMMENT '续费时间',
+    tenant_price DECIMAL(11, 3) COMMENT '商户价格',
+    agent_price DECIMAL(11, 3) COMMENT '代理商价格',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',

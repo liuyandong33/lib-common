@@ -64,4 +64,12 @@ public class Constants {
     public static final Integer BRANCH_STATUS_DISABLED = 2;
 
     public static final String CLIENT_INFO_KEY_PREFIX = "_router_client_info_";
+
+    public static final String SQL_OPERATION_SYMBOL_IN = "IN";
+    public static final String SQL_OPERATION_SYMBOL_LIKE = "LIKE";
+    public static final String SQL_OPERATION_SYMBOL_EQUALS = "=";
+    public static final String SQL_OPERATION_SYMBOL_LESS_THAN = "<";
+    public static final String SQL_OPERATION_SYMBOL_LESS_THAN_EQUALS = "<=";
+    public static final String SQL_OPERATION_SYMBOL_GREATER_THAN = ">";
+    public static final String SQL_OPERATION_SYMBOL_GREATER_THAN_EQUALS = ">=";
 }

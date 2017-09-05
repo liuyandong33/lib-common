@@ -27,9 +27,9 @@ public class OrderDetail {
      */
     private BigDecimal discountAmount;
     /**
-     * 实际价格
+     * 应付金额
      */
-    private BigDecimal realPrice;
+    private BigDecimal payableAmount;
     /**
      * 数量
      */
@@ -89,12 +89,12 @@ public class OrderDetail {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getRealPrice() {
-        return realPrice;
+    public BigDecimal getPayableAmount() {
+        return payableAmount;
     }
 
-    public void setRealPrice(BigDecimal realPrice) {
-        this.realPrice = realPrice;
+    public void setPayableAmount(BigDecimal payableAmount) {
+        this.payableAmount = payableAmount;
     }
 
     public Integer getAmount() {
