@@ -107,16 +107,17 @@ BEGIN
 END ;
 
 #微信支付配置表
+DROP TABLE IF EXISTS wei_xin_pay_configuration;
 CREATE TABLE wei_xin_pay_configuration
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
-    wei_xin_pay_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
-    wei_xin_pay_mch_id VARCHAR(50) NOT NULL,
-    wei_xin_pay_key VARCHAR(50) NOT NULL,
-    wei_xin_pay_sub_app_id VARCHAR(50),
-    wei_xin_pay_sub_mch_id VARCHAR(50),
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    mch_id VARCHAR(50) NOT NULL,
+    `key` VARCHAR(50) NOT NULL,
+    sub_app_id VARCHAR(50),
+    sub_mch_id VARCHAR(50),
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -160,7 +161,7 @@ CREATE TABLE eleme_branch_mapping (
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    order_number VARCHAR(20) NOT NULL COMMENT '订单号',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-商户订单，2-代理商订单',
     order_status TINYINT NOT NULL COMMENT '订单状态，1-未付款，2-已付款',
     tenant_id BIGINT COMMENT '商户ID',

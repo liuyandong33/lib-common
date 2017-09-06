@@ -10,11 +10,11 @@ public class WeiXinPayConfiguration {
     private BigInteger id;
     private BigInteger tenantId;
     private BigInteger branchId;
-    private String weiXinPayAppId;
-    private String weiXinPayMchId;
-    private String weiXinPayKey;
-    private String weiXinPaySubAppId;
-    private String weiXinPaySubMchId;
+    private String appId;
+    private String mchId;
+    private String key;
+    private String subAppId;
+    private String subMchId;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -46,44 +46,44 @@ public class WeiXinPayConfiguration {
         this.branchId = branchId;
     }
 
-    public String getWeiXinPayAppId() {
-        return weiXinPayAppId;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setWeiXinPayAppId(String weiXinPayAppId) {
-        this.weiXinPayAppId = weiXinPayAppId;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getWeiXinPayMchId() {
-        return weiXinPayMchId;
+    public String getMchId() {
+        return mchId;
     }
 
-    public void setWeiXinPayMchId(String weiXinPayMchId) {
-        this.weiXinPayMchId = weiXinPayMchId;
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
     }
 
-    public String getWeiXinPayKey() {
-        return weiXinPayKey;
+    public String getKey() {
+        return key;
     }
 
-    public void setWeiXinPayKey(String weiXinPayKey) {
-        this.weiXinPayKey = weiXinPayKey;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public String getWeiXinPaySubAppId() {
-        return weiXinPaySubAppId;
+    public String getSubAppId() {
+        return subAppId;
     }
 
-    public void setWeiXinPaySubAppId(String weiXinPaySubAppId) {
-        this.weiXinPaySubAppId = weiXinPaySubAppId;
+    public void setSubAppId(String subAppId) {
+        this.subAppId = subAppId;
     }
 
-    public String getWeiXinPaySubMchId() {
-        return weiXinPaySubMchId;
+    public String getSubMchId() {
+        return subMchId;
     }
 
-    public void setWeiXinPaySubMchId(String weiXinPaySubMchId) {
-        this.weiXinPaySubMchId = weiXinPaySubMchId;
+    public void setSubMchId(String subMchId) {
+        this.subMchId = subMchId;
     }
 
     public Date getCreateTime() {

@@ -2,6 +2,9 @@ package build.dream.common.utils;
 
 import org.apache.commons.lang.Validate;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by liuyandong on 2017/7/3.
  */
@@ -16,5 +19,9 @@ public class SerialNumberGenerator {
             stringBuffer.append("0");
         }
         return stringBuffer.append(currentValueString).toString();
+    }
+
+    public static String nextOrderNumber(String prefix, int digit, int currentValue) {
+        return prefix + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + nextSerialNumber(digit, currentValue);
     }
 }
