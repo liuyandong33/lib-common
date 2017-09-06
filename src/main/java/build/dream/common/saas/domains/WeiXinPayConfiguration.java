@@ -15,6 +15,7 @@ public class WeiXinPayConfiguration {
     private String key;
     private String subAppId;
     private String subMchId;
+    private boolean acceptanceModel;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -84,6 +85,14 @@ public class WeiXinPayConfiguration {
 
     public void setSubMchId(String subMchId) {
         this.subMchId = subMchId;
+    }
+
+    public boolean isAcceptanceModel() {
+        return acceptanceModel;
+    }
+
+    public void setAcceptanceModel(boolean acceptanceModel) {
+        this.acceptanceModel = acceptanceModel;
     }
 
     public Date getCreateTime() {

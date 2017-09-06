@@ -118,6 +118,7 @@ CREATE TABLE wei_xin_pay_configuration
     `key` VARCHAR(50) NOT NULL,
     sub_app_id VARCHAR(50),
     sub_mch_id VARCHAR(50),
+    acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
