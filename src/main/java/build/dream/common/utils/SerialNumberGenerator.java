@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import org.apache.commons.lang.Validate;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,5 +24,13 @@ public class SerialNumberGenerator {
 
     public static String nextOrderNumber(String prefix, int digit, int currentValue) {
         return prefix + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + nextSerialNumber(digit, currentValue);
+    }
+
+    public static String generatorTodaySequenceName(String sequenceName) {
+        return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + sequenceName;
+    }
+
+    public static String generatorTodaySequenceName(BigInteger tenantId, BigInteger branchId, String sequenceName) {
+        return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + tenantId + "@" + branchId + "_" + sequenceName;
     }
 }

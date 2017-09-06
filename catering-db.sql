@@ -56,11 +56,12 @@ END ;
 DROP TABLE IF EXISTS diet_order;
 CREATE TABLE diet_order(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    order_number VARCHAR(20) NOT NULL COMMENT '订单号',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-扫码点餐，2-饿了么订单，3-美团订单',
     order_status TINYINT NOT NULL COMMENT '订单状态',
+    pay_status tinyint not null comment '订单付款状态',
     total_amount DECIMAL(11, 3) COMMENT '总金额',
     discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) COMMENT '应付金额',
@@ -70,7 +71,7 @@ CREATE TABLE diet_order(
     delivery_address VARCHAR(255) COMMENT '配送地址',
     delivery_longitude VARCHAR(20) COMMENT '配送地址经度',
     delivery_latitude VARCHAR(20) COMMENT '配送地址纬度',
-    deliver_Time DATETIME COMMENT '预计送达时间',
+    deliver_time DATETIME COMMENT '预计送达时间',
     active_time DATETIME COMMENT '订单生效时间',
     deliver_fee DECIMAL(11, 3) COMMENT '配送费',
     telephone_number VARCHAR(20) COMMENT '联系电话',
