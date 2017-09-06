@@ -19,6 +19,7 @@ public class WeiXinPayConfiguration {
     private BigInteger createUserId;
     private Date lastUpdateTime;
     private BigInteger lastUpdateUserId;
+    private String lastUpdateRemark;
     private boolean deleted;
 
     public BigInteger getId() {
@@ -115,6 +116,14 @@ public class WeiXinPayConfiguration {
 
     public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
         this.lastUpdateUserId = lastUpdateUserId;
+    }
+
+    public String getLastUpdateRemark() {
+        return lastUpdateRemark;
+    }
+
+    public void setLastUpdateRemark(String lastUpdateRemark) {
+        this.lastUpdateRemark = lastUpdateRemark;
     }
 
     public boolean isDeleted() {

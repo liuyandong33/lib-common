@@ -12,8 +12,9 @@ CREATE TABLE system_partition
     create_user_id BIGINT NOT NULL COMMENT '创建用户ID',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新用户id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '系统分区表';
 
 DROP TABLE IF EXISTS configuration;
 CREATE TABLE configuration (
@@ -25,10 +26,11 @@ CREATE TABLE configuration (
     configuration_value VARCHAR(200) COMMENT '配置value',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '配置表';
 
 DROP TABLE IF EXISTS tenant;
 CREATE TABLE tenant
@@ -47,10 +49,11 @@ CREATE TABLE tenant
     user_id BIGINT NOT NULL COMMENT '用户ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '商户表';
 
 DROP TABLE IF EXISTS `system_user`;
 CREATE TABLE `system_user`
@@ -69,10 +72,11 @@ CREATE TABLE `system_user`
     enabled TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否启用，1-启用，0-禁用',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '系统用户表';
 
 DROP TABLE IF EXISTS sequence;
 CREATE TABLE sequence
@@ -115,11 +119,13 @@ CREATE TABLE wei_xin_pay_configuration
     wei_xin_pay_sub_mch_id VARCHAR(50),
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT = '微信支付配置表';
 
+DROP TABLE IF EXISTS eleme_authorized_tenant;
 CREATE TABLE eleme_authorized_tenant (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT(20) DEFAULT NULL COMMENT '商户ID',
@@ -131,11 +137,25 @@ CREATE TABLE eleme_authorized_tenant (
     fetch_token_time DATETIME DEFAULT NULL COMMENT '获取token时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id INT(11) NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id INT(11) NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '饿了么授权商户表';
+
+DROP TABLE IF EXISTS eleme_branch_mapping;
+CREATE TABLE eleme_branch_mapping (
+    id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "ID",
+    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
+    shop_id VARCHAR(20) NOT NULL COMMENT '饿了么门店ID',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '饿了么门店映射表';
 
 DROP TABLE IF EXISTS `order`;
 CREATE TABLE `order` (
@@ -152,11 +172,11 @@ CREATE TABLE `order` (
     paid_type TINYINT COMMENT '支付类型，1-微信支付，2-支付宝支付',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '订单表';
 
 DROP TABLE IF EXISTS order_detail;
 CREATE TABLE order_detail (
@@ -171,11 +191,11 @@ CREATE TABLE order_detail (
     amount INT NOT NULL COMMENT '数量',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '订单明细表';
 
 DROP TABLE IF EXISTS goods;
 CREATE TABLE goods (
@@ -187,11 +207,11 @@ CREATE TABLE goods (
     metering_mode TINYINT NOT NULL COMMENT '计量方式，1-按时间，按数量',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '产品表';
 
 DROP TABLE IF EXISTS goods_specification;
 CREATE TABLE goods_specification (
@@ -200,13 +220,13 @@ CREATE TABLE goods_specification (
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     allow_tenant_buy TINYINT NOT NULL COMMENT '是否允许商户购买',
     allow_agent_buy TINYINT NOT NULL COMMENT '是否允许代理商购买',
-    renewal_time TINYINT NOT NULL COMMENT '续费时间',
+    renewal_time TINYINT COMMENT '续费时间',
     tenant_price DECIMAL(11, 3) COMMENT '商户价格',
     agent_price DECIMAL(11, 3) COMMENT '代理商价格',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '产品明细表';

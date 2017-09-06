@@ -15,6 +15,7 @@ public class SystemPartition {
     private Integer createUserId;
     private Date lastUpdateTime;
     private Integer lastUpdateUserId;
+    private String lastUpdateRemark;
     private boolean deleted;
 
     public BigInteger getId() {
@@ -103,6 +104,14 @@ public class SystemPartition {
 
     public void setLastUpdateUserId(Integer lastUpdateUserId) {
         this.lastUpdateUserId = lastUpdateUserId;
+    }
+
+    public String getLastUpdateRemark() {
+        return lastUpdateRemark;
+    }
+
+    public void setLastUpdateRemark(String lastUpdateRemark) {
+        this.lastUpdateRemark = lastUpdateRemark;
     }
 
     public boolean isDeleted() {
