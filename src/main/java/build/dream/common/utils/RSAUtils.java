@@ -22,7 +22,7 @@ public class RSAUtils {
 
     public static String[] generatorKeyPair(int keySize) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        keyPairGen.initialize(keySize);
+        keyPairGen.initialize(keySize, new SecureRandom());
         KeyPair keyPair = keyPairGen.generateKeyPair();
         return new String[]{Base64.encodeBase64String(keyPair.getPublic().getEncoded()), Base64.encodeBase64String(keyPair.getPrivate().getEncoded())};
     }
