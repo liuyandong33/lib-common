@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -202,6 +203,42 @@ public class ApplicationHandler {
             }
         } else {
             return Boolean.valueOf(value.toString());
+        }
+    }
+
+    public static void notNullAndPut(Map<String, Object> targetMap, String key, Object value, String message) {
+        Validate.notNull(value, message);
+        targetMap.put(key, value);
+    }
+
+    public static void ifNotNullPut(Map<String, Object> targetMap, String key, Object value) {
+        if (value != null) {
+            targetMap.put(key, value);
+        }
+    }
+
+    public static void ifNotBlankPut(Map<String, String> targetMap, String key, String value) {
+        if (StringUtils.isNotBlank(value)) {
+            targetMap.put(key, value);
+        }
+    }
+
+    public static void ifNotBlankPut(Map<String, String> sourceMap, Map<String, String> targetMap, String... keys) {
+        for (String key : keys) {
+            String value = sourceMap.get(key);
+            if (StringUtils.isNotBlank(key)) {
+                targetMap.put(key, value);
+            }
+        }
+    }
+
+    public static void ifNotBlankPut(Map<String, String> sourceMap, Map<String, String> targetMap, Map<String, String> keyMapping) {
+        Set<Map.Entry<String, String>> entries = keyMapping.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            String value = sourceMap.get(entry.getKey());
+            if (StringUtils.isNotBlank(value)) {
+                targetMap.put(entry.getValue(), value);
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * Created by liuyandong on 2017/7/20.
  */
-public class WeiXinPayConfiguration {
+public class WeiXinPayAccount {
     private BigInteger id;
     private BigInteger tenantId;
     private BigInteger branchId;
