@@ -211,6 +211,11 @@ public class ApplicationHandler {
         targetMap.put(key, value);
     }
 
+    public static void notBlankAndPut(Map<String, String> targetMap, String key, String value, String message) {
+        Validate.isTrue(StringUtils.isNotBlank(value), message);
+        targetMap.put(key, value);
+    }
+
     public static void ifNotNullPut(Map<String, Object> targetMap, String key, Object value) {
         if (value != null) {
             targetMap.put(key, value);
