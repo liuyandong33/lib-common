@@ -232,3 +232,25 @@ CREATE TABLE goods_specification (
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '产品明细表';
+
+DROP TABLE IF EXISTS alipay_account;
+CREATE TABLE alipay_account
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    partner_id VARCHAR(50) NOT NULL COMMENT '合作者ID',
+    store_id VARCHAR(50) COMMENT '支付宝门店ID',
+    alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
+    application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
+    application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
+    sign_type ENUM('RSA', 'RSA2') NOT NULL COMMENT '借口加密方式',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+);
