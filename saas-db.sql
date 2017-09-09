@@ -60,9 +60,9 @@ CREATE TABLE `system_user`
 (
     id BIGINT NOT NULL  AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `name` VARCHAR(20) NOT NULL COMMENT '员工姓名',
-    mobile VARCHAR(20) NOT NULL COMMENT '手机号码',
-    email VARCHAR(20) NOT NULL COMMENT '邮箱',
-    `login_name` VARCHAR(20) NOT NULL COMMENT '登录名',
+    mobile VARCHAR(20) COMMENT '手机号码',
+    email VARCHAR(20) COMMENT '邮箱',
+    `login_name` VARCHAR(20) COMMENT '登录名',
     user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工',
     `password` VARCHAR(50) NOT NULL COMMENT '登录密码',
     tenant_id BIGINT COMMENT '商户ID',

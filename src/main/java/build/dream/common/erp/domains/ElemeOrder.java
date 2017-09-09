@@ -47,9 +47,9 @@ public class ElemeOrder {
      */
     private boolean onlinePaid;
     /**
-     * 饿了么订单Id
+     * 饿了么系统订单Id
      */
-    private String elemeOrderId;
+    private String orderId;
     /**
      * 顾客联系电话
      */
@@ -249,12 +249,12 @@ public class ElemeOrder {
         this.onlinePaid = onlinePaid;
     }
 
-    public String getElemeOrderId() {
-        return elemeOrderId;
+    public String getOrderId() {
+        return orderId;
     }
 
-    public void setElemeOrderId(String elemeOrderId) {
-        this.elemeOrderId = elemeOrderId;
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public String getPhoneList() {

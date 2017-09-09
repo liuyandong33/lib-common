@@ -26,13 +26,17 @@ public class DietOrder {
      */
     private Integer orderType;
     /**
-     * 订单状态
+     * 订单状态，1-订单未生效，2-订单已生效
      */
     private Integer orderStatus;
     /**
-     * 付款状态
+     * 订单付款状态，1-未付款，2-已付款
      */
     private Integer payStatus;
+    /**
+     * 订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功
+     */
+    private Integer refundStatus;
     /**
      * 总金额
      */
@@ -154,6 +158,14 @@ public class DietOrder {
 
     public void setPayStatus(Integer payStatus) {
         this.payStatus = payStatus;
+    }
+
+    public Integer getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(Integer refundStatus) {
+        this.refundStatus = refundStatus;
     }
 
     public BigDecimal getTotalAmount() {

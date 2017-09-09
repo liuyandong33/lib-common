@@ -11,7 +11,11 @@ public class ElemeGroup {
     /**
      * 订单ID
      */
-    private BigInteger orderId;
+    private BigInteger elemeOrderId;
+    /**
+     * 饿了么系统订单ID
+     */
+    private String orderId;
     /**
      * 分组名称
      */
@@ -35,11 +39,19 @@ public class ElemeGroup {
         this.id = id;
     }
 
-    public BigInteger getOrderId() {
+    public BigInteger getElemeOrderId() {
+        return elemeOrderId;
+    }
+
+    public void setElemeOrderId(BigInteger elemeOrderId) {
+        this.elemeOrderId = elemeOrderId;
+    }
+
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(BigInteger orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
