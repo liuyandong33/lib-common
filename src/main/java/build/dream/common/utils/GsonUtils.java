@@ -57,6 +57,10 @@ public class GsonUtils {
         return instantiateGson().fromJson(jsonString, clazz);
     }
 
+    public static <T> T fromJson(String jsonString, Class<T> clazz, String datePattern) {
+        return instantiateGson(datePattern).fromJson(jsonString, clazz);
+    }
+
     public static JsonObject parseJsonObject(String jsonString) {
         JsonParser jsonParser = new JsonParser();
         return jsonParser.parse(jsonString).getAsJsonObject();
