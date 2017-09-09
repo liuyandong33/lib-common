@@ -21,6 +21,7 @@ public class NamingStrategyUtils {
     }
 
     private static Pattern camelCasePattern = Pattern.compile("[A-Z]");
+
     public static String camelCaseToUnderscore(String camelCase) {
         Matcher matcher = camelCasePattern.matcher(camelCase);
         StringBuffer underscoreStringBuffer = new StringBuffer();
@@ -29,9 +30,5 @@ public class NamingStrategyUtils {
         }
         matcher.appendTail(underscoreStringBuffer);
         return underscoreStringBuffer.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(camelCaseToUnderscore("dietOrderYInfoId"));
     }
 }
