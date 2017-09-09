@@ -14,6 +14,10 @@ public class ElemeActivity {
      */
     private BigInteger elemeOrderId;
     /**
+     * 饿了么系统订单ID
+     */
+    private String orderId;
+    /**
      * 饿了么活动ID
      */
     private BigInteger elemeActivityId;
@@ -54,6 +58,14 @@ public class ElemeActivity {
 
     public void setElemeOrderId(BigInteger elemeOrderId) {
         this.elemeOrderId = elemeOrderId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public BigInteger getElemeActivityId() {

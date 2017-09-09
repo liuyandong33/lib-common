@@ -78,6 +78,11 @@ CREATE TABLE `system_user`
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统用户表';
 
+INSERT INTO system_user(id, name, mobile, email, login_name, user_type, password, tenant_id, account_non_expired, account_non_locked, credentials_non_expired, enabled, create_user_id, last_update_user_id)
+VALUES (-1, 'out', NULL, NULL, 'out', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0),
+    (-2, 'platform', NULL, NULL, 'platform', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0),
+    (-3, 'zd1:erp', NULL, NULL, 'zd1:erp', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0);
+
 DROP TABLE IF EXISTS sequence;
 CREATE TABLE sequence
 (

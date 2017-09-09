@@ -62,7 +62,7 @@ CREATE TABLE diet_order(
     order_type TINYINT NOT NULL COMMENT '订单类型，1-扫码点餐，2-饿了么订单，3-美团订单',
     order_status TINYINT NOT NULL COMMENT '订单状态，1-订单未生效，2-订单已生效',
     pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
-    refund_status TINYINT NO NULL COMMENT '订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功',
+    refund_status TINYINT NOT NULL COMMENT '订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功',
     total_amount DECIMAL(11, 3) COMMENT '总金额',
     discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) COMMENT '应付金额',
@@ -224,6 +224,8 @@ DROP TABLE IF EXISTS eleme_activity;
 CREATE TABLE eleme_activity
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    eleme_order_id BIGINT NOT NULL COMMENT '饿了么订单ID，eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     eleme_activity_id BIGINT COMMENT '饿了么活动ID',
     name VARCHAR(20) COMMENT '活动名称',
     category_id INT COMMENT '活动类别',
