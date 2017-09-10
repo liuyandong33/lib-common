@@ -26,7 +26,7 @@ public class DietOrder {
      */
     private Integer orderType;
     /**
-     * 订单状态，1-订单未生效，2-订单已生效
+     * 订单状态，1-未生效订单，2-未处理订单，3-退单中订单，4-已处理订单，5-无效订单，6-已完订单
      */
     private Integer orderStatus;
     /**
