@@ -90,7 +90,9 @@ DROP TABLE IF EXISTS diet_order_detail;
 CREATE TABLE diet_order_detail(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     diet_order_id BIGINT NOT NULL COMMENT '订单ID',
-    goods_id BIGINT NOT NULL COMMENT '产品ID',
+    goods_id BIGINT NOT NULL COMMENT '菜品ID',
+    goods_specification_id BIGINT COMMENT '菜品规格ID',
+    goods_flavor_ids VARCHAR(255) COMMENT '菜品口味ID',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
