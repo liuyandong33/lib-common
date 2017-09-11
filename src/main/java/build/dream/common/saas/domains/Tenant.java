@@ -16,6 +16,7 @@ public class Tenant {
     private String districtCode;
     private String partitionCode;
     private BigInteger userId;
+    private Integer tenantType;
     private Date createTime;
     private BigInteger createUserId;
     private Date lastUpdateTime;
@@ -117,6 +118,14 @@ public class Tenant {
 
     public void setUserId(BigInteger userId) {
         this.userId = userId;
+    }
+
+    public Integer getTenantType() {
+        return tenantType;
+    }
+
+    public void setTenantType(Integer tenantType) {
+        this.tenantType = tenantType;
     }
 
     public Date getCreateTime() {

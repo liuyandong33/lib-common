@@ -47,6 +47,7 @@ CREATE TABLE tenant
     district_code VARCHAR(10) NOT NULL COMMENT '区编码',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     user_id BIGINT NOT NULL COMMENT '用户ID',
+    tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
