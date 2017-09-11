@@ -286,3 +286,27 @@ VALUES (1, 1, 'zhfx2016@163.com', '2017090808618823', '2088521427937615', 'MIIBI
 
 INSERT INTO alipay_account(tenant_id, branch_id, account, app_id, partner_id, alipay_public_key, application_public_key, application_private_key, sign_type, create_user_id, last_update_user_id)
 VALUES (2, 2, 'zhfx2016@163.com', '2016121304213325', '2088521427937615', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKRAFKr+CxOzl4kV6g3+4XEptsDF5fjvzwU9nuWqCg4G4GvO6WFMGqa71FlbzDZ8muJbSoGWqS9GHTzISqCr4SjjI/f0/NmCf+cmBWJ1DhtIwRr3sxompInAMqaFjC8YTNoSNNFKRAYvENfaK+l53O7jaxfpxTY1+CwJKMa6acbwIDAQAB', 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMpEAUqv4LE7OXiRXqDf7hcSm2wMXl+O/PBT2e5aoKDgbga87pYUwaprvUWVvMNnya4ltKgZapL0YdPMhKoKvhKOMj9/T82YJ/5yYFYnUOG0jBGvezGiakicAypoWMLxhM2hI00UpEBi8Q19or6Xnc7uNrF+nFNjX4LAkoxrppxvAgMBAAECgYB/xnAud2bxb2GB+guWg4AMEVQf8LxZj6HYTJBa0+OvXbgEB6yNIPWrLD64S7ygkNtGaUlz/AJobXuzafrQ1NJ3FNceVDKJ5BsU+6WxODY3ldvTVBo2Mz0E4eYoxv03aYdtr2OYQvjlEe/mD0OyiqeJyYvIc4n0svIeeCofB4SNSQJBAObRFtd8WoiINVPb0jp1sEp0iGnLPCZ+rN0EBh+EyTYSxyanhATTJczegn+IjIbLuhLMGiuC56x6bP4dAwYbZAUCQQDgVXVu5vUmb1tCjOtf4KqnAi1xTt1qVuowhJUB5eLsUfgXO0z0+T1+IWIYKr5djnNbnSJrNLms+LooFhT7yPzjAkAH7KHGICTTjymViXR8QVIeHEYaq7mS8MJqjBrRtjNaQebIcvPbXoxrri/4xO1eK1xmDM/RMptVlpZrWv+hlAspAkEApr3ec3gnb1IFuwmTSchsD4aG0FmWKZxApZ9mQerlKFIk3N+u68b19fJKPzxGErP2+nlpQ9YEzJRziaggIKXbkQJBAKp22dleBHiWKy4luoXZPEgE3h+i2PO1FBDUzJ31mgNmpVaonTvUR6O920/5yc9MJtYvOE0aPafkHhjL8v4Ea8M=', 'RSA', 1, 1);
+
+DROP TABLE IF EXISTS payment_record;
+CREATE TABLE payment_record (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    order_type TINYINT NOT NULL COMMENT '1-商户购买平台产品订单，2-代理商购买平台产品订单',
+    order_number VARCHAR(20) NOT NULL COMMENT '订单号',
+    total_amount DECIMAL(11, 3) NOT NULL COMMENT '订单总额',
+    payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实际付款金额',
+    paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
+    submit_time DATETIME NOT NULL COMMENT '支付请求提交时间',
+    submit_user_id BIGINT NOT NULL COMMENT '提交用户id',
+    pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
+    transaction_id VARCHAR(50) COMMENT '交易单号，对应微信支付的transaction_id，支付宝支付的trade_no',
+    paid_time DATETIME COMMENT '支付完成时间，对应微信支付的end_time，支付宝支付的gmt_payment',
+    notify_result TINYINT COMMENT '回调结果，1-成功 2-成功',
+    notify_url VARCHAR(200) DEFAULT NULL COMMENT '回调地址',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '支付记录';
