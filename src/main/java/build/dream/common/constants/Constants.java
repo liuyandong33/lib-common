@@ -6,6 +6,7 @@ package build.dream.common.constants;
 public class Constants {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
+    public static final String FAIL = "FAIL";
 
     /**
      * 字符集相关常量
