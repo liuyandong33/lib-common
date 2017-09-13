@@ -240,4 +240,8 @@ public class CacheUtils {
     public static Map<String, String> entries(String key) {
         return obtainHashOperations().entries(key);
     }
+
+    public static void expire(String key, long timeout, TimeUnit unit) {
+        obtainStringRedisTemplate().expire(key, timeout, unit);
+    }
 }
