@@ -1,264 +1,243 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
-import redis.clients.jedis.*;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
-import java.io.*;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by liuyandong on 2017/6/16.
  */
 public class CacheUtils {
-    private static final String SESSION_PREFIX = "_session_";
-    private static JedisSentinelPool jedisSentinelPool = null;
-    private static JedisPool jedisPool = null;
+    private static StringRedisTemplate stringRedisTemplate = null;
 
-    public static JedisPoolConfig createJedisPoolConfig() throws IOException {
-        Integer maxTotal = Integer.valueOf(PropertyUtils.getProperty("redis.pool.maxTotal", "1000"));
-        Integer maxWaitMillis = Integer.valueOf(PropertyUtils.getProperty("redis.pool.maxWaitMillis", "60000"));
-        Integer maxIdle = Integer.valueOf(PropertyUtils.getProperty("redis.pool.maxIdle", "20"));
-        Boolean testOnBorrow = Boolean.valueOf(PropertyUtils.getProperty("redis.pool.testOnBorrow", Constants.FALSE));
-        Boolean testOnReturn = Boolean.valueOf(PropertyUtils.getProperty("redis.pool.testOnReturn", Constants.FALSE));
-
-        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
-        jedisPoolConfig.setMaxTotal(maxTotal);
-        jedisPoolConfig.setMaxWaitMillis(maxWaitMillis);
-        jedisPoolConfig.setMaxIdle(maxIdle);
-        jedisPoolConfig.setTestOnBorrow(testOnBorrow);
-        jedisPoolConfig.setTestOnReturn(testOnReturn);
-        return jedisPoolConfig;
-    }
-
-    private static void createJedisPool() throws IOException {
-        JedisPoolConfig jedisPoolConfig = createJedisPoolConfig();
-        String redisPoolHost = PropertyUtils.getProperty(Constants.REDIS_POOL_HOST);
-        Integer redisPoolPort = Integer.valueOf(PropertyUtils.getProperty(Constants.REDIS_POOL_PORT));
-        String redisPoolPassword = PropertyUtils.getProperty(Constants.REDIS_POOL_PASSWORD);
-        jedisPool = new JedisPool(jedisPoolConfig, redisPoolHost, redisPoolPort, Protocol.DEFAULT_TIMEOUT, redisPoolPassword);
-    }
-
-    private static void createJedisSentinelPool() throws IOException {
-        JedisPoolConfig jedisPoolConfig = createJedisPoolConfig();
-
-        String redisSentinelConnect = PropertyUtils.getProperty("redis.sentinel.connect");
-        String masterName = PropertyUtils.getProperty("redis.sentinel.masterName", "mymaster");
-        String password = PropertyUtils.getProperty("redis.sentinel.password", "ftrend");
-        Set<String> sentinels = new HashSet<String>();
-        String[] sentinelArray = redisSentinelConnect.split(";");
-        for (String sentinel : sentinelArray) {
-            sentinels.add(sentinel);
+    public static StringRedisTemplate obtainStringRedisTemplate() {
+        if (stringRedisTemplate == null) {
+            stringRedisTemplate = ApplicationHandler.getBean(StringRedisTemplate.class);
         }
-        jedisSentinelPool = new JedisSentinelPool(masterName, sentinels, jedisPoolConfig, password);
+        return stringRedisTemplate;
     }
 
-    private static JedisSentinelPool getJedisSentinelPool() throws IOException {
-        if (jedisSentinelPool == null) {
-            createJedisSentinelPool();
+    public static ValueOperations<String, String> obtainValueOperations() {
+        return obtainStringRedisTemplate().opsForValue();
+    }
+
+    public static HashOperations<String, String, String> obtainHashOperations() {
+        return obtainStringRedisTemplate().opsForHash();
+    }
+
+    /**
+     * SET
+     * @param key
+     * @param value
+     */
+    public static void set(String key, String value) {
+        obtainValueOperations().set(key, value);
+    }
+
+    /**
+     * SETEX
+     * @param key
+     * @param value
+     * @param timeout
+     * @param unit
+     */
+    public static void set(String key, String value, long timeout, TimeUnit unit) {
+        obtainValueOperations().set(key, value, timeout, unit);
+    }
+
+    /**
+     * SETNX
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Boolean setIfAbsent(String key, String value) {
+        return obtainValueOperations().setIfAbsent(key, value);
+    }
+
+    /**
+     * MSET
+     * @param map
+     */
+    public static void multiSet(Map<String, String> map) {
+        obtainValueOperations().multiSet(map);
+    }
+
+    /**
+     * MSET
+     * @param map
+     * @return
+     */
+    public static Boolean multiSetIfAbsent(Map<String, String> map) {
+        return obtainValueOperations().multiSetIfAbsent(map);
+    }
+
+    /**
+     * GET
+     * @param key
+     * @return
+     */
+    public static String get(String key) {
+        return obtainValueOperations().get(key);
+    }
+
+    /**
+     * GETSET
+     * @param key
+     * @param value
+     * @return
+     */
+    public static String getAndSet(String key, String value) {
+        return obtainValueOperations().getAndSet(key, value);
+    }
+
+    /**
+     * MGET
+     * @param keys
+     * @return
+     */
+    public static List<String> multiGet(Collection<String> keys) {
+        return obtainValueOperations().multiGet(keys);
+    }
+
+    /**
+     * INCR
+     * @param key
+     * @param delta
+     * @return
+     */
+    public static Long increment(String key, long delta) {
+        return obtainValueOperations().increment(key, delta);
+    }
+
+    /**
+     * INCRBYFLOAT
+     * @param key
+     * @param delta
+     * @return
+     */
+    public static Double increment(String key, double delta) {
+        return obtainValueOperations().increment(key, delta);
+    }
+
+    /**
+     * APPEND
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Integer append(String key, String value) {
+        return obtainValueOperations().append(key, value);
+    }
+
+    /**
+     * GETRANGE
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public static String get(String key, long start, long end) {
+        return obtainValueOperations().get(key, start, end);
+    }
+
+    /**
+     * SETRANGE
+     * @return
+     */
+    public static void set(String key, String value, long offset) {
+        obtainValueOperations().set(key, value, offset);
+    }
+
+    /**
+     * STRLEN
+     * @param key
+     * @return
+     */
+    public static Long size(String key) {
+        return obtainValueOperations().size(key);
+    }
+
+    /**
+     * SETBIT
+     * @param key
+     * @param offset
+     * @param value
+     * @return
+     */
+    public static Boolean setBit(String key, long offset, boolean value) {
+        return obtainValueOperations().setBit(key, offset, value);
+    }
+
+    /**
+     * GETBIT
+     * @param key
+     * @param offset
+     * @return
+     */
+    public static Boolean getBit(String key, long offset) {
+        return obtainValueOperations().getBit(key, offset);
+    }
+
+    public static void delete(String... keys) {
+        for (String key : keys) {
+            obtainStringRedisTemplate().delete(key);
         }
-        return jedisSentinelPool;
     }
 
-    private static JedisPool getJedisPool() throws IOException {
-        if (jedisPool == null) {
-            createJedisPool();
-        }
-        return jedisPool;
+    public static Boolean hasKey(String key, String hashKey) {
+        return obtainHashOperations().hasKey(key, hashKey);
     }
 
-    public static Jedis getJedisFromJedisSentinelPool() throws IOException {
-        return getJedisSentinelPool().getResource();
+    /**
+     * HGET
+     * @param key
+     * @param hashKey
+     * @return
+     */
+    public static String get(String key, String hashKey) {
+        return obtainHashOperations().get(key, hashKey);
     }
 
-    public static Jedis getJedisFromJedisPool() throws IOException {
-        return getJedisPool().getResource();
+    public static List<String> multiGet(String key, Collection<String> hashKeys) {
+        return obtainHashOperations().multiGet(key, hashKeys);
     }
 
-    public static Jedis getJedis() throws IOException {
-        String redisPoolType = PropertyUtils.getProperty(Constants.REDIS_POOL_TYPE);
-        if (Constants.JEDIS_POOL.equals(redisPoolType)) {
-            return getJedisFromJedisPool();
-        } else if (Constants.JEDIS_SENTINEL_POOL.equals(redisPoolType)) {
-            return getJedisFromJedisSentinelPool();
-        }
-        return null;
+    public static Long increment(String key, String hashKey, long delta) {
+        return obtainHashOperations().increment(key, hashKey, delta);
     }
 
-    public static String set(String key, String value) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.set(key, value);
-        jedis.close();
-        return returnValue;
+    public static Double increment(String key, String hashKey, double delta) {
+        return obtainHashOperations().increment(key, hashKey, delta);
     }
 
-    public static String set(String key, String value, String nxxx) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.set(key, value, nxxx);
-        jedis.close();
-        return returnValue;
+    public static Set<String> keys(String key) {
+        return obtainHashOperations().keys(key);
     }
 
-    public static String set(String key, String value, String nxxx, String expx, int time) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.set(key, value, nxxx, expx, time);
-        jedis.close();
-        return returnValue;
+    public static void putAll(String key, Map<String, String> map) {
+        obtainHashOperations().putAll(key, map);
     }
 
-    public static String set(String key, String value, String nxxx, String expx, long time) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.set(key, value, nxxx, expx, time);
-        jedis.close();
-        return returnValue;
+    public static void put(String key, String hashKey, String value) {
+        obtainHashOperations().put(key, hashKey, value);
     }
 
-    public static String get(String key) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.get(key);
-        jedis.close();
-        return returnValue;
+    public static void putIfAbsent(String key, String hashKey, String value) {
+        obtainHashOperations().put(key, hashKey, value);
     }
 
-    public static Long del(String key) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.del(key);
-        jedis.close();
-        return returnValue;
+    public static List<String> values(String key) {
+        return obtainHashOperations().values(key);
     }
 
-    public static Long del(String... keys) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.del(keys);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long del(Set<String> keys) throws IOException {
-        int size = keys.size();
-        Iterator<String> iterator = keys.iterator();
-        String[] keyArray = new String[size];
-        int index = 0;
-        while (iterator.hasNext()) {
-            keyArray[index] = iterator.next();
-            index++;
-        }
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.del(keyArray);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Set<String> keys(String pattern) throws IOException {
-        Jedis jedis = getJedis();
-        Set<String> returnValue = jedis.keys(pattern);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Map<String, String> hgetAll(String key) throws IOException {
-        Jedis jedis = getJedis();
-        Map<String, String> returnValue = jedis.hgetAll(key);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static String hget(String key, String field) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.hget(key, field);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long hset(String key, String field, String value) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.hset(key, field, value);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static String hmset(String key, Map<String, String> hash) throws IOException {
-        Jedis jedis = getJedis();
-        String returnValue = jedis.hmset(key, hash);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static String getFromSession(String sessionId, String key) throws IOException {
-        return hget(getSessionId(sessionId), key);
-    }
-
-    public static Long setToSession(String sessionId, String key, String value) throws IOException {
-        return hset(getSessionId(sessionId), key, value);
-    }
-
-    public static String setToSession(String sessionId, Map<String, String> hash) throws IOException {
-        return hmset(getSessionId(sessionId), hash);
-    }
-
-    public static Long expire(String key, int seconds) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.expire(key, seconds);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long expire(byte[] key, int seconds) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.expire(key, seconds);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long expireAt(String key, long unixTime) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.expireAt(key, unixTime);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long expireAt(byte[] key, long unixTime) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.expireAt(key, unixTime);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long setnx(String key, String value) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.setnx(key, value);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long setnx(byte[] key, byte[] value) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.setnx(key, value);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long hdel(String key, String... field) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.hdel(key, field);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static Long hdel(byte[] key, byte[]... field) throws IOException {
-        Jedis jedis = getJedis();
-        Long returnValue = jedis.hdel(key, field);
-        jedis.close();
-        return returnValue;
-    }
-
-    public static void closeJedis(Jedis jedis) {
-        jedis.close();
-    }
-
-    public static String getSessionId(String sessionId) {
-        return SESSION_PREFIX + sessionId.toLowerCase();
+    public static Map<String, String> entries(String key) {
+        return obtainHashOperations().entries(key);
     }
 }
