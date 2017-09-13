@@ -1,21 +1,18 @@
 package build.dream.common.utils;
 
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPubSub;
-
-import java.io.IOException;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 public class QueueUtils {
-    public static Long publish(String channel, String message) throws IOException {
-        Jedis jedis = CacheUtils.getJedis();
-        Long returnValue = jedis.publish(channel, message);
-        jedis.close();
-        return returnValue;
+    private static StringRedisTemplate stringRedisTemplate;
+
+    private static StringRedisTemplate obtainStringRedisTemplate() {
+        if (stringRedisTemplate == null) {
+            stringRedisTemplate = ApplicationHandler.getBean(StringRedisTemplate.class);
+        }
+        return stringRedisTemplate;
     }
 
-    public static void subscribe(JedisPubSub jedisPubSub, String... channels) throws IOException {
-        Jedis jedis = CacheUtils.getJedis();
-        jedis.subscribe(jedisPubSub, channels);
-        jedis.close();
+    public static void convertAndSend(String channel, String message) {
+        obtainStringRedisTemplate().convertAndSend(channel, message);
     }
 }

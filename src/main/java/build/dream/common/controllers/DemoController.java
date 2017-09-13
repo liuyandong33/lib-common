@@ -1,9 +1,10 @@
 package build.dream.common.controllers;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.ApplicationHandler;
-import build.dream.common.utils.CacheUtilsNew;
 import build.dream.common.utils.GsonUtils;
+import build.dream.common.utils.QueueUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "/demo")
 public class DemoController {
-
     @RequestMapping(value = "/set")
     @ResponseBody
     public String set() {
@@ -26,7 +26,7 @@ public class DemoController {
 
             String value = requestParameters.get("value");
 
-            CacheUtilsNew.set(key, value);
+            QueueUtils.convertAndSend(key, GsonUtils.toJson(new Tenant()));
 
             apiRest = new ApiRest();
             apiRest.setMessage("设置值成功！");
