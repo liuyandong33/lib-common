@@ -59,4 +59,15 @@ public class WeChatUtils {
         }
         return apiRest;
     }
+
+    public static Map<String, String> getRequestParameters() {
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
+        String isAuthorizationCallback = requestParameters.get("isAuthorizationCallback");
+        String uuid = requestParameters.get("uuid");
+        if (StringUtils.isNotBlank(isAuthorizationCallback) && StringUtils.isNotBlank(uuid)) {
+            requestParameters = CacheUtils.hgetAll(uuid);
+            CacheUtils.delete(uuid);
+        }
+        return requestParameters;
+    }
 }
