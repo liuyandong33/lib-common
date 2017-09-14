@@ -11,7 +11,7 @@ public class ConfigurationUtils {
     public static void loadConfigurations(List<Configuration> configurations) throws IOException {
         for (Configuration configuration : configurations) {
             String key = String.format("_%s_%s_%s", configuration.getDeploymentEnvironment(), configuration.getPartitionCode(), configuration.getServiceName());
-            CacheUtils.put(key, configuration.getConfigurationKey(), configuration.getConfigurationValue());
+            CacheUtils.hset(key, configuration.getConfigurationKey(), configuration.getConfigurationValue());
         }
     }
 
@@ -22,7 +22,7 @@ public class ConfigurationUtils {
             String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
             String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
             String key = String.format("_%s_%s_%s", deploymentEnvironment, partitionCode, serviceName);
-            configurationValue = CacheUtils.get(key, configurationKey);
+            configurationValue = CacheUtils.hget(key, configurationKey);
         }
         return configurationValue;
     }

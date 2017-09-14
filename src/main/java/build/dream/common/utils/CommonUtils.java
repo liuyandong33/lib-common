@@ -29,12 +29,12 @@ public class CommonUtils {
             serviceSystemUserMap.put(systemUser.getName(), systemUser.getId().toString());
         }
         if (MapUtils.isNotEmpty(serviceSystemUserMap)) {
-            CacheUtils.putAll(Constants.KEY_SERVICE_SYSTEM_USERS, serviceSystemUserMap);
+            CacheUtils.hmset(Constants.KEY_SERVICE_SYSTEM_USERS, serviceSystemUserMap);
         }
     }
 
     public static BigInteger getServiceSystemUserId(String partitionCode, String serviceName) throws IOException {
-        String userId = CacheUtils.get(Constants.KEY_SERVICE_SYSTEM_USERS, partitionCode + ":" + serviceName);
+        String userId = CacheUtils.hget(Constants.KEY_SERVICE_SYSTEM_USERS, partitionCode + ":" + serviceName);
         if (StringUtils.isNotBlank(userId)) {
             return BigInteger.valueOf(Long.valueOf(userId));
         }
@@ -44,7 +44,7 @@ public class CommonUtils {
     public static BigInteger getServiceSystemUserId() throws IOException {
         String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
         String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
-        String userId = CacheUtils.get(Constants.KEY_SERVICE_SYSTEM_USERS, partitionCode + ":" + serviceName);
+        String userId = CacheUtils.hget(Constants.KEY_SERVICE_SYSTEM_USERS, partitionCode + ":" + serviceName);
         if (StringUtils.isNotBlank(userId)) {
             return BigInteger.valueOf(Long.valueOf(userId));
         }

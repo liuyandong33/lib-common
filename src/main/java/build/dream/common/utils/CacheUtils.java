@@ -4,10 +4,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -33,6 +30,7 @@ public class CacheUtils {
 
     /**
      * SET
+     *
      * @param key
      * @param value
      */
@@ -42,44 +40,49 @@ public class CacheUtils {
 
     /**
      * SETEX
+     *
      * @param key
      * @param value
      * @param timeout
      * @param unit
      */
-    public static void set(String key, String value, long timeout, TimeUnit unit) {
+    public static void setex(String key, String value, long timeout, TimeUnit unit) {
         obtainValueOperations().set(key, value, timeout, unit);
     }
 
     /**
      * SETNX
+     *
      * @param key
      * @param value
      * @return
      */
-    public static Boolean setIfAbsent(String key, String value) {
+    public static Boolean setnx(String key, String value) {
         return obtainValueOperations().setIfAbsent(key, value);
     }
 
     /**
      * MSET
+     *
      * @param map
      */
-    public static void multiSet(Map<String, String> map) {
+    public static void mset(Map<String, String> map) {
         obtainValueOperations().multiSet(map);
     }
 
     /**
-     * MSET
+     * MSETNX
+     *
      * @param map
      * @return
      */
-    public static Boolean multiSetIfAbsent(Map<String, String> map) {
+    public static Boolean msetnx(Map<String, String> map) {
         return obtainValueOperations().multiSetIfAbsent(map);
     }
 
     /**
      * GET
+     *
      * @param key
      * @return
      */
@@ -89,45 +92,60 @@ public class CacheUtils {
 
     /**
      * GETSET
+     *
      * @param key
      * @param value
      * @return
      */
-    public static String getAndSet(String key, String value) {
+    public static String getset(String key, String value) {
         return obtainValueOperations().getAndSet(key, value);
     }
 
     /**
-     * MGET
+     * mget
+     *
      * @param keys
      * @return
      */
-    public static List<String> multiGet(Collection<String> keys) {
+    public static List<String> mget(Collection<String> keys) {
         return obtainValueOperations().multiGet(keys);
     }
 
     /**
      * INCR
+     *
+     * @param key
+     * @return
+     */
+    public static Long incr(String key) {
+        return obtainValueOperations().increment(key, 1);
+    }
+
+    /**
+     * INCRBY
+     *
      * @param key
      * @param delta
      * @return
      */
-    public static Long increment(String key, long delta) {
+    public static Long incrby(String key, long delta) {
         return obtainValueOperations().increment(key, delta);
     }
 
     /**
      * INCRBYFLOAT
+     *
      * @param key
      * @param delta
      * @return
      */
-    public static Double increment(String key, double delta) {
+    public static Double incrbyfloat(String key, double delta) {
         return obtainValueOperations().increment(key, delta);
     }
 
     /**
      * APPEND
+     *
      * @param key
      * @param value
      * @return
@@ -138,50 +156,55 @@ public class CacheUtils {
 
     /**
      * GETRANGE
+     *
      * @param key
      * @param start
      * @param end
      * @return
      */
-    public static String get(String key, long start, long end) {
+    public static String getrange(String key, long start, long end) {
         return obtainValueOperations().get(key, start, end);
     }
 
     /**
      * SETRANGE
+     *
      * @return
      */
-    public static void set(String key, String value, long offset) {
+    public static void setrange(String key, String value, long offset) {
         obtainValueOperations().set(key, value, offset);
     }
 
     /**
      * STRLEN
+     *
      * @param key
      * @return
      */
-    public static Long size(String key) {
+    public static Long strlen(String key) {
         return obtainValueOperations().size(key);
     }
 
     /**
      * SETBIT
+     *
      * @param key
      * @param offset
      * @param value
      * @return
      */
-    public static Boolean setBit(String key, long offset, boolean value) {
+    public static Boolean setbit(String key, long offset, boolean value) {
         return obtainValueOperations().setBit(key, offset, value);
     }
 
     /**
      * GETBIT
+     *
      * @param key
      * @param offset
      * @return
      */
-    public static Boolean getBit(String key, long offset) {
+    public static Boolean getbit(String key, long offset) {
         return obtainValueOperations().getBit(key, offset);
     }
 
@@ -191,57 +214,137 @@ public class CacheUtils {
         }
     }
 
-    public static Boolean hasKey(String key, String hashKey) {
-        return obtainHashOperations().hasKey(key, hashKey);
+    /**
+     * HEXISTS
+     *
+     * @param key
+     * @param field
+     * @return
+     */
+    public static Boolean hexists(String key, String field) {
+        return obtainHashOperations().hasKey(key, field);
     }
 
     /**
      * HGET
+     *
      * @param key
-     * @param hashKey
+     * @param field
      * @return
      */
-    public static String get(String key, String hashKey) {
-        return obtainHashOperations().get(key, hashKey);
+    public static String hget(String key, String field) {
+        return obtainHashOperations().get(key, field);
+    }
+
+    /**
+     * HGETALL
+     *
+     * @return
+     */
+    public static Map<String, String> hgetall(String key) {
+        return obtainHashOperations().entries(key);
     }
 
     public static List<String> multiGet(String key, Collection<String> hashKeys) {
         return obtainHashOperations().multiGet(key, hashKeys);
     }
 
-    public static Long increment(String key, String hashKey, long delta) {
-        return obtainHashOperations().increment(key, hashKey, delta);
+    /**
+     * HINCRBY
+     * @param key
+     * @param field
+     * @param increment
+     * @return
+     */
+    public static Long hincrBy(String key, String field, long increment) {
+        return obtainHashOperations().increment(key, field, increment);
     }
 
-    public static Double increment(String key, String hashKey, double delta) {
-        return obtainHashOperations().increment(key, hashKey, delta);
+    /**
+     * HINCRBYFLOAT
+     * @param key
+     * @param field
+     * @param increment
+     * @return
+     */
+    public static Double hincrByFloat(String key, String field, double increment) {
+        return obtainHashOperations().increment(key, field, increment);
     }
 
-    public static Set<String> keys(String key) {
+    /**
+     * 	HKEYS
+     * @param key
+     * @return
+     */
+    public static Set<String> hkeys(String key) {
         return obtainHashOperations().keys(key);
     }
 
-    public static void putAll(String key, Map<String, String> map) {
+    /**
+     * HLEN
+     * @param key
+     * @return
+     */
+    public static Long hlen(String key) {
+        return obtainHashOperations().size(key);
+    }
+
+    /**
+     * HMGET
+     * @param key
+     * @param fields
+     */
+    public static void hmget(String key, String... fields) {
+        List<String> hashKeys = new ArrayList<>();
+        for (String field : fields) {
+            hashKeys.add(field);
+        }
+        obtainHashOperations().multiGet(key, hashKeys);
+    }
+
+    /**
+     * HMSET
+     * @param key
+     * @param map
+     */
+    public static void hmset(String key, Map<String, String> map) {
         obtainHashOperations().putAll(key, map);
     }
 
-    public static void put(String key, String hashKey, String value) {
-        obtainHashOperations().put(key, hashKey, value);
+    /**
+     * HSET
+     * @param key
+     * @param field
+     * @param value
+     */
+    public static void hset(String key, String field, String value) {
+        obtainHashOperations().put(key, field, value);
     }
 
-    public static void putIfAbsent(String key, String hashKey, String value) {
-        obtainHashOperations().put(key, hashKey, value);
+    /**
+     * HSETNX
+     * @param key
+     * @param field
+     * @param value
+     */
+    public static void hsetnx(String key, String field, String value) {
+        obtainHashOperations().putIfAbsent(key, field, value);
     }
 
-    public static List<String> values(String key) {
+    /**
+     * HVALS
+     * @param key
+     * @return
+     */
+    public static List<String> hvals(String key) {
         return obtainHashOperations().values(key);
     }
 
-    public static Map<String, String> entries(String key) {
-        return obtainHashOperations().entries(key);
+    public static Boolean expire(String key, long timeout, TimeUnit unit) {
+        return obtainStringRedisTemplate().expire(key, timeout, unit);
     }
 
-    public static void expire(String key, long timeout, TimeUnit unit) {
-        obtainStringRedisTemplate().expire(key, timeout, unit);
+    public static Boolean expireAt(String key, final Date date) {
+        return obtainStringRedisTemplate().expireAt(key, date);
     }
 }
