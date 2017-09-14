@@ -241,12 +241,8 @@ public class CacheUtils {
      *
      * @return
      */
-    public static Map<String, String> hgetall(String key) {
+    public static Map<String, String> hgetAll(String key) {
         return obtainHashOperations().entries(key);
-    }
-
-    public static List<String> multiGet(String key, Collection<String> hashKeys) {
-        return obtainHashOperations().multiGet(key, hashKeys);
     }
 
     /**
