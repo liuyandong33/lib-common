@@ -1,14 +1,12 @@
 package build.dream.common.erp.domains;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class GoodsFlavor {
+public class GoodsFlavorGroup {
     private BigInteger id;
-    private BigInteger goodsFlavorGroupId;
+    private BigInteger goodsId;
     private String name;
-    private BigDecimal price;
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;
@@ -27,12 +25,12 @@ public class GoodsFlavor {
         this.id = id;
     }
 
-    public BigInteger getGoodsFlavorGroupId() {
-        return goodsFlavorGroupId;
+    public BigInteger getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodsFlavorGroupId(BigInteger goodsFlavorGroupId) {
-        this.goodsFlavorGroupId = goodsFlavorGroupId;
+    public void setGoodsId(BigInteger goodsId) {
+        this.goodsId = goodsId;
     }
 
     public String getName() {
@@ -41,14 +39,6 @@ public class GoodsFlavor {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     public BigInteger getTenantId() {
