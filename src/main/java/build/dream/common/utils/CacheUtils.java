@@ -340,7 +340,11 @@ public class CacheUtils {
         return obtainStringRedisTemplate().expire(key, timeout, unit);
     }
 
-    public static Boolean expireAt(String key, final Date date) {
+    public static Boolean expireAt(String key, Date date) {
         return obtainStringRedisTemplate().expireAt(key, date);
+    }
+
+    public static long hdel(String key, String... hashKeys) {
+        return obtainHashOperations().delete(key, hashKeys);
     }
 }
