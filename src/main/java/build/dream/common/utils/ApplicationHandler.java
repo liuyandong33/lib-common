@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -11,7 +12,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.validation.Validator;
+import javax.validation.Validator;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -72,51 +73,50 @@ public class ApplicationHandler {
         return getHttpServletRequest().getRequestURL().toString();
     }
 
-    public static <T> T instantiateDomain(Class<T> domainClass, Map<String, String> arguments) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
-        T domain = domainClass.newInstance();
-        Set<Map.Entry<String, String>> entries = arguments.entrySet();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
-        for (Map.Entry<String, String> entry : entries) {
-            String fieldName = entry.getKey();
-            Field field = null;
-            try {
-                field = domainClass.getDeclaredField(fieldName);
-            } catch (Exception e) {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
+        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN);
+    }
 
-            }
-            if (field == null) {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
+        T object = objectClass.newInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+
+        Field[] fields = objectClass.getDeclaredFields();
+        for (Field field : fields) {
+            String fieldName = field.getName();
+            String fieldValue = parameters.get(fieldName);
+            if (StringUtils.isBlank(fieldValue)) {
                 continue;
             }
-            String fieldValue = entry.getValue();
-            field.setAccessible(true);
+            ReflectionUtils.makeAccessible(field);
             Class<?> fieldClass = field.getType();
             if (fieldClass == Byte.class || fieldClass == byte.class) {
-                field.set(domain, Byte.valueOf(fieldValue));
+                field.set(object, Byte.valueOf(fieldValue));
             } else if (fieldClass == Short.class || fieldClass == short.class) {
-                field.set(domain, Short.valueOf(fieldValue));
+                field.set(object, Short.valueOf(fieldValue));
             } else if (fieldClass == Integer.class || fieldClass == int.class) {
-                field.set(domain, Integer.valueOf(fieldValue));
+                field.set(object, Integer.valueOf(fieldValue));
             } else if (fieldClass == Long.class || fieldClass == long.class) {
-                field.set(domain, Long.valueOf(fieldValue));
+                field.set(object, Long.valueOf(fieldValue));
             } else if (fieldClass == Float.class || fieldClass == float.class) {
-                field.set(domain, Float.valueOf(fieldValue));
+                field.set(object, Float.valueOf(fieldValue));
             } else if (fieldClass == Double.class || fieldClass == double.class) {
-                field.set(domain, Double.valueOf(fieldValue));
+                field.set(object, Double.valueOf(fieldValue));
             } else if (fieldClass == Character.class || fieldClass == char.class) {
-                field.set(domain, fieldValue.charAt(0));
+                field.set(object, fieldValue.charAt(0));
             } else if (fieldClass == String.class) {
-                field.set(domain, fieldValue);
+                field.set(object, fieldValue);
             } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
-                field.set(domain, Boolean.valueOf(fieldValue));
+                field.set(object, Boolean.valueOf(fieldValue));
             } else if (fieldClass == Date.class) {
-                field.set(domain, simpleDateFormat.parse(fieldValue));
+                field.set(object, simpleDateFormat.parse(fieldValue));
             } else if (fieldClass == BigInteger.class) {
-                field.set(domain, BigInteger.valueOf(Long.valueOf(fieldValue)));
+                field.set(object, BigInteger.valueOf(Long.valueOf(fieldValue)));
             } else if (fieldClass == BigDecimal.class) {
-                field.set(domain, BigDecimal.valueOf(Double.valueOf(fieldValue)));
+                field.set(object, BigDecimal.valueOf(Double.valueOf(fieldValue)));
             }
         }
-        return domain;
+        return object;
     }
 
     private static ApplicationContext applicationContext = null;
