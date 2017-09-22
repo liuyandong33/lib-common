@@ -11,6 +11,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.validation.Validator;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -130,6 +131,15 @@ public class ApplicationHandler {
 
     public static <T> T getBean(Class<T> beanClass) {
         return applicationContext.getBean(beanClass);
+    }
+
+    private static Validator validator = null;
+
+    public static Validator obtainValidator() {
+        if (validator == null) {
+            validator = (Validator) applicationContext.getBean("validator");
+        }
+        return validator;
     }
 
     public static BigInteger obtainBigIntegerFromMap(Map<String, Object> map, String key) {
