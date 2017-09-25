@@ -1,14 +1,11 @@
 package build.dream.common.beans;
 
-import java.util.Date;
-
 public class WeiXinOAuthAccessToken {
     private String accessToken;
     private Integer expiresIn;
     private String refreshToken;
     private String openid;
     private String scope;
-    private Date fetchTime;
 
     public String getAccessToken() {
         return accessToken;
@@ -48,13 +45,5 @@ public class WeiXinOAuthAccessToken {
 
     public void setScope(String scope) {
         this.scope = scope;
-    }
-
-    public Date getFetchTime() {
-        return fetchTime;
-    }
-
-    public void setFetchTime(Date fetchTime) {
-        this.fetchTime = fetchTime;
     }
 }
