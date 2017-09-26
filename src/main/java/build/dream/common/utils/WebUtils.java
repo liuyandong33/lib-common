@@ -26,9 +26,9 @@ public class WebUtils {
         public static final String POST = "POST";
     }
 
-    public static final String twoHyphens = "--";
-    public static final String boundary = UUID.randomUUID().toString();
-    public static final String enterNewline = "\r\n";
+    public static final String TWO_HYPHENS = "--";
+    public static final String BOUNDARY = UUID.randomUUID().toString();
+    public static final String ENTER_NEW_LINE = "\r\n";
 
     public static String doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
         return doGetWithRequestParameters(requestUrl, null, requestParameters);
@@ -130,7 +130,7 @@ public class WebUtils {
         try {
             if (headers == null) {
                 headers = new HashMap<String, String>();
-                headers.put("Content-Type", "multipart/form-data;boundary=" + boundary);
+                headers.put("Content-Type", "multipart/form-data;boundary=" + BOUNDARY);
             }
             setRequestProperties(httpURLConnection, headers);
             httpURLConnection.setDoInput(true);
@@ -138,11 +138,11 @@ public class WebUtils {
             OutputStream outputStream = httpURLConnection.getOutputStream();
             Set<Map.Entry<String, Object>> entries = requestParameters.entrySet();
             for (Map.Entry<String, Object> entry : entries) {
-                outputStream.write((twoHyphens + boundary + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                outputStream.write((TWO_HYPHENS + BOUNDARY + ENTER_NEW_LINE).getBytes(Constants.CHARSET_UTF_8));
                 String key = entry.getKey();
                 Object value = entry.getValue();
                 if (value instanceof String) {
-                    outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                    outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(Constants.CHARSET_UTF_8));
                     outputStream.write((value.toString()).getBytes(Constants.CHARSET_UTF_8));
                 } else if (value instanceof MultipartFile || value instanceof File) {
                     InputStream inputStream = null;
@@ -156,8 +156,8 @@ public class WebUtils {
                         inputStream = new FileInputStream(file);
                         fileName = file.getName();
                     }
-                    outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + enterNewline).getBytes(Constants.CHARSET_UTF_8));
-                    outputStream.write(("Content-Type:application/octet-stream" + enterNewline + enterNewline).getBytes(Constants.CHARSET_UTF_8));
+                    outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + ENTER_NEW_LINE).getBytes(Constants.CHARSET_UTF_8));
+                    outputStream.write(("Content-Type:application/octet-stream" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(Constants.CHARSET_UTF_8));
                     int length = 0;
                     byte[] buffer = new byte[1024];
                     while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
@@ -165,9 +165,9 @@ public class WebUtils {
                     }
                     inputStream.close();
                 }
-                outputStream.write(enterNewline.getBytes(Constants.CHARSET_UTF_8));
+                outputStream.write(ENTER_NEW_LINE.getBytes(Constants.CHARSET_UTF_8));
             }
-            outputStream.write((twoHyphens + boundary + twoHyphens).getBytes(Constants.CHARSET_UTF_8));
+            outputStream.write((TWO_HYPHENS + BOUNDARY + TWO_HYPHENS).getBytes(Constants.CHARSET_UTF_8));
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
