@@ -79,4 +79,6 @@ public class Constants {
     public static final String KEY_SERVICE_SYSTEM_USERS = "_service_system_users";
 
     public static final String UNIFIED_API_PARAMETER_ERROR_MESSAGE = "API参数错误！";
+
+    public static final String KEY_ACCESS_LOGS = "_access_logs";
 }
