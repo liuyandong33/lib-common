@@ -315,6 +315,8 @@ DROP TABLE IF EXISTS notify_record;
 CREATE TABLE notify_record
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     notify_url VARCHAR(255) NOT NULL COMMENT '回调地址',
     notify_result TINYINT COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',

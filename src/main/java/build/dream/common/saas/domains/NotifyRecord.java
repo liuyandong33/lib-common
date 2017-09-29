@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class NotifyRecord {
     private BigInteger id;
+    private BigInteger tenantId;
+    private BigInteger branchId;
     private String orderNumber;
     private String notifyUrl;
     private Integer notifyResult;
@@ -22,6 +24,22 @@ public class NotifyRecord {
 
     public void setId(BigInteger id) {
         this.id = id;
+    }
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
     }
 
     public String getOrderNumber() {
