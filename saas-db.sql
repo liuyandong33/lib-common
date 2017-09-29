@@ -310,3 +310,19 @@ CREATE TABLE payment_record (
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付记录';
+
+DROP TABLE IF EXISTS notify_record;
+CREATE TABLE notify_record
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
+    notify_url VARCHAR(255) NOT NULL COMMENT '回调地址',
+    notify_result TINYINT COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
+    external_system_notify_request_body TEXT COMMENT '外部系统异步通知请求参数',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
