@@ -301,7 +301,7 @@ CREATE TABLE payment_record (
     pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
     transaction_id VARCHAR(50) COMMENT '交易单号，对应微信支付的transaction_id，支付宝支付的trade_no',
     paid_time DATETIME COMMENT '支付完成时间，对应微信支付的end_time，支付宝支付的gmt_payment',
-    notify_result TINYINT COMMENT '回调结果，1-成功 2-成功',
+    notify_result TINYINT COMMENT '回调结果，1-成功 2-失败',
     notify_url VARCHAR(200) DEFAULT NULL COMMENT '回调地址',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
