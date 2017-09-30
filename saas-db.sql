@@ -328,3 +328,39 @@ CREATE TABLE notify_record
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+
+CREATE TABLE logging_event(
+    timestmp bigint(20) NOT NULL,
+    formatted_message text NOT NULL,
+    logger_name varchar(254) NOT NULL,
+    level_string varchar(254) NOT NULL,
+    thread_name varchar(254) DEFAULT NULL,
+    reference_flag smallint(6) DEFAULT NULL,
+    arg0 varchar(254) DEFAULT NULL,
+    arg1 varchar(254) DEFAULT NULL,
+    arg2 varchar(254) DEFAULT NULL,
+    arg3 varchar(254) DEFAULT NULL,
+    caller_filename varchar(254) NOT NULL,
+    caller_class varchar(254) NOT NULL,
+    caller_method varchar(254) NOT NULL,
+    caller_line char(4) NOT NULL,
+    event_id bigint(20) NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (event_id)
+);
+
+
+CREATE TABLE logging_event_exception (
+    event_id bigint(20) NOT NULL,
+    i smallint(6) NOT NULL,
+    trace_line varchar(254) NOT NULL,
+    PRIMARY KEY (event_id, i)
+);
+
+
+CREATE TABLE logging_event_property (
+    event_id bigint(20) NOT NULL,
+    mapped_key varchar(254) NOT NULL,
+    mapped_value text,
+    PRIMARY KEY (event_id, mapped_key)
+);
