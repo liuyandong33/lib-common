@@ -81,4 +81,6 @@ public class Constants {
     public static final String UNIFIED_API_PARAMETER_ERROR_MESSAGE = "API参数错误！";
 
     public static final String KEY_ACCESS_LOGS = "_access_logs";
+
+    public static final String SESSION_ID_PREFIX = "_session_id_";
 }

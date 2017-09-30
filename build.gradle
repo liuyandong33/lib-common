@@ -43,6 +43,7 @@ dependencies {
     compile("net.sf.json-lib:json-lib:2.4:jdk15")
     compile("com.esotericsoftware.kryo:kryo:2.24.0")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+    compile("org.springframework.session:spring-session-data-redis")
 }
 
 task sourceJar(type: Jar) {

@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.springframework.data.redis.core.*;
 
 import java.util.*;
@@ -253,6 +254,7 @@ public class CacheUtils {
 
     /**
      * HINCRBY
+     *
      * @param key
      * @param field
      * @param increment
@@ -264,6 +266,7 @@ public class CacheUtils {
 
     /**
      * HINCRBYFLOAT
+     *
      * @param key
      * @param field
      * @param increment
@@ -274,7 +277,8 @@ public class CacheUtils {
     }
 
     /**
-     * 	HKEYS
+     * HKEYS
+     *
      * @param key
      * @return
      */
@@ -284,6 +288,7 @@ public class CacheUtils {
 
     /**
      * HLEN
+     *
      * @param key
      * @return
      */
@@ -293,6 +298,7 @@ public class CacheUtils {
 
     /**
      * HMGET
+     *
      * @param key
      * @param fields
      */
@@ -306,6 +312,7 @@ public class CacheUtils {
 
     /**
      * HMSET
+     *
      * @param key
      * @param map
      */
@@ -315,6 +322,7 @@ public class CacheUtils {
 
     /**
      * HSET
+     *
      * @param key
      * @param field
      * @param value
@@ -325,6 +333,7 @@ public class CacheUtils {
 
     /**
      * HSETNX
+     *
      * @param key
      * @param field
      * @param value
@@ -335,6 +344,7 @@ public class CacheUtils {
 
     /**
      * HVALS
+     *
      * @param key
      * @return
      */
@@ -350,8 +360,8 @@ public class CacheUtils {
         return obtainStringRedisTemplate().expireAt(key, date);
     }
 
-    public static Long hdel(String key, String... hashKeys) {
-        return obtainHashOperations().delete(key, hashKeys);
+    public static Long hdel(String key, String... fields) {
+        return obtainHashOperations().delete(key, fields);
     }
 
     public static Long lpush(String key, String value) {
@@ -372,5 +382,33 @@ public class CacheUtils {
 
     public static Long llen(String key) {
         return obtainListOperations().size(key);
+    }
+
+    public static String obtainSessionId(String sessionId) {
+        return Constants.SESSION_ID_PREFIX + sessionId;
+    }
+
+    public static void setAttributeToSession(String sessionId, String field, String value) {
+        hset(obtainSessionId(sessionId), field, value);
+    }
+
+    public static void setAttributesToSession(String sessionId, Map<String, String> map) {
+        hmset(obtainSessionId(sessionId), map);
+    }
+
+    public static String obtainAttributeFromSession(String sessionId, String field) {
+        return hget(obtainSessionId(sessionId), field);
+    }
+
+    public static Map<String, String> obtainAttributesFromSession(String sessionId) {
+        return hgetAll(obtainSessionId(sessionId));
+    }
+
+    public static void deleteAttributesFromSession(String sessionId, String... fields) {
+        hdel(obtainSessionId(sessionId), fields);
+    }
+
+    public static void deleteSession(String sessionId) {
+        delete(obtainSessionId(sessionId));
     }
 }

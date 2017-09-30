@@ -3,15 +3,17 @@ package build.dream.common.controllers;
 import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.api.ApiRest;
 import build.dream.common.saas.domains.Tenant;
+import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.CacheUtils;
 import build.dream.common.utils.GsonUtils;
 import build.dream.common.utils.QueueUtils;
-import build.dream.common.utils.WeChatUtils;
 import org.apache.commons.lang.Validate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @Controller
@@ -29,7 +31,7 @@ public class DemoController {
     @ObtainWeChatOpenId
     public String set() {
         ApiRest apiRest = null;
-        Map<String, String> requestParameters = WeChatUtils.getRequestParameters();
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
         try {
             String key = requestParameters.get("key");
             Validate.notNull(key, "参数(key)不能为空！");
@@ -40,6 +42,60 @@ public class DemoController {
 
             apiRest = new ApiRest();
             apiRest.setMessage("设置值成功！");
+            apiRest.setSuccessful(true);
+        } catch (Exception e) {
+            apiRest = new ApiRest(e);
+        }
+        return GsonUtils.toJson(apiRest);
+    }
+
+    @RequestMapping(value = "/createSession")
+    @ResponseBody
+    public String createSession() {
+        ApiRest apiRest = null;
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
+        try {
+            HttpSession httpSession = ApplicationHandler.getHttpSession();
+            apiRest = new ApiRest();
+            apiRest.setData(httpSession.getId());
+            apiRest.setMessage("创建session成功！");
+            apiRest.setSuccessful(true);
+        } catch (Exception e) {
+            apiRest = new ApiRest(e);
+        }
+        return GsonUtils.toJson(apiRest);
+    }
+
+    @RequestMapping(value = "/invalidateSession")
+    @ResponseBody
+    public String invalidateSession() {
+        ApiRest apiRest = null;
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
+        try {
+            HttpSession httpSession = ApplicationHandler.getHttpSession();
+            String sessionId = httpSession.getId();
+            httpSession.invalidate();
+            apiRest = new ApiRest();
+            apiRest.setData(sessionId);
+            apiRest.setMessage("销毁session成功！");
+            apiRest.setSuccessful(true);
+        } catch (Exception e) {
+            apiRest = new ApiRest(e);
+        }
+        return GsonUtils.toJson(apiRest);
+    }
+
+    @RequestMapping(value = "/setAttributesToSession")
+    @ResponseBody
+    public String setToSession() {
+        ApiRest apiRest = null;
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
+        try {
+            String sessionId = ApplicationHandler.getSessionId();
+            CacheUtils.setAttributesToSession(sessionId, requestParameters);
+            apiRest = new ApiRest();
+            apiRest.setData(sessionId);
+            apiRest.setMessage("set to session success!");
             apiRest.setSuccessful(true);
         } catch (Exception e) {
             apiRest = new ApiRest(e);
