@@ -256,4 +256,8 @@ public class ApplicationHandler {
             }
         }
     }
+
+    public static String obtainParameterErrorMessage(String parameterName) {
+        return String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
+    }
 }

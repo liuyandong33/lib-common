@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections.MapUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -4,7 +4,7 @@ import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.CacheUtils;
 import build.dream.common.utils.WeChatUtils;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
