@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -75,11 +74,5 @@ public class BeanUtils {
         }
         xml.append("</").append(rootNodeName);
         return xml.toString();
-    }
-
-    public static void main(String[] args) throws IllegalAccessException {
-        Tenant tenant = new Tenant();
-        Map<String, Object> map = beanToMap(tenant);
-        System.out.println(mapToXml(map, null));
     }
 }

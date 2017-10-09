@@ -1,13 +1,17 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import net.sf.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liuyandong on 2017/3/23.
@@ -23,28 +27,35 @@ public class GsonUtils {
         return gsonBuilder.create();
     }
 
-    public static <T> T jsonToObject(String jsonString, Class<T> clazz, String datePattern) {
-        return instantiateGson(datePattern, true).fromJson(jsonString, clazz);
-    }
-
-    public static <T> T jsonToObject(String jsonString, Class<T> clazz) {
-        return jsonToObject(jsonString, clazz, Constants.DEFAULT_DATE_PATTERN);
-    }
-
     public static <T> List<T> jsonToList(String jsonString, Class<T> clazz, String datePattern) {
         Gson gson = instantiateGson(datePattern, true);
-        Type type = new TypeToken<ArrayList<JsonObject>>() {
-        }.getType();
-        List<JsonObject> jsonObjects = gson.fromJson(jsonString, type);
+        Type type = new TypeToken<ArrayList<JsonElement>>() {}.getType();
+        List<JsonElement> jsonElements = gson.fromJson(jsonString, type);
         List<T> list = new ArrayList<T>();
-        for (JsonObject jsonObject : jsonObjects) {
-            list.add(gson.fromJson(jsonObject, clazz));
+        for (JsonElement jsonElement : jsonElements) {
+            list.add(gson.fromJson(jsonElement, clazz));
         }
         return list;
     }
 
     public static <T> List<T> jsonToList(String jsonString, Class<T> clazz) {
         return jsonToList(jsonString, clazz, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public static <K, V> Map<K, V> jsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass, String datePattern) {
+        Gson gson = instantiateGson(datePattern, true);
+        Type type = new TypeToken<Map<JsonElement, JsonElement>>() {}.getType();
+        Map<JsonElement, JsonElement> tempMap = gson.fromJson(jsonString, type);
+
+        Map<K, V> map = new HashMap<K, V>();
+        for (Map.Entry<JsonElement, JsonElement> entry : tempMap.entrySet()) {
+            map.put(gson.fromJson(entry.getKey(), keyClass), gson.fromJson(entry.getValue(), valueClass));
+        }
+        return map;
+    }
+
+    public static <K, V> Map<K, V> jsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass) {
+        return jsonToMap(jsonString, keyClass, valueClass, Constants.DEFAULT_DATE_PATTERN);
     }
 
     public static String toJson(Object object) {
@@ -85,15 +96,5 @@ public class GsonUtils {
 
     public static <T> T fromJson(JSONObject jsonObject, Class<T> clazz, String datePattern) {
         return instantiateGson(datePattern, true).fromJson(jsonObject.toString(), clazz);
-    }
-
-    public static JsonObject parseJsonObject(String jsonString) {
-        JsonParser jsonParser = new JsonParser();
-        return jsonParser.parse(jsonString).getAsJsonObject();
-    }
-
-    public static JsonArray parseJsonArray(String jsonString) {
-        JsonParser jsonParser = new JsonParser();
-        return jsonParser.parse(jsonString).getAsJsonArray();
     }
 }
