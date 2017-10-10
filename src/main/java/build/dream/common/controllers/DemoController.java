@@ -14,7 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.Enumeration;
 import java.util.Map;
+import java.util.Properties;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import java.util.jar.JarOutputStream;
 
 @Controller
 @RequestMapping(value = "/demo")
@@ -96,6 +104,51 @@ public class DemoController {
             apiRest = new ApiRest();
             apiRest.setData(sessionId);
             apiRest.setMessage("set to session success!");
+            apiRest.setSuccessful(true);
+        } catch (Exception e) {
+            apiRest = new ApiRest(e);
+        }
+        return GsonUtils.toJson(apiRest);
+    }
+
+    @RequestMapping(value = "/buildJarPackage")
+    @ResponseBody
+    public String buildJarPackage() {
+        ApiRest apiRest = null;
+        Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
+        try {
+            String path = requestParameters.get("path");
+            String fileName = requestParameters.get("fileName");
+            JarFile jarFile = new JarFile(path + File.separator + fileName);
+            Enumeration<JarEntry> entries = jarFile.entries();
+            JarOutputStream jarOutputStream = new JarOutputStream(new FileOutputStream(path + File.separator + "copy_" + fileName));
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = entries.nextElement();
+                String name = jarEntry.getName();
+                if ("WEB-INF/classes/application.properties".equals(name)) {
+                    JarEntry applicationPropertiesJarEntry = new JarEntry("WEB-INF/classes/application.properties");
+                    jarOutputStream.putNextEntry(applicationPropertiesJarEntry);
+                    Properties properties = new Properties();
+                    properties.setProperty("aa", "aa");
+                    properties.store(jarOutputStream, "");
+                } else if ("WEB-INF/classes/logback.xml".equals(name)) {
+
+                } else {
+                    jarOutputStream.putNextEntry(jarEntry);
+                    InputStream inputStream = jarFile.getInputStream(jarEntry);
+                    int length = 0;
+                    byte[] buffer = new byte[1024];
+                    while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
+                        jarOutputStream.write(buffer, 0, length);
+                    }
+                }
+            }
+            jarOutputStream.close();
+            jarFile.close();
+            new File(path + File.separator + fileName).delete();
+            new File(path + File.separator + "copy_" + fileName).renameTo(new File(path + File.separator + fileName));
+            apiRest = new ApiRest();
+            apiRest.setMessage("jar包修改成功！");
             apiRest.setSuccessful(true);
         } catch (Exception e) {
             apiRest = new ApiRest(e);

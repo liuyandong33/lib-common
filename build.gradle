@@ -28,12 +28,12 @@ repositories {
 }
 
 task makeJar(type: Jar) {
-    delete "build/libs/${projectName}*.jar"
     baseName "${projectName}"
     from("build/classes/java/main")
     exclude("build/dream/common/Application.class")
 }
-makeJar.dependsOn(build)
+
+makeJar.dependsOn(classes)
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
