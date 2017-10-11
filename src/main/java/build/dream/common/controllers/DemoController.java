@@ -1,12 +1,10 @@
 package build.dream.common.controllers;
 
+import build.dream.common.Application;
 import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.api.ApiRest;
 import build.dream.common.saas.domains.Tenant;
-import build.dream.common.utils.ApplicationHandler;
-import build.dream.common.utils.CacheUtils;
-import build.dream.common.utils.GsonUtils;
-import build.dream.common.utils.QueueUtils;
+import build.dream.common.utils.*;
 import org.apache.commons.lang.Validate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,9 +61,8 @@ public class DemoController {
         ApiRest apiRest = null;
         Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
         try {
-            HttpSession httpSession = ApplicationHandler.getHttpSession();
+            WebSecurityUtils.authorize("61011888", ApplicationHandler.getSessionId(), null);
             apiRest = new ApiRest();
-            apiRest.setData(httpSession.getId());
             apiRest.setMessage("创建session成功！");
             apiRest.setSuccessful(true);
         } catch (Exception e) {

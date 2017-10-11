@@ -83,4 +83,7 @@ public class Constants {
     public static final String KEY_ACCESS_LOGS = "_access_logs";
 
     public static final String SESSION_ID_PREFIX = "_session_id_";
+
+    public static final String SECURITY_GRANTED_AUTHORITY = "SECURITY_GRANTED_AUTHORITY";
+    public static final String SECURITY_DEFAULT_PASSWORD = "0";
 }
