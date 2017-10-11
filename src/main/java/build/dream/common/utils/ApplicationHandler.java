@@ -1,8 +1,10 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.SessionConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -189,5 +191,21 @@ public class ApplicationHandler {
 
     public static String obtainRequestMethod() {
         return getHttpServletRequest().getMethod();
+    }
+
+    public static BigInteger obtainUserId(String sessionId) {
+        String userId = CacheUtils.obtainAttributeFromSession(sessionId, SessionConstants.KEY_USER_ID);
+        if (StringUtils.isNotBlank(userId)) {
+            return NumberUtils.createBigInteger(userId);
+        }
+        return null;
+    }
+
+    public static BigInteger obtainTenantId(String sessionId) {
+        String tenantId = CacheUtils.obtainAttributeFromSession(sessionId, SessionConstants.KEY_TENANT_ID);
+        if (StringUtils.isNotBlank(tenantId)) {
+            return NumberUtils.createBigInteger(tenantId);
+        }
+        return null;
     }
 }
