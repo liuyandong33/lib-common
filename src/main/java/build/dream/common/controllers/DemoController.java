@@ -1,6 +1,5 @@
 package build.dream.common.controllers;
 
-import build.dream.common.Application;
 import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.api.ApiRest;
 import build.dream.common.saas.domains.Tenant;
@@ -61,7 +60,7 @@ public class DemoController {
         ApiRest apiRest = null;
         Map<String, String> requestParameters = ApplicationHandler.getRequestParameters();
         try {
-            WebSecurityUtils.authorize("61011888", ApplicationHandler.getSessionId(), null);
+            WebSecurityUtils.authorize("61011888");
             apiRest = new ApiRest();
             apiRest.setMessage("创建session成功！");
             apiRest.setSuccessful(true);

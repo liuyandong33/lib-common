@@ -13,4 +13,5 @@ public class SessionConstants {
     public static final String KEY_TENANT_CODE = "_tenant_code";
     public static final String KEY_TENANT_NAME = "_tenant_name";
     public static final String KEY_TENANT_PARTITION_CODE = "_tenant_partition_code";
+    public static final String KEY_AUTHORITY_CODES = "_authority_codes";
 }
