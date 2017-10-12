@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
@@ -11,10 +12,12 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -207,5 +210,16 @@ public class ApplicationHandler {
             return NumberUtils.createBigInteger(tenantId);
         }
         return null;
+    }
+
+    public static void forward(String controllerName, String actionName, Map<String, Object> attributes) throws ServletException, IOException {
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        if (MapUtils.isNotEmpty(attributes)) {
+            for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+                httpServletRequest.setAttribute(entry.getKey(), entry.getValue());
+            }
+        }
+        HttpServletResponse httpServletResponse = getHttpServletResponse();
+        httpServletRequest.getRequestDispatcher("/" + controllerName + "/" + actionName).forward(httpServletRequest, httpServletResponse);
     }
 }
