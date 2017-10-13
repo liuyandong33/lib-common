@@ -86,4 +86,9 @@ public class Constants {
 
     public static final String SECURITY_GRANTED_AUTHORITY = "SECURITY_GRANTED_AUTHORITY";
     public static final String SECURITY_DEFAULT_PASSWORD = "0";
+    public static final String API_PARAMETER_ERROR_MESSAGE = "API参数错误！";
+
+    public static final String BROWSER_TYPE_WEI_XIN = "weiXin";
+    public static final String BROWSER_TYPE_ALIPAY = "alipay";
+    public static final String BROWSER_TYPE_OTHER = "other";
 }

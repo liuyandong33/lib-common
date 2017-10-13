@@ -13,5 +13,10 @@ public class SessionConstants {
     public static final String KEY_TENANT_CODE = "_tenant_code";
     public static final String KEY_TENANT_NAME = "_tenant_name";
     public static final String KEY_TENANT_PARTITION_CODE = "_tenant_partition_code";
+    public static final String KEY_BRANCH_ID = "_branch_id";
+    public static final String KEY_BRANCH_CODE = "_branch_code";
+    public static final String KEY_BRANCH_NAME = "_branch_name";
+    public static final String KEY_BRANCH_TYPE = "_branch_type";
+
     public static final String KEY_AUTHORITY_CODES = "_authority_codes";
 }

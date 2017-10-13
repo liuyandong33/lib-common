@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -221,5 +222,28 @@ public class ApplicationHandler {
         }
         HttpServletResponse httpServletResponse = getHttpServletResponse();
         httpServletRequest.getRequestDispatcher("/" + controllerName + "/" + actionName).forward(httpServletRequest, httpServletResponse);
+    }
+
+    public static String obtainHttpHeader(String name) {
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        return httpServletRequest.getHeader(name);
+    }
+
+    public static String obtainBrowserType() {
+        String userAgent = obtainHttpHeader(HttpHeaders.USER_AGENT);
+        String browserType = null;
+        if (StringUtils.isBlank(userAgent)) {
+            browserType = Constants.BROWSER_TYPE_OTHER;
+        } else {
+            userAgent = userAgent.toLowerCase();
+            if (userAgent.contains("alipay")) {
+                return Constants.BROWSER_TYPE_ALIPAY;
+            } else if (userAgent.contains("micromessenger")) {
+                browserType = Constants.BROWSER_TYPE_WEI_XIN;
+            } else {
+                browserType = Constants.BROWSER_TYPE_OTHER;
+            }
+        }
+        return browserType;
     }
 }
