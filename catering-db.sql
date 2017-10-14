@@ -392,3 +392,38 @@ CREATE TABLE goods_specification
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS activity;
+CREATE TABLE activity
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    name VARCHAR(20) NOT NULL COMMENT '活动名称',
+    start_time DATETIME NOT NULL COMMENT '开始时间',
+    end_time DATETIME NOT NULL COMMENT '结束时间',
+    type TINYINT NOT NULL COMMENT '活动类型',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS activity_buy_give;
+CREATE TABLE activity_buy_give
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    activity_id BIGINT NOT NULL COMMENT '活动ID',
+    buy_goods_id BIGINT NOT NULL COMMENT '购买产品id',
+    buy_amount INT NOT NULL COMMENT '购买数量',
+    give_goods_id BIGINT NOT NULL COMMENT '赠送产品ID',
+    give_amount INT NOT NULL COMMENT '赠送数量',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
