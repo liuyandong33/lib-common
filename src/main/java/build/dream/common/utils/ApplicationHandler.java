@@ -224,6 +224,12 @@ public class ApplicationHandler {
         httpServletRequest.getRequestDispatcher("/" + controllerName + "/" + actionName).forward(httpServletRequest, httpServletResponse);
     }
 
+    public static void forward(String path) throws ServletException, IOException {
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        HttpServletResponse httpServletResponse = getHttpServletResponse();
+        httpServletRequest.getRequestDispatcher(path).forward(httpServletRequest, httpServletResponse);
+    }
+
     public static String obtainHttpHeader(String name) {
         HttpServletRequest httpServletRequest = getHttpServletRequest();
         return httpServletRequest.getHeader(name);
@@ -245,5 +251,9 @@ public class ApplicationHandler {
             }
         }
         return browserType;
+    }
+
+    public static void redirect(String url) throws IOException {
+        ApplicationHandler.getHttpServletResponse().sendRedirect(url);
     }
 }
