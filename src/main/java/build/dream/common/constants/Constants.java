@@ -97,4 +97,11 @@ public class Constants {
 
     public static final Integer PAID_TYPE_WEI_XIN = 1;
     public static final Integer PAID_TYPE_ALIPAY = 2;
+
+    public static final Integer PAID_SCENE_WEI_XIN_PUBLIC_ACCOUNT = 1;
+    public static final Integer PAID_SCENE_WEI_XIN_H5 = 2;
+    public static final Integer PAID_SCENE_WEI_XIN_APP = 3;
+    public static final Integer PAID_SCENE_ALIPAY_MOBILE_WEBSITE = 7;
+    public static final Integer PAID_SCENE_ALIPAY_PC_WEBSITE = 8;
+    public static final Integer PAID_SCENE_ALIPAY_APP = 9;
 }
