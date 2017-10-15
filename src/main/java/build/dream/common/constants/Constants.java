@@ -91,4 +91,10 @@ public class Constants {
     public static final String BROWSER_TYPE_WEI_XIN = "weiXin";
     public static final String BROWSER_TYPE_ALIPAY = "alipay";
     public static final String BROWSER_TYPE_OTHER = "other";
+    public static final String BROWSER_PLATFORM_OTHER = "other";
+    public static final String BROWSER_PLATFORM_PC = "pc";
+    public static final String BROWSER_PLATFORM_PHONE = "phone";
+
+    public static final Integer PAID_TYPE_WEI_XIN = 1;
+    public static final Integer PAID_TYPE_ALIPAY = 2;
 }

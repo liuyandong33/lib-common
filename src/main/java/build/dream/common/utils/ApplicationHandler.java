@@ -243,7 +243,7 @@ public class ApplicationHandler {
         } else {
             userAgent = userAgent.toLowerCase();
             if (userAgent.contains("alipay")) {
-                return Constants.BROWSER_TYPE_ALIPAY;
+                browserType = Constants.BROWSER_TYPE_ALIPAY;
             } else if (userAgent.contains("micromessenger")) {
                 browserType = Constants.BROWSER_TYPE_WEI_XIN;
             } else {
@@ -251,6 +251,22 @@ public class ApplicationHandler {
             }
         }
         return browserType;
+    }
+
+    public static String obtainBrowserPlatform() {
+        String userAgent = obtainHttpHeader(HttpHeaders.USER_AGENT);
+        String browserPlatform = null;
+        if (StringUtils.isBlank(userAgent)) {
+            browserPlatform = Constants.BROWSER_PLATFORM_OTHER;
+        } else {
+            userAgent = userAgent.toLowerCase();
+            if (userAgent.contains("iphone") || userAgent.contains("android")) {
+                browserPlatform = Constants.BROWSER_TYPE_ALIPAY;
+            } else {
+                browserPlatform = Constants.BROWSER_PLATFORM_PC;
+            }
+        }
+        return browserPlatform;
     }
 
     public static void redirect(String url) throws IOException {
