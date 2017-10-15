@@ -427,3 +427,26 @@ CREATE TABLE activity_buy_give
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS activity_full_reduction;
+CREATE TABLE activity_full_reduction
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    activity_id BIGINT NOT NULL COMMENT '活动ID',
+    total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
+    discount_rate DECIMAL(5, 2) COMMENT '折扣率',
+    discount_amount DECIMAL(11, 3) COMMENT '折扣金额',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP PROCEDURE IF EXISTS proc_find_all_activities;
+CREATE PROCEDURE proc_find_all_activities()
+BEGIN
+SELECT * FROM activity_buy_give WHERE activity_id = 1 AND deleted = 0;
+SELECT * FROM activity_full_reduction WHERE activity_id = 2 AND deleted = 0;
+END;
