@@ -98,9 +98,15 @@ public class Constants {
     public static final Integer PAID_TYPE_WEI_XIN = 1;
     public static final Integer PAID_TYPE_ALIPAY = 2;
 
+    public static final String WEI_XIN_PAY_TRADE_TYPE_JSAPI = "JSAPI";
+    public static final String WEI_XIN_PAY_TRADE_TYPE_NATIVE = "NATIVE";
+    public static final String WEI_XIN_PAY_TRADE_TYPE_APP = "APP";
+    public static final String WEI_XIN_PAY_TRADE_TYPE_MWEB = "MWEB";
+
     public static final Integer PAID_SCENE_WEI_XIN_PUBLIC_ACCOUNT = 1;
     public static final Integer PAID_SCENE_WEI_XIN_H5 = 2;
     public static final Integer PAID_SCENE_WEI_XIN_APP = 3;
+    public static final Integer PAID_SCENE_WEI_XIN_NATIVE = 4;
     public static final Integer PAID_SCENE_ALIPAY_MOBILE_WEBSITE = 7;
     public static final Integer PAID_SCENE_ALIPAY_PC_WEBSITE = 8;
     public static final Integer PAID_SCENE_ALIPAY_APP = 9;
