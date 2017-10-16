@@ -22,7 +22,7 @@ public class DietOrder {
      */
     private BigInteger branchId;
     /**
-     * 订单类型，1-扫码点餐，2-饿了么订单，3-美团订单
+     * 订单类型，1-扫码点餐，2-饿了么订单，3-美团订单，4-微餐厅订单
      */
     private Integer orderType;
     /**

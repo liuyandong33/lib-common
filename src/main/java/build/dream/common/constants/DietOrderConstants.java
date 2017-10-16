@@ -3,7 +3,8 @@ package build.dream.common.constants;
 public class DietOrderConstants {
     public static final Integer ORDER_TYPE_SCAN_CODE_ORDER = 1;
     public static final Integer ORDER_TYPE_ELEME_ORDER = 2;
-    public static final Integer ORDER_TYPE_MEI_TUAN = 3;
+    public static final Integer ORDER_TYPE_MEI_TUAN_ORDER = 3;
+    public static final Integer ORDER_TYPE_WEI_XIN_ORDER = 4;
 
     public static final Integer ORDER_STATUS_PENDING = 1;
     public static final Integer ORDER_STATUS_UNPROCESSED = 2;
