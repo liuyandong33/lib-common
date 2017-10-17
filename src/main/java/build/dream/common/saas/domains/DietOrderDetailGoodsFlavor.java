@@ -2,6 +2,7 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class DietOrderDetailGoodsFlavor extends BasicDomain {
@@ -29,6 +30,10 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      * 口味名称，goods_flavor.name
      */
     private String goodsFlavorName;
+    /**
+     * 口味加价，goods_flavor.price
+     */
+    private BigDecimal price;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -76,5 +81,13 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
 
     public void setGoodsFlavorName(String goodsFlavorName) {
         this.goodsFlavorName = goodsFlavorName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

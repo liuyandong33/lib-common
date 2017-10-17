@@ -58,4 +58,108 @@ public class DietOrderDetail extends BasicDomain {
      * 应付金额
      */
     private BigDecimal payableAmount;
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getDietOrderId() {
+        return dietOrderId;
+    }
+
+    public void setDietOrderId(BigInteger dietOrderId) {
+        this.dietOrderId = dietOrderId;
+    }
+
+    public BigInteger getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(BigInteger goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public BigInteger getGoodsSpecificationId() {
+        return goodsSpecificationId;
+    }
+
+    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+        this.goodsSpecificationId = goodsSpecificationId;
+    }
+
+    public String getGoodsSpecificationName() {
+        return goodsSpecificationName;
+    }
+
+    public void setGoodsSpecificationName(String goodsSpecificationName) {
+        this.goodsSpecificationName = goodsSpecificationName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
+    public BigDecimal getPayableAmount() {
+        return payableAmount;
+    }
+
+    public void setPayableAmount(BigDecimal payableAmount) {
+        this.payableAmount = payableAmount;
+    }
 }
