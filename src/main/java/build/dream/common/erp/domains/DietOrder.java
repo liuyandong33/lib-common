@@ -1,18 +1,12 @@
 package build.dream.common.erp.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class DietOrder {
-    /**
-     * ID
-     */
-    private BigInteger id;
-    /**
-     * 订单号
-     */
-    private String orderNumber;
+public class DietOrder extends BasicDomain {
     /**
      * 商户ID
      */
@@ -21,6 +15,14 @@ public class DietOrder {
      * 门店ID
      */
     private BigInteger branchId;
+    /**
+     * 商户编码
+     */
+    private String tenantCode;
+    /**
+     * 订单号
+     */
+    private String orderNumber;
     /**
      * 订单类型，1-扫码点餐，2-饿了么订单，3-美团订单，4-微餐厅订单
      */
@@ -97,28 +99,6 @@ public class DietOrder {
      * 联系人
      */
     private String consignee;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
-
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -134,6 +114,22 @@ public class DietOrder {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Integer getOrderType() {
@@ -286,53 +282,5 @@ public class DietOrder {
 
     public void setConsignee(String consignee) {
         this.consignee = consignee;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }
