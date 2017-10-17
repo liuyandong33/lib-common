@@ -56,9 +56,10 @@ END ;
 DROP TABLE IF EXISTS diet_order;
 CREATE TABLE diet_order(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-扫码点餐，2-饿了么订单，3-美团订单',
     order_status TINYINT NOT NULL COMMENT '订单状态，1-订单未生效，2-订单已生效',
     pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
@@ -89,10 +90,14 @@ CREATE TABLE diet_order(
 DROP TABLE IF EXISTS diet_order_detail;
 CREATE TABLE diet_order_detail(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     diet_order_id BIGINT NOT NULL COMMENT '订单ID',
     goods_id BIGINT NOT NULL COMMENT '菜品ID',
+    goods_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
     goods_specification_id BIGINT COMMENT '菜品规格ID',
-    goods_flavor_ids VARCHAR(255) COMMENT '菜品口味ID',
+    goods_specification_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
@@ -103,7 +108,25 @@ CREATE TABLE diet_order_detail(
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '餐厅订单';
+) COMMENT '餐厅订单明细';
+
+DROP TABLE IF EXISTS diet_order_detail_goods_flavor;
+CREATE TABLE diet_order_detail_goods_flavor
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    diet_order_detail_id BIGINT NOT NULL COMMENT '订单明细ID',
+    goods_flavor_group_name VARCHAR(20) NOT NULL COMMENT '口味组名称',
+    goods_flavor_name VARCHAR(20) NOT NULL COMMENT '口味名称',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '订单口味';
 
 DROP TABLE IF EXISTS eleme_order;
 CREATE TABLE eleme_order
