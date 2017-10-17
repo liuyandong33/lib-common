@@ -387,6 +387,24 @@ CREATE TABLE wei_xin_pay_account
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT = '微信支付账号';
 
+DROP TABLE IF EXISTS wei_xin_public_account;
+CREATE TABLE wei_xin_public_account
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
+    name VARCHAR(20) NOT NULL COMMENT '微信公众号名称',
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
+    original_id VARCHAR(50) NOT NULL COMMENT '原始id',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+);
+
 insert  into `wei_xin_pay_account`(`id`,`tenant_id`,`branch_id`,`app_id`,`mch_id`,`api_secret_key`,`sub_public_account_app_id`,`sub_open_platform_app_id`,`sub_mch_id`,`acceptance_model`,`account_type`,`create_time`,`create_user_id`,`last_update_time`,`last_update_user_id`,`last_update_remark`,`deleted`) values
     (1,7,7,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12','wx63f5194332cc0f1b','wx640d01797ff7e615','1334834201',1,NULL,'2017-10-17 16:38:41',1,'2017-10-17 17:54:20',1,NULL,0),
     (2,2,2,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12',NULL,NULL,NULL,0,1,'2017-10-17 16:38:41',1,'2017-10-17 17:05:19',1,NULL,0);
