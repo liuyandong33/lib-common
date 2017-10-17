@@ -101,6 +101,7 @@ public class Constants {
     public static final String WEI_XIN_PAY_TRADE_TYPE_NATIVE = "NATIVE";
     public static final String WEI_XIN_PAY_TRADE_TYPE_APP = "APP";
     public static final String WEI_XIN_PAY_TRADE_TYPE_MWEB = "MWEB";
+    public static final String WEI_XIN_PAY_TRADE_TYPE_MICROPAY = "MICROPAY";
 
     public static final Integer PAID_SCENE_WEI_XIN_PUBLIC_ACCOUNT = 1;
     public static final Integer PAID_SCENE_WEI_XIN_H5 = 2;

@@ -1,35 +1,23 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
-import java.util.Date;
 
 /**
  * Created by liuyandong on 2017/7/20.
  */
-public class WeiXinPayAccount {
-    private BigInteger id;
+public class WeiXinPayAccount extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String appId;
     private String mchId;
-    private String key;
-    private String subAppId;
+    private String apiSecretKey;
+    private String subPublicAccountAppId;
+    private String subOpenPlatformAppId;
     private String subMchId;
     private boolean acceptanceModel;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
+    private Integer accountType;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -63,20 +51,28 @@ public class WeiXinPayAccount {
         this.mchId = mchId;
     }
 
-    public String getKey() {
-        return key;
+    public String getApiSecretKey() {
+        return apiSecretKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setApiSecretKey(String apiSecretKey) {
+        this.apiSecretKey = apiSecretKey;
     }
 
-    public String getSubAppId() {
-        return subAppId;
+    public String getSubPublicAccountAppId() {
+        return subPublicAccountAppId;
     }
 
-    public void setSubAppId(String subAppId) {
-        this.subAppId = subAppId;
+    public void setSubPublicAccountAppId(String subPublicAccountAppId) {
+        this.subPublicAccountAppId = subPublicAccountAppId;
+    }
+
+    public String getSubOpenPlatformAppId() {
+        return subOpenPlatformAppId;
+    }
+
+    public void setSubOpenPlatformAppId(String subOpenPlatformAppId) {
+        this.subOpenPlatformAppId = subOpenPlatformAppId;
     }
 
     public String getSubMchId() {
@@ -95,51 +91,11 @@ public class WeiXinPayAccount {
         this.acceptanceModel = acceptanceModel;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Integer getAccountType() {
+        return accountType;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setAccountType(Integer accountType) {
+        this.accountType = accountType;
     }
 }

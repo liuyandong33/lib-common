@@ -364,3 +364,34 @@ CREATE TABLE logging_event_property (
     mapped_value text,
     PRIMARY KEY (event_id, mapped_key)
 );
+
+DROP TABLE IF EXISTS wei_xin_pay_account;
+CREATE TABLE wei_xin_pay_account
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    app_id VARCHAR(50) COMMENT '微信公众平台app id',
+    mch_id VARCHAR(50) NOT NULL,
+    api_secret_key VARCHAR(50) NOT NULL,
+    sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
+    sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
+    sub_mch_id VARCHAR(50),
+    acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
+    account_type TINYINT COMMENT '账号类型，1-公众号支付、扫码支付、H5支付、刷卡支付，2-APP支付账号',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+) COMMENT = '微信支付账号';
+
+insert  into `wei_xin_pay_account`(`id`,`tenant_id`,`branch_id`,`app_id`,`mch_id`,`api_secret_key`,`sub_public_account_app_id`,`sub_open_platform_app_id`,`sub_mch_id`,`acceptance_model`,`account_type`,`create_time`,`create_user_id`,`last_update_time`,`last_update_user_id`,`last_update_remark`,`deleted`) values
+    (1,7,7,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12','wx63f5194332cc0f1b','wx640d01797ff7e615','1334834201',1,NULL,'2017-10-17 16:38:41',1,'2017-10-17 17:54:20',1,NULL,0),
+    (2,2,2,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12',NULL,NULL,NULL,0,1,'2017-10-17 16:38:41',1,'2017-10-17 17:05:19',1,NULL,0);
+
+1e17fcd2e668ded210f12e3a08531608
+com.ftrend.ftrendpos
+
+a3eb218f59c192ad72c92606f84eb9df
