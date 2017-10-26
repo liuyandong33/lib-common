@@ -405,6 +405,53 @@ CREATE TABLE wei_xin_public_account
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 );
 
+DROP TABLE IF EXISTS app_authority;
+CREATE TABLE app_authority
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    authority_name VARCHAR(20) NOT NULL COMMENT '权限名称',
+    parent_id BIGINT NOT NULL COMMENT '上级权限ID',
+    service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
+    controller_name VARCHAR(50) NOT NULL COMMENT 'controller name',
+    action_name VARCHAR(50) NOT NULL COMMENT 'action name',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS app_role;
+CREATE TABLE app_role
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS user_role_r;
+CREATE TABLE user_role_r
+(
+    user_id BIGINT NOT NULL COMMENT 'user id',
+    role_id BIGINT NOT NULL COMMENT 'role id',
+    PRIMARY KEY (user_id, role_id)
+);
+
+DROP TABLE IF EXISTS role_authority_r;
+CREATE TABLE role_authority_r
+(
+    role_id BIGINT NOT NULL COMMENT 'role id',
+    authority_id BIGINT NOT NULL COMMENT 'authority id',
+    PRIMARY KEY (role_id, authority_id)
+);
+
 insert  into `wei_xin_pay_account`(`id`,`tenant_id`,`branch_id`,`app_id`,`mch_id`,`api_secret_key`,`sub_public_account_app_id`,`sub_open_platform_app_id`,`sub_mch_id`,`acceptance_model`,`account_type`,`create_time`,`create_user_id`,`last_update_time`,`last_update_user_id`,`last_update_remark`,`deleted`) values
     (1,7,7,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12','wx63f5194332cc0f1b','wx640d01797ff7e615','1334834201',1,NULL,'2017-10-17 16:38:41',1,'2017-10-17 17:54:20',1,NULL,0),
     (2,2,2,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12',NULL,NULL,NULL,0,1,'2017-10-17 16:38:41',1,'2017-10-17 17:05:19',1,NULL,0);
