@@ -1,35 +1,24 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 import java.util.Date;
 
-public class SystemUser {
-    private BigInteger id;
+public class SystemUser extends BasicDomain {
     private String name;
     private String mobile;
     private String email;
     private String loginName;
     private String password;
+    private String weiXinPublicPlatformOpenId;
+    private String weiXinOpenPlatformOpenId;
     private Integer userType;
     private BigInteger tenantId;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -69,6 +58,22 @@ public class SystemUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getWeiXinPublicPlatformOpenId() {
+        return weiXinPublicPlatformOpenId;
+    }
+
+    public void setWeiXinPublicPlatformOpenId(String weiXinPublicPlatformOpenId) {
+        this.weiXinPublicPlatformOpenId = weiXinPublicPlatformOpenId;
+    }
+
+    public String getWeiXinOpenPlatformOpenId() {
+        return weiXinOpenPlatformOpenId;
+    }
+
+    public void setWeiXinOpenPlatformOpenId(String weiXinOpenPlatformOpenId) {
+        this.weiXinOpenPlatformOpenId = weiXinOpenPlatformOpenId;
     }
 
     public Integer getUserType() {
@@ -117,53 +122,5 @@ public class SystemUser {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }
