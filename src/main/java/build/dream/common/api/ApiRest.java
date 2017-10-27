@@ -2,11 +2,10 @@ package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.GsonUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import build.dream.common.utils.JacksonUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 /**
@@ -115,21 +114,15 @@ public class ApiRest {
         this.requestId = requestId;
     }
 
-    private static ObjectMapper objectMapper = null;
-
     public static ApiRest fromJson(String jsonString, String datePattern) throws IOException {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
-        }
-        objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-        ApiRest apiRest = objectMapper.readValue(jsonString, ApiRest.class);
+        ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class);
         if (StringUtils.isNotBlank(apiRest.className)) {
             Class<?> clazz = null;
             try {
                 clazz = Class.forName(apiRest.className);
             } catch (ClassNotFoundException e) {}
             if (clazz != null) {
-                apiRest.setData(objectMapper.readValue(objectMapper.writeValueAsString(apiRest.data), clazz));
+                apiRest.setData(JacksonUtils.readValue(JacksonUtils.writeValueAsString(apiRest.data), clazz));
             }
         }
         return apiRest;
