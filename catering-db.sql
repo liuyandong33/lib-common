@@ -17,6 +17,7 @@ CREATE TABLE branch
     `type` TINYINT NOT NULL COMMENT '1-总部，2-直营店，3-加盟店，4-配送中心',
     `status` TINYINT NOT NULL COMMENT '状态，1-启用，2-停用',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    shop_id BIGINT COMMENT '饿了么店铺ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

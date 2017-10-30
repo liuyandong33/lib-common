@@ -1,17 +1,18 @@
 package build.dream.common.erp.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeItem {
-    private BigInteger id;
+public class ElemeItem extends BasicDomain {
     /**
      * 饿了么分组ID
      */
     private BigInteger elemeGroupId;
     /**
-     * 饿了么菜品ID
+     * 饿了么食物ID
      */
     private BigInteger elemeItemId;
     /**
@@ -19,15 +20,19 @@ public class ElemeItem {
      */
     private BigInteger skuId;
     /**
+     * 商品名称
+     */
+    private String name;
+    /**
      * 订单中商品项的标识(注意，此处不是商品分类Id)
      */
     private BigInteger categoryId;
     /**
-     * 单价
+     * 商品单价
      */
     private BigDecimal price;
     /**
-     * 数量
+     * 商品数量
      */
     private Integer quantity;
     /**
@@ -46,20 +51,18 @@ public class ElemeItem {
      * 商品重量(单位克)
      */
     private BigDecimal weight;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
+    /**
+     * 用户侧价格
+     */
+    private BigDecimal userPrice;
+    /**
+     * 商户侧价格
+     */
+    private BigDecimal shopPrice;
+    /**
+     * 商品ID
+     */
+    private BigInteger vfoodId;
 
     public BigInteger getElemeGroupId() {
         return elemeGroupId;
@@ -83,6 +86,14 @@ public class ElemeItem {
 
     public void setSkuId(BigInteger skuId) {
         this.skuId = skuId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigInteger getCategoryId() {
@@ -141,51 +152,27 @@ public class ElemeItem {
         this.weight = weight;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public BigDecimal getUserPrice() {
+        return userPrice;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setUserPrice(BigDecimal userPrice) {
+        this.userPrice = userPrice;
     }
 
-    public BigInteger getCreateUserId() {
-        return createUserId;
+    public BigDecimal getShopPrice() {
+        return shopPrice;
     }
 
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
+    public void setShopPrice(BigDecimal shopPrice) {
+        this.shopPrice = shopPrice;
     }
 
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
+    public BigInteger getVfoodId() {
+        return vfoodId;
     }
 
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setVfoodId(BigInteger vfoodId) {
+        this.vfoodId = vfoodId;
     }
 }
