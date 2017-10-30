@@ -66,6 +66,8 @@ CREATE TABLE `system_user`
     `login_name` VARCHAR(20) COMMENT '登录名',
     user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工',
     `password` VARCHAR(50) NOT NULL COMMENT '登录密码',
+    wei_xin_public_platform_open_id VARCHAR(50) COMMENT '微信公众平台open id',
+    wei_xin_open_platform_open_id VARCHAR(50) COMMENT '微信开放平台open id',
     tenant_id BIGINT COMMENT '商户ID',
     account_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有过期，1-没有过期，0-已经过期',
     account_non_locked TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有锁定，1-没有锁定，0-已经锁定',
@@ -115,21 +117,23 @@ END ;
 DROP TABLE IF EXISTS wei_xin_pay_account;
 CREATE TABLE wei_xin_pay_account
 (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
-    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
-    mch_id VARCHAR(50) NOT NULL,
-    `key` VARCHAR(50) NOT NULL,
-    sub_app_id VARCHAR(50),
+    app_id VARCHAR(50) COMMENT '微信公众平台app id',
+    mch_id VARCHAR(50) NOT NULL COMMENT '微信支付商户号',
+    api_secret_key VARCHAR(50) NOT NULL,
+    sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
+    sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
     sub_mch_id VARCHAR(50),
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    account_type TINYINT COMMENT '账号类型，1-公众号支付、扫码支付、H5支付、刷卡支付，2-APP支付账号',
+    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信支付账号';
 
 DROP TABLE IF EXISTS alipay_account;
@@ -451,6 +455,20 @@ CREATE TABLE role_authority_r
     authority_id BIGINT NOT NULL COMMENT 'authority id',
     PRIMARY KEY (role_id, authority_id)
 );
+
+DROP TABLE IF EXISTS wei_xin_public_platform_application;
+CREATE TABLE wei_xin_public_platform_application
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+) COMMENT = '微信支付账号';
 
 insert  into `wei_xin_pay_account`(`id`,`tenant_id`,`branch_id`,`app_id`,`mch_id`,`api_secret_key`,`sub_public_account_app_id`,`sub_open_platform_app_id`,`sub_mch_id`,`acceptance_model`,`account_type`,`create_time`,`create_user_id`,`last_update_time`,`last_update_user_id`,`last_update_remark`,`deleted`) values
     (1,7,7,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12','wx63f5194332cc0f1b','wx640d01797ff7e615','1334834201',1,NULL,'2017-10-17 16:38:41',1,'2017-10-17 17:54:20',1,NULL,0),
