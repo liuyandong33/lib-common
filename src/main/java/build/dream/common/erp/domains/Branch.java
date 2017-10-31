@@ -10,6 +10,7 @@ public class Branch extends BasicDomain {
     private Integer type;
     private Integer status;
     private BigInteger tenantId;
+    private String tenantCode;
     private BigInteger shopId;
 
     public String getCode() {
@@ -50,6 +51,14 @@ public class Branch extends BasicDomain {
 
     public void setTenantId(BigInteger tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
     }
 
     public BigInteger getShopId() {

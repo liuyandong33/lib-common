@@ -8,7 +8,9 @@ import java.util.Date;
 
 public class ElemeOrder extends BasicDomain {
     private BigInteger tenantId;
+    private String tenantCode;
     private BigInteger branchId;
+    private String branchCode;
     /**
      * 顾客送餐地址
      */
@@ -166,6 +168,22 @@ public class ElemeOrder extends BasicDomain {
 
     public void setTenantId(BigInteger tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
     }
 
     public BigInteger getBranchId() {

@@ -17,6 +17,7 @@ CREATE TABLE branch
     `type` TINYINT NOT NULL COMMENT '1-总部，2-直营店，3-加盟店，4-配送中心',
     `status` TINYINT NOT NULL COMMENT '状态，1-启用，2-停用',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     shop_id BIGINT COMMENT '饿了么店铺ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -134,7 +135,9 @@ CREATE TABLE eleme_order
 (
     id BIGINT(30) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    branch_code VARCHAR(20) NOT NULL COMMENT '门店编码',
     address VARCHAR(100) COMMENT '顾客送餐地址',
     created_at DATETIME COMMENT '下单时间',
     active_at DATETIME COMMENT '订单生效时间，即支付时间，只有支付完成后才会推送订单，只有货到付款的订单生效时间等于下单时间',
