@@ -9,7 +9,7 @@ public class ElemeGroup extends BasicDomain {
     /**
      * 饿了么系统订单ID
      */
-    private String orderId;
+    private BigInteger elemeOrderId;
     /**
      * 分组名称
      */
@@ -19,12 +19,12 @@ public class ElemeGroup extends BasicDomain {
      */
     private String type;
 
-    public String getOrderId() {
-        return orderId;
+    public BigInteger getElemeOrderId() {
+        return elemeOrderId;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setElemeOrderId(BigInteger elemeOrderId) {
+        this.elemeOrderId = elemeOrderId;
     }
 
     public String getName() {

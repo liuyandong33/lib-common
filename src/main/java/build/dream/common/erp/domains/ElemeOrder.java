@@ -1,11 +1,14 @@
 package build.dream.common.erp.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeOrder {
-    private BigInteger id;
+public class ElemeOrder extends BasicDomain {
+    private BigInteger tenantId;
+    private BigInteger branchId;
     /**
      * 顾客送餐地址
      */
@@ -154,19 +157,23 @@ public class ElemeOrder {
      * 纳税人识别号
      */
     private String taxpayerId;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
 
-    public BigInteger getId() {
-        return id;
+    private BigDecimal coldBoxFee;
+
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setId(BigInteger id) {
-        this.id = id;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
     }
 
     public String getAddress() {
@@ -465,51 +472,11 @@ public class ElemeOrder {
         this.taxpayerId = taxpayerId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public BigDecimal getColdBoxFee() {
+        return coldBoxFee;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setColdBoxFee(BigDecimal coldBoxFee) {
+        this.coldBoxFee = coldBoxFee;
     }
 }
