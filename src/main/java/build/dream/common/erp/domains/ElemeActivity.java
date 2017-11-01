@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class ElemeActivity extends BasicDomain {
     /**
@@ -24,9 +23,13 @@ public class ElemeActivity extends BasicDomain {
      */
     private Integer categoryId;
     /**
-     * 活动类别含义
+     * 饿了么承担部分
      */
-    private String meaning;
+    private BigDecimal elemePart;
+    /**
+     * 商家承担部分
+     */
+    private BigDecimal restaurantPart;
     /**
      * 金额
      */
@@ -64,12 +67,20 @@ public class ElemeActivity extends BasicDomain {
         this.categoryId = categoryId;
     }
 
-    public String getMeaning() {
-        return meaning;
+    public BigDecimal getElemePart() {
+        return elemePart;
     }
 
-    public void setMeaning(String meaning) {
-        this.meaning = meaning;
+    public void setElemePart(BigDecimal elemePart) {
+        this.elemePart = elemePart;
+    }
+
+    public BigDecimal getRestaurantPart() {
+        return restaurantPart;
+    }
+
+    public void setRestaurantPart(BigDecimal restaurantPart) {
+        this.restaurantPart = restaurantPart;
     }
 
     public BigDecimal getAmount() {
