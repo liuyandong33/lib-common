@@ -42,12 +42,6 @@ public class CommonUtils {
     }
 
     public static BigInteger getServiceSystemUserId() throws IOException {
-        String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
-        String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
-        String userId = CacheUtils.hget(Constants.KEY_SERVICE_SYSTEM_USERS, partitionCode + ":" + serviceName);
-        if (StringUtils.isNotBlank(userId)) {
-            return BigInteger.valueOf(Long.valueOf(userId));
-        }
-        return null;
+        return getServiceSystemUserId(PropertyUtils.getProperty(Constants.PARTITION_CODE), PropertyUtils.getProperty(Constants.SERVICE_NAME));
     }
 }
