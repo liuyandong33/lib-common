@@ -1,13 +1,11 @@
 package build.dream.common.erp.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeDeliveryOrderStateChangeMessage {
-    /**
-     * ID
-     */
-    private BigInteger id;
+public class ElemeDeliveryOrderStateChangeMessage extends BasicDomain {
     /**
      * 饿了么订单ID,eleme_order.id
      */
@@ -16,6 +14,10 @@ public class ElemeDeliveryOrderStateChangeMessage {
      * 饿了么系统订单ID
      */
     private String orderId;
+    /**
+     * 饿了么店铺ID
+     */
+    private BigInteger shopId;
     /**
      * 运单主状态
      */
@@ -33,32 +35,17 @@ public class ElemeDeliveryOrderStateChangeMessage {
      */
     private String phone;
     /**
-     * 饿了么店铺ID
-     */
-    private BigInteger shopId;
-    /**
      * 消息发送时间戳
      */
     private Date updateTime;
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
     /**
      * 门店ID
      */
     private BigInteger branchId;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public BigInteger getElemeOrderId() {
         return elemeOrderId;
@@ -74,6 +61,14 @@ public class ElemeDeliveryOrderStateChangeMessage {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public BigInteger getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(BigInteger shopId) {
+        this.shopId = shopId;
     }
 
     public String getState() {
@@ -108,14 +103,6 @@ public class ElemeDeliveryOrderStateChangeMessage {
         this.phone = phone;
     }
 
-    public BigInteger getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(BigInteger shopId) {
-        this.shopId = shopId;
-    }
-
     public Date getUpdateTime() {
         return updateTime;
     }
@@ -138,53 +125,5 @@ public class ElemeDeliveryOrderStateChangeMessage {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }

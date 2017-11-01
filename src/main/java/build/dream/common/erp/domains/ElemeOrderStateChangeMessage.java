@@ -1,13 +1,11 @@
 package build.dream.common.erp.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeOrderStateChangeMessage {
-    /**
-     * ID
-     */
-    private BigInteger id;
+public class ElemeOrderStateChangeMessage extends BasicDomain {
     /**
      * 饿了么订单ID,eleme_order.id
      */
@@ -21,10 +19,6 @@ public class ElemeOrderStateChangeMessage {
      */
     private String state;
     /**
-     * 驱动状态发生变更的操作者角色，1-下单用户，2-饿了么系统，3-饿了么商户，4-饿了么客服，5-饿了么开放平台系统	，6-饿了么短信系统，7-饿了么无线打印机系统，8-饿了么风控系统
-     */
-    private Integer role;
-    /**
      * 饿了么店铺ID
      */
     private BigInteger shopId;
@@ -32,25 +26,18 @@ public class ElemeOrderStateChangeMessage {
      * 消息发送时间戳
      */
     private Date updateTime;
+    /**
+     * 驱动状态发生变更的操作者角色，1-下单用户，2-饿了么系统，3-饿了么商户，4-饿了么客服，5-饿了么开放平台系统	，6-饿了么短信系统，7-饿了么无线打印机系统，8-饿了么风控系统
+     */
+    private Integer role;
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
     /**
      * 门店ID
      */
     private BigInteger branchId;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public BigInteger getElemeOrderId() {
         return elemeOrderId;
@@ -76,14 +63,6 @@ public class ElemeOrderStateChangeMessage {
         this.state = state;
     }
 
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
-    }
-
     public BigInteger getShopId() {
         return shopId;
     }
@@ -100,6 +79,14 @@ public class ElemeOrderStateChangeMessage {
         this.updateTime = updateTime;
     }
 
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -114,53 +101,5 @@ public class ElemeOrderStateChangeMessage {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }
