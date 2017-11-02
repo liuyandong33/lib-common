@@ -20,11 +20,39 @@ import java.security.spec.X509EncodedKeySpec;
 public class RSAUtils {
     public static final String KEY_ALGORITHM = "RSA";
 
-    public static String[] generatorKeyPair(int keySize) throws NoSuchAlgorithmException {
+    public static String[] generateKeyPair(int keySize) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         keyPairGen.initialize(keySize, new SecureRandom());
         KeyPair keyPair = keyPairGen.generateKeyPair();
         return new String[]{Base64.encodeBase64String(keyPair.getPublic().getEncoded()), Base64.encodeBase64String(keyPair.getPrivate().getEncoded())};
+    }
+
+    /**
+     * 还原公钥
+     * @param publicKey：公钥字符串
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public static PublicKey restorePublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] keyBytes = Base64.decodeBase64(publicKey);
+        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        return keyFactory.generatePublic(x509EncodedKeySpec);
+    }
+
+    /**
+     * 还原私钥
+     * @param privateKey：私钥字符串
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public static PrivateKey restorePrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        byte[] keyBytes = Base64.decodeBase64(privateKey);
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
+        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+        return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
     }
 
     /**
@@ -43,10 +71,10 @@ public class RSAUtils {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicK = keyFactory.generatePublic(x509KeySpec);
+        Key key = keyFactory.generatePublic(x509KeySpec);
         // 对数据加密
         Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.ENCRYPT_MODE, publicK);
+        cipher.init(Cipher.ENCRYPT_MODE, key);
         return Base64.encodeBase64String(cipher.doFinal(data.getBytes(Constants.CHARSET_UTF_8)));
     }
 
