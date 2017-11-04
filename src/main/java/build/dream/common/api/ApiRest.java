@@ -122,7 +122,7 @@ public class ApiRest {
                 clazz = Class.forName(apiRest.className);
             } catch (ClassNotFoundException e) {}
             if (clazz != null) {
-                apiRest.setData(JacksonUtils.readValue(JacksonUtils.writeValueAsString(apiRest.data), clazz));
+                apiRest.setData(JacksonUtils.readValue(JacksonUtils.writeValueAsString(apiRest.data), clazz, datePattern));
             }
         }
         return apiRest;
@@ -138,5 +138,9 @@ public class ApiRest {
 
     public String toJson(String datePattern) {
         return GsonUtils.toJson(this, datePattern);
+    }
+
+    public <T> T obtainData() {
+        return (T) getData();
     }
 }
