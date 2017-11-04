@@ -139,8 +139,4 @@ public class ApiRest {
     public String toJson(String datePattern) {
         return GsonUtils.toJson(this, datePattern);
     }
-
-    public <T> T obtainData() {
-        return (T) getData();
-    }
 }
