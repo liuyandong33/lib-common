@@ -112,4 +112,8 @@ public class Constants {
     public static final Integer PAID_SCENE_ALIPAY_APP = 9;
 
     public static final String KEY_TENANT_SECRET_KEYS = "_tenant_secret_keys";
+
+    public static final String MEI_TUAN_APP_ID = "mei.tuan.app.id";
+    public static final String MEI_TUAN_CONSUMER_SECRET = "mei.tuan.consumer.secret";
+    public static final String MEI_TUAN_SERVICE_URL = "mei.tuan.service.url";
 }
