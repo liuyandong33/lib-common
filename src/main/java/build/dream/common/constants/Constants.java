@@ -112,4 +112,11 @@ public class Constants {
     public static final Integer PAID_SCENE_ALIPAY_APP = 9;
 
     public static final String KEY_TENANT_SECRET_KEYS = "_tenant_secret_keys";
+
+    public static final String ELEME_APP_ID = "eleme.app.id";
+    public static final String ELEME_APP_KEY = "eleme.app.key";
+    public static final String ELEME_APP_SECRET = "eleme.app.secret";
+    public static final String ELEME_SERVICE_URL = "eleme.service.url";
+    public static final String KEY_ELEME_TOKENS = "_eleme_tokens";
+    public static final String ELEME_TOKEN = "_eleme_token";
 }
