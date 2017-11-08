@@ -34,14 +34,14 @@ public class SystemPartitionUtils {
     public static String getOutsideServiceDomain(String partitionCode, String serviceName) throws IOException {
         String outsideServiceDomain = PropertyUtils.getProperty("outside." + partitionCode + "." + serviceName + ".service.connection");
         if (StringUtils.isBlank(outsideServiceDomain)) {
-            String deploymentEnvironment = PropertyUtils.getProperty(Constants.KEY_OUTSIDE_SERVICE_DOMAIN);
+            String deploymentEnvironment = PropertyUtils.getProperty(Constants.DEPLOYMENT_ENVIRONMENT);
             outsideServiceDomain = CacheUtils.hget(Constants.KEY_OUTSIDE_SERVICE_DOMAIN + "_" + deploymentEnvironment, "_" + deploymentEnvironment + "_" + partitionCode + "_" + serviceName);
         }
         return outsideServiceDomain;
     }
 
     public static String getOutsideServiceDomain(String serviceName) throws IOException {
-        String outsideServiceDomain = PropertyUtils.getProperty("outside." + "." + serviceName + ".service.connection");
+        String outsideServiceDomain = PropertyUtils.getProperty("outside." + serviceName + ".service.connection");
         if (StringUtils.isBlank(outsideServiceDomain)) {
             String deploymentEnvironment = PropertyUtils.getProperty(Constants.KEY_OUTSIDE_SERVICE_DOMAIN);
             outsideServiceDomain = CacheUtils.hget(Constants.KEY_OUTSIDE_SERVICE_DOMAIN + "_" + deploymentEnvironment, "_" + deploymentEnvironment + "_" + serviceName);
