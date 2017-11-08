@@ -119,4 +119,6 @@ public class Constants {
     public static final String ELEME_SERVICE_URL = "eleme.service.url";
     public static final String KEY_ELEME_TOKENS = "_eleme_tokens";
     public static final String ELEME_TOKEN = "_eleme_token";
+
+    public static final String MEI_TUAN_ORDER_MESSAGE_CHANNEL = "mei.tuan.order.message.channel";
 }
