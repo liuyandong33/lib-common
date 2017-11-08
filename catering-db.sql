@@ -564,3 +564,96 @@ CREATE TABLE mei_tuan_order
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
 );
+
+
+DROP TABLE IF EXISTS mei_tuan_item;
+CREATE TABLE mei_tuan_item
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    app_food_code VARCHAR(20) COMMENT 'erp方菜品id',
+    box_num INT COMMENT '餐盒数量',
+    box_price DECIMAL(11, 3) COMMENT '餐盒价格',
+    food_name VARCHAR(20) COMMENT '菜品名称',
+    price DECIMAL(11, 3) COMMENT '菜品价格',
+    sku_id VARCHAR(20) COMMENT 'erp方菜品sku',
+    quantity INT COMMENT '菜品份数',
+    unit VARCHAR(10) COMMENT '菜品单位',
+    food_discount DECIMAL(11, 3) COMMENT '菜品折扣',
+    food_property VARCHAR(100) COMMENT '菜品属性',
+    food_share_fee_charge_by_poi DECIMAL(11, 3) COMMENT '该订单中商家给美大的分成金额',
+    cart_id INT COMMENT '商品所在的口袋，0为1号口袋，1为2号口袋，以此类推',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS mei_tuan_order_extra;
+CREATE TABLE mei_tuan_order_extra
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mt_charge DECIMAL(11, 3) COMMENT '该活动中美团承担的费用',
+    poi_charge DECIMAL(11, 3) COMMENT '该活动中商家承担的费用',
+    reduce_fee DECIMAL(11, 3) COMMENT '活动优惠金额，是在原价基础上减免的金额。并非一定等于美团承担活动费用和商户承担费用的总和，如type=23，即买赠活动时，赠品的成本虽然由商家承担，但这部分不算在活动优惠金额内',
+    remark VARCHAR(100) COMMENT '优惠说明',
+    `type` TINYINT COMMENT '优惠活动类型（1-新用户立减；2-满减；4-套餐赠送；5-满赠；9-使用红包；11-提前下单减；16-满免配送费(即将废弃)；17-折扣商品；18-美团专送再减(即将废弃)；19-点评券；20-第二份半价；21-会员免配送费；22-门店新客立减；23-买赠；24-平台新用户立减；25-满减配送费；100-满返商家代金券；101-使用商家代金券；103-进店领券）',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS mei_tuan_order_poi_receive_detail;
+CREATE TABLE mei_tuan_order_poi_receive_detail
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id'
+    food_share_fee_charge_by_poi DECIMAL(11, 3) COMMENT '菜品分成',
+    logistics_fee DECIMAL(11, 3) COMMENT '配送费',
+    online_payment DECIMAL(11, 3) COMMENT '在线支付款',
+    wm_poi_receive_cent DECIMAL(11, 3) COMMENT '商家应收款',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS act_order_charge_by_mt;
+CREATE TABLE act_order_charge_by_mt
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_tuan_order_poi_receive_detail_id BIGINT NOT NULL COMMENT 'mei_tuan_order_poi_receive_detail id',
+    `comment` VARCHAR(100) COMMENT '备注',
+    fee_type_desc VARCHAR(100) COMMENT '明细费用类型描述',
+    fee_type_id BIGINT COMMENT '明细费用类型Id',
+    money_cent DECIMAL(11, 3) COMMENT '明细金额',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS act_order_charge_by_poi;
+CREATE TABLE act_order_charge_by_poi
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_tuan_order_poi_receive_detail_id BIGINT NOT NULL COMMENT 'mei_tuan_order_poi_receive_detail id',
+    `comment` VARCHAR(100) COMMENT '备注',
+    fee_type_desc VARCHAR(100) COMMENT '明细费用类型描述',
+    fee_type_id BIGINT COMMENT '明细费用类型Id',
+    money_cent DECIMAL(11, 3) COMMENT '明细金额',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
