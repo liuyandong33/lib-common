@@ -18,6 +18,7 @@ CREATE TABLE branch
     `status` TINYINT NOT NULL COMMENT '状态，1-启用，2-停用',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    eleme_account_type TINYINT NOT NULL COMMENT '1-连锁账号，2-独立账号',
     shop_id BIGINT COMMENT '饿了么店铺ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
