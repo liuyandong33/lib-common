@@ -570,6 +570,7 @@ DROP TABLE IF EXISTS mei_tuan_item;
 CREATE TABLE mei_tuan_item
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id',
     app_food_code VARCHAR(20) COMMENT 'erp方菜品id',
     box_num INT COMMENT '餐盒数量',
     box_price DECIMAL(11, 3) COMMENT '餐盒价格',
@@ -580,7 +581,7 @@ CREATE TABLE mei_tuan_item
     unit VARCHAR(10) COMMENT '菜品单位',
     food_discount DECIMAL(11, 3) COMMENT '菜品折扣',
     food_property VARCHAR(100) COMMENT '菜品属性',
-    food_share_fee_charge_by_poi DECIMAL(11, 3) COMMENT '该订单中商家给美大的分成金额',
+    food_share_fee_charge_by_poi DECIMAL(11, 3) COMMENT '该订单中商家给美团的分成金额',
     cart_id INT COMMENT '商品所在的口袋，0为1号口袋，1为2号口袋，以此类推',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -594,6 +595,7 @@ DROP TABLE IF EXISTS mei_tuan_order_extra;
 CREATE TABLE mei_tuan_order_extra
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id',
     mt_charge DECIMAL(11, 3) COMMENT '该活动中美团承担的费用',
     poi_charge DECIMAL(11, 3) COMMENT '该活动中商家承担的费用',
     reduce_fee DECIMAL(11, 3) COMMENT '活动优惠金额，是在原价基础上减免的金额。并非一定等于美团承担活动费用和商户承担费用的总和，如type=23，即买赠活动时，赠品的成本虽然由商家承担，但这部分不算在活动优惠金额内',
@@ -611,7 +613,7 @@ DROP TABLE IF EXISTS mei_tuan_order_poi_receive_detail;
 CREATE TABLE mei_tuan_order_poi_receive_detail
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id'
+    mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id',
     food_share_fee_charge_by_poi DECIMAL(11, 3) COMMENT '菜品分成',
     logistics_fee DECIMAL(11, 3) COMMENT '配送费',
     online_payment DECIMAL(11, 3) COMMENT '在线支付款',
