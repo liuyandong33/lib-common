@@ -530,7 +530,7 @@ CREATE TABLE mei_tuan_order
     order_id BIGINT COMMENT '美团订单ID',
     order_id_view BIGINT COMMENT '美团订单展示Id',
     caution VARCHAR(100) COMMENT '订单备注',
-    cityId BIGINT COMMENT '城市Id',
+    city_id BIGINT COMMENT '城市Id',
     ctime DATETIME COMMENT '订单创建时间',
     utime DATETIME COMMENT '订单更新时间',
     day_seq VARCHAR(20) COMMENT '门店当天订单流水号',
