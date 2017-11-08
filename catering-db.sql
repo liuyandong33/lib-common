@@ -660,3 +660,22 @@ CREATE TABLE act_order_charge_by_poi
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS mei_tuan_order_cancel_message;
+CREATE TABLE act_order_charge_by_poi
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    mei_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order.id',
+    developer_id BIGINT NOT NULL COMMENT 'ERP厂商入驻新美大餐饮平台得到的唯一身份表示',
+    e_poi_id VARCHAR(100) NOT NULL COMMENT 'erp方门店id 最大长度100',
+    `sign` VARCHAR(100) NOT NULL COMMENT '数字签名',
+    order_id BIGINT NOT NULL COMMENT '美团订单ID',
+    reason_code VARCHAR(20) COMMENT '取消原因类型',
+    reason VARCHAR(100) COMMENT '取消原因描述',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
