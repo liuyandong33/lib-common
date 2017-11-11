@@ -23,9 +23,17 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      */
     private BigInteger dietOrderDetailId;
     /**
+     * 口味组ID，goods_flavor_group.id
+     */
+    private BigInteger goodsFlavorGroupId;
+    /**
      * 口味组名称，goods_flavor_group.name
      */
     private String goodsFlavorGroupName;
+    /**
+     * 口味ID，goods_flavor.id
+     */
+    private BigInteger goodsFlavorId;
     /**
      * 口味名称，goods_flavor.name
      */
@@ -67,12 +75,28 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
         this.dietOrderDetailId = dietOrderDetailId;
     }
 
+    public BigInteger getGoodsFlavorGroupId() {
+        return goodsFlavorGroupId;
+    }
+
+    public void setGoodsFlavorGroupId(BigInteger goodsFlavorGroupId) {
+        this.goodsFlavorGroupId = goodsFlavorGroupId;
+    }
+
     public String getGoodsFlavorGroupName() {
         return goodsFlavorGroupName;
     }
 
     public void setGoodsFlavorGroupName(String goodsFlavorGroupName) {
         this.goodsFlavorGroupName = goodsFlavorGroupName;
+    }
+
+    public BigInteger getGoodsFlavorId() {
+        return goodsFlavorId;
+    }
+
+    public void setGoodsFlavorId(BigInteger goodsFlavorId) {
+        this.goodsFlavorId = goodsFlavorId;
     }
 
     public String getGoodsFlavorName() {
