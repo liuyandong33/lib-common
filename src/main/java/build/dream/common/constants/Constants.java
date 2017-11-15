@@ -122,4 +122,12 @@ public class Constants {
     public static final String ELEME_TOKEN = "_eleme_token";
 
     public static final String MEI_TUAN_ORDER_MESSAGE_CHANNEL_TOPIC = "mei.tuan.order.message.channel.topic";
+    public static final String MEI_TUAN_CALLBACK_MESSAGE_CHANNEL_TOPIC = "mei.tuan.callback.message.channel.topic";
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE = 1;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL = 2;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_REFUND = 3;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_CONFIRM = 4;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_SETTLED = 5;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_SHIPPING_STATUS = 6;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_POI_STATUS = 7;
 }
