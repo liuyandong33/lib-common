@@ -74,7 +74,8 @@ public class Constants {
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN = ">";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN_EQUALS = ">=";
 
-    public static final String ELEME_ORDER_MESSAGE_CHANNEL = "eleme.order.message.channel";
+    public static final String ELEME_ORDER_MESSAGE_CHANNEL_TOPIC = "eleme.order.message.channel.topic";
+    public static final String ELEME_CALLBACK_MESSAGE_CHANNEL_TOPIC = "eleme.callback.message.channel.topic";
 
     public static final String KEY_SERVICE_SYSTEM_USERS = "_service_system_users";
 
@@ -120,5 +121,5 @@ public class Constants {
     public static final String KEY_ELEME_TOKENS = "_eleme_tokens";
     public static final String ELEME_TOKEN = "_eleme_token";
 
-    public static final String MEI_TUAN_ORDER_MESSAGE_CHANNEL = "mei.tuan.order.message.channel";
+    public static final String MEI_TUAN_ORDER_MESSAGE_CHANNEL_TOPIC = "mei.tuan.order.message.channel.topic";
 }
