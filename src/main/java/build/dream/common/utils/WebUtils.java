@@ -258,12 +258,15 @@ public class WebUtils {
     }
 
     public static String inputStreamToString(InputStream inputStream) throws IOException {
-        int length = 0;
-        byte[] buffer = new byte[1024];
         StringBuffer result = new StringBuffer();
-        while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
-            result.append(new String(buffer, 0, length, Constants.CHARSET_UTF_8));
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line = null;
+        while ((line = bufferedReader.readLine()) != null) {
+            result.append(line);
         }
+        bufferedReader.close();
+        inputStreamReader.close();
         return result.toString();
     }
 
