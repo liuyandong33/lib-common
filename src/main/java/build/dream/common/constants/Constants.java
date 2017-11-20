@@ -1,5 +1,7 @@
 package build.dream.common.constants;
 
+import java.nio.charset.Charset;
+
 /**
  * Created by liuyandong on 2017/7/24.
  */
@@ -11,8 +13,10 @@ public class Constants {
     /**
      * 字符集相关常量
      */
-    public static final String CHARSET_UTF_8 = "UTF-8";
-    public static final String CHARSET_GBK = "GBK";
+    public static final Charset CHARSET_UTF_8 = Charset.forName("UTF-8");
+    public static final Charset CHARSET_GBK = Charset.forName("GBK");
+    public static final String CHARSET_NAME_UTF_8 = "UTF-8";
+    public static final String CHARSET_NAME_GBK = "GBK";
 
     public static final String FALSE = "false";
     public static final String TRUE = "true";
