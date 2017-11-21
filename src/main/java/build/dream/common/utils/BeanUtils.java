@@ -10,12 +10,13 @@ import java.util.Set;
 
 public class BeanUtils {
     public static Map<String, Object> beanToMap(Object object) {
-        Class<?> beanClass = object.getClass();
-        Field[] fields = beanClass.getDeclaredFields();
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        for (Field field : fields) {
-            ReflectionUtils.makeAccessible(field);
-            map.put(field.getName(), ReflectionUtils.getField(field, object));
+        for (Class<?> clazz = object.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                ReflectionUtils.makeAccessible(field);
+                map.put(field.getName(), ReflectionUtils.getField(field, object));
+            }
         }
         return map;
     }
