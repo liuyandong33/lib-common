@@ -5,26 +5,26 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeItemNewSpec extends BasicDomain {
+public class ElemeOrderItemAttribute extends BasicDomain {
     /**
      * eleme item id
      */
-    private BigInteger elemeItemId;
+    private BigInteger elemeOrderItemId;
     /**
-     * 规格名称
+     * 属性名称
      */
     private String name;
     /**
-     * 规格值
+     * 属性值
      */
     private String value;
 
-    public BigInteger getElemeItemId() {
-        return elemeItemId;
+    public BigInteger getElemeOrderItemId() {
+        return elemeOrderItemId;
     }
 
-    public void setElemeItemId(BigInteger elemeItemId) {
-        this.elemeItemId = elemeItemId;
+    public void setElemeOrderItemId(BigInteger elemeOrderItemId) {
+        this.elemeOrderItemId = elemeOrderItemId;
     }
 
     public String getName() {

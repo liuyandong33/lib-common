@@ -200,8 +200,8 @@ CREATE TABLE eleme_group
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS eleme_item;
-CREATE TABLE eleme_item
+DROP TABLE IF EXISTS eleme_order_item;
+CREATE TABLE eleme_order_item
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     eleme_group_id BIGINT COMMENT 'eleme group id',
@@ -226,11 +226,11 @@ CREATE TABLE eleme_item
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS eleme_item_attribute;
-CREATE TABLE eleme_item_attribute
+DROP TABLE IF EXISTS eleme_order_item_attribute;
+CREATE TABLE eleme_order_item_attribute
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_item_id BIGINT COMMENT 'eleme item id',
+    eleme_order_item_id BIGINT COMMENT 'eleme_order_item.id',
     `name` VARCHAR(20) COMMENT '属性名称',
     `value` VARCHAR(20) COMMENT '属性值',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -241,11 +241,11 @@ CREATE TABLE eleme_item_attribute
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS eleme_item_new_spec;
-CREATE TABLE eleme_item_new_spec
+DROP TABLE IF EXISTS eleme_order_item_new_spec;
+CREATE TABLE eleme_order_item_new_spec
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_item_id BIGINT COMMENT 'eleme item id',
+    eleme_order_item_id BIGINT COMMENT 'eleme_order_item.id',
     `name` VARCHAR(20) COMMENT '规格名称',
     `value` VARCHAR(20) COMMENT '规格值',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -558,6 +558,9 @@ CREATE TABLE mei_tuan_order
     shipping_fee DECIMAL(11, 3) COMMENT '配送费',
     status TINYINT COMMENT '订单状态，1-用户已提交订单；2-可推送到App方平台也可推送到商家；4-商家已确认；6-已配送；8-已完成；9-已取消',
     total DECIMAL(11, 3) COMMENT '订单总价',
+    quantity INT COMMENT '菜品份数',
+    avg_send_time DECIMAL(11, 3) COMMENT '餐厅平均送餐时间，单位为分钟',
+    dinners_number INT COMMENT '用餐人数（0：用户没有选择用餐人数；1-10：用户选择的用餐人数；-10：10人以上用餐；99：用户不需要餐具）',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
     create_user_id BIGINT(20) NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '最后更新时间',
@@ -567,8 +570,8 @@ CREATE TABLE mei_tuan_order
 );
 
 
-DROP TABLE IF EXISTS mei_tuan_item;
-CREATE TABLE mei_tuan_item
+DROP TABLE IF EXISTS mei_tuan_order_item;
+CREATE TABLE mei_tuan_order_item
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id',

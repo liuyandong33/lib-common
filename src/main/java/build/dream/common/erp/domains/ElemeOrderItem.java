@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeItem extends BasicDomain {
+public class ElemeOrderItem extends BasicDomain {
     /**
      * 饿了么分组ID
      */

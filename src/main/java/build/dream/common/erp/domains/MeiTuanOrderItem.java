@@ -5,7 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class MeiTuanItem extends BasicDomain {
+public class MeiTuanOrderItem extends BasicDomain {
     /**
      * mei_tuan_order id
      */

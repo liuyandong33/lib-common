@@ -143,6 +143,18 @@ public class MeiTuanOrder extends BasicDomain {
      * 订单总价
      */
     private BigDecimal total;
+    /**
+     * 菜品份数
+     */
+    private Integer quantity;
+    /**
+     * 餐厅平均送餐时间，单位为分钟
+     */
+    private BigDecimal avgSendTime;
+    /**
+     * 用餐人数（0：用户没有选择用餐人数；1-10：用户选择的用餐人数；-10：10人以上用餐；99：用户不需要餐具）
+     */
+    private Integer dinnersNumber;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -414,5 +426,29 @@ public class MeiTuanOrder extends BasicDomain {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getAvgSendTime() {
+        return avgSendTime;
+    }
+
+    public void setAvgSendTime(BigDecimal avgSendTime) {
+        this.avgSendTime = avgSendTime;
+    }
+
+    public Integer getDinnersNumber() {
+        return dinnersNumber;
+    }
+
+    public void setDinnersNumber(Integer dinnersNumber) {
+        this.dinnersNumber = dinnersNumber;
     }
 }
