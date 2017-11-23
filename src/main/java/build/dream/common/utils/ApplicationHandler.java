@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -277,5 +278,15 @@ public class ApplicationHandler {
         if (object == null) {
             throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
         }
+    }
+
+    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?> argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
+        Method method = clazz.getMethod(methodName, argumentTypes);
+        return ReflectionUtils.invokeMethod(method, target, arguments);
+    }
+
+    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?> argumentTypes, Object[] arguments) throws NoSuchMethodException {
+        Method method = clazz.getMethod(methodName, argumentTypes);
+        return ReflectionUtils.invokeMethod(method, null, arguments);
     }
 }
