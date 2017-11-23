@@ -284,9 +284,4 @@ public class ApplicationHandler {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);
     }
-
-    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?> argumentTypes, Object[] arguments) throws NoSuchMethodException {
-        Method method = clazz.getMethod(methodName, argumentTypes);
-        return ReflectionUtils.invokeMethod(method, null, arguments);
-    }
 }
