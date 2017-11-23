@@ -261,7 +261,7 @@ public class ApplicationHandler {
         } else {
             userAgent = userAgent.toLowerCase();
             if (userAgent.contains("iphone") || userAgent.contains("android")) {
-                browserPlatform = Constants.BROWSER_TYPE_ALIPAY;
+                browserPlatform = Constants.BROWSER_PLATFORM_PHONE;
             } else {
                 browserPlatform = Constants.BROWSER_PLATFORM_PC;
             }
@@ -271,5 +271,11 @@ public class ApplicationHandler {
 
     public static void redirect(String url) throws IOException {
         ApplicationHandler.getHttpServletResponse().sendRedirect(url);
+    }
+
+    public static void notNull(Object object, String parameterName) {
+        if (object == null) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
     }
 }
