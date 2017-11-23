@@ -6,6 +6,7 @@ public class MethodCallMessenger {
     private Class<?>[] argumentTypes;
     private Object[] arguments;
     private Object target;
+    private Object returnValue;
 
     public String getClassName() {
         return className;
@@ -45,6 +46,14 @@ public class MethodCallMessenger {
 
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    public Object getReturnValue() {
+        return returnValue;
+    }
+
+    public void setReturnValue(Object returnValue) {
+        this.returnValue = returnValue;
     }
 
     public MethodCallMessenger invokeMethod() throws ClassNotFoundException, NoSuchMethodException {
