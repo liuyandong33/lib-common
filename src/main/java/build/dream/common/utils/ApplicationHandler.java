@@ -280,7 +280,7 @@ public class ApplicationHandler {
         }
     }
 
-    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?> argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
+    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);
     }
