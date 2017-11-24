@@ -331,7 +331,7 @@ CREATE TABLE notify_record
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '回调记录';
 
 
 CREATE TABLE logging_event(
@@ -407,7 +407,7 @@ CREATE TABLE wei_xin_public_account
     last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT = '微信公众号';
 
 DROP TABLE IF EXISTS app_authority;
 CREATE TABLE app_authority
@@ -468,7 +468,7 @@ CREATE TABLE wei_xin_public_platform_application
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT = '微信支付账号';
+) COMMENT = '微信公众';
 
 DROP TABLE IF EXISTS tenant_secret_key;
 CREATE TABLE tenant_secret_key
