@@ -498,6 +498,8 @@ CREATE TABLE eleme_callback_message
     `timestamp` BIGINT NOT NULL COMMENT 'timestamp',
     signature VARCHAR(50) NOT NULL COMMENT 'signature',
     user_id BIGINT NOT NULL COMMENT 'user id',
+    message_md5 VARCHAR(50) NOT NULL COMMENT 'message md5值',
+    handle_result TINYINT NOT NULL COMMENT '处理结果，1-成功，2-失败',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
