@@ -312,12 +312,11 @@ public class WebUtils {
     public static String inputStreamToString(InputStream inputStream, String charsetName) throws IOException {
         StringBuffer result = new StringBuffer();
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, charsetName);
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-        String line = null;
-        while ((line = bufferedReader.readLine()) != null) {
-            result.append(line);
+        int length = 0;
+        char[] buffer = new char[1024];
+        while ((length = inputStreamReader.read(buffer, 0, 1024)) != -1) {
+            result.append(buffer, 0, length);
         }
-        bufferedReader.close();
         inputStreamReader.close();
         return result.toString();
     }
