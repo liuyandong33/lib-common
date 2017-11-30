@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 /**
@@ -114,7 +115,7 @@ public class WebUtils {
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
-            String requestBody = buildQueryString(requestParameters);
+            String requestBody = buildRequestBody(requestParameters);
             httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
@@ -296,7 +297,16 @@ public class WebUtils {
         return httpURLConnection;
     }
 
-    public static String buildQueryString(Map<String, String> requestParameters) {
+    public static String buildQueryString(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+        List<String> requestParameterPairs = new ArrayList<String>();
+        Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
+        }
+        return StringUtils.join(requestParameterPairs, "&");
+    }
+
+    public static String buildRequestBody(Map<String, String> requestParameters) {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {

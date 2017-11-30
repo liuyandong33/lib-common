@@ -137,4 +137,8 @@ public class Constants {
 
     public static final Integer ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT = 1;
     public static final Integer ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT = 2;
+
+    public static final String KEY_WEI_XIN_PAY_ACCOUNTS = "_wei_xin_pay_accounts";
+    public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
+    public static final String KEY_UM_PAY_ACCOUNTS = "_um_pay_accounts";
 }
