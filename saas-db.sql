@@ -519,3 +519,20 @@ VALUES (4, 4, 'newellftrend@163.com', '2016051701409848', '2088911953796893', 'M
 com.ftrend.ftrendpos
 
 a3eb218f59c192ad72c92606f84eb9df
+
+DROP TABLE IF EXISTS um_pay_account;
+CREATE TABLE um_pay_account
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    um_pay_id VARCHAR(20) NOT NULL COMMENT 'um pay id',
+    merchant_private_key_path VARCHAR(255) NOT NULL COMMENT '商户私钥路径',
+    platform_public_key_path VARCHAR(255) NOT NULL COMMENT '平台公钥路径',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
