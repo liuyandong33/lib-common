@@ -60,7 +60,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         try {
             if (MapUtils.isNotEmpty(requestParameters)) {
-                requestUrl = requestUrl + "?" + buildQueryString(requestParameters);
+                requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
             }
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout);
             setRequestProperties(httpURLConnection, headers, charsetName);
@@ -115,7 +115,7 @@ public class WebUtils {
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
-            String requestBody = buildRequestBody(requestParameters);
+            String requestBody = buildRequestBody(requestParameters, charsetName);
             httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
@@ -297,20 +297,20 @@ public class WebUtils {
         return httpURLConnection;
     }
 
-    public static String buildQueryString(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+    public static String buildQueryString(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
-            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
+            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), charsetName));
         }
         return StringUtils.join(requestParameterPairs, "&");
     }
 
-    public static String buildRequestBody(Map<String, String> requestParameters) {
+    public static String buildRequestBody(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
-            requestParameterPairs.add(entry.getKey() + "=" + entry.getValue());
+            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), charsetName));
         }
         return StringUtils.join(requestParameterPairs, "&");
     }
