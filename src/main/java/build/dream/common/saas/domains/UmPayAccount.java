@@ -9,7 +9,6 @@ public class UmPayAccount extends BasicDomain {
     private BigInteger branchId;
     private String umPayId;
     private String merchantPrivateKeyPath;
-    private String platformPublicKeyPath;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -41,13 +40,5 @@ public class UmPayAccount extends BasicDomain {
 
     public void setMerchantPrivateKeyPath(String merchantPrivateKeyPath) {
         this.merchantPrivateKeyPath = merchantPrivateKeyPath;
-    }
-
-    public String getPlatformPublicKeyPath() {
-        return platformPublicKeyPath;
-    }
-
-    public void setPlatformPublicKeyPath(String platformPublicKeyPath) {
-        this.platformPublicKeyPath = platformPublicKeyPath;
     }
 }
