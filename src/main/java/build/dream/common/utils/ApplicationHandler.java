@@ -25,10 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by liuyandong on 2017/3/24.
@@ -276,6 +273,36 @@ public class ApplicationHandler {
 
     public static void notNull(Object object, String parameterName) {
         if (object == null) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
+    public static void isTrue(boolean expression, String parameterName) {
+        if (expression == false) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
+    public static void notEmpty(Object[] array, String parameterName) {
+        if (array == null || array.length == 0) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
+    public static void notEmpty(Collection collection, String parameterName) {
+        if (collection == null || collection.size() == 0) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
+    public static void notEmpty(Map map, String parameterName) {
+        if (map == null || map.size() == 0) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
+    public static void notEmpty(String string, String parameterName) {
+        if (string == null || string.length() == 0) {
             throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
         }
     }
