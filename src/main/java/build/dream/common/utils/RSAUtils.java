@@ -36,6 +36,17 @@ public class RSAUtils {
      */
     public static PublicKey restorePublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
+        return restorePublicKey(keyBytes);
+    }
+
+    /**
+     * 还原公钥
+     * @param keyBytes：公钥字节数组
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public static PublicKey restorePublicKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         return keyFactory.generatePublic(x509EncodedKeySpec);
@@ -50,6 +61,17 @@ public class RSAUtils {
      */
     public static PrivateKey restorePrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] keyBytes = Base64.decodeBase64(privateKey);
+        return restorePrivateKey(keyBytes);
+    }
+
+    /**
+     * 还原私钥
+     * @param keyBytes：私钥字节数组
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
+    public static PrivateKey restorePrivateKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
