@@ -307,6 +307,12 @@ public class ApplicationHandler {
         }
     }
 
+    public static void notEmpty(String[]... valueAndNames) {
+        for (String[] valueAndName : valueAndNames) {
+            notEmpty(valueAndName[0], valueAndName[1]);
+        }
+    }
+
     public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);
