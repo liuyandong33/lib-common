@@ -108,6 +108,10 @@ public class CacheUtils {
         return obtainValueOperations().getAndSet(key, value);
     }
 
+    public static Boolean exists(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
+
     /**
      * mget
      *
