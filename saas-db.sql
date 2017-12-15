@@ -177,7 +177,7 @@ CREATE TABLE eleme_authorized_tenant (
 
 DROP TABLE IF EXISTS eleme_branch_mapping;
 CREATE TABLE eleme_branch_mapping (
-    id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT "ID",
+    id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
     branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
     shop_id VARCHAR(20) NOT NULL COMMENT '饿了么门店ID',
@@ -215,7 +215,9 @@ CREATE TABLE order_detail (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     order_id BIGINT NOT NULL COMMENT '订单ID',
     goods_id BIGINT NOT NULL COMMENT '商品ID',
+    goods_name VARCHAR(20) NOT NULL COMMENT '产品名称',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
+    goods_specification_name VARCHAR(20) NOT NULL COMMENT '产品规格名称',
     branch_id BIGINT COMMENT '门店ID',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',

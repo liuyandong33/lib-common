@@ -1,11 +1,12 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class OrderDetail {
-    private BigInteger id;
+public class OrderDetail extends BasicDomain {
     /**
      * 订单ID
      */
@@ -15,9 +16,17 @@ public class OrderDetail {
      */
     private BigInteger goodsId;
     /**
+     * 产品名称
+     */
+    private String goodsName;
+    /**
      * 产品规格ID
      */
     private BigInteger goodsSpecificationId;
+    /**
+     * 产品规格名称
+     */
+    private String goodsSpecificationName;
     /**
      * 门店ID
      */
@@ -38,20 +47,6 @@ public class OrderDetail {
      * 数量
      */
     private Integer amount;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
-    private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public BigInteger getOrderId() {
         return orderId;
@@ -69,12 +64,28 @@ public class OrderDetail {
         this.goodsId = goodsId;
     }
 
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
     public BigInteger getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
     public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
+    }
+
+    public String getGoodsSpecificationName() {
+        return goodsSpecificationName;
+    }
+
+    public void setGoodsSpecificationName(String goodsSpecificationName) {
+        this.goodsSpecificationName = goodsSpecificationName;
     }
 
     public BigInteger getBranchId() {
@@ -115,53 +126,5 @@ public class OrderDetail {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public BigInteger getCreateUserId() {
-        return createUserId;
-    }
-
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
-    }
-
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
-    }
-
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
-    }
-
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
-    }
-
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
-    }
-
-    public boolean isDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
     }
 }
