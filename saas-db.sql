@@ -478,6 +478,7 @@ CREATE TABLE tenant_secret_key
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     public_key VARCHAR(500) NOT NULL COMMENT '公钥',
     private_key VARCHAR(2000) NOT NULL COMMENT '私钥',
+    platform_public_key VARCHAR(500) NOT NULL COMMENT '平台公钥',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

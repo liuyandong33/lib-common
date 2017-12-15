@@ -9,6 +9,7 @@ public class TenantSecretKey extends BasicDomain {
     private String tenantCode;
     private String publicKey;
     private String privateKey;
+    private String platformPublicKey;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -40,5 +41,13 @@ public class TenantSecretKey extends BasicDomain {
 
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
+    }
+
+    public String getPlatformPublicKey() {
+        return platformPublicKey;
+    }
+
+    public void setPlatformPublicKey(String platformPublicKey) {
+        this.platformPublicKey = platformPublicKey;
     }
 }
