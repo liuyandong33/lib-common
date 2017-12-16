@@ -1,6 +1,7 @@
 package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.ApiException;
 import build.dream.common.utils.CacheUtils;
 import build.dream.common.utils.GsonUtils;
 import build.dream.common.utils.JacksonUtils;
@@ -158,7 +159,7 @@ public class ApiRest {
         this.signature = signature;
     }
 
-    public void sign() throws InvalidKeySpecException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, SignatureException {
+    public void sign() {
         String dataJson = GsonUtils.toJson(data);
         String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         Map<String, String> sortedMap = new TreeMap<String, String>();
@@ -178,7 +179,11 @@ public class ApiRest {
             }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
+        try {
+            this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
+        } catch (Exception e) {
+            throw new ApiException("签名失败！");
+        }
     }
 
     public static ApiRest fromJson(String jsonString) throws IOException {
