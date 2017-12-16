@@ -1,12 +1,20 @@
 package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.utils.CacheUtils;
 import build.dream.common.utils.GsonUtils;
 import build.dream.common.utils.JacksonUtils;
+import build.dream.common.utils.SignatureUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by liuyandong on 2017/3/20.
@@ -19,11 +27,14 @@ public class ApiRest {
     private String error;
     private String result;
     private String requestId;
+    private String timestamp;
+    private String signature;
 
     public ApiRest() {
         this.requestId = UUID.randomUUID().toString();
         this.result = Constants.FAILURE;
         this.successful = false;
+        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(Exception e) {
@@ -31,6 +42,7 @@ public class ApiRest {
         this.error = e.getMessage();
         this.result = Constants.FAILURE;
         this.successful = false;
+        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(Object data, String message) {
@@ -39,6 +51,7 @@ public class ApiRest {
         this.requestId = UUID.randomUUID().toString();
         this.result = Constants.SUCCESS;
         this.successful = true;
+        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(String error) {
@@ -46,6 +59,7 @@ public class ApiRest {
         this.requestId = UUID.randomUUID().toString();
         this.result = Constants.FAILURE;
         this.successful = false;
+        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public void setSuccessful(boolean successful) {
@@ -126,6 +140,42 @@ public class ApiRest {
             }
         }
         return apiRest;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public void setSignature() throws InvalidKeySpecException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, SignatureException {
+        String dataJson = GsonUtils.toJson(data);
+        String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
+        Map<String, String> sortedMap = new TreeMap<String, String>();
+        sortedMap.put("successful", String.valueOf(successful));
+        sortedMap.put("data", dataJson);
+        sortedMap.put("className", className);
+        sortedMap.put("message", message);
+        sortedMap.put("error", error);
+        sortedMap.put("result", result);
+        sortedMap.put("requestId", requestId);
+        sortedMap.put("timestamp", timestamp);
+
+        List<String> pairs = new ArrayList<String>();
+        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            pairs.add(entry.getKey() + "=" + entry.getValue());
+        }
+        this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
     }
 
     public static ApiRest fromJson(String jsonString) throws IOException {

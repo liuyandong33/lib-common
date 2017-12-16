@@ -141,4 +141,6 @@ public class Constants {
     public static final String KEY_WEI_XIN_PAY_ACCOUNTS = "_wei_xin_pay_accounts";
     public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
     public static final String KEY_UM_PAY_ACCOUNTS = "_um_pay_accounts";
+
+    public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
 }
