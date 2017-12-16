@@ -158,7 +158,7 @@ public class ApiRest {
         this.signature = signature;
     }
 
-    public void setSignature() throws InvalidKeySpecException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, SignatureException {
+    public void sign() throws InvalidKeySpecException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, SignatureException {
         String dataJson = GsonUtils.toJson(data);
         String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         Map<String, String> sortedMap = new TreeMap<String, String>();
