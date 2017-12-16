@@ -173,6 +173,9 @@ public class ApiRest {
 
         List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            if (StringUtils.isBlank(entry.getValue())) {
+                continue;
+            }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
         this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
