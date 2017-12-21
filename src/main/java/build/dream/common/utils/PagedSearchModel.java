@@ -1,8 +1,8 @@
 package build.dream.common.utils;
 
 public class PagedSearchModel extends SearchModel {
-    private Integer offset;
-    private Integer maxResults;
+    private Integer page;
+    private Integer rows;
 
     public PagedSearchModel() {
 
@@ -12,24 +12,43 @@ public class PagedSearchModel extends SearchModel {
         super(setDeletedSearchCondition);
     }
 
-    public Integer getOffset() {
-        return offset;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setOffset(Integer offset) {
-        this.offset = offset;
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public Integer getRows() {
+        return rows;
+    }
+
+    public void setRows(Integer rows) {
+        this.rows = rows;
+    }
+
+    public Integer getOffset() {
+        return (page - 1) * rows;
     }
 
     public Integer getMaxResults() {
-        return maxResults;
+        return rows;
     }
 
-    public void setMaxResults(Integer maxResults) {
-        this.maxResults = maxResults;
+    /**
+     * 获取开始行号，oracle数据库专用
+     * @return
+     */
+    public Integer getStartRowNumber() {
+        return (page - 1) * rows;
     }
 
-    public void setOffsetAndMaxResults(Integer page, Integer rows) {
-        this.offset = (page - 1) * rows;
-        this.maxResults = rows;
+    /**
+     * 获取结束行号，oracle数据库专用
+     * @return
+     */
+    public Integer getEndRowNumber() {
+        return page * rows;
     }
 }
