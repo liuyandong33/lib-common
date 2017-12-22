@@ -194,7 +194,7 @@ public class WebUtils {
                         fileName = file.getName();
                     }
                     outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + ENTER_NEW_LINE).getBytes(charsetName));
-                    outputStream.write(("Content-Type:application/octet-stream" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
+                    outputStream.write(("Content-Type:" + MimeMappingUtils.obtainMimeTypeByFileName(fileName) + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
                     int length = 0;
                     byte[] buffer = new byte[1024];
                     while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
@@ -204,7 +204,7 @@ public class WebUtils {
                 }
                 outputStream.write(ENTER_NEW_LINE.getBytes(charsetName));
             }
-            outputStream.write((TWO_HYPHENS + BOUNDARY + TWO_HYPHENS).getBytes(charsetName));
+            outputStream.write((TWO_HYPHENS + BOUNDARY + TWO_HYPHENS + ENTER_NEW_LINE).getBytes(charsetName));
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
