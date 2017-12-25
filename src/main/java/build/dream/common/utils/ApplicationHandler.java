@@ -78,17 +78,21 @@ public class ApplicationHandler {
     }
 
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
-        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN);
+        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, "");
     }
 
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
+        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, prefix);
+    }
+
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern, String prefix) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
         T object = objectClass.newInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
 
         Field[] fields = objectClass.getDeclaredFields();
         for (Field field : fields) {
             String fieldName = field.getName();
-            String fieldValue = parameters.get(fieldName);
+            String fieldValue = parameters.get(prefix + fieldName);
             if (StringUtils.isBlank(fieldValue)) {
                 continue;
             }
