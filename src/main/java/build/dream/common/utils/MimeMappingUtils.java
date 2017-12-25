@@ -1030,12 +1030,23 @@ public class MimeMappingUtils {
         return MIME_MAPPINGS;
     }
 
-    public static String obtainMimeType(String extension) {
+    public static String obtainMimeTypeByExtension(String extension) {
         String mimeType = obtainMimeMappings().get(extension);
         if (StringUtils.isBlank(mimeType)) {
             mimeType = "application/octet-stream";
         }
         return mimeType;
+    }
+
+    public static String obtainMimeTypeByFileName(String fileName) {
+        int pointIndex = fileName.lastIndexOf(".");
+        String extension = null;
+        if (pointIndex >= 0) {
+            extension = fileName.substring(pointIndex + 1);
+        } else {
+            extension = fileName;
+        }
+        return obtainMimeTypeByExtension(extension);
     }
 
     public static String obtainMimeType() {
