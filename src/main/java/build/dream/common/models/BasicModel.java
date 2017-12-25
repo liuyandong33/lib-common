@@ -1,6 +1,6 @@
 package build.dream.common.models;
 
-import build.dream.common.ParameterName;
+import build.dream.common.annotations.ParameterName;
 import build.dream.common.utils.ApplicationHandler;
 import org.apache.commons.lang.Validate;
 
@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class BasicModel {
-    private List<String> obtainAllFieldNames() {
+    protected List<String> obtainAllFieldNames() {
         Class<?> modelClass = this.getClass();
         Field [] fields = modelClass.getDeclaredFields();
         List<String> allFieldNames = new ArrayList<String>();
@@ -22,11 +22,11 @@ public class BasicModel {
         return allFieldNames;
     }
 
-    private String obtainParameterName(String fieldName) throws NoSuchFieldException {
+    protected String obtainParameterName(String fieldName) throws NoSuchFieldException {
         Field field = this.getClass().getDeclaredField(fieldName);
         String parameterName = null;
         if (field != null) {
-            ParameterName parameterNameAnnotation = field.getAnnotation(ParameterName.class);
+            ParameterName parameterNameAnnotation = field.getDeclaredAnnotation(ParameterName.class);
             if (parameterNameAnnotation != null) {
                 parameterName = parameterNameAnnotation.value();
             } else {
