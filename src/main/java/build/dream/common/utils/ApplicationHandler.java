@@ -19,9 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -96,7 +94,6 @@ public class ApplicationHandler {
             if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                 continue;
             }
-
             String fieldName = field.getName();
             String fieldValue = parameters.get(prefix + fieldName);
             if (StringUtils.isBlank(fieldValue)) {
@@ -128,9 +125,157 @@ public class ApplicationHandler {
                 field.set(object, BigInteger.valueOf(Long.valueOf(fieldValue)));
             } else if (fieldClass == BigDecimal.class) {
                 field.set(object, BigDecimal.valueOf(Double.valueOf(fieldValue)));
+            } else if (fieldClass == List.class) {
+                Type type = field.getGenericType();
+                if (type instanceof ParameterizedType) {
+                    field.set(object, buildArrayList(type, fieldValue, ","));
+                }
             }
         }
         return object;
+    }
+
+    public static List<Byte> buildByteArrayList(String fieldValue, String separator) {
+        List<Byte> list = new ArrayList<Byte>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Byte.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Short> buildShortArrayList(String fieldValue, String separator) {
+        List<Short> list = new ArrayList<Short>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Short.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Integer> buildIntegerArrayList(String fieldValue, String separator) {
+        List<Integer> list = new ArrayList<Integer>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Integer.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Long> buildLongArrayList(String fieldValue, String separator) {
+        List<Long> list = new ArrayList<Long>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Long.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Float> buildFloatArrayList(String fieldValue, String separator) {
+        List<Float> list = new ArrayList<Float>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Float.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Double> buildDoubleArrayList(String fieldValue, String separator) {
+        List<Double> list = new ArrayList<Double>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Double.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<Character> buildCharacterArrayList(String fieldValue, String separator) {
+        List<Character> list = new ArrayList<Character>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(str.charAt(0));
+        }
+        return list;
+    }
+
+    public static List<Boolean> buildBooleanArrayList(String fieldValue, String separator) {
+        List<Boolean> list = new ArrayList<Boolean>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(Boolean.valueOf(str));
+        }
+        return list;
+    }
+
+    public static List<BigInteger> buildBigIntegerArrayList(String fieldValue, String separator) {
+        List<BigInteger> list = new ArrayList<BigInteger>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(BigInteger.valueOf(Long.valueOf(str)));
+        }
+        return list;
+    }
+
+    public static List<BigDecimal> buildBigDecimalArrayList(String fieldValue, String separator) {
+        List<BigDecimal> list = new ArrayList<BigDecimal>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(BigDecimal.valueOf(Double.valueOf(str)));
+        }
+        return list;
+    }
+
+    public static List<Date> buildDateArrayList(String fieldValue, String separator, String datePattern) {
+        List<Date> list = new ArrayList<Date>();
+        String[] array = fieldValue.split(separator);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+        try {
+            for (String str : array) {
+                list.add(simpleDateFormat.parse(str));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public static List<String> buildStringArrayList(String fieldValue, String separator) {
+        List<String> list = new ArrayList<String>();
+        String[] array = fieldValue.split(separator);
+        for (String str : array) {
+            list.add(str);
+        }
+        return list;
+    }
+
+    private static Object buildArrayList(Type type, String fieldValue, String separator) {
+        List<? extends Object> list = null;
+        if (type == Byte.class) {
+            list = buildByteArrayList(fieldValue, separator);
+        } else if (type == Short.class) {
+            list = buildShortArrayList(fieldValue, separator);
+        } else if (type == Integer.class) {
+            list = buildIntegerArrayList(fieldValue, separator);
+        } else if (type == Long.class) {
+            list = buildLongArrayList(fieldValue, separator);
+        } else if (type == Float.class) {
+            list = buildFloatArrayList(fieldValue, separator);
+        } else if (type == Double.class) {
+            list = buildFloatArrayList(fieldValue, separator);
+        } else if (type == Character.class) {
+            list = buildCharacterArrayList(fieldValue, separator);
+        } else if (type == Boolean.class) {
+            list = buildBooleanArrayList(fieldValue, separator);
+        } else if (type == BigInteger.class) {
+            list = buildBigIntegerArrayList(fieldValue, separator);
+        } else if (type == BigDecimal.class) {
+            list = buildBigDecimalArrayList(fieldValue, separator);
+        } else if (type == Date.class) {
+            list = buildDateArrayList(fieldValue, separator, Constants.DEFAULT_DATE_PATTERN);
+        } else if (type == String.class) {
+            list = buildStringArrayList(fieldValue, separator);
+        }
+        return list;
     }
 
     private static ApplicationContext applicationContext = null;
