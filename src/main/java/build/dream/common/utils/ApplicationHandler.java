@@ -21,6 +21,7 @@ import javax.validation.Validator;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -91,6 +92,11 @@ public class ApplicationHandler {
 
         Field[] fields = objectClass.getDeclaredFields();
         for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+
             String fieldName = field.getName();
             String fieldValue = parameters.get(prefix + fieldName);
             if (StringUtils.isBlank(fieldValue)) {
