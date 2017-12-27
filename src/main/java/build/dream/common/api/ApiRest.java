@@ -160,14 +160,21 @@ public class ApiRest {
     }
 
     public void sign() {
-        String dataJson = GsonUtils.toJson(data);
         String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
-        sortedMap.put("data", dataJson);
-        sortedMap.put("className", className);
-        sortedMap.put("message", message);
-        sortedMap.put("error", error);
+        if (this.data != null) {
+            sortedMap.put("data", GsonUtils.toJson(data));
+        }
+        if (StringUtils.isNotBlank(className)) {
+            sortedMap.put("className", className);
+        }
+        if (StringUtils.isNotBlank(message)) {
+            sortedMap.put("message", message);
+        }
+        if (StringUtils.isNotBlank(error)) {
+            sortedMap.put("error", error);
+        }
         sortedMap.put("result", result);
         sortedMap.put("requestId", requestId);
         sortedMap.put("timestamp", timestamp);
