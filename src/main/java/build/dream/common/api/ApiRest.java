@@ -151,6 +151,10 @@ public class ApiRest {
         this.timestamp = timestamp;
     }
 
+    public void setTimestamp(Date date) {
+        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(date);
+    }
+
     public String getSignature() {
         return signature;
     }
@@ -160,20 +164,10 @@ public class ApiRest {
     }
 
     public void sign() {
-        String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
         if (this.data != null) {
             sortedMap.put("data", GsonUtils.toJson(data));
-        }
-        if (StringUtils.isNotBlank(className)) {
-            sortedMap.put("className", className);
-        }
-        if (StringUtils.isNotBlank(message)) {
-            sortedMap.put("message", message);
-        }
-        if (StringUtils.isNotBlank(error)) {
-            sortedMap.put("error", error);
         }
         sortedMap.put("result", result);
         sortedMap.put("requestId", requestId);
@@ -186,6 +180,7 @@ public class ApiRest {
             }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
+        String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         try {
             this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
         } catch (Exception e) {
