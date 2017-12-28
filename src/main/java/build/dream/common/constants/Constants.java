@@ -143,4 +143,6 @@ public class Constants {
     public static final String KEY_UM_PAY_ACCOUNTS = "_um_pay_accounts";
 
     public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
+
+    public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
 }

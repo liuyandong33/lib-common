@@ -72,7 +72,7 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -125,7 +125,7 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -213,7 +213,7 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -265,7 +265,7 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, "访问链接(" + requestUrl + ")出错，响应状态码：" + responseCode);
+                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
