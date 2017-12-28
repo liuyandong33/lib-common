@@ -182,7 +182,7 @@ public class ApiRest {
         }
         String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         try {
-            this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), platformPrivateKey);
+            this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), Constants.CHARSET_NAME_UTF_8, platformPrivateKey, SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA, SignatureUtils.OUTPUT_TYPE_BASE64);
         } catch (Exception e) {
             throw new ApiException("签名失败！");
         }
