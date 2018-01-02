@@ -128,7 +128,7 @@ public class ApplicationHandler {
             } else if (fieldClass == List.class) {
                 Type type = field.getGenericType();
                 if (type instanceof ParameterizedType) {
-                    field.set(object, buildArrayList(type, fieldValue, ","));
+                    field.set(object, buildArrayList(((ParameterizedType) type).getActualTypeArguments()[0], fieldValue, ","));
                 }
             }
         }
