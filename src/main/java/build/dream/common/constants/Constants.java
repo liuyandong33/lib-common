@@ -146,4 +146,5 @@ public class Constants {
     public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
 
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
+    public static final String KEY_TENANT_SECRET_KEYS = "_tenant_secret_keys";
 }
