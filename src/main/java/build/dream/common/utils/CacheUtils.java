@@ -27,10 +27,6 @@ public class CacheUtils {
         return obtainStringRedisTemplate().opsForHash();
     }
 
-    public static SetOperations<String, String> obtainSetOperations() {
-        return obtainStringRedisTemplate().opsForSet();
-    }
-
     public static ListOperations<String, String> obtainListOperations() {
         return obtainStringRedisTemplate().opsForList();
     }
