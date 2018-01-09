@@ -4,6 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class DietOrderDetail extends BasicDomain {
     /**
@@ -58,6 +59,18 @@ public class DietOrderDetail extends BasicDomain {
      * 应付金额
      */
     private BigDecimal payableAmount;
+    /**
+     * 本地ID
+     */
+    private BigInteger localId;
+    /**
+     * 本地创建时间
+     */
+    private Date localCreateTime;
+    /**
+     * 本地最后更新时间
+     */
+    private Date localLastUpdateTime;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -161,5 +174,29 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setPayableAmount(BigDecimal payableAmount) {
         this.payableAmount = payableAmount;
+    }
+
+    public BigInteger getLocalId() {
+        return localId;
+    }
+
+    public void setLocalId(BigInteger localId) {
+        this.localId = localId;
+    }
+
+    public Date getLocalCreateTime() {
+        return localCreateTime;
+    }
+
+    public void setLocalCreateTime(Date localCreateTime) {
+        this.localCreateTime = localCreateTime;
+    }
+
+    public Date getLocalLastUpdateTime() {
+        return localLastUpdateTime;
+    }
+
+    public void setLocalLastUpdateTime(Date localLastUpdateTime) {
+        this.localLastUpdateTime = localLastUpdateTime;
     }
 }

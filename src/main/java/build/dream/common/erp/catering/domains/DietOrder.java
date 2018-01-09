@@ -99,6 +99,18 @@ public class DietOrder extends BasicDomain {
      * 联系人
      */
     private String consignee;
+    /**
+     * 本地ID
+     */
+    private BigInteger localId;
+    /**
+     * 本地创建时间
+     */
+    private Date localCreateTime;
+    /**
+     * 本地最后更新时间
+     */
+    private Date localLastUpdateTime;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -282,5 +294,29 @@ public class DietOrder extends BasicDomain {
 
     public void setConsignee(String consignee) {
         this.consignee = consignee;
+    }
+
+    public BigInteger getLocalId() {
+        return localId;
+    }
+
+    public void setLocalId(BigInteger localId) {
+        this.localId = localId;
+    }
+
+    public Date getLocalCreateTime() {
+        return localCreateTime;
+    }
+
+    public void setLocalCreateTime(Date localCreateTime) {
+        this.localCreateTime = localCreateTime;
+    }
+
+    public Date getLocalLastUpdateTime() {
+        return localLastUpdateTime;
+    }
+
+    public void setLocalLastUpdateTime(Date localLastUpdateTime) {
+        this.localLastUpdateTime = localLastUpdateTime;
     }
 }
