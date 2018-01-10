@@ -164,6 +164,15 @@ public class ApiRest {
         if (this.data != null) {
             sortedMap.put("data", GsonUtils.toJson(data));
         }
+        if (StringUtils.isNotBlank(className)) {
+            sortedMap.put("className", className);
+        }
+        if (StringUtils.isNotBlank(message)) {
+            sortedMap.put("message", message);
+        }
+        if (StringUtils.isNotBlank(error)) {
+            sortedMap.put("error", error);
+        }
         sortedMap.put("result", result);
         sortedMap.put("requestId", requestId);
         sortedMap.put("timestamp", timestamp);
