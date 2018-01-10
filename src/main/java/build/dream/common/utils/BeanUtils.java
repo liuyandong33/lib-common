@@ -90,7 +90,7 @@ public class BeanUtils {
         String classSimpleName = clazz.getSimpleName();
         insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(classSimpleName.substring(0, 1).toLowerCase() + classSimpleName.substring(1)));
         insertSql.append("(");
-        StringBuilder valuesSql = new StringBuilder(" VALUES(");
+        StringBuilder valuesSql = new StringBuilder(" VALUES (");
         while (clazz != Object.class) {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
@@ -151,7 +151,7 @@ public class BeanUtils {
         }
         insertSql.deleteCharAt(insertSql.length() - 1);
         insertSql.deleteCharAt(insertSql.length() - 1);
-        insertSql.append(") VALUES");
+        insertSql.append(") VALUES ");
         valuesSql.deleteCharAt(valuesSql.length() - 1);
         valuesSql.deleteCharAt(valuesSql.length() - 1);
         valuesSql.append(")");
