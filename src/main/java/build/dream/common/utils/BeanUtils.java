@@ -118,6 +118,45 @@ public class BeanUtils {
         return insertSql.toString();
     }
 
+    public static String[] generateInsertAllSql(String className) {
+        Class clazz = null;
+        try {
+            clazz = Class.forName(className);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        StringBuilder insertSql = new StringBuilder("INSERT INTO ");
+        String classSimpleName = clazz.getSimpleName();
+        insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(classSimpleName.substring(0, 1).toLowerCase() + classSimpleName.substring(1)));
+        insertSql.append("(");
+        StringBuilder valuesSql = new StringBuilder("(");
+        while (clazz != Object.class) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                    continue;
+                }
+                String fieldName = field.getName();
+                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                    continue;
+                }
+                insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(fieldName));
+                insertSql.append(", ");
+                valuesSql.append("#{item.").append(fieldName);
+                valuesSql.append("}, ");
+            }
+            clazz = clazz.getSuperclass();
+        }
+        insertSql.deleteCharAt(insertSql.length() - 1);
+        insertSql.deleteCharAt(insertSql.length() - 1);
+        insertSql.append(") VALUES");
+        valuesSql.deleteCharAt(valuesSql.length() - 1);
+        valuesSql.deleteCharAt(valuesSql.length() - 1);
+        valuesSql.append(")");
+        return new String[]{insertSql.toString(), valuesSql.toString()};
+    }
+
     public static String generateUpdateSql(String className) {
         Class clazz = null;
         try {
