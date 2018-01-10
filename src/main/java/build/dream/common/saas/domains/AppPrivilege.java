@@ -6,10 +6,9 @@ import java.math.BigInteger;
 
 public class AppPrivilege extends BasicDomain {
     private String privilegeCode;
+    private String privilegeName;
     private String serviceName;
-    private String resourceName;
     private String controllerName;
-    private String operateName;
     private String actionName;
     private BigInteger parentId;
     private String remark;
@@ -22,6 +21,14 @@ public class AppPrivilege extends BasicDomain {
         this.privilegeCode = privilegeCode;
     }
 
+    public String getPrivilegeName() {
+        return privilegeName;
+    }
+
+    public void setPrivilegeName(String privilegeName) {
+        this.privilegeName = privilegeName;
+    }
+
     public String getServiceName() {
         return serviceName;
     }
@@ -30,28 +37,12 @@ public class AppPrivilege extends BasicDomain {
         this.serviceName = serviceName;
     }
 
-    public String getResourceName() {
-        return resourceName;
-    }
-
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
     public String getControllerName() {
         return controllerName;
     }
 
     public void setControllerName(String controllerName) {
         this.controllerName = controllerName;
-    }
-
-    public String getOperateName() {
-        return operateName;
-    }
-
-    public void setOperateName(String operateName) {
-        this.operateName = operateName;
     }
 
     public String getActionName() {
