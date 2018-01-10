@@ -16,6 +16,10 @@ public class BeanUtils {
         for (Class<?> clazz = object.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                    continue;
+                }
                 ReflectionUtils.makeAccessible(field);
                 map.put(field.getName(), ReflectionUtils.getField(field, object));
             }
@@ -27,6 +31,10 @@ public class BeanUtils {
         T t = beanClass.newInstance();
         Field[] fields = beanClass.getDeclaredFields();
         for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
             ReflectionUtils.makeAccessible(field);
             String fieldName = field.getName();
             Object fieldValue = map.get(fieldName);
@@ -47,6 +55,10 @@ public class BeanUtils {
         xml.append(">");
         Field[] fields = objectClass.getDeclaredFields();
         for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
             ReflectionUtils.makeAccessible(field);
             String fieldName = field.getName();
             Object fieldValue = field.get(object);
