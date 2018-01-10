@@ -411,15 +411,18 @@ CREATE TABLE wei_xin_public_account
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号';
 
-DROP TABLE IF EXISTS app_authority;
-CREATE TABLE app_authority
+DROP TABLE IF EXISTS app_privilege;
+CREATE TABLE app_privilege
 (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    authority_name VARCHAR(20) NOT NULL COMMENT '权限名称',
-    parent_id BIGINT NOT NULL COMMENT '上级权限ID',
-    service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
-    controller_name VARCHAR(50) NOT NULL COMMENT 'controller name',
-    action_name VARCHAR(50) NOT NULL COMMENT 'action name',
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
+    service_name VARCHAR(50) NOT NULL COMMENT '服务名称',
+    resource_name VARCHAR(20) NOT NULL COMMENT '资源名称',
+    controller_name VARCHAR(50) COMMENT 'controller name',
+    operate_name VARCHAR(20) COMMENT '操作名称',
+    action_name VARCHAR(50) COMMENT 'action name',
+    parent_id BIGINT NOT NULL COMMENT '父级权限ID',
+    remark VARCHAR(255) COMMENT '备注',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -442,20 +445,20 @@ CREATE TABLE app_role
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS user_role_r;
-CREATE TABLE user_role_r
+DROP TABLE IF EXISTS user_app_role_r;
+CREATE TABLE user_app_role_r
 (
     user_id BIGINT NOT NULL COMMENT 'user id',
-    role_id BIGINT NOT NULL COMMENT 'role id',
-    PRIMARY KEY (user_id, role_id)
+    app_role_id BIGINT NOT NULL COMMENT 'app role id',
+    PRIMARY KEY (user_id, app_role_id)
 );
 
-DROP TABLE IF EXISTS role_authority_r;
-CREATE TABLE role_authority_r
+DROP TABLE IF EXISTS app_role_privilege_r;
+CREATE TABLE app_role_privilege_r
 (
-    role_id BIGINT NOT NULL COMMENT 'role id',
-    authority_id BIGINT NOT NULL COMMENT 'authority id',
-    PRIMARY KEY (role_id, authority_id)
+    app_role_id BIGINT NOT NULL COMMENT 'role id',
+    privilege_id BIGINT NOT NULL COMMENT 'privilege id',
+    PRIMARY KEY (app_role_id, privilege_id)
 );
 
 DROP TABLE IF EXISTS wei_xin_public_platform_application;
