@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.Transient;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -94,7 +95,7 @@ public class BeanUtils {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
                     continue;
                 }
                 String fieldName = field.getName();
@@ -134,7 +135,7 @@ public class BeanUtils {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
                     continue;
                 }
                 String fieldName = field.getName();
@@ -172,7 +173,7 @@ public class BeanUtils {
             Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
                     continue;
                 }
                 String fieldName = field.getName();
