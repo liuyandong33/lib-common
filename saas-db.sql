@@ -570,6 +570,7 @@ CREATE TABLE system_privilege
     controller_name VARCHAR(50) COMMENT 'controller name',
     action_name VARCHAR(50) COMMENT 'action name',
     parent_id BIGINT NOT NULL COMMENT '父级权限ID',
+    hidden TINYINT NOT NULL COMMENT '是否在权限设置页面隐藏，1-隐藏，2-不隐藏',
     remark VARCHAR(255) COMMENT '备注',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',

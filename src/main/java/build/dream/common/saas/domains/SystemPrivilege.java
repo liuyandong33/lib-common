@@ -12,6 +12,7 @@ public class SystemPrivilege extends BasicDomain {
     private String controllerName;
     private String actionName;
     private BigInteger parentId;
+    private boolean hidden;
     private String remark;
 
     public String getPrivilegeCode() {
@@ -68,6 +69,14 @@ public class SystemPrivilege extends BasicDomain {
 
     public void setParentId(BigInteger parentId) {
         this.parentId = parentId;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     public String getRemark() {
