@@ -7,6 +7,7 @@ import java.math.BigInteger;
 public class SystemPrivilege extends BasicDomain {
     private String privilegeCode;
     private String privilegeName;
+    private Integer privilegeType;
     private String serviceName;
     private String controllerName;
     private String actionName;
@@ -27,6 +28,14 @@ public class SystemPrivilege extends BasicDomain {
 
     public void setPrivilegeName(String privilegeName) {
         this.privilegeName = privilegeName;
+    }
+
+    public Integer getPrivilegeType() {
+        return privilegeType;
+    }
+
+    public void setPrivilegeType(Integer privilegeType) {
+        this.privilegeType = privilegeType;
     }
 
     public String getServiceName() {
