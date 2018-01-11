@@ -21,4 +21,11 @@ public class BasicServletContextListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
 
     }
+
+    public void previousInjectionBean(ServletContext servletContext, Class<?>... beanClasses) {
+        WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
+        for (Class<?> beanClass : beanClasses) {
+            webApplicationContext.getBean(beanClass);
+        }
+    }
 }
