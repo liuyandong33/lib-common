@@ -559,8 +559,8 @@ CREATE TABLE wei_xin_template_message
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS system_privilege;
-CREATE TABLE system_privilege
+DROP TABLE IF EXISTS background_privilege;
+CREATE TABLE background_privilege
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
