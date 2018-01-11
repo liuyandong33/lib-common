@@ -4,7 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 
-public class SystemPrivilege extends BasicDomain {
+public class BackgroundPrivilege extends BasicDomain {
     private String privilegeCode;
     private String privilegeName;
     private Integer privilegeType;
