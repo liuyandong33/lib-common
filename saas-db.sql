@@ -595,3 +595,53 @@ CREATE TABLE tenant_goods
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS pos_privilege;
+CREATE TABLE pos_privilege
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
+    privilege_name VARCHAR(20) NOT NULL COMMENT '权限名称',
+    service_name VARCHAR(50) NOT NULL COMMENT '服务名称',
+    controller_name VARCHAR(50) COMMENT 'controller name',
+    action_name VARCHAR(50) COMMENT 'action name',
+    parent_id BIGINT NOT NULL COMMENT '父级权限ID',
+    remark VARCHAR(255) COMMENT '备注',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS pos_role;
+CREATE TABLE pos_role
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    role_code VARCHAR(20) NOT NULL COMMENT '权限编码',
+    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS user_pos_role_r;
+CREATE TABLE user_pos_role_r
+(
+    user_id BIGINT NOT NULL COMMENT 'user id',
+    background_role_id BIGINT NOT NULL COMMENT 'background role id',
+    PRIMARY KEY (user_id, background_role_id)
+);
+
+DROP TABLE IF EXISTS pos_role_privilege_r;
+CREATE TABLE pos_role_privilege_r
+(
+    background_role_id BIGINT NOT NULL COMMENT 'background id',
+    privilege_id BIGINT NOT NULL COMMENT 'privilege id',
+    PRIMARY KEY (background_role_id, privilege_id)
+);

@@ -4,7 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 
-public class AppRole extends BasicDomain {
+public class PosRole extends BasicDomain {
     private BigInteger tenantId;
     private String roleCode;
     private String roleName;
