@@ -641,7 +641,7 @@ CREATE TABLE user_pos_role_r
 DROP TABLE IF EXISTS pos_role_privilege_r;
 CREATE TABLE pos_role_privilege_r
 (
-    background_role_id BIGINT NOT NULL COMMENT 'background id',
+    pos_role_id BIGINT NOT NULL COMMENT 'background id',
     privilege_id BIGINT NOT NULL COMMENT 'privilege id',
-    PRIMARY KEY (background_role_id, privilege_id)
+    PRIMARY KEY (pos_role_id, privilege_id)
 );
