@@ -128,6 +128,7 @@ CREATE TABLE wei_xin_pay_account
     sub_mch_id VARCHAR(50),
     operation_certificate_path VARCHAR(255) COMMENT '操作证书路径',
     operation_certificate_password VARCHAR(20) COMMENT '操作证书密码',
+    rsa_public_key VARCHAR(500) COMMENT 'rsa 公钥',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
     create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',

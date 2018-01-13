@@ -15,6 +15,7 @@ public class WeiXinPayAccount extends BasicDomain {
     private String apiSecretKey;
     private String subPublicAccountAppId;
     private String subOpenPlatformAppId;
+    private String rsaPublicKey;
     private String subMchId;
     private String operationCertificatePath;
     private String operationCertificatePassword;
@@ -76,20 +77,20 @@ public class WeiXinPayAccount extends BasicDomain {
         this.subOpenPlatformAppId = subOpenPlatformAppId;
     }
 
+    public String getRsaPublicKey() {
+        return rsaPublicKey;
+    }
+
+    public void setRsaPublicKey(String rsaPublicKey) {
+        this.rsaPublicKey = rsaPublicKey;
+    }
+
     public String getSubMchId() {
         return subMchId;
     }
 
     public void setSubMchId(String subMchId) {
         this.subMchId = subMchId;
-    }
-
-    public boolean isAcceptanceModel() {
-        return acceptanceModel;
-    }
-
-    public void setAcceptanceModel(boolean acceptanceModel) {
-        this.acceptanceModel = acceptanceModel;
     }
 
     public String getOperationCertificatePath() {
@@ -106,5 +107,13 @@ public class WeiXinPayAccount extends BasicDomain {
 
     public void setOperationCertificatePassword(String operationCertificatePassword) {
         this.operationCertificatePassword = operationCertificatePassword;
+    }
+
+    public boolean isAcceptanceModel() {
+        return acceptanceModel;
+    }
+
+    public void setAcceptanceModel(boolean acceptanceModel) {
+        this.acceptanceModel = acceptanceModel;
     }
 }
