@@ -12,10 +12,14 @@ import org.dom4j.io.SAXReader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.net.ssl.*;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.*;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.*;
 
 /**
@@ -62,7 +66,7 @@ public class WebUtils {
             if (MapUtils.isNotEmpty(requestParameters)) {
                 requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
             }
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout);
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout, null);
             setRequestProperties(httpURLConnection, headers, charsetName);
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
@@ -109,9 +113,9 @@ public class WebUtils {
 
     public static String doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
         String result = null;
-        HttpURLConnection httpURLConnection =  null;
+        HttpURLConnection httpURLConnection = null;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -163,7 +167,7 @@ public class WebUtils {
     public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
         String result = null;
         HttpURLConnection httpURLConnection = null;
-        httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+        httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
         try {
             if (headers == null) {
                 headers = new HashMap<String, String>();
@@ -225,34 +229,38 @@ public class WebUtils {
     }
 
     public static String doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
-        return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8);
+        return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, String requestBody, String charsetName) throws IOException {
-        return doPostWithRequestBody(requestUrl, null, requestBody, charsetName);
+    public static String doPostWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody) throws IOException {
-        return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8);
+    public static String doPostWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName) throws IOException {
-        return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName);
+    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody) throws IOException {
-        return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8);
+    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName) throws IOException {
-        return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName);
+    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName) throws IOException {
+    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
         String result = null;
         HttpURLConnection httpURLConnection = null;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout);
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -260,7 +268,7 @@ public class WebUtils {
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
-                return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName);
+                return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
                 result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
                 httpURLConnection.disconnect();
@@ -287,9 +295,16 @@ public class WebUtils {
         }
     }
 
-    public static HttpURLConnection buildHttpURLConnection(String requestUrl, String requestMethod, int readTimeout, int connectTimeout) throws IOException {
+    public static HttpURLConnection buildHttpURLConnection(String requestUrl, String requestMethod, int readTimeout, int connectTimeout, SSLSocketFactory sslSocketFactory) throws IOException {
         URL url = new URL(requestUrl);
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        HttpURLConnection httpURLConnection = null;
+        if (sslSocketFactory != null) {
+            HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+            httpsURLConnection.setSSLSocketFactory(sslSocketFactory);
+            httpURLConnection = httpsURLConnection;
+        } else {
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+        }
         httpURLConnection.setRequestMethod(requestMethod);
         httpURLConnection.setReadTimeout(readTimeout);
         httpURLConnection.setConnectTimeout(connectTimeout);
@@ -350,5 +365,32 @@ public class WebUtils {
             returnValue.put(element.getName(), element.getText());
         }
         return returnValue;
+    }
+
+    public static SSLSocketFactory initSSLSocketFactory(InputStream inputStream, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException, KeyManagementException {
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        KeyStore keyStore = KeyStore.getInstance("PKCS12");
+        keyStore.load(inputStream, password.toCharArray());
+        KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        keyManagerFactory.init(keyStore, password.toCharArray());
+        sslContext.init(keyManagerFactory.getKeyManagers(), new TrustManager[]{
+                new X509TrustManager() {
+                    @Override
+                    public X509Certificate[] getAcceptedIssuers() {
+                        return new X509Certificate[]{};
+                    }
+
+                    @Override
+                    public void checkClientTrusted(final X509Certificate[] arg0, final String arg1) throws CertificateException {
+
+                    }
+
+                    @Override
+                    public void checkServerTrusted(final X509Certificate[] arg0, final String arg1) throws CertificateException {
+
+                    }
+                }
+        }, new SecureRandom());
+        return sslContext.getSocketFactory();
     }
 }

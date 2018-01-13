@@ -126,8 +126,9 @@ CREATE TABLE wei_xin_pay_account
     sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
     sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
     sub_mch_id VARCHAR(50),
+    operation_certificate_path VARCHAR(255) COMMENT '操作证书路径',
+    operation_certificate_password VARCHAR(20) COMMENT '操作证书密码',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
-    account_type TINYINT COMMENT '账号类型，1-公众号支付、扫码支付、H5支付、刷卡支付，2-APP支付账号',
     create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
@@ -676,3 +677,20 @@ CREATE TABLE background_role_privilege_r
     privilege_id BIGINT NOT NULL COMMENT 'privilege id',
     PRIMARY KEY (background_role_id, privilege_id)
 );
+
+DROP TABLE IF EXISTS bank_account;
+CREATE TABLE bank_account
+(
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    bank_card_number VARCHAR(50) NOT NULL COMMENT '银行卡卡号',
+    cardholder VARCHAR(50) NOT NULL COMMENT '持卡人',
+    bank_name VARCHAR(20) NOT NULL COMMENT '开户行',
+    bank_code VARCHAR(20) NOT NULL COMMENT '开户行编号',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '微信支付账号';

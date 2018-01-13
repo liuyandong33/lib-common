@@ -16,8 +16,9 @@ public class WeiXinPayAccount extends BasicDomain {
     private String subPublicAccountAppId;
     private String subOpenPlatformAppId;
     private String subMchId;
+    private String operationCertificatePath;
+    private String operationCertificatePassword;
     private boolean acceptanceModel;
-    private Integer accountType;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -91,11 +92,19 @@ public class WeiXinPayAccount extends BasicDomain {
         this.acceptanceModel = acceptanceModel;
     }
 
-    public Integer getAccountType() {
-        return accountType;
+    public String getOperationCertificatePath() {
+        return operationCertificatePath;
     }
 
-    public void setAccountType(Integer accountType) {
-        this.accountType = accountType;
+    public void setOperationCertificatePath(String operationCertificatePath) {
+        this.operationCertificatePath = operationCertificatePath;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
     }
 }
