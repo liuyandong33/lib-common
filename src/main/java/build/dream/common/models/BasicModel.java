@@ -7,30 +7,34 @@ import org.apache.commons.lang.Validate;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class BasicModel {
-    protected List<String> obtainAllFieldNames() {
+    protected List<Field> obtainAllFields() {
         Class<?> modelClass = this.getClass();
         Field [] fields = modelClass.getDeclaredFields();
-        List<String> allFieldNames = new ArrayList<String>();
+        List<Field> allFields = new ArrayList<Field>();
         for (Field field : fields) {
-            allFieldNames.add(field.getName());
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+            allFields.add(field);
         }
-        return allFieldNames;
+        return allFields;
     }
 
-    protected String obtainParameterName(String fieldName) throws NoSuchFieldException {
-        Field field = this.getClass().getDeclaredField(fieldName);
+    protected String obtainParameterName(Field field) {
         String parameterName = null;
         if (field != null) {
             ParameterName parameterNameAnnotation = field.getDeclaredAnnotation(ParameterName.class);
             if (parameterNameAnnotation != null) {
                 parameterName = parameterNameAnnotation.value();
             } else {
-                parameterName = fieldName;
+                parameterName = field.getName();
             }
         }
         return parameterName;
@@ -40,9 +44,9 @@ public class BasicModel {
         Validator validator = ApplicationHandler.obtainValidator();
         boolean isValidateOk = true;
         if (validator != null) {
-            List<String> allFieldNames = obtainAllFieldNames();
-            for (String fieldName : allFieldNames) {
-                Iterator<ConstraintViolation<BasicModel>> iterator = validator.validateProperty(this, fieldName).iterator();
+            List<Field> allFields = obtainAllFields();
+            for (Field field : allFields) {
+                Iterator<ConstraintViolation<BasicModel>> iterator = validator.validateProperty(this, field.getName()).iterator();
                 if (iterator.hasNext()) {
                     isValidateOk = false;
                     break;
@@ -52,15 +56,14 @@ public class BasicModel {
         return isValidateOk;
     }
 
-    public void validateAndThrow() throws NoSuchFieldException {
+    public void validateAndThrow() {
         Validator validator = ApplicationHandler.obtainValidator();
         if (validator != null) {
-            List<String> allFieldNames = obtainAllFieldNames();
-            for (String fieldName : allFieldNames) {
-                Iterator<ConstraintViolation<BasicModel>> iterator = validator.validateProperty(this, fieldName).iterator();
+            List<Field> allFields = obtainAllFields();
+            for (Field field : allFields) {
+                Iterator<ConstraintViolation<BasicModel>> iterator = validator.validateProperty(this, field.getName()).iterator();
                 if (iterator.hasNext()) {
-//                Validate.isTrue(false, iterator.next().getMessage());
-                    Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(obtainParameterName(fieldName)));
+                    Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(obtainParameterName(field)));
                 }
             }
         }

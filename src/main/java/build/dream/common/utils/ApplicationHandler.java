@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
@@ -466,6 +467,10 @@ public class ApplicationHandler {
         for (String[] valueAndName : valueAndNames) {
             notEmpty(valueAndName[0], valueAndName[1]);
         }
+    }
+
+    public static void inArray(String[] array, String value, String name) {
+        Validate.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
     public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
