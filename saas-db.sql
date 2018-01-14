@@ -126,7 +126,7 @@ CREATE TABLE wei_xin_pay_account
     sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
     sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
     sub_mch_id VARCHAR(50),
-    operation_certificate_path VARCHAR(255) COMMENT '操作证书路径',
+    operation_certificate VARCHAR(5000) COMMENT '操作证书',
     operation_certificate_password VARCHAR(20) COMMENT '操作证书密码',
     rsa_public_key VARCHAR(500) COMMENT 'rsa 公钥',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',

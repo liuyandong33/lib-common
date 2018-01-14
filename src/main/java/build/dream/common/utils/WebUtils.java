@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -392,5 +393,10 @@ public class WebUtils {
                 }
         }, new SecureRandom());
         return sslContext.getSocketFactory();
+    }
+
+    public static SSLSocketFactory initSSLSocketFactory(String certificate, String password) throws IOException, UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.decodeBase64(certificate));
+        return initSSLSocketFactory(byteArrayInputStream, password);
     }
 }
