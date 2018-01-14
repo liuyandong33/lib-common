@@ -534,7 +534,7 @@ CREATE TABLE um_pay_account
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     um_pay_id VARCHAR(20) NOT NULL COMMENT 'um pay id',
-    merchant_private_key_path VARCHAR(255) NOT NULL COMMENT '商户私钥路径',
+    merchant_private_key VARCHAR(2000) NOT NULL COMMENT '商户私钥',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
