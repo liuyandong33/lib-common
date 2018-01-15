@@ -19,6 +19,8 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class RSAUtils {
     public static final String KEY_ALGORITHM = "RSA";
+    public static final String RSA_NONE_NOPADDING = "RSA/None/NoPadding";
+    public static final String RSA_ECB_OAEPWITHSHA1ANDMGF1PADDING = "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING";
 
     public static String[] generateKeyPair(int keySize) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
@@ -89,13 +91,13 @@ public class RSAUtils {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-    public static String encryptByPublicKey(String data, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
+    public static String encryptByPublicKey(String data, String publicKey, String paddingMode) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key key = keyFactory.generatePublic(x509KeySpec);
         // 对数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(paddingMode);
         cipher.init(Cipher.ENCRYPT_MODE, key);
         return Base64.encodeBase64String(cipher.doFinal(data.getBytes(Constants.CHARSET_UTF_8)));
     }
@@ -112,12 +114,12 @@ public class RSAUtils {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-    public static String encryptByPrivateKey(String data, String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, DecoderException, UnsupportedEncodingException {
+    public static String encryptByPrivateKey(String data, String privateKey, String paddingMode) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, DecoderException, UnsupportedEncodingException {
         byte[] keyBytes = Base64.decodeBase64(privateKey);
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key key = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(paddingMode);
         cipher.init(Cipher.ENCRYPT_MODE, key);
         return Base64.encodeBase64String(cipher.doFinal(data.getBytes(Constants.CHARSET_UTF_8)));
     }
@@ -134,22 +136,22 @@ public class RSAUtils {
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-    public static String decryptByPublicKey(String encryptedData, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, DecoderException, UnsupportedEncodingException {
+    public static String decryptByPublicKey(String encryptedData, String publicKey, String paddingMode) throws NoSuchAlgorithmException, InvalidKeySpecException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, DecoderException, UnsupportedEncodingException {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
         X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key key = keyFactory.generatePublic(x509KeySpec);
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(paddingMode);
         cipher.init(Cipher.DECRYPT_MODE, key);
         return new String(cipher.doFinal(Base64.decodeBase64(encryptedData)), Constants.CHARSET_UTF_8);
     }
 
-    public static String decryptByPrivateKey(String encryptedData, String privateKey) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
+    public static String decryptByPrivateKey(String encryptedData, String privateKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException, UnsupportedEncodingException {
         byte[] keyBytes = Base64.decodeBase64(privateKey);
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
         Key key = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+        Cipher cipher = Cipher.getInstance(paddingMode);
         cipher.init(Cipher.DECRYPT_MODE, key);
         return new String(cipher.doFinal(Base64.decodeBase64(encryptedData)), Constants.CHARSET_UTF_8);
     }
