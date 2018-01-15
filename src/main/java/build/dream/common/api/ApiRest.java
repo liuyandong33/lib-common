@@ -6,6 +6,7 @@ import build.dream.common.utils.CacheUtils;
 import build.dream.common.utils.GsonUtils;
 import build.dream.common.utils.JacksonUtils;
 import build.dream.common.utils.SignatureUtils;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -186,7 +187,7 @@ public class ApiRest {
         }
         String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
         try {
-            this.signature = SignatureUtils.sign(StringUtils.join(pairs, "&"), Constants.CHARSET_NAME_UTF_8, platformPrivateKey, SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA, SignatureUtils.OUTPUT_TYPE_BASE64);
+            this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(platformPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         } catch (Exception e) {
             throw new ApiException("签名失败！");
         }
