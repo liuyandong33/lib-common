@@ -19,8 +19,9 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class RSAUtils {
     public static final String KEY_ALGORITHM = "RSA";
-    public static final String RSA_NONE_NOPADDING = "RSA/None/NoPadding";
-    public static final String RSA_ECB_OAEPWITHSHA1ANDMGF1PADDING = "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING";
+    public static final String PADDING_MODE_RSA_NONE_NOPADDING = "RSA/None/NoPadding";
+    public static final String PADDING_MODE_RSA_ECB_OAEPWITHSHA1ANDMGF1PADDING = "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING";
+    public static final String PADDING_MODE_RSA_ECB_PKCS1PADDING = "RSA/ECB/PKCS1Padding";
 
     public static String[] generateKeyPair(int keySize) throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
