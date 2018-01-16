@@ -700,10 +700,11 @@ CREATE TABLE package_group
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '套餐组';
 
-DROP TABLE IF EXISTS package_group_goods_r;
-CREATE TABLE package_group_goods_r
+DROP TABLE IF EXISTS package_group_goods;
+CREATE TABLE package_group_goods
 (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     package_group_id BIGINT NOT NULL COMMENT 'package_group.id',
     goods_id BIGINT NOT NULL COMMENT 'goods.id',
-    PRIMARY KEY (package_group_id, goods_id)
-) COMMENT = '套餐组';
+    quantity INT NOT NULL COMMENT '商品数量'
+) COMMENT = '套餐组产品';
