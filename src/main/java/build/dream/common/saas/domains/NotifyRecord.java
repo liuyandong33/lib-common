@@ -8,6 +8,7 @@ public class NotifyRecord {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String orderNumber;
+    private String refundOrderNumber;
     private String notifyUrl;
     private Integer notifyResult;
     private String externalSystemNotifyRequestBody;
@@ -48,6 +49,14 @@ public class NotifyRecord {
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getRefundOrderNumber() {
+        return refundOrderNumber;
+    }
+
+    public void setRefundOrderNumber(String refundOrderNumber) {
+        this.refundOrderNumber = refundOrderNumber;
     }
 
     public String getNotifyUrl() {

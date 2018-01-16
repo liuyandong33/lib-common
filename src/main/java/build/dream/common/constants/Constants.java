@@ -148,4 +148,9 @@ public class Constants {
 
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
     public static final String KEY_TENANT_SECRET_KEYS = "_tenant_secret_keys";
+
+    public static final Integer NOTIFY_TYPE_WEI_XIN_PAY = 1;
+    public static final Integer NOTIFY_TYPE_ALIPAY = 2;
+    public static final Integer NOTIFY_TYPE_UM_PAY = 3;
+    public static final Integer NOTIFY_TYPE_WEI_XIN_REFUND = 4;
 }
