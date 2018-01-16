@@ -682,3 +682,28 @@ CREATE TABLE act_order_charge_by_poi
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS package_group;
+CREATE TABLE package_group
+(
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    package_id BIGINT NOT NULL COMMENT '套餐id',
+    group_type TINYINT NOT NULL COMMENT '套餐组类型，1-可选组，2-必选组',
+    optional_quantity INT COMMENT '可选数量',
+    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '套餐组';
+
+DROP TABLE IF EXISTS package_group_goods_r;
+CREATE TABLE package_group_goods_r
+(
+    package_group_id BIGINT NOT NULL COMMENT 'package_group.id',
+    goods_id BIGINT NOT NULL COMMENT 'goods.id',
+    PRIMARY KEY (package_group_id, goods_id)
+) COMMENT = '套餐组';
