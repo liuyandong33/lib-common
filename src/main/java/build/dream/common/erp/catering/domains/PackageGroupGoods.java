@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 public class PackageGroupGoods {
     private BigInteger id;
-    private BigInteger packageId;
+    private BigInteger packageGroupId;
     private BigInteger goodsId;
     private Integer quantity;
 
@@ -16,12 +16,12 @@ public class PackageGroupGoods {
         this.id = id;
     }
 
-    public BigInteger getPackageId() {
-        return packageId;
+    public BigInteger getPackageGroupId() {
+        return packageGroupId;
     }
 
-    public void setPackageId(BigInteger packageId) {
-        this.packageId = packageId;
+    public void setPackageGroupId(BigInteger packageGroupId) {
+        this.packageGroupId = packageGroupId;
     }
 
     public BigInteger getGoodsId() {
