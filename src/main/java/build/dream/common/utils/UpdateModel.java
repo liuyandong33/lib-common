@@ -48,7 +48,7 @@ public class UpdateModel {
         searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
     }
 
-    public void addContentValue(String column, Object value) {
-        contentValues.add(new ContentValue(column, value));
+    public void addContentValue(String columnName, Object value) {
+        contentValues.add(new ContentValue(columnName, value));
     }
 }
