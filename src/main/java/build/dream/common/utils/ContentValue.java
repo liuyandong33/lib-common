@@ -1,24 +1,24 @@
 package build.dream.common.utils;
 
 public class ContentValue {
-    private String column;
+    private String columnName;
     private Object value;
 
     public ContentValue() {
 
     }
 
-    public ContentValue(String column, Object value) {
-        this.column = column;
+    public ContentValue(String columnName, Object value) {
+        this.columnName = columnName;
         this.value = value;
     }
 
-    public String getColumn() {
-        return column;
+    public String getColumnName() {
+        return columnName;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
     }
 
     public Object getValue() {
