@@ -419,6 +419,7 @@ CREATE TABLE goods
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    goods_type TINYINT NOT NULL COMMENT '产品类型，1-普通商品，2-套餐',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

@@ -10,6 +10,10 @@ public class GoodsCategory extends BasicDomain {
      */
     private BigInteger tenantId;
     /**
+     * 商户编码
+     */
+    private String tenantCode;
+    /**
      * 商户ID
      */
     private BigInteger branchId;
