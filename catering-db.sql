@@ -709,3 +709,12 @@ CREATE TABLE package_group_goods
     goods_id BIGINT NOT NULL COMMENT 'goods.id',
     quantity INT NOT NULL COMMENT '商品数量'
 ) COMMENT = '套餐组产品';
+
+DROP TABLE IF EXISTS data_handle_history;
+CREATE TABLE data_handle_history (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    signature VARCHAR(50) NOT NULL COMMENT '数据签名',
+    data_type VARCHAR(20) NOT NULL COMMENT '数据类型',
+    data_content TEXT NOT NULL COMMENT '数据内容',
+    handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间',
+) COMMENT = '数据处理历史';
