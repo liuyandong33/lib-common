@@ -8,21 +8,9 @@ import java.util.Date;
 
 public class DietOrderDetail extends BasicDomain {
     /**
-     * 商户ID
+     * 餐厅订单ID，diet_order_group.id
      */
-    private BigInteger tenantId;
-    /**
-     * 门店ID
-     */
-    private BigInteger branchId;
-    /**
-     * 商户编码
-     */
-    private String tenantCode;
-    /**
-     * 餐厅订单ID，diet_order.id
-     */
-    private BigInteger dietOrderId;
+    private BigInteger dietOrderGroupId;
     /**
      * 产品ID，goods.id
      */
@@ -76,36 +64,12 @@ public class DietOrderDetail extends BasicDomain {
      */
     private Date localLastUpdateTime;
 
-    public BigInteger getTenantId() {
-        return tenantId;
+    public BigInteger getDietOrderGroupId() {
+        return dietOrderGroupId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
-    public BigInteger getDietOrderId() {
-        return dietOrderId;
-    }
-
-    public void setDietOrderId(BigInteger dietOrderId) {
-        this.dietOrderId = dietOrderId;
+    public void setDietOrderGroupId(BigInteger dietOrderGroupId) {
+        this.dietOrderGroupId = dietOrderGroupId;
     }
 
     public BigInteger getGoodsId() {

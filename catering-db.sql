@@ -125,12 +125,12 @@ DROP TABLE IF EXISTS diet_order_detail_goods_flavor;
 CREATE TABLE diet_order_detail_goods_flavor
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
-    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     diet_order_detail_id BIGINT NOT NULL COMMENT '订单明细ID',
+    goods_flavor_group_id BIGINT NOT NULL COMMENT 'goods_flavor_group.id',
     goods_flavor_group_name VARCHAR(20) NOT NULL COMMENT '口味组名称',
+    goods_flavor_id BIGINT NOT NULL COMMENT 'goods_flavor.id',
     goods_flavor_name VARCHAR(20) NOT NULL COMMENT '口味名称',
+    price DECIMAL(11, 3) COMMENT '口味加价',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

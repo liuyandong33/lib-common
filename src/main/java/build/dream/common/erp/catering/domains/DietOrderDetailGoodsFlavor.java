@@ -1,4 +1,4 @@
-package build.dream.common.saas.domains;
+package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
 
@@ -6,18 +6,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class DietOrderDetailGoodsFlavor extends BasicDomain {
-    /**
-     * 商户ID
-     */
-    private BigInteger tenantId;
-    /**
-     * 门店ID
-     */
-    private BigInteger branchId;
-    /**
-     * 商户编码
-     */
-    private String tenantCode;
     /**
      * 餐厅订单明细ID，diet_order_detail.id
      */
@@ -42,30 +30,6 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      * 口味加价，goods_flavor.price
      */
     private BigDecimal price;
-
-    public BigInteger getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
 
     public BigInteger getDietOrderDetailId() {
         return dietOrderDetailId;
