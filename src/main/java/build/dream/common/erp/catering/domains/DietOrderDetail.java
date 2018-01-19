@@ -32,6 +32,10 @@ public class DietOrderDetail extends BasicDomain {
      */
     private BigDecimal price;
     /**
+     * 口味加价
+     */
+    private BigDecimal flavorIncrease;
+    /**
      * 总数量
      */
     private Integer quantity;
@@ -110,6 +114,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getFlavorIncrease() {
+        return flavorIncrease;
+    }
+
+    public void setFlavorIncrease(BigDecimal flavorIncrease) {
+        this.flavorIncrease = flavorIncrease;
     }
 
     public Integer getQuantity() {
