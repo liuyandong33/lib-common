@@ -46,7 +46,7 @@ public class DietOrderDetail extends BasicDomain {
     /**
      * 总数量
      */
-    private Integer amount;
+    private Integer quantity;
     /**
      * 总金额
      */
@@ -62,7 +62,11 @@ public class DietOrderDetail extends BasicDomain {
     /**
      * 本地ID
      */
-    private BigInteger localId;
+    private String localId;
+    /**
+     * 本地订单ID
+     */
+    private String localDietOrderId;
     /**
      * 本地创建时间
      */
@@ -144,12 +148,12 @@ public class DietOrderDetail extends BasicDomain {
         this.price = price;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public BigDecimal getTotalAmount() {
@@ -176,12 +180,20 @@ public class DietOrderDetail extends BasicDomain {
         this.payableAmount = payableAmount;
     }
 
-    public BigInteger getLocalId() {
+    public String getLocalId() {
         return localId;
     }
 
-    public void setLocalId(BigInteger localId) {
+    public void setLocalId(String localId) {
         this.localId = localId;
+    }
+
+    public String getLocalDietOrderId() {
+        return localDietOrderId;
+    }
+
+    public void setLocalDietOrderId(String localDietOrderId) {
+        this.localDietOrderId = localDietOrderId;
     }
 
     public Date getLocalCreateTime() {

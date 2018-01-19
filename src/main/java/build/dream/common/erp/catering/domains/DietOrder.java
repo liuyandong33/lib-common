@@ -102,7 +102,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 本地ID
      */
-    private BigInteger localId;
+    private String localId;
     /**
      * 本地创建时间
      */
@@ -296,11 +296,11 @@ public class DietOrder extends BasicDomain {
         this.consignee = consignee;
     }
 
-    public BigInteger getLocalId() {
+    public String getLocalId() {
         return localId;
     }
 
-    public void setLocalId(BigInteger localId) {
+    public void setLocalId(String localId) {
         this.localId = localId;
     }
 
