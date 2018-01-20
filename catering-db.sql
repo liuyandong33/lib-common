@@ -60,8 +60,8 @@ DROP TABLE IF EXISTS diet_order;
 CREATE TABLE diet_order(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
-    branch_id BIGINT NOT NULL COMMENT '门店id',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-扫码点餐，2-饿了么订单，3-美团订单',
     order_status TINYINT NOT NULL COMMENT '订单状态，1-订单未生效，2-订单已生效',
@@ -93,13 +93,36 @@ CREATE TABLE diet_order(
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '餐厅订单';
 
+DROP TABLE IF EXISTS diet_order_group;
+CREATE TABLE diet_order_group
+(
+	  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+	  tenant_id BIGINT NOT NULL COMMENT '商户ID',
+	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+	  diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
+	  name VARCHAR(20) NOT NULL COMMENT '组名',
+	  type VARCHAR(20) NOT NULL COMMENT 'normal-正常的菜品，extra-配送费等，discount-赠品',
+	  local_id VARCHAR(50) COMMENT '本地ID',
+	  local_diet_order_id VARCHAR(50) COMMENT '本地订单ID，local_diet_order.local_id',
+	  local_create_time DATETIME COMMENT '本地创建时间',
+	  local_last_update_time DATETIME COMMENT '本地最后更新时间',
+	  create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+	  create_user_id BIGINT NOT NULL COMMENT '创建人id',
+	  last_update_time DATETIME DEFAULT now() ON UPDATE now() NOT NULL COMMENT '最后更新时间',
+	  last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+	  last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+	  deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '餐厅订单';
+
 DROP TABLE IF EXISTS diet_order_detail;
 CREATE TABLE diet_order_detail(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     diet_order_id BIGINT NOT NULL COMMENT '订单ID',
+    diet_order_group_id BIGINT NOT NULL COMMENT '订单组ID，diet_order_group.id',
     goods_id BIGINT NOT NULL COMMENT '菜品ID',
     goods_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
     goods_specification_id BIGINT COMMENT '菜品规格ID',
@@ -111,7 +134,8 @@ CREATE TABLE diet_order_detail(
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     local_id VARCHAR(50) COMMENT '本地ID',
-    local_diet_order_id VARCHAR(50) COMMENT '本地订单id',
+    local_diet_order_id VARCHAR(50) COMMENT '本地订单id，diet_order_id.local_id',
+    local_diet_order_group_id VARCHAR(50) COMMENT '本地订单组id，diet_order_group.local_id',
     local_create_time DATETIME COMMENT '本地创建时间',
     local_last_update_time DATETIME COMMENT '本地最后更新时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -126,12 +150,22 @@ DROP TABLE IF EXISTS diet_order_detail_goods_flavor;
 CREATE TABLE diet_order_detail_goods_flavor
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    diet_order_id BIGINT NOT NULL COMMENT '订单详情ID',
+    diet_order_group_id BIGINT NOT NULL COMMENT '订单组ID，diet_order_group.id',
     diet_order_detail_id BIGINT NOT NULL COMMENT '订单明细ID',
     goods_flavor_group_id BIGINT NOT NULL COMMENT 'goods_flavor_group.id',
     goods_flavor_group_name VARCHAR(20) NOT NULL COMMENT '口味组名称',
     goods_flavor_id BIGINT NOT NULL COMMENT 'goods_flavor.id',
     goods_flavor_name VARCHAR(20) NOT NULL COMMENT '口味名称',
     price DECIMAL(11, 3) COMMENT '口味加价',
+    local_id VARCHAR(50) COMMENT '本地ID',
+    local_diet_order_id VARCHAR(50) COMMENT '本地订单id，diet_order_id.local_id',
+    local_diet_order_group_id VARCHAR(50) COMMENT '本地订单组id，diet_order_group.local_id',
+    local_create_time DATETIME COMMENT '本地创建时间',
+    local_last_update_time DATETIME COMMENT '本地最后更新时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -388,6 +422,9 @@ DROP TABLE IF EXISTS goods_flavor_group;
 CREATE TABLE goods_flavor_group
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '口味组名称',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -402,6 +439,10 @@ DROP TABLE IF EXISTS goods_flavor;
 CREATE TABLE goods_flavor
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    goods_id BIGINT NOT NULL COMMENT '产品ID',
     goods_flavor_group_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '口味组名称',
     price DECIMAL(11, 3) COMMENT '口味加价',
@@ -436,6 +477,9 @@ DROP TABLE IF EXISTS goods_specification;
 CREATE TABLE goods_specification
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     price DECIMAL(11, 3) COMMENT '口味加价',

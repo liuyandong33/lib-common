@@ -8,6 +8,22 @@ import java.util.Date;
 
 public class DietOrderDetail extends BasicDomain {
     /**
+     * 商户ID
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编码
+     */
+    private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
+    /**
+     * diet_order.id
+     */
+    private BigInteger dietOrderId;
+    /**
      * 餐厅订单ID，diet_order_group.id
      */
     private BigInteger dietOrderGroupId;
@@ -60,6 +76,10 @@ public class DietOrderDetail extends BasicDomain {
      */
     private String localDietOrderId;
     /**
+     * 本地订单组ID
+     */
+    private String localDietOrderGroupId;
+    /**
      * 本地创建时间
      */
     private Date localCreateTime;
@@ -67,6 +87,38 @@ public class DietOrderDetail extends BasicDomain {
      * 本地最后更新时间
      */
     private Date localLastUpdateTime;
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public BigInteger getDietOrderId() {
+        return dietOrderId;
+    }
+
+    public void setDietOrderId(BigInteger dietOrderId) {
+        this.dietOrderId = dietOrderId;
+    }
 
     public BigInteger getDietOrderGroupId() {
         return dietOrderGroupId;
@@ -170,6 +222,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setLocalDietOrderId(String localDietOrderId) {
         this.localDietOrderId = localDietOrderId;
+    }
+
+    public String getLocalDietOrderGroupId() {
+        return localDietOrderGroupId;
+    }
+
+    public void setLocalDietOrderGroupId(String localDietOrderGroupId) {
+        this.localDietOrderGroupId = localDietOrderGroupId;
     }
 
     public Date getLocalCreateTime() {

@@ -7,6 +7,18 @@ import java.util.Date;
 
 public class DietOrderGroup extends BasicDomain {
     /**
+     * 商户ID
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编码
+     */
+    private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
+    /**
      * diet_order.id
      */
     private BigInteger dietOrderId;
@@ -34,6 +46,30 @@ public class DietOrderGroup extends BasicDomain {
      * 本地最后更新时间
      */
     private Date localLastUpdateTime;
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
 
     public BigInteger getDietOrderId() {
         return dietOrderId;
