@@ -469,7 +469,7 @@ public class ApplicationHandler {
         }
     }
 
-    public static void inArray(String[] array, String value, String name) {
+    public static void inArray(Object[] array, Object value, String name) {
         Validate.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
