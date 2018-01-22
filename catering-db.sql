@@ -459,10 +459,10 @@ DROP TABLE IF EXISTS goods;
 CREATE TABLE goods
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-    `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     goods_type TINYINT NOT NULL COMMENT '产品类型，1-普通商品，2-套餐',
     category_id BIGINT NOT NULL COMMENT '商品分类',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
