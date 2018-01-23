@@ -46,4 +46,5 @@ dependencies {
     compile("net.sf.json-lib:json-lib:2.4:jdk15")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     compile("org.springframework.session:spring-session-data-redis")
+    compile group: 'com.networknt', name: 'json-schema-validator', version: '0.1.13'
 }
