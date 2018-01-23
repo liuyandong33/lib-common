@@ -382,12 +382,12 @@ public class WebUtils {
                     }
 
                     @Override
-                    public void checkClientTrusted(final X509Certificate[] arg0, final String arg1) throws CertificateException {
+                    public void checkClientTrusted(final X509Certificate[] arg0, final String arg1) {
 
                     }
 
                     @Override
-                    public void checkServerTrusted(final X509Certificate[] arg0, final String arg1) throws CertificateException {
+                    public void checkServerTrusted(final X509Certificate[] arg0, final String arg1) {
 
                     }
                 }
