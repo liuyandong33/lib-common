@@ -143,6 +143,7 @@ public class Constants {
     public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
     public static final String KEY_UM_PAY_ACCOUNTS = "_um_pay_accounts";
     public static final String KEY_BANK_ACCOUNTS = "_back_accounts";
+    public static final String KEY_MIYA_PAY_ACCOUNTS = "_miya_pay_accounts";
 
     public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
 
