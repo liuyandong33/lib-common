@@ -8,7 +8,7 @@ public class MiyaPayAccount extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String account;
-    private String miyaKey;
+    private String miyaPayKey;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -34,11 +34,11 @@ public class MiyaPayAccount extends BasicDomain {
         this.account = account;
     }
 
-    public String getMiyaKey() {
-        return miyaKey;
+    public String getMiyaPayKey() {
+        return miyaPayKey;
     }
 
-    public void setMiyaKey(String miyaKey) {
-        this.miyaKey = miyaKey;
+    public void setMiyaPayKey(String miyaPayKey) {
+        this.miyaPayKey = miyaPayKey;
     }
 }
