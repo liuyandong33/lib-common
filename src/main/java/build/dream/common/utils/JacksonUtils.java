@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 public class JacksonUtils {
     private static ObjectMapper objectMapper = null;
 
-    public static ObjectMapper obtainObjectMapper(String datePattern) {
+    private static ObjectMapper obtainObjectMapper(String datePattern) {
         if (objectMapper == null) {
             objectMapper = new ObjectMapper();
         }
