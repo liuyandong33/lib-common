@@ -5,11 +5,27 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class ElemeActivity extends BasicDomain {
+public class ElemeOrderActivity extends BasicDomain {
     /**
-     * 饿了么订单ID
+     * 商户ID
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
+    private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
+    /**
+     * eleme_order.id
      */
     private BigInteger elemeOrderId;
+    /**
+     * 饿了么系统订单ID
+     */
+    private String orderId;
     /**
      * 饿了么活动ID
      */
@@ -35,12 +51,44 @@ public class ElemeActivity extends BasicDomain {
      */
     private BigDecimal amount;
 
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
     public BigInteger getElemeOrderId() {
         return elemeOrderId;
     }
 
     public void setElemeOrderId(BigInteger elemeOrderId) {
         this.elemeOrderId = elemeOrderId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 
     public BigInteger getElemeActivityId() {

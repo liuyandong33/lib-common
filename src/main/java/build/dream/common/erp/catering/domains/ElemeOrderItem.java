@@ -8,9 +8,29 @@ import java.util.Date;
 
 public class ElemeOrderItem extends BasicDomain {
     /**
+     * 商户ID
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
+    private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
+    /**
+     * eleme_order.id
+     */
+    private BigInteger elemeOrderId;
+    /**
+     * 饿了么系统订单ID
+     */
+    private String orderId;
+    /**
      * 饿了么分组ID
      */
-    private BigInteger elemeGroupId;
+    private BigInteger elemeOrderGroupId;
     /**
      * 饿了么食物ID
      */
@@ -64,12 +84,52 @@ public class ElemeOrderItem extends BasicDomain {
      */
     private BigInteger vfoodId;
 
-    public BigInteger getElemeGroupId() {
-        return elemeGroupId;
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setElemeGroupId(BigInteger elemeGroupId) {
-        this.elemeGroupId = elemeGroupId;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public BigInteger getElemeOrderId() {
+        return elemeOrderId;
+    }
+
+    public void setElemeOrderId(BigInteger elemeOrderId) {
+        this.elemeOrderId = elemeOrderId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public BigInteger getElemeOrderGroupId() {
+        return elemeOrderGroupId;
+    }
+
+    public void setElemeOrderGroupId(BigInteger elemeOrderGroupId) {
+        this.elemeOrderGroupId = elemeOrderGroupId;
     }
 
     public BigInteger getElemeItemId() {

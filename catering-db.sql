@@ -181,7 +181,6 @@ CREATE TABLE eleme_order
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-    branch_code VARCHAR(20) NOT NULL COMMENT '门店编码',
     address VARCHAR(100) COMMENT '顾客送餐地址',
     created_at DATETIME COMMENT '下单时间',
     active_at DATETIME COMMENT '订单生效时间，即支付时间，只有支付完成后才会推送订单，只有货到付款的订单生效时间等于下单时间',
@@ -220,6 +219,8 @@ CREATE TABLE eleme_order
     invoice_type VARCHAR(20) COMMENT '发票类型，personal-个人，company-企业',
     taxpayer_id VARCHAR(50) COMMENT '纳税人识别号',
     cold_box_fee DECIMAL(11, 3) COMMENT '冷链加价费',
+    cancel_order_description VARCHAR(255) COMMENT '用户取消原因',
+    cancel_order_created_at DATETIME COMMENT '用户申请取消时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -228,11 +229,15 @@ CREATE TABLE eleme_order
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS eleme_group;
-CREATE TABLE eleme_group
+DROP TABLE IF EXISTS eleme_order_group;
+CREATE TABLE eleme_order_group
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT 'eleme_order.id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     `name` VARCHAR(20) COMMENT '分组名称',
     `type` VARCHAR(20) COMMENT '分组类型，normal-正常的菜品，extra-配送费等，discount-赠品',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -247,7 +252,12 @@ DROP TABLE IF EXISTS eleme_order_item;
 CREATE TABLE eleme_order_item
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_group_id BIGINT COMMENT 'eleme group id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
+    eleme_order_group_id BIGINT NOT NULL COMMENT 'eleme group id',
     eleme_item_id BIGINT COMMENT '饿了么食物ID',
     sku_id BIGINT COMMENT '饿了么菜品规格ID',
     `name` VARCHAR(50) COMMENT '商品名称',
@@ -273,6 +283,11 @@ DROP TABLE IF EXISTS eleme_order_item_attribute;
 CREATE TABLE eleme_order_item_attribute
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     eleme_order_item_id BIGINT COMMENT 'eleme_order_item.id',
     `name` VARCHAR(20) COMMENT '属性名称',
     `value` VARCHAR(20) COMMENT '属性值',
@@ -288,6 +303,11 @@ DROP TABLE IF EXISTS eleme_order_item_new_spec;
 CREATE TABLE eleme_order_item_new_spec
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     eleme_order_item_id BIGINT COMMENT 'eleme_order_item.id',
     `name` VARCHAR(20) COMMENT '规格名称',
     `value` VARCHAR(20) COMMENT '规格值',
@@ -299,11 +319,15 @@ CREATE TABLE eleme_order_item_new_spec
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS eleme_activity;
-CREATE TABLE eleme_activity
+DROP TABLE IF EXISTS eleme_order_activity;
+CREATE TABLE eleme_order_activity
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT NOT NULL COMMENT '饿了么订单ID，eleme_order.id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     eleme_activity_id BIGINT COMMENT '饿了么活动ID',
     `name` VARCHAR(20) COMMENT '活动名称',
     category_id INT COMMENT '活动类别',

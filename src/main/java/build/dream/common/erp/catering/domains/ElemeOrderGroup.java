@@ -5,7 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeOrderItemAttribute extends BasicDomain {
+public class ElemeOrderGroup extends BasicDomain {
     /**
      * 商户ID
      */
@@ -27,17 +27,13 @@ public class ElemeOrderItemAttribute extends BasicDomain {
      */
     private String orderId;
     /**
-     * eleme item id
-     */
-    private BigInteger elemeOrderItemId;
-    /**
-     * 属性名称
+     * 分组名称
      */
     private String name;
     /**
-     * 属性值
+     * 分组类型，normal-正常的菜品，extra-配送费等，discount-赠品
      */
-    private String value;
+    private String type;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -79,14 +75,6 @@ public class ElemeOrderItemAttribute extends BasicDomain {
         this.orderId = orderId;
     }
 
-    public BigInteger getElemeOrderItemId() {
-        return elemeOrderItemId;
-    }
-
-    public void setElemeOrderItemId(BigInteger elemeOrderItemId) {
-        this.elemeOrderItemId = elemeOrderItemId;
-    }
-
     public String getName() {
         return name;
     }
@@ -95,11 +83,11 @@ public class ElemeOrderItemAttribute extends BasicDomain {
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public String getType() {
+        return type;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setType(String type) {
+        this.type = type;
     }
 }

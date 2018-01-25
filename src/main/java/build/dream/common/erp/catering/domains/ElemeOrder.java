@@ -7,10 +7,18 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeOrder extends BasicDomain {
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
-    private String branchCode;
     /**
      * 顾客送餐地址
      */
@@ -159,8 +167,18 @@ public class ElemeOrder extends BasicDomain {
      * 纳税人识别号
      */
     private String taxpayerId;
-
+    /**
+     * 冷链加价费
+     */
     private BigDecimal coldBoxFee;
+    /**
+     * 用户取消原因
+     */
+    private String cancelOrderDescription;
+    /**
+     * 用户申请取消时间
+     */
+    private Date cancelOrderCreatedAt;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -176,14 +194,6 @@ public class ElemeOrder extends BasicDomain {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
-    }
-
-    public String getBranchCode() {
-        return branchCode;
-    }
-
-    public void setBranchCode(String branchCode) {
-        this.branchCode = branchCode;
     }
 
     public BigInteger getBranchId() {
@@ -496,5 +506,21 @@ public class ElemeOrder extends BasicDomain {
 
     public void setColdBoxFee(BigDecimal coldBoxFee) {
         this.coldBoxFee = coldBoxFee;
+    }
+
+    public String getCancelOrderDescription() {
+        return cancelOrderDescription;
+    }
+
+    public void setCancelOrderDescription(String cancelOrderDescription) {
+        this.cancelOrderDescription = cancelOrderDescription;
+    }
+
+    public Date getCancelOrderCreatedAt() {
+        return cancelOrderCreatedAt;
+    }
+
+    public void setCancelOrderCreatedAt(Date cancelOrderCreatedAt) {
+        this.cancelOrderCreatedAt = cancelOrderCreatedAt;
     }
 }
