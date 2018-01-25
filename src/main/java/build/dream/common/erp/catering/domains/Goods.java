@@ -5,19 +5,12 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 
 public class Goods extends BasicDomain {
-    private String name;
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;
-    private Integer goodsType;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String name;
+    private Integer type;
+    private BigInteger categoryId;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -43,11 +36,27 @@ public class Goods extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public Integer getGoodsType() {
-        return goodsType;
+    public String getName() {
+        return name;
     }
 
-    public void setGoodsType(Integer goodsType) {
-        this.goodsType = goodsType;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public BigInteger getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(BigInteger categoryId) {
+        this.categoryId = categoryId;
     }
 }
