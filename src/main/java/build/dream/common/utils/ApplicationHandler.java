@@ -473,6 +473,10 @@ public class ApplicationHandler {
         Validate.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
+    public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
+        isTrue(JsonSchemaValidateUtils.validate(jsonString, schemaFilePath), parameterName);
+    }
+
     public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);

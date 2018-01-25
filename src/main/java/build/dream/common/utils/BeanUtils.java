@@ -45,7 +45,7 @@ public class BeanUtils {
     }
 
     public static String generateInsertSql(String className) {
-        return generateInsertSql(className);
+        return generateInsertSql(className, null);
     }
 
     public static String generateInsertSql(String className, String tableName) {

@@ -125,7 +125,7 @@ public class ApiRest {
         this.requestId = requestId;
     }
 
-    public static ApiRest fromJson(String jsonString, String datePattern) throws IOException {
+    public static ApiRest fromJson(String jsonString, String datePattern) {
         ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class);
         if (StringUtils.isNotBlank(apiRest.className)) {
             Class<?> clazz = null;
