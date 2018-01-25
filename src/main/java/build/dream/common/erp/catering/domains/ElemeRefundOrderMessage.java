@@ -8,6 +8,18 @@ import java.util.Date;
 
 public class ElemeRefundOrderMessage extends BasicDomain {
     /**
+     * 商户ID
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
+    private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
+    /**
      * 饿了么订单ID,eleme_order.id
      */
     private BigInteger elemeOrderId;
@@ -39,14 +51,30 @@ public class ElemeRefundOrderMessage extends BasicDomain {
      * 消息发送时间戳
      */
     private Date updateTime;
-    /**
-     * 商户ID
-     */
-    private BigInteger tenantId;
-    /**
-     * 门店ID
-     */
-    private BigInteger branchId;
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
 
     public BigInteger getElemeOrderId() {
         return elemeOrderId;
@@ -110,21 +138,5 @@ public class ElemeRefundOrderMessage extends BasicDomain {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public BigInteger getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
     }
 }

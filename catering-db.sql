@@ -346,7 +346,10 @@ DROP TABLE IF EXISTS eleme_refund_order_message;
 CREATE TABLE eleme_refund_order_message
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
     order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     refund_status VARCHAR(20) COMMENT '退单状态，noRefund-未申请退单，applied-用户申请退单，rejected-店铺拒绝退单，arbitrating-客服仲裁中，failed-退单失败，successful-退单成功',
     reason VARCHAR(255) COMMENT '退单操作原因描述',
@@ -354,8 +357,6 @@ CREATE TABLE eleme_refund_order_message
     refund_type VARCHAR(10) COMMENT '退单类型，normal-全额退款，part-部分退款',
     total_price DECIMAL(11, 3) COMMENT '退款金额',
     update_time DATETIME COMMENT '消息发送时间戳',
-    tenant_id BIGINT COMMENT '商户ID',
-    branch_id BIGINT COMMENT '门店ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -368,6 +369,11 @@ DROP TABLE IF EXISTS eleme_refund_order_message_goods_item;
 CREATE TABLE eleme_refund_order_message_goods_item
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     eleme_refund_order_message_id BIGINT NOT NULL COMMENT '饿了么退单消息ID',,
     `name` VARCHAR(20) COMMENT '商品名称',
     quantity INT COMMENT '商品数量',
