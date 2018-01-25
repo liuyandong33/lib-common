@@ -374,7 +374,7 @@ CREATE TABLE eleme_refund_order_message_goods_item
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
     order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    eleme_refund_order_message_id BIGINT NOT NULL COMMENT '饿了么退单消息ID',,
+    eleme_refund_order_message_id BIGINT NOT NULL COMMENT '饿了么退单消息ID',
     `name` VARCHAR(20) COMMENT '商品名称',
     quantity INT COMMENT '商品数量',
     price DECIMAL(11, 3) COMMENT '商品数量',
