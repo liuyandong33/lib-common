@@ -474,7 +474,14 @@ public class ApplicationHandler {
     }
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
+        isJson(jsonString, parameterName);
         isTrue(JsonSchemaValidateUtils.validate(jsonString, schemaFilePath), parameterName);
+    }
+
+    public static void isJson(String jsonString, String parameterName) {
+        notEmpty(jsonString, parameterName);
+        boolean isValidate = (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
+        ApplicationHandler.isTrue(isValidate, parameterName);
     }
 
     public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
