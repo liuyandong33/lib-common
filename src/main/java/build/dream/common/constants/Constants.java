@@ -155,4 +155,6 @@ public class Constants {
     public static final Integer NOTIFY_TYPE_ALIPAY = 2;
     public static final Integer NOTIFY_TYPE_UM_PAY = 3;
     public static final Integer NOTIFY_TYPE_WEI_XIN_REFUND = 4;
+
+    public static final String KEY_ELEME_CALLBACK_MESSAGE = "_eleme_callback_message";
 }

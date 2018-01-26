@@ -93,7 +93,7 @@ public class QueueUtils {
         return obtainListOperations().leftPop(key);
     }
 
-    public static String lpop(String key, long timeout, TimeUnit timeUnit) {
+    public static String blpop(String key, long timeout, TimeUnit timeUnit) {
         return obtainListOperations().leftPop(key, timeout, timeUnit);
     }
 
@@ -101,7 +101,7 @@ public class QueueUtils {
         return obtainListOperations().rightPop(key);
     }
 
-    public static String rpop(String key, long timeout, TimeUnit timeUnit) {
+    public static String brpop(String key, long timeout, TimeUnit timeUnit) {
         return obtainListOperations().rightPop(key, timeout, timeUnit);
     }
 
@@ -109,7 +109,7 @@ public class QueueUtils {
         return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey);
     }
 
-    public static String rpoplpush(String sourceKey, String destinationKey, long timeout, TimeUnit timeUnit) {
+    public static String brpoplpush(String sourceKey, String destinationKey, long timeout, TimeUnit timeUnit) {
         return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey, timeout, timeUnit);
     }
 }

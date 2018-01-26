@@ -1,7 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -25,10 +27,6 @@ public class CacheUtils {
 
     public static HashOperations<String, String, String> obtainHashOperations() {
         return obtainStringRedisTemplate().opsForHash();
-    }
-
-    public static ListOperations<String, String> obtainListOperations() {
-        return obtainStringRedisTemplate().opsForList();
     }
 
     /**
@@ -362,26 +360,6 @@ public class CacheUtils {
 
     public static Long hdel(String key, String... fields) {
         return obtainHashOperations().delete(key, fields);
-    }
-
-    public static Long lpush(String key, String value) {
-        return obtainListOperations().leftPush(key, value);
-    }
-
-    public static Long rpush(String key, String value) {
-        return obtainListOperations().rightPush(key, value);
-    }
-
-    public static String lpop(String key) {
-        return obtainListOperations().leftPop(key);
-    }
-
-    public static String rpop(String key) {
-        return obtainListOperations().rightPop(key);
-    }
-
-    public static Long llen(String key) {
-        return obtainListOperations().size(key);
     }
 
     public static String obtainSessionId(String sessionId) {
