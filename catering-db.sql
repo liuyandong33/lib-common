@@ -164,6 +164,7 @@ CREATE TABLE diet_order_detail_goods_flavor
     local_id VARCHAR(50) COMMENT '本地ID',
     local_diet_order_id VARCHAR(50) COMMENT '本地订单id，diet_order_id.local_id',
     local_diet_order_group_id VARCHAR(50) COMMENT '本地订单组id，diet_order_group.local_id',
+    local_diet_order_detail_id VARCHAR(50) COMMENT '本地订单详情id, diet_order_detail.local_id',
     local_create_time DATETIME COMMENT '本地创建时间',
     local_last_update_time DATETIME COMMENT '本地最后更新时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',

@@ -24,13 +24,13 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      */
     private BigInteger dietOrderId;
     /**
-     * 餐厅订单明细ID，diet_order_detail.id
-     */
-    private BigInteger dietOrderDetailId;
-    /**
      * 订单组id
      */
     private BigInteger dietOrderGroupId;
+    /**
+     * 餐厅订单明细ID，diet_order_detail.id
+     */
+    private BigInteger dietOrderDetailId;
     /**
      * 口味组ID，goods_flavor_group.id
      */
@@ -63,6 +63,10 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      * 本地订单组ID
      */
     private String localDietOrderGroupId;
+    /**
+     * 本地订单详情ID
+     */
+    private String localDietOrderDetailId;
     /**
      * 本地创建时间
      */
@@ -104,20 +108,20 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
         this.dietOrderId = dietOrderId;
     }
 
-    public BigInteger getDietOrderDetailId() {
-        return dietOrderDetailId;
-    }
-
-    public void setDietOrderDetailId(BigInteger dietOrderDetailId) {
-        this.dietOrderDetailId = dietOrderDetailId;
-    }
-
     public BigInteger getDietOrderGroupId() {
         return dietOrderGroupId;
     }
 
     public void setDietOrderGroupId(BigInteger dietOrderGroupId) {
         this.dietOrderGroupId = dietOrderGroupId;
+    }
+
+    public BigInteger getDietOrderDetailId() {
+        return dietOrderDetailId;
+    }
+
+    public void setDietOrderDetailId(BigInteger dietOrderDetailId) {
+        this.dietOrderDetailId = dietOrderDetailId;
     }
 
     public BigInteger getGoodsFlavorGroupId() {
@@ -182,6 +186,14 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
 
     public void setLocalDietOrderGroupId(String localDietOrderGroupId) {
         this.localDietOrderGroupId = localDietOrderGroupId;
+    }
+
+    public String getLocalDietOrderDetailId() {
+        return localDietOrderDetailId;
+    }
+
+    public void setLocalDietOrderDetailId(String localDietOrderDetailId) {
+        this.localDietOrderDetailId = localDietOrderDetailId;
     }
 
     public Date getLocalCreateTime() {

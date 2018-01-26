@@ -103,7 +103,7 @@ public class CacheUtils {
     }
 
     public static Boolean exists(String key) {
-        return stringRedisTemplate.hasKey(key);
+        return obtainStringRedisTemplate().hasKey(key);
     }
 
     /**
