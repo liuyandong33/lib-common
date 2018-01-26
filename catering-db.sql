@@ -790,7 +790,7 @@ CREATE TABLE data_handle_history (
     signature VARCHAR(50) NOT NULL COMMENT '数据签名',
     data_type VARCHAR(20) NOT NULL COMMENT '数据类型',
     data_content TEXT NOT NULL COMMENT '数据内容',
-    handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间',
+    handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间'
 ) COMMENT = '数据处理历史';
 
 DROP TABLE IF EXISTS vip;
