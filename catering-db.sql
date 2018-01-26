@@ -792,3 +792,25 @@ CREATE TABLE data_handle_history (
     data_content TEXT NOT NULL COMMENT '数据内容',
     handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间',
 ) COMMENT = '数据处理历史';
+
+DROP TABLE IF EXISTS vip;
+CREATE TABLE vip
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_code VARCHAR(20) NOT NULL COMMENT '会员编号',
+    vip_name VARCHAR(20) NOT NULL COMMENT '会员姓名',
+    birthday DATE COMMENT '会员生日',
+    phone_number VARCHAR(20) NOT NULL COMMENT '手机号码',
+    open_id VARCHAR(50) COMMENT '微信open id',
+    main_open_id VARCHAR(50) COMMENT '微信主账号open id',
+    alipay_user_id VARCHAR(50) COMMENT '支付宝user id',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+);
