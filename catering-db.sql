@@ -530,7 +530,7 @@ CREATE TABLE activity
     name VARCHAR(20) NOT NULL COMMENT '活动名称',
     start_time DATETIME NOT NULL COMMENT '开始时间',
     end_time DATETIME NOT NULL COMMENT '结束时间',
-    type TINYINT NOT NULL COMMENT '活动类型，1-买增活动，2-整单优惠',
+    type TINYINT NOT NULL COMMENT '活动类型，1-买赠活动，2-整单优惠',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
