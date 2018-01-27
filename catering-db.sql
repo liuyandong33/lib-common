@@ -839,3 +839,16 @@ CREATE TABLE diet_order_activity
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '订单参与的活动';
+
+CREATE TABLE can_not_delete_reason
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    table_id BIGINT NOT NULL COMMENT '表id',
+    table_name VARCHAR(100) NOT NULL COMMENT '表名',
+    cause_table_id BIGINT NOT NULL COMMENT '导致不能删除的表id',
+    cause_table_name VARCHAR(100) NOT NULL COMMENT '导致不能删除的表名字',
+    reason VARCHAR(255) NOT NULL COMMENT '原因'
+) COMMENT '不能删除的原因';
