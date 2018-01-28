@@ -3,10 +3,80 @@ package build.dream.common.erp.catering.domains;
 import java.math.BigInteger;
 
 public class ActivityBuyGive extends BasicActivity {
+    /**
+     * 商户id
+     */
+    private BigInteger tenantId;
+    /**
+     * 商户编码
+     */
+    private String tenantCode;
+    /**
+     * 门店id
+     */
+    private BigInteger branchId;
+    /**
+     * 活动id
+     */
+    private BigInteger activityId;
+    /**
+     * 购买商品id
+     */
     private BigInteger buyGoodsId;
-    private Integer buyAmount;
+    /**
+     * 购买商品规格id
+     */
+    private BigInteger buyGoodsSpecificationId;
+    /**
+     * 购买数量
+     */
+    private Integer buyQuantity;
+    /**
+     * 赠送商品id
+     */
     private BigInteger giveGoodsId;
-    private Integer giveAmount;
+    /**
+     * 赠送商品规格id
+     */
+    private BigInteger giveGoodsSpecificationId;
+    /**
+     * 赠送数量
+     */
+    private Integer giveQuantity;
+
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    @Override
+    public BigInteger getActivityId() {
+        return activityId;
+    }
+
+    @Override
+    public void setActivityId(BigInteger activityId) {
+        this.activityId = activityId;
+    }
 
     public BigInteger getBuyGoodsId() {
         return buyGoodsId;
@@ -16,12 +86,20 @@ public class ActivityBuyGive extends BasicActivity {
         this.buyGoodsId = buyGoodsId;
     }
 
-    public Integer getBuyAmount() {
-        return buyAmount;
+    public BigInteger getBuyGoodsSpecificationId() {
+        return buyGoodsSpecificationId;
     }
 
-    public void setBuyAmount(Integer buyAmount) {
-        this.buyAmount = buyAmount;
+    public void setBuyGoodsSpecificationId(BigInteger buyGoodsSpecificationId) {
+        this.buyGoodsSpecificationId = buyGoodsSpecificationId;
+    }
+
+    public Integer getBuyQuantity() {
+        return buyQuantity;
+    }
+
+    public void setBuyQuantity(Integer buyQuantity) {
+        this.buyQuantity = buyQuantity;
     }
 
     public BigInteger getGiveGoodsId() {
@@ -32,11 +110,19 @@ public class ActivityBuyGive extends BasicActivity {
         this.giveGoodsId = giveGoodsId;
     }
 
-    public Integer getGiveAmount() {
-        return giveAmount;
+    public BigInteger getGiveGoodsSpecificationId() {
+        return giveGoodsSpecificationId;
     }
 
-    public void setGiveAmount(Integer giveAmount) {
-        this.giveAmount = giveAmount;
+    public void setGiveGoodsSpecificationId(BigInteger giveGoodsSpecificationId) {
+        this.giveGoodsSpecificationId = giveGoodsSpecificationId;
+    }
+
+    public Integer getGiveQuantity() {
+        return giveQuantity;
+    }
+
+    public void setGiveQuantity(Integer giveQuantity) {
+        this.giveQuantity = giveQuantity;
     }
 }
