@@ -567,8 +567,12 @@ DROP TABLE IF EXISTS activity_full_reduction;
 CREATE TABLE activity_full_reduction
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
+    discount_type TINYINT NOT NULL COMMENT '优惠方式，1-按金额优惠，2-按折扣率优惠',
     discount_rate DECIMAL(5, 2) COMMENT '折扣率',
     discount_amount DECIMAL(11, 3) COMMENT '折扣金额',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',

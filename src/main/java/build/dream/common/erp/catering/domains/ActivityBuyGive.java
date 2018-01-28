@@ -1,8 +1,10 @@
 package build.dream.common.erp.catering.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 
-public class ActivityBuyGive extends BasicActivity {
+public class ActivityBuyGive extends BasicDomain {
     /**
      * 商户id
      */
@@ -68,12 +70,10 @@ public class ActivityBuyGive extends BasicActivity {
         this.branchId = branchId;
     }
 
-    @Override
     public BigInteger getActivityId() {
         return activityId;
     }
 
-    @Override
     public void setActivityId(BigInteger activityId) {
         this.activityId = activityId;
     }
