@@ -541,8 +541,8 @@ CREATE TABLE activity
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS activity_buy_give;
-CREATE TABLE activity_buy_give
+DROP TABLE IF EXISTS buy_give_activity;
+CREATE TABLE buy_give_activity
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
@@ -563,8 +563,8 @@ CREATE TABLE activity_buy_give
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
-DROP TABLE IF EXISTS activity_full_reduction;
-CREATE TABLE activity_full_reduction
+DROP TABLE IF EXISTS full_reduction_activity;
+CREATE TABLE full_reduction_activity
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',

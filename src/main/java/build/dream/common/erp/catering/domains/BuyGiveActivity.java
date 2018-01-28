@@ -4,7 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 
-public class ActivityBuyGive extends BasicDomain {
+public class BuyGiveActivity extends BasicDomain {
     /**
      * 商户id
      */

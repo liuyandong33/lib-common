@@ -5,7 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class ActivityFullReduction extends BasicDomain {
+public class FullReductionActivity extends BasicDomain {
     /**
      * 商户id
      */

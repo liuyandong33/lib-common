@@ -4,6 +4,10 @@ import java.math.BigInteger;
 
 public class CanNotDeleteReason {
     /**
+     * id
+     */
+    private BigInteger id;
+    /**
      * 商户ID
      */
     private BigInteger tenantId;
