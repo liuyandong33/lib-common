@@ -2,7 +2,7 @@ package build.dream.common.erp.catering.domains;
 
 import java.math.BigInteger;
 
-public class CanNotDeleteReason {
+public class CanNotOperateReason {
     /**
      * id
      */
@@ -35,6 +35,10 @@ public class CanNotDeleteReason {
      * 导致不能删除的表名字
      */
     private String causeTableName;
+    /**
+     * 操作类型，1-编辑，2-删除，3-编辑和删除
+     */
+    private Integer operateType;
     /**
      * 原因
      */
@@ -94,6 +98,14 @@ public class CanNotDeleteReason {
 
     public void setCauseTableName(String causeTableName) {
         this.causeTableName = causeTableName;
+    }
+
+    public Integer getOperateType() {
+        return operateType;
+    }
+
+    public void setOperateType(Integer operateType) {
+        this.operateType = operateType;
     }
 
     public String getReason() {

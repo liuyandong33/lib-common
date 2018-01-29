@@ -851,7 +851,8 @@ CREATE TABLE vip
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 );
 
-CREATE TABLE can_not_delete_reason
+DROP TABLE IF EXISTS can_not_operate_reason;
+CREATE TABLE can_not_operate_reason
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
