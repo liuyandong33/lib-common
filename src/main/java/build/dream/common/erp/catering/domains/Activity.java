@@ -31,7 +31,7 @@ public class Activity extends BasicDomain {
      */
     private Date endTime;
     /**
-     * 活动类型，1-买A赠B活动
+     * 活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动
      */
     private Integer type;
     /**
