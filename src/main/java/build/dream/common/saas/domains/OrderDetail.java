@@ -35,6 +35,10 @@ public class OrderDetail extends BasicDomain {
      */
     private BigDecimal price;
     /**
+     * 总金额
+     */
+    private BigDecimal totalAmount;
+    /**
      * 优惠金额
      */
     private BigDecimal discountAmount;
@@ -101,6 +105,14 @@ public class OrderDetail extends BasicDomain {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
     public BigDecimal getDiscountAmount() {

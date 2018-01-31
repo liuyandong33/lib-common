@@ -233,6 +233,7 @@ CREATE TABLE order_detail (
     goods_specification_name VARCHAR(20) NOT NULL COMMENT '产品规格名称',
     branch_id BIGINT COMMENT '门店ID',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
+    total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     quantity INT NOT NULL COMMENT '数量',
