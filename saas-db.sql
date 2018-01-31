@@ -42,9 +42,6 @@ CREATE TABLE tenant
     email VARCHAR(20) NOT NULL COMMENT '邮箱',
     linkman VARCHAR(20) NOT NULL COMMENT '联系人',
     business VARCHAR(10) NOT NULL COMMENT '业态',
-    province_code VARCHAR(10) NOT NULL COMMENT '省编码',
-    city_code VARCHAR(10) NOT NULL COMMENT '市编码',
-    district_code VARCHAR(10) NOT NULL COMMENT '区编码',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     user_id BIGINT NOT NULL COMMENT '用户ID',
     tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
@@ -81,11 +78,6 @@ CREATE TABLE `system_user`
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统用户表';
 
-INSERT INTO system_user(id, name, mobile, email, login_name, user_type, password, tenant_id, account_non_expired, account_non_locked, credentials_non_expired, enabled, create_user_id, last_update_user_id)
-VALUES (-1, 'out', NULL, NULL, 'out', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0),
-    (-2, 'platform', NULL, NULL, 'platform', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0),
-    (-3, 'zd1:erp', NULL, NULL, 'zd1:erp', 3, md5('123456'), NULL, 1, 1, 1, 1, 0, 0);
-
 DROP TABLE IF EXISTS sequence;
 CREATE TABLE sequence
 (
@@ -95,23 +87,23 @@ CREATE TABLE sequence
 );
 
 DROP FUNCTION IF EXISTS current_value;
-CREATE FUNCTION current_value(seq_name VARCHAR(50)) RETURNS INT(11)
+CREATE FUNCTION current_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
     DECLARE value int;
     SET value = 0;
-    SELECT current_value INTO value FROM sequence WHERE name = seq_name;
+    SELECT current_value INTO value FROM sequence WHERE name = sequence_name;
     IF value = 0 THEN
         SET value = 1;
-        INSERT INTO sequence(name, current_value) VALUES(seq_name, value);
+        INSERT INTO sequence(name, current_value) VALUES(sequence_name, value);
     END if;
     return value;
 END;
 
 DROP FUNCTION IF EXISTS next_value;
-CREATE FUNCTION next_value(seq_name VARCHAR(50)) RETURNS INT(11)
+CREATE FUNCTION next_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-    UPDATE sequence SET current_value = current_value + increment where name = seq_name;
-    return current_value(seq_name);
+    UPDATE sequence SET current_value = current_value + increment where name = sequence_name;
+    return current_value(sequence_name);
 END ;
 
 DROP TABLE IF EXISTS wei_xin_pay_account;
@@ -158,6 +150,25 @@ CREATE TABLE alipay_account(
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝账号';
+
+DROP TABLE IF EXISTS notify_record;
+CREATE TABLE notify_record
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    order_number VARCHAR(50) COMMENT '订单号',
+    refund_order_number VARCHAR(50) COMMENT '退款单号',
+    notify_url VARCHAR(255) NOT NULL COMMENT '回调地址',
+    notify_result TINYINT COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
+    external_system_notify_request_body TEXT COMMENT '外部系统异步通知请求参数',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '回调记录';
 
 DROP TABLE IF EXISTS eleme_authorized_tenant;
 CREATE TABLE eleme_authorized_tenant (
@@ -267,78 +278,6 @@ CREATE TABLE goods_specification (
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '产品明细表';
 
-DROP TABLE IF EXISTS alipay_account;
-CREATE TABLE alipay_account
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    tenant_id BIGINT NOT NULL COMMENT '商户id',
-    branch_id BIGINT NOT NULL COMMENT '门店id',
-    account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
-    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
-    partner_id VARCHAR(50) NOT NULL COMMENT '合作者ID',
-    store_id VARCHAR(50) COMMENT '支付宝门店ID',
-    alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
-    application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
-    application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
-    sign_type ENUM('RSA', 'RSA2') NOT NULL COMMENT '借口加密方式',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
-
-INSERT INTO alipay_account(tenant_id, branch_id, account, app_id, partner_id, alipay_public_key, application_public_key, application_private_key, sign_type, create_user_id, last_update_user_id)
-VALUES (1, 1, 'zhfx2016@163.com', '2017090808618823', '2088521427937615', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmFitWLPgXXYHdnlDmLLNaIgtzb5OZqGGuM3aJ1v54fTKf+1Eg/T+844/+zPZJqH53xbbnz7mPZnowjYs3YhzTdCF4bBLvjZpN1TlcHLvEiSJO8LQkzSr1Wd7EzXe3QQeuAap2v7VwMWY5clNK+fReWSME4pU3qAvk9qPh8pp1bfdVniSfAFuHzuIu7e/nFMLswKNsQFPvCPynp3HoqqKYzk6FN3aLP2NWLNfB2s3R646IKGzVmp9SrVqljhncdfdkzqG9Qoky+T7cPKZEKuQwm71pMkE56s55WdpRlG5R6vX6x1fratDdloVQYm7+nopE31ycsQqWBaj9cjUDF6PhwIDAQAB', 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkQ9QcKRm5Q5WRo15nVOJc4jrxPSs2ZNPPDLNAy0hip0RBxveYXWqp8BwWVU2O5MkeUbN0Zx/P5vmSjcMGSXhvLRU3rMSgDIdKkIEVQ9xjIP77YwJnrtfFy/yNHK3JB2dlg9lMrZLA4RD8iR150u46vrVTnn+wIHdt51m+aF7IrqdnjI04jacfUEKDSylWuKA4Y1//Q8EZCre3rNaZCdFreBw1bmGdvMw2Zi+q9fSDEO/k/v2jIqOHNSSzDwi6UCHhj0vTWxqli7MDpc57WeDFw2e7ZtoiQg2ox3IC7dhlwQPyMZkWrHDVHwRDFfLqP7FFQIk9YvL7jwlVePpVLN0uQIDAQAB', 'MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCRD1BwpGblDlZGjXmdU4lziOvE9KzZk088Ms0DLSGKnREHG95hdaqnwHBZVTY7kyR5Rs3RnH8/m+ZKNwwZJeG8tFTesxKAMh0qQgRVD3GMg/vtjAmeu18XL/I0crckHZ2WD2UytksDhEPyJHXnS7jq+tVOef7Agd23nWb5oXsiup2eMjTiNpx9QQoNLKVa4oDhjX/9DwRkKt7es1pkJ0Wt4HDVuYZ28zDZmL6r19IMQ7+T+/aMio4c1JLMPCLpQIeGPS9NbGqWLswOlzntZ4MXDZ7tm2iJCDajHcgLt2GXBA/IxmRascNUfBEMV8uo/sUVAiT1i8vuPCVV4+lUs3S5AgMBAAECggEARC3xffAXmKNjc6e9OG/yE8aQIjNqJp1xSXcLGuoUcMUgIro7jI00l8IATEybv+aJ5yKbTGEFAg2xcMJswkkmz33mwgFiubRUNu9uf9hRY10JhP4j62Jf8FMNwQ8F+0icL9KumuZJXa7GDMKMVBkoIfGhXlBCp5KidlHZ+4ylho19Y4DASqLOz42uMspiyMabdmkRlxcf8TdjWVkzdzFQ8uDHj/L/dXp6qiwam7gpQ9UmFuFf3Zy9DBhT7AAMdcD2aCc6aLeTS5wXVnmkf78OXiwbBDoAKC0yH4nmEj8bbYeN74PnhmSsXBA2bORWrYuXwuGxaShG1vWFR1fgNPwZ7QKBgQDpJWop9nyI9WDA3LHal9I5NpbkyQJ1zmKeR9z7oUKwKePfBUbf8Bwh8FzPwQ+Hpcbey8TPfmnM6plG0UNXeZvmfjYwx30sEOw/fQJ4nNqu4JJva3YeLXKIaN23cRDbNQ+GntOKSUzngbyHQUl2fZWyc4nx+0XNMMQ3FJe/3OpNmwKBgQCfR3SHQbO7O6UICVbAVJm3CJB3LsHkStcdosaKG4nen/A3ST3oARGVD1MlupTJyh+dMIE6wqj/a9CI/OATBPPr+lejaVZB6Ou5zNI4/PJFRalGsWazw142FnJh1Vtn1bnVCqa1DH9KEbko5VIA4bDRa22s1T4kLby1pHpusLzWOwKBgQCb38/izlDkoGlXiDXAl9CNP9oSi/GBIcL9X7523ZHghaE78iM4hSfJ6RGkNMdVQZh8THAA6duCjTZ9ClujmEKLD8bbRgSB+a55o/KLAROT58D/jTEja+8vFC1n/8ftRsRilL2Jrwgjn7GUHCopdj0nWefYSM6aKQiGatYqCGD+EQKBgFlCmwwdhtKbh02spiAciRQoyYTxABmm00y5ZtgIvMe1C9J/yiCVULwfHXKcUDuReQwHHbTHWBvj2LacOBqQgP2yiqB6LKu9EzVJkln7bu3hLw795ddB2i8nfyxSe+oBvSWl1WzKtx7UNda0RLNXx1ZlBM6BplRyCTomFbKoevr3AoGBAI1ZozCiBsC0uZ2JZiK9DImQ8/uEO3TD6vv4KKn5YhgXi6/W5T26ejJ6DbN7wTfCry+oNQSa0HnjXRrRXyD9StDRjiVWObxThvvmAjyHY7AMk7g22G8oiGjjqJRgIcc7rMw9MLn+PXEGiHk9L4cOj2gsSt5RJC+UeSdyTH9cWNmI', 'RSA2', 1, 1);
-
-INSERT INTO alipay_account(tenant_id, branch_id, account, app_id, partner_id, alipay_public_key, application_public_key, application_private_key, sign_type, create_user_id, last_update_user_id)
-VALUES (2, 2, 'zhfx2016@163.com', '2016121304213325', '2088521427937615', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKRAFKr+CxOzl4kV6g3+4XEptsDF5fjvzwU9nuWqCg4G4GvO6WFMGqa71FlbzDZ8muJbSoGWqS9GHTzISqCr4SjjI/f0/NmCf+cmBWJ1DhtIwRr3sxompInAMqaFjC8YTNoSNNFKRAYvENfaK+l53O7jaxfpxTY1+CwJKMa6acbwIDAQAB', 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMpEAUqv4LE7OXiRXqDf7hcSm2wMXl+O/PBT2e5aoKDgbga87pYUwaprvUWVvMNnya4ltKgZapL0YdPMhKoKvhKOMj9/T82YJ/5yYFYnUOG0jBGvezGiakicAypoWMLxhM2hI00UpEBi8Q19or6Xnc7uNrF+nFNjX4LAkoxrppxvAgMBAAECgYB/xnAud2bxb2GB+guWg4AMEVQf8LxZj6HYTJBa0+OvXbgEB6yNIPWrLD64S7ygkNtGaUlz/AJobXuzafrQ1NJ3FNceVDKJ5BsU+6WxODY3ldvTVBo2Mz0E4eYoxv03aYdtr2OYQvjlEe/mD0OyiqeJyYvIc4n0svIeeCofB4SNSQJBAObRFtd8WoiINVPb0jp1sEp0iGnLPCZ+rN0EBh+EyTYSxyanhATTJczegn+IjIbLuhLMGiuC56x6bP4dAwYbZAUCQQDgVXVu5vUmb1tCjOtf4KqnAi1xTt1qVuowhJUB5eLsUfgXO0z0+T1+IWIYKr5djnNbnSJrNLms+LooFhT7yPzjAkAH7KHGICTTjymViXR8QVIeHEYaq7mS8MJqjBrRtjNaQebIcvPbXoxrri/4xO1eK1xmDM/RMptVlpZrWv+hlAspAkEApr3ec3gnb1IFuwmTSchsD4aG0FmWKZxApZ9mQerlKFIk3N+u68b19fJKPzxGErP2+nlpQ9YEzJRziaggIKXbkQJBAKp22dleBHiWKy4luoXZPEgE3h+i2PO1FBDUzJ31mgNmpVaonTvUR6O920/5yc9MJtYvOE0aPafkHhjL8v4Ea8M=', 'RSA', 1, 1);
-
-DROP TABLE IF EXISTS payment_record;
-CREATE TABLE payment_record (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-    order_type TINYINT NOT NULL COMMENT '1-商户购买平台产品订单，2-代理商购买平台产品订单',
-    order_number VARCHAR(20) NOT NULL COMMENT '订单号',
-    total_amount DECIMAL(11, 3) NOT NULL COMMENT '订单总额',
-    payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
-    paid_amount DECIMAL(11, 3) COMMENT '实际付款金额',
-    paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
-    submit_time DATETIME NOT NULL COMMENT '支付请求提交时间',
-    submit_user_id BIGINT NOT NULL COMMENT '提交用户id',
-    pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
-    transaction_id VARCHAR(50) COMMENT '交易单号，对应微信支付的transaction_id，支付宝支付的trade_no',
-    paid_time DATETIME COMMENT '支付完成时间，对应微信支付的end_time，支付宝支付的gmt_payment',
-    notify_result TINYINT COMMENT '回调结果，1-成功 2-失败',
-    notify_url VARCHAR(200) DEFAULT NULL COMMENT '回调地址',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '支付记录';
-
-DROP TABLE IF EXISTS notify_record;
-CREATE TABLE notify_record
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
-    order_number VARCHAR(50) COMMENT '订单号',
-    refund_order_number VARCHAR(50) COMMENT '退款单号',
-    notify_url VARCHAR(255) NOT NULL COMMENT '回调地址',
-    notify_result TINYINT COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
-    external_system_notify_request_body TEXT COMMENT '外部系统异步通知请求参数',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '回调记录';
-
-
 CREATE TABLE logging_event(
     timestmp bigint(20) NOT NULL,
     formatted_message text NOT NULL,
@@ -373,28 +312,6 @@ CREATE TABLE logging_event_property (
     mapped_value text,
     PRIMARY KEY (event_id, mapped_key)
 );
-
-DROP TABLE IF EXISTS wei_xin_pay_account;
-CREATE TABLE wei_xin_pay_account
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    tenant_id BIGINT NOT NULL COMMENT '商户id',
-    branch_id BIGINT NOT NULL COMMENT '门店id',
-    app_id VARCHAR(50) COMMENT '微信公众平台app id',
-    mch_id VARCHAR(50) NOT NULL,
-    api_secret_key VARCHAR(50) NOT NULL,
-    sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
-    sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
-    sub_mch_id VARCHAR(50),
-    acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
-    account_type TINYINT COMMENT '账号类型，1-公众号支付、扫码支付、H5支付、刷卡支付，2-APP支付账号',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT = '微信支付账号';
 
 DROP TABLE IF EXISTS wei_xin_public_account;
 CREATE TABLE wei_xin_public_account
@@ -431,7 +348,7 @@ CREATE TABLE app_privilege
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT 'APP权限';
 
 DROP TABLE IF EXISTS app_role;
 CREATE TABLE app_role
@@ -445,7 +362,7 @@ CREATE TABLE app_role
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT 'app 角色';
 
 DROP TABLE IF EXISTS user_app_role_r;
 CREATE TABLE user_app_role_r
@@ -453,7 +370,7 @@ CREATE TABLE user_app_role_r
     user_id BIGINT NOT NULL COMMENT 'user id',
     app_role_id BIGINT NOT NULL COMMENT 'app role id',
     PRIMARY KEY (user_id, app_role_id)
-);
+) COMMENT '用户与app角色中间表';
 
 DROP TABLE IF EXISTS app_role_privilege_r;
 CREATE TABLE app_role_privilege_r
@@ -461,7 +378,7 @@ CREATE TABLE app_role_privilege_r
     app_role_id BIGINT NOT NULL COMMENT 'role id',
     privilege_id BIGINT NOT NULL COMMENT 'privilege id',
     PRIMARY KEY (app_role_id, privilege_id)
-);
+) COMMENT 'app 角色与app权限关联表';
 
 DROP TABLE IF EXISTS wei_xin_public_platform_application;
 CREATE TABLE wei_xin_public_platform_application
@@ -475,7 +392,7 @@ CREATE TABLE wei_xin_public_platform_application
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT = '微信公众';
+) COMMENT = '微信开放平台应用';
 
 DROP TABLE IF EXISTS tenant_secret_key;
 CREATE TABLE tenant_secret_key
@@ -492,7 +409,7 @@ CREATE TABLE tenant_secret_key
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商户秘钥';
 
 DROP TABLE IF EXISTS eleme_callback_message;
 CREATE TABLE eleme_callback_message
@@ -514,19 +431,7 @@ CREATE TABLE eleme_callback_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
-
-insert  into `wei_xin_pay_account`(`id`,`tenant_id`,`branch_id`,`app_id`,`mch_id`,`api_secret_key`,`sub_public_account_app_id`,`sub_open_platform_app_id`,`sub_mch_id`,`acceptance_model`,`account_type`,`create_time`,`create_user_id`,`last_update_time`,`last_update_user_id`,`last_update_remark`,`deleted`) values
-    (1,7,7,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12','wx63f5194332cc0f1b','wx640d01797ff7e615','1334834201',1,NULL,'2017-10-17 16:38:41',1,'2017-10-17 17:54:20',1,NULL,0),
-    (2,2,2,'wx63f5194332cc0f1b','1312787601','qingdaozhihuifangxiangruanjian12',NULL,NULL,NULL,0,1,'2017-10-17 16:38:41',1,'2017-10-17 17:05:19',1,NULL,0);
-
-INSERT INTO alipay_account(tenant_id, branch_id, account, app_id, partner_id, alipay_public_key, application_public_key, application_private_key, sign_type, create_user_id, last_update_user_id)
-VALUES (4, 4, 'newellftrend@163.com', '2016051701409848', '2088911953796893', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDDI6d306Q8fIfCOaTXyiUeJHkrIvYISRcc73s3vF1ZT7XN8RNPwJxo8pWaJMmvyTn9N4HQ632qJBVHf8sxHi/fEsraprwCtzvzQETrNRwVxLO5jVmRGi60j8Ue1efIlzPXV9je9mkjzOmdssymZkh2QhUrCmZYI/FCEa3/cNMW0QIDAQAB', 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDKRAFKr+CxOzl4kV6g3+4XEptsDF5fjvzwU9nuWqCg4G4GvO6WFMGqa71FlbzDZ8muJbSoGWqS9GHTzISqCr4SjjI/f0/NmCf+cmBWJ1DhtIwRr3sxompInAMqaFjC8YTNoSNNFKRAYvENfaK+l53O7jaxfpxTY1+CwJKMa6acbwIDAQAB', 'MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMpEAUqv4LE7OXiRXqDf7hcSm2wMXl+O/PBT2e5aoKDgbga87pYUwaprvUWVvMNnya4ltKgZapL0YdPMhKoKvhKOMj9/T82YJ/5yYFYnUOG0jBGvezGiakicAypoWMLxhM2hI00UpEBi8Q19or6Xnc7uNrF+nFNjX4LAkoxrppxvAgMBAAECgYB/xnAud2bxb2GB+guWg4AMEVQf8LxZj6HYTJBa0+OvXbgEB6yNIPWrLD64S7ygkNtGaUlz/AJobXuzafrQ1NJ3FNceVDKJ5BsU+6WxODY3ldvTVBo2Mz0E4eYoxv03aYdtr2OYQvjlEe/mD0OyiqeJyYvIc4n0svIeeCofB4SNSQJBAObRFtd8WoiINVPb0jp1sEp0iGnLPCZ+rN0EBh+EyTYSxyanhATTJczegn+IjIbLuhLMGiuC56x6bP4dAwYbZAUCQQDgVXVu5vUmb1tCjOtf4KqnAi1xTt1qVuowhJUB5eLsUfgXO0z0+T1+IWIYKr5djnNbnSJrNLms+LooFhT7yPzjAkAH7KHGICTTjymViXR8QVIeHEYaq7mS8MJqjBrRtjNaQebIcvPbXoxrri/4xO1eK1xmDM/RMptVlpZrWv+hlAspAkEApr3ec3gnb1IFuwmTSchsD4aG0FmWKZxApZ9mQerlKFIk3N+u68b19fJKPzxGErP2+nlpQ9YEzJRziaggIKXbkQJBAKp22dleBHiWKy4luoXZPEgE3h+i2PO1FBDUzJ31mgNmpVaonTvUR6O920/5yc9MJtYvOE0aPafkHhjL8v4Ea8M=', 'RSA', 1, 1);
-
-1e17fcd2e668ded210f12e3a08531608
-com.ftrend.ftrendpos
-
-a3eb218f59c192ad72c92606f84eb9df
+) COMMENT '饿了么回调信息';
 
 DROP TABLE IF EXISTS um_pay_account;
 CREATE TABLE um_pay_account
@@ -542,7 +447,7 @@ CREATE TABLE um_pay_account
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '联动支付账号';
 
 DROP TABLE IF EXISTS wei_xin_template_message;
 CREATE TABLE wei_xin_template_message
@@ -560,7 +465,7 @@ CREATE TABLE wei_xin_template_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '微信模板消息';
 
 DROP TABLE IF EXISTS tenant_goods;
 CREATE TABLE tenant_goods
@@ -576,7 +481,7 @@ CREATE TABLE tenant_goods
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '商户产品表';
 
 DROP TABLE IF EXISTS pos_privilege;
 CREATE TABLE pos_privilege
@@ -595,7 +500,7 @@ CREATE TABLE pos_privilege
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT 'POS权限';
 
 DROP TABLE IF EXISTS pos_role;
 CREATE TABLE pos_role
@@ -610,7 +515,7 @@ CREATE TABLE pos_role
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT 'pos角色';
 
 DROP TABLE IF EXISTS user_pos_role_r;
 CREATE TABLE user_pos_role_r
@@ -618,7 +523,7 @@ CREATE TABLE user_pos_role_r
     user_id BIGINT NOT NULL COMMENT 'user id',
     pos_role_id BIGINT NOT NULL COMMENT 'pos role id',
     PRIMARY KEY (user_id, pos_role_id)
-);
+) COMMENT '用户与pos角色中间表';
 
 DROP TABLE IF EXISTS pos_role_privilege_r;
 CREATE TABLE pos_role_privilege_r
@@ -626,7 +531,7 @@ CREATE TABLE pos_role_privilege_r
     pos_role_id BIGINT NOT NULL COMMENT 'background id',
     privilege_id BIGINT NOT NULL COMMENT 'privilege id',
     PRIMARY KEY (pos_role_id, privilege_id)
-);
+) COMMENT 'pos角色与pos权限中间表';
 
 DROP TABLE IF EXISTS background_privilege;
 CREATE TABLE background_privilege
@@ -647,7 +552,7 @@ CREATE TABLE background_privilege
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '后台权限';
 
 DROP TABLE IF EXISTS background_role;
 CREATE TABLE background_role
@@ -662,7 +567,7 @@ CREATE TABLE background_role
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '后台角色';
 
 DROP TABLE IF EXISTS user_background_role_r;
 CREATE TABLE user_background_role_r
@@ -670,7 +575,7 @@ CREATE TABLE user_background_role_r
     user_id BIGINT NOT NULL COMMENT 'user id',
     background_role_id BIGINT NOT NULL COMMENT 'pos role id',
     PRIMARY KEY (user_id, background_role_id)
-);
+) COMMENT '用户与后台角色中间表';
 
 DROP TABLE IF EXISTS background_role_privilege_r;
 CREATE TABLE background_role_privilege_r
@@ -678,7 +583,7 @@ CREATE TABLE background_role_privilege_r
     background_role_id BIGINT NOT NULL COMMENT 'background id',
     privilege_id BIGINT NOT NULL COMMENT 'privilege id',
     PRIMARY KEY (background_role_id, privilege_id)
-);
+) COMMENT '后台角色与后台权限中间表';
 
 DROP TABLE IF EXISTS bank_account;
 CREATE TABLE bank_account
@@ -695,7 +600,7 @@ CREATE TABLE bank_account
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT = '微信支付账号';
+) COMMENT = '银行账号';
 
 DROP TABLE IF EXISTS miya_pay_account;
 CREATE TABLE miya_pay_account
@@ -711,4 +616,4 @@ CREATE TABLE miya_pay_account
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '米雅支付账号';
