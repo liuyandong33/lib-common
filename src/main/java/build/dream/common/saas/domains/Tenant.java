@@ -11,9 +11,6 @@ public class Tenant extends BasicDomain {
     private String email;
     private String linkman;
     private String business;
-    private String provinceCode;
-    private String cityCode;
-    private String districtCode;
     private String partitionCode;
     private BigInteger userId;
     private Integer tenantType;
@@ -64,30 +61,6 @@ public class Tenant extends BasicDomain {
 
     public void setBusiness(String business) {
         this.business = business;
-    }
-
-    public String getProvinceCode() {
-        return provinceCode;
-    }
-
-    public void setProvinceCode(String provinceCode) {
-        this.provinceCode = provinceCode;
-    }
-
-    public String getCityCode() {
-        return cityCode;
-    }
-
-    public void setCityCode(String cityCode) {
-        this.cityCode = cityCode;
-    }
-
-    public String getDistrictCode() {
-        return districtCode;
-    }
-
-    public void setDistrictCode(String districtCode) {
-        this.districtCode = districtCode;
     }
 
     public String getPartitionCode() {
