@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class OrderDetail extends BasicDomain {
     /**
@@ -46,7 +45,7 @@ public class OrderDetail extends BasicDomain {
     /**
      * 数量
      */
-    private Integer amount;
+    private Integer quantity;
 
     public BigInteger getOrderId() {
         return orderId;
@@ -120,11 +119,11 @@ public class OrderDetail extends BasicDomain {
         this.payableAmount = payableAmount;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

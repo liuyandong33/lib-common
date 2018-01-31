@@ -235,7 +235,7 @@ CREATE TABLE order_detail (
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
-    amount INT NOT NULL COMMENT '数量',
+    quantity INT NOT NULL COMMENT '数量',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
