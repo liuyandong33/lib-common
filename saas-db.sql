@@ -202,8 +202,8 @@ CREATE TABLE eleme_branch_mapping (
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '饿了么门店映射表';
 
-DROP TABLE IF EXISTS `order`;
-CREATE TABLE `order` (
+DROP TABLE IF EXISTS order_info;
+CREATE TABLE order_info (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-商户订单，2-代理商订单',
@@ -226,7 +226,7 @@ CREATE TABLE `order` (
 DROP TABLE IF EXISTS order_detail;
 CREATE TABLE order_detail (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    order_id BIGINT NOT NULL COMMENT '订单ID',
+    order_info_id BIGINT NOT NULL COMMENT '订单ID',
     goods_id BIGINT NOT NULL COMMENT '商品ID',
     goods_name VARCHAR(20) NOT NULL COMMENT '产品名称',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',

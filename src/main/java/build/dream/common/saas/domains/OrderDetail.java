@@ -9,7 +9,7 @@ public class OrderDetail extends BasicDomain {
     /**
      * 订单ID
      */
-    private BigInteger orderId;
+    private BigInteger orderInfoId;
     /**
      * 产品ID
      */
@@ -51,12 +51,12 @@ public class OrderDetail extends BasicDomain {
      */
     private Integer quantity;
 
-    public BigInteger getOrderId() {
-        return orderId;
+    public BigInteger getOrderInfoId() {
+        return orderInfoId;
     }
 
-    public void setOrderId(BigInteger orderId) {
-        this.orderId = orderId;
+    public void setOrderInfoId(BigInteger orderInfoId) {
+        this.orderInfoId = orderInfoId;
     }
 
     public BigInteger getGoodsId() {

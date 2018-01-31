@@ -5,7 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class Order extends BasicDomain {
+public class OrderInfo extends BasicDomain {
     /**
      * 订单号
      */
