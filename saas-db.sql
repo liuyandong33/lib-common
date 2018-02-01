@@ -626,7 +626,7 @@ CREATE TABLE activity
     `name` VARCHAR(20) NOT NULL COMMENT '活动名称',
     start_time DATETIME NOT NULL COMMENT '开始时间',
     end_time DATETIME NOT NULL COMMENT '结束时间',
-    `type` TINYINT NOT NULL COMMENT '活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动',
+    `type` TINYINT NOT NULL COMMENT '活动类型，1-特价商品活动',
     `status` TINYINT NOT NULL COMMENT '活动状态，1-未执行，2-执行中，3-已终止，4-已过期',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
