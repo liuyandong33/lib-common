@@ -6,7 +6,7 @@ CREATE TABLE merge_user_branch
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '用户与门店关联表';
 
 DROP TABLE IF EXISTS branch;
 CREATE TABLE branch
@@ -35,7 +35,7 @@ CREATE TABLE branch
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '门店表';
 
 DROP TABLE IF EXISTS sequence;
 CREATE TABLE sequence
@@ -43,26 +43,26 @@ CREATE TABLE sequence
     name VARCHAR(50) PRIMARY KEY NOT NULL COMMENT '序列名称',
     current_value INT(11) unsigned NOT NULL COMMENT '当前值',
     increment INT(11) unsigned DEFAULT '1' NOT NULL COMMENT '每次增长的值'
-);
+) COMMENT '序列';
 
 DROP FUNCTION IF EXISTS current_value;
-CREATE FUNCTION current_value(seq_name VARCHAR(50)) RETURNS INT(11)
+CREATE FUNCTION current_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
     DECLARE value int;
     SET value = 0;
-    SELECT current_value INTO value FROM sequence WHERE name = seq_name;
+    SELECT current_value INTO value FROM sequence WHERE name = sequence_name;
     IF value = 0 THEN
         SET value = 1;
-        INSERT INTO sequence(name, current_value) VALUES(seq_name, value);
+        INSERT INTO sequence(name, current_value) VALUES(sequence_name, value);
     END if;
     return value;
 END;
 
 DROP FUNCTION IF EXISTS next_value;
-CREATE FUNCTION next_value(seq_name VARCHAR(50)) RETURNS INT(11)
+CREATE FUNCTION next_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-    UPDATE sequence SET current_value = current_value + increment where name = seq_name;
-    return current_value(seq_name);
+    UPDATE sequence SET current_value = current_value + increment where name = sequence_name;
+    return current_value(sequence_name);
 END ;
 
 DROP TABLE IF EXISTS diet_order;
@@ -122,7 +122,7 @@ CREATE TABLE diet_order_group
 	  last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
 	  last_update_remark VARCHAR(255) COMMENT '最后更新备注',
 	  deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '餐厅订单';
+) COMMENT '餐厅分组表';
 
 DROP TABLE IF EXISTS diet_order_detail;
 CREATE TABLE diet_order_detail(
@@ -261,7 +261,7 @@ CREATE TABLE eleme_order
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单';
 
 DROP TABLE IF EXISTS eleme_order_group;
 CREATE TABLE eleme_order_group
@@ -280,7 +280,7 @@ CREATE TABLE eleme_order_group
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单分组';
 
 DROP TABLE IF EXISTS eleme_order_item;
 CREATE TABLE eleme_order_item
@@ -311,7 +311,7 @@ CREATE TABLE eleme_order_item
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单详情';
 
 DROP TABLE IF EXISTS eleme_order_item_attribute;
 CREATE TABLE eleme_order_item_attribute
@@ -331,7 +331,7 @@ CREATE TABLE eleme_order_item_attribute
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单属性';
 
 DROP TABLE IF EXISTS eleme_order_item_new_spec;
 CREATE TABLE eleme_order_item_new_spec
@@ -351,7 +351,7 @@ CREATE TABLE eleme_order_item_new_spec
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单规格';
 
 DROP TABLE IF EXISTS eleme_order_activity;
 CREATE TABLE eleme_order_activity
@@ -374,7 +374,7 @@ CREATE TABLE eleme_order_activity
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单活动';
 
 DROP TABLE IF EXISTS eleme_refund_order_message;
 CREATE TABLE eleme_refund_order_message
@@ -397,7 +397,7 @@ CREATE TABLE eleme_refund_order_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么退单消息';
 
 DROP TABLE IF EXISTS eleme_refund_order_message_goods_item;
 CREATE TABLE eleme_refund_order_message_goods_item
@@ -418,7 +418,7 @@ CREATE TABLE eleme_refund_order_message_goods_item
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么退单详情';
 
 DROP TABLE IF EXISTS eleme_reminder_message;
 CREATE TABLE eleme_reminder_message
@@ -438,7 +438,7 @@ CREATE TABLE eleme_reminder_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么催单消息';
 
 DROP TABLE IF EXISTS eleme_order_state_change_message;
 CREATE TABLE eleme_order_state_change_message
@@ -458,7 +458,7 @@ CREATE TABLE eleme_order_state_change_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么订单状态变更消息';
 
 DROP TABLE IF EXISTS eleme_delivery_order_state_change_message;
 CREATE TABLE eleme_delivery_order_state_change_message
@@ -480,7 +480,7 @@ CREATE TABLE eleme_delivery_order_state_change_message
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '饿了么运单状态变更消息';
 
 DROP TABLE IF EXISTS goods;
 CREATE TABLE goods
@@ -498,7 +498,7 @@ CREATE TABLE goods
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商品表';
 
 DROP TABLE IF EXISTS goods_specification;
 CREATE TABLE goods_specification
@@ -516,7 +516,7 @@ CREATE TABLE goods_specification
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商品规格表';
 
 DROP TABLE IF EXISTS goods_flavor_group;
 CREATE TABLE goods_flavor_group
@@ -533,7 +533,7 @@ CREATE TABLE goods_flavor_group
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商品口味组';
 
 DROP TABLE IF EXISTS goods_flavor;
 CREATE TABLE goods_flavor
@@ -552,7 +552,7 @@ CREATE TABLE goods_flavor
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商品口味';
 
 DROP TABLE IF EXISTS activity;
 CREATE TABLE activity
@@ -572,7 +572,7 @@ CREATE TABLE activity
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '营销活动';
 
 DROP TABLE IF EXISTS buy_give_activity;
 CREATE TABLE buy_give_activity
@@ -594,7 +594,7 @@ CREATE TABLE buy_give_activity
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '买A赠B活动';
 
 DROP TABLE IF EXISTS full_reduction_activity;
 CREATE TABLE full_reduction_activity
@@ -614,7 +614,7 @@ CREATE TABLE full_reduction_activity
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '满减活动';
 
 DROP TABLE IF EXISTS special_goods_activity;
 CREATE TABLE special_goods_activity (
@@ -636,13 +636,6 @@ CREATE TABLE special_goods_activity (
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '特价商品活动';
 
-DROP PROCEDURE IF EXISTS proc_find_all_activities;
-CREATE PROCEDURE proc_find_all_activities()
-BEGIN
-SELECT * FROM activity_buy_give WHERE activity_id = 1 AND deleted = 0;
-SELECT * FROM activity_full_reduction WHERE activity_id = 2 AND deleted = 0;
-END;
-
 DROP TABLE IF EXISTS goods_category;
 CREATE TABLE goods_category
 (
@@ -658,7 +651,7 @@ CREATE TABLE goods_category
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '商品分类表';
 
 DROP TABLE IF EXISTS mei_tuan_order;
 CREATE TABLE mei_tuan_order
@@ -707,7 +700,7 @@ CREATE TABLE mei_tuan_order
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '美团订单';
 
 
 DROP TABLE IF EXISTS mei_tuan_order_item;
@@ -733,7 +726,7 @@ CREATE TABLE mei_tuan_order_item
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团订单详情';
 
 DROP TABLE IF EXISTS mei_tuan_order_extra;
 CREATE TABLE mei_tuan_order_extra
@@ -751,7 +744,7 @@ CREATE TABLE mei_tuan_order_extra
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团订单扩展信息';
 
 DROP TABLE IF EXISTS mei_tuan_order_poi_receive_detail;
 CREATE TABLE mei_tuan_order_poi_receive_detail
@@ -768,7 +761,7 @@ CREATE TABLE mei_tuan_order_poi_receive_detail
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团订单配送信息';
 
 DROP TABLE IF EXISTS act_order_charge_by_mt;
 CREATE TABLE act_order_charge_by_mt
@@ -785,7 +778,7 @@ CREATE TABLE act_order_charge_by_mt
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团美团端对账单';
 
 DROP TABLE IF EXISTS act_order_charge_by_poi;
 CREATE TABLE act_order_charge_by_poi
@@ -802,10 +795,10 @@ CREATE TABLE act_order_charge_by_poi
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团店铺端队长单';
 
 DROP TABLE IF EXISTS mei_tuan_order_cancel_message;
-CREATE TABLE act_order_charge_by_poi
+CREATE TABLE mei_tuan_order_cancel_message
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     mei_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order.id',
@@ -821,7 +814,7 @@ CREATE TABLE act_order_charge_by_poi
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-);
+) COMMENT '美团取消订单消息';
 
 DROP TABLE IF EXISTS package_group;
 CREATE TABLE package_group
@@ -878,7 +871,7 @@ CREATE TABLE vip
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-);
+) COMMENT '会员表';
 
 DROP TABLE IF EXISTS can_not_operate_reason;
 CREATE TABLE can_not_operate_reason
@@ -892,4 +885,4 @@ CREATE TABLE can_not_operate_reason
     cause_table_id BIGINT NOT NULL COMMENT '导致不能删除的表id',
     cause_table_name VARCHAR(100) NOT NULL COMMENT '导致不能删除的表名字',
     reason VARCHAR(255) NOT NULL COMMENT '原因'
-) COMMENT '不能删除的原因';
+) COMMENT '不能操作的原因';
