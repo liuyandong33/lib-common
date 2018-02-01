@@ -249,9 +249,9 @@ DROP TABLE IF EXISTS goods;
 CREATE TABLE goods (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     name VARCHAR(20) NOT NULL COMMENT '产品名称',
-    goods_type TINYINT NOT NULL COMMENT '产品类型，1-设备，2-基础服务，3-增至服务',
-    goods_status TINYINT NOT NULL COMMENT '状态，1-正常，2-停售',
-    goods_photo_url VARCHAR(255) NOT NULL COMMENT '产品图片路径',
+    type TINYINT NOT NULL COMMENT '产品类型，1-设备，2-基础服务，3-增值服务',
+    status TINYINT NOT NULL COMMENT '状态，1-正常，2-停售',
+    photo_url VARCHAR(255) NOT NULL COMMENT '产品图片路径',
     metering_mode TINYINT NOT NULL COMMENT '计量方式，1-按时间，按数量',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -618,3 +618,39 @@ CREATE TABLE miya_pay_account
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '米雅支付账号';
+
+DROP TABLE IF EXISTS activity;
+CREATE TABLE activity
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    `name` VARCHAR(20) NOT NULL COMMENT '活动名称',
+    start_time DATETIME NOT NULL COMMENT '开始时间',
+    end_time DATETIME NOT NULL COMMENT '结束时间',
+    `type` TINYINT NOT NULL COMMENT '活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动',
+    `status` TINYINT NOT NULL COMMENT '活动状态，1-未执行，2-执行中，3-已终止，4-已过期',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '活动';
+
+DROP TABLE IF EXISTS special_goods_activity;
+CREATE TABLE special_goods_activity (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    activity_id BIGINT NOT NULL COMMENT '活动ID',
+    goods_id BIGINT NOT NULL COMMENT '商品id',
+    goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
+    discount_type TINYINT NOT NULL COMMENT '优惠方式，1-特价，2-折扣',
+    tenant_special_price DECIMAL(11, 3) COMMENT '商户特价金额',
+    agent_special_price DECIMAL(11, 3) COMMENT '代理商特价金额',
+    tenant_discount_rate DECIMAL(5, 2) COMMENT '商户折扣率',
+    agent_discount_rate DECIMAL(5, 2) COMMENT '代理商折扣率',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '特价商品活动';

@@ -4,9 +4,9 @@ import build.dream.common.basic.BasicDomain;
 
 public class Goods extends BasicDomain {
     private String name;
-    private Integer goodsType;
-    private Integer goodsStatus;
-    private String goodsPhotoUrl;
+    private Integer type;
+    private Integer status;
+    private String photoUrl;
     private Integer meteringMode;
 
     public String getName() {
@@ -17,28 +17,28 @@ public class Goods extends BasicDomain {
         this.name = name;
     }
 
-    public Integer getGoodsType() {
-        return goodsType;
+    public Integer getType() {
+        return type;
     }
 
-    public void setGoodsType(Integer goodsType) {
-        this.goodsType = goodsType;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public Integer getGoodsStatus() {
-        return goodsStatus;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setGoodsStatus(Integer goodsStatus) {
-        this.goodsStatus = goodsStatus;
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
-    public String getGoodsPhotoUrl() {
-        return goodsPhotoUrl;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setGoodsPhotoUrl(String goodsPhotoUrl) {
-        this.goodsPhotoUrl = goodsPhotoUrl;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public Integer getMeteringMode() {
