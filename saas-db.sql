@@ -151,6 +151,25 @@ CREATE TABLE alipay_account(
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝账号';
 
+DROP TABLE IF EXISTS alipay_open_auth_token;
+CREATE TABLE alipay_open_auth_token
+(
+	id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+	app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
+	app_auth_token VARCHAR(50) NOT NULL,
+	user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
+	auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
+	expires_in INT NOT NULL COMMENT 'token 有效时间',
+	re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
+	app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
+	create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+	create_user_id BIGINT NOT NULL COMMENT '创建人id',
+	last_update_time DATETIME DEFAULT now() NOT NULL COMMENT '最后更新时间',
+	last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+	last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+	deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '支付宝token';
+
 DROP TABLE IF EXISTS notify_record;
 CREATE TABLE notify_record
 (
