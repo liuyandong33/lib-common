@@ -629,7 +629,7 @@ CREATE TABLE special_goods_activity (
     special_price DECIMAL(11, 3) COMMENT '特价金额',
     discount_rate DECIMAL(5, 2) COMMENT '折扣率',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
@@ -702,9 +702,9 @@ CREATE TABLE mei_tuan_order
     avg_send_time DECIMAL(11, 3) COMMENT '餐厅平均送餐时间，单位为分钟',
     dinners_number INT COMMENT '用餐人数（0：用户没有选择用餐人数；1-10：用户选择的用餐人数；-10：10人以上用餐；99：用户不需要餐具）',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建用户id',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '最后更新时间',
-    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新user id',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
 );
