@@ -491,7 +491,7 @@ public class ApplicationHandler {
         return (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
     }
 
-    public static void isNotBlank(String string, String parameterName) {
+    public static void notBlank(String string, String parameterName) {
         if (StringUtils.isBlank(string)) {
             throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
         }
