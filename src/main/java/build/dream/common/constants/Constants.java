@@ -163,4 +163,6 @@ public class Constants {
     public static final String CARD_TYPE_DISCOUNT = "DISCOUNT";
     public static final String CARD_TYPE_GIFT = "GIFT";
     public static final String CARD_TYPE_GENERAL_COUPON = "GENERAL_COUPON";
+
+    public static final String KEY_MEI_TUAN_CALLBACK_MESSAGE = "_mei_tuan_callback_message";
 }
