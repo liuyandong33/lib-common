@@ -484,6 +484,19 @@ public class ApplicationHandler {
         ApplicationHandler.isTrue(isValidate, parameterName);
     }
 
+    public static boolean isJson(String jsonString) {
+        if (StringUtils.isBlank(jsonString)) {
+            return false;
+        }
+        return (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
+    }
+
+    public static void isNotBlank(String string, String parameterName) {
+        if (StringUtils.isBlank(string)) {
+            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+        }
+    }
+
     public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);
