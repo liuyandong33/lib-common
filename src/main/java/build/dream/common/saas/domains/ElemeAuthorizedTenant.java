@@ -1,9 +1,11 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeAuthorizedTenant {
+public class ElemeAuthorizedTenant extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String accessToken;

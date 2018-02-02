@@ -1,8 +1,10 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigInteger;
 
-public class NotifyRecord {
+public class NotifyRecord extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String orderNumber;
