@@ -475,13 +475,17 @@ public class ApplicationHandler {
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
         isJson(jsonString, parameterName);
-        isTrue(JsonSchemaValidateUtils.validate(jsonString, schemaFilePath), parameterName);
+        isTrue(isRightJson(jsonString, schemaFilePath), parameterName);
+    }
+
+    public static boolean isRightJson(String jsonString, String schemaFilePath) {
+        return JsonSchemaValidateUtils.validate(jsonString, schemaFilePath);
     }
 
     public static void isJson(String jsonString, String parameterName) {
-        notEmpty(jsonString, parameterName);
+        notBlank(jsonString, parameterName);
         boolean isValidate = (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
-        ApplicationHandler.isTrue(isValidate, parameterName);
+        isTrue(isValidate, parameterName);
     }
 
     public static boolean isJson(String jsonString) {
