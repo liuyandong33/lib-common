@@ -13,7 +13,7 @@ public class ElemeCallbackMessage extends BasicDomain {
     private BigInteger timestamp;
     private String signature;
     private BigInteger userId;
-    private String messageMd5;
+    private String uuid;
     private Integer handleResult;
 
     public String getRequestId() {
@@ -80,12 +80,12 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.userId = userId;
     }
 
-    public String getMessageMd5() {
-        return messageMd5;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setMessageMd5(String messageMd5) {
-        this.messageMd5 = messageMd5;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public Integer getHandleResult() {
