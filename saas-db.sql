@@ -673,3 +673,17 @@ CREATE TABLE special_goods_activity (
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '特价商品活动';
+
+DROP TABLE IF EXISTS alipay_material_image;
+CREATE TABLE alipay_material_image (
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    alipay_user_id VARCHAR(50) NOT NULL COMMENT '支付宝user id',
+    image_id VARCHAR(32) NOT NULL COMMENT '图片/视频在商家中心的唯一标识',
+    image_url VARCHAR(512) NOT NULL COMMENT '图片/视频的访问地址',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '订单表';
