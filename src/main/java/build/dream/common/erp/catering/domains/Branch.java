@@ -66,6 +66,14 @@ public class Branch extends BasicDomain {
      */
     private String latitude;
     /**
+     * 联系人
+     */
+    private String linkman;
+    /**
+     * 联系电话
+     */
+    private String contactPhone;
+    /**
      * 饿了么账号类型，1-连锁账号，2-独立账号
      */
     private Integer elemeAccountType;
@@ -192,6 +200,22 @@ public class Branch extends BasicDomain {
 
     public void setLatitude(String latitude) {
         this.latitude = latitude;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public Integer getElemeAccountType() {
