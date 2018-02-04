@@ -100,6 +100,18 @@ public class DietOrder extends BasicDomain {
      */
     private String consignee;
     /**
+     * 是否需要发票
+     */
+    private boolean invoiced;
+    /**
+     * 发票类型，personal-个人，company-企业
+     */
+    private String invoiceType;
+    /**
+     * 发票抬头
+     */
+    private String invoice;
+    /**
      * 本地ID
      */
     private String localId;
@@ -294,6 +306,30 @@ public class DietOrder extends BasicDomain {
 
     public void setConsignee(String consignee) {
         this.consignee = consignee;
+    }
+
+    public boolean isInvoiced() {
+        return invoiced;
+    }
+
+    public void setInvoiced(boolean invoiced) {
+        this.invoiced = invoiced;
+    }
+
+    public String getInvoiceType() {
+        return invoiceType;
+    }
+
+    public void setInvoiceType(String invoiceType) {
+        this.invoiceType = invoiceType;
+    }
+
+    public String getInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(String invoice) {
+        this.invoice = invoice;
     }
 
     public String getLocalId() {
