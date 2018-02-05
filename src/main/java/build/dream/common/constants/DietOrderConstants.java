@@ -26,4 +26,7 @@ public class DietOrderConstants {
 
     public static final Integer PAY_STATUS_UNPAID = 1;
     public static final Integer PAY_STATUS_PAID = 2;
+
+    public static final String INVOICE_TYPE_PERSONAL = "personal";
+    public static final String INVOICE_TYPE_COMPANY = "company";
 }
