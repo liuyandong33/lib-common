@@ -131,6 +131,15 @@ public class ApplicationHandler {
                 if (type instanceof ParameterizedType) {
                     field.set(object, buildArrayList(((ParameterizedType) type).getActualTypeArguments()[0], fieldValue, ","));
                 }
+            } else if (fieldClass == Map.class) {
+                Type type = field.getGenericType();
+                if (type instanceof ParameterizedType) {
+                    ParameterizedType parameterizedType = (ParameterizedType) type;
+                    Type[] types = parameterizedType.getActualTypeArguments();
+                    Class keyClass = (Class) types[0];
+                    Class valueClass = (Class) types[1];
+                    field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass));
+                }
             }
         }
         return object;
