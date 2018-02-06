@@ -141,6 +141,7 @@ CREATE TABLE diet_order_detail(
     goods_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
     goods_specification_id BIGINT COMMENT '菜品规格ID',
     goods_specification_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
+    category_id BIGINT COMMENT '商品分类id',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     flavor_increase DECIMAL(11, 3) COMMENT '口味加价',
     quantity INT NOT NULL COMMENT '数量',

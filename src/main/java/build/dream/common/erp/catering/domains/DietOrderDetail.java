@@ -36,13 +36,17 @@ public class DietOrderDetail extends BasicDomain {
      */
     private String goodsName;
     /**
-     * 菜品规格ID，goodsSpecification.id
+     * 商品规格ID，goodsSpecification.id
      */
     private BigInteger goodsSpecificationId;
     /**
-     * 菜品规格名称，goodsSpecification.name
+     * 商品规格名称，goodsSpecification.name
      */
     private String goodsSpecificationName;
+    /**
+     * 商品分类id
+     */
+    private BigInteger categoryId;
     /**
      * 单价
      */
@@ -158,6 +162,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setGoodsSpecificationName(String goodsSpecificationName) {
         this.goodsSpecificationName = goodsSpecificationName;
+    }
+
+    public BigInteger getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(BigInteger categoryId) {
+        this.categoryId = categoryId;
     }
 
     public BigDecimal getPrice() {
