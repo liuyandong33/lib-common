@@ -74,7 +74,7 @@ public class WebUtils {
                 httpURLConnection.disconnect();
                 return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
+                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
                 Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
@@ -127,7 +127,7 @@ public class WebUtils {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
+                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
                 Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
@@ -215,7 +215,7 @@ public class WebUtils {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParametersAndFiles(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
+                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
                 Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
@@ -271,7 +271,7 @@ public class WebUtils {
                 httpURLConnection.disconnect();
                 return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
             } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), charsetName);
+                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
                 Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
@@ -398,5 +398,27 @@ public class WebUtils {
     public static SSLSocketFactory initSSLSocketFactory(String certificate, String password) throws IOException, UnrecoverableKeyException, CertificateException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(Base64.decodeBase64(certificate));
         return initSSLSocketFactory(byteArrayInputStream, password);
+    }
+
+    public static String obtainResponseCharset(HttpURLConnection httpURLConnection, String defaultCharset) {
+        String charset = null;
+        String contentType = httpURLConnection.getContentType();
+        if (StringUtils.isNotBlank(contentType)) {
+            contentType = contentType.toUpperCase();
+            String[] array = contentType.split(";");
+            int length = array.length;
+            for (int index = 0; index < length; index++) {
+                String str = array[index].trim();
+                if (str.startsWith("CHARSET")) {
+                    String[] pair = str.split("=");
+                    charset = pair[1].trim();
+                    break;
+                }
+            }
+        }
+        if (StringUtils.isBlank(charset)) {
+            charset = defaultCharset;
+        }
+        return charset;
     }
 }
