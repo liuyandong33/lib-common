@@ -2,17 +2,11 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class Tenant extends BasicDomain {
     private String code;
     private String name;
-    private String mobile;
-    private String email;
-    private String linkman;
     private String business;
     private String partitionCode;
-    private BigInteger userId;
     private Integer tenantType;
 
     public String getCode() {
@@ -31,30 +25,6 @@ public class Tenant extends BasicDomain {
         this.name = name;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLinkman() {
-        return linkman;
-    }
-
-    public void setLinkman(String linkman) {
-        this.linkman = linkman;
-    }
-
     public String getBusiness() {
         return business;
     }
@@ -69,14 +39,6 @@ public class Tenant extends BasicDomain {
 
     public void setPartitionCode(String partitionCode) {
         this.partitionCode = partitionCode;
-    }
-
-    public BigInteger getUserId() {
-        return userId;
-    }
-
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
     }
 
     public Integer getTenantType() {
