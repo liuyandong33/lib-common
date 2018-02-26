@@ -15,6 +15,7 @@ public class WeiXinPayAccount extends BasicDomain {
     private String apiSecretKey;
     private String subPublicAccountAppId;
     private String subOpenPlatformAppId;
+    private String subMiniProgramAppId;
     private String rsaPublicKey;
     private String subMchId;
     private String operationCertificate;
@@ -75,6 +76,14 @@ public class WeiXinPayAccount extends BasicDomain {
 
     public void setSubOpenPlatformAppId(String subOpenPlatformAppId) {
         this.subOpenPlatformAppId = subOpenPlatformAppId;
+    }
+
+    public String getSubMiniProgramAppId() {
+        return subMiniProgramAppId;
+    }
+
+    public void setSubMiniProgramAppId(String subMiniProgramAppId) {
+        this.subMiniProgramAppId = subMiniProgramAppId;
     }
 
     public String getRsaPublicKey() {
