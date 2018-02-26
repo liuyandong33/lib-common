@@ -46,6 +46,10 @@ public class SaleFlow extends BasicDomain {
      * 商品规格名称
      */
     private String goodsSpecificationName;
+    /**
+     * 购买数量
+     */
+    private Integer quantity;
 
     public BigInteger getOrderId() {
         return orderId;
@@ -125,5 +129,13 @@ public class SaleFlow extends BasicDomain {
 
     public void setGoodsSpecificationName(String goodsSpecificationName) {
         this.goodsSpecificationName = goodsSpecificationName;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }
