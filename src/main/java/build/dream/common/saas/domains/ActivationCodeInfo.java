@@ -38,6 +38,14 @@ public class ActivationCodeInfo extends BasicDomain {
      * 激活码
      */
     private String activationCode;
+    /**
+     * 商品id
+     */
+    private BigInteger goodsId;
+    /**
+     * 商品规格id
+     */
+    private BigInteger goodsSpecificationId;
 
     public BigInteger getAgentId() {
         return agentId;
@@ -101,5 +109,21 @@ public class ActivationCodeInfo extends BasicDomain {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public BigInteger getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(BigInteger goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public BigInteger getGoodsSpecificationId() {
+        return goodsSpecificationId;
+    }
+
+    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+        this.goodsSpecificationId = goodsSpecificationId;
     }
 }
