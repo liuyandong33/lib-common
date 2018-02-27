@@ -9,7 +9,7 @@ public class TenantGoods extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private BigInteger goodsId;
-    private Date expiryTime;
+    private Date expireTime;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -35,11 +35,11 @@ public class TenantGoods extends BasicDomain {
         this.goodsId = goodsId;
     }
 
-    public Date getExpiryTime() {
-        return expiryTime;
+    public Date getExpireTime() {
+        return expireTime;
     }
 
-    public void setExpiryTime(Date expiryTime) {
-        this.expiryTime = expiryTime;
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 }

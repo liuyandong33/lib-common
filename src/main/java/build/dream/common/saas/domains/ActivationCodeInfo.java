@@ -25,7 +25,7 @@ public class ActivationCodeInfo extends BasicDomain {
     /**
      * 过期时间
      */
-    private Date expireAt;
+    private Date expireTime;
     /**
      * 状态：1-未使用，2-已使用，3-已作废（已过期）
      */
@@ -79,12 +79,12 @@ public class ActivationCodeInfo extends BasicDomain {
         this.useTime = useTime;
     }
 
-    public Date getExpireAt() {
-        return expireAt;
+    public Date getExpireTime() {
+        return expireTime;
     }
 
-    public void setExpireAt(Date expireAt) {
-        this.expireAt = expireAt;
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 
     public Integer getStatus() {
