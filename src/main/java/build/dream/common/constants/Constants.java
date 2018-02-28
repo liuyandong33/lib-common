@@ -114,6 +114,7 @@ public class Constants {
     public static final Integer PAID_SCENE_WEI_XIN_H5 = 2;
     public static final Integer PAID_SCENE_WEI_XIN_APP = 3;
     public static final Integer PAID_SCENE_WEI_XIN_NATIVE = 4;
+    public static final Integer PAID_SCENE_WEI_XIN_MINI_PROGRAM = 5;
     public static final Integer PAID_SCENE_ALIPAY_MOBILE_WEBSITE = 7;
     public static final Integer PAID_SCENE_ALIPAY_PC_WEBSITE = 8;
     public static final Integer PAID_SCENE_ALIPAY_APP = 9;
