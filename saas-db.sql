@@ -744,3 +744,25 @@ CREATE TABLE sale_flow
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '销售流水';
+
+DROP TABLE IF EXISTS activation_code_info;
+CREATE TABLE activation_code_info
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    agent_id BIGINT NOT NULL COMMENT '代理商id',
+    order_id BIGINT NOT NULL COMMENT '订单id',
+    use_order_id BIGINT COMMENT '使用订单id',
+    use_time DATETIME COMMENT '使用时间',
+    expire_time DATETIME COMMENT '过期时间',
+    status TINYINT NOT NULL COMMENT '状态：1-未使用，2-已使用，3-已作废（已过期）',
+    remark VARCHAR(255) COMMENT '备注',
+    activation_code VARCHAR(30) NOT NULL COMMENT '激活码',
+    goods_id BIGINT NOT NULL COMMENT '商品id',
+    goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
