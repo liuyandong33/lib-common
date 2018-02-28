@@ -491,7 +491,7 @@ CREATE TABLE tenant_goods
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
     goods_id BIGINT NOT NULL COMMENT '产品id',
-    expiry_time DATETIME NOT NULL COMMENT '过期时间',
+    expire_time DATETIME NOT NULL COMMENT '过期时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
