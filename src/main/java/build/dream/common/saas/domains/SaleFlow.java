@@ -50,6 +50,10 @@ public class SaleFlow extends BasicDomain {
      * 购买数量
      */
     private Integer quantity;
+    /**
+     * 支付类型，1-微信支付，2-支付宝支付
+     */
+    private Integer paidType;
 
     public BigInteger getOrderId() {
         return orderId;
@@ -137,5 +141,13 @@ public class SaleFlow extends BasicDomain {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getPaidType() {
+        return paidType;
+    }
+
+    public void setPaidType(Integer paidType) {
+        this.paidType = paidType;
     }
 }
