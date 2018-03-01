@@ -15,6 +15,7 @@ public class SystemUser extends BasicDomain {
     private String weiXinOpenPlatformOpenId;
     private Integer userType;
     private BigInteger tenantId;
+    private BigInteger agentId;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -90,6 +91,14 @@ public class SystemUser extends BasicDomain {
 
     public void setTenantId(BigInteger tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public BigInteger getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(BigInteger agentId) {
+        this.agentId = agentId;
     }
 
     public boolean isAccountNonExpired() {
