@@ -57,11 +57,12 @@ CREATE TABLE `system_user`
     mobile VARCHAR(20) COMMENT '手机号码',
     email VARCHAR(20) COMMENT '邮箱',
     `login_name` VARCHAR(20) COMMENT '登录名',
-    user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工',
+    user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工，3-代理商',
     `password` VARCHAR(50) NOT NULL COMMENT '登录密码',
     wei_xin_public_platform_open_id VARCHAR(50) COMMENT '微信公众平台open id',
     wei_xin_open_platform_open_id VARCHAR(50) COMMENT '微信开放平台open id',
     tenant_id BIGINT COMMENT '商户ID',
+    agent_id BIGINT COMMENT '代理商ID',
     account_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有过期，1-没有过期，0-已经过期',
     account_non_locked TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有锁定，1-没有锁定，0-已经锁定',
     credentials_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户凭证是否没有过期，1-没有过期，0-已经过期',
@@ -762,6 +763,20 @@ CREATE TABLE activation_code_info
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS agent;
+CREATE TABLE agent
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    `code` VARCHAR(20) NOT NULL COMMENT '商户编码',
+    `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
