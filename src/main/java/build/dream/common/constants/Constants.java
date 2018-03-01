@@ -60,6 +60,7 @@ public class Constants {
 
     public static final Integer USER_TYPE_TENANT = 1;
     public static final Integer USER_TYPE_TENANT_EMPLOYEE = 2;
+    public static final Integer USER_TYPE_AGENT = 3;
 
     public static final Integer BRANCH_TYPE_HEADQUARTERS = 1;
     public static final Integer BRANCH_TYPE_DIRECT_SALE_STORE = 2;
