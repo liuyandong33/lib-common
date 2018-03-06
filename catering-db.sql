@@ -225,6 +225,7 @@ CREATE TABLE diet_order_payment (
     payment_code VARCHAR(10) NOT NULL COMMENT '支付方式编码',
     payment_name VARCHAR(10) NOT NULL COMMENT '支付方式名称',
     paid_amount DECIMAL(11, 3) NOT NULL COMMENT '支付的金额',
+    occurrence_time DATETIME NOT NULL COMMENT '发生时间',
     local_id VARCHAR(50) COMMENT '本地ID',
     local_diet_order_id VARCHAR(50) COMMENT '本地订单ID，local_diet_order.local_id',
     local_create_time DATETIME COMMENT '本地创建时间',
