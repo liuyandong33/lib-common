@@ -169,4 +169,9 @@ public class Constants {
     public static final String CARD_TYPE_GENERAL_COUPON = "GENERAL_COUPON";
 
     public static final String KEY_MEI_TUAN_CALLBACK_MESSAGE = "_mei_tuan_callback_message";
+
+    public static final Integer GOODS_STATUS_NORMAL = 1;
+    public static final Integer GOODS_STATUS_STOP_SALE = 2;
+    public static final Integer GOODS_METERING_MODE_BY_TIME = 1;
+    public static final Integer GOODS_METERING_MODE_BY_QUANTITY = 2;
 }

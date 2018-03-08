@@ -10,7 +10,7 @@ public class Goods extends BasicDomain {
     /**
      * 商品类型，1-设备，2-基础服务，3-增值服务
      */
-    private Integer type;
+    private Integer goodsTypeId;
     /**
      * 商品状态，1-正常，2-停售
      */
@@ -36,12 +36,12 @@ public class Goods extends BasicDomain {
         this.name = name;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getGoodsTypeId() {
+        return goodsTypeId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setGoodsTypeId(Integer goodsTypeId) {
+        this.goodsTypeId = goodsTypeId;
     }
 
     public Integer getStatus() {
