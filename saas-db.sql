@@ -782,3 +782,18 @@ CREATE TABLE agent
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS goods_type;
+CREATE TABLE goods_type
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    name VARCHAR(20) NOT NULL COMMENT '商品类型名称',
+    description VARCHAR(255) COMMENT '描述',
+    single TINYINT NOT NULL COMMENT '类型下是否只能有一个商品，1-是，0-否',
+    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT now() ON UPDATE now() NOT NULL COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '商品类型表';
