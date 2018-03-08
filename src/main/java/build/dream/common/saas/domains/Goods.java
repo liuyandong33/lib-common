@@ -2,6 +2,8 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
+import java.math.BigInteger;
+
 public class Goods extends BasicDomain {
     /**
      * 商品名称
@@ -10,7 +12,7 @@ public class Goods extends BasicDomain {
     /**
      * 商品类型，1-设备，2-基础服务，3-增值服务
      */
-    private Integer goodsTypeId;
+    private BigInteger goodsTypeId;
     /**
      * 商品状态，1-正常，2-停售
      */
@@ -36,11 +38,11 @@ public class Goods extends BasicDomain {
         this.name = name;
     }
 
-    public Integer getGoodsTypeId() {
+    public BigInteger getGoodsTypeId() {
         return goodsTypeId;
     }
 
-    public void setGoodsTypeId(Integer goodsTypeId) {
+    public void setGoodsTypeId(BigInteger goodsTypeId) {
         this.goodsTypeId = goodsTypeId;
     }
 
