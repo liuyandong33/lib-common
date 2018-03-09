@@ -700,6 +700,7 @@ CREATE TABLE mei_tuan_order
     utime DATETIME COMMENT '订单更新时间',
     day_seq VARCHAR(20) COMMENT '门店当天订单流水号',
     delivery_time DATETIME COMMENT '用户预计送达时间，“立即送达”时为0',
+    e_poi_id VARCHAR(100) COMMENT '三方的门店Id',
     has_invoiced TINYINT COMMENT '是否需要发票，0-不需要， 1-需要',
     invoice_title VARCHAR(50) COMMENT '发票抬头',
     taxpayer_id VARCHAR(50) COMMENT '发票税号',
@@ -725,6 +726,7 @@ CREATE TABLE mei_tuan_order
     quantity INT COMMENT '菜品份数',
     avg_send_time DECIMAL(11, 3) COMMENT '餐厅平均送餐时间，单位为分钟',
     dinners_number INT COMMENT '用餐人数（0：用户没有选择用餐人数；1-10：用户选择的用餐人数；-10：10人以上用餐；99：用户不需要餐具）',
+    poi_id BIGINT COMMENT '美团门店ID',
     create_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL COMMENT '最后更新时间',
@@ -732,7 +734,6 @@ CREATE TABLE mei_tuan_order
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '美团订单';
-
 
 DROP TABLE IF EXISTS mei_tuan_order_item;
 CREATE TABLE mei_tuan_order_item

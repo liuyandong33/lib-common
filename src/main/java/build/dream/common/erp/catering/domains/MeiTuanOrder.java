@@ -56,6 +56,10 @@ public class MeiTuanOrder extends BasicDomain {
      */
     private Date deliveryTime;
     /**
+     * 三方的门店Id
+     */
+    private String ePoiId;
+    /**
      * 是否需要发票，0-不需要， 1-需要
      */
     private boolean hasInvoiced;
@@ -155,6 +159,10 @@ public class MeiTuanOrder extends BasicDomain {
      * 用餐人数（0：用户没有选择用餐人数；1-10：用户选择的用餐人数；-10：10人以上用餐；99：用户不需要餐具）
      */
     private Integer dinnersNumber;
+    /**
+     * 美团门店ID
+     */
+    private BigInteger poiId;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -250,6 +258,14 @@ public class MeiTuanOrder extends BasicDomain {
 
     public void setDeliveryTime(Date deliveryTime) {
         this.deliveryTime = deliveryTime;
+    }
+
+    public String getePoiId() {
+        return ePoiId;
+    }
+
+    public void setePoiId(String ePoiId) {
+        this.ePoiId = ePoiId;
     }
 
     public boolean isHasInvoiced() {
@@ -450,5 +466,13 @@ public class MeiTuanOrder extends BasicDomain {
 
     public void setDinnersNumber(Integer dinnersNumber) {
         this.dinnersNumber = dinnersNumber;
+    }
+
+    public BigInteger getPoiId() {
+        return poiId;
+    }
+
+    public void setPoiId(BigInteger poiId) {
+        this.poiId = poiId;
     }
 }
