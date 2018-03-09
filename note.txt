@@ -7,3 +7,189 @@ Content-Disposition: form-data; name="buffer";filename="2014_08_01_01.jpg"
 Content-Type:application/octet-stream
 
 --ea7c97d4-b5fb-4191-acf1-f786eb9d6038--
+
+
+public class Test {
+    public static void main(String[] args) {
+        int total = 100;
+        int size = 14;
+        boolean[] aa = new boolean[total];
+        int index = 0;
+        int i = 0;
+        while (true) {
+            if (!aa[index]) {
+                i++;
+            }
+            if (i % size == 0) {
+                aa[index] = true;
+            }
+            index++;
+            if (index == total) {
+                index = 0;
+            }
+            if (i == size * (total - 1)) {
+                break;
+            }
+        }
+        for (int j = 0; j < total; j++) {
+            if (!aa[j]) {
+                System.out.println(j + 1);
+            }
+        }
+    }
+}
+
+private static String[] LUNAR_DATE_ARRAY = {
+            "04BD8", "04AE0", "0A570", "054D5", "0D260", "0D950", "16554", "056A0", "09AD0", "055D2",
+            "04AE0", "0A5B6", "0A4D0", "0D250", "1D255", "0B540", "0D6A0", "0ADA2", "095B0", "14977",
+            "04970", "0A4B0", "0B4B5", "06A50", "06D40", "1AB54", "02B60", "09570", "052F2", "04970",
+            "06566", "0D4A0", "0EA50", "06E95", "05AD0", "02B60", "186E3", "092E0", "1C8D7", "0C950",
+            "0D4A0", "1D8A6", "0B550", "056A0", "1A5B4", "025D0", "092D0", "0D2B2", "0A950", "0B557",
+            "06CA0", "0B550", "15355", "04DA0", "0A5B0", "14573", "052B0", "0A9A8", "0E950", "06AA0",
+            "0AEA6", "0AB50", "04B60", "0AAE4", "0A570", "05260", "0F263", "0D950", "05B57", "056A0",
+            "096D0", "04DD5", "04AD0", "0A4D0", "0D4D4", "0D250", "0D558", "0B540", "0B6A0", "195A6",
+            "095B0", "049B0", "0A974", "0A4B0", "0B27A", "06A50", "06D40", "0AF46", "0AB60", "09570",
+            "04AF5", "04970", "064B0", "074A3", "0EA50", "06B58", "055C0", "0AB60", "096D5", "092E0",
+            "0C960", "0D954", "0D4A0", "0DA50", "07552", "056A0", "0ABB7", "025D0", "092D0", "0CAB5",
+            "0A950", "0B4A0", "0BAA4", "0AD50", "055D9", "04BA0", "0A5B0", "15176", "052B0", "0A930",
+            "07954", "06AA0", "0AD50", "05B52", "04B60", "0A6E6", "0A4E0", "0D260", "0EA65", "0D530",
+            "05AA0", "076A3", "096D0", "04BD7", "04AD0", "0A4D0", "1D0B6", "0D250", "0D520", "0DD45",
+            "0B5A0", "056D0", "055B2", "049B0", "0A577", "0A4B0", "0AA50", "1B255", "06D20", "0ADA0",
+            "14B63"};
+
+    public static void main(String[] args) throws ParseException {
+        Calendar calendar = Calendar.getInstance();
+        int thisYear = calendar.get(Calendar.DAY_OF_YEAR);
+        int year = 1900;
+        int total = 0;
+        int index = 0;
+        long bbb = 0;
+        long aaa = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-05-01 12:12:12").getTime() - new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("1900-01-31 00:00:00").getTime()) / 86400000 + 1;
+        for (String aa : LUNAR_DATE_ARRAY) {
+            int thisYearAmount = (obtaina(aa.charAt(1)) + obtaina(aa.charAt(2)) + obtaina(aa.charAt(3))) * 30 + (12 - (obtaina(aa.charAt(1)) + obtaina(aa.charAt(2)) + obtaina(aa.charAt(3)))) * 29;
+            if (aa.charAt(4) != '0') {
+                thisYearAmount = thisYearAmount + (aa.charAt(0) == '0' ? 29 : 30);
+            }
+
+            total = total + thisYearAmount;
+            if (total >= aaa) {
+                bbb = thisYearAmount - total + aaa;
+                break;
+            }
+            year = year + 1;
+            index = index + 1;
+        }
+        String str = LUNAR_DATE_ARRAY[index];
+        String c = str.charAt(4) + "";
+        char a = str.charAt(0);
+        str = obtain(str.charAt(1)) + obtain(str.charAt(2)) + obtain(str.charAt(3));
+        if (!"0".equals(c)) {
+            int i = 0;
+            if (c == "a") {
+                i = 10;
+            } else if (c == "b") {
+                i = 11;
+            } else if (c == "c") {
+                i = 12;
+            } else {
+                i = Integer.valueOf(c);
+            }
+            str = str.substring(0, i) + a + str.substring(i, 12);
+        }
+        int length = str.length();
+        int su = 0;
+        long mm = 0;
+        int ah = 0;
+        for (int j = 0; j < length; j++) {
+            int ss = 0;
+            if (str.charAt(j) == '1') {
+                ss = 30;
+            } else {
+                ss = 29;
+            }
+            if (su + ss >= bbb) {
+                mm = bbb - su;
+                ah = j + 1;
+                break;
+            } else {
+                su = su + ss;
+            }
+        }
+        System.out.println(year + "年" + (ah == Integer.valueOf(c) + 1 && !"0".equals(c) ? "闰" + c : ah) + "月" + mm + "日");
+    }
+
+    public static int obtaina(char aaa) {
+        int bbb = 0;
+        if ('0' == aaa) {
+            bbb = 0;
+        } else if ('1' == aaa) {
+            bbb = 1;
+        } else if ('2' == aaa) {
+            bbb = 1;
+        } else if ('3' == aaa) {
+            bbb = 2;
+        } else if ('4' == aaa) {
+            bbb = 1;
+        } else if ('5' == aaa) {
+            bbb = 2;
+        } else if ('6' == aaa) {
+            bbb = 2;
+        } else if ('7' == aaa) {
+            bbb = 3;
+        } else if ('8' == aaa) {
+            bbb = 1;
+        } else if ('9' == aaa) {
+            bbb = 2;
+        } else if ('A' == aaa) {
+            bbb = 2;
+        } else if ('B' == aaa) {
+            bbb = 3;
+        } else if ('C' == aaa) {
+            bbb = 2;
+        } else if ('D' == aaa) {
+            bbb = 3;
+        } else if ('E' == aaa) {
+            bbb = 3;
+        } else if ('F' == aaa) {
+            bbb = 4;
+        }
+        return bbb;
+    }
+
+    public static String obtain(char aaa) {
+        String bbb = null;
+        if ('0' == aaa) {
+            bbb = "0000";
+        } else if ('1' == aaa) {
+            bbb = "0001";
+        } else if ('2' == aaa) {
+            bbb = "0010";
+        } else if ('3' == aaa) {
+            bbb = "0011";
+        } else if ('4' == aaa) {
+            bbb = "0100";
+        } else if ('5' == aaa) {
+            bbb = "0101";
+        } else if ('6' == aaa) {
+            bbb = "0110";
+        } else if ('7' == aaa) {
+            bbb = "0111";
+        } else if ('8' == aaa) {
+            bbb = "1000";
+        } else if ('9' == aaa) {
+            bbb = "1001";
+        } else if ('A' == aaa) {
+            bbb = "1010";
+        } else if ('B' == aaa) {
+            bbb = "1011";
+        } else if ('C' == aaa) {
+            bbb = "1100";
+        } else if ('D' == aaa) {
+            bbb = "1101";
+        } else if ('E' == aaa) {
+            bbb = "1110";
+        } else if ('F' == aaa) {
+            bbb = "1111";
+        }
+        return bbb;
+    }
