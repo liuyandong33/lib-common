@@ -768,6 +768,8 @@ CREATE TABLE goods_type
     name VARCHAR(20) NOT NULL COMMENT '商品类型名称',
     description VARCHAR(255) COMMENT '描述',
     single TINYINT NOT NULL COMMENT '类型下是否只能有一个商品，1-是，0-否',
+    renew_sql TEXT COMMENT '续费sql',
+    disable_sql TEXT COMMENT '禁用sql',
     create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME DEFAULT now() ON UPDATE now() NOT NULL COMMENT '最后更新时间',

@@ -31,6 +31,7 @@ CREATE TABLE branch
     contact_phone VARCHAR(20) NOT NULL COMMENT '联系电话',
     eleme_account_type TINYINT COMMENT '1-连锁账号，2-独立账号',
     shop_id BIGINT COMMENT '饿了么店铺ID',
+    smart_restaurant_status TINYINT NOT NULL COMMENT '微餐厅状态，1-正常，2-禁用',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

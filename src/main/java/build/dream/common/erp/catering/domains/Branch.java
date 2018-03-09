@@ -81,6 +81,10 @@ public class Branch extends BasicDomain {
      * 饿了么门店id
      */
     private BigInteger shopId;
+    /**
+     * 微餐厅状态，1-正常，2-禁用
+     */
+    private Integer smartRestaurantStatus;
 
     public BigInteger getTenantId() {
         return tenantId;
