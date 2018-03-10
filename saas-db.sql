@@ -786,7 +786,7 @@ CREATE TABLE agent_contract
     agent_id BIGINT NOT NULL COMMENT '代理商ID',
     start_time DATETIME NOT NULL COMMENT '开始时间',
     end_time DATETIME NOT NULL COMMENT '结束时间',
-    status TINYINT NOT NULL COMMENT '合同状态，1-未审核，2-已审核，3-未执行，4-执行中，5-已终止，6-已过期',
+    status TINYINT NOT NULL COMMENT '合同状态，1-未审核，2-未执行，3-执行中，4-已终止，5-已过期',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

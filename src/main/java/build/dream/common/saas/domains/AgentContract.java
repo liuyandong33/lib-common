@@ -23,7 +23,7 @@ public class AgentContract extends BasicDomain {
      */
     private Date endTime;
     /**
-     * 合同状态，1-未审核，2-已审核，3-未执行，4-执行中，5-已终止，6-已过期
+     * 合同状态，1-未审核，2-未执行，3-执行中，4-已终止，5-已过期
      */
     private Integer status;
 
