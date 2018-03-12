@@ -407,112 +407,6 @@ CREATE TABLE eleme_order_activity
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单活动';
 
-DROP TABLE IF EXISTS eleme_refund_order_message;
-CREATE TABLE eleme_refund_order_message
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
-    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
-    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    refund_status VARCHAR(20) COMMENT '退单状态，noRefund-未申请退单，applied-用户申请退单，rejected-店铺拒绝退单，arbitrating-客服仲裁中，failed-退单失败，successful-退单成功',
-    reason VARCHAR(255) COMMENT '退单操作原因描述',
-    shop_id BIGINT COMMENT '店铺id',
-    refund_type VARCHAR(10) COMMENT '退单类型，normal-全额退款，part-部分退款',
-    total_price DECIMAL(11, 3) COMMENT '退款金额',
-    update_time DATETIME COMMENT '消息发送时间戳',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT '饿了么退单消息';
-
-DROP TABLE IF EXISTS eleme_refund_order_message_goods_item;
-CREATE TABLE eleme_refund_order_message_goods_item
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
-    eleme_order_id BIGINT NOT NULL COMMENT 'eleme_order.id',
-    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    eleme_refund_order_message_id BIGINT NOT NULL COMMENT '饿了么退单消息ID',
-    `name` VARCHAR(20) COMMENT '商品名称',
-    quantity INT COMMENT '商品数量',
-    price DECIMAL(11, 3) COMMENT '商品数量',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT '饿了么退单详情';
-
-DROP TABLE IF EXISTS eleme_reminder_message;
-CREATE TABLE eleme_reminder_message
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
-    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    shop_id BIGINT COMMENT '店铺id',
-    reminder_id BIGINT COMMENT '饿了么系统催单id',
-    user_id BIGINT COMMENT '发起催单的饿了么系统用户id',
-    update_time DATETIME COMMENT '用户发起催单的时间戳',
-    tenant_id BIGINT COMMENT '商户ID',
-    branch_id BIGINT COMMENT '门店ID',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT '饿了么催单消息';
-
-DROP TABLE IF EXISTS eleme_order_state_change_message;
-CREATE TABLE eleme_order_state_change_message
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
-    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    state VARCHAR(20) COMMENT '订单状态，pending-未生效订单，unprocessed-未处理订单，refunding-退单中订单，valid-已处理订单，invalid-无效订单，settled-已完订单',
-    shop_id BIGINT COMMENT '店铺id',
-    update_time DATETIME COMMENT '用户发起催单的时间戳',
-    role TINYINT COMMENT '驱动状态发生变更的操作者角色，1-下单用户，2-饿了么系统，3-饿了么商户，4-饿了么客服，5-饿了么开放平台系统	，6-饿了么短信系统，7-饿了么无线打印机系统，8-饿了么风控系统',
-    tenant_id BIGINT COMMENT '商户ID',
-    branch_id BIGINT COMMENT '门店ID',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT '饿了么订单状态变更消息';
-
-DROP TABLE IF EXISTS eleme_delivery_order_state_change_message;
-CREATE TABLE eleme_delivery_order_state_change_message
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
-    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
-    shop_id BIGINT COMMENT '店铺id',
-    state VARCHAR(20) COMMENT '运单主状态，tobeAssignedMerchant-待分配（物流系统已生成运单，待分配配送商），tobeAssignedCourier-待分配（配送系统已接单，待分配配送员），tobeFetched-待取餐（已分配给配送员，配送员未取餐）,delivering-配送中（配送员已取餐，正在配送），completed-配送成功（配送员配送完成），cancelled-配送取消（商家可以重新发起配送），exception-配送异常，arrived-已到店(配送员已到店)，selfDelivery-商家自行配送，noMoreDelivery-商家不再配送，reject-物流拒单',
-    sub_state VARCHAR(20) COMMENT '运单子状态，merchantReason-商家取消，carrierReason-配送商取消，userReason-用户取消，systemReason-物流系统取消，merchantCallLateError-呼叫配送晚，merchantFoodError-餐厅出餐问题，merchantInterruptDeliveryError-商户中断配送，userNotAnswerError-用户不接电话，userReturnOrderError-用户退单，userAddressError-用户地址错误，deliveryOutOfService-超出服务范围，carrierRemarkExceptionError-骑手标记异常，systemMarkedError-系统自动标记异常--订单超过3小时未送达，otherError-其他异常，deliveryTimeout-配送超时，系统标记异常，onlinePayError-只支持在线订单，consumerLocationTooFarError-超出服务范围，merchantPushTooLateError-请求配送过晚, 无法呼叫，systemError-系统异常',
-    `name` VARCHAR(20) COMMENT '配送员名称',
-    phone VARCHAR(20) COMMENT '配送员电话',
-    update_time DATETIME COMMENT '消息发送时间',
-    tenant_id BIGINT COMMENT '商户ID',
-    branch_id BIGINT COMMENT '门店ID',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
-) COMMENT '饿了么运单状态变更消息';
-
 DROP TABLE IF EXISTS goods;
 CREATE TABLE goods
 (
@@ -920,7 +814,6 @@ CREATE TABLE can_not_operate_reason
 ) COMMENT '不能操作的原因';
 
 DROP TABLE IF EXISTS diet_order_delivery_state;
-DROP TABLE IF EXISTS diet_order_delivery_state;
 CREATE TABLE diet_order_delivery_state
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
@@ -948,3 +841,19 @@ CREATE TABLE diet_order_delivery_state
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '订单配送状态';
+
+DROP TABLE IF EXISTS eleme_callback_message;
+CREATE TABLE eleme_callback_message
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
+    order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
+    request_id VARCHAR(50) NOT NULL COMMENT '请求ID',
+    `type` TINYINT NOT NULL COMMENT '消息类型',
+    app_id BIGINT NOT NULL COMMENT 'app id',
+    message TEXT NOT NULL COMMENT 'message',
+    shop_id BIGINT NOT NULL COMMENT 'shop id',
+    `timestamp` DATETIME NOT NULL COMMENT 'timestamp',
+    signature VARCHAR(50) NOT NULL COMMENT 'signature',
+    user_id BIGINT NOT NULL COMMENT 'user id'
+) COMMENT '饿了么催单消息';
