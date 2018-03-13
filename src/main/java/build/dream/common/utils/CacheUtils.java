@@ -389,4 +389,12 @@ public class CacheUtils {
     public static void deleteSession(String sessionId) {
         delete(obtainSessionId(sessionId));
     }
+
+    public static Long ttl(String key) {
+        return obtainStringRedisTemplate().getExpire(key);
+    }
+
+    public static Long ttl(String key, TimeUnit timeUnit) {
+        return obtainStringRedisTemplate().getExpire(key, timeUnit);
+    }
 }
