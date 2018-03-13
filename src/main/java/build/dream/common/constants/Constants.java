@@ -83,6 +83,7 @@ public class Constants {
 
     public static final String ELEME_MESSAGE_CHANNEL_TOPIC = "eleme.message.channel.topic";
     public static final String ELEME_CALLBACK_MESSAGE_CHANNEL_TOPIC = "eleme.callback.message.channel.topic";
+    public static final String MESSAGE_NOTIFICATION_MESSAGE_CHANNEL_TOPIC = "message.notification.message.channel.topic";
 
     public static final String KEY_SERVICE_SYSTEM_USERS = "_service_system_users";
 
