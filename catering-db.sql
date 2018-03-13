@@ -846,7 +846,6 @@ DROP TABLE IF EXISTS eleme_callback_message;
 CREATE TABLE eleme_callback_message
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    eleme_order_id BIGINT COMMENT '饿了么订单ID，eleme_order.id',
     order_id VARCHAR(50) COMMENT '饿了么系统订单ID',
     request_id VARCHAR(50) NOT NULL COMMENT '请求ID',
     `type` TINYINT NOT NULL COMMENT '消息类型',
