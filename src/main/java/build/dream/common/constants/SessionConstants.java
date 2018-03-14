@@ -24,4 +24,6 @@ public class SessionConstants {
     public static final String KEY_AGENT_ID = "_agent_id";
     public static final String KEY_AGENT_CODE = "_agent_code";
     public static final String KEY_AGENT_NAME = "_agent_name";
+
+    public static final String KEY_OPEN_ID = "_open_id";
 }
