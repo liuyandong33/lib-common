@@ -55,6 +55,7 @@ public class Constants {
     public static final String SERVICE_NAME_POSAPI = "posapi";
     public static final String SERVICE_NAME_APPAPI = "appapi";
     public static final String SERVICE_NAME_PORTAL = "portal";
+    public static final String SERVICE_NAME_O2O = "o2o";
 
     public static final String BUSINESS_CATERING = "1";
     public static final String BUSINESS_RETAIL = "2";
