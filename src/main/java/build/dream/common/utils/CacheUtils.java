@@ -367,27 +367,41 @@ public class CacheUtils {
     }
 
     public static void setAttributeToSession(String sessionId, String field, String value) {
-        hset(obtainSessionId(sessionId), field, value);
+        String key = obtainSessionId(sessionId);
+        hset(key, field, value);
+        setSessionExpireTime(key);
     }
 
     public static void setAttributesToSession(String sessionId, Map<String, String> map) {
-        hmset(obtainSessionId(sessionId), map);
+        String key = obtainSessionId(sessionId);
+        hmset(key, map);
+        setSessionExpireTime(key);
     }
 
     public static String obtainAttributeFromSession(String sessionId, String field) {
-        return hget(obtainSessionId(sessionId), field);
+        String key = obtainSessionId(sessionId);
+        setSessionExpireTime(key);
+        return hget(key, field);
     }
 
     public static Map<String, String> obtainAttributesFromSession(String sessionId) {
-        return hgetAll(obtainSessionId(sessionId));
+        String key = obtainSessionId(sessionId);
+        setSessionExpireTime(key);
+        return hgetAll(key);
     }
 
     public static void deleteAttributesFromSession(String sessionId, String... fields) {
-        hdel(obtainSessionId(sessionId), fields);
+        String key = obtainSessionId(sessionId);
+        setSessionExpireTime(key);
+        hdel(key, fields);
     }
 
     public static void deleteSession(String sessionId) {
         delete(obtainSessionId(sessionId));
+    }
+
+    private static void setSessionExpireTime(String sessionId) {
+        expire(sessionId, 3, TimeUnit.HOURS);
     }
 
     public static Long ttl(String key) {
