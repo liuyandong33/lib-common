@@ -514,4 +514,8 @@ public class ApplicationHandler {
         Method method = clazz.getMethod(methodName, argumentTypes);
         return ReflectionUtils.invokeMethod(method, target, arguments);
     }
+
+    public static void invalidateHttpSession() {
+        getHttpSession().invalidate();
+    }
 }
