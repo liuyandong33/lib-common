@@ -317,7 +317,13 @@ public class WebUtils {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
-            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), charsetName));
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (StringUtils.isBlank(value)) {
+                requestParameterPairs.add(key + "=" + value);
+            } else {
+                requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
+            }
         }
         return StringUtils.join(requestParameterPairs, "&");
     }
@@ -326,7 +332,13 @@ public class WebUtils {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
-            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), charsetName));
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (StringUtils.isBlank(value)) {
+                requestParameterPairs.add(key + "=" + value);
+            } else {
+                requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
+            }
         }
         return StringUtils.join(requestParameterPairs, "&");
     }

@@ -48,7 +48,7 @@ public class ApplicationHandler {
         Map<String, String> requestParameters = new LinkedHashMap<>();
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
         for (Map.Entry<String, String[]> parameterEntry : parameterMap.entrySet()) {
-            requestParameters.put(parameterEntry.getKey(), StringUtils.trimToNull(StringUtils.join(parameterEntry.getValue(), ",")));
+            requestParameters.put(parameterEntry.getKey(), StringUtils.trimToEmpty(StringUtils.join(parameterEntry.getValue(), ",")));
         }
         return requestParameters;
     }
