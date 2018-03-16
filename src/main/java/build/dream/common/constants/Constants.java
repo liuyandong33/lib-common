@@ -178,4 +178,5 @@ public class Constants {
     public static final Integer GOODS_METERING_MODE_BY_QUANTITY = 2;
 
     public static final String WEI_XIN_AUTHORIZE_URL = "wei.xin.authorize.url";
+    public static final String TRANSFER_WEI_XIN_AUTHORIZE_URL = "transfer.wei.xin.authorize.url";
 }
