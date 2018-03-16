@@ -16,6 +16,7 @@ public class WeChatUtils {
         authorizeUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, "UTF-8"));
         authorizeUrl.append("&response_type=code");
         authorizeUrl.append("&scope=").append(scope);
+        authorizeUrl.append("&connect_redirect=1");
         if (StringUtils.isNotBlank(state)) {
             if (state.length() > 128) {
                 state = state.substring(0, 128);
