@@ -26,4 +26,6 @@ public class SessionConstants {
     public static final String KEY_AGENT_NAME = "_agent_name";
 
     public static final String KEY_OPEN_ID = "_open_id";
+
+    public static final String KEY_ALIPAY_USER_ID = "_alipay_user_id";
 }
