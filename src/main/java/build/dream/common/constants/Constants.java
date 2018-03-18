@@ -185,4 +185,5 @@ public class Constants {
     public static final String WWW = "www";
     public static final String BETA = "beta";
     public static final String TEST = "test";
+    public static final String DEVELOPMENT = "development";
 }
