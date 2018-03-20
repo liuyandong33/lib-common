@@ -1,10 +1,17 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WeChatUtils {
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) throws IOException {
@@ -25,5 +32,28 @@ public class WeChatUtils {
         }
         authorizeUrl.append("&#wechat_redirect");
         return authorizeUrl.toString();
+    }
+
+    public static final Map<String, String> generateJsApiConfig(String url, String appId, String appSecret) throws IOException {
+        Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
+        obtainJsapiTicketRequestParameters.put("appId", appId);
+        obtainJsapiTicketRequestParameters.put("appSecret", appSecret);
+        obtainJsapiTicketRequestParameters.put("jsapi", "jsapi");
+        ApiRest obtainJsapiTicketApiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_OUT, "weiXin", "obtainJsapiTicket", obtainJsapiTicketRequestParameters);
+        Validate.isTrue(obtainJsapiTicketApiRest.isSuccessful(), obtainJsapiTicketApiRest.getError());
+        Map<String, Object> obtainJsapiTicketApiRestData = (Map<String, Object>) obtainJsapiTicketApiRest.getData();
+        String jsApiTicket = MapUtils.getString(obtainJsapiTicketApiRestData, "ticket");
+        String nonceStr = RandomStringUtils.randomAlphanumeric(32);
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String str = "jsapi_ticket=" + jsApiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+        String signature = DigestUtils.sha1Hex(str);
+
+        Map<String, String> config = new HashMap<String, String>();
+        config.put("appId", appId);
+        config.put("timestamp", timestamp);
+        config.put("nonceStr", nonceStr);
+        config.put("url", url);
+        config.put("signature", signature);
+        return config;
     }
 }
