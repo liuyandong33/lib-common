@@ -38,7 +38,7 @@ public class WeChatUtils {
         Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
         obtainJsapiTicketRequestParameters.put("appId", appId);
         obtainJsapiTicketRequestParameters.put("appSecret", appSecret);
-        obtainJsapiTicketRequestParameters.put("jsapi", "jsapi");
+        obtainJsapiTicketRequestParameters.put("type", "jsapi");
         ApiRest obtainJsapiTicketApiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_OUT, "weiXin", "obtainJsapiTicket", obtainJsapiTicketRequestParameters);
         Validate.isTrue(obtainJsapiTicketApiRest.isSuccessful(), obtainJsapiTicketApiRest.getError());
         Map<String, Object> obtainJsapiTicketApiRestData = (Map<String, Object>) obtainJsapiTicketApiRest.getData();
