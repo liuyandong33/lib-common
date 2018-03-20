@@ -1,9 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WeiXinJsapiTicket;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -41,11 +41,12 @@ public class WeChatUtils {
         obtainJsapiTicketRequestParameters.put("type", "jsapi");
         ApiRest obtainJsapiTicketApiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_OUT, "weiXin", "obtainJsapiTicket", obtainJsapiTicketRequestParameters);
         Validate.isTrue(obtainJsapiTicketApiRest.isSuccessful(), obtainJsapiTicketApiRest.getError());
-        Map<String, Object> obtainJsapiTicketApiRestData = (Map<String, Object>) obtainJsapiTicketApiRest.getData();
-        String jsApiTicket = MapUtils.getString(obtainJsapiTicketApiRestData, "ticket");
+        WeiXinJsapiTicket weiXinJsapiTicket = (WeiXinJsapiTicket) obtainJsapiTicketApiRest.getData();
+
+        String ticket = weiXinJsapiTicket.getTicket();
         String nonceStr = RandomStringUtils.randomAlphanumeric(32);
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String str = "jsapi_ticket=" + jsApiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+        String str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
         String signature = DigestUtils.sha1Hex(str);
 
         Map<String, String> config = new HashMap<String, String>();
