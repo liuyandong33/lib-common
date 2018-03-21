@@ -45,7 +45,7 @@ public class WeChatUtils {
 
         String ticket = weiXinJsapiTicket.getTicket();
         String nonceStr = RandomStringUtils.randomAlphanumeric(32);
-        String timestamp = String.valueOf(System.currentTimeMillis());
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
         String signature = DigestUtils.sha1Hex(str);
 
