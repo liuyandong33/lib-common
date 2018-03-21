@@ -22,7 +22,7 @@ public class Goods extends BasicDomain {
      */
     private String name;
     /**
-     * 商品类型
+     * 商品名称，1-普通商品，2-套餐
      */
     private Integer type;
     /**
