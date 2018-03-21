@@ -5,12 +5,34 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 
 public class Goods extends BasicDomain {
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 商品名称
+     */
     private String name;
+    /**
+     * 商品类型
+     */
     private Integer type;
+    /**
+     * 商品分类ID
+     */
     private BigInteger categoryId;
+    /**
+     * 图片路径
+     */
+    private String imageUrl;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -58,5 +80,13 @@ public class Goods extends BasicDomain {
 
     public void setCategoryId(BigInteger categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
