@@ -417,7 +417,7 @@ CREATE TABLE goods
     `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     `type` TINYINT NOT NULL COMMENT '产品类型，1-普通商品，2-套餐',
     category_id BIGINT NOT NULL COMMENT '商品分类',
-    image_url VARCHAR  COMMENT '商品图片url',
+    image_url VARCHAR(200) COMMENT '商品图片url',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
