@@ -518,4 +518,8 @@ public class ApplicationHandler {
     public static void invalidateHttpSession() {
         getHttpSession().invalidate();
     }
+
+    public static String getHeader(String name) {
+        return getHttpServletRequest().getHeader(name);
+    }
 }
