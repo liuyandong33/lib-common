@@ -37,6 +37,10 @@ public class Pos extends BasicDomain {
      * pos 版本号
      */
     private String version;
+    /**
+     * 是否在线
+     */
+    private boolean online;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -100,5 +104,13 @@ public class Pos extends BasicDomain {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
     }
 }

@@ -870,6 +870,7 @@ CREATE TABLE pos
     registration_id VARCHAR(50) NOT NULL COMMENT 'jpush 注册Id',
     type VARCHAR(10) NOT NULL COMMENT 'pos 类型，安卓-android，苹果-ios',
     version VARCHAR(10) NOT NULL COMMENT 'pos 版本号',
+    online TINYINT NOT NULL COMMENT '是否在线，1-在线，0-不在线',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
