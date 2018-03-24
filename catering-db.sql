@@ -856,7 +856,7 @@ CREATE TABLE eleme_callback_message
     `timestamp` DATETIME NOT NULL COMMENT 'timestamp',
     signature VARCHAR(50) NOT NULL COMMENT 'signature',
     user_id BIGINT NOT NULL COMMENT 'user id'
-) COMMENT '饿了么催单消息';
+) COMMENT '饿了么回调消息';
 
 DROP TABLE IF EXISTS pos;
 CREATE TABLE pos
