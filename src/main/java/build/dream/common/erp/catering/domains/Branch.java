@@ -237,4 +237,12 @@ public class Branch extends BasicDomain {
     public void setShopId(BigInteger shopId) {
         this.shopId = shopId;
     }
+
+    public Integer getSmartRestaurantStatus() {
+        return smartRestaurantStatus;
+    }
+
+    public void setSmartRestaurantStatus(Integer smartRestaurantStatus) {
+        this.smartRestaurantStatus = smartRestaurantStatus;
+    }
 }
