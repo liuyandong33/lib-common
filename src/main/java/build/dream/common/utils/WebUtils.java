@@ -77,7 +77,9 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+                httpURLConnection.disconnect();
+//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -130,7 +132,9 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+                httpURLConnection.disconnect();
+//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -218,7 +222,9 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+                httpURLConnection.disconnect();
+//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -274,7 +280,9 @@ public class WebUtils {
                 result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
                 httpURLConnection.disconnect();
             } else {
-                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+                httpURLConnection.disconnect();
+//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
