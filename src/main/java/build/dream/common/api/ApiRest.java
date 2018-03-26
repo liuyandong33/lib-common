@@ -10,7 +10,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -27,7 +26,6 @@ public class ApiRest {
     private String requestId;
     private String timestamp;
     private String signature;
-    private int responseCode = HttpURLConnection.HTTP_OK;
 
     public ApiRest() {
         this.requestId = UUID.randomUUID().toString();
@@ -145,14 +143,6 @@ public class ApiRest {
 
     public void setSignature(String signature) {
         this.signature = signature;
-    }
-
-    public int getResponseCode() {
-        return responseCode;
-    }
-
-    public void setResponseCode(int responseCode) {
-        this.responseCode = responseCode;
     }
 
     public static ApiRest fromJson(String jsonString, String datePattern) {
