@@ -187,4 +187,7 @@ public class Constants {
     public static final String BETA = "beta";
     public static final String TEST = "test";
     public static final String DEVELOPMENT = "development";
+
+    public static final Integer SMART_RESTAURANT_STATUS_NORMAL = 1;
+    public static final Integer SMART_RESTAURANT_STATUS_DISABLED = 2;
 }
