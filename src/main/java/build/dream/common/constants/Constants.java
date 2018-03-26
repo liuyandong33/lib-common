@@ -152,6 +152,7 @@ public class Constants {
     public static final String KEY_BANK_ACCOUNTS = "_back_accounts";
     public static final String KEY_MIYA_PAY_ACCOUNTS = "_miya_pay_accounts";
 
+    public static final String KEY_PLATFORM_PUBLIC_KEY = "_platform_public_key";
     public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
 
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
