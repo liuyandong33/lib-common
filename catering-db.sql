@@ -630,8 +630,8 @@ CREATE TABLE mei_tuan_order
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '美团订单';
 
-DROP TABLE IF EXISTS mei_tuan_order_item;
-CREATE TABLE mei_tuan_order_item
+DROP TABLE IF EXISTS mei_tuan_order_detail;
+CREATE TABLE mei_tuan_order_detail
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     mei_tuan_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order id',
