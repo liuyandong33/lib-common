@@ -53,6 +53,16 @@ public class ApplicationHandler {
         return requestParameters;
     }
 
+    public static String getRequestBody(String charsetName) throws IOException {
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        return WebUtils.inputStreamToString(httpServletRequest.getInputStream(), charsetName);
+    }
+
+    public static String getRequestBody() throws IOException {
+        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        return WebUtils.inputStreamToString(httpServletRequest.getInputStream());
+    }
+
     public static String getRequestParameter(String requestParameterName) {
         return StringUtils.trimToNull(StringUtils.join(getHttpServletRequest().getParameterValues(requestParameterName), ","));
     }
