@@ -85,6 +85,18 @@ public class Branch extends BasicDomain {
      * 微餐厅状态，1-正常，2-禁用
      */
     private Integer smartRestaurantStatus;
+    /**
+     * 美团门店绑定的授权token
+     */
+    private String appAuthToken;
+    /**
+     * 美团门店id
+     */
+    private String poiId;
+    /**
+     * 美团门店名称
+     */
+    private String poiName;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -244,5 +256,29 @@ public class Branch extends BasicDomain {
 
     public void setSmartRestaurantStatus(Integer smartRestaurantStatus) {
         this.smartRestaurantStatus = smartRestaurantStatus;
+    }
+
+    public String getAppAuthToken() {
+        return appAuthToken;
+    }
+
+    public void setAppAuthToken(String appAuthToken) {
+        this.appAuthToken = appAuthToken;
+    }
+
+    public String getPoiId() {
+        return poiId;
+    }
+
+    public void setPoiId(String poiId) {
+        this.poiId = poiId;
+    }
+
+    public String getPoiName() {
+        return poiName;
+    }
+
+    public void setPoiName(String poiName) {
+        this.poiName = poiName;
     }
 }
