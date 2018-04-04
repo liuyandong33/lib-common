@@ -23,19 +23,19 @@ public class ApiRest {
     private String message;
     private String error;
     private String result;
-    private String requestId;
+    private String id;
     private String timestamp;
     private String signature;
 
     public ApiRest() {
-        this.requestId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(Exception e) {
-        this.requestId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.error = e.getMessage();
         this.result = Constants.FAILURE;
         this.successful = false;
@@ -45,7 +45,7 @@ public class ApiRest {
     public ApiRest(Object data, String message) {
         this.data = data;
         this.message = message;
-        this.requestId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.result = Constants.SUCCESS;
         this.successful = true;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
@@ -53,7 +53,7 @@ public class ApiRest {
 
     public ApiRest(String error) {
         this.error = error;
-        this.requestId = UUID.randomUUID().toString();
+        this.id = UUID.randomUUID().toString();
         this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
@@ -117,12 +117,12 @@ public class ApiRest {
         }
     }
 
-    public String getRequestId() {
-        return requestId;
+    public String getId() {
+        return id;
     }
 
-    public void setRequestId(String requestId) {
-        this.requestId = requestId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTimestamp() {
@@ -175,7 +175,7 @@ public class ApiRest {
             sortedMap.put("error", error);
         }
         sortedMap.put("result", result);
-        sortedMap.put("requestId", requestId);
+        sortedMap.put("id", id);
         sortedMap.put("timestamp", timestamp);
 
         List<String> pairs = new ArrayList<String>();
