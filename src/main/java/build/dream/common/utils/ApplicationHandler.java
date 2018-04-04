@@ -532,4 +532,8 @@ public class ApplicationHandler {
     public static String getHeader(String name) {
         return getHttpServletRequest().getHeader(name);
     }
+
+    public static String today() {
+        return new SimpleDateFormat("yyyyMMdd").format(new Date());
+    }
 }
