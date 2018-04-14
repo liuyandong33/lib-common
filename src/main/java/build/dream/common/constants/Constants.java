@@ -191,4 +191,6 @@ public class Constants {
 
     public static final Integer SMART_RESTAURANT_STATUS_NORMAL = 1;
     public static final Integer SMART_RESTAURANT_STATUS_DISABLED = 2;
+
+    public static final String CONTENT_TYPE = "Content-Type";
 }
