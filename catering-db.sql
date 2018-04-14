@@ -491,16 +491,10 @@ CREATE TABLE activity
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
     name VARCHAR(20) NOT NULL COMMENT '活动名称',
     start_date DATE NOT NULL COMMENT '开始日期',
-    start_time DATETIME NOT NULL COMMENT '开始时间',
+    start_time TIME NOT NULL COMMENT '开始时间',
     end_date DATE NOT NULL COMMENT '开始日期',
-    end_time DATETIME NOT NULL COMMENT '结束时间',
-    apply_monday TINYINT NOT NULL COMMENT '周一是否生效，0-不生效，1-生效',
-    apply_tuesday TINYINT NOT NULL COMMENT '周二是否生效，0-不生效，1-生效',
-    apply_wednesday TINYINT NOT NULL COMMENT '周三是否生效，0-不生效，1-生效',
-    apply_thursday TINYINT NOT NULL COMMENT '周四是否生效，0-不生效，1-生效',
-    apply_friday TINYINT NOT NULL COMMENT '周五是否生效，0-不生效，1-生效',
-    apply_saturday TINYINT NOT NULL COMMENT '周六是否生效，0-不生效，1-生效',
-    apply_sunday TINYINT NOT NULL COMMENT '周日是否生效，0-不生效，1-生效',
+    end_time TIME NOT NULL COMMENT '结束时间',
+    week_sign INT NOT NULL COMMENT '星期标记，素数原理',
     type TINYINT NOT NULL COMMENT '活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动',
     status TINYINT NOT NULL COMMENT '活动状态，1-未执行，2-执行中，3-已终止，4-已过期',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
@@ -547,7 +541,6 @@ CREATE TABLE full_reduction_activity
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_type TINYINT NOT NULL COMMENT '优惠方式，1-按金额优惠，2-按折扣率优惠',
@@ -616,7 +609,7 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         AND activity.end_time >= TIME(NOW())
         AND activity.status = 2
         AND activity.tenant_id = tenant_id
-        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN apply_monday = 1 WHEN 3 THEN apply_tuesday = 1 WHEN 4 THEN apply_wednesday = 1 WHEN 5 THEN apply_thursday = 1 WHEN 6 THEN apply_friday = 1 WHEN 7 THEN apply_saturday = 1 WHEN 1 THEN apply_sunday = 1 END)
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN week_sign % 2 = 0 WHEN 3 THEN week_sign % 3 = 0 WHEN 4 THEN week_sign % 5 = 0 WHEN 5 THEN week_sign % 7 = 0 WHEN 6 THEN week_sign % 11 = 0 WHEN 7 THEN week_sign % 13 = 0 WHEN 1 THEN week_sign % 17 = 0 END)
         UNION ALL
         SELECT
         activity.id AS activity_id,
@@ -650,7 +643,7 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         AND activity.end_time >= TIME(NOW())
         AND activity.status = 2
         AND activity.tenant_id = tenant_id
-        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN apply_monday = 1 WHEN 3 THEN apply_tuesday = 1 WHEN 4 THEN apply_wednesday = 1 WHEN 5 THEN apply_thursday = 1 WHEN 6 THEN apply_friday = 1 WHEN 7 THEN apply_saturday = 1 WHEN 1 THEN apply_sunday = 1 END);
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN week_sign % 2 = 0 WHEN 3 THEN week_sign % 3 = 0 WHEN 4 THEN week_sign % 5 = 0 WHEN 5 THEN week_sign % 7 = 0 WHEN 6 THEN week_sign % 11 = 0 WHEN 7 THEN week_sign % 13 = 0 WHEN 1 THEN week_sign % 17 = 0 END);
     END$$
 
 DELIMITER ;

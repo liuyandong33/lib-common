@@ -36,33 +36,9 @@ public class Activity extends BasicDomain {
      */
     private Time endTime;
     /**
-     * 周一是否生效
+     * 星期标记，素数原理
      */
-    private boolean applyMonday;
-    /**
-     * 周二是否生效
-     */
-    private boolean applyTuesday;
-    /**
-     * 周三是否生效
-     */
-    private boolean applyWednesday;
-    /**
-     * 周四是否生效
-     */
-    private boolean applyThursday;
-    /**
-     * 周五是否生效
-     */
-    private boolean applyFriday;
-    /**
-     * 周六是否生效
-     */
-    private boolean applySaturday;
-    /**
-     * 周日是否生效
-     */
-    private boolean applySunday;
+    private Integer weekSign;
     /**
      * 活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动
      */
@@ -128,60 +104,12 @@ public class Activity extends BasicDomain {
         this.endTime = endTime;
     }
 
-    public boolean isApplyMonday() {
-        return applyMonday;
+    public Integer getWeekSign() {
+        return weekSign;
     }
 
-    public void setApplyMonday(boolean applyMonday) {
-        this.applyMonday = applyMonday;
-    }
-
-    public boolean isApplyTuesday() {
-        return applyTuesday;
-    }
-
-    public void setApplyTuesday(boolean applyTuesday) {
-        this.applyTuesday = applyTuesday;
-    }
-
-    public boolean isApplyWednesday() {
-        return applyWednesday;
-    }
-
-    public void setApplyWednesday(boolean applyWednesday) {
-        this.applyWednesday = applyWednesday;
-    }
-
-    public boolean isApplyThursday() {
-        return applyThursday;
-    }
-
-    public void setApplyThursday(boolean applyThursday) {
-        this.applyThursday = applyThursday;
-    }
-
-    public boolean isApplyFriday() {
-        return applyFriday;
-    }
-
-    public void setApplyFriday(boolean applyFriday) {
-        this.applyFriday = applyFriday;
-    }
-
-    public boolean isApplySaturday() {
-        return applySaturday;
-    }
-
-    public void setApplySaturday(boolean applySaturday) {
-        this.applySaturday = applySaturday;
-    }
-
-    public boolean isApplySunday() {
-        return applySunday;
-    }
-
-    public void setApplySunday(boolean applySunday) {
-        this.applySunday = applySunday;
+    public void setWeekSign(Integer weekSign) {
+        this.weekSign = weekSign;
     }
 
     public Integer getType() {
