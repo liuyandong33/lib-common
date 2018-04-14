@@ -495,7 +495,7 @@ CREATE TABLE activity
     end_date DATE NOT NULL COMMENT '开始日期',
     end_time TIME NOT NULL COMMENT '结束时间',
     week_sign INT NOT NULL COMMENT '星期标记，素数原理',
-    type TINYINT NOT NULL COMMENT '活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动',
+    type TINYINT NOT NULL COMMENT '活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动，4-支付促销',
     status TINYINT NOT NULL COMMENT '活动状态，1-未执行，2-执行中，3-已终止，4-已过期',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -552,7 +552,27 @@ CREATE TABLE full_reduction_activity
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '满减活动';
+) COMMENT '整单满减活动';
+
+DROP TABLE IF EXISTS payment_activity;
+CREATE TABLE payment_activity
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
+    activity_id BIGINT NOT NULL COMMENT '活动ID',
+    paid_type TINYINT NOT NULL COMMENT '支付方式，1-微信支付，2-支付宝支付，3-现金支付',
+    total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
+    discount_type TINYINT NOT NULL COMMENT '优惠方式，1-按金额优惠，2-按折扣率优惠',
+    discount_rate DECIMAL(5, 2) COMMENT '折扣率',
+    discount_amount DECIMAL(11, 3) COMMENT '折扣金额',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '支付促销';
 
 DROP TABLE IF EXISTS special_goods_activity;
 CREATE TABLE special_goods_activity (
