@@ -14,10 +14,6 @@ public class BuyGiveActivity extends BasicDomain {
      */
     private String tenantCode;
     /**
-     * 门店id
-     */
-    private BigInteger branchId;
-    /**
      * 活动id
      */
     private BigInteger activityId;
@@ -60,14 +56,6 @@ public class BuyGiveActivity extends BasicDomain {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
     }
 
     public BigInteger getActivityId() {

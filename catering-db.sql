@@ -489,7 +489,6 @@ CREATE TABLE activity
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
     name VARCHAR(20) NOT NULL COMMENT '活动名称',
     start_date DATE NOT NULL COMMENT '开始日期',
     start_time DATETIME NOT NULL COMMENT '开始时间',
@@ -512,13 +511,21 @@ CREATE TABLE activity
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '营销活动';
 
+DROP TABLE IF EXISTS activity_branch_r;
+CREATE TABLE activity_branch_r
+(
+    activity_id BIGINT NOT NULL COMMENT '活动Id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    PRIMARY KEY(activity_id, tenant_id, branch_id)
+);
+
 DROP TABLE IF EXISTS buy_give_activity;
 CREATE TABLE buy_give_activity
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     buy_goods_id BIGINT NOT NULL COMMENT '购买商品id',
     buy_goods_specification_id BIGINT NOT NULL COMMENT '购买商品规格id',
@@ -559,7 +566,6 @@ CREATE TABLE special_goods_activity (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     goods_id BIGINT NOT NULL COMMENT '商品id',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
@@ -573,6 +579,81 @@ CREATE TABLE special_goods_activity (
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '特价商品活动';
+
+DROP PROCEDURE IF EXISTS procedure_effective_activity;
+DELIMITER $$
+CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id BIGINT)
+    BEGIN
+        SELECT
+        activity.id AS activity_id,
+        activity.tenant_id,
+        activity.tenant_code,
+        activity_branch_r.branch_id,
+        activity.name,
+        activity.start_date,
+        activity.start_time,
+        activity.end_date,
+        activity.end_time,
+        activity.type,
+        activity.status,
+        buy_give_activity.buy_goods_id AS goods_id,
+        buy_give_activity.buy_goods_specification_id AS goods_specification_id,
+        buy_give_activity.buy_quantity,
+        buy_give_activity.give_goods_id,
+        buy_give_activity.give_goods_specification_id,
+        buy_give_activity.give_quantity,
+        NULL AS discount_type,
+        NULL AS special_price,
+        NULL AS discount_rate
+        FROM activity
+        INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
+        INNER JOIN buy_give_activity ON buy_give_activity.activity_id = activity.id
+        WHERE activity.deleted = 0
+        AND activity.type = 1
+        AND activity.start_date <= DATE(NOW())
+        AND activity.end_date >= DATE(NOW())
+        AND activity.start_time <= TIME(NOW())
+        AND activity.end_time >= TIME(NOW())
+        AND activity.status = 2
+        AND activity.tenant_id = tenant_id
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN apply_monday = 1 WHEN 3 THEN apply_tuesday = 1 WHEN 4 THEN apply_wednesday = 1 WHEN 5 THEN apply_thursday = 1 WHEN 6 THEN apply_friday = 1 WHEN 7 THEN apply_saturday = 1 WHEN 1 THEN apply_sunday = 1 END)
+        UNION ALL
+        SELECT
+        activity.id AS activity_id,
+        activity.tenant_id,
+        activity.tenant_code,
+        activity_branch_r.branch_id,
+        activity.name,
+        activity.start_date,
+        activity.start_time,
+        activity.end_date,
+        activity.end_time,
+        activity.type,
+        activity.status,
+        special_goods_activity.goods_id,
+        special_goods_activity.goods_specification_id,
+        NULL AS buy_quantity,
+        NULL AS give_goods_id,
+        NULL AS give_goods_specification_id,
+        NULL AS give_quantity,
+        special_goods_activity.discount_type,
+        special_goods_activity.special_price,
+        special_goods_activity.discount_rate
+        FROM activity
+        INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
+        INNER JOIN special_goods_activity ON special_goods_activity.activity_id = activity.id
+        WHERE activity.deleted = 0
+        AND activity.type = 3
+        AND activity.start_date <= DATE(NOW())
+        AND activity.end_date >= DATE(NOW())
+        AND activity.start_time <= TIME(NOW())
+        AND activity.end_time >= TIME(NOW())
+        AND activity.status = 2
+        AND activity.tenant_id = tenant_id
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN apply_monday = 1 WHEN 3 THEN apply_tuesday = 1 WHEN 4 THEN apply_wednesday = 1 WHEN 5 THEN apply_thursday = 1 WHEN 6 THEN apply_friday = 1 WHEN 7 THEN apply_saturday = 1 WHEN 1 THEN apply_sunday = 1 END);
+    END$$
+
+DELIMITER ;
 
 DROP TABLE IF EXISTS goods_category;
 CREATE TABLE goods_category

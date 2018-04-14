@@ -16,10 +16,6 @@ public class Activity extends BasicDomain {
      */
     private String tenantCode;
     /**
-     * 门店id
-     */
-    private BigInteger branchId;
-    /**
      * 活动名称
      */
     private String name;
@@ -90,14 +86,6 @@ public class Activity extends BasicDomain {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
     }
 
     public String getName() {
