@@ -3,6 +3,7 @@ package build.dream.common.erp.catering.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
+import java.sql.Time;
 import java.util.Date;
 
 public class Activity extends BasicDomain {
@@ -23,13 +24,49 @@ public class Activity extends BasicDomain {
      */
     private String name;
     /**
+     * 开始日期
+     */
+    private Date startDate;
+    /**
      * 开始时间
      */
-    private Date startTime;
+    private Time startTime;
+    /**
+     * 结束日期
+     */
+    private Date endDate;
     /**
      * 结束时间
      */
-    private Date endTime;
+    private Time endTime;
+    /**
+     * 周一是否生效
+     */
+    private boolean applyMonday;
+    /**
+     * 周二是否生效
+     */
+    private boolean applyTuesday;
+    /**
+     * 周三是否生效
+     */
+    private boolean applyWednesday;
+    /**
+     * 周四是否生效
+     */
+    private boolean applyThursday;
+    /**
+     * 周五是否生效
+     */
+    private boolean applyFriday;
+    /**
+     * 周六是否生效
+     */
+    private boolean applySaturday;
+    /**
+     * 周日是否生效
+     */
+    private boolean applySunday;
     /**
      * 活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动
      */
@@ -71,20 +108,92 @@ public class Activity extends BasicDomain {
         this.name = name;
     }
 
-    public Date getStartTime() {
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Time getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Time startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Time getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Time endTime) {
         this.endTime = endTime;
+    }
+
+    public boolean isApplyMonday() {
+        return applyMonday;
+    }
+
+    public void setApplyMonday(boolean applyMonday) {
+        this.applyMonday = applyMonday;
+    }
+
+    public boolean isApplyTuesday() {
+        return applyTuesday;
+    }
+
+    public void setApplyTuesday(boolean applyTuesday) {
+        this.applyTuesday = applyTuesday;
+    }
+
+    public boolean isApplyWednesday() {
+        return applyWednesday;
+    }
+
+    public void setApplyWednesday(boolean applyWednesday) {
+        this.applyWednesday = applyWednesday;
+    }
+
+    public boolean isApplyThursday() {
+        return applyThursday;
+    }
+
+    public void setApplyThursday(boolean applyThursday) {
+        this.applyThursday = applyThursday;
+    }
+
+    public boolean isApplyFriday() {
+        return applyFriday;
+    }
+
+    public void setApplyFriday(boolean applyFriday) {
+        this.applyFriday = applyFriday;
+    }
+
+    public boolean isApplySaturday() {
+        return applySaturday;
+    }
+
+    public void setApplySaturday(boolean applySaturday) {
+        this.applySaturday = applySaturday;
+    }
+
+    public boolean isApplySunday() {
+        return applySunday;
+    }
+
+    public void setApplySunday(boolean applySunday) {
+        this.applySunday = applySunday;
     }
 
     public Integer getType() {
