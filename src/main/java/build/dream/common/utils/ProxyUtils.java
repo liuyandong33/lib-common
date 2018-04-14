@@ -112,34 +112,34 @@ public class ProxyUtils {
     }
 
     public static ApiRest doGetWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().getForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), ApiRest.class, requestParameters);
+        return ApiRest.fromJson(doGetOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doGetWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().getForObject(obtainUrl(null, serviceName, controllerName, actionName, requestParameters), ApiRest.class, requestParameters);
+        return ApiRest.fromJson(doGetOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doPostWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doPostWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doPostWithRequestParametersAndFiles(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestParametersAndFiles(partitionCode, serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doPostWithRequestParametersAndFiles(String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestParametersAndFiles(serviceName, controllerName, actionName, requestParameters));
     }
 
     public static ApiRest doPostWithRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), requestBody, ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody));
     }
 
     public static ApiRest doPostWithRequestBody(String serviceName, String controllerName, String actionName, String requestBody) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), requestBody, ApiRest.class);
+        return ApiRest.fromJson(doPostOriginalWithRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
     }
 }
