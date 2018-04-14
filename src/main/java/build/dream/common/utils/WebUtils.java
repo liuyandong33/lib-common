@@ -4,7 +4,6 @@ import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -73,13 +72,8 @@ public class WebUtils {
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName);
-            } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
             } else {
-                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
-//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -128,13 +122,8 @@ public class WebUtils {
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
-            } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
             } else {
-                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
-//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -182,49 +171,13 @@ public class WebUtils {
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
-            Set<Map.Entry<String, Object>> entries = requestParameters.entrySet();
-            for (Map.Entry<String, Object> entry : entries) {
-                outputStream.write((TWO_HYPHENS + BOUNDARY + ENTER_NEW_LINE).getBytes(charsetName));
-                String key = entry.getKey();
-                Object value = entry.getValue();
-                if (value instanceof String) {
-                    outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
-                    outputStream.write((value.toString()).getBytes(charsetName));
-                } else if (value instanceof MultipartFile || value instanceof File) {
-                    InputStream inputStream = null;
-                    String fileName = null;
-                    if (value instanceof MultipartFile) {
-                        MultipartFile multipartFile = (MultipartFile) value;
-                        inputStream = multipartFile.getInputStream();
-                        fileName = multipartFile.getOriginalFilename();
-                    } else if (value instanceof File) {
-                        File file = (File) value;
-                        inputStream = new FileInputStream(file);
-                        fileName = file.getName();
-                    }
-                    outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + ENTER_NEW_LINE).getBytes(charsetName));
-                    outputStream.write(("Content-Type:" + MimeMappingUtils.obtainMimeTypeByFileName(fileName) + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
-                    int length = 0;
-                    byte[] buffer = new byte[1024];
-                    while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
-                        outputStream.write(buffer, 0, length);
-                    }
-                    inputStream.close();
-                }
-                outputStream.write(ENTER_NEW_LINE.getBytes(charsetName));
-            }
-            outputStream.write((TWO_HYPHENS + BOUNDARY + TWO_HYPHENS + ENTER_NEW_LINE).getBytes(charsetName));
+            writeFormData(outputStream, requestParameters, charsetName);
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParametersAndFiles(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
-            } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
             } else {
-                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
-//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -276,13 +229,8 @@ public class WebUtils {
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
-            } else if (responseCode == HttpURLConnection.HTTP_OK) {
-                result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
             } else {
-                result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
-                httpURLConnection.disconnect();
-//                Validate.isTrue(false, Constants.NETWORK_ERROR_MESSAGE);
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -321,22 +269,23 @@ public class WebUtils {
         return httpURLConnection;
     }
 
+    public static String buildQueryString(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+        return buildQueryString(requestParameters, Constants.CHARSET_NAME_UTF_8);
+    }
+
     public static String buildQueryString(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
-        List<String> requestParameterPairs = new ArrayList<String>();
-        Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (StringUtils.isBlank(value)) {
-                requestParameterPairs.add(key + "=" + value);
-            } else {
-                requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
-            }
-        }
-        return StringUtils.join(requestParameterPairs, "&");
+        return concat(requestParameters, charsetName);
+    }
+
+    public static String buildRequestBody(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+        return concat(requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
     public static String buildRequestBody(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
+        return concat(requestParameters, charsetName);
+    }
+
+    private static String concat(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
@@ -440,5 +389,52 @@ public class WebUtils {
             charset = defaultCharset;
         }
         return charset;
+    }
+
+    public static void writeFormData(OutputStream outputStream, Map<String, Object> requestParameters, String charsetName) throws IOException {
+        Set<Map.Entry<String, Object>> entries = requestParameters.entrySet();
+        for (Map.Entry<String, Object> entry : entries) {
+            outputStream.write((TWO_HYPHENS + BOUNDARY + ENTER_NEW_LINE).getBytes(charsetName));
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof String) {
+                outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
+                outputStream.write((value.toString()).getBytes(charsetName));
+            } else if (value instanceof MultipartFile || value instanceof File) {
+                InputStream inputStream = null;
+                String fileName = null;
+                if (value instanceof MultipartFile) {
+                    MultipartFile multipartFile = (MultipartFile) value;
+                    inputStream = multipartFile.getInputStream();
+                    fileName = multipartFile.getOriginalFilename();
+                } else if (value instanceof File) {
+                    File file = (File) value;
+                    inputStream = new FileInputStream(file);
+                    fileName = file.getName();
+                }
+                outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + ENTER_NEW_LINE).getBytes(Constants.CHARSET_NAME_UTF_8));
+                outputStream.write(("Content-Type:" + MimeMappingUtils.obtainMimeTypeByFileName(fileName) + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(Constants.CHARSET_NAME_UTF_8));
+                int length = 0;
+                byte[] buffer = new byte[1024];
+                while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
+                    outputStream.write(buffer, 0, length);
+                }
+                inputStream.close();
+            }
+            outputStream.write(ENTER_NEW_LINE.getBytes(charsetName));
+        }
+        outputStream.write((TWO_HYPHENS + BOUNDARY + TWO_HYPHENS + ENTER_NEW_LINE).getBytes(charsetName));
+    }
+
+    public static String obtainResult(HttpURLConnection httpURLConnection, int responseCode, String charsetName) throws IOException {
+        String result = null;
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
+            httpURLConnection.disconnect();
+        } else {
+            result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+            httpURLConnection.disconnect();
+        }
+        return result;
     }
 }

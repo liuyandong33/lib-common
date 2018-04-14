@@ -8,6 +8,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
 public class ProxyUtils {
     private static RestTemplate REST_TEMPLATE;
     private static HttpHeaders HTTP_HEADERS;
+    private static HttpHeaders MULTIPART_HTTP_HEADERS;
 
     public static RestTemplate obtainRestTemplate() {
         if (REST_TEMPLATE == null) {
@@ -29,9 +31,17 @@ public class ProxyUtils {
     public static HttpHeaders obtainHttpHeaders() {
         if (MapUtils.isEmpty(HTTP_HEADERS)) {
             HTTP_HEADERS = new HttpHeaders();
-            HTTP_HEADERS.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=" + Constants.CHARSET_NAME_UTF_8);
+            HTTP_HEADERS.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=" + Constants.CHARSET_NAME_UTF_8);
         }
         return HTTP_HEADERS;
+    }
+
+    public static HttpHeaders obtainMultipartHttpHeaders() {
+        if (MapUtils.isEmpty(MULTIPART_HTTP_HEADERS)) {
+            MULTIPART_HTTP_HEADERS = new HttpHeaders();
+            MULTIPART_HTTP_HEADERS.add(Constants.CONTENT_TYPE, "multipart/form-data;boundary=" + WebUtils.BOUNDARY);
+        }
+        return MULTIPART_HTTP_HEADERS;
     }
 
     public static String obtainUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
@@ -53,12 +63,20 @@ public class ProxyUtils {
         return url;
     }
 
-    public static HttpEntity<String> obtainHttpEntity(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+    public static HttpEntity<String> buildHttpEntity(Map<String, String> requestParameters) throws UnsupportedEncodingException {
         String requestBody = null;
         if (MapUtils.isNotEmpty(requestParameters)) {
             requestBody = WebUtils.buildRequestBody(requestParameters, Constants.CHARSET_NAME_UTF_8);
         }
         return new HttpEntity<String>(requestBody, obtainHttpHeaders());
+    }
+
+    public static HttpEntity<byte[]> buildMultipartHttpEntity(Map<String, Object> requestParameters) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        WebUtils.writeFormData(byteArrayOutputStream, requestParameters, Constants.CHARSET_NAME_UTF_8);
+        HttpEntity<byte[]> httpEntity = new HttpEntity<byte[]>(byteArrayOutputStream.toByteArray(), obtainMultipartHttpHeaders());
+        byteArrayOutputStream.close();
+        return httpEntity;
     }
 
     public static String doGetOriginalWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
@@ -70,19 +88,19 @@ public class ProxyUtils {
     }
 
     public static String doPostOriginalWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), obtainHttpEntity(requestParameters), String.class);
+        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), String.class);
     }
 
     public static String doPostOriginalWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), obtainHttpEntity(requestParameters), String.class);
+        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), String.class);
     }
 
     public static String doPostOriginalWithRequestParametersAndFiles(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return WebUtils.doPostWithRequestParametersAndFiles(SystemPartitionUtils.getUrl(partitionCode, serviceName, controllerName, actionName), requestParameters);
+        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), String.class);
     }
 
     public static String doPostOriginalWithRequestParametersAndFiles(String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return WebUtils.doPostWithRequestParametersAndFiles(SystemPartitionUtils.getUrl(serviceName, controllerName, actionName), requestParameters);
+        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), String.class);
     }
 
     public static String doPostOriginalWithRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) throws IOException {
@@ -102,19 +120,19 @@ public class ProxyUtils {
     }
 
     public static ApiRest doPostWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), obtainHttpEntity(requestParameters), ApiRest.class);
+        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), ApiRest.class);
     }
 
     public static ApiRest doPostWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), obtainHttpEntity(requestParameters), ApiRest.class);
+        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), ApiRest.class);
     }
 
     public static ApiRest doPostWithRequestParametersAndFiles(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return ApiRest.fromJson(WebUtils.doPostWithRequestParametersAndFiles(SystemPartitionUtils.getUrl(partitionCode, serviceName, controllerName, actionName), requestParameters));
+        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), ApiRest.class);
     }
 
     public static ApiRest doPostWithRequestParametersAndFiles(String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return ApiRest.fromJson(WebUtils.doPostWithRequestParametersAndFiles(SystemPartitionUtils.getUrl(serviceName, controllerName, actionName), requestParameters));
+        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), ApiRest.class);
     }
 
     public static ApiRest doPostWithRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) throws IOException {
