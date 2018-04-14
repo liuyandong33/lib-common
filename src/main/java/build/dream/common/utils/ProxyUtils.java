@@ -1,6 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.constants.Constants;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Map;
@@ -9,6 +12,26 @@ import java.util.Map;
  * Created by liuyandong on 2017/7/24.
  */
 public class ProxyUtils {
+    private static RestTemplate REST_TEMPLATE;
+
+    public static RestTemplate obtainRestTemplate() {
+        if (REST_TEMPLATE == null) {
+            REST_TEMPLATE = ApplicationHandler.getBean(RestTemplate.class);
+        }
+        return REST_TEMPLATE;
+    }
+
+    public static String obtainUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        StringBuilder stringBuilder = new StringBuilder("http://");
+        stringBuilder.append(deploymentEnvironment).append("-");
+        if (StringUtils.isNotBlank(partitionCode)) {
+            stringBuilder.append(partitionCode).append("-");
+        }
+        stringBuilder.append(serviceName).append("/").append(controllerName).append("/").append(actionName);
+        return stringBuilder.toString();
+    }
+
     public static String doGetOriginalWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
         return WebUtils.doGetWithRequestParameters(SystemPartitionUtils.getUrl(partitionCode, serviceName, controllerName, actionName), requestParameters);
     }
