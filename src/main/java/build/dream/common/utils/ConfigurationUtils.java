@@ -25,6 +25,14 @@ public class ConfigurationUtils {
         return configurationValue;
     }
 
+    public static String getConfigurationSafe(String configurationKey) {
+        try {
+            return getConfiguration(configurationKey);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String getConfiguration(String configurationKey, String defaultValue) throws IOException {
         String configurationValue = getConfiguration(configurationKey);
         if (StringUtils.isNotBlank(configurationValue)) {
