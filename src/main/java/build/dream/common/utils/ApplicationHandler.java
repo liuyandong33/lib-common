@@ -580,14 +580,23 @@ public class ApplicationHandler {
     }
 
     public static String callMethod(MethodCaller methodCaller, String errorMessage, Map<String, String> requestParameters) {
+        String requestUri = getRequestUri();
+        Map<String, String> map = obtainUrlMappings().get(requestUri);
+        String controllerClassName = null;
+        String actionMethodName = null;
+        if (MapUtils.isNotEmpty(map)) {
+            controllerClassName = map.get(Constants.CONTROLLER_CLASS_NAME);
+            actionMethodName = map.get(Constants.ACTION_METHOD_NAME);
+        }
+        return callMethod(methodCaller, errorMessage, controllerClassName, actionMethodName, requestParameters);
+    }
+
+    public static String callMethod(MethodCaller methodCaller, String errorMessage, String className, String methodName, Map<String, String> requestParameters) {
         ApiRest apiRest = null;
         try {
             apiRest = methodCaller.call();
         } catch (Exception e) {
-            Map<String, String> map = obtainUrlMappings().get(getRequestUri());
-            String controllerClassName = map.get(Constants.CONTROLLER_CLASS_NAME);
-            String actionMethodName = map.get(Constants.ACTION_METHOD_NAME);
-            LogUtils.error(errorMessage, controllerClassName, actionMethodName, e, requestParameters);
+            LogUtils.error(errorMessage, className, methodName, e, requestParameters);
             apiRest = new ApiRest(e);
         }
         return GsonUtils.toJson(apiRest);
