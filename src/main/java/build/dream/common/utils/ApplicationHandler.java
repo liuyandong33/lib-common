@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
 import org.apache.commons.collections.MapUtils;
@@ -20,7 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -523,11 +527,6 @@ public class ApplicationHandler {
         }
     }
 
-    public static Object invokeMethod(Class<?> clazz, String methodName, Class<?>[] argumentTypes, Object[] arguments, Object target) throws NoSuchMethodException {
-        Method method = clazz.getMethod(methodName, argumentTypes);
-        return ReflectionUtils.invokeMethod(method, target, arguments);
-    }
-
     public static void invalidateHttpSession() {
         getHttpSession().invalidate();
     }
@@ -538,5 +537,16 @@ public class ApplicationHandler {
 
     public static String today() {
         return new SimpleDateFormat("yyyyMMdd").format(new Date());
+    }
+
+    public static String callMethod(MethodCaller methodCaller, String errorMessage, String controllerSimpleName, String methodName, Map<String, String> requestParameters) {
+        ApiRest apiRest = null;
+        try {
+            apiRest = methodCaller.call();
+        } catch (Exception e) {
+            LogUtils.error(errorMessage, controllerSimpleName, methodName, e, requestParameters);
+            apiRest = new ApiRest(e);
+        }
+        return GsonUtils.toJson(apiRest);
     }
 }
