@@ -13,6 +13,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -92,6 +96,10 @@ public class ApplicationHandler {
 
     public static String getRequestUrl() {
         return getHttpServletRequest().getRequestURL().toString();
+    }
+
+    public static String getRequestUri() {
+        return getHttpServletRequest().getRequestURI();
     }
 
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
@@ -539,12 +547,47 @@ public class ApplicationHandler {
         return new SimpleDateFormat("yyyyMMdd").format(new Date());
     }
 
-    public static String callMethod(MethodCaller methodCaller, String errorMessage, String controllerSimpleName, String methodName, Map<String, String> requestParameters) {
+    private static RequestMappingHandlerMapping REQUEST_MAPPING_HANDLER_MAPPING;
+
+    public static RequestMappingHandlerMapping obtainRequestMappingHandlerMapping() {
+        if (REQUEST_MAPPING_HANDLER_MAPPING == null) {
+            REQUEST_MAPPING_HANDLER_MAPPING = getBean(RequestMappingHandlerMapping.class);
+        }
+        return REQUEST_MAPPING_HANDLER_MAPPING;
+    }
+
+    public static Map<String, Map<String, String>> URL_MAPPINGS;
+
+    public static Map<String, Map<String, String>> obtainUrlMappings() {
+        if (URL_MAPPINGS == null) {
+            URL_MAPPINGS = new HashMap<String, Map<String, String>>();
+            RequestMappingHandlerMapping requestMappingHandlerMapping = obtainRequestMappingHandlerMapping();
+            Map<RequestMappingInfo, HandlerMethod> requestMappingInfoHandlerMethodMap = requestMappingHandlerMapping.getHandlerMethods();
+            for (Map.Entry<RequestMappingInfo, HandlerMethod> requestMappingInfoHandlerMethodEntry : requestMappingInfoHandlerMethodMap.entrySet()) {
+                RequestMappingInfo requestMappingInfo = requestMappingInfoHandlerMethodEntry.getKey();
+                HandlerMethod handlerMethod = requestMappingInfoHandlerMethodEntry.getValue();
+                PatternsRequestCondition patternsRequestCondition = requestMappingInfo.getPatternsCondition();
+                Set<String> patterns = patternsRequestCondition.getPatterns();
+                for (String pattern : patterns) {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put(Constants.CONTROLLER_CLASS_NAME, handlerMethod.getBeanType().getName());
+                    map.put(Constants.ACTION_METHOD_NAME, handlerMethod.getMethod().getName());
+                    URL_MAPPINGS.put(pattern, map);
+                }
+            }
+        }
+        return URL_MAPPINGS;
+    }
+
+    public static String callMethod(MethodCaller methodCaller, String errorMessage, Map<String, String> requestParameters) {
         ApiRest apiRest = null;
         try {
             apiRest = methodCaller.call();
         } catch (Exception e) {
-            LogUtils.error(errorMessage, controllerSimpleName, methodName, e, requestParameters);
+            Map<String, String> map = obtainUrlMappings().get(getRequestUri());
+            String controllerClassName = map.get(Constants.CONTROLLER_CLASS_NAME);
+            String actionMethodName = map.get(Constants.ACTION_METHOD_NAME);
+            LogUtils.error(errorMessage, controllerClassName, actionMethodName, e, requestParameters);
             apiRest = new ApiRest(e);
         }
         return GsonUtils.toJson(apiRest);
