@@ -3,11 +3,9 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class WeiXinPublicAccount extends BasicDomain {
     private BigInteger tenantId;
-    private BigInteger branchId;
     private String name;
     private String appId;
     private String appSecret;
@@ -19,14 +17,6 @@ public class WeiXinPublicAccount extends BasicDomain {
 
     public void setTenantId(BigInteger tenantId) {
         this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
     }
 
     public String getName() {

@@ -337,7 +337,6 @@ CREATE TABLE wei_xin_public_account
 (
     id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
-    branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
     name VARCHAR(20) NOT NULL COMMENT '微信公众号名称',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',

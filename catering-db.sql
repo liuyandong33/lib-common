@@ -984,3 +984,20 @@ CREATE TABLE pos
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'POS信息表';
+
+DROP TABLE IF EXISTS wei_xin_member_card;
+CREATE TABLE wei_xin_member_card
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    card_id VARCHAR(50) NOT NULL COMMENT '微信会员卡id',
+    url VARCHAR(255) NOT NULL COMMENT '投放二维码地址',
+    show_qr_code_url VARCHAR(255) NOT NULL COMMENT '投放二维码显示地址',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '微信会员卡';
