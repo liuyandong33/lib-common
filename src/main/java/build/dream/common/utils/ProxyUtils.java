@@ -6,6 +6,7 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayOutputStream;
@@ -58,7 +59,7 @@ public class ProxyUtils {
     public static String obtainUrl(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
         String url = obtainUrl(partitionCode, serviceName, controllerName, actionName);
         if (MapUtils.isNotEmpty(requestParameters)) {
-            url = url + "?" + WebUtils.buildQueryString(requestParameters, Constants.CHARSET_NAME_UTF_8);
+            url = url + "?" + WebUtils.buildQueryStringOriginal(requestParameters);
         }
         return url;
     }
@@ -141,5 +142,21 @@ public class ProxyUtils {
 
     public static ApiRest doPostWithRequestBody(String serviceName, String controllerName, String actionName, String requestBody) throws IOException {
         return ApiRest.fromJson(doPostOriginalWithRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+    }
+
+    public static ResponseEntity<byte[]> doGetOriginal(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
+        return obtainRestTemplate().getForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), byte[].class);
+    }
+
+    public static ResponseEntity<byte[]> doGetOriginal(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
+        return doGetOriginal(null, serviceName, controllerName, actionName, requestParameters);
+    }
+
+    public static ResponseEntity<byte[]> doPostOriginal(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
+        return obtainRestTemplate().postForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), byte[].class);
+    }
+
+    public static ResponseEntity<byte[]> doPostOriginal(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) throws IOException {
+        return doPostOriginal(null, serviceName, controllerName, actionName, requestParameters);
     }
 }

@@ -273,6 +273,21 @@ public class WebUtils {
         return buildQueryString(requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
+    public static String buildQueryStringOriginal(Map<String, String> requestParameters) {
+        List<String> requestParameterPairs = new ArrayList<String>();
+        Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
+        for (Map.Entry<String, String> entry : entries) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (StringUtils.isBlank(value)) {
+                requestParameterPairs.add(key + "=");
+            } else {
+                requestParameterPairs.add(key + "=" + value);
+            }
+        }
+        return StringUtils.join(requestParameterPairs, "&");
+    }
+
     public static String buildQueryString(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
         return concat(requestParameters, charsetName);
     }
@@ -292,7 +307,7 @@ public class WebUtils {
             String key = entry.getKey();
             String value = entry.getValue();
             if (StringUtils.isBlank(value)) {
-                requestParameterPairs.add(key + "=" + value);
+                requestParameterPairs.add(key + "=");
             } else {
                 requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
             }
