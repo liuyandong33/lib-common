@@ -31,8 +31,8 @@ public class LogUtils {
         LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, exception.getClass().getName(), exception.getMessage(), parameters);
     }
 
-    public static void error(String errorMessage, String classSimpleName, String methodName, Exception exception) {
-        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, classSimpleName, methodName, exception.getClass().getName(), exception.getMessage());
+    public static void error(String errorMessage, String className, String methodName, Exception exception) {
+        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, exception.getClass().getName(), exception.getMessage());
     }
 
     public static void error(String errorMessage) {
