@@ -194,6 +194,5 @@ public class Constants {
 
     public static final String CONTENT_TYPE = "Content-Type";
 
-    public static final String CONTROLLER_CLASS_NAME = "controllerClassName";
-    public static final String ACTION_METHOD_NAME = "actionMethodName";
+    public static final String HANDLER_METHOD = "HANDLER_METHOD";
 }
