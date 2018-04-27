@@ -4,6 +4,7 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.Validate;
+import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,5 +47,14 @@ public class OutUtils {
         ApiRest doPostMultipartApiRest = ProxyUtils.doPostWithRequestParametersAndFiles(Constants.SERVICE_NAME_OUT, "proxy", "doPostMultipart", doPostMultipartRequestParameters);
         Validate.isTrue(doPostMultipartApiRest.isSuccessful(), doPostMultipartApiRest.getError());
         return doPostMultipartApiRest.getData().toString();
+    }
+
+    public static ResponseEntity<byte[]> doGetOriginal(String url, Map<String, String> headers) throws IOException {
+        Map<String, String> doGetOriginalRequestParameters = new HashMap<String, String>();
+        doGetOriginalRequestParameters.put("url", url);
+        if (MapUtils.isNotEmpty(headers)) {
+            doGetOriginalRequestParameters.put("headers", GsonUtils.toJson(headers));
+        }
+        return ProxyUtils.obtainRestTemplate().getForEntity(ProxyUtils.obtainUrl(null, Constants.SERVICE_NAME_O2O, "proxy", "doGetOriginal", doGetOriginalRequestParameters), byte[].class);
     }
 }
