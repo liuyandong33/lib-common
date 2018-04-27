@@ -46,6 +46,7 @@ dependencies {
     compile("redis.clients:jedis:2.9.0")
     compile("net.sf.json-lib:json-lib:2.4:jdk15")
     compile("com.networknt:json-schema-validator:0.1.13")
+    compile group: "com.belerweb", name: "pinyin4j", version: "2.5.1"
 }
 
 task makeJar(type: Jar) {
