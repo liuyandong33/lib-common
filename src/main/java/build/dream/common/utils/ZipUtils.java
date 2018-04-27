@@ -11,7 +11,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
-    public static String compressText(String text) {
+    public static String zipText(String text) {
         String compressedText = null;
         if (StringUtils.isBlank(text)) {
             compressedText = text;
