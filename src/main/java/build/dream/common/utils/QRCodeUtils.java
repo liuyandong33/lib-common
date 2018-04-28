@@ -13,7 +13,7 @@ import java.io.OutputStream;
 public class QRCodeUtils {
     public static final int BLACK = 0xFF000000;
     public static final int WHITE = 0xFFFFFFFF;
-    public static final String FORMAT = "png";
+    public static final String FORMAT_NAME = "png";
 
     public static void generateQRCode(int width, int height, String text, OutputStream outputStream) throws WriterException, IOException {
         BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height);
@@ -23,6 +23,6 @@ public class QRCodeUtils {
                 bufferedImage.setRGB(x, y, bitMatrix.get(x, y) ? BLACK : WHITE);
             }
         }
-        ImageIO.write(bufferedImage, FORMAT, outputStream);
+        ImageIO.write(bufferedImage, FORMAT_NAME, outputStream);
     }
 }
