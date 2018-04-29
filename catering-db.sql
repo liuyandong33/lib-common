@@ -1001,3 +1001,32 @@ CREATE TABLE wei_xin_member_card
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信会员卡';
+
+DROP TABLE IF EXISTS tenant_config;
+CREATE TABLE tenant_config
+(
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    name VARCHAR(50) NOT NULL COMMENT '序列名称',
+    current_value INT(11) UNSIGNED NOT NULL COMMENT '当前值',
+    max_value INT UNSIGNED NOT NULL COMMENT '最大值',
+    PRIMARY KEY (tenant_id, name)
+) COMMENT '商户配置';
+
+DROP PROCEDURE IF EXISTS add_tenant_config;
+CREATE PROCEDURE add_tenant_config(IN tid BIGINT, IN config_name VARCHAR(50), IN increment INT)
+BEGIN
+    DECLARE count INT;
+    DECLARE max_value INT;
+    SET count = 0;
+    SELECT COUNT(1) INTO count FROM tenant_config WHERE name = config_name AND tenant_id = tid;
+    IF count = 0 THEN
+        CASE config_name
+            WHEN 'vip_num' THEN SET max_value = 10000;
+            WHEN 'goods_num' THEN SET max_value = 20000;
+        END CASE;
+        INSERT INTO tenant_config(tenant_id, name, current_value, max_value) VALUES (tid, config_name, increment, max_value);
+    ELSE
+        UPDATE tenant_config SET current_value = current_value + increment WHERE name = config_name AND tenant_config.tenant_id = tid;
+    END IF;
+    SELECT * FROM tenant_config WHERE name = config_name AND tenant_config.tenant_id = tid;
+END;
