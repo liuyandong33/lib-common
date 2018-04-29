@@ -1017,7 +1017,6 @@ CREATE PROCEDURE add_tenant_config(IN tid BIGINT, IN config_name VARCHAR(50), IN
 BEGIN
     DECLARE count INT;
     DECLARE max_value INT;
-    SET count = 0;
     SELECT COUNT(1) INTO count FROM tenant_config WHERE name = config_name AND tenant_id = tid;
     IF count = 0 THEN
         CASE config_name
