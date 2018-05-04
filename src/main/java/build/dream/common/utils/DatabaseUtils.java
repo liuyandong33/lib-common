@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.Column;
 import build.dream.common.annotations.Transient;
 import org.apache.commons.lang.StringUtils;
 
@@ -38,7 +39,15 @@ public class DatabaseUtils {
                 if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
-                insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(fieldName));
+
+                String columnName = null;
+                Column column = field.getAnnotation(Column.class);
+                if (column != null) {
+                    columnName = column.name();
+                } else {
+                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                }
+                insertSql.append(columnName);
                 insertSql.append(", ");
                 valuesSql.append("#{").append(fieldName);
                 valuesSql.append("}, ");
@@ -86,7 +95,16 @@ public class DatabaseUtils {
                 if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
-                insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(fieldName));
+
+                String columnName = null;
+                Column column = field.getAnnotation(Column.class);
+                if (column != null) {
+                    columnName = column.name();
+                } else {
+                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                }
+                insertSql.append(columnName);
+
                 insertSql.append(", ");
                 valuesSql.append("#{item.").append(fieldName);
                 valuesSql.append("}, ");
@@ -132,7 +150,16 @@ public class DatabaseUtils {
                 if ("createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
                     continue;
                 }
-                updateSql.append(NamingStrategyUtils.camelCaseToUnderscore(fieldName));
+
+                String columnName = null;
+                Column column = field.getAnnotation(Column.class);
+                if (column != null) {
+                    columnName = column.name();
+                } else {
+                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                }
+                updateSql.append(columnName);
+
                 updateSql.append(" = ");
                 updateSql.append("#{");
                 updateSql.append(fieldName);
