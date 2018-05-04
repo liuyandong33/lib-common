@@ -871,8 +871,15 @@ CREATE TABLE package_group_goods
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     package_group_id BIGINT NOT NULL COMMENT 'package_group.id',
-    goods_id BIGINT NOT NULL COMMENT 'goods.id',
-    quantity INT NOT NULL COMMENT '商品数量'
+    goods_id BIGINT NOT NULL COMMENT '商品id',
+    goods_specification BIGINT NOT NULL COMMENT '商品规格id',
+    quantity DECIMAL(11, 3) COMMENT '商品数量',
+    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '套餐组产品';
 
 DROP TABLE IF EXISTS data_handle_history;
