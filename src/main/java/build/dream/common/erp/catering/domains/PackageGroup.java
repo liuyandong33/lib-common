@@ -6,6 +6,7 @@ import java.math.BigInteger;
 
 public class PackageGroup extends BasicDomain {
     private BigInteger packageId;
+    private String groupName;
     private Integer groupType;
     private Integer optionalQuantity;
 
@@ -15,6 +16,14 @@ public class PackageGroup extends BasicDomain {
 
     public void setPackageId(BigInteger packageId) {
         this.packageId = packageId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public Integer getGroupType() {
