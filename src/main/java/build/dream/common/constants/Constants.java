@@ -74,6 +74,7 @@ public class Constants {
     public static final String CLIENT_INFO_KEY_PREFIX = "_router_client_info_";
 
     public static final String SQL_OPERATION_SYMBOL_IN = "IN";
+    public static final String SQL_OPERATION_SYMBOL_NOT_IN = "NOT IN";
     public static final String SQL_OPERATION_SYMBOL_LIKE = "LIKE";
     public static final String SQL_OPERATION_SYMBOL_EQUALS = "=";
     public static final String SQL_OPERATION_SYMBOL_NOT_EQUALS = "!=";
