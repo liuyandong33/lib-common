@@ -232,3 +232,19 @@ private static String[] LUNAR_DATE_ARRAY = {
     "extras": "[{}]",
     "poiReceiveDetail": "{\"actOrderChargeByMt\":[{\"comment\":\"活动款\",\"feeTypeDesc\":\"活动款\",\"feeTypeId\":10019,\"moneyCent\":0}],\"actOrderChargeByPoi\":[],\"foodShareFeeChargeByPoi\":300,\"logisticsFee\":300,\"onlinePayment\":1950,\"wmPoiReceiveCent\":1350}",
 }
+
+String barCode = "6903244673594";
+int checkCode = Integer.parseInt(barCode.substring(12));
+
+String str = StringUtils.reverse(barCode.substring(0, 12));
+int length = str.length();
+int number = 0;
+for (int index = 0; index < length; index++) {
+    if ((index + 1) % 2 == 0) {
+        number = number + Integer.parseInt(str.substring(index, index + 1)) * 3;
+    } else {
+        number = number + Integer.parseInt(str.substring(index, index + 1));
+    }
+}
+
+System.out.println(checkCode == 10 - number % 10);
