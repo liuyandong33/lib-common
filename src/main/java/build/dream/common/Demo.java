@@ -1,4 +1,6 @@
-package build.dream.common.utils;
+package build.dream.common;
+
+import build.dream.common.utils.WebUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
