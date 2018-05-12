@@ -6,16 +6,54 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Vip extends BasicDomain {
+    /**
+     * 商户id
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店id
+     */
     private BigInteger branchId;
+    /**
+     * 会员编号
+     */
     private String vipCode;
+    /**
+     * 会员姓名
+     */
     private String vipName;
+    /**
+     * 会员生日
+     */
     private Date birthday;
+    /**
+     * 会员电话号码
+     */
     private String phoneNumber;
+    /**
+     * 微信open id
+     */
     private String openId;
+    /**
+     * 主账号open id
+     */
     private String mainOpenId;
+    /**
+     * 支付宝用户ID
+     */
     private String alipayUserId;
+    /**
+     * 微信会员卡id
+     */
+    private String cardId;
+    /**
+     * 微信会员卡编号
+     */
+    private String userCardCode;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -95,5 +133,21 @@ public class Vip extends BasicDomain {
 
     public void setAlipayUserId(String alipayUserId) {
         this.alipayUserId = alipayUserId;
+    }
+
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
+
+    public String getUserCardCode() {
+        return userCardCode;
+    }
+
+    public void setUserCardCode(String userCardCode) {
+        this.userCardCode = userCardCode;
     }
 }

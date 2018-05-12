@@ -906,6 +906,8 @@ CREATE TABLE vip
     open_id VARCHAR(50) COMMENT '微信open id',
     main_open_id VARCHAR(50) COMMENT '微信主账号open id',
     alipay_user_id VARCHAR(50) COMMENT '支付宝user id',
+    card_id VARCHAR(50) COMMENT '微信会员卡id',
+    user_card_code VARCHAR(50) COMMENT '微信会员卡编号',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
