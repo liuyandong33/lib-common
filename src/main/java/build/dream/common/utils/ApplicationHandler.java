@@ -549,7 +549,6 @@ public class ApplicationHandler {
     }
 
     public static String callMethod(MethodCaller methodCaller, String errorMessage, Map<String, String> requestParameters) {
-        String requestUri = getRequestUri();
         String controllerClassName = null;
         String actionMethodName = null;
         HandlerMethod handlerMethod = obtainHandlerMethod();
