@@ -1,8 +1,10 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.Column;
+import build.dream.common.annotations.Table;
 import build.dream.common.annotations.Transient;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -20,12 +22,7 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        if (StringUtils.isNotBlank(tableName)) {
-            insertSql.append(tableName);
-        } else {
-            String classSimpleName = clazz.getSimpleName();
-            insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(classSimpleName.substring(0, 1).toLowerCase() + classSimpleName.substring(1)));
-        }
+        insertSql.append(obtainTableName(tableName, clazz));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder(" VALUES (");
         while (clazz != Object.class) {
@@ -76,12 +73,7 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        if (StringUtils.isNotBlank(tableName)) {
-            insertSql.append(tableName);
-        } else {
-            String classSimpleName = clazz.getSimpleName();
-            insertSql.append(NamingStrategyUtils.camelCaseToUnderscore(classSimpleName.substring(0, 1).toLowerCase() + classSimpleName.substring(1)));
-        }
+        insertSql.append(obtainTableName(tableName, clazz));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder("(");
         while (clazz != Object.class) {
@@ -132,12 +124,7 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
         StringBuilder updateSql = new StringBuilder("UPDATE ");
-        if (StringUtils.isNotBlank(tableName)) {
-            updateSql.append(tableName);
-        } else {
-            String classSimpleName = clazz.getSimpleName();
-            updateSql.append(NamingStrategyUtils.camelCaseToUnderscore(classSimpleName.substring(0, 1).toLowerCase() + classSimpleName.substring(1)));
-        }
+        updateSql.append(obtainTableName(tableName, clazz));
         updateSql.append(" SET ");
         while (clazz != Object.class) {
             Field[] fields = clazz.getDeclaredFields();
@@ -171,5 +158,18 @@ public class DatabaseUtils {
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.append(" WHERE id = #{id}");
         return updateSql.toString();
+    }
+
+    public static String obtainTableName(String tableName, Class<?> clazz) {
+        if (StringUtils.isNotBlank(tableName)) {
+            return tableName;
+        }
+        Table table = AnnotationUtils.findAnnotation(clazz, Table.class);
+        if (table != null) {
+            return table.name();
+        } else {
+            String simpleName = clazz.getSimpleName();
+            return NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
+        }
     }
 }

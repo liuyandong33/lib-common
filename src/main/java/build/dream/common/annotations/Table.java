@@ -2,9 +2,9 @@ package build.dream.common.annotations;
 
 import java.lang.annotation.*;
 
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Column {
+public @interface Table {
     String name();
 }
