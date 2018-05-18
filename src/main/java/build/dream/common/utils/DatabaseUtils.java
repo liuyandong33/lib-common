@@ -8,6 +8,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.List;
 
 public class DatabaseUtils {
     public static String generateInsertSql(String className) {
@@ -65,19 +66,31 @@ public class DatabaseUtils {
         return generateInsertAllSql(className, null);
     }
 
+    public static String[] generateInsertAllSql(List domains) {
+        return generateInsertAllSql(domains.get(0).getClass(), null);
+    }
+
+    public static String[] generateInsertAllSql(List domains, String tableName) {
+        return generateInsertAllSql(domains.get(0).getClass(), tableName);
+    }
+
     public static String[] generateInsertAllSql(String className, String tableName) {
-        Class clazz = null;
+        Class domainClass = null;
         try {
-            clazz = Class.forName(className);
+            domainClass = Class.forName(className);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return generateInsertAllSql(domainClass, tableName);
+    }
+
+    public static String[] generateInsertAllSql(Class domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        insertSql.append(obtainTableName(tableName, clazz));
+        insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder("(");
-        while (clazz != Object.class) {
-            Field[] fields = clazz.getDeclaredFields();
+        while (domainClass != Object.class) {
+            Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
@@ -101,7 +114,7 @@ public class DatabaseUtils {
                 valuesSql.append("#{item.").append(fieldName);
                 valuesSql.append("}, ");
             }
-            clazz = clazz.getSuperclass();
+            domainClass = domainClass.getSuperclass();
         }
         insertSql.deleteCharAt(insertSql.length() - 1);
         insertSql.deleteCharAt(insertSql.length() - 1);
