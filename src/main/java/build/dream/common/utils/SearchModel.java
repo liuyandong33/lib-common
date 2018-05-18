@@ -10,6 +10,7 @@ import java.util.List;
 public class SearchModel {
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
     private List<String> columns = new ArrayList<String>();
+    private String tableName;
 
     public SearchModel() {
 
@@ -49,6 +50,14 @@ public class SearchModel {
 
     public void addColumns(String... elements) {
         CollectionUtils.addAll(this.columns, elements);
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(String tableName) {
+        this.tableName = tableName;
     }
 
     public void addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
