@@ -11,23 +11,31 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 public class DatabaseUtils {
-    public static String generateInsertSql(String className) {
-        return generateInsertSql(className, null);
+    public static String generateInsertSql(String domainClassName) {
+        return generateInsertSql(domainClassName, null);
     }
 
-    public static String generateInsertSql(String className, String tableName) {
-        Class clazz = null;
+    public static String generateInsertSql(String domainClassName, String tableName) {
+        Class<?> domainClass = null;
         try {
-            clazz = Class.forName(className);
+            domainClass = Class.forName(domainClassName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return generateInsertSql(domainClass, tableName);
+    }
+
+    public static String generateInsertSql(Class<?> domainClass) {
+        return generateInsertSql(domainClass, null);
+    }
+
+    public static String generateInsertSql(Class<?> domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        insertSql.append(obtainTableName(tableName, clazz));
+        insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder(" VALUES (");
-        while (clazz != Object.class) {
-            Field[] fields = clazz.getDeclaredFields();
+        while (domainClass != Object.class) {
+            Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
@@ -50,7 +58,7 @@ public class DatabaseUtils {
                 valuesSql.append("#{").append(fieldName);
                 valuesSql.append("}, ");
             }
-            clazz = clazz.getSuperclass();
+            domainClass = domainClass.getSuperclass();
         }
         insertSql.deleteCharAt(insertSql.length() - 1);
         insertSql.deleteCharAt(insertSql.length() - 1);
@@ -66,14 +74,6 @@ public class DatabaseUtils {
         return generateInsertAllSql(className, null);
     }
 
-    public static String[] generateInsertAllSql(List domains) {
-        return generateInsertAllSql(domains.get(0).getClass(), null);
-    }
-
-    public static String[] generateInsertAllSql(List domains, String tableName) {
-        return generateInsertAllSql(domains.get(0).getClass(), tableName);
-    }
-
     public static String[] generateInsertAllSql(String className, String tableName) {
         Class domainClass = null;
         try {
@@ -82,6 +82,18 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
         return generateInsertAllSql(domainClass, tableName);
+    }
+
+    public static String[] generateInsertAllSql(List<?> domains) {
+        return generateInsertAllSql(domains.get(0).getClass(), null);
+    }
+
+    public static String[] generateInsertAllSql(List<?> domains, String tableName) {
+        return generateInsertAllSql(domains.get(0).getClass(), tableName);
+    }
+
+    public static String[] generateInsertAllSql(Class domainClass) {
+        return generateInsertAllSql(domainClass, null);
     }
 
     public static String[] generateInsertAllSql(Class domainClass, String tableName) {
@@ -125,22 +137,30 @@ public class DatabaseUtils {
         return new String[]{insertSql.toString(), valuesSql.toString()};
     }
 
-    public static String generateUpdateSql(String className) {
-        return generateUpdateSql(className, null);
+    public static String generateUpdateSql(String domainClassName) {
+        return generateUpdateSql(domainClassName, null);
     }
 
-    public static String generateUpdateSql(String className, String tableName) {
-        Class clazz = null;
+    public static String generateUpdateSql(String domainClassName, String tableName) {
+        Class<?> domainClass = null;
         try {
-            clazz = Class.forName(className);
+            domainClass = Class.forName(domainClassName);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        return generateUpdateSql(domainClass, tableName);
+    }
+
+    public static String generateUpdateSql(Class<?> domainClass) {
+        return generateUpdateSql(domainClass, null);
+    }
+
+    public static String generateUpdateSql(Class<?> domainClass, String tableName) {
         StringBuilder updateSql = new StringBuilder("UPDATE ");
-        updateSql.append(obtainTableName(tableName, clazz));
+        updateSql.append(obtainTableName(tableName, domainClass));
         updateSql.append(" SET ");
-        while (clazz != Object.class) {
-            Field[] fields = clazz.getDeclaredFields();
+        while (domainClass != Object.class) {
+            Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
@@ -165,7 +185,7 @@ public class DatabaseUtils {
                 updateSql.append(fieldName);
                 updateSql.append("}, ");
             }
-            clazz = clazz.getSuperclass();
+            domainClass = domainClass.getSuperclass();
         }
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.deleteCharAt(updateSql.length() - 1);
