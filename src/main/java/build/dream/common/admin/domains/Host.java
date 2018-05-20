@@ -42,7 +42,7 @@ public class Host extends BasicDomain {
     /**
      * CPU 核心数量
      */
-    private Integer cupCoreQuantity;
+    private Integer cpuCoreQuantity;
 
     /**
      * 内存大小，单位B
@@ -113,12 +113,12 @@ public class Host extends BasicDomain {
         this.diskSize = diskSize;
     }
 
-    public Integer getCupCoreQuantity() {
-        return cupCoreQuantity;
+    public Integer getCpuCoreQuantity() {
+        return cpuCoreQuantity;
     }
 
-    public void setCupCoreQuantity(Integer cupCoreQuantity) {
-        this.cupCoreQuantity = cupCoreQuantity;
+    public void setCpuCoreQuantity(Integer cpuCoreQuantity) {
+        this.cpuCoreQuantity = cpuCoreQuantity;
     }
 
     public Integer getMemorySize() {

@@ -10,7 +10,7 @@ CREATE TABLE host
     user_name VARCHAR(20) NOT NULL COMMENT '用户名',
     password VARCHAR(20) NOT NULL COMMENT '密码',
     disk_size INT NOT NULL COMMENT '硬盘大小，单位GB',
-    cup_core_quantity INT NOT NULL COMMENT 'CPU 核心数量',
+    cpu_core_quantity INT NOT NULL COMMENT 'CPU 核心数量',
     memory_size INT NOT NULL COMMENT '内存大小，单位B',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
