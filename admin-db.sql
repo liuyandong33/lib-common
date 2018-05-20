@@ -19,3 +19,20 @@ CREATE TABLE host
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS zookeeper_node;
+CREATE TABLE zookeeper_node
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    host_name VARCHAR(20) NOT NULL COMMENT '主机名称',
+    ip_address VARCHAR(20) NOT NULL COMMENT 'ip 地址',
+    ssh_port INT NOT NULL COMMENT 'ssh 连接端口号',
+    user_name VARCHAR(20) NOT NULL COMMENT '用户名',
+    password VARCHAR(20) NOT NULL COMMENT '密码',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+);
