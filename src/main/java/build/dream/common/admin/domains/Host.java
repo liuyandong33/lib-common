@@ -34,6 +34,21 @@ public class Host extends BasicDomain {
      */
     private String password;
 
+    /**
+     * 硬盘大小，单位GB
+     */
+    private Integer diskSize;
+
+    /**
+     * CPU 核心数量
+     */
+    private Integer cupCoreQuantity;
+
+    /**
+     * 内存大小，单位B
+     */
+    private Integer memorySize;
+
     public Integer getType() {
         return type;
     }
@@ -88,5 +103,29 @@ public class Host extends BasicDomain {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getDiskSize() {
+        return diskSize;
+    }
+
+    public void setDiskSize(Integer diskSize) {
+        this.diskSize = diskSize;
+    }
+
+    public Integer getCupCoreQuantity() {
+        return cupCoreQuantity;
+    }
+
+    public void setCupCoreQuantity(Integer cupCoreQuantity) {
+        this.cupCoreQuantity = cupCoreQuantity;
+    }
+
+    public Integer getMemorySize() {
+        return memorySize;
+    }
+
+    public void setMemorySize(Integer memorySize) {
+        this.memorySize = memorySize;
     }
 }
