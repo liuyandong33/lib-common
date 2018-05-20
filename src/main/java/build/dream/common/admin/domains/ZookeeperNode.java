@@ -23,6 +23,10 @@ public class ZookeeperNode extends BasicDomain {
      * 密码
      */
     private String password;
+    /**
+     * zookeeper 主目录
+     */
+    private String zookeeperHome;
 
     public String getHostName() {
         return hostName;
@@ -62,5 +66,13 @@ public class ZookeeperNode extends BasicDomain {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getZookeeperHome() {
+        return zookeeperHome;
+    }
+
+    public void setZookeeperHome(String zookeeperHome) {
+        this.zookeeperHome = zookeeperHome;
     }
 }

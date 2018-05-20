@@ -29,6 +29,7 @@ CREATE TABLE zookeeper_node
     ssh_port INT NOT NULL COMMENT 'ssh 连接端口号',
     user_name VARCHAR(20) NOT NULL COMMENT '用户名',
     password VARCHAR(20) NOT NULL COMMENT '密码',
+    zookeeper_home VARCHAR(255) NOT NULL COMMENT 'zookeeper 主目录',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
