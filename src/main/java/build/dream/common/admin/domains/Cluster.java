@@ -1,7 +1,6 @@
 package build.dream.common.admin.domains;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.models.BasicModel;
 
 import java.math.BigInteger;
 
