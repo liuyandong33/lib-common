@@ -1,10 +1,11 @@
 package build.dream.common.admin.domains;
 
+import build.dream.common.basic.BasicDomain;
 import build.dream.common.models.BasicModel;
 
 import java.math.BigInteger;
 
-public class Cluster extends BasicModel {
+public class Cluster extends BasicDomain {
     /**
      * 商户ID
      */
