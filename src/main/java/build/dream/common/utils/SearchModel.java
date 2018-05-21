@@ -11,6 +11,8 @@ public class SearchModel {
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
     private List<String> columns = new ArrayList<String>();
     private String tableName;
+    private String groupBy;
+    private String orderBy;
 
     public SearchModel() {
 
@@ -18,7 +20,7 @@ public class SearchModel {
 
     public SearchModel(boolean autoSetDeletedFalse) {
         if (autoSetDeletedFalse) {
-            this.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUALS, 0);
+            this.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
         }
     }
 
@@ -62,5 +64,21 @@ public class SearchModel {
 
     public void addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
         searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+    }
+
+    public String getGroupBy() {
+        return groupBy;
+    }
+
+    public void setGroupBy(String groupBy) {
+        this.groupBy = groupBy;
+    }
+
+    public String getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(String orderBy) {
+        this.orderBy = orderBy;
     }
 }

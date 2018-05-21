@@ -16,7 +16,7 @@ public class UpdateModel {
 
     public UpdateModel(boolean autoSetDeletedFalse) {
         if (autoSetDeletedFalse) {
-            this.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUALS, 0);
+            this.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
         }
     }
 

@@ -76,8 +76,8 @@ public class Constants {
     public static final String SQL_OPERATION_SYMBOL_IN = "IN";
     public static final String SQL_OPERATION_SYMBOL_NOT_IN = "NOT IN";
     public static final String SQL_OPERATION_SYMBOL_LIKE = "LIKE";
-    public static final String SQL_OPERATION_SYMBOL_EQUALS = "=";
-    public static final String SQL_OPERATION_SYMBOL_NOT_EQUALS = "!=";
+    public static final String SQL_OPERATION_SYMBOL_EQUAL = "=";
+    public static final String SQL_OPERATION_SYMBOL_NOT_EQUAL = "!=";
     public static final String SQL_OPERATION_SYMBOL_LESS_THAN = "<";
     public static final String SQL_OPERATION_SYMBOL_LESS_THAN_EQUALS = "<=";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN = ">";
