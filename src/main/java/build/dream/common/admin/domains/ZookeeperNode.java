@@ -2,7 +2,13 @@ package build.dream.common.admin.domains;
 
 import build.dream.common.basic.BasicDomain;
 
+import java.math.BigInteger;
+
 public class ZookeeperNode extends BasicDomain {
+    /**
+     * 集群ID
+     */
+    private BigInteger clusterId;
     /**
      * 主机名称
      */
@@ -27,6 +33,14 @@ public class ZookeeperNode extends BasicDomain {
      * zookeeper 主目录
      */
     private String zookeeperHome;
+
+    public BigInteger getClusterId() {
+        return clusterId;
+    }
+
+    public void setClusterId(BigInteger clusterId) {
+        this.clusterId = clusterId;
+    }
 
     public String getHostName() {
         return hostName;
