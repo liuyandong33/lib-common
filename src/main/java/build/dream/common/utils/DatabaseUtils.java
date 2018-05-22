@@ -8,6 +8,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseUtils {
@@ -191,6 +192,55 @@ public class DatabaseUtils {
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.append(" WHERE id = #{id}");
         return updateSql.toString();
+    }
+
+    public static String generateSelectSql(String domainClassName) {
+        return generateSelectSql(domainClassName, null);
+    }
+
+    public static String generateSelectSql(String domainClassName, String tableName) {
+        Class<?> domainClass = null;
+        try {
+            domainClass = Class.forName(domainClassName);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return generateSelectSql(domainClass, tableName);
+    }
+
+    public static String generateSelectSql(Class<?> domainClass) {
+        return generateSelectSql(domainClass, null);
+    }
+
+    public static String generateSelectSql(Class<?> domainClass, String tableName) {
+        StringBuilder selectSql = new StringBuilder("SELECT ");
+        tableName = obtainTableName(tableName, domainClass);
+        List<String> alias = new ArrayList<String>();
+        while (domainClass != Object.class) {
+            Field[] fields = domainClass.getDeclaredFields();
+            for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                    continue;
+                }
+                String fieldName = field.getName();
+
+                String underscoreName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                String columnName = null;
+                Column column = field.getAnnotation(Column.class);
+                if (column != null) {
+                    columnName = column.name();
+                    alias.add(underscoreName + " AS " + columnName);
+                } else {
+                    alias.add(underscoreName);
+                }
+            }
+            domainClass = domainClass.getSuperclass();
+        }
+        selectSql.append(StringUtils.join(alias, ", "));
+        selectSql.append(" FROM ");
+        selectSql.append(tableName);
+        return selectSql.toString();
     }
 
     public static String obtainTableName(String tableName, Class<?> clazz) {
