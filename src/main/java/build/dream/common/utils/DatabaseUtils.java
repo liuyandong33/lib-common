@@ -213,8 +213,17 @@ public class DatabaseUtils {
     }
 
     public static String generateSelectSql(Class<?> domainClass, String tableName) {
-        StringBuilder selectSql = new StringBuilder("SELECT ");
         tableName = obtainTableName(tableName, domainClass);
+        List<String> alias = obtainAllAlias(domainClass);
+
+        StringBuilder selectSql = new StringBuilder("SELECT ");
+        selectSql.append(alias);
+        selectSql.append(" FROM ");
+        selectSql.append(tableName);
+        return selectSql.toString();
+    }
+
+    public static List<String> obtainAllAlias(Class<?> domainClass) {
         List<String> alias = new ArrayList<String>();
         while (domainClass != Object.class) {
             Field[] fields = domainClass.getDeclaredFields();
@@ -237,10 +246,7 @@ public class DatabaseUtils {
             }
             domainClass = domainClass.getSuperclass();
         }
-        selectSql.append(StringUtils.join(alias, ", "));
-        selectSql.append(" FROM ");
-        selectSql.append(tableName);
-        return selectSql.toString();
+        return alias;
     }
 
     public static String obtainTableName(String tableName, Class<?> clazz) {
