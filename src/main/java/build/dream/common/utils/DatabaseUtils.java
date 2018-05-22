@@ -75,7 +75,7 @@ public class DatabaseUtils {
     }
 
     public static String[] generateInsertAllSql(String className, String tableName) {
-        Class domainClass = null;
+        Class<?> domainClass = null;
         try {
             domainClass = Class.forName(className);
         } catch (ClassNotFoundException e) {
@@ -92,11 +92,11 @@ public class DatabaseUtils {
         return generateInsertAllSql(domains.get(0).getClass(), tableName);
     }
 
-    public static String[] generateInsertAllSql(Class domainClass) {
+    public static String[] generateInsertAllSql(Class<?> domainClass) {
         return generateInsertAllSql(domainClass, null);
     }
 
-    public static String[] generateInsertAllSql(Class domainClass, String tableName) {
+    public static String[] generateInsertAllSql(Class<?> domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
