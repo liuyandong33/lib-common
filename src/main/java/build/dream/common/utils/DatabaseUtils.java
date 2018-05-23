@@ -263,6 +263,6 @@ public class DatabaseUtils {
     }
 
     public static String obtainWhereClause(String sqlFragment) {
-        return sqlFragment.replaceAll("#\\{", "{namedParameters.");
+        return sqlFragment.replaceAll("#\\{", "#{namedParameters.");
     }
 }
