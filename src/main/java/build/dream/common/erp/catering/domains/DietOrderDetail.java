@@ -48,6 +48,10 @@ public class DietOrderDetail extends BasicDomain {
      */
     private BigInteger categoryId;
     /**
+     * 商品分类名称
+     */
+    private String categoryName;
+    /**
      * 单价
      */
     private BigDecimal price;
@@ -58,7 +62,7 @@ public class DietOrderDetail extends BasicDomain {
     /**
      * 总数量
      */
-    private Integer quantity;
+    private BigDecimal quantity;
     /**
      * 总金额
      */
@@ -71,6 +75,10 @@ public class DietOrderDetail extends BasicDomain {
      * 应付金额
      */
     private BigDecimal payableAmount;
+    /**
+     * 实付金额
+     */
+    private BigDecimal paidAmount;
     /**
      * 本地ID
      */
@@ -172,6 +180,14 @@ public class DietOrderDetail extends BasicDomain {
         this.categoryId = categoryId;
     }
 
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -188,11 +204,11 @@ public class DietOrderDetail extends BasicDomain {
         this.flavorIncrease = flavorIncrease;
     }
 
-    public Integer getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
@@ -218,6 +234,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setPayableAmount(BigDecimal payableAmount) {
         this.payableAmount = payableAmount;
+    }
+
+    public BigDecimal getPaidAmount() {
+        return paidAmount;
+    }
+
+    public void setPaidAmount(BigDecimal paidAmount) {
+        this.paidAmount = paidAmount;
     }
 
     public String getLocalId() {

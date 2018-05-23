@@ -134,10 +134,11 @@ CREATE TABLE diet_order_group
 ) COMMENT '餐厅分组表';
 
 DROP TABLE IF EXISTS diet_order_detail;
-CREATE TABLE diet_order_detail(
+CREATE TABLE diet_order_detail
+(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
-	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+	tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     diet_order_id BIGINT NOT NULL COMMENT '订单ID',
     diet_order_group_id BIGINT NOT NULL COMMENT '订单组ID，diet_order_group.id',
@@ -146,12 +147,14 @@ CREATE TABLE diet_order_detail(
     goods_specification_id BIGINT COMMENT '菜品规格ID',
     goods_specification_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
     category_id BIGINT COMMENT '商品分类id',
+    category_name VARCHAR(20) COMMENT '商品分类名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
     flavor_increase DECIMAL(11, 3) COMMENT '口味加价',
-    quantity INT NOT NULL COMMENT '数量',
+    quantity DECIMAL(11, 3) NOT NULL COMMENT '数量',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实付金额',
     local_id VARCHAR(50) COMMENT '本地ID',
     local_diet_order_id VARCHAR(50) COMMENT '本地订单id，diet_order_id.local_id',
     local_diet_order_group_id VARCHAR(50) COMMENT '本地订单组id，diet_order_group.local_id',
