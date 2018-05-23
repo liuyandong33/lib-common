@@ -5,11 +5,15 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SearchModel {
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
     private List<String> columns = new ArrayList<String>();
+    private String whereClause;
+    private Map<String, Object> namedParameters = new HashMap<String, Object>();
     private String tableName;
     private String groupBy;
     private String orderBy;
@@ -52,6 +56,22 @@ public class SearchModel {
 
     public void addColumns(String... elements) {
         CollectionUtils.addAll(this.columns, elements);
+    }
+
+    public String getWhereClause() {
+        return whereClause;
+    }
+
+    public void setWhereClause(String whereClause) {
+        this.whereClause = whereClause;
+    }
+
+    public Map<String, Object> getNamedParameters() {
+        return namedParameters;
+    }
+
+    public void setNamedParameters(Map<String, Object> namedParameters) {
+        this.namedParameters = namedParameters;
     }
 
     public String getTableName() {
