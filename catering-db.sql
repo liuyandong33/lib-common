@@ -1040,3 +1040,53 @@ BEGIN
     END IF;
     SELECT * FROM tenant_config WHERE name = config_name AND tenant_config.tenant_id = tid;
 END;
+
+DROP TABLE IF EXISTS sale;
+CREATE TABLE sale
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    sale_code VARCHAR(50) NOT NULL COMMENT 'sale code',
+    sale_time DATETIME NOT NULL COMMENT '销售时间',
+    total_amount DECIMAL(11, 3) COMMENT '总金额',
+    discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
+    payable_amount DECIMAL(11, 3) COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实付金额',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS sale_detail;
+CREATE TABLE sale_detail
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    sale_id BIGINT NOT NULL COMMENT 'sale.id',
+    sale_time DATETIME NOT NULL COMMENT '销售时间',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    goods_id BIGINT NOT NULL COMMENT '菜品ID',
+    goods_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
+    goods_specification_id BIGINT COMMENT '菜品规格ID',
+    goods_specification_name VARCHAR(20) NOT NULL COMMENT '菜品名称',
+    category_id BIGINT COMMENT '商品分类id',
+    category_name VARCHAR(20) NOT NULL COMMENT '商品分类名称',
+    price DECIMAL(11, 3) NOT NULL COMMENT '单价',
+    quantity INT NOT NULL COMMENT '数量',
+    total_amount DECIMAL(11, 3) COMMENT '总金额',
+    discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
+    payable_amount DECIMAL(11, 3) COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实付金额',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+);
