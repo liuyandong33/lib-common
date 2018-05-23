@@ -74,6 +74,10 @@ public class SearchModel {
         this.namedParameters = namedParameters;
     }
 
+    public void addNamedParameter(String name, Object value) {
+        this.namedParameters.put(name, value);
+    }
+
     public String getTableName() {
         return tableName;
     }

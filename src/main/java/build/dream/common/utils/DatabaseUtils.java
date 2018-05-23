@@ -261,4 +261,8 @@ public class DatabaseUtils {
             return NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
         }
     }
+
+    public static String obtainWhereClause(String sqlFragment) {
+        return sqlFragment.replaceAll("#\\{", "{namedParameters.");
+    }
 }

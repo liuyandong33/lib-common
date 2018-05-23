@@ -3,11 +3,15 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UpdateModel {
     private String tableName;
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
+    private String whereClause;
+    private Map<String, Object> namedParameters = new HashMap<String, Object>();
     private List<ContentValue> contentValues = new ArrayList<ContentValue>();
 
     public UpdateModel() {
@@ -34,6 +38,26 @@ public class UpdateModel {
 
     public void setSearchConditions(List<SearchCondition> searchConditions) {
         this.searchConditions = searchConditions;
+    }
+
+    public String getWhereClause() {
+        return whereClause;
+    }
+
+    public void setWhereClause(String whereClause) {
+        this.whereClause = whereClause;
+    }
+
+    public Map<String, Object> getNamedParameters() {
+        return namedParameters;
+    }
+
+    public void setNamedParameters(Map<String, Object> namedParameters) {
+        this.namedParameters = namedParameters;
+    }
+
+    public void addNamedParameter(String name, Object value) {
+        this.namedParameters.put(name, value);
     }
 
     public List<ContentValue> getContentValues() {

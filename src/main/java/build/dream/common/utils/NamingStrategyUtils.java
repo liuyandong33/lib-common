@@ -25,7 +25,7 @@ public class NamingStrategyUtils {
     public static String camelCaseToUnderscore(String camelCase) {
         Matcher matcher = camelCasePattern.matcher(camelCase);
         StringBuffer underscoreStringBuffer = new StringBuffer();
-        while(matcher.find()){
+        while (matcher.find()) {
             matcher.appendReplacement(underscoreStringBuffer, "_" + matcher.group(0).toLowerCase());
         }
         matcher.appendTail(underscoreStringBuffer);
