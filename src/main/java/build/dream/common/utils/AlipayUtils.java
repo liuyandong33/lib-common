@@ -26,7 +26,7 @@ public class AlipayUtils {
         return alipaySystemOauthUrl.toString();
     }
 
-    public static String doPost(String appId, String method, String format, String charset, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static String callAlipayApi(String appId, String method, String format, String charset, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>();
         sortedRequestParameters.put("app_id", appId);
         sortedRequestParameters.put("method", method);
@@ -58,8 +58,8 @@ public class AlipayUtils {
         return result;
     }
 
-    public static String doPost(String appId, String method, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        return doPost(appId, method, "JSON", "utf-8", signType, notifyUrl, appAuthToken, bizContent);
+    public static String callAlipayApi(String appId, String method, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+        return callAlipayApi(appId, method, "JSON", "utf-8", signType, notifyUrl, appAuthToken, bizContent);
     }
 
     private static String concat(Map<String, String> requestParameters) {
@@ -75,6 +75,6 @@ public class AlipayUtils {
     }
 
     public static void main(String[] args) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
-        String result = doPost("2016121304213325", "alipay.trade.pay", "RSA2", null, null, null);
+        String result = callAlipayApi("2016121304213325", "alipay.trade.pay", "RSA2", null, null, null);
     }
 }
