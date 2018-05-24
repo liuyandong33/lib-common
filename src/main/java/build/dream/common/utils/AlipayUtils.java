@@ -26,7 +26,7 @@ public class AlipayUtils {
         return alipaySystemOauthUrl.toString();
     }
 
-    public static String callAlipayApi(String appId, String method, String format, String charset, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static String callAlipayApi(String appId, String method, String format, String charset, String signType, String notifyUrl, String appAuthToken, Map<String, Object> bizContentMap) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>();
         sortedRequestParameters.put("app_id", appId);
         sortedRequestParameters.put("method", method);
@@ -42,7 +42,7 @@ public class AlipayUtils {
         if (StringUtils.isNotBlank(appAuthToken)) {
             sortedRequestParameters.put("app_auth_token", appAuthToken);
         }
-        sortedRequestParameters.put("biz_content", bizContent);
+        sortedRequestParameters.put("biz_content", GsonUtils.toJson(bizContentMap));
 
 
         String publicKey = "";
@@ -58,7 +58,7 @@ public class AlipayUtils {
         return result;
     }
 
-    public static String callAlipayApi(String appId, String method, String signType, String notifyUrl, String appAuthToken, String bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public static String callAlipayApi(String appId, String method, String signType, String notifyUrl, String appAuthToken, Map<String, Object> bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         return callAlipayApi(appId, method, "JSON", "utf-8", signType, notifyUrl, appAuthToken, bizContent);
     }
 
