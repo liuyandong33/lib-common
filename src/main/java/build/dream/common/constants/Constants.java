@@ -196,4 +196,9 @@ public class Constants {
     public static final String CONTENT_TYPE = "Content-Type";
 
     public static final String HANDLER_METHOD = "HANDLER_METHOD";
+
+    public static final String RSA2 = "RSA2";
+    public static final String RSA = "RSA";
+    public static final String JSON = "JSON";
+    public static final String UTF_8 = "utf-8";
 }
