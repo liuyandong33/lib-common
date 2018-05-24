@@ -2,20 +2,39 @@ package build.dream.common;
 
 import build.dream.common.utils.WebUtils;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Demo {
-    public static void main(String[] args) throws IOException {
-//        SpringApplication.run(Application.class, args);
+    private boolean deleted;
 
-        String userId = "6768100064";
-        String maxBehotTime = "1528442279";
+    public boolean isDeleted() {
+        return deleted;
+    }
 
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 
-        String result = callTouTiaoSystem(userId, maxBehotTime, "BA8PlhATXwSuIE8WCYrfKgQPDo");
-        System.out.println(result);
+    public static void main(String[] args) throws IntrospectionException, InvocationTargetException, IllegalAccessException {
+        BeanInfo beanInfo = Introspector.getBeanInfo(Demo.class);
+        PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+
+        Demo demo = new Demo();
+        for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+            Method writeMethod = propertyDescriptor.getWriteMethod();
+            if (writeMethod == null) {
+                continue;
+            }
+            writeMethod.invoke(demo, true);
+        }
     }
 
     public static String callTouTiaoSystem(String userId, String maxBehotTime, String signature) throws IOException {
