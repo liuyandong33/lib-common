@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -568,5 +569,49 @@ public class ApplicationHandler {
             apiRest = new ApiRest(e);
         }
         return GsonUtils.toJson(apiRest);
+    }
+
+    public static <T> T clone(Class<T> beanClass, Object originalBean) {
+        try {
+            T t = beanClass.newInstance();
+            BeanUtils.copyProperties(t, originalBean);
+            return t;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Map<String, Object> toMap(Object object) {
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        for (Class<?> clazz = object.getClass(); clazz != Object.class; clazz = clazz.getSuperclass()) {
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                    continue;
+                }
+                ReflectionUtils.makeAccessible(field);
+                map.put(field.getName(), ReflectionUtils.getField(field, object));
+            }
+        }
+        return map;
+    }
+
+    public static <T> T buildObject(Class<T> beanClass, Map<String, Object> properties) throws IllegalAccessException, InstantiationException {
+        T t = beanClass.newInstance();
+        Field[] fields = beanClass.getDeclaredFields();
+        for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+            ReflectionUtils.makeAccessible(field);
+            String fieldName = field.getName();
+            Object fieldValue = properties.get(fieldName);
+            if (fieldValue != null) {
+                field.set(t, properties.get(fieldName));
+            }
+        }
+        return t;
     }
 }
