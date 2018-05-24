@@ -28,6 +28,10 @@ public class DietOrderDetail extends BasicDomain {
      */
     private BigInteger dietOrderGroupId;
     /**
+     * 商品类型，1-普通商品，2-套餐，3-套餐明细
+     */
+    private Integer goodsType;
+    /**
      * 产品ID，goods.id
      */
     private BigInteger goodsId;
@@ -43,6 +47,10 @@ public class DietOrderDetail extends BasicDomain {
      * 商品规格名称，goodsSpecification.name
      */
     private String goodsSpecificationName;
+    /**
+     * 套餐编码
+     */
+    private String packageCode;
     /**
      * 商品分类id
      */
@@ -140,6 +148,14 @@ public class DietOrderDetail extends BasicDomain {
         this.dietOrderGroupId = dietOrderGroupId;
     }
 
+    public Integer getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(Integer goodsType) {
+        this.goodsType = goodsType;
+    }
+
     public BigInteger getGoodsId() {
         return goodsId;
     }
@@ -170,6 +186,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setGoodsSpecificationName(String goodsSpecificationName) {
         this.goodsSpecificationName = goodsSpecificationName;
+    }
+
+    public String getPackageCode() {
+        return packageCode;
+    }
+
+    public void setPackageCode(String packageCode) {
+        this.packageCode = packageCode;
     }
 
     public BigInteger getCategoryId() {
