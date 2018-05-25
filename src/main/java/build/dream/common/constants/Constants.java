@@ -201,4 +201,7 @@ public class Constants {
     public static final String RSA = "RSA";
     public static final String JSON = "JSON";
     public static final String UTF_8 = "utf-8";
+
+    public static final String ALIPAY_GOODS_DETAILS_SCHEMA_FILE_PATH = "build/dream/common/schemas/alipay/goodsDetailsSchema.json";
+    public static final String ALIPAY_EXTEND_PARAMS_SCHEMA_FILE_PATH = "build/dream/common/schemas/alipay/extendParamsSchema.json";
 }

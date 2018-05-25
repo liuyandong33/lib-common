@@ -1,0 +1,173 @@
+{
+    "type": "object",
+    "properties": {
+        "logoUrl": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "codeType": {
+            "enum": ["CODE_TYPE_TEXT", "CODE_TYPE_BARCODE", "CODE_TYPE_QRCODE", "CODE_TYPE_ONLY_QRCODE", "CODE_TYPE_ONLY_BARCODE", "CODE_TYPE_NONE"]
+        },
+        "brandName": {
+            "type": "string",
+            "maxLength": 36
+        },
+        "title": {
+            "type": "string",
+            "maxLength": 27
+        },
+        "color": {
+            "type": "string",
+            "maxLength": 16
+        },
+        "notice": {
+            "type": "string",
+            "maxLength": 48
+        },
+        "description": {
+            "type": "string",
+            "maxLength": 3072
+        },
+        "sku": {
+            "type": "object",
+            "properties": {
+                "quantity": {
+                    "type": "integer",
+                    "maximum": 100000000
+                }
+            },
+            "required": [
+                "quantity"
+            ]
+        },
+        "dateInfo": {
+            "type": "object",
+            "properties": {
+                "type": {
+                    "enum": ["DATE_TYPE_FIX_TIME_RANGE", "DATE_TYPE_FIX_TERM"]
+                },
+                "beginTimestamp": {
+                    "type": "integer"
+                },
+                "endTimestamp": {
+                    "type": "integer"
+                },
+                "fixedTerm": {
+                    "type": "integer"
+                },
+                "fixedBeginTerm": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "type"
+            ]
+        },
+        "useCustomCode": {
+            "type": "boolean"
+        },
+        "getCustomCodeMode": {
+            "type": "string",
+            "maxLength": 32
+        },
+        "bindOpenid": {
+            "type": "boolean"
+        },
+        "servicePhone": {
+            "type": "string",
+            "maxLength": 24
+        },
+        "locationIdList": {
+            "type": "array",
+            "items": {
+                "type": "integer"
+            }
+        },
+        "useAllLocations": {
+            "type": "boolean"
+        },
+        "centerTitle": {
+            "type": "string",
+            "maxLength": 18
+        },
+        "centerSubTitle": {
+            "type": "string",
+            "maxLength": 24
+        },
+        "centerUrl": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "centerAppBrandUserName": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "centerAppBrandPass": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "customUrlName": {
+            "type": "string",
+            "maxLength": 15
+        },
+        "customUrl": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "customUrlSubTitle": {
+            "type": "string",
+            "maxLength": 18
+        },
+        "customAppBrandUserName": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "customAppBrandPass": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "promotionUrlName": {
+            "type": "string",
+            "maxLength": 15
+        },
+        "promotionUrl": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "promotionUrlSubTitle": {
+            "type": "string",
+            "maxLength": 18
+        },
+        "promotionAppBrandUserName": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "promotionAppBrandPass": {
+            "type": "string",
+            "maxLength": 128
+        },
+        "getLimit": {
+            "type": "integer"
+        },
+        "useLimit": {
+            "type": "integer"
+        },
+        "canShare": {
+            "type": "boolean"
+        },
+        "canGiveFriend": {
+            "type": "boolean"
+        }
+    },
+    "required": [
+        "logoUrl",
+        "codeType",
+        "brandName",
+        "title",
+        "color",
+        "notice",
+        "description",
+        "sku",
+        "dateInfo"
+    ]
+}

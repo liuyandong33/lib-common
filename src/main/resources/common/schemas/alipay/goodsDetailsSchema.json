@@ -1,0 +1,40 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "goodsId": {
+                "type": "string",
+                "maxLength": 32
+            },
+            "goodsName": {
+                "type": "string",
+                "maxLength": 256
+            },
+            "quantity": {
+                "type": "number"
+            },
+            "price": {
+                "type": "number"
+            },
+            "goodsCategory": {
+                "type": "string",
+                "maxLength": 24
+            },
+            "body": {
+                "type": "string",
+                "maxLength": 1000
+            },
+            "showUrl": {
+                "type": "string",
+                "maxLength": 400
+            }
+        },
+        "required": [
+            "goodsId",
+            "goodsName",
+            "quantity",
+            "price"
+        ]
+    }
+}

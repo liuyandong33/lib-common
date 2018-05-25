@@ -300,7 +300,7 @@ public class WebUtils {
         return concat(requestParameters, charsetName);
     }
 
-    private static String concat(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
+    public static String concat(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
@@ -310,6 +310,20 @@ public class WebUtils {
                 requestParameterPairs.add(key + "=");
             } else {
                 requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
+            }
+        }
+        return StringUtils.join(requestParameterPairs, "&");
+    }
+
+    public static String concat(Map<String, String> requestParameters) {
+        List<String> requestParameterPairs = new ArrayList<String>();
+        for (Map.Entry<String, String> entry : requestParameters.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            if (StringUtils.isBlank(value)) {
+                requestParameterPairs.add(key + "=");
+            } else {
+                requestParameterPairs.add(key + "=" + value);
             }
         }
         return StringUtils.join(requestParameterPairs, "&");

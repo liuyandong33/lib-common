@@ -1,0 +1,235 @@
+{
+    "type": "object",
+    "properties": {
+        "platform": {
+            "type": "string"
+        },
+        "audience": {
+            "type": "object",
+            "properties": {
+                "tag": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 20
+                },
+                "tagAnd": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 20
+                },
+                "tagNot": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 20
+                },
+                "alias": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 1000
+                },
+                "registrationId": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 1000
+                },
+                "segment": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 1
+                },
+                "abtest": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "maxItems": 1
+                }
+            }
+        },
+        "notification": {
+            "type": "object",
+            "properties": {
+                "alert": {
+                    "type": "string"
+                },
+                "android": {
+                    "type": "object",
+                    "properties": {
+                        "alert": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "builderId": {
+                            "type": "integer"
+                        },
+                        "priority": {
+                            "type": "integer",
+                            "minimum": -2,
+                            "maximum": 2
+                        },
+                        "category": {
+                            "type": "string"
+                        },
+                        "style": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 3
+                        },
+                        "alertType": {
+                            "type": "integer",
+                            "minimum": -1,
+                            "maximum": 7
+                        },
+                        "bigText": {
+                            "type": "string"
+                        },
+                        "inbox": {
+                            "type": "object"
+                        },
+                        "bigPicPath": {
+                            "type": "string"
+                        },
+                        "extras": {
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "alert"
+                    ]
+                },
+                "ios": {
+                    "type": "object",
+                    "properties": {
+                        "alert": {
+                            "type": "string"
+                        },
+                        "sound": {
+                            "type": "string"
+                        },
+                        "badge": {
+                            "type": "string"
+                        },
+                        "contentAvailable": {
+                            "type": "boolean"
+                        },
+                        "mutableContent": {
+                            "type": "boolean"
+                        },
+                        "category": {
+                            "type": "string"
+                        },
+                        "extras": {
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "alert"
+                    ]
+                },
+                "winphone": {
+                    "type": "object",
+                    "properties": {
+                        "alert": {
+                            "type": "string"
+                        },
+                        "title": {
+                            "type": "string"
+                        },
+                        "openPage": {
+                            "type": "string"
+                        },
+                        "extras": {
+                            "type": "object"
+                        }
+                    },
+                    "required": [
+                        "alert"
+                    ]
+                }
+            },
+            "required": [
+                "alert"
+            ]
+        },
+        "message": {
+            "type": "object",
+            "properties": {
+                "msgContent": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "contentType": {
+                    "type": "string"
+                },
+                "extras": {
+                    "type": "object"
+                }
+            },
+            "required": [
+                "msgContent"
+            ]
+        },
+        "smsMessage": {
+            "type": "object",
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "maxLength": 480
+                },
+                "delayTime": {
+                    "type": "integer",
+                    "maximum": 86400
+                }
+            },
+            "required": [
+                "content",
+                "delayTime"
+            ]
+        },
+        "options": {
+            "type": "object",
+            "properties": {
+                "sendno": {
+                    "type": "integer"
+                },
+                "timeToLive": {
+                    "type": "integer"
+                },
+                "overrideMsgId": {
+                    "type": "integer"
+                },
+                "apnsProduction": {
+                    "type": "boolean"
+                },
+                "apnsCollapseId": {
+                    "type": "string"
+                },
+                "bigPushDuration": {
+                    "type": "integer"
+                }
+            }
+        },
+        "cid": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "platform"
+    ]
+}

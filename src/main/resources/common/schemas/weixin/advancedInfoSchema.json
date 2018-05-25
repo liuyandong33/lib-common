@@ -1,0 +1,97 @@
+{
+    "type": "object",
+    "properties": {
+        "useCondition": {
+            "type": "object",
+            "properties": {
+                "acceptCategory": {
+                    "type": "string",
+                    "maxLength": 512
+                },
+                "rejectCategory": {
+                    "type": "string",
+                    "maxLength": 512
+                },
+                "leastCost": {
+                    "type": "integer"
+                },
+                "objectUseFor": {
+                    "type": "string",
+                    "maxLength": 512
+                },
+                "canUseWithOtherDiscount": {
+                    "type": "string",
+                    "maxLength": 512
+                }
+            }
+        },
+        "abstract": {
+            "type": "object",
+            "properties": {
+                "abstract": {
+                    "type": "string",
+                    "maxLength": 24
+                },
+                "iconUrlList": {
+                    "type": "string",
+                    "maxLength": 128
+                }
+            }
+        },
+        "textImageList": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "imageUrl": {
+                        "type": "string",
+                        "maxLength": 128
+                    },
+                    "text": {
+                        "type": "string",
+                        "maxLength": 512
+                    }
+                }
+            }
+        },
+        "businessService": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "timeLimit": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": {
+                            "enum": ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
+                        }
+                    },
+                    "beginHour": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 23
+                    },
+                    "beginMinute": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 59
+                    },
+                    "endHour": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 23
+                    },
+                    "endMinute": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 59
+                    }
+                }
+            }
+        }
+    }
+}
