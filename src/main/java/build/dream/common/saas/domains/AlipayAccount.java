@@ -2,17 +2,7 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class AlipayAccount extends BasicDomain {
-    /**
-     * 商户ID
-     */
-    private BigInteger tenantId;
-    /**
-     * 门店ID
-     */
-    private BigInteger branchId;
     /**
      * 支付宝账号
      */
@@ -25,10 +15,6 @@ public class AlipayAccount extends BasicDomain {
      * PID
      */
     private String partnerId;
-    /**
-     * 支付宝门店ID
-     */
-    private String storeId;
     /**
      * 支付宝公钥
      */
@@ -45,22 +31,6 @@ public class AlipayAccount extends BasicDomain {
      * 签名方式，只能为RSA或RSA2
      */
     private String signType;
-
-    public BigInteger getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
 
     public String getAccount() {
         return account;
@@ -84,14 +54,6 @@ public class AlipayAccount extends BasicDomain {
 
     public void setPartnerId(String partnerId) {
         this.partnerId = partnerId;
-    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
     }
 
     public String getAlipayPublicKey() {
