@@ -115,13 +115,13 @@ public class AlipayUtils {
         return callAlipayApi(appId, method, Constants.JSON, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static JSONObject alipayTradePay(String appId, String method, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
+    public static JSONObject alipayTradePay(String appId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         alipayTradePayModel.validateAndThrow();
-        return callAlipayApi(appId, method, notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
+        return callAlipayApi(appId, "", notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
     }
 
-    public static String alipayTradeWapPay(String appId, String method, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, UnsupportedEncodingException {
+    public static String alipayTradeWapPay(String appId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, UnsupportedEncodingException {
         alipayTradeWapPayModel.validateAndThrow();
-        return buildRequestBody(appId, method, Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
+        return buildRequestBody(appId, "", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
     }
 }

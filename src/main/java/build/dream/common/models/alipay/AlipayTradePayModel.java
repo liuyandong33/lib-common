@@ -217,7 +217,7 @@ public class AlipayTradePayModel extends BasicModel {
         ApplicationHandler.inArray(SCENES, scene, "scene");
     }
 
-    public static class GoodsDetail {
+    public static class GoodsDetail extends BasicModel {
         @SerializedName(value = "goods_id", alternate = "goodsId")
         private String goodsId;
 
@@ -293,7 +293,7 @@ public class AlipayTradePayModel extends BasicModel {
         }
     }
 
-    public static class ExtendParams {
+    public static class ExtendParams extends BasicModel {
         @Length(max = 64)
         @SerializedName(value = "sys_service_provider_id", alternate = "sysServiceProviderId")
         private String sysServiceProviderId;
