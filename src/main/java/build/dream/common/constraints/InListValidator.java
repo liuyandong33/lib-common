@@ -18,7 +18,7 @@ public class InListValidator implements ConstraintValidator<InList, String> {
         if (value == null) {
             return true;
         } else {
-            return ArrayUtils.contains(items, value.toString());
+            return ArrayUtils.contains(items, value);
         }
     }
 }
