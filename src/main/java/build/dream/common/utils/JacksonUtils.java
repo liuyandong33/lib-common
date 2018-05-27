@@ -6,14 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.SimpleDateFormat;
 
 public class JacksonUtils {
-    private static ObjectMapper objectMapper = null;
+    private static ObjectMapper OBJECT_MAPPER = null;
 
     private static ObjectMapper obtainObjectMapper(String datePattern) {
-        if (objectMapper == null) {
-            objectMapper = new ObjectMapper();
+        if (OBJECT_MAPPER == null) {
+            OBJECT_MAPPER = new ObjectMapper();
         }
-        objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-        return objectMapper;
+        OBJECT_MAPPER.setDateFormat(new SimpleDateFormat(datePattern));
+        return OBJECT_MAPPER;
     }
 
     public static String writeValueAsString(Object object) {
