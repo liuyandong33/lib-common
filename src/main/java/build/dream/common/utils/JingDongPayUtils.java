@@ -2,6 +2,11 @@ package build.dream.common.utils;
 
 import build.dream.common.models.jingdongpay.UniOrderModel;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.Validate;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -9,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class JingDongPayUtils {
-    public static String callJingDongApi(String url, Map<String, Object> requestParameters) throws IOException {
+    public static Map<String, String> callJingDongApi(String url, Map<String, Object> requestParameters) throws IOException, DocumentException {
         StringBuilder signXml = new StringBuilder();
         StringBuilder requestBody = new StringBuilder();
         StringBuilder encryptXml = new StringBuilder();
@@ -43,18 +48,31 @@ public class JingDongPayUtils {
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("content-type", "application/xml");
-        return WebUtils.doPostWithRequestBody(url, headers, requestBody.toString(), null);
+        String result = WebUtils.doPostWithRequestBody(url, headers, requestBody.toString(), null);
+        Document document = DocumentHelper.parseText(result);
+        Element rootElement = document.getRootElement();
+        Element resultElement = rootElement.element("result");
+
+        Map<String, String> resultMap = new HashMap<String, String>();
+
+        String code = resultElement.element("code").getText();
+        String desc = resultElement.element("desc").getText();
+        Validate.isTrue("000000".equals(code), desc);
+
+        String merchant = rootElement.element("merchant").getText();
+        String encrypt = rootElement.element("encrypt").getText();
+        return resultMap;
     }
 
-    public static String uniOrder(UniOrderModel uniOrderModel) throws IOException {
+    public static Map<String, String> uniOrder(UniOrderModel uniOrderModel) throws IOException, DocumentException {
         String url = "https://paygate.jd.com/service/uniorder";
         return callJingDongApi(url, ApplicationHandler.toMap(uniOrderModel));
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, DocumentException {
         UniOrderModel uniOrderModel = new UniOrderModel();
         uniOrderModel.setMerchant(UUID.randomUUID().toString());
-        String result = uniOrder(uniOrderModel);
+        Map<String, String> result = uniOrder(uniOrderModel);
         System.out.println(result);
     }
 }
