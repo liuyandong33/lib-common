@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
-import build.dream.common.models.jingdongpay.UniOrderModel;
+import build.dream.common.models.jingdong.FkmPayModel;
+import build.dream.common.models.jingdong.UniOrderModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.Validate;
@@ -70,7 +71,7 @@ public class JingDongPayUtils {
         return callJingDongApi(url, ApplicationHandler.toMap(uniOrderModel));
     }
 
-    public static JSONObject fkmPay() {
+    public static JSONObject fkmPay(FkmPayModel fkmPayModel) {
         return null;
     }
 

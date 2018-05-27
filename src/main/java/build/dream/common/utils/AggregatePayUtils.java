@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.AlipayTradePayModel;
+import build.dream.common.models.jingdong.FkmPayModel;
 import build.dream.common.models.weixin.MicroPayModel;
 import net.sf.json.JSONObject;
 
@@ -29,7 +30,8 @@ public class AggregatePayUtils {
             MicroPayModel microPayModel = new MicroPayModel();
             result = WeiXinPayUtils.microPay(microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {
-            result = JingDongPayUtils.fkmPay();
+            FkmPayModel fkmPayModel = new FkmPayModel();
+            result = JingDongPayUtils.fkmPay(fkmPayModel);
         }
         return result;
     }
