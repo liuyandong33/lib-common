@@ -204,4 +204,11 @@ public class Constants {
 
     public static final String ALIPAY_GOODS_DETAILS_SCHEMA_FILE_PATH = "build/dream/common/schemas/alipay/goodsDetailsSchema.json";
     public static final String ALIPAY_EXTEND_PARAMS_SCHEMA_FILE_PATH = "build/dream/common/schemas/alipay/extendParamsSchema.json";
+
+    public static final int CHANNEL_TYPE_WEI_XIN = 1;
+    public static final int CHANNEL_TYPE_ALIPAY = 2;
+    public static final int CHANNEL_TYPE_JING_DONG = 3;
+
+    public static final String SCENE_BAR_CODE = "bar_code";
+    public static final String SCENE_WAVE_CODE = "wave_code";
 }

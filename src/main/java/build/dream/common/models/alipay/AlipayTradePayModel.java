@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public class AlipayTradePayModel extends BasicModel {
-    private static final String[] SCENES = {"bar_code", "wave_code"};
+    private static final String[] SCENES = {Constants.SCENE_BAR_CODE, Constants.SCENE_WAVE_CODE};
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")

@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.models.jingdongpay.UniOrderModel;
+import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.Validate;
 import org.dom4j.Document;
@@ -67,6 +68,10 @@ public class JingDongPayUtils {
     public static Map<String, String> uniOrder(UniOrderModel uniOrderModel) throws IOException, DocumentException {
         String url = "https://paygate.jd.com/service/uniorder";
         return callJingDongApi(url, ApplicationHandler.toMap(uniOrderModel));
+    }
+
+    public static JSONObject fkmPay() {
+        return null;
     }
 
     public static void main(String[] args) throws IOException, DocumentException {
