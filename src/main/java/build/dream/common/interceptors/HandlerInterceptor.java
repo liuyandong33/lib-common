@@ -3,7 +3,7 @@ package build.dream.common.interceptors;
 import build.dream.common.annotations.ObtainWeChatOpenId;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.CacheUtils;
-import build.dream.common.utils.WeChatUtils;
+import build.dream.common.utils.WeiXinUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -49,7 +49,7 @@ public class HandlerInterceptor implements org.springframework.web.servlet.Handl
                         CacheUtils.expire(uuid, 5, TimeUnit.MINUTES);
                         redirectUrl = redirectUrl + "&uuid=" + uuid;
                     }
-                    response.sendRedirect(WeChatUtils.generateAuthorizeUrl(appid, null, redirectUrl, null));
+                    response.sendRedirect(WeiXinUtils.generateAuthorizeUrl(appid, null, redirectUrl, null));
                     return false;
                 }
             }

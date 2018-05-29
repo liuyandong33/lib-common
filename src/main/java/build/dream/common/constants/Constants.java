@@ -211,4 +211,8 @@ public class Constants {
 
     public static final String SCENE_BAR_CODE = "bar_code";
     public static final String SCENE_WAVE_CODE = "wave_code";
+
+    public static final String WEI_XIN_API_URL = "wei.xin.api.url";
+    public static final String WEI_XIN_OAUTH2_ACCESS_TOKEN_URI = "/sns/oauth2/access_token";
+    public static final String WEI_XIN_OBTAIN_USER_INFO_URI = "/sns/userinfo";
 }
