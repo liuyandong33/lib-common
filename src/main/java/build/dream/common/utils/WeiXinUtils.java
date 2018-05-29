@@ -78,7 +78,7 @@ public class WeiXinUtils {
         weiXinOAuthAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
         weiXinOAuthAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
         weiXinOAuthAccessToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
-        weiXinOAuthAccessToken.setOpenid(resultJsonObject.getString("openid"));
+        weiXinOAuthAccessToken.setOpenId(resultJsonObject.getString("openid"));
         weiXinOAuthAccessToken.setScope(resultJsonObject.getString("scope"));
 
         return weiXinOAuthAccessToken;

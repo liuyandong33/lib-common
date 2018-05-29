@@ -4,7 +4,7 @@ public class WeiXinOAuthAccessToken {
     private String accessToken;
     private Integer expiresIn;
     private String refreshToken;
-    private String openid;
+    private String openId;
     private String scope;
 
     public String getAccessToken() {
@@ -31,12 +31,12 @@ public class WeiXinOAuthAccessToken {
         this.refreshToken = refreshToken;
     }
 
-    public String getOpenid() {
-        return openid;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setOpenid(String openid) {
-        this.openid = openid;
+    public void setOpenId(String openId) {
+        this.openId = openId;
     }
 
     public String getScope() {
