@@ -19,8 +19,8 @@ public class ItemsInListValidator implements ConstraintValidator<ItemsInList, Li
     public boolean isValid(List<String> value, ConstraintValidatorContext context) {
         boolean valid = true;
         if (CollectionUtils.isNotEmpty(value)) {
-            for (String val : value) {
-                if (!ArrayUtils.contains(items, val)) {
+            for (String item : value) {
+                if (!ArrayUtils.contains(items, item)) {
                     valid = false;
                     break;
                 }

@@ -376,7 +376,14 @@ public class ApplicationHandler {
     }
 
     public static String obtainParameterErrorMessage(String parameterName) {
-        return String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
+        String message = null;
+        String deploymentEnvironment = ConfigurationUtils.getConfigurationSafe(Constants.DEPLOYMENT_ENVIRONMENT);
+        if (Constants.DEVELOPMENT.equals(deploymentEnvironment) || Constants.TEST.equals(deploymentEnvironment) || Constants.BETA.equals(deploymentEnvironment)) {
+            message = String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
+        } else {
+            message = Constants.API_PARAMETER_ERROR_MESSAGE;
+        }
+        return message;
     }
 
     public static String obtainRequestMethod() {

@@ -1,5 +1,6 @@
 package build.dream.common.constraints;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.validation.ConstraintValidator;
@@ -19,7 +20,7 @@ public class ItemLengthValidator implements ConstraintValidator<ItemLength, List
     @Override
     public boolean isValid(List<String> value, ConstraintValidatorContext context) {
         boolean valid = true;
-        if (value != null) {
+        if (CollectionUtils.isNotEmpty(value)) {
             for (String item : value) {
                 if (StringUtils.isNotBlank(item) && item.length() >= min && item.length() <= max) {
                     continue;
