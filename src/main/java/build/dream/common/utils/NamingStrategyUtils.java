@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class NamingStrategyUtils {
     public static String underscoreToCamelCase(String underscore) {
-        StringBuffer camelCase = new StringBuffer();
+        StringBuilder camelCase = new StringBuilder();
         String[] underscoreArray = underscore.split("_");
         camelCase.append(underscoreArray[0]);
         int length = underscoreArray.length;
@@ -30,5 +30,9 @@ public class NamingStrategyUtils {
         }
         matcher.appendTail(underscoreStringBuffer);
         return underscoreStringBuffer.toString();
+    }
+
+    public static void main(String[] args) {
+        System.out.println(underscoreToCamelCase("tenant_goods"));
     }
 }
