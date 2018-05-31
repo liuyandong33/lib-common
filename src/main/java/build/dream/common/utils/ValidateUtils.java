@@ -52,13 +52,11 @@ public class ValidateUtils {
 
     public static void validateAndThrow(Object model) {
         Validator validator = obtainValidator();
-        if (validator != null) {
-            List<Field> allFields = obtainAllFields(model.getClass());
-            for (Field field : allFields) {
-                Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
-                if (iterator.hasNext()) {
-                    Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(field.getName()));
-                }
+        List<Field> allFields = obtainAllFields(model.getClass());
+        for (Field field : allFields) {
+            Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
+            if (iterator.hasNext()) {
+                Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(field.getName()));
             }
         }
     }

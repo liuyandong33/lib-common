@@ -9,6 +9,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
@@ -21,7 +22,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Validation;
 import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -325,11 +328,13 @@ public class ApplicationHandler {
         return applicationContext.getBean(beanClass);
     }
 
-    private static Validator validator = null;
-
     public static Validator obtainValidator() {
-        if (validator == null) {
+        Validator validator = null;
+        if (applicationContext.containsBean("validator")) {
             validator = (Validator) applicationContext.getBean("validator");
+        } else {
+            ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class).configure().buildValidatorFactory();
+            validator = validatorFactory.getValidator();
         }
         return validator;
     }
