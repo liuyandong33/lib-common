@@ -314,7 +314,8 @@ public class ApplicationHandler {
         return list;
     }
 
-    private static ApplicationContext applicationContext = null;
+    private static ApplicationContext applicationContext;
+    private static ServletContext servletContext;
 
     public static void setApplicationContext(ApplicationContext applicationContext) {
         ApplicationHandler.applicationContext = applicationContext;
@@ -322,6 +323,14 @@ public class ApplicationHandler {
 
     public static ApplicationContext getApplicationContext() {
         return applicationContext;
+    }
+
+    public static void setServletContext(ServletContext servletContext) {
+        ApplicationHandler.servletContext = servletContext;
+    }
+
+    public static ServletContext obtainServletContext() {
+        return servletContext;
     }
 
     public static <T> T getBean(Class<T> beanClass) {
