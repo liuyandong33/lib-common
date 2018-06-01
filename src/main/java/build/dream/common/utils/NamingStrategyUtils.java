@@ -31,4 +31,5 @@ public class NamingStrategyUtils {
         matcher.appendTail(underscoreStringBuffer);
         return underscoreStringBuffer.toString();
     }
+
 }
