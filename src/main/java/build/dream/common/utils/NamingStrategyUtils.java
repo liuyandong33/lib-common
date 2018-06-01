@@ -31,8 +31,4 @@ public class NamingStrategyUtils {
         matcher.appendTail(underscoreStringBuffer);
         return underscoreStringBuffer.toString();
     }
-
-    public static void main(String[] args) {
-        System.out.println(underscoreToCamelCase("tenant_goods"));
-    }
 }
