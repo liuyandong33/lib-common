@@ -15,6 +15,7 @@ public class BasicServletContextListener implements ServletContextListener {
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
         webApplicationContext.getAutowireCapableBeanFactory().autowireBean(this);
         ApplicationHandler.setApplicationContext(webApplicationContext);
+        ApplicationHandler.setServletContext(servletContext);
     }
 
     @Override
