@@ -11,13 +11,13 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ValidateUtils {
-    private static Validator VALIDATOR;
+    private static Validator validator;
 
     private static Validator obtainValidator() {
-        if (VALIDATOR == null) {
-            VALIDATOR = ApplicationHandler.obtainValidator();
+        if (validator == null) {
+            validator = ApplicationHandler.obtainValidator();
         }
-        return VALIDATOR;
+        return validator;
     }
 
     public static List<Field> obtainAllFields(Class<?> modelClass) {
