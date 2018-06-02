@@ -222,8 +222,8 @@ public class Constants {
     public static final String SNSAPI_BASE = "snsapi_base";
     public static final String SNSAPI_USERINFO = "snsapi_userinfo";
 
-    private static final BigDecimal BIG_DECIMAL_HUNDRED = BigDecimal.valueOf(100L);
-    private static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
-    private static final BigInteger BIG_INTEGER_HUNDRED = BigInteger.valueOf(100L);
-    private static final BigInteger BIG_INTEGER_MINUS_ONE = BigInteger.valueOf(-1L);
+    public static final BigDecimal BIG_DECIMAL_HUNDRED = BigDecimal.valueOf(100L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
+    public static final BigInteger BIG_INTEGER_HUNDRED = BigInteger.valueOf(100L);
+    public static final BigInteger BIG_INTEGER_MINUS_ONE = BigInteger.valueOf(-1L);
 }
