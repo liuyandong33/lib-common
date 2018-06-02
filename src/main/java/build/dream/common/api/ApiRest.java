@@ -34,9 +34,9 @@ public class ApiRest {
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
-    public ApiRest(Exception e) {
+    public ApiRest(Throwable throwable) {
         this.id = UUID.randomUUID().toString();
-        this.error = e.getMessage();
+        this.error = throwable.getMessage();
         this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
@@ -151,7 +151,8 @@ public class ApiRest {
             Class<?> clazz = null;
             try {
                 clazz = Class.forName(apiRest.className);
-            } catch (ClassNotFoundException e) {}
+            } catch (ClassNotFoundException e) {
+            }
             if (clazz != null) {
                 apiRest.setData(JacksonUtils.readValue(JacksonUtils.writeValueAsString(apiRest.data), clazz, datePattern));
             }
