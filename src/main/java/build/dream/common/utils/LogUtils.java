@@ -27,12 +27,12 @@ public class LogUtils {
         LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, exceptionClassName, exceptionMessage);
     }
 
-    public static void error(String errorMessage, String className, String methodName, Exception exception, Map<String, String> parameters) {
-        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, exception.getClass().getName(), exception.getMessage(), parameters);
+    public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters) {
+        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), parameters);
     }
 
-    public static void error(String errorMessage, String className, String methodName, Exception exception) {
-        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, exception.getClass().getName(), exception.getMessage());
+    public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
+        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage());
     }
 
     public static void error(String errorMessage) {
