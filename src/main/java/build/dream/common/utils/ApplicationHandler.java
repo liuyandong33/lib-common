@@ -32,7 +32,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -103,15 +102,15 @@ public class ApplicationHandler {
         return getHttpServletRequest().getRequestURI();
     }
 
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws Exception {
         return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, "");
     }
 
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws NoSuchFieldException, InstantiationException, ParseException, IllegalAccessException {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws Exception {
         return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, prefix);
     }
 
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern, String prefix) throws IllegalAccessException, InstantiationException, NoSuchFieldException, ParseException {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern, String prefix) throws Exception {
         T object = objectClass.newInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
 
