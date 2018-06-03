@@ -226,4 +226,7 @@ public class Constants {
     public static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
     public static final BigInteger BIG_INTEGER_HUNDRED = BigInteger.valueOf(100L);
     public static final BigInteger BIG_INTEGER_MINUS_ONE = BigInteger.valueOf(-1L);
+
+    public static final String HMAC_SHA1 = "HMAC-SHA1";
+    public static final String OK = "OK";
 }
