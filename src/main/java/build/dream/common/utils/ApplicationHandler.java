@@ -165,12 +165,14 @@ public class ApplicationHandler {
                     field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass));
                 }
             } else {
-                isJson(fieldValue, fieldName);
-                JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
-                if (jsonSchema != null) {
-                    isRightJson(fieldValue, jsonSchema.value());
+                boolean isJson = isJson(fieldValue);
+                if (isJson) {
+                    JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
+                    if (jsonSchema != null) {
+                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName));
+                    }
+                    field.set(object, GsonUtils.fromJson(fieldValue, field.getType(), datePattern));
                 }
-                field.set(object, GsonUtils.fromJson(fieldValue, field.getType(), datePattern));
             }
         }
         return object;
