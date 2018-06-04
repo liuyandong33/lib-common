@@ -1,15 +1,16 @@
 package build.dream.common.utils;
 
 import build.dream.common.exceptions.ApiException;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class ValidateUtils {
     private static Validator validator;
@@ -57,7 +58,7 @@ public class ValidateUtils {
         for (Field field : allFields) {
             Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
             if (iterator.hasNext()) {
-                Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(field.getName()));
+                throw new ApiException(ApplicationHandler.obtainParameterErrorMessage(field.getName()));
             }
         }
     }
@@ -72,5 +73,39 @@ public class ValidateUtils {
         if (object == null) {
             throw new ApiException(message);
         }
+    }
+
+    public static void notBlank(String string, String message) {
+        if (StringUtils.isBlank(string)) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void notEmpty(Object[] array, String message) {
+        if (ArrayUtils.isEmpty(array)) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void notEmpty(Collection collection, String message) {
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void notEmpty(Map map, String message) {
+        if (MapUtils.isEmpty(map)) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void notEmpty(String string, String message) {
+        if (StringUtils.isEmpty(string)) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void inArray(Object[] array, Object value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
     }
 }

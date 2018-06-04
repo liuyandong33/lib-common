@@ -4,10 +4,8 @@ import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
-import build.dream.common.exceptions.ApiException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.validator.HibernateValidator;
@@ -488,49 +486,31 @@ public class ApplicationHandler {
     }
 
     public static void notNull(Object object, String parameterName) {
-        if (object == null) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.notNull(object, obtainParameterErrorMessage(parameterName));
     }
 
     public static void isTrue(boolean expression, String parameterName) {
-        if (expression == false) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.isTrue(expression, obtainParameterErrorMessage(parameterName));
     }
 
     public static void notEmpty(Object[] array, String parameterName) {
-        if (array == null || array.length == 0) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.notEmpty(array, obtainParameterErrorMessage(parameterName));
     }
 
     public static void notEmpty(Collection collection, String parameterName) {
-        if (collection == null || collection.size() == 0) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.notEmpty(collection, obtainParameterErrorMessage(parameterName));
     }
 
     public static void notEmpty(Map map, String parameterName) {
-        if (map == null || map.size() == 0) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.notEmpty(map, obtainParameterErrorMessage(parameterName));
     }
 
     public static void notEmpty(String string, String parameterName) {
-        if (string == null || string.length() == 0) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
-    }
-
-    public static void notEmpty(String[]... valueAndNames) {
-        for (String[] valueAndName : valueAndNames) {
-            notEmpty(valueAndName[0], valueAndName[1]);
-        }
+        ValidateUtils.notEmpty(string, obtainParameterErrorMessage(parameterName));
     }
 
     public static void inArray(Object[] array, Object value, String name) {
-        ValidateUtils.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
@@ -556,9 +536,7 @@ public class ApplicationHandler {
     }
 
     public static void notBlank(String string, String parameterName) {
-        if (StringUtils.isBlank(string)) {
-            throw new ApiException(obtainParameterErrorMessage(parameterName));
-        }
+        ValidateUtils.notBlank(string, obtainParameterErrorMessage(parameterName));
     }
 
     public static void invalidateHttpSession() {
