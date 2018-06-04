@@ -1,13 +1,14 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
+import build.dream.common.exceptions.ApiException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
@@ -165,6 +166,13 @@ public class ApplicationHandler {
                     Class valueClass = (Class) types[1];
                     field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass));
                 }
+            } else {
+                isJson(fieldValue, fieldName);
+                JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
+                if (jsonSchema != null) {
+                    isRightJson(fieldValue, jsonSchema.value());
+                }
+                field.set(object, GsonUtils.fromJson(fieldValue, field.getType(), datePattern));
             }
         }
         return object;
@@ -348,12 +356,12 @@ public class ApplicationHandler {
     }
 
     public static void notNullAndPut(Map<String, Object> targetMap, String key, Object value, String message) {
-        Validate.notNull(value, message);
+        ValidateUtils.notNull(value, message);
         targetMap.put(key, value);
     }
 
     public static void notBlankAndPut(Map<String, String> targetMap, String key, String value, String message) {
-        Validate.isTrue(StringUtils.isNotBlank(value), message);
+        ValidateUtils.isTrue(StringUtils.isNotBlank(value), message);
         targetMap.put(key, value);
     }
 
@@ -481,37 +489,37 @@ public class ApplicationHandler {
 
     public static void notNull(Object object, String parameterName) {
         if (object == null) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
     public static void isTrue(boolean expression, String parameterName) {
         if (expression == false) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
     public static void notEmpty(Object[] array, String parameterName) {
         if (array == null || array.length == 0) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
     public static void notEmpty(Collection collection, String parameterName) {
         if (collection == null || collection.size() == 0) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
     public static void notEmpty(Map map, String parameterName) {
         if (map == null || map.size() == 0) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
     public static void notEmpty(String string, String parameterName) {
         if (string == null || string.length() == 0) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 
@@ -522,7 +530,7 @@ public class ApplicationHandler {
     }
 
     public static void inArray(Object[] array, Object value, String name) {
-        Validate.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+        ValidateUtils.isTrue(ArrayUtils.contains(array, value), "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
@@ -549,7 +557,7 @@ public class ApplicationHandler {
 
     public static void notBlank(String string, String parameterName) {
         if (StringUtils.isBlank(string)) {
-            throw new IllegalArgumentException(obtainParameterErrorMessage(parameterName));
+            throw new ApiException(obtainParameterErrorMessage(parameterName));
         }
     }
 

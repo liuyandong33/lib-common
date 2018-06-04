@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.exceptions.ApiException;
 import org.apache.commons.lang.Validate;
 
 import javax.validation.ConstraintViolation;
@@ -58,6 +59,18 @@ public class ValidateUtils {
             if (iterator.hasNext()) {
                 Validate.isTrue(false, ApplicationHandler.obtainParameterErrorMessage(field.getName()));
             }
+        }
+    }
+
+    public static void isTrue(boolean expression, String message) {
+        if (!expression) {
+            throw new ApiException(message);
+        }
+    }
+
+    public static void notNull(Object object, String message) {
+        if (object == null) {
+            throw new ApiException(message);
         }
     }
 }

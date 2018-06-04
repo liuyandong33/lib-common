@@ -7,12 +7,12 @@ import org.apache.commons.lang.StringUtils;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class JsonSchemaValidator implements ConstraintValidator<JsonSchema, String> {
+public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJsonSchema, String> {
     private String schemaFilePath = null;
 
     @Override
-    public void initialize(JsonSchema jsonSchema) {
-        schemaFilePath = jsonSchema.value();
+    public void initialize(VerifyJsonSchema verifyJsonSchema) {
+        schemaFilePath = verifyJsonSchema.value();
     }
 
     @Override
