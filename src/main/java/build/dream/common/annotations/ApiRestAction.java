@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 public @interface ApiRestAction {
     Class<? extends BasicModel> modelClass() default BasicModel.class;
 
-    String serviceName() default "";
+    Class<?> serviceClass() default Object.class;
 
     String serviceMethodName() default "";
 
