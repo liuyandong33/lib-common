@@ -108,4 +108,32 @@ public class ValidateUtils {
     public static void inArray(Object[] array, Object value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
     }
+
+    public static void noNullElements(Object[] array, String message) {
+        notNull(array, message);
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                throw new ApiException(message);
+            }
+        }
+    }
+
+    public static void noNullElements(Collection collection, String message) {
+        notNull(collection, message);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (it.next() == null) {
+                throw new ApiException(message);
+            }
+        }
+    }
+
+    public static void allElementsOfType(Collection collection, Class clazz, String message) {
+        notNull(collection, message);
+        notNull(clazz, message);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (!clazz.isInstance(it.next())) {
+                throw new ApiException(message);
+            }
+        }
+    }
 }
