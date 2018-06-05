@@ -153,7 +153,7 @@ public class ApplicationHandler {
             } else if (fieldClass == List.class) {
                 Type type = field.getGenericType();
                 if (type instanceof ParameterizedType) {
-                    field.set(object, buildArrayList(((ParameterizedType) type).getActualTypeArguments()[0], fieldValue, ","));
+                    field.set(object, buildArrayList(((ParameterizedType) type).getActualTypeArguments()[0], fieldValue, ",", datePattern));
                 }
             } else if (fieldClass == Map.class) {
                 Type type = field.getGenericType();
@@ -162,7 +162,7 @@ public class ApplicationHandler {
                     Type[] types = parameterizedType.getActualTypeArguments();
                     Class keyClass = (Class) types[0];
                     Class valueClass = (Class) types[1];
-                    field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass));
+                    field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass, datePattern));
                 }
             } else {
                 boolean isJson = isJson(fieldValue);
@@ -291,7 +291,7 @@ public class ApplicationHandler {
         return list;
     }
 
-    private static Object buildArrayList(Type type, String fieldValue, String separator) {
+    private static Object buildArrayList(Type type, String fieldValue, String separator, String datePattern) {
         List<? extends Object> list = null;
         if (type == Byte.class) {
             list = buildByteArrayList(fieldValue, separator);
@@ -314,9 +314,11 @@ public class ApplicationHandler {
         } else if (type == BigDecimal.class) {
             list = buildBigDecimalArrayList(fieldValue, separator);
         } else if (type == Date.class) {
-            list = buildDateArrayList(fieldValue, separator, Constants.DEFAULT_DATE_PATTERN);
+            list = buildDateArrayList(fieldValue, separator, datePattern);
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
+        } else {
+            list = GsonUtils.jsonToList(fieldValue, (Class<? extends Object>) type, datePattern);
         }
         return list;
     }
