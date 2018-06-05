@@ -9,8 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class OSSUtils {
-    public static Map<String, String> obtainPolicy(String accessId, String accessKey, String endpoint, String bucket, String dir, Date expiration, List<Object[]> conditions, Map<String, String> callback) throws UnsupportedEncodingException {
-        String host = "http://" + bucket + "." + endpoint;
+    public static Map<String, String> obtainPolicy(String accessId, String accessKey, String host, String dir, Date expiration, List<Object[]> conditions, Map<String, String> callback) throws UnsupportedEncodingException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_FORMAT, Locale.US);
         simpleDateFormat.setTimeZone(new SimpleTimeZone(0, "GMT"));
 
