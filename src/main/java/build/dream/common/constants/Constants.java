@@ -229,4 +229,6 @@ public class Constants {
 
     public static final String HMAC_SHA1 = "HMAC-SHA1";
     public static final String OK = "OK";
+
+    public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 }
