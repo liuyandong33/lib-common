@@ -55,6 +55,6 @@ public class OutUtils {
         if (MapUtils.isNotEmpty(headers)) {
             doGetOriginalRequestParameters.put("headers", GsonUtils.toJson(headers));
         }
-        return ProxyUtils.obtainRestTemplate().getForEntity(ProxyUtils.obtainUrl(null, Constants.SERVICE_NAME_O2O, "proxy", "doGetOriginal", doGetOriginalRequestParameters), byte[].class);
+        return ProxyUtils.obtainRestTemplate().getForEntity(ProxyUtils.obtainUrl(null, Constants.SERVICE_NAME_OUT, "proxy", "doGetOriginal", doGetOriginalRequestParameters), byte[].class);
     }
 }
