@@ -2,7 +2,6 @@ package build.dream.common.demo;
 
 import build.dream.common.utils.GsonUtils;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -49,14 +48,18 @@ public class Demo {
         for (int index = 1; index < constantPoolCount; index++) {
             int tag = byteArray[offset];
             if (tag == 1) {
-                int length = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
-                byte array[] = new byte[length];
-                for (int i = 0; i < length; i++) {
-                    array[i] = byteArray[offset + 1 + 2 + i];
-                }
-                offset = offset + 1 + 2 + length;
+                offset = offset + 1;
+                int length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
-                constantContentMap.put(index + "_" + constantTypeMap.get(tag), new String(array));
+//                byte array[] = new byte[length];
+//                for (int i = 0; i < length; i++) {
+//                    array[i] = byteArray[offset + 1 + 2 + i];
+//                }
+
+                constantContentMap.put(index + "_" + constantTypeMap.get(tag), BytesUtils.byteArrayToString(byteArray, offset, length));
+
+                offset = offset + length;
             } else if (tag == 3) {
                 int value = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8 | (byteArray[offset + 3] & 0xFF) << 16 | (byteArray[offset + 1] & 0xFF) << 24;
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
