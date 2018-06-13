@@ -23,9 +23,9 @@ public class Demo {
 
         String magic = Hex.encodeHexString(new byte[]{byteArray[0], byteArray[1], byteArray[2], byteArray[3]});
 
-        int minorVersion = byteArray[5] & 0xFF | (byteArray[4] & 0xFF) << 8;
+        int minorVersion = BytesUtils.byteArrayToInt(byteArray, 4, 2);
 
-        int majorVersion = byteArray[7] & 0xFF | (byteArray[6] & 0xFF) << 8;
+        int majorVersion = BytesUtils.byteArrayToInt(byteArray, 6, 2);
 
         int constantPoolCount = byteArray[9] & 0xFF | (byteArray[8] & 0xFF) << 8;
 
