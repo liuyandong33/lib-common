@@ -79,12 +79,10 @@ public class Demo {
                 constantContentMap.put(index, value);
             } else if (tag == 7) {
                 int value = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
-                System.out.println(value);
                 constantContentMap.put(index, value);
                 offset = offset + 1 + 2;
             } else if (tag == 8) {
                 int value = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
-                System.out.println(value);
                 constantContentMap.put(index, value);
                 offset = offset + 1 + 2;
             } else if (tag == 9) {
