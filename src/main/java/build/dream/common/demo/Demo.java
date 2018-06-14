@@ -269,7 +269,18 @@ public class Demo {
                         codeInfo.put("exception_info", exceptionInfo);
                     }
 
-                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8;
+                    int attributes_count = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    offset = offset + 2;
+
+                    int attribute_name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    offset = offset + 2;
+
+                    String attribute_name = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attribute_name_index);
+                    if ("LineNumberTable".equals(attribute_name)) {
+                        int line_number_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    }
+
+                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8 - 2 - 2;
 
                     info = codeInfo;
                 }
