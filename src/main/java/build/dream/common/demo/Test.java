@@ -24,7 +24,11 @@ public class Test implements Serializable {
     }
 
     public void setAge(int age) {
-        this.age = age;
+        try {
+            this.age = age;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Test() {

@@ -2,6 +2,8 @@ package build.dream.common.demo;
 
 import build.dream.common.utils.GsonUtils;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.util.ByteUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -10,7 +12,7 @@ import java.util.*;
 
 public class Demo {
     public static void main(String[] args) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("/Users/liuyandong/Desktop/Test.class");
+        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\liuyandong\\Desktop\\Test.class");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int len = 0;
         byte[] buffer = new byte[1024];
@@ -43,126 +45,145 @@ public class Demo {
 
 
         Map<String, Object> constantContentMap = new LinkedHashMap<String, Object>();
+        Map<Integer, Integer> constantIndexAndTagMap = new LinkedHashMap<Integer, Integer>();
 
         int offset = 10;
         for (int index = 1; index < constantPoolCount; index++) {
             int tag = byteArray[offset];
+            offset = offset + 1;
+
             if (tag == 1) {
-                offset = offset + 1;
                 int length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
                 offset = offset + 2;
 
-//                byte array[] = new byte[length];
-//                for (int i = 0; i < length; i++) {
-//                    array[i] = byteArray[offset + 1 + 2 + i];
-//                }
-
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), BytesUtils.byteArrayToString(byteArray, offset, length));
-
                 offset = offset + length;
             } else if (tag == 3) {
-                int value = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8 | (byteArray[offset + 3] & 0xFF) << 16 | (byteArray[offset + 1] & 0xFF) << 24;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                offset = offset + 4;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
-                offset = offset + 1 + 4;
             } else if (tag == 4) {
-                int value = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8 | (byteArray[offset + 3] & 0xFF) << 16 | (byteArray[offset + 1] & 0xFF) << 24;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                offset = offset + 4;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
-                offset = offset + 1 + 4;
             } else if (tag == 5) {
-                int value = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8 | (byteArray[offset + 3] & 0xFF) << 16 | (byteArray[offset + 1] & 0xFF) << 24;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                offset = offset + 4;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
-                offset = offset + 1 + 8;
             } else if (tag == 6) {
-                int value = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8 | (byteArray[offset + 3] & 0xFF) << 16 | (byteArray[offset + 1] & 0xFF) << 24;
-                offset = offset + 1 + 8;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                offset = offset + 4;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
             } else if (tag == 7) {
-                int value = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
-                offset = offset + 1 + 2;
             } else if (tag == 8) {
-                int value = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
+
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value);
-                offset = offset + 1 + 2;
             } else if (tag == 9) {
-                int value1 = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value1 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
-                int value2 = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8;
+                int value2 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value1 + " " + value2);
-                offset = offset + 1 + 4;
             } else if (tag == 10) {
-                int value1 = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value1 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
-                int value2 = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8;
+                int value2 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value1 + " " + value2);
-                offset = offset + 1 + 4;
             } else if (tag == 11) {
-                int value1 = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value1 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
-                int value2 = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8;
+                int value2 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value1 + " " + value2);
-                offset = offset + 1 + 4;
             } else if (tag == 12) {
-                int value1 = byteArray[offset + 2] & 0xFF | (byteArray[offset + 1] & 0xFF) << 8;
+                int value1 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
-                int value2 = byteArray[offset + 4] & 0xFF | (byteArray[offset + 3] & 0xFF) << 8;
+                int value2 = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
 
                 constantContentMap.put(index + "_" + constantTypeMap.get(tag), value1 + " " + value2);
-                offset = offset + 1 + 4;
             }
+            constantIndexAndTagMap.put(index, tag);
         }
 
-        String accessFlags = Hex.encodeHexString(new byte[]{byteArray[offset], byteArray[offset + 1]});
+        String accessFlags = BytesUtils.byteArrayToHex(byteArray, offset, 2);
         offset = offset + 2;
 
-        int thisClass = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int thisClass = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
-        int superClass = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int superClass = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
-        int interfacesCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int interfacesCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
         List<Integer> interfaces = new ArrayList<Integer>();
         for (int index = 0; index < interfacesCount; index++) {
-            interfaces.add(byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+            interfaces.add(BytesUtils.byteArrayToInt(byteArray, offset, 2));
             offset = offset + 2;
         }
 
-        int fieldsCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int fieldsCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
         List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
         for (int index = 0; index < fieldsCount; index++) {
             Map<String, Object> field = new LinkedHashMap<String, Object>();
-            field.put("access_flags", Hex.encodeHexString(new byte[]{byteArray[offset], byteArray[offset + 1]}));
+            field.put("access_flags", BytesUtils.byteArrayToHex(byteArray, offset, 2));
             offset = offset + 2;
 
-            field.put("name_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+            field.put("name_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
             offset = offset + 2;
 
-            field.put("descriptor_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+            field.put("descriptor_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
             offset = offset + 2;
 
-            int attributesCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+            int attributesCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+            offset = offset + 2;
             field.put("attributes_count", attributesCount);
-            offset = offset + 2;
 
             List<Map<String, Object>> attributes = new ArrayList<Map<String, Object>>();
-            for (int j = 0; j < attributesCount; j++) {
+            for (int i = 0; i < attributesCount; i++) {
                 Map<String, Object> attributeInfo = new LinkedHashMap<String, Object>();
-                attributeInfo.put("attribute_name_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
-                offset = offset + 2;
 
-                int attributeLength = byteArray[offset + 3] & 0xFF | (byteArray[offset + 2] & 0xFF) << 8 | (byteArray[offset + 1] & 0xFF) << 16 | (byteArray[offset + 0] & 0xFF) << 24;
+                int attributeNameIndex = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                offset = offset + 2;
+                attributeInfo.put("attribute_name_index", attributeNameIndex);
+
+                int attributeLength = BytesUtils.byteArrayToInt(byteArray, offset, 4);
                 attributeInfo.put("attribute_length", attributeLength);
                 offset = offset + 4;
 
+                String attributeName = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attributeNameIndex);
+                Object info = null;
+                if ("ConstantValue".equals(attributeName)) {
+                    info = attributeName + "_" + BytesUtils.byteArrayToInt(byteArray, offset, attributeLength);
+                } else if ("Deprecated".equals(attributeName)) {
+
+                } else if ("Synthetic".equals(attributeName)) {
+
+                }
                 offset = offset + attributeLength;
+                attributeInfo.put("info", info);
 
                 attributes.add(attributeInfo);
             }
@@ -173,36 +194,86 @@ public class Demo {
             fields.add(field);
         }
 
-        int methodsCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int methodsCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
         List<Map<String, Object>> methods = new ArrayList<Map<String, Object>>();
         for (int index = 0; index < methodsCount; index++) {
             Map<String, Object> methodInfo = new LinkedHashMap<String, Object>();
-            methodInfo.put("access_flags", Hex.encodeHexString(new byte[]{byteArray[offset], byteArray[offset + 1]}));
+            methodInfo.put("access_flags", BytesUtils.byteArrayToHex(byteArray, offset, 2));
             offset = offset + 2;
 
-            methodInfo.put("name_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+            methodInfo.put("name_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
             offset = offset + 2;
 
-            methodInfo.put("descriptor_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+            methodInfo.put("descriptor_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
             offset = offset + 2;
 
-            int attributesCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+            int attributesCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
             methodInfo.put("attributes_count", attributesCount);
             offset = offset + 2;
 
             List<Map<String, Object>> attributes = new ArrayList<Map<String, Object>>();
-            for (int j = 0; j < attributesCount; j++) {
+            for (int i = 0; i < attributesCount; i++) {
                 Map<String, Object> attributeInfo = new LinkedHashMap<String, Object>();
-                attributeInfo.put("attribute_name_index", byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8);
+                int attributeNameIndex = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                attributeInfo.put("attribute_name_index", attributeNameIndex);
                 offset = offset + 2;
 
-                int attributeLength = byteArray[offset + 3] & 0xFF | (byteArray[offset + 2] & 0xFF) << 8 | (byteArray[offset + 1] & 0xFF) << 16 | (byteArray[offset + 0] & 0xFF) << 24;
+                int attributeLength = BytesUtils.byteArrayToInt(byteArray, offset, 4);
                 attributeInfo.put("attribute_length", attributeLength);
                 offset = offset + 4;
 
-                offset = offset + attributeLength;
+                String attributeName = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attributeNameIndex);
+                Object info = null;
+                if ("Code".equals(attributeName)) {
+                    Map<String, Object> codeInfo = new LinkedHashMap<String, Object>();
+                    int maxStack = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    codeInfo.put("max_stack", maxStack);
+                    offset = offset + 2;
+
+                    int maxLocals = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    codeInfo.put("max_locals", maxLocals);
+                    offset = offset + 2;
+
+                    int codeLength = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                    codeInfo.put("code_length", codeLength);
+                    offset = offset + 4;
+
+                    List<String> codes = new ArrayList<String>();
+                    for (int j = 0; j < codeLength; j++) {
+                        codes.add(BytesUtils.byteArrayToHex(byteArray, offset, 1));
+                        offset = offset + 1;
+                    }
+                    codeInfo.put("codes", StringUtils.join(codes, ", "));
+
+                    int exceptionTableLength = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    codeInfo.put("exception_table_length", exceptionTableLength);
+                    offset = offset + 2;
+
+                    Map<String, Object> exceptionInfo = new LinkedHashMap<String, Object>();
+                    for (int j = 0; j < exceptionTableLength; j++) {
+                        exceptionInfo.put("start_pc", BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                        offset = offset + 2;
+
+                        exceptionInfo.put("end_pc", BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                        offset = offset + 2;
+
+                        exceptionInfo.put("handler_pc", BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                        offset = offset + 2;
+
+                        exceptionInfo.put("catch_type", BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                        offset = offset + 2;
+                    }
+                    if (exceptionTableLength > 0) {
+                        codeInfo.put("exception_info", exceptionInfo);
+                    }
+
+                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8;
+
+                    info = codeInfo;
+                }
+                attributeInfo.put("info", info);
 
                 attributes.add(attributeInfo);
             }
