@@ -6,7 +6,7 @@ import java.io.InputStream;
 import java.lang.reflect.Proxy;
 
 public class Main {
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public static void main(String[] args) throws ClassNotFoundException {
         System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         Subject subject = (Subject) Proxy.newProxyInstance(Main.class.getClassLoader(), new Class[]{Subject.class}, new JdkDynamicProxy(new RealSubject()));
         subject.alert();
