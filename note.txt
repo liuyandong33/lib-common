@@ -248,3 +248,14 @@ for (int index = 0; index < length; index++) {
 }
 
 System.out.println(checkCode == 10 - number % 10);
+
+private static final String NAME;
+private String code;
+
+getCode
+setCode
+getAge
+setAge
+<init>
+<init>
+<clinit>
