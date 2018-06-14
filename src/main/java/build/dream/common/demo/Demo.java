@@ -281,19 +281,23 @@ public class Demo {
                         offset = offset + 2;
                         map.put("attribute_name_index", attribute_name_index);
 
+                        int attribute_length = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                        offset = offset + 4;
+                        map.put("attribute_length", attribute_length);
+
                         String attribute_name = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attribute_name_index);
                         if ("LineNumberTable".equals(attribute_name)) {
-                            int line_number_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 4);
-                            offset = offset + 4;
+                            int line_number_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                            offset = offset + 2;
 
                             List<Map<Integer, Integer>> lineNumberTable = new ArrayList<Map<Integer, Integer>>();
                             for (int j = 0; j < line_number_table_length; j++) {
                                 Map<Integer, Integer> lineNumber = new LinkedHashMap<Integer, Integer>();
-                                int key = BytesUtils.byteArrayToInt(byteArray, offset, 4);
-                                offset = offset + 4;
+                                int key = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
 
-                                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
-                                offset = offset + 4;
+                                int value = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
 
                                 lineNumber.put(key, value);
 
@@ -301,6 +305,9 @@ public class Demo {
                             }
 
                             map.put("info", lineNumberTable);
+                        } else if ("StackMapTable".equals(attribute_name)) {
+                            int number_of_entries = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                            offset = offset + attribute_length;
                         }
                         maps.add(map);
                     }
