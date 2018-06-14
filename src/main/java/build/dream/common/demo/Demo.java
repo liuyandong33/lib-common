@@ -307,7 +307,13 @@ public class Demo {
                             map.put("info", lineNumberTable);
                         } else if ("StackMapTable".equals(attribute_name)) {
                             int number_of_entries = BytesUtils.byteArrayToInt(byteArray, offset, 2);
-                            offset = offset + attribute_length;
+                            offset = offset + 2;
+
+                            int tag = BytesUtils.byteArrayToInt(byteArray, offset, 1);
+                            offset = offset + 1;
+
+                            int a = 100;
+                            offset = offset + attribute_length - 2 - 1;
                         }
                         maps.add(map);
                     }
@@ -328,7 +334,7 @@ public class Demo {
             methods.add(methodInfo);
         }
 
-        int attributesCount = byteArray[offset + 1] & 0xFF | (byteArray[offset] & 0xFF) << 8;
+        int attributesCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
         Map<String, Object> classInfo = new LinkedHashMap<String, Object>();
