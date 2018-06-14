@@ -271,16 +271,42 @@ public class Demo {
 
                     int attributes_count = BytesUtils.byteArrayToInt(byteArray, offset, 2);
                     offset = offset + 2;
+                    codeInfo.put("attributes_count", attributes_count);
 
-                    int attribute_name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
-                    offset = offset + 2;
+                    List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+                    for (int k = 0; k < attributes_count; k++) {
+                        Map<String, Object> map = new LinkedHashMap<String, Object>();
 
-                    String attribute_name = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attribute_name_index);
-                    if ("LineNumberTable".equals(attribute_name)) {
-                        int line_number_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                        int attribute_name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                        offset = offset + 2;
+                        map.put("attribute_name_index", attribute_name_index);
+
+                        String attribute_name = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attribute_name_index);
+                        if ("LineNumberTable".equals(attribute_name)) {
+                            int line_number_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                            offset = offset + 4;
+
+                            List<Map<Integer, Integer>> lineNumberTable = new ArrayList<Map<Integer, Integer>>();
+                            for (int j = 0; j < line_number_table_length; j++) {
+                                Map<Integer, Integer> lineNumber = new LinkedHashMap<Integer, Integer>();
+                                int key = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                                offset = offset + 4;
+
+                                int value = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+                                offset = offset + 4;
+
+                                lineNumber.put(key, value);
+
+                                lineNumberTable.add(lineNumber);
+                            }
+
+                            map.put("info", lineNumberTable);
+                        }
+                        maps.add(map);
                     }
 
-                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8 - 2 - 2;
+                    codeInfo.put("attributes", maps);
+//                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8 - 2 - 2;
 
                     info = codeInfo;
                 }
