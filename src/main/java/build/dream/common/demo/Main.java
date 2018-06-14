@@ -2,6 +2,7 @@ package build.dream.common.demo;
 
 import build.dream.common.utils.DynamicProxyUtils;
 
+import java.io.InputStream;
 import java.lang.reflect.Proxy;
 
 public class Main {
@@ -26,5 +27,26 @@ public class Main {
         });
 
         realSubject.alert();
+
+        ClassLoader classLoader = new ClassLoader() {
+            @Override
+            public Class<?> loadClass(String name) throws ClassNotFoundException {
+                try {
+                    String fileName = name.substring(name.lastIndexOf(".") + 1) + ".class";
+                    InputStream inputStream = getClass().getResourceAsStream(fileName);
+                    if (inputStream == null) {
+                        return super.loadClass(name);
+                    }
+                    byte[] bytes = new byte[inputStream.available()];
+                    inputStream.read(bytes);
+                    return defineClass(name, bytes, 0, bytes.length);
+                } catch (Exception e) {
+                    throw new ClassNotFoundException(name);
+                }
+            }
+        };
+
+        Object object = classLoader.loadClass("build.dream.common.demo.Main");
+        System.out.println(object);
     }
 }
