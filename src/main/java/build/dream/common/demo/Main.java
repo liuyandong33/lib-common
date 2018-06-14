@@ -5,12 +5,12 @@ import build.dream.common.utils.DynamicProxyUtils;
 import java.lang.reflect.Proxy;
 
 public class Main {
-    public static void main(String[] args) {
-        /*System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
         Subject subject = (Subject) Proxy.newProxyInstance(Main.class.getClassLoader(), new Class[]{Subject.class}, new JdkDynamicProxy(new RealSubject()));
         subject.alert();
 
-        System.out.println("================");*/
+        System.out.println("================");
 
         RealSubject realSubject = DynamicProxyUtils.buildProxyObject(RealSubject.class, (object, method, objects, methodProxy) -> {
             System.out.println("before");
