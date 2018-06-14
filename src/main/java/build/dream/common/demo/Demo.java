@@ -309,11 +309,58 @@ public class Demo {
                             int number_of_entries = BytesUtils.byteArrayToInt(byteArray, offset, 2);
                             offset = offset + 2;
 
-                            int tag = BytesUtils.byteArrayToInt(byteArray, offset, 1);
-                            offset = offset + 1;
+                            List<Map<String, Object>> stackMapFrameInfos = new ArrayList<Map<String, Object>>();
+                            for (int j = 0; j < number_of_entries; j++) {
+                                Map<String, Object> stackMapFrameInfo = new LinkedHashMap<String, Object>();
 
-                            int a = 100;
-                            offset = offset + attribute_length - 2 - 1;
+                                int tag = BytesUtils.byteArrayToInt(byteArray, offset, 1);
+                                offset = offset + 1;
+                                stackMapFrameInfo.put("frame_type", tag);
+
+                                if (tag >= 0 && tag <= 63) {
+
+                                } else if (tag >= 64 && tag <= 127) {
+                                    int ta = BytesUtils.byteArrayToInt(byteArray, offset, 1);
+                                    offset = offset + 1;
+
+                                    if (ta == 0) {
+
+                                    } else if (ta == 1) {
+
+                                    } else if (ta == 2) {
+
+                                    } else if (ta == 3) {
+
+                                    } else if (ta == 4) {
+
+                                    } else if (ta == 5) {
+
+                                    } else if (ta == 6) {
+
+                                    } else if (ta == 7) {
+                                        int cpool_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                        stackMapFrameInfo.put("stack", cpool_index);
+                                        offset = offset + 2;
+                                    } else if (ta == 8) {
+
+                                    }
+                                } else if (tag >= 128 && tag <= 246) {
+
+                                } else if (tag == 247) {
+
+                                } else if (tag >= 248 && tag <= 250) {
+
+                                } else if (tag == 251) {
+
+                                } else if (tag >= 252 && tag <= 254) {
+
+                                } else if (tag == 255) {
+
+                                }
+
+                                stackMapFrameInfos.add(stackMapFrameInfo);
+                            }
+                            map.put("info", stackMapFrameInfos);
                         }
                         maps.add(map);
                     }
@@ -337,6 +384,27 @@ public class Demo {
         int attributesCount = BytesUtils.byteArrayToInt(byteArray, offset, 2);
         offset = offset + 2;
 
+        List<Map<String, Object>> attributes = new ArrayList<Map<String, Object>>();
+        for (int index = 0; index < attributesCount; index++) {
+            Map<String, Object> attribute = new LinkedHashMap<String, Object>();
+
+            int attribute_name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+            offset = offset + 2;
+            attribute.put("attribute_name_index", attribute_name_index);
+
+            int attribute_length = BytesUtils.byteArrayToInt(byteArray, offset, 4);
+            offset = offset + 4;
+            attribute.put("attribute_length", attribute_length);
+
+            String attributeName = ConstantPoolUtils.obtainAttributeName(constantContentMap, constantIndexAndTagMap, attribute_name_index);
+            if ("SourceFile".equals(attributeName)) {
+                int sourcefile_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                attribute.put("sourcefile_index", sourcefile_index);
+                offset = offset + 2;
+            }
+            attributes.add(attribute);
+        }
+
         Map<String, Object> classInfo = new LinkedHashMap<String, Object>();
         classInfo.put("magic", magic);
         classInfo.put("minor_version", minorVersion);
@@ -352,6 +420,8 @@ public class Demo {
         classInfo.put("fields", fields);
         classInfo.put("methods_count", methodsCount);
         classInfo.put("methods", methods);
+        classInfo.put("attributes_count", attributesCount);
+        classInfo.put("attributes", attributes);
 
         System.out.println(GsonUtils.toJson(classInfo));
     }
