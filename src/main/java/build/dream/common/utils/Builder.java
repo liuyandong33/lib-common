@@ -8,6 +8,14 @@ import java.util.Map;
 public class Builder {
     private Map<String, Object> fieldMap = new HashMap<String, Object>();
 
+    public void setFieldMap(Map<String, Object> fieldMap) {
+        this.fieldMap = fieldMap;
+    }
+
+    public Map<String, Object> getFieldMap() {
+        return fieldMap;
+    }
+
     public Builder addField(String fieldName, Object fieldValue) {
         fieldMap.put(fieldName, fieldValue);
         return this;
