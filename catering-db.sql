@@ -620,14 +620,54 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         buy_give_activity.give_goods_id,
         buy_give_activity.give_goods_specification_id,
         buy_give_activity.give_quantity,
+        NULL AS total_amount,
         NULL AS discount_type,
+        NULL AS discount_rate,
+        NULL AS discount_amount,
         NULL AS special_price,
-        NULL AS discount_rate
+        NULL AS paid_type
         FROM activity
         INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
         INNER JOIN buy_give_activity ON buy_give_activity.activity_id = activity.id
         WHERE activity.deleted = 0
         AND activity.type = 1
+        AND activity.start_date <= DATE(NOW())
+        AND activity.end_date >= DATE(NOW())
+        AND activity.start_time <= TIME(NOW())
+        AND activity.end_time >= TIME(NOW())
+        AND activity.status = 2
+        AND activity.tenant_id = tenant_id
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN week_sign % 2 = 0 WHEN 3 THEN week_sign % 3 = 0 WHEN 4 THEN week_sign % 5 = 0 WHEN 5 THEN week_sign % 7 = 0 WHEN 6 THEN week_sign % 11 = 0 WHEN 7 THEN week_sign % 13 = 0 WHEN 1 THEN week_sign % 17 = 0 END)
+        UNION ALL
+        SELECT
+        activity.id AS activity_id,
+        activity.tenant_id,
+        activity.tenant_code,
+        activity_branch_r.branch_id,
+        activity.name,
+        activity.start_date,
+        activity.start_time,
+        activity.end_date,
+        activity.end_time,
+        activity.type,
+        activity.status,
+        NULL AS goods_id,
+        NULL AS goods_specification_id,
+        NULL AS buy_quantity,
+        NULL AS give_goods_id,
+        NULL AS give_goods_specification_id,
+        NULL AS give_quantity,
+        full_reduction_activity.total_amount,
+        full_reduction_activity.discount_type,
+        full_reduction_activity.discount_rate,
+        full_reduction_activity.discount_amount,
+        NULL AS special_price,
+        NULL AS paid_type
+        FROM activity
+        INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
+        INNER JOIN full_reduction_activity ON full_reduction_activity.activity_id = activity.id
+        WHERE activity.deleted = 0
+        AND activity.type = 2
         AND activity.start_date <= DATE(NOW())
         AND activity.end_date >= DATE(NOW())
         AND activity.start_time <= TIME(NOW())
@@ -654,14 +694,54 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         NULL AS give_goods_id,
         NULL AS give_goods_specification_id,
         NULL AS give_quantity,
+        NULL AS total_amount,
         special_goods_activity.discount_type,
+        special_goods_activity.discount_rate,
+        NULL AS discount_amount,
         special_goods_activity.special_price,
-        special_goods_activity.discount_rate
+        NULL AS paid_type
         FROM activity
         INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
         INNER JOIN special_goods_activity ON special_goods_activity.activity_id = activity.id
         WHERE activity.deleted = 0
         AND activity.type = 3
+        AND activity.start_date <= DATE(NOW())
+        AND activity.end_date >= DATE(NOW())
+        AND activity.start_time <= TIME(NOW())
+        AND activity.end_time >= TIME(NOW())
+        AND activity.status = 2
+        AND activity.tenant_id = tenant_id
+        AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN week_sign % 2 = 0 WHEN 3 THEN week_sign % 3 = 0 WHEN 4 THEN week_sign % 5 = 0 WHEN 5 THEN week_sign % 7 = 0 WHEN 6 THEN week_sign % 11 = 0 WHEN 7 THEN week_sign % 13 = 0 WHEN 1 THEN week_sign % 17 = 0 END)
+        UNION All
+        SELECT
+        activity.id AS activity_id,
+        activity.tenant_id,
+        activity.tenant_code,
+        activity_branch_r.branch_id,
+        activity.name,
+        activity.start_date,
+        activity.start_time,
+        activity.end_date,
+        activity.end_time,
+        activity.type,
+        activity.status,
+        NULL AS goods_id,
+        NULL AS goods_specification_id,
+        NULL AS buy_quantity,
+        NULL AS give_goods_id,
+        NULL AS give_goods_specification_id,
+        NULL AS give_quantity,
+        payment_activity.total_amount,
+        payment_activity.discount_type,
+        payment_activity.discount_rate,
+        payment_activity.discount_amount,
+        NULL AS special_price,
+        payment_activity.paid_type
+        FROM activity
+        INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
+        INNER JOIN payment_activity ON payment_activity.activity_id = activity.id
+        WHERE activity.deleted = 0
+        AND activity.type = 4
         AND activity.start_date <= DATE(NOW())
         AND activity.end_date >= DATE(NOW())
         AND activity.start_time <= TIME(NOW())

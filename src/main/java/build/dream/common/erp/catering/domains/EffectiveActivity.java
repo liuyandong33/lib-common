@@ -43,7 +43,7 @@ public class EffectiveActivity {
      */
     private Time endTime;
     /**
-     * 活动类型，1-买A赠B活动，3-特价商品活动
+     * 活动类型，1-买A赠B活动，2-整单满减活动，3-特价商品活动，4-支付促销
      */
     private Integer type;
     /**
@@ -75,17 +75,29 @@ public class EffectiveActivity {
      */
     private Integer giveQuantity;
     /**
-     * 优惠方式，1-特价，2-折扣，特价商品活动专用
+     * 总金额，整单满减活动、支付促销专用
+     */
+    private BigDecimal totalAmount;
+    /**
+     * 优惠方式，1-特价，2-折扣，整单满减活动、特价商品活动、支付促销专用
      */
     private Integer discountType;
+    /**
+     * 折扣率，整单满减活动、特价商品活动、支付促销专用
+     */
+    private BigDecimal discountRate;
+    /**
+     * 优惠金额，整单满减活动、支付促销专用
+     */
+    private BigDecimal discountAmount;
     /**
      * 特价金额，特价商品活动专用
      */
     private BigDecimal specialPrice;
     /**
-     * 折扣率，特价商品活动专用
+     * 支付方式，1-微信支付，2-支付宝支付，3-现金支付，支付促销专用
      */
-    private BigDecimal discountRate;
+    private Integer paidType;
 
     public BigInteger getActivityId() {
         return activityId;
@@ -223,12 +235,36 @@ public class EffectiveActivity {
         this.giveQuantity = giveQuantity;
     }
 
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
     public Integer getDiscountType() {
         return discountType;
     }
 
     public void setDiscountType(Integer discountType) {
         this.discountType = discountType;
+    }
+
+    public BigDecimal getDiscountRate() {
+        return discountRate;
+    }
+
+    public void setDiscountRate(BigDecimal discountRate) {
+        this.discountRate = discountRate;
+    }
+
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public void setDiscountAmount(BigDecimal discountAmount) {
+        this.discountAmount = discountAmount;
     }
 
     public BigDecimal getSpecialPrice() {
@@ -239,11 +275,11 @@ public class EffectiveActivity {
         this.specialPrice = specialPrice;
     }
 
-    public BigDecimal getDiscountRate() {
-        return discountRate;
+    public Integer getPaidType() {
+        return paidType;
     }
 
-    public void setDiscountRate(BigDecimal discountRate) {
-        this.discountRate = discountRate;
+    public void setPaidType(Integer paidType) {
+        this.paidType = paidType;
     }
 }
