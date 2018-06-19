@@ -362,17 +362,45 @@ public class Demo {
                             }
                             map.put("info", stackMapFrameInfos);
                         } else if ("LocalVariableTable".equals(attribute_name)) {
+                            int local_variable_table_length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                            offset = offset + 2;
+                            map.put("local_variable_table_length", local_variable_table_length);
 
+                            List<Map<String, Object>> localVariableTables = new ArrayList<Map<String, Object>>();
+                            for (int m = 0; m < local_variable_table_length; m++) {
+                                Map<String, Object> localVariableTable = new HashMap<String, Object>();
+
+                                int start_pc = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+                                localVariableTable.put("start_pc", start_pc);
+
+                                int length = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+                                localVariableTable.put("length", length);
+
+                                int name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+                                localVariableTable.put("name_index", name_index);
+
+                                int descriptor_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+                                localVariableTable.put("descriptor_index", descriptor_index);
+
+                                int idx = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+                                localVariableTable.put("index", idx);
+
+                                localVariableTables.add(localVariableTable);
+                            }
                         } else if ("LocalVariableTypeTable".equals(attribute_name)) {
 
                         } else if ("Exceptions".equals(attribute_name)) {
 
-                        } else if ("RuntimeVisibleParameterAnnotations".equals(attribute_name)) {
-
                         } else if ("RuntimeInvisibleParameterAnnotations".equals(attribute_name)) {
 
                         } else if ("AnnotationDefault".equals(attribute_name)) {
-
+                            Map<String, Object> stackMapFrameInfo = new LinkedHashMap<String, Object>();
+                            String elementValue ="";
                         }
                         maps.add(map);
                     }
@@ -381,6 +409,26 @@ public class Demo {
 //                    offset = offset + attributeLength - 10 - codeLength - exceptionTableLength * 8 - 2 - 2;
 
                     info = codeInfo;
+                }  else if ("RuntimeVisibleAnnotations".equals(attributeName)) {
+                    int num_parameters = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                    offset = offset + 2;
+                    Map<String, Object> runtimeVisibleAnnotationsInfo = new HashMap<String, Object>();
+                    runtimeVisibleAnnotationsInfo.put("num_parameters", num_parameters);
+
+                    List<Map<String, Object>> parameterAnnotations = new ArrayList<Map<String, Object>>();
+                    for (int m = 0; m < num_parameters; m++) {
+                        Map<String, Object> parameterAnnotation = new HashMap<String, Object>();
+                        int num_annotations = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                        offset = offset + 2;
+                        parameterAnnotation.put("num_annotations", num_annotations);
+
+                        List<Integer> annotations = new ArrayList<Integer>();
+                        for (int n = 0; n < num_annotations; n++) {
+                            annotations.add(BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                            offset = offset + 2;
+                        }
+                    }
+                    info = runtimeVisibleAnnotationsInfo;
                 }
                 attributeInfo.put("info", info);
 
@@ -413,6 +461,11 @@ public class Demo {
                 int sourcefile_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
                 attribute.put("sourcefile_index", sourcefile_index);
                 offset = offset + 2;
+            } else if ("SourceDebugExtension".equals(attributeName)) {
+                String debugExtension = BytesUtils.byteArrayToString(byteArray, offset, attribute_length);
+                attribute.put("debug_extension", debugExtension);
+
+                offset = offset + attribute_length;
             }
             attributes.add(attribute);
         }
