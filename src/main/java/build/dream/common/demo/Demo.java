@@ -3,7 +3,6 @@ package build.dream.common.demo;
 import build.dream.common.utils.GsonUtils;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.util.ByteUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
