@@ -361,6 +361,18 @@ public class Demo {
                                 stackMapFrameInfos.add(stackMapFrameInfo);
                             }
                             map.put("info", stackMapFrameInfos);
+                        } else if ("LocalVariableTable".equals(attribute_name)) {
+
+                        } else if ("LocalVariableTypeTable".equals(attribute_name)) {
+
+                        } else if ("Exceptions".equals(attribute_name)) {
+
+                        } else if ("RuntimeVisibleParameterAnnotations".equals(attribute_name)) {
+
+                        } else if ("RuntimeInvisibleParameterAnnotations".equals(attribute_name)) {
+
+                        } else if ("AnnotationDefault".equals(attribute_name)) {
+
                         }
                         maps.add(map);
                     }
