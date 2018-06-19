@@ -200,7 +200,7 @@ public class Demo {
         List<Map<String, Object>> methods = new ArrayList<Map<String, Object>>();
         for (int index = 0; index < methodsCount; index++) {
             Map<String, Object> methodInfo = new LinkedHashMap<String, Object>();
-            methodInfo.put("access_flags", StringUtils.join(AccessFlagUtils.obtainFieldAccessFlags(BytesUtils.byteArrayToInt(byteArray, offset, 2)), " "));
+            methodInfo.put("access_flags", StringUtils.join(AccessFlagUtils.obtainMethodAccessFlags(BytesUtils.byteArrayToInt(byteArray, offset, 2)), " "));
             offset = offset + 2;
 
             methodInfo.put("name_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
