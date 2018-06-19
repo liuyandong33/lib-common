@@ -11,7 +11,7 @@ import java.util.*;
 
 public class Demo {
     public static void main(String[] args) throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\liuyandong\\Desktop\\Test.class");
+        FileInputStream fileInputStream = new FileInputStream("/Users/liuyandong/Desktop/Test.class");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int len = 0;
         byte[] buffer = new byte[1024];
@@ -424,8 +424,20 @@ public class Demo {
 
                         List<Integer> annotations = new ArrayList<Integer>();
                         for (int n = 0; n < num_annotations; n++) {
-                            annotations.add(BytesUtils.byteArrayToInt(byteArray, offset, 2));
+                            int type_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
                             offset = offset + 2;
+
+                            int num_element_value_pairs = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                            offset = offset + 2;
+
+                            for (int h = 0; h < num_element_value_pairs; h++) {
+                                int element_name_index = BytesUtils.byteArrayToInt(byteArray, offset, 2);
+                                offset = offset + 2;
+
+                                int tag = BytesUtils.byteArrayToInt(byteArray, offset, 1);
+
+
+                            }
                         }
                     }
                     info = runtimeVisibleAnnotationsInfo;
