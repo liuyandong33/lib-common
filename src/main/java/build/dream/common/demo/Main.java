@@ -101,6 +101,37 @@ public class Main {
         System.out.println(stringBuilder.toString());
         System.out.println(callString.toString());
 
-        Branch branch = Branch.builder().tenantId(null).tenantCode(null).code(null).name(null).type(null).status(null).provinceCode(null).provinceName(null).cityCode(null).cityName(null).districtCode(null).districtName(null).address(null).longitude(null).latitude(null).linkman(null).contactPhone(null).elemeAccountType(null).shopId(null).smartRestaurantStatus(null).appAuthToken(null).poiId(null).poiName(null).id(null).createTime(null).createUserId(null).lastUpdateTime(null).lastUpdateUserId(null).lastUpdateRemark(null).deleted(false).build();
+        Branch branch = Branch.builder()
+                .tenantId(null)
+                .tenantCode(null)
+                .code(null)
+                .name(null)
+                .type(null)
+                .status(null)
+                .provinceCode(null)
+                .provinceName(null)
+                .cityCode(null)
+                .cityName(null)
+                .districtCode(null)
+                .districtName(null)
+                .address(null)
+                .longitude(null)
+                .latitude(null)
+                .linkman(null)
+                .contactPhone(null)
+                .elemeAccountType(null)
+                .shopId(null)
+                .smartRestaurantStatus(null)
+                .appAuthToken(null)
+                .poiId(null)
+                .poiName(null)
+                .id(null)
+                .createTime(null)
+                .createUserId(null)
+                .lastUpdateTime(null)
+                .lastUpdateUserId(null)
+                .lastUpdateRemark(null)
+                .deleted(false)
+                .build();
     }
 }
