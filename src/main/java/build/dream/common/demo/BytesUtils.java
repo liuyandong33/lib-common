@@ -1,5 +1,6 @@
 package build.dream.common.demo;
 
+import org.apache.commons.codec.binary.BinaryCodec;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -25,5 +26,10 @@ public class BytesUtils {
     public static String byteArrayToHex(byte[] bytes, int index, int length) {
         byte[] array = ArrayUtils.subarray(bytes, index, index + length);
         return "0x" + Hex.encodeHexString(array);
+    }
+
+    public static String byteArrayToAsciiString(byte[] bytes, int index, int length) {
+        byte[] array = ArrayUtils.subarray(bytes, index, index + length);
+        return BinaryCodec.toAsciiString(array);
     }
 }

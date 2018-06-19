@@ -124,7 +124,7 @@ public class Demo {
             constantIndexAndTagMap.put(index, tag);
         }
 
-        String accessFlags = BytesUtils.byteArrayToHex(byteArray, offset, 2);
+        List<String> accessFlags = AccessFlagUtils.obtainClassAccessFlags(BytesUtils.byteArrayToInt(byteArray, offset, 2));
         offset = offset + 2;
 
         int thisClass = BytesUtils.byteArrayToInt(byteArray, offset, 2);
@@ -148,7 +148,7 @@ public class Demo {
         List<Map<String, Object>> fields = new ArrayList<Map<String, Object>>();
         for (int index = 0; index < fieldsCount; index++) {
             Map<String, Object> field = new LinkedHashMap<String, Object>();
-            field.put("access_flags", BytesUtils.byteArrayToHex(byteArray, offset, 2));
+            field.put("access_flags", StringUtils.join(AccessFlagUtils.obtainFieldAccessFlags(BytesUtils.byteArrayToInt(byteArray, offset, 2)), " "));
             offset = offset + 2;
 
             field.put("name_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
@@ -200,7 +200,7 @@ public class Demo {
         List<Map<String, Object>> methods = new ArrayList<Map<String, Object>>();
         for (int index = 0; index < methodsCount; index++) {
             Map<String, Object> methodInfo = new LinkedHashMap<String, Object>();
-            methodInfo.put("access_flags", BytesUtils.byteArrayToHex(byteArray, offset, 2));
+            methodInfo.put("access_flags", StringUtils.join(AccessFlagUtils.obtainFieldAccessFlags(BytesUtils.byteArrayToInt(byteArray, offset, 2)), " "));
             offset = offset + 2;
 
             methodInfo.put("name_index", BytesUtils.byteArrayToInt(byteArray, offset, 2));
@@ -242,7 +242,8 @@ public class Demo {
 
                     List<String> codes = new ArrayList<String>();
                     for (int j = 0; j < codeLength; j++) {
-                        codes.add(BytesUtils.byteArrayToHex(byteArray, offset, 1));
+//                        codes.add(BytesUtils.byteArrayToHex(byteArray, offset, 1));
+                        codes.add(BytesUtils.byteArrayToAsciiString(byteArray, offset, 1));
                         offset = offset + 1;
                     }
                     codeInfo.put("codes", StringUtils.join(codes, ", "));
@@ -411,7 +412,7 @@ public class Demo {
         classInfo.put("major_version", majorVersion);
         classInfo.put("constant_pool_count", constantPoolCount);
         classInfo.put("constant_pool", constantContentMap);
-        classInfo.put("access_flags", accessFlags);
+        classInfo.put("access_flags", StringUtils.join(accessFlags, " "));
         classInfo.put("this_class", thisClass);
         classInfo.put("super_class", superClass);
         classInfo.put("interfaces_count", interfacesCount);
