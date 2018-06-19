@@ -4,16 +4,18 @@ import build.dream.common.constants.Constants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.SimpleDateFormat;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class JacksonUtils {
-    private static ObjectMapper OBJECT_MAPPER = null;
+    private static ConcurrentHashMap<String, ObjectMapper> objectMapperMap = new ConcurrentHashMap<String, ObjectMapper>();
 
     private static ObjectMapper obtainObjectMapper(String datePattern) {
-        if (OBJECT_MAPPER == null) {
-            OBJECT_MAPPER = new ObjectMapper();
+        if (!objectMapperMap.contains(datePattern)) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
+            objectMapperMap.put(datePattern, new ObjectMapper());
         }
-        OBJECT_MAPPER.setDateFormat(new SimpleDateFormat(datePattern));
-        return OBJECT_MAPPER;
+        return objectMapperMap.get(datePattern);
     }
 
     public static String writeValueAsString(Object object) {

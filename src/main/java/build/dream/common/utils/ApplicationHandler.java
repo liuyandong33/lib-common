@@ -171,7 +171,7 @@ public class ApplicationHandler {
                     if (jsonSchema != null) {
                         ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName));
                     }
-                    field.set(object, GsonUtils.fromJson(fieldValue, field.getType(), datePattern));
+                    field.set(object, JacksonUtils.readValue(fieldValue, field.getType(), datePattern));
                 }
             }
         }
@@ -318,7 +318,7 @@ public class ApplicationHandler {
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
         } else {
-            list = GsonUtils.jsonToList(fieldValue, (Class<? extends Object>) type, datePattern);
+            list = JacksonUtils.readValue(fieldValue, List.class, datePattern);
         }
         return list;
     }
