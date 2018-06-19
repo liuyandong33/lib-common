@@ -3,6 +3,7 @@ package build.dream.common.erp.catering.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class Branch extends BasicDomain {
     /**
@@ -280,5 +281,167 @@ public class Branch extends BasicDomain {
 
     public void setPoiName(String poiName) {
         this.poiName = poiName;
+    }
+
+    public static class Builder {
+        private final Branch instance = new Branch();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder code(String code) {
+            instance.setCode(code);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder type(Integer type) {
+            instance.setType(type);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder provinceCode(String provinceCode) {
+            instance.setProvinceCode(provinceCode);
+            return this;
+        }
+
+        public Builder provinceName(String provinceName) {
+            instance.setProvinceName(provinceName);
+            return this;
+        }
+
+        public Builder cityCode(String cityCode) {
+            instance.setCityCode(cityCode);
+            return this;
+        }
+
+        public Builder cityName(String cityName) {
+            instance.setCityName(cityName);
+            return this;
+        }
+
+        public Builder districtCode(String districtCode) {
+            instance.setDistrictCode(districtCode);
+            return this;
+        }
+
+        public Builder districtName(String districtName) {
+            instance.setDistrictName(districtName);
+            return this;
+        }
+
+        public Builder address(String address) {
+            instance.setAddress(address);
+            return this;
+        }
+
+        public Builder longitude(String longitude) {
+            instance.setLongitude(longitude);
+            return this;
+        }
+
+        public Builder latitude(String latitude) {
+            instance.setLatitude(latitude);
+            return this;
+        }
+
+        public Builder linkman(String linkman) {
+            instance.setLinkman(linkman);
+            return this;
+        }
+
+        public Builder contactPhone(String contactPhone) {
+            instance.setContactPhone(contactPhone);
+            return this;
+        }
+
+        public Builder elemeAccountType(Integer elemeAccountType) {
+            instance.setElemeAccountType(elemeAccountType);
+            return this;
+        }
+
+        public Builder shopId(BigInteger shopId) {
+            instance.setShopId(shopId);
+            return this;
+        }
+
+        public Builder smartRestaurantStatus(Integer smartRestaurantStatus) {
+            instance.setSmartRestaurantStatus(smartRestaurantStatus);
+            return this;
+        }
+
+        public Builder appAuthToken(String appAuthToken) {
+            instance.setAppAuthToken(appAuthToken);
+            return this;
+        }
+
+        public Builder poiId(String poiId) {
+            instance.setPoiId(poiId);
+            return this;
+        }
+
+        public Builder poiName(String poiName) {
+            instance.setPoiName(poiName);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public Branch build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
