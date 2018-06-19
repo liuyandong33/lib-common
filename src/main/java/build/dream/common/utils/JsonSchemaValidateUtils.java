@@ -17,8 +17,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JsonSchemaValidateUtils {
-    public static JsonSchemaFactory JSON_SCHEMA_FACTORY = null;
-    public static Map<String, Map<String, JsonValidator>> VALIDATORS_MAP = null;
+    public static JsonSchemaFactory jsonSchemaFactory = null;
+    public static Map<String, Map<String, JsonValidator>> validatorsMap = null;
     private static ObjectMapper objectMapper = null;
 
     private static ObjectMapper obtainObjectMapper() {
@@ -29,18 +29,18 @@ public class JsonSchemaValidateUtils {
     }
 
     public static JsonSchemaFactory obtainJsonSchemaFactory() {
-        if (JSON_SCHEMA_FACTORY == null) {
-            JSON_SCHEMA_FACTORY = JsonSchemaFactory.getInstance();
+        if (jsonSchemaFactory == null) {
+            jsonSchemaFactory = JsonSchemaFactory.getInstance();
         }
-        return JSON_SCHEMA_FACTORY;
+        return jsonSchemaFactory;
     }
 
     public static Map<String, JsonValidator> obtainValidators(String schemaFilePath) {
-        if (VALIDATORS_MAP == null) {
-            VALIDATORS_MAP = new ConcurrentHashMap<String, Map<String, JsonValidator>>();
+        if (validatorsMap == null) {
+            validatorsMap = new ConcurrentHashMap<String, Map<String, JsonValidator>>();
         }
 
-        Map<String, JsonValidator> validators = VALIDATORS_MAP.get(schemaFilePath);
+        Map<String, JsonValidator> validators = validatorsMap.get(schemaFilePath);
         if (validators == null) {
             try {
                 InputStream inputStream = JsonSchemaValidateUtils.class.getClassLoader().getResourceAsStream(schemaFilePath);
@@ -49,7 +49,7 @@ public class JsonSchemaValidateUtils {
                 Field field = jsonSchemaClass.getDeclaredField("validators");
                 field.setAccessible(true);
                 validators = (Map<String, JsonValidator>) field.get(jsonSchema);
-                VALIDATORS_MAP.put(schemaFilePath, validators);
+                validatorsMap.put(schemaFilePath, validators);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
