@@ -1,5 +1,7 @@
 package build.dream.common.demo;
 
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -11,6 +13,7 @@ public class Test implements Serializable {
 
     private int age;
 
+    @ResponseBody
     public String getCode() {
         return code;
     }
