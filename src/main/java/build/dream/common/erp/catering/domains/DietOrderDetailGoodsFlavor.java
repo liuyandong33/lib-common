@@ -211,4 +211,136 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
     public void setLocalLastUpdateTime(Date localLastUpdateTime) {
         this.localLastUpdateTime = localLastUpdateTime;
     }
+
+    public static class Builder {
+        private final DietOrderDetailGoodsFlavor instance = new DietOrderDetailGoodsFlavor();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder dietOrderId(BigInteger dietOrderId) {
+            instance.setDietOrderId(dietOrderId);
+            return this;
+        }
+
+        public Builder dietOrderGroupId(BigInteger dietOrderGroupId) {
+            instance.setDietOrderGroupId(dietOrderGroupId);
+            return this;
+        }
+
+        public Builder dietOrderDetailId(BigInteger dietOrderDetailId) {
+            instance.setDietOrderDetailId(dietOrderDetailId);
+            return this;
+        }
+
+        public Builder goodsFlavorGroupId(BigInteger goodsFlavorGroupId) {
+            instance.setGoodsFlavorGroupId(goodsFlavorGroupId);
+            return this;
+        }
+
+        public Builder goodsFlavorGroupName(String goodsFlavorGroupName) {
+            instance.setGoodsFlavorGroupName(goodsFlavorGroupName);
+            return this;
+        }
+
+        public Builder goodsFlavorId(BigInteger goodsFlavorId) {
+            instance.setGoodsFlavorId(goodsFlavorId);
+            return this;
+        }
+
+        public Builder goodsFlavorName(String goodsFlavorName) {
+            instance.setGoodsFlavorName(goodsFlavorName);
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            instance.setPrice(price);
+            return this;
+        }
+
+        public Builder localId(String localId) {
+            instance.setLocalId(localId);
+            return this;
+        }
+
+        public Builder localDietOrderId(String localDietOrderId) {
+            instance.setLocalDietOrderId(localDietOrderId);
+            return this;
+        }
+
+        public Builder localDietOrderGroupId(String localDietOrderGroupId) {
+            instance.setLocalDietOrderGroupId(localDietOrderGroupId);
+            return this;
+        }
+
+        public Builder localDietOrderDetailId(String localDietOrderDetailId) {
+            instance.setLocalDietOrderDetailId(localDietOrderDetailId);
+            return this;
+        }
+
+        public Builder localCreateTime(Date localCreateTime) {
+            instance.setLocalCreateTime(localCreateTime);
+            return this;
+        }
+
+        public Builder localLastUpdateTime(Date localLastUpdateTime) {
+            instance.setLocalLastUpdateTime(localLastUpdateTime);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public DietOrderDetailGoodsFlavor build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

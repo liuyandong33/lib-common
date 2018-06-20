@@ -1,6 +1,6 @@
 package build.dream.common.demo;
 
-import build.dream.common.erp.catering.domains.Branch;
+import build.dream.common.erp.catering.domains.*;
 import build.dream.common.utils.DynamicProxyUtils;
 
 import java.io.InputStream;
@@ -53,10 +53,15 @@ public class Main {
         Object object = classLoader.loadClass("build.dream.common.demo.Main");
         System.out.println(object);
 
-        Class<?> domainClass = Branch.class;
-        StringBuilder stringBuilder = new StringBuilder("public static class Builder {private final Branch instance = new Branch();");
+        Class<?> domainClass = DietOrderDetailGoodsFlavor.class;
 
         String simpleName = domainClass.getSimpleName();
+
+        StringBuilder stringBuilder = new StringBuilder("public static class Builder {private final ");
+        stringBuilder.append(simpleName);
+        stringBuilder.append(" instance = new ");
+        stringBuilder.append(simpleName);
+        stringBuilder.append("();");
 
         StringBuilder callString = new StringBuilder(simpleName);
         callString.append(" ");
@@ -100,38 +105,5 @@ public class Main {
 
         System.out.println(stringBuilder.toString());
         System.out.println(callString.toString());
-
-        Branch branch = Branch.builder()
-                .tenantId(null)
-                .tenantCode(null)
-                .code(null)
-                .name(null)
-                .type(null)
-                .status(null)
-                .provinceCode(null)
-                .provinceName(null)
-                .cityCode(null)
-                .cityName(null)
-                .districtCode(null)
-                .districtName(null)
-                .address(null)
-                .longitude(null)
-                .latitude(null)
-                .linkman(null)
-                .contactPhone(null)
-                .elemeAccountType(null)
-                .shopId(null)
-                .smartRestaurantStatus(null)
-                .appAuthToken(null)
-                .poiId(null)
-                .poiName(null)
-                .id(null)
-                .createTime(null)
-                .createUserId(null)
-                .lastUpdateTime(null)
-                .lastUpdateUserId(null)
-                .lastUpdateRemark(null)
-                .deleted(false)
-                .build();
     }
 }

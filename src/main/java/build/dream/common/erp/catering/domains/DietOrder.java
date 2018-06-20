@@ -355,4 +355,196 @@ public class DietOrder extends BasicDomain {
     public void setLocalLastUpdateTime(Date localLastUpdateTime) {
         this.localLastUpdateTime = localLastUpdateTime;
     }
+
+    public static class Builder {
+        private final DietOrder instance = new DietOrder();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder orderNumber(String orderNumber) {
+            instance.setOrderNumber(orderNumber);
+            return this;
+        }
+
+        public Builder orderType(Integer orderType) {
+            instance.setOrderType(orderType);
+            return this;
+        }
+
+        public Builder orderStatus(Integer orderStatus) {
+            instance.setOrderStatus(orderStatus);
+            return this;
+        }
+
+        public Builder payStatus(Integer payStatus) {
+            instance.setPayStatus(payStatus);
+            return this;
+        }
+
+        public Builder refundStatus(Integer refundStatus) {
+            instance.setRefundStatus(refundStatus);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder discountAmount(BigDecimal discountAmount) {
+            instance.setDiscountAmount(discountAmount);
+            return this;
+        }
+
+        public Builder payableAmount(BigDecimal payableAmount) {
+            instance.setPayableAmount(payableAmount);
+            return this;
+        }
+
+        public Builder paidAmount(BigDecimal paidAmount) {
+            instance.setPaidAmount(paidAmount);
+            return this;
+        }
+
+        public Builder paidType(Integer paidType) {
+            instance.setPaidType(paidType);
+            return this;
+        }
+
+        public Builder remark(String remark) {
+            instance.setRemark(remark);
+            return this;
+        }
+
+        public Builder deliveryAddress(String deliveryAddress) {
+            instance.setDeliveryAddress(deliveryAddress);
+            return this;
+        }
+
+        public Builder deliveryLongitude(String deliveryLongitude) {
+            instance.setDeliveryLongitude(deliveryLongitude);
+            return this;
+        }
+
+        public Builder deliveryLatitude(String deliveryLatitude) {
+            instance.setDeliveryLatitude(deliveryLatitude);
+            return this;
+        }
+
+        public Builder deliverTime(Date deliverTime) {
+            instance.setDeliverTime(deliverTime);
+            return this;
+        }
+
+        public Builder activeTime(Date activeTime) {
+            instance.setActiveTime(activeTime);
+            return this;
+        }
+
+        public Builder deliverFee(BigDecimal deliverFee) {
+            instance.setDeliverFee(deliverFee);
+            return this;
+        }
+
+        public Builder telephoneNumber(String telephoneNumber) {
+            instance.setTelephoneNumber(telephoneNumber);
+            return this;
+        }
+
+        public Builder daySerialNumber(String daySerialNumber) {
+            instance.setDaySerialNumber(daySerialNumber);
+            return this;
+        }
+
+        public Builder consignee(String consignee) {
+            instance.setConsignee(consignee);
+            return this;
+        }
+
+        public Builder invoiced(boolean invoiced) {
+            instance.setInvoiced(invoiced);
+            return this;
+        }
+
+        public Builder invoiceType(String invoiceType) {
+            instance.setInvoiceType(invoiceType);
+            return this;
+        }
+
+        public Builder invoice(String invoice) {
+            instance.setInvoice(invoice);
+            return this;
+        }
+
+        public Builder localId(String localId) {
+            instance.setLocalId(localId);
+            return this;
+        }
+
+        public Builder localCreateTime(Date localCreateTime) {
+            instance.setLocalCreateTime(localCreateTime);
+            return this;
+        }
+
+        public Builder localLastUpdateTime(Date localLastUpdateTime) {
+            instance.setLocalLastUpdateTime(localLastUpdateTime);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public DietOrder build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

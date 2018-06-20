@@ -126,4 +126,101 @@ public class DietOrderGroup extends BasicDomain {
     public void setLocalLastUpdateTime(Date localLastUpdateTime) {
         this.localLastUpdateTime = localLastUpdateTime;
     }
+
+    public static class Builder {
+        private final DietOrderGroup instance = new DietOrderGroup();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder dietOrderId(BigInteger dietOrderId) {
+            instance.setDietOrderId(dietOrderId);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder type(String type) {
+            instance.setType(type);
+            return this;
+        }
+
+        public Builder localId(String localId) {
+            instance.setLocalId(localId);
+            return this;
+        }
+
+        public Builder localDietOrderId(String localDietOrderId) {
+            instance.setLocalDietOrderId(localDietOrderId);
+            return this;
+        }
+
+        public Builder localCreateTime(Date localCreateTime) {
+            instance.setLocalCreateTime(localCreateTime);
+            return this;
+        }
+
+        public Builder localLastUpdateTime(Date localLastUpdateTime) {
+            instance.setLocalLastUpdateTime(localLastUpdateTime);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public DietOrderGroup build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

@@ -55,25 +55,49 @@ public class EffectiveActivity {
      */
     private BigInteger goodsId;
     /**
+     * 商品名称
+     */
+    private String goodsName;
+    /**
      * 商品规格ID
      */
     private BigInteger goodsSpecificationId;
     /**
+     * 商品规格名称
+     */
+    private String goodsSpecificationName;
+    /**
+     * 单价
+     */
+    private BigDecimal price;
+    /**
      * 购买数量，买赠活动专用
      */
-    private Integer buyQuantity;
+    private BigDecimal buyQuantity;
     /**
      * 赠送商品ID，买赠活动专用
      */
     private BigInteger giveGoodsId;
     /**
+     * 赠送商品名称，买赠活动专用
+     */
+    private String giveGoodsName;
+    /**
      * 赠送商品规格ID，买赠活动专用
      */
     private BigInteger giveGoodsSpecificationId;
     /**
+     * 正式商品规格名称，买赠活动专用
+     */
+    private String giveGoodsSpecificationName;
+    /**
+     * 赠送商品价格，买赠活动专用
+     */
+    private BigDecimal givePrice;
+    /**
      * 赠送数量，买赠活动专用
      */
-    private Integer giveQuantity;
+    private BigDecimal giveQuantity;
     /**
      * 总金额，整单满减活动、支付促销专用
      */
@@ -195,6 +219,14 @@ public class EffectiveActivity {
         this.goodsId = goodsId;
     }
 
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
     public BigInteger getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
@@ -203,11 +235,27 @@ public class EffectiveActivity {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public Integer getBuyQuantity() {
+    public String getGoodsSpecificationName() {
+        return goodsSpecificationName;
+    }
+
+    public void setGoodsSpecificationName(String goodsSpecificationName) {
+        this.goodsSpecificationName = goodsSpecificationName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getBuyQuantity() {
         return buyQuantity;
     }
 
-    public void setBuyQuantity(Integer buyQuantity) {
+    public void setBuyQuantity(BigDecimal buyQuantity) {
         this.buyQuantity = buyQuantity;
     }
 
@@ -219,6 +267,14 @@ public class EffectiveActivity {
         this.giveGoodsId = giveGoodsId;
     }
 
+    public String getGiveGoodsName() {
+        return giveGoodsName;
+    }
+
+    public void setGiveGoodsName(String giveGoodsName) {
+        this.giveGoodsName = giveGoodsName;
+    }
+
     public BigInteger getGiveGoodsSpecificationId() {
         return giveGoodsSpecificationId;
     }
@@ -227,11 +283,27 @@ public class EffectiveActivity {
         this.giveGoodsSpecificationId = giveGoodsSpecificationId;
     }
 
-    public Integer getGiveQuantity() {
+    public String getGiveGoodsSpecificationName() {
+        return giveGoodsSpecificationName;
+    }
+
+    public void setGiveGoodsSpecificationName(String giveGoodsSpecificationName) {
+        this.giveGoodsSpecificationName = giveGoodsSpecificationName;
+    }
+
+    public BigDecimal getGivePrice() {
+        return givePrice;
+    }
+
+    public void setGivePrice(BigDecimal givePrice) {
+        this.givePrice = givePrice;
+    }
+
+    public BigDecimal getGiveQuantity() {
         return giveQuantity;
     }
 
-    public void setGiveQuantity(Integer giveQuantity) {
+    public void setGiveQuantity(BigDecimal giveQuantity) {
         this.giveQuantity = giveQuantity;
     }
 
