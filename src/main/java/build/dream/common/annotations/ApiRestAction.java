@@ -1,6 +1,5 @@
 package build.dream.common.annotations;
 
-import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 
 import java.lang.annotation.*;
@@ -16,6 +15,4 @@ public @interface ApiRestAction {
     String serviceMethodName() default "";
 
     String error() default "";
-
-    String datePattern() default Constants.DEFAULT_DATE_PATTERN;
 }
