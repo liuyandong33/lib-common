@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
@@ -102,16 +103,12 @@ public class ApplicationHandler {
     }
 
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws Exception {
-        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, "");
+        return instantiateObject(objectClass, parameters, "");
     }
 
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws Exception {
-        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN, prefix);
-    }
-
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern, String prefix) throws Exception {
         T object = objectClass.newInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
+        Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
 
         Field[] fields = objectClass.getDeclaredFields();
         for (Field field : fields) {
@@ -145,6 +142,7 @@ public class ApplicationHandler {
             } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
                 field.set(object, Boolean.valueOf(fieldValue));
             } else if (fieldClass == Date.class) {
+                SimpleDateFormat simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
                 field.set(object, simpleDateFormat.parse(fieldValue));
             } else if (fieldClass == BigInteger.class) {
                 field.set(object, BigInteger.valueOf(Long.valueOf(fieldValue)));
@@ -153,17 +151,15 @@ public class ApplicationHandler {
             } else if (fieldClass == List.class) {
                 Type type = field.getGenericType();
                 if (type instanceof ParameterizedType) {
-                    field.set(object, buildArrayList(((ParameterizedType) type).getActualTypeArguments()[0], fieldValue, ",", datePattern));
+                    Type itemType = ((ParameterizedType) type).getActualTypeArguments()[0];
+                    SimpleDateFormat simpleDateFormat = null;
+                    if (itemType instanceof Date) {
+                        simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
+                    }
+                    field.set(object, buildArrayList(itemType, fieldValue, ",", simpleDateFormat));
                 }
             } else if (fieldClass == Map.class) {
-                Type type = field.getGenericType();
-                if (type instanceof ParameterizedType) {
-                    ParameterizedType parameterizedType = (ParameterizedType) type;
-                    Type[] types = parameterizedType.getActualTypeArguments();
-                    Class keyClass = (Class) types[0];
-                    Class valueClass = (Class) types[1];
-                    field.set(object, GsonUtils.jsonToMap(fieldValue, keyClass, valueClass, datePattern));
-                }
+                field.set(object, JacksonUtils.readValue(fieldValue, Map.class));
             } else {
                 boolean isJson = isJson(fieldValue);
                 if (isJson) {
@@ -171,11 +167,27 @@ public class ApplicationHandler {
                     if (jsonSchema != null) {
                         ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName));
                     }
-                    field.set(object, JacksonUtils.readValue(fieldValue, field.getType(), datePattern));
+                    field.set(object, JacksonUtils.readValue(fieldValue, field.getType()));
                 }
             }
         }
         return object;
+    }
+
+    public static SimpleDateFormat obtainSimpleDateFormat(Map<String, SimpleDateFormat> simpleDateFormatMap, Field field) {
+        DateFormat dateFormat = field.getAnnotation(DateFormat.class);
+        String datePattern = null;
+
+        if (dateFormat != null) {
+            datePattern = dateFormat.pattern();
+        } else {
+            datePattern = Constants.DEFAULT_DATE_PATTERN;
+        }
+
+        if (!simpleDateFormatMap.containsKey(datePattern)) {
+            simpleDateFormatMap.put(datePattern, new SimpleDateFormat(datePattern));
+        }
+        return simpleDateFormatMap.get(datePattern);
     }
 
     public static List<Byte> buildByteArrayList(String fieldValue, String separator) {
@@ -268,10 +280,9 @@ public class ApplicationHandler {
         return list;
     }
 
-    public static List<Date> buildDateArrayList(String fieldValue, String separator, String datePattern) {
+    public static List<Date> buildDateArrayList(String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<Date> list = new ArrayList<Date>();
         String[] array = fieldValue.split(separator);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(datePattern);
         try {
             for (String str : array) {
                 list.add(simpleDateFormat.parse(str));
@@ -291,7 +302,7 @@ public class ApplicationHandler {
         return list;
     }
 
-    private static Object buildArrayList(Type type, String fieldValue, String separator, String datePattern) {
+    private static Object buildArrayList(Type type, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<? extends Object> list = null;
         if (type == Byte.class) {
             list = buildByteArrayList(fieldValue, separator);
@@ -314,11 +325,11 @@ public class ApplicationHandler {
         } else if (type == BigDecimal.class) {
             list = buildBigDecimalArrayList(fieldValue, separator);
         } else if (type == Date.class) {
-            list = buildDateArrayList(fieldValue, separator, datePattern);
+            list = buildDateArrayList(fieldValue, separator, simpleDateFormat);
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
         } else {
-            list = JacksonUtils.readValue(fieldValue, List.class, datePattern);
+            list = JacksonUtils.readValue(fieldValue, List.class);
         }
         return list;
     }
