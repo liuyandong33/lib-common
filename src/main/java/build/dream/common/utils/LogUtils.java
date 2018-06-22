@@ -3,6 +3,9 @@ package build.dream.common.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,23 +22,29 @@ public class LogUtils {
         LOGGER.warn(message);
     }
 
-    public static void error(String errorMessage, String className, String methodName, String exceptionClassName, String exceptionMessage, Map<String, String> parameters) {
-        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, exceptionClassName, exceptionMessage, parameters);
-    }
-
-    public static void error(String errorMessage, String className, String methodName, String exceptionClassName, String exceptionMessage) {
-        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, exceptionClassName, exceptionMessage);
-    }
-
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters) {
-        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), parameters);
+        LOGGER.error("{}:{}.{}-{}-{}-{}-{}", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters);
     }
 
     public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
-        LOGGER.error("{}:{}.{}-{}-{}", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage());
+        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage());
     }
 
     public static void error(String errorMessage) {
         LOGGER.error(errorMessage);
+    }
+
+    public static String obtainStackInfos(Throwable throwable) {
+        List<Map<String, Object>> stackInfos = new ArrayList<Map<String, Object>>();
+        StackTraceElement[] stackTraceElements = throwable.getStackTrace();
+        for (StackTraceElement stackTraceElement : stackTraceElements) {
+            Map<String, Object> stackInfo = new HashMap<String, Object>();
+            stackInfo.put("className", stackTraceElement.getClassName());
+            stackInfo.put("fileName", stackTraceElement.getFileName());
+            stackInfo.put("methodName", stackTraceElement.getMethodName());
+            stackInfo.put("lineNumber", stackTraceElement.getLineNumber());
+            stackInfos.add(stackInfo);
+        }
+        return GsonUtils.toJson(stackInfos);
     }
 }
