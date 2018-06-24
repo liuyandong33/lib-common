@@ -168,7 +168,7 @@ public class DatabaseUtils {
                     continue;
                 }
                 String fieldName = field.getName();
-                if ("createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
                     continue;
                 }
 
