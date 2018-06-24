@@ -75,4 +75,12 @@ public class UpdateModel {
     public void addContentValue(String columnName, Object value) {
         contentValues.add(new ContentValue(columnName, value));
     }
+
+    public String getGroupBy() {
+        return null;
+    }
+
+    public String getOrderBy() {
+        return null;
+    }
 }

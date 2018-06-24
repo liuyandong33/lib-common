@@ -50,4 +50,12 @@ public class DeleteModel {
     public void addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
         searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
     }
+
+    public String getGroupBy() {
+        return null;
+    }
+
+    public String getOrderBy() {
+        return null;
+    }
 }
