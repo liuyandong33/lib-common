@@ -239,7 +239,7 @@ public class DatabaseUtils {
                 Column column = field.getAnnotation(Column.class);
                 if (column != null) {
                     columnName = column.name();
-                    alias.add(underscoreName + " AS " + columnName);
+                    alias.add(columnName + " AS " + underscoreName);
                 } else {
                     alias.add(underscoreName);
                 }
