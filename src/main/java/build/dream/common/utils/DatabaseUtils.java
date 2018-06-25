@@ -168,7 +168,7 @@ public class DatabaseUtils {
                     continue;
                 }
                 String fieldName = field.getName();
-                if ("createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
                     continue;
                 }
 
@@ -239,7 +239,7 @@ public class DatabaseUtils {
                 Column column = field.getAnnotation(Column.class);
                 if (column != null) {
                     columnName = column.name();
-                    alias.add(underscoreName + " AS " + columnName);
+                    alias.add(columnName + " AS " + underscoreName);
                 } else {
                     alias.add(underscoreName);
                 }

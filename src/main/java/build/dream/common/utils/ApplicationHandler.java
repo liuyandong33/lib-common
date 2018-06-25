@@ -329,7 +329,7 @@ public class ApplicationHandler {
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
         } else {
-            list = JacksonUtils.readValue(fieldValue, List.class);
+            list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
         }
         return list;
     }
