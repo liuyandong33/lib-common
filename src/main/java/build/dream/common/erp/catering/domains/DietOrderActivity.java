@@ -152,9 +152,13 @@ public class DietOrderActivity extends BasicDomain {
         this.localLastUpdateTime = localLastUpdateTime;
     }
 
-
     public static class Builder {
         private final DietOrderActivity instance = new DietOrderActivity();
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -211,8 +215,33 @@ public class DietOrderActivity extends BasicDomain {
             return this;
         }
 
-        public Builder localLastUpdateTime(Date localLastUpdateTime) {
-            instance.setLocalLastUpdateTime(localLastUpdateTime);
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
             return this;
         }
 
