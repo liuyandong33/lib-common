@@ -1,5 +1,6 @@
 package build.dream.common.erp.catering.domains;
 
+import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
@@ -29,6 +30,9 @@ public class Goods extends BasicDomain {
      * 商品分类ID
      */
     private BigInteger categoryId;
+
+    @Transient
+    private String categoryName;
     /**
      * 图片路径
      */
@@ -80,6 +84,14 @@ public class Goods extends BasicDomain {
 
     public void setCategoryId(BigInteger categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getImageUrl() {
