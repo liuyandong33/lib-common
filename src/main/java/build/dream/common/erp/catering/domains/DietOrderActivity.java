@@ -151,4 +151,78 @@ public class DietOrderActivity extends BasicDomain {
     public void setLocalLastUpdateTime(Date localLastUpdateTime) {
         this.localLastUpdateTime = localLastUpdateTime;
     }
+
+
+    public static class Builder {
+        private final DietOrderActivity instance = new DietOrderActivity();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder dietOrderId(BigInteger dietOrderId) {
+            instance.setDietOrderId(dietOrderId);
+            return this;
+        }
+
+        public Builder activityId(BigInteger activityId) {
+            instance.setActivityId(activityId);
+            return this;
+        }
+
+        public Builder activityName(String activityName) {
+            instance.setActivityName(activityName);
+            return this;
+        }
+
+        public Builder activityType(Integer activityType) {
+            instance.setActivityType(activityType);
+            return this;
+        }
+
+        public Builder amount(BigDecimal amount) {
+            instance.setAmount(amount);
+            return this;
+        }
+
+        public Builder localId(String localId) {
+            instance.setLocalId(localId);
+            return this;
+        }
+
+        public Builder localDietOrderId(String localDietOrderId) {
+            instance.setLocalDietOrderId(localDietOrderId);
+            return this;
+        }
+
+        public Builder localCreateTime(Date localCreateTime) {
+            instance.setLocalCreateTime(localCreateTime);
+            return this;
+        }
+
+        public Builder localLastUpdateTime(Date localLastUpdateTime) {
+            instance.setLocalLastUpdateTime(localLastUpdateTime);
+            return this;
+        }
+
+        public DietOrderActivity build() {
+            return instance;
+        }
+
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
