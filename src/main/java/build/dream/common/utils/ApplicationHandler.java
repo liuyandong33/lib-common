@@ -159,7 +159,13 @@ public class ApplicationHandler {
                     field.set(object, buildArrayList(itemType, fieldValue, ",", simpleDateFormat));
                 }
             } else if (fieldClass == Map.class) {
-                field.set(object, JacksonUtils.readValue(fieldValue, Map.class));
+                Type type = field.getGenericType();
+                if (type instanceof ParameterizedType) {
+                    Type[] actualTypeArguments = ((ParameterizedType) type).getActualTypeArguments();
+                    Class<? extends Object> keyClass = (Class<? extends Object>) actualTypeArguments[0];
+                    Class<? extends Object> valueClass = (Class<? extends Object>) actualTypeArguments[1];
+                    field.set(object, JacksonUtils.readValueAsMap(fieldValue, keyClass, valueClass));
+                }
             } else {
                 boolean isJson = isJson(fieldValue);
                 if (isJson) {
