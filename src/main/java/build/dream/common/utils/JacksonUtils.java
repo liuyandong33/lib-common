@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JacksonUtils {
@@ -57,6 +58,21 @@ public class JacksonUtils {
         try {
             ObjectMapper objectMapper = obtainObjectMapper(datePattern);
             list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(List.class, elementClass));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public static <T> List<T> readValueAsSet(String content, Class<T> elementClass) {
+        return readValueAsSet(content, elementClass, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public static <T> List<T> readValueAsSet(String content, Class<T> elementClass, String datePattern) {
+        List<T> list = null;
+        try {
+            ObjectMapper objectMapper = obtainObjectMapper(datePattern);
+            list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
