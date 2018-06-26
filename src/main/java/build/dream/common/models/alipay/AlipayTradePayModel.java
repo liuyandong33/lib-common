@@ -163,7 +163,7 @@ public class AlipayTradePayModel extends BasicModel {
 
     public void setGoodsDetails(String goodsDetails) {
         ApplicationHandler.validateJson(goodsDetails, Constants.ALIPAY_GOODS_DETAILS_SCHEMA_FILE_PATH, "goodsDetails");
-        this.goodsDetails = GsonUtils.jsonToList(goodsDetails, GoodsDetail.class);
+        this.goodsDetails = GsonUtils.fromJsonToList(goodsDetails, GoodsDetail.class);
     }
 
     public String getOperatorId() {

@@ -27,7 +27,7 @@ public class GsonUtils {
         return gsonBuilder.create();
     }
 
-    public static <T> List<T> jsonToList(String jsonString, Class<T> clazz, String datePattern) {
+    public static <T> List<T> fromJsonToList(String jsonString, Class<T> clazz, String datePattern) {
         Gson gson = instantiateGson(datePattern, true);
         Type type = new TypeToken<ArrayList<JsonElement>>() {}.getType();
         List<JsonElement> jsonElements = gson.fromJson(jsonString, type);
@@ -38,11 +38,11 @@ public class GsonUtils {
         return list;
     }
 
-    public static <T> List<T> jsonToList(String jsonString, Class<T> clazz) {
-        return jsonToList(jsonString, clazz, Constants.DEFAULT_DATE_PATTERN);
+    public static <T> List<T> fromJsonToList(String jsonString, Class<T> clazz) {
+        return fromJsonToList(jsonString, clazz, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public static <K, V> Map<K, V> jsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass, String datePattern) {
+    public static <K, V> Map<K, V> fromJsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass, String datePattern) {
         Gson gson = instantiateGson(datePattern, true);
         Type type = new TypeToken<Map<JsonElement, JsonElement>>() {}.getType();
         Map<JsonElement, JsonElement> tempMap = gson.fromJson(jsonString, type);
@@ -54,8 +54,8 @@ public class GsonUtils {
         return map;
     }
 
-    public static <K, V> Map<K, V> jsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass) {
-        return jsonToMap(jsonString, keyClass, valueClass, Constants.DEFAULT_DATE_PATTERN);
+    public static <K, V> Map<K, V> fromJsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass) {
+        return fromJsonToMap(jsonString, keyClass, valueClass, Constants.DEFAULT_DATE_PATTERN);
     }
 
     public static String toJson(Object object) {
