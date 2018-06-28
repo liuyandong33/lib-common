@@ -16,7 +16,7 @@ public class JacksonUtils {
         if (!objectMapperMap.contains(datePattern)) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-            objectMapperMap.put(datePattern, new ObjectMapper());
+            objectMapperMap.put(datePattern, objectMapper);
         }
         return objectMapperMap.get(datePattern);
     }
