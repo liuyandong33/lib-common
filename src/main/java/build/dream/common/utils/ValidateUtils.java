@@ -66,12 +66,12 @@ public class ValidateUtils {
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(model.getClass());
         String modelClassName = model.getClass().getName();
-        Locale locale = LocaleContextHolder.getLocale();
         for (Field field : allFields) {
             String fieldName = field.getName();
             Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
             if (iterator.hasNext()) {
                 ConstraintViolation<Object> constraintViolation = iterator.next();
+                Locale locale = LocaleContextHolder.getLocale();
                 String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
                 String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
                 String message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
