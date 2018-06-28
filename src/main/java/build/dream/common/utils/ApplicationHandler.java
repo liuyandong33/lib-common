@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -372,6 +373,10 @@ public class ApplicationHandler {
             validator = validatorFactory.getValidator();
         }
         return validator;
+    }
+
+    public static MessageSource obtainMessageSource() {
+        return applicationContext.getBean(MessageSource.class);
     }
 
     public static void notNullAndPut(Map<String, Object> targetMap, String key, Object value, String message) {

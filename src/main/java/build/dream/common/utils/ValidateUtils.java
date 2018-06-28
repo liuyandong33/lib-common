@@ -5,6 +5,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -14,12 +16,20 @@ import java.util.*;
 
 public class ValidateUtils {
     private static Validator validator;
+    private static MessageSource messageSource;
 
     private static Validator obtainValidator() {
         if (validator == null) {
             validator = ApplicationHandler.obtainValidator();
         }
         return validator;
+    }
+
+    private static MessageSource obtainMessageSource() {
+        if (messageSource == null) {
+            messageSource = ApplicationHandler.obtainMessageSource();
+        }
+        return messageSource;
     }
 
     public static List<Field> obtainAllFields(Class<?> modelClass) {
@@ -55,10 +65,17 @@ public class ValidateUtils {
     public static void validateAndThrow(Object model) {
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(model.getClass());
+        String modelClassName = model.getClass().getName();
+        Locale locale = LocaleContextHolder.getLocale();
         for (Field field : allFields) {
+            String fieldName = field.getName();
             Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
             if (iterator.hasNext()) {
-                throw new ApiException(ApplicationHandler.obtainParameterErrorMessage(field.getName()));
+                ConstraintViolation<Object> constraintViolation = iterator.next();
+                String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
+                String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
+                String message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
+                throw new ApiException(message);
             }
         }
     }
