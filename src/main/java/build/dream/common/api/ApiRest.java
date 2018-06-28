@@ -9,7 +9,6 @@ import build.dream.common.utils.SignatureUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -194,7 +193,7 @@ public class ApiRest {
         }
     }
 
-    public static ApiRest fromJson(String jsonString) throws IOException {
+    public static ApiRest fromJson(String jsonString) {
         return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
     }
 
