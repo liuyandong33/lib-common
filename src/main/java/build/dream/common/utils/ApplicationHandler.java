@@ -157,7 +157,7 @@ public class ApplicationHandler {
                     if (itemType instanceof Date) {
                         simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
                     }
-                    field.set(object, buildArrayList(itemType, fieldValue, ",", simpleDateFormat));
+                    field.set(object, buildArrayList(field, itemType, fieldName, fieldValue, ",", simpleDateFormat));
                 }
             } else if (fieldClass == Map.class) {
                 Type type = field.getGenericType();
@@ -309,7 +309,7 @@ public class ApplicationHandler {
         return list;
     }
 
-    private static Object buildArrayList(Type type, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
+    private static Object buildArrayList(Field field, Type type, String fieldName, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<? extends Object> list = null;
         if (type == Byte.class) {
             list = buildByteArrayList(fieldValue, separator);
@@ -336,7 +336,14 @@ public class ApplicationHandler {
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
         } else {
-            list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
+            boolean isJson = isJson(fieldValue);
+            if (isJson) {
+                JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
+                if (jsonSchema != null) {
+                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName));
+                }
+                list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
+            }
         }
         return list;
     }
