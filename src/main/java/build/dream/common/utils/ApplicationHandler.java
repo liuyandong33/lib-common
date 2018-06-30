@@ -546,6 +546,38 @@ public class ApplicationHandler {
         ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
     }
 
+    public static void inArray(Long[] array, Long value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Integer[] array, Integer value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Short[] array, Short value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Character[] array, Character value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Byte[] array, Byte value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Double[] array, Double value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Float[] array, Float value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
+    public static void inArray(Boolean[] array, Boolean value, String name) {
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！");
+    }
+
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
         isJson(jsonString, parameterName);
         isTrue(isRightJson(jsonString, schemaFilePath), parameterName);

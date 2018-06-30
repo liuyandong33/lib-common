@@ -126,6 +126,38 @@ public class ValidateUtils {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Long[] array, Long value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Integer[] array, Integer value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Short[] array, Short value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Character[] array, Character value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Byte[] array, Byte value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Double[] array, Double value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Float[] array, Float value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Boolean[] array, Boolean value, String message) {
+        isTrue(ArrayUtils.contains(array, value), message);
+    }
+
     public static void noNullElements(Object[] array, String message) {
         notNull(array, message);
         for (int i = 0; i < array.length; i++) {
