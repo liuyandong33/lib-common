@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.models.alipay.AlipayTradePagePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.alipay.AlipayTradeWapPayModel;
 import build.dream.common.saas.domains.AlipayAccount;
@@ -87,14 +88,18 @@ public class AlipayUtils {
         return buildRequestBody(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static JSONObject callAlipayApi(String appId, String method, String format, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static String callAlipayApi(String requestBody) throws IOException {
+        String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
+        return OutUtils.doPost(alipayGatewayUrl, requestBody, null);
+    }
+
+    public static JSONObject callAlipayApi(String appId, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         AlipayAccount alipayAccount = obtainAlipayAccount(appId);
         Validate.notNull(alipayAccount, "未配置支付宝账号！");
 
-        String requestBody = buildRequestBody(appId, method, format, null, charset, notifyUrl, appAuthToken, bizContent);
+        String requestBody = buildRequestBody(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
 
-        String alipayGatewayUrl = "https://openapi.alipay.com/gateway.do";
-        String result = OutUtils.doPost(alipayGatewayUrl, requestBody, null);
+        String result = callAlipayApi(requestBody);
 
         JSONObject resultJsonObject = JSONObject.fromObject(result);
         JSONObject responseJsonObject = resultJsonObject.getJSONObject(method.replaceAll("\\.", "_") + "_response");
@@ -112,7 +117,7 @@ public class AlipayUtils {
     }
 
     public static JSONObject callAlipayApi(String appId, String method, String notifyUrl, String appAuthToken, String bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
-        return callAlipayApi(appId, method, Constants.JSON, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
+        return callAlipayApi(appId, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
     public static JSONObject alipayTradePay(String appId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
@@ -123,5 +128,10 @@ public class AlipayUtils {
     public static String alipayTradeWapPay(String appId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, UnsupportedEncodingException {
         alipayTradeWapPayModel.validateAndThrow();
         return buildRequestBody(appId, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
+    }
+
+    public static JSONObject alipayTradePagePay(String appId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
+        alipayTradePagePayModel.validateAndThrow();
+        return callAlipayApi(appId, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
     }
 }
