@@ -8,13 +8,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class ConfigurationUtils {
-    private static Environment ENVIRONMENT;
+    private static Environment environment;
 
     private static Environment obtainEnvironment() {
-        if (ENVIRONMENT == null) {
-            ENVIRONMENT = ApplicationHandler.getBean(Environment.class);
+        if (environment == null) {
+            environment = ApplicationHandler.getBean(Environment.class);
         }
-        return ENVIRONMENT;
+        return environment;
     }
 
     public static String getConfiguration(String configurationKey) throws IOException {
