@@ -17,31 +17,31 @@ import java.util.Map;
  * Created by liuyandong on 2017/7/24.
  */
 public class ProxyUtils {
-    private static RestTemplate REST_TEMPLATE;
-    private static HttpHeaders HTTP_HEADERS;
-    private static HttpHeaders MULTIPART_HTTP_HEADERS;
+    private static RestTemplate restTemplate;
+    private static HttpHeaders httpHeaders;
+    private static HttpHeaders multipartHttpHeaders;
 
     public static RestTemplate obtainRestTemplate() {
-        if (REST_TEMPLATE == null) {
-            REST_TEMPLATE = ApplicationHandler.getBean(RestTemplate.class);
+        if (restTemplate == null) {
+            restTemplate = ApplicationHandler.getBean(RestTemplate.class);
         }
-        return REST_TEMPLATE;
+        return restTemplate;
     }
 
     public static HttpHeaders obtainHttpHeaders() {
-        if (MapUtils.isEmpty(HTTP_HEADERS)) {
-            HTTP_HEADERS = new HttpHeaders();
-            HTTP_HEADERS.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=" + Constants.CHARSET_NAME_UTF_8);
+        if (MapUtils.isEmpty(httpHeaders)) {
+            httpHeaders = new HttpHeaders();
+            httpHeaders.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=" + Constants.CHARSET_NAME_UTF_8);
         }
-        return HTTP_HEADERS;
+        return httpHeaders;
     }
 
     public static HttpHeaders obtainMultipartHttpHeaders() {
-        if (MapUtils.isEmpty(MULTIPART_HTTP_HEADERS)) {
-            MULTIPART_HTTP_HEADERS = new HttpHeaders();
-            MULTIPART_HTTP_HEADERS.add(Constants.CONTENT_TYPE, "multipart/form-data;boundary=" + WebUtils.BOUNDARY);
+        if (MapUtils.isEmpty(multipartHttpHeaders)) {
+            multipartHttpHeaders = new HttpHeaders();
+            multipartHttpHeaders.add(Constants.CONTENT_TYPE, "multipart/form-data;boundary=" + WebUtils.BOUNDARY);
         }
-        return MULTIPART_HTTP_HEADERS;
+        return multipartHttpHeaders;
     }
 
     public static String obtainUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
