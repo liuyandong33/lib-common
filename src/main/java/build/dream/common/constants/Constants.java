@@ -238,5 +238,5 @@ public class Constants {
 
     public static final String ALIPAY_GATEWAY_URL = "alipay.gateway.url";
 
-    public static final String DOMAIN_NAME = "domain.name";
+    public static final String HOME_URL = "home.url";
 }

@@ -9,12 +9,12 @@ import java.io.IOException;
  */
 public class SystemPartitionUtils {
     public static String getOutsideServiceDomain(String partitionCode, String serviceName) throws IOException {
-        String domainName = ConfigurationUtils.getConfiguration(Constants.DOMAIN_NAME);
-        return domainName + "/" + partitionCode + "-" + serviceName;
+        String homeUrl = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
+        return homeUrl + "/" + partitionCode + "-" + serviceName;
     }
 
     public static String getOutsideServiceDomain(String serviceName) throws IOException {
-        String domainName = ConfigurationUtils.getConfiguration(Constants.DOMAIN_NAME);
+        String domainName = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
         return domainName + "/" + serviceName;
     }
 
