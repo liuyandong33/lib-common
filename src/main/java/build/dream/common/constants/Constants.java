@@ -237,4 +237,6 @@ public class Constants {
     public static final int DEVICE_TYPE_IOS = 2;
 
     public static final String ALIPAY_GATEWAY_URL = "alipay.gateway.url";
+
+    public static final String DOMAIN_NAME = "domain.name";
 }
