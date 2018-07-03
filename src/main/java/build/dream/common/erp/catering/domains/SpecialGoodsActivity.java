@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -33,11 +34,11 @@ public class SpecialGoodsActivity extends BasicDomain {
     /**
      * 特价金额
      */
-    private BigDecimal specialPrice;
+    private BigDecimal specialPrice = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 折扣率
      */
-    private BigDecimal discountRate;
+    private BigDecimal discountRate = Constants.DECIMAL_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;

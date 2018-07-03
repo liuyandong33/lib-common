@@ -436,12 +436,13 @@ CREATE TABLE goods
     `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     `type` TINYINT NOT NULL COMMENT '商品名称，1-普通商品，2-套餐',
     category_id BIGINT NOT NULL COMMENT '商品分类',
-    image_url VARCHAR(200) COMMENT '商品图片url',
+    image_url VARCHAR(200) NOT NULL COMMENT '商品图片url',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品表';
 
@@ -454,12 +455,13 @@ CREATE TABLE goods_specification
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
-    price DECIMAL(11, 3) COMMENT '口味加价',
+    price DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品规格表';
 
@@ -476,7 +478,8 @@ CREATE TABLE goods_flavor_group
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品口味组';
 
@@ -490,12 +493,13 @@ CREATE TABLE goods_flavor
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     goods_flavor_group_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '口味组名称',
-    price DECIMAL(11, 3) COMMENT '口味加价',
+    price DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品口味';
 
@@ -517,7 +521,8 @@ CREATE TABLE activity
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '营销活动';
 
@@ -548,6 +553,7 @@ CREATE TABLE buy_give_activity
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '买A赠B活动';
 
@@ -560,13 +566,14 @@ CREATE TABLE full_reduction_activity
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_type TINYINT NOT NULL COMMENT '优惠方式，1-按金额优惠，2-按折扣率优惠',
-    discount_rate DECIMAL(5, 2) COMMENT '折扣率',
-    discount_amount DECIMAL(11, 3) COMMENT '折扣金额',
+    discount_rate DECIMAL(5, 2) NOT NULL COMMENT '折扣率',
+    discount_amount DECIMAL(11, 3) NOT NULL COMMENT '折扣金额',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '整单满减活动';
 
@@ -580,18 +587,20 @@ CREATE TABLE payment_activity
     paid_type TINYINT NOT NULL COMMENT '支付方式，1-微信支付，2-支付宝支付，3-现金支付',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_type TINYINT NOT NULL COMMENT '优惠方式，1-按金额优惠，2-按折扣率优惠',
-    discount_rate DECIMAL(5, 2) COMMENT '折扣率',
-    discount_amount DECIMAL(11, 3) COMMENT '折扣金额',
+    discount_rate DECIMAL(5, 2) NOT NULL COMMENT '折扣率',
+    discount_amount DECIMAL(11, 3) NOT NULL COMMENT '折扣金额',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付促销';
 
 DROP TABLE IF EXISTS special_goods_activity;
-CREATE TABLE special_goods_activity (
+CREATE TABLE special_goods_activity
+(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
@@ -599,13 +608,14 @@ CREATE TABLE special_goods_activity (
     goods_id BIGINT NOT NULL COMMENT '商品id',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
     discount_type TINYINT NOT NULL COMMENT '优惠方式，1-特价，2-折扣',
-    special_price DECIMAL(11, 3) COMMENT '特价金额',
-    discount_rate DECIMAL(5, 2) COMMENT '折扣率',
+    special_price DECIMAL(11, 3) NOT NULL COMMENT '特价金额',
+    discount_rate DECIMAL(5, 2) NOT NULL COMMENT '折扣率',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '特价商品活动';
 
@@ -777,7 +787,8 @@ CREATE TABLE goods_category
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品分类表';
 

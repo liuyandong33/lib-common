@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -29,11 +30,11 @@ public class FullReductionActivity extends BasicDomain {
     /**
      * 折扣率
      */
-    private BigDecimal discountRate;
+    private BigDecimal discountRate = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 折扣金额
      */
-    private BigDecimal discountAmount;
+    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;

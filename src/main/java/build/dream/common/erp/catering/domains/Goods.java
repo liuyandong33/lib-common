@@ -2,6 +2,7 @@ package build.dream.common.erp.catering.domains;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
@@ -36,7 +37,7 @@ public class Goods extends BasicDomain {
     /**
      * 图片路径
      */
-    private String imageUrl;
+    private String imageUrl = Constants.VARCHAR_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;

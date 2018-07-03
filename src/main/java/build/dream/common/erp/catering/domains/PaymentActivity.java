@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -29,11 +30,11 @@ public class PaymentActivity extends BasicDomain {
     /**
      * 优惠方式，1-按金额优惠，2-按折扣率优惠
      */
-    private Integer discountType;
+    private Integer discountType = Constants.DEVICE_TYPE_ANDROID;
     /**
      * 折扣率
      */
-    private BigDecimal discountRate;
+    private BigDecimal discountRate = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 折扣金额
      */
