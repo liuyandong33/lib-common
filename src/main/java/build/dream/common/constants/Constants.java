@@ -1,8 +1,11 @@
 package build.dream.common.constants;
 
+import build.dream.common.utils.DateUtils;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.util.Date;
 
 /**
  * Created by liuyandong on 2017/7/24.
@@ -239,4 +242,11 @@ public class Constants {
     public static final String ALIPAY_GATEWAY_URL = "alipay.gateway.url";
 
     public static final String HOME_URL = "home.url";
+
+    public static final int TINYINT_DEFAULT_VALUE = 0;
+    public static final int INT_DEFAULT_VALUE = 0;
+    public static final BigInteger BIGINT_DEFAULT_VALUE = BigInteger.ZERO;
+    public static final BigDecimal DECIMAL_DEFAULT_VALUE = BigDecimal.ZERO;
+    public static final Date DATETIME_DEFAULT_VALUE = DateUtils.parse("1970-01-01 00:00:00", DEFAULT_DATE_PATTERN);
+    public static final String VARCHAR_DEFAULT_VALUE = "";
 }

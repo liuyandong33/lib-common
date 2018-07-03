@@ -1,5 +1,7 @@
 package build.dream.common.basic;
 
+import build.dream.common.constants.Constants;
+
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -9,7 +11,8 @@ public class BasicDomain {
     private BigInteger createUserId;
     private Date lastUpdateTime;
     private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark;
+    private String lastUpdateRemark = Constants.VARCHAR_DEFAULT_VALUE;
+    private Date deleteTime;
     private boolean deleted;
 
     public BigInteger getId() {
@@ -58,6 +61,14 @@ public class BasicDomain {
 
     public void setLastUpdateRemark(String lastUpdateRemark) {
         this.lastUpdateRemark = lastUpdateRemark;
+    }
+
+    public Date getDeleteTime() {
+        return deleteTime;
+    }
+
+    public void setDeleteTime(Date deleteTime) {
+        this.deleteTime = deleteTime;
     }
 
     public boolean isDeleted() {
