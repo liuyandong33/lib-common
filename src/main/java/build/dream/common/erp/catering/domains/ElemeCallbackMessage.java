@@ -1,11 +1,13 @@
 package build.dream.common.erp.catering.domains;
 
+import build.dream.common.constants.Constants;
+
 import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeCallbackMessage {
     private BigInteger id;
-    private String orderId;
+    private String orderId = Constants.VARCHAR_DEFAULT_VALUE;
     private String requestId;
     private Integer type;
     private BigInteger appId;

@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class Vip extends BasicDomain {
     /**
      * 会员生日
      */
-    private Date birthday;
+    private Date birthday = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 会员电话号码
      */
@@ -37,23 +38,23 @@ public class Vip extends BasicDomain {
     /**
      * 微信open id
      */
-    private String openId;
+    private String openId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 主账号open id
      */
-    private String mainOpenId;
+    private String mainOpenId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 支付宝用户ID
      */
-    private String alipayUserId;
+    private String alipayUserId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 微信会员卡id
      */
-    private String cardId;
+    private String cardId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 微信会员卡编号
      */
-    private String userCardCode;
+    private String userCardCode = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 会员积分
      */

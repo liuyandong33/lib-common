@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
@@ -8,7 +9,7 @@ public class PackageGroupGoods extends BasicDomain {
     private BigInteger packageGroupId;
     private BigInteger goodsId;
     private BigInteger goodsSpecificationId;
-    private Integer quantity;
+    private Integer quantity = Constants.INT_DEFAULT_VALUE;
 
     public BigInteger getPackageGroupId() {
         return packageGroupId;

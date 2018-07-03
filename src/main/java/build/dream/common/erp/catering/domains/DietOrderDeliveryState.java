@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -33,43 +34,43 @@ public class DietOrderDeliveryState extends BasicDomain {
     /**
      * 蜂鸟配送员姓名
      */
-    private String carrierDriverName;
+    private String carrierDriverName = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * '蜂鸟配送员电话'
      */
-    private String carrierDriverPhone;
+    private String carrierDriverPhone = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 描述信息
      */
-    private String description;
+    private String description = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 配送站名字
      */
-    private String stationName;
+    private String stationName = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 配送站电话
      */
-    private String stationTel;
+    private String stationTel = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 订单取消原因. 1:用户取消, 2:商家取消
      */
-    private Integer cancelReason;
+    private Integer cancelReason = Constants.INT_DEFAULT_VALUE;
     /**
      * 错误编码
      */
-    private String errorCode;
+    private String errorCode = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 定点次日达服务独有的字段: 微仓地址
      */
-    private String address;
+    private String address = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 定点次日达服务独有的字段: 微仓经度
      */
-    private String longitude;
+    private String longitude = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 定点次日达服务独有的字段: 微仓纬度
      */
-    private String latitude;
+    private String latitude = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 消息推送时间
      */
