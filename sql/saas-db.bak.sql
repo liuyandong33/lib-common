@@ -28,7 +28,7 @@ CREATE TABLE configuration (
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '配置表';
 
@@ -45,25 +45,24 @@ CREATE TABLE tenant
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '商户表';
 
 DROP TABLE IF EXISTS `system_user`;
 CREATE TABLE `system_user`
 (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    id BIGINT NOT NULL  AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `name` VARCHAR(20) NOT NULL COMMENT '员工姓名',
-    mobile VARCHAR(20) NOT NULL COMMENT '手机号码',
-    email VARCHAR(20) NOT NULL COMMENT '邮箱',
-    `login_name` VARCHAR(20) NOT NULL COMMENT '登录名',
+    mobile VARCHAR(20) COMMENT '手机号码',
+    email VARCHAR(20) COMMENT '邮箱',
+    `login_name` VARCHAR(20) COMMENT '登录名',
     user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工，3-代理商',
     `password` VARCHAR(50) NOT NULL COMMENT '登录密码',
-    wei_xin_public_platform_open_id VARCHAR(50) NOT NULL COMMENT '微信公众平台open id',
-    wei_xin_open_platform_open_id VARCHAR(50) NOT NULL COMMENT '微信开放平台open id',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    agent_id BIGINT NOT NULL COMMENT '代理商ID',
+    wei_xin_public_platform_open_id VARCHAR(50) COMMENT '微信公众平台open id',
+    wei_xin_open_platform_open_id VARCHAR(50) COMMENT '微信开放平台open id',
+    tenant_id BIGINT COMMENT '商户ID',
+    agent_id BIGINT COMMENT '代理商ID',
     account_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有过期，1-没有过期，0-已经过期',
     account_non_locked TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有锁定，1-没有锁定，0-已经锁定',
     credentials_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户凭证是否没有过期，1-没有过期，0-已经过期',
@@ -72,8 +71,7 @@ CREATE TABLE `system_user`
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统用户表';
 
@@ -111,36 +109,34 @@ CREATE TABLE wei_xin_pay_account
     id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
-    app_id VARCHAR(50) NOT NULL COMMENT '微信公众平台app id',
+    app_id VARCHAR(50) COMMENT '微信公众平台app id',
     mch_id VARCHAR(50) NOT NULL COMMENT '微信支付商户号',
-    api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
-    sub_public_account_app_id VARCHAR(50) NOT NULL COMMENT '子商户的公众号app id',
-    sub_open_platform_app_id VARCHAR(50) NOT NULL COMMENT '子商户的开放平台app id',
-    sub_mini_program_app_id VARCHAR(50) NOT NULL COMMENT '子商户的小程序app id',
-    sub_mch_id VARCHAR(50) NOT NULL COMMENT '子商户商户号',
-    operation_certificate VARCHAR(5000) NOT NULL COMMENT '操作证书',
-    operation_certificate_password VARCHAR(20) NOT NULL COMMENT '操作证书密码',
-    rsa_public_key VARCHAR(500) NOT NULL COMMENT 'rsa 公钥',
+    api_secret_key VARCHAR(50) NOT NULL,
+    sub_public_account_app_id VARCHAR(50) COMMENT '子商户的公众号app id',
+    sub_open_platform_app_id VARCHAR(50) COMMENT '子商户的开放平台app id',
+    sub_mini_program_app_id VARCHAR(50) COMMENT '子商户的小程序app id',
+    sub_mch_id VARCHAR(50),
+    operation_certificate VARCHAR(5000) COMMENT '操作证书',
+    operation_certificate_password VARCHAR(20) COMMENT '操作证书密码',
+    rsa_public_key VARCHAR(500) COMMENT 'rsa 公钥',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
     create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信支付账号';
 
 DROP TABLE IF EXISTS alipay_account;
-CREATE TABLE alipay_account
-(
+CREATE TABLE alipay_account(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
     app_id VARCHAR(50) NOT NULL COMMENT '支付宝appid',
     partner_id VARCHAR(50) NOT NULL COMMENT '支付宝合作者ID',
-    store_id VARCHAR(50) NOT NULL COMMENT '支付宝门店ID',
+    store_id VARCHAR(50) COMMENT '支付宝门店ID',
     alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
     application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
     application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
@@ -149,29 +145,27 @@ CREATE TABLE alipay_account
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝账号';
 
 DROP TABLE IF EXISTS alipay_open_auth_token;
 CREATE TABLE alipay_open_auth_token
 (
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-	  app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
-	  app_auth_token VARCHAR(50) NOT NULL,
-	  user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
-	  auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
-	  expires_in INT NOT NULL COMMENT 'token 有效时间',
-	  re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
-	  app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
-	  create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
-	  create_user_id BIGINT NOT NULL COMMENT '创建人id',
-	  last_update_time DATETIME DEFAULT now() NOT NULL COMMENT '最后更新时间',
-	  last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-	  last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-	  deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+	id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+	app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
+	app_auth_token VARCHAR(50) NOT NULL,
+	user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
+	auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
+	expires_in INT NOT NULL COMMENT 'token 有效时间',
+	re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
+	app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
+	create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+	create_user_id BIGINT NOT NULL COMMENT '创建人id',
+	last_update_time DATETIME DEFAULT now() NOT NULL COMMENT '最后更新时间',
+	last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+	last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+	deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝token';
 
 DROP TABLE IF EXISTS notify_record;

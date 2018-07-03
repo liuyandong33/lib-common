@@ -1,20 +1,21 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
 public class SystemUser extends BasicDomain {
     private String name;
-    private String mobile;
-    private String email;
-    private String loginName;
+    private String mobile = Constants.VARCHAR_DEFAULT_VALUE;
+    private String email = Constants.VARCHAR_DEFAULT_VALUE;
+    private String loginName = Constants.VARCHAR_DEFAULT_VALUE;
     private String password;
-    private String weiXinPublicPlatformOpenId;
-    private String weiXinOpenPlatformOpenId;
+    private String weiXinPublicPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
+    private String weiXinOpenPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
     private Integer userType;
-    private BigInteger tenantId;
-    private BigInteger agentId;
+    private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
+    private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

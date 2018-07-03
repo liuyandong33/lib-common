@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
@@ -10,16 +11,16 @@ import java.math.BigInteger;
 public class WeiXinPayAccount extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
-    private String appId;
+    private String appId = Constants.VARCHAR_DEFAULT_VALUE;
     private String mchId;
     private String apiSecretKey;
-    private String subPublicAccountAppId;
-    private String subOpenPlatformAppId;
-    private String subMiniProgramAppId;
-    private String rsaPublicKey;
-    private String subMchId;
-    private String operationCertificate;
-    private String operationCertificatePassword;
+    private String subPublicAccountAppId = Constants.VARCHAR_DEFAULT_VALUE;
+    private String subOpenPlatformAppId = Constants.VARCHAR_DEFAULT_VALUE;
+    private String subMiniProgramAppId = Constants.VARCHAR_DEFAULT_VALUE;
+    private String rsaPublicKey = Constants.VARCHAR_DEFAULT_VALUE;
+    private String subMchId = Constants.VARCHAR_DEFAULT_VALUE;
+    private String operationCertificate = Constants.VARCHAR_DEFAULT_VALUE;
+    private String operationCertificatePassword = Constants.VARCHAR_DEFAULT_VALUE;
     private boolean acceptanceModel;
 
     public BigInteger getTenantId() {
