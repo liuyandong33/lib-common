@@ -43,7 +43,7 @@ public class DatabaseUtils {
                     continue;
                 }
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleteTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
 
