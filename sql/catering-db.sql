@@ -91,7 +91,7 @@ CREATE TABLE diet_order
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     paid_amount DECIMAL(11, 3) NOT NULL COMMENT '实付金额',
-    paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付，3-饿了么线上支付，4-美团线上支付',
+    paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
     remark VARCHAR(100) NOT NULL COMMENT '备注',
     delivery_address VARCHAR(255) NOT NULL COMMENT '配送地址',
     delivery_longitude VARCHAR(20) NOT NULL COMMENT '配送地址经度',
@@ -120,23 +120,24 @@ CREATE TABLE diet_order
 DROP TABLE IF EXISTS diet_order_group;
 CREATE TABLE diet_order_group
 (
-	  id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-	  tenant_id BIGINT NOT NULL COMMENT '商户ID',
-	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-	  diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
-	  name VARCHAR(20) NOT NULL COMMENT '组名',
-	  type VARCHAR(20) NOT NULL COMMENT 'normal-正常的菜品，extra-配送费等，discount-赠品',
-	  local_id VARCHAR(50) COMMENT '本地ID',
-	  local_diet_order_id VARCHAR(50) COMMENT '本地订单ID，local_diet_order.local_id',
-	  local_create_time DATETIME COMMENT '本地创建时间',
-	  local_last_update_time DATETIME COMMENT '本地最后更新时间',
-	  create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
-	  create_user_id BIGINT NOT NULL COMMENT '创建人id',
-	  last_update_time DATETIME DEFAULT now() ON UPDATE now() NOT NULL COMMENT '最后更新时间',
-	  last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-	  last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-	  deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
+    `name` VARCHAR(20) NOT NULL COMMENT '组名',
+    `type` VARCHAR(20) NOT NULL COMMENT 'normal-正常的菜品，extra-配送费等，discount-赠品',
+    local_id VARCHAR(50) NOT NULL COMMENT '本地ID',
+    local_diet_order_id VARCHAR(50) NOT NULL COMMENT '本地订单ID，local_diet_order.local_id',
+    local_create_time DATETIME NOT NULL COMMENT '本地创建时间',
+    local_last_update_time DATETIME NOT NULL COMMENT '本地最后更新时间',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME DEFAULT NOW() ON UPDATE NOW() NOT NULL COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '餐厅分组表';
 
 DROP TABLE IF EXISTS diet_order_detail;
