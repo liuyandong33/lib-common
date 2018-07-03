@@ -47,6 +47,22 @@ public class AlipayAccount extends BasicDomain {
      */
     private String signType;
 
+    public BigInteger getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
     public String getAccount() {
         return account;
     }
