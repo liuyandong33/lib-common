@@ -25,11 +25,9 @@ public class CommonUtils {
         return null;
     }
 
-    public static BigInteger getServiceSystemUserId(String serviceName) throws IOException {
-        String userId = ConfigurationUtils.getConfiguration(serviceName + ".user.id");
-        if (StringUtils.isNotBlank(userId)) {
-            return BigInteger.valueOf(Long.valueOf(userId));
-        }
-        return null;
+    public static BigInteger getServiceSystemUserId() throws IOException {
+        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        return getServiceSystemUserId(partitionCode, serviceName);
     }
 }
