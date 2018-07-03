@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -42,19 +43,19 @@ public class DietOrderPayment extends BasicDomain {
     /**
      * 本地ID
      */
-    private String localId;
+    private String localId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 本地订单ID
      */
-    private String localDietOrderId;
+    private String localDietOrderId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 本地创建时间
      */
-    private Date localCreateTime;
+    private Date localCreateTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 本地最后更新时间
      */
-    private Date localLastUpdateTime;
+    private Date localLastUpdateTime = Constants.DATETIME_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
