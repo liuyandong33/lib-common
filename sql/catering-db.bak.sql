@@ -5,7 +5,6 @@ CREATE TABLE merge_user_branch
     user_id BIGINT NOT NULL COMMENT '用户ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 0 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '用户与门店关联表';
 
@@ -30,18 +29,17 @@ CREATE TABLE branch
     latitude VARCHAR(20) NOT NULL COMMENT '纬度',
     linkman VARCHAR(20) NOT NULL COMMENT '联系人',
     contact_phone VARCHAR(20) NOT NULL COMMENT '联系电话',
-    eleme_account_type TINYINT NOT NULL COMMENT '1-连锁账号，2-独立账号',
-    shop_id BIGINT NOT NULL COMMENT '饿了么店铺ID',
+    eleme_account_type TINYINT COMMENT '1-连锁账号，2-独立账号',
+    shop_id BIGINT COMMENT '饿了么店铺ID',
     smart_restaurant_status TINYINT NOT NULL COMMENT '微餐厅状态，1-正常，2-禁用',
-    app_auth_token VARCHAR(50) NOT NULL COMMENT '门店绑定的授权token',
-    poi_id VARCHAR(10) NOT NULL COMMENT '美团门店ID',
-    poi_name VARCHAR(20) NOT NULL COMMENT '美团门店名称',
+    app_auth_token VARCHAR(50) COMMENT '门店绑定的授权token',
+    poi_id VARCHAR(10) COMMENT '美团门店ID',
+    poi_name VARCHAR(20) COMMENT '美团门店名称',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '门店表';
 
@@ -53,31 +51,28 @@ CREATE TABLE sequence
     increment INT(11) unsigned DEFAULT '1' NOT NULL COMMENT '每次增长的值'
 ) COMMENT '序列';
 
-DELIMITER $$
+DROP FUNCTION IF EXISTS current_value;
 CREATE FUNCTION current_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-DECLARE `value` INT;
-    SET VALUE = 0;
-    SELECT current_value INTO `value` FROM sequence WHERE `name` = sequence_name;
-    IF `value` = 0 THEN
-        SET `value` = 1;
-        INSERT INTO sequence(`name`, current_value) VALUES(sequence_name, `value`);
-    END IF;
-    RETURN VALUE;
-END$$
-DELIMITER ;
+    DECLARE value int;
+    SET value = 0;
+    SELECT current_value INTO value FROM sequence WHERE name = sequence_name;
+    IF value = 0 THEN
+        SET value = 1;
+        INSERT INTO sequence(name, current_value) VALUES(sequence_name, value);
+    END if;
+    return value;
+END;
 
-DELIMITER $$
+DROP FUNCTION IF EXISTS next_value;
 CREATE FUNCTION next_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-UPDATE sequence SET current_value = current_value + increment WHERE NAME = sequence_name;
-    RETURN current_value(sequence_name);
-END$$
-DELIMITER ;
+    UPDATE sequence SET current_value = current_value + increment where name = sequence_name;
+    return current_value(sequence_name);
+END ;
 
 DROP TABLE IF EXISTS diet_order;
-CREATE TABLE diet_order
-(
+CREATE TABLE diet_order(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
@@ -87,33 +82,32 @@ CREATE TABLE diet_order
     order_status TINYINT NOT NULL COMMENT '订单状态，1-订单未生效，2-订单已生效',
     pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
     refund_status TINYINT NOT NULL COMMENT '订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功',
-    total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
-    discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
-    payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
-    paid_amount DECIMAL(11, 3) NOT NULL COMMENT '实付金额',
-    paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付，3-饿了么线上支付，4-美团线上支付',
-    remark VARCHAR(100) NOT NULL COMMENT '备注',
-    delivery_address VARCHAR(255) NOT NULL COMMENT '配送地址',
-    delivery_longitude VARCHAR(20) NOT NULL COMMENT '配送地址经度',
-    delivery_latitude VARCHAR(20) NOT NULL COMMENT '配送地址纬度',
-    deliver_time DATETIME NOT NULL COMMENT '预计送达时间',
-    active_time DATETIME NOT NULL COMMENT '订单生效时间',
-    deliver_fee DECIMAL(11, 3) NOT NULL COMMENT '配送费',
-    telephone_number VARCHAR(20) NOT NULL COMMENT '联系电话',
-    day_serial_number VARCHAR(20) NOT NULL COMMENT '当日流水号',
-    consignee VARCHAR(20) NOT NULL COMMENT '收货人姓名',
+    total_amount DECIMAL(11, 3) COMMENT '总金额',
+    discount_amount DECIMAL(11, 3) COMMENT '优惠金额',
+    payable_amount DECIMAL(11, 3) COMMENT '应付金额',
+    paid_amount DECIMAL(11, 3) COMMENT '实付金额',
+    paid_type TINYINT COMMENT '支付类型，1-微信支付，2-支付宝支付，3-饿了么线上支付，4-美团线上支付',
+    remark VARCHAR(100) COMMENT '备注',
+    delivery_address VARCHAR(255) COMMENT '配送地址',
+    delivery_longitude VARCHAR(20) COMMENT '配送地址经度',
+    delivery_latitude VARCHAR(20) COMMENT '配送地址纬度',
+    deliver_time DATETIME COMMENT '预计送达时间',
+    active_time DATETIME COMMENT '订单生效时间',
+    deliver_fee DECIMAL(11, 3) COMMENT '配送费',
+    telephone_number VARCHAR(20) COMMENT '联系电话',
+    day_serial_number VARCHAR(20) COMMENT '当日流水号',
+    consignee VARCHAR(20) COMMENT '收货人姓名',
     invoiced TINYINT NOT NULL COMMENT '是否需要发票',
-    invoice_type VARCHAR(10) NOT NULL COMMENT '发票类型，personal-个人，company-企业',
-    invoice VARCHAR(30) NOT NULL COMMENT '发票抬头',
-    local_id VARCHAR(50) NOT NULL COMMENT '本地ID',
-    local_create_time DATETIME NOT NULL COMMENT '本地创建时间',
-    local_last_update_time DATETIME NOT NULL COMMENT '本地最后更新时间',
+    invoice_type VARCHAR(10) COMMENT '发票类型，personal-个人，company-企业',
+    invoice VARCHAR(30) COMMENT '发票抬头',
+    local_id VARCHAR(50) COMMENT '本地ID',
+    local_create_time DATETIME COMMENT '本地创建时间',
+    local_last_update_time DATETIME COMMENT '本地最后更新时间',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '餐厅订单';
 

@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -77,27 +78,27 @@ public class Branch extends BasicDomain {
     /**
      * 饿了么账号类型，1-连锁账号，2-独立账号
      */
-    private Integer elemeAccountType;
+    private Integer elemeAccountType = Constants.ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT;
     /**
      * 饿了么门店id
      */
-    private BigInteger shopId;
+    private BigInteger shopId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 微餐厅状态，1-正常，2-禁用
      */
-    private Integer smartRestaurantStatus;
+    private Integer smartRestaurantStatus = Constants.SMART_RESTAURANT_STATUS_DISABLED;
     /**
      * 美团门店绑定的授权token
      */
-    private String appAuthToken;
+    private String appAuthToken = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 美团门店id
      */
-    private String poiId;
+    private String poiId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 美团门店名称
      */
-    private String poiName;
+    private String poiName = Constants.VARCHAR_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;

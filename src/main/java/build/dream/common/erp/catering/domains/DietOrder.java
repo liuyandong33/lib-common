@@ -1,6 +1,7 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -42,55 +43,55 @@ public class DietOrder extends BasicDomain {
     /**
      * 总金额
      */
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount;
+    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount;
+    private BigDecimal payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 实付金额
      */
-    private BigDecimal paidAmount;
+    private BigDecimal paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 支付类型，1-微信支付，2-支付宝支付，3-饿了么线上支付，4-美团线上支付
      */
-    private Integer paidType;
+    private Integer paidType = Constants.INT_DEFAULT_VALUE;
     /**
      * 备注
      */
-    private String remark;
+    private String remark = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 配送地址
      */
-    private String deliveryAddress;
+    private String deliveryAddress = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 配送地址经度
      */
-    private String deliveryLongitude;
+    private String deliveryLongitude = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 配送地址纬度
      */
-    private String deliveryLatitude;
+    private String deliveryLatitude = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 预计送达时间
      */
-    private Date deliverTime;
+    private Date deliverTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 订单生效时间
      */
-    private Date activeTime;
+    private Date activeTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 配送费
      */
-    private BigDecimal deliverFee;
+    private BigDecimal deliverFee = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 联系电话
      */
-    private String telephoneNumber;
+    private String telephoneNumber = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 当日流水号
      */
@@ -98,7 +99,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 联系人
      */
-    private String consignee;
+    private String consignee = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 是否需要发票
      */
@@ -106,23 +107,23 @@ public class DietOrder extends BasicDomain {
     /**
      * 发票类型，personal-个人，company-企业
      */
-    private String invoiceType;
+    private String invoiceType = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 发票抬头
      */
-    private String invoice;
+    private String invoice = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 本地ID
      */
-    private String localId;
+    private String localId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 本地创建时间
      */
-    private Date localCreateTime;
+    private Date localCreateTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 本地最后更新时间
      */
-    private Date localLastUpdateTime;
+    private Date localLastUpdateTime = Constants.DATETIME_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;

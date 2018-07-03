@@ -12,7 +12,7 @@ public class BasicDomain {
     private Date lastUpdateTime;
     private BigInteger lastUpdateUserId;
     private String lastUpdateRemark = Constants.VARCHAR_DEFAULT_VALUE;
-    private Date deleteTime;
+    private Date deleteTime = Constants.DATETIME_DEFAULT_VALUE;
     private boolean deleted;
 
     public BigInteger getId() {
