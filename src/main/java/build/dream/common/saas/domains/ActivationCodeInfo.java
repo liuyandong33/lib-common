@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -17,15 +18,15 @@ public class ActivationCodeInfo extends BasicDomain {
     /**
      * 使用激活码订单id
      */
-    private BigInteger useOrderId;
+    private BigInteger useOrderId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 使用时间
      */
-    private Date useTime;
+    private Date useTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 过期时间
      */
-    private Date expireTime;
+    private Date expireTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 状态：1-未使用，2-已使用，3-已作废（已过期）
      */

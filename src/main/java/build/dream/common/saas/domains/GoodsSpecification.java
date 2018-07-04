@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -25,15 +26,15 @@ public class GoodsSpecification extends BasicDomain {
     /**
      * 续费时间
      */
-    private Integer renewalTime;
+    private Integer renewalTime = Constants.INT_DEFAULT_VALUE;
     /**
      * 商户价格
      */
-    private BigDecimal tenantPrice;
+    private BigDecimal tenantPrice = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 代理商价格
      */
-    private BigDecimal agentPrice;
+    private BigDecimal agentPrice = Constants.DECIMAL_DEFAULT_VALUE;
 
     public String getName() {
         return name;

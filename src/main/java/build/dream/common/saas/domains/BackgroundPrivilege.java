@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
@@ -9,11 +10,11 @@ public class BackgroundPrivilege extends BasicDomain {
     private String privilegeName;
     private Integer privilegeType;
     private String serviceName;
-    private String controllerName;
-    private String actionName;
+    private String controllerName = Constants.VARCHAR_DEFAULT_VALUE;
+    private String actionName = Constants.VARCHAR_DEFAULT_VALUE;
     private BigInteger parentId;
     private boolean hidden;
-    private String remark;
+    private String remark = Constants.VARCHAR_DEFAULT_VALUE;
 
     public String getPrivilegeCode() {
         return privilegeCode;

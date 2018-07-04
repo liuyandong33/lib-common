@@ -1,17 +1,18 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
 public class PosPrivilege extends BasicDomain {
     private String privilegeCode;
     private String privilegeName;
-    private String serviceName;
-    private String controllerName;
-    private String actionName;
+    private String serviceName = Constants.VARCHAR_DEFAULT_VALUE;
+    private String controllerName = Constants.VARCHAR_DEFAULT_VALUE;
+    private String actionName = Constants.VARCHAR_DEFAULT_VALUE;
     private BigInteger parentId;
-    private String remark;
+    private String remark = Constants.VARCHAR_DEFAULT_VALUE;
 
     public String getPrivilegeCode() {
         return privilegeCode;

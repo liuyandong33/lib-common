@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,31 +22,31 @@ public class OrderInfo extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 代理商ID
      */
-    private BigInteger agentId;
+    private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 总金额
      */
-    private BigDecimal totalAmount;
+    private BigDecimal totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount;
+    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount;
+    private BigDecimal payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 实付金额
      */
-    private BigDecimal paidAmount;
+    private BigDecimal paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 付款类型，1-微信支付，2-支付宝支付
      */
-    private Integer paidType;
+    private Integer paidType = Constants.INT_DEFAULT_VALUE;
 
     public String getOrderNumber() {
         return orderNumber;

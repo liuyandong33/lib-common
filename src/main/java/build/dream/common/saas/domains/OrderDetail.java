@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -29,7 +30,7 @@ public class OrderDetail extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private BigInteger branchId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 单价
      */

@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 public class GoodsType extends BasicDomain {
     /**
@@ -10,7 +11,7 @@ public class GoodsType extends BasicDomain {
     /**
      * 描述
      */
-    private String description;
+    private String description = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 该类型下是否只能有一个产品
      */
@@ -18,11 +19,11 @@ public class GoodsType extends BasicDomain {
     /**
      * 续费时执行的sql
      */
-    private String renewSql;
+    private String renewSql = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 过期时执行的sql
      */
-    private String disableSql;
+    private String disableSql = Constants.VARCHAR_DEFAULT_VALUE;
 
     public String getName() {
         return name;

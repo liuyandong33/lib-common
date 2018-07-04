@@ -1,6 +1,7 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -17,15 +18,15 @@ public class SaleFlow extends BasicDomain {
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 门店id
      */
-    private BigInteger branchId;
+    private BigInteger branchId = Constants.BIGINT_DEFAULT_VALUE;;
     /**
      * 代理商id
      */
-    private BigInteger agentId;
+    private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;;
     /**
      * 流水产生时间
      */
