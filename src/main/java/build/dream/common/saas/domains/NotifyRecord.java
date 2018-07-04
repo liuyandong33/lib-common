@@ -1,48 +1,38 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
-
-import java.math.BigInteger;
+import build.dream.common.constants.Constants;
 
 public class NotifyRecord extends BasicDomain {
-    private BigInteger tenantId;
-    private BigInteger branchId;
-    private String orderNumber;
-    private String refundOrderNumber;
+    private String uuid;
     private String notifyUrl;
+    private String alipayPublicKey = Constants.VARCHAR_DEFAULT_VALUE;
+    private String alipaySignType = Constants.VARCHAR_DEFAULT_VALUE;
     private Integer notifyResult;
     private String externalSystemNotifyRequestBody;
 
-    public BigInteger getTenantId() {
-        return tenantId;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
-    public BigInteger getBranchId() {
-        return branchId;
+    public String getAlipayPublicKey() {
+        return alipayPublicKey;
     }
 
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
+    public void setAlipayPublicKey(String alipayPublicKey) {
+        this.alipayPublicKey = alipayPublicKey;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public String getAlipaySignType() {
+        return alipaySignType;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public String getRefundOrderNumber() {
-        return refundOrderNumber;
-    }
-
-    public void setRefundOrderNumber(String refundOrderNumber) {
-        this.refundOrderNumber = refundOrderNumber;
+    public void setAlipaySignType(String alipaySignType) {
+        this.alipaySignType = alipaySignType;
     }
 
     public String getNotifyUrl() {

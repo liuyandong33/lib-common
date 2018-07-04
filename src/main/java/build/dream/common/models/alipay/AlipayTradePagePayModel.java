@@ -18,17 +18,17 @@ public class AlipayTradePagePayModel extends BasicModel {
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
-    private String out_trade_no;
+    private String outTradeNo;
 
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "product_code", alternate = "productCode")
-    private String product_code;
+    private String productCode;
 
     @NotNull
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
-    @SerializedName(value = "total_amount", alternate = "totalAmount")
+    @SerializedName(value = "totalAmount", alternate = "totalAmount")
     private BigDecimal totalAmount;
 
     @NotNull
@@ -70,20 +70,20 @@ public class AlipayTradePagePayModel extends BasicModel {
     @SerializedName(value = "qrcode_width", alternate = "qrcodeWidth")
     private String qrcodeWidth;
 
-    public String getOut_trade_no() {
-        return out_trade_no;
+    public String getOutTradeNo() {
+        return outTradeNo;
     }
 
-    public void setOut_trade_no(String out_trade_no) {
-        this.out_trade_no = out_trade_no;
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 
-    public String getProduct_code() {
-        return product_code;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setProduct_code(String product_code) {
-        this.product_code = product_code;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public BigDecimal getTotalAmount() {
