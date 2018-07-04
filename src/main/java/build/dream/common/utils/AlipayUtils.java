@@ -46,8 +46,8 @@ public class AlipayUtils {
         return SignatureUtils.verifySign(originalString.getBytes(charset), Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signType);
     }
 
-    public static AlipayAccount obtainAlipayAccount(String appId) {
-        String alipayAccountJson = CacheUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
+    public static AlipayAccount obtainAlipayAccount(String tenantId, String branchId) {
+        String alipayAccountJson = CacheUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, tenantId + "_" + branchId);
         AlipayAccount alipayAccount = null;
         if (StringUtils.isNotBlank(alipayAccountJson)) {
             alipayAccount = GsonUtils.fromJson(alipayAccountJson, AlipayAccount.class);
@@ -112,32 +112,32 @@ public class AlipayUtils {
         return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static JSONObject alipayTradePay(String appId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
+    public static JSONObject alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
         alipayTradePayModel.validateAndThrow();
         AlipayAccount alipayAccount = null;
         if (StringUtils.isNotBlank(notifyUrl)) {
-            alipayAccount = saveNotifyRecord(appId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
+            alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
         } else {
-            alipayAccount = obtainAlipayAccount(appId);
+            alipayAccount = obtainAlipayAccount(tenantId, branchId);
             Validate.notNull(alipayAccount, "未配置支付宝账号！");
         }
         return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
     }
 
-    public static String alipayTradeWapPay(String appId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
+    public static String alipayTradeWapPay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
         alipayTradeWapPayModel.validateAndThrow();
-        AlipayAccount alipayAccount = saveNotifyRecord(appId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
+        AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
         return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
     }
 
-    public static JSONObject alipayTradePagePay(String appId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
+    public static JSONObject alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
         alipayTradePagePayModel.validateAndThrow();
-        AlipayAccount alipayAccount = saveNotifyRecord(appId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
+        AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
         return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
     }
 
-    private static AlipayAccount saveNotifyRecord(String appId, String uuid, String notifyUrl) throws IOException {
-        AlipayAccount alipayAccount = obtainAlipayAccount(appId);
+    private static AlipayAccount saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) throws IOException {
+        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
         ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
 
         Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
