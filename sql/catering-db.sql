@@ -57,20 +57,20 @@ DELIMITER $$
 CREATE FUNCTION current_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
 DECLARE `value` INT;
-    SET VALUE = 0;
+    SET `value` = 0;
     SELECT current_value INTO `value` FROM sequence WHERE `name` = sequence_name;
     IF `value` = 0 THEN
         SET `value` = 1;
         INSERT INTO sequence(`name`, current_value) VALUES(sequence_name, `value`);
     END IF;
-    RETURN VALUE;
+    RETURN `value`;
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE FUNCTION next_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-UPDATE sequence SET current_value = current_value + increment WHERE NAME = sequence_name;
+UPDATE sequence SET current_value = current_value + increment WHERE `name` = sequence_name;
     RETURN current_value(sequence_name);
 END$$
 DELIMITER ;

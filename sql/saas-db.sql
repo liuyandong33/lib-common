@@ -85,25 +85,27 @@ CREATE TABLE sequence
     increment INT(11) unsigned DEFAULT '1' NOT NULL COMMENT '每次增长的值'
 );
 
-DROP FUNCTION IF EXISTS current_value;
+DELIMITER $$
 CREATE FUNCTION current_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-    DECLARE value int;
-    SET value = 0;
-    SELECT current_value INTO value FROM sequence WHERE name = sequence_name;
-    IF value = 0 THEN
-        SET value = 1;
-        INSERT INTO sequence(name, current_value) VALUES(sequence_name, value);
-    END if;
-    return value;
-END;
+DECLARE `value` INT;
+    SET `value` = 0;
+    SELECT current_value INTO `value` FROM sequence WHERE `name` = sequence_name;
+    IF `value` = 0 THEN
+        SET `value` = 1;
+        INSERT INTO sequence(`name`, current_value) VALUES(sequence_name, `value`);
+    END IF;
+    RETURN `value`;
+END$$
+DELIMITER ;
 
-DROP FUNCTION IF EXISTS next_value;
+DELIMITER $$
 CREATE FUNCTION next_value(sequence_name VARCHAR(50)) RETURNS INT(11)
 BEGIN
-    UPDATE sequence SET current_value = current_value + increment where name = sequence_name;
-    return current_value(sequence_name);
-END ;
+UPDATE sequence SET current_value = current_value + increment WHERE `name` = sequence_name;
+    RETURN current_value(sequence_name);
+END$$
+DELIMITER ;
 
 DROP TABLE IF EXISTS wei_xin_pay_account;
 CREATE TABLE wei_xin_pay_account
