@@ -249,4 +249,11 @@ public class Constants {
     public static final BigDecimal DECIMAL_DEFAULT_VALUE = BigDecimal.ZERO;
     public static final Date DATETIME_DEFAULT_VALUE = DateUtils.parse("1970-01-01 00:00:00", DEFAULT_DATE_PATTERN);
     public static final String VARCHAR_DEFAULT_VALUE = "";
+
+    public static final String MD5 = "MD5";
+    public static final String HMAC_SHA256 = "HMAC_SHA256";
+    public static final String CDATA_FORMAT = "<![CDATA[%s]]>";
+
+    public static final String WEI_XIN_PAY_API_URL = "wei.xin.pay.api.url";
+    public static final String WEI_XIN_PAY_MICRO_PAY_URI = "/pay/micropay";
 }

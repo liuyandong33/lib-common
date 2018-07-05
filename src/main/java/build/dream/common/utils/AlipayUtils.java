@@ -85,7 +85,7 @@ public class AlipayUtils {
 
     public static String callAlipayApi(String requestBody) throws IOException {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
-        return OutUtils.doPost(alipayGatewayUrl, requestBody, null);
+        return OutUtils.doPost(alipayGatewayUrl, requestBody, null, null, null);
     }
 
     public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {

@@ -24,13 +24,18 @@ public class OutUtils {
     }
 
     public static String doPost(String url, String requestBody, Map<String, String> headers) throws IOException {
+        return doPost(url, requestBody, headers, null, null);
+    }
+
+    public static String doPost(String url, String requestBody, Map<String, String> headers, String certificate, String password) throws IOException {
         Map<String, String> doPostRequestParameters = new HashMap<String, String>();
         doPostRequestParameters.put("url", url);
         doPostRequestParameters.put("requestBody", requestBody);
         if (MapUtils.isNotEmpty(headers)) {
             doPostRequestParameters.put("headers", GsonUtils.toJson(headers));
         }
-
+        ApplicationHandler.ifNotBlankPut(doPostRequestParameters, "certificate", certificate);
+        ApplicationHandler.ifNotBlankPut(doPostRequestParameters, "password", password);
         ApiRest doPostApiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_OUT, "proxy", "doPost", doPostRequestParameters);
         Validate.isTrue(doPostApiRest.isSuccessful(), doPostApiRest.getError());
         return doPostApiRest.getData().toString();

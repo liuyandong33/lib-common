@@ -1,15 +1,21 @@
 package build.dream.common.models.weixin;
 
-import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
+import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
 public class MicroPayModel extends BasicModel {
+    private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
+    private static final String[] FEE_TYPES = {"CNY"};
     @Length(max = 32)
     private String deviceInfo;
+
+    private String signType;
 
     @NotNull
     @Length(max = 128)
@@ -28,7 +34,6 @@ public class MicroPayModel extends BasicModel {
     @NotNull
     private Integer totalFee;
 
-    @InList(value = {"CNY"})
     private String feeType;
 
     @NotNull
@@ -40,6 +45,12 @@ public class MicroPayModel extends BasicModel {
 
     @Length(max = 32)
     private String limitPay;
+
+    @Length(min = 14, max = 14)
+    private String timeStart;
+
+    @Length(min = 14, max = 14)
+    private String timeExpire;
 
     @NotNull
     @Length(max = 128)
@@ -53,6 +64,14 @@ public class MicroPayModel extends BasicModel {
 
     public void setDeviceInfo(String deviceInfo) {
         this.deviceInfo = deviceInfo;
+    }
+
+    public String getSignType() {
+        return signType;
+    }
+
+    public void setSignType(String signType) {
+        this.signType = signType;
     }
 
     public String getBody() {
@@ -127,6 +146,22 @@ public class MicroPayModel extends BasicModel {
         this.limitPay = limitPay;
     }
 
+    public String getTimeStart() {
+        return timeStart;
+    }
+
+    public void setTimeStart(String timeStart) {
+        this.timeStart = timeStart;
+    }
+
+    public String getTimeExpire() {
+        return timeExpire;
+    }
+
+    public void setTimeExpire(String timeExpire) {
+        this.timeExpire = timeExpire;
+    }
+
     public String getAuthCode() {
         return authCode;
     }
@@ -137,6 +172,20 @@ public class MicroPayModel extends BasicModel {
 
     public SceneInfoModel getSceneInfoModel() {
         return sceneInfoModel;
+    }
+
+    @Override
+    public boolean validate() {
+        return super.validate() && ArrayUtils.contains(SIGN_TYPES, signType) && (StringUtils.isNotBlank(feeType) ? ArrayUtils.contains(FEE_TYPES, feeType) : true);
+    }
+
+    @Override
+    public void validateAndThrow() {
+        super.validateAndThrow();
+        ApplicationHandler.inArray(SIGN_TYPES, signType, "signType");
+        if (StringUtils.isNotBlank(feeType)) {
+            ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
+        }
     }
 
     public void setSceneInfoModel(SceneInfoModel sceneInfoModel) {
