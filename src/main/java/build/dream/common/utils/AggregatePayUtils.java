@@ -14,7 +14,7 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 
 public class AggregatePayUtils {
-    public static JSONObject scanCodePay(int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public static JSONObject scanCodePay(String tenantId, String branchId, int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, InvalidKeyException, SignatureException {
         JSONObject result = null;
         if (channelType == Constants.CHANNEL_TYPE_WEI_XIN) {
             AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
@@ -25,7 +25,7 @@ public class AggregatePayUtils {
             alipayTradePayModel.setTotalAmount(BigDecimal.valueOf(totalAmount).divide(BigDecimal.valueOf(100)).toString());
 
             String appId = null;
-            result = AlipayUtils.alipayTradePay(appId, notifyUrl, null, alipayTradePayModel);
+            result = AlipayUtils.alipayTradePay(tenantId, branchId, notifyUrl, null, alipayTradePayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
             MicroPayModel microPayModel = new MicroPayModel();
             microPayModel.setBody(subject);
