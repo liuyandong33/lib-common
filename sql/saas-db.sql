@@ -185,6 +185,8 @@ CREATE TABLE notify_record
     alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
     alipay_sign_type ENUM('RSA', 'RSA2') NOT NULL COMMENT '签名方式',
     notify_result TINYINT not null COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
+    wei_xin_pay_api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
+    wei_xin_pay_sign_type ENUM('MD5', 'HMAC-SHA256') NOT NULL COMMENT '微信支付签名方式',
     external_system_notify_request_body TEXT not null COMMENT '外部系统异步通知请求参数',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
