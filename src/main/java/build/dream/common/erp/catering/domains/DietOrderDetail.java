@@ -1,5 +1,6 @@
 package build.dream.common.erp.catering.domains;
 
+import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
@@ -108,6 +109,12 @@ public class DietOrderDetail extends BasicDomain {
      * 本地最后更新时间
      */
     private Date localLastUpdateTime = Constants.DATETIME_DEFAULT_VALUE;
+
+    /**
+     * 优惠分摊金额，不映射数据库字段，方便计算整单优惠分摊
+     */
+    @Transient
+    private BigDecimal discountShare;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -307,6 +314,14 @@ public class DietOrderDetail extends BasicDomain {
 
     public void setLocalLastUpdateTime(Date localLastUpdateTime) {
         this.localLastUpdateTime = localLastUpdateTime;
+    }
+
+    public BigDecimal getDiscountShare() {
+        return discountShare;
+    }
+
+    public void setDiscountShare(BigDecimal discountShare) {
+        this.discountShare = discountShare;
     }
 
     public static class Builder {
