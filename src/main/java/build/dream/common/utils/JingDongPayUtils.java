@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.WebResponse;
 import build.dream.common.models.jingdong.FkmPayModel;
 import build.dream.common.models.jingdong.UniOrderModel;
 import net.sf.json.JSONObject;
@@ -50,7 +51,8 @@ public class JingDongPayUtils {
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("content-type", "application/xml");
-        String result = WebUtils.doPostWithRequestBody(url, headers, requestBody.toString(), null);
+        WebResponse webResponse = WebUtils.doPostWithRequestBody(url, headers, requestBody.toString(), null);
+        String result = webResponse.getResult();
         Document document = DocumentHelper.parseText(result);
         Element rootElement = document.getRootElement();
         Element resultElement = rootElement.element("result");

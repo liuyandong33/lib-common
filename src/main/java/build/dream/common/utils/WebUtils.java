@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
@@ -35,32 +36,33 @@ public class WebUtils {
     public static final String BOUNDARY = UUID.randomUUID().toString();
     public static final String ENTER_NEW_LINE = "\r\n";
 
-    public static String doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
         return doGetWithRequestParameters(requestUrl, null, requestParameters);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doGetWithRequestParameters(requestUrl, null, requestParameters, charsetName);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
         return doGetWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doGetWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, charsetName);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
         return doGetWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doGetWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, charsetName);
     }
 
-    public static String doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
         String result = null;
+        Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
         try {
             if (MapUtils.isNotEmpty(requestParameters)) {
@@ -74,6 +76,7 @@ public class WebUtils {
                 return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -81,35 +84,36 @@ public class WebUtils {
             }
             throw e;
         }
-        return result;
+        return new WebResponse(result, headerFields);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
         return doPostWithRequestParameters(requestUrl, null, requestParameters);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParameters(requestUrl, null, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
         return doPostWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
         return doPostWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
         String result = null;
+        Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
         try {
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
@@ -124,6 +128,7 @@ public class WebUtils {
                 return doPostWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -131,35 +136,36 @@ public class WebUtils {
             }
             throw e;
         }
-        return result;
+        return new WebResponse(result, headerFields);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, null, requestParameters);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, null, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, null, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, null, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
         return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, headers, requestParameters, charsetName);
     }
 
-    public static String doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
+    public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
         String result = null;
+        Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
         httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
         try {
@@ -178,6 +184,7 @@ public class WebUtils {
                 return doPostWithRequestParametersAndFiles(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -185,39 +192,40 @@ public class WebUtils {
             }
             throw e;
         }
-        return result;
+        return new WebResponse(result, headerFields);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
         return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
         return doPostWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName, sslSocketFactory);
     }
 
-    public static String doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+    public static WebResponse doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
         String result = null;
+        Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
         try {
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory);
@@ -231,6 +239,7 @@ public class WebUtils {
                 return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
             if (httpURLConnection != null) {
@@ -238,7 +247,7 @@ public class WebUtils {
             }
             throw e;
         }
-        return result;
+        return new WebResponse(result, headerFields);
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers, String charsetName) {

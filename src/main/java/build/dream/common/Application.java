@@ -1,5 +1,7 @@
 package build.dream.common;
 
+import build.dream.common.beans.WebResponse;
+import build.dream.common.utils.GsonUtils;
 import build.dream.common.utils.WebUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
@@ -31,7 +33,7 @@ public class Application extends ClassLoader {
         requestParameters.put("type", "log");
         requestParameters.put("from", "0");
         requestParameters.put("to", String.valueOf(System.currentTimeMillis() / 1000));
-        requestParameters.put("line", "100");
+        requestParameters.put("line", "20");
         requestParameters.put("offset", "0");
 
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>(requestParameters);
@@ -49,7 +51,7 @@ public class Application extends ClassLoader {
             }
         }
 
-        String signatureString = "GET" + "\n" + "\n" + "\n" + dateString + "\n" + StringUtils.join(canonicalizedLOGHeaders, "\n") + "\n/logstores/logback?" + StringUtils.join(canonicalizedResource, "&");
+        String signatureString = "GET" + "\n" + "\n" + "\n" + dateString + "\n" + StringUtils.join(canonicalizedLOGHeaders, "\n") + "\n/logstores/testlog?" + StringUtils.join(canonicalizedResource, "&");
 
         String accessKeyId = "LTAIzWtJmkzU0Uex";
         String accessKeySecret = "6XIiGAie3fEPoUIhQpZMsXuPa80bwT";
@@ -57,8 +59,11 @@ public class Application extends ClassLoader {
 
         headers.put("Authorization", "LOG " + accessKeyId + ":" + signature);
 
-        String result = WebUtils.doGetWithRequestParameters("http://logback.cn-qingdao.log.aliyuncs.com/logstores/logback", headers, requestParameters);
-//        String result = WebUtils.doGetWithRequestParameters("http://localhost:9090/onlineDietOrder/autoFinishOrder", headers, requestParameters);
+        WebResponse webResponse = WebUtils.doGetWithRequestParameters("http://logback.cn-qingdao.log.aliyuncs.com/logstores/testlog", headers, requestParameters);
+        String result = webResponse.getResult();
+        Map<String, List<String>> responseHeaders = webResponse.getHeaders();
+
+        System.out.println(GsonUtils.toJson(responseHeaders));
         System.out.println(result);
     }
 }
