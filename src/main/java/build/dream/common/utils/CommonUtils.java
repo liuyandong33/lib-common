@@ -5,6 +5,8 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CommonUtils {
     public static String getServiceName(String business) {
@@ -57,5 +59,13 @@ public class CommonUtils {
     public static String getUrl(String serviceName, String controllerName, String actionName) throws IOException {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
         return "http://" + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
+    }
+
+    public static Map<String, Object> obtainTenantInfo(String tenantId, String tenantCode) {
+        Map<String, Object> tenantInfo = new HashMap<String, Object>();
+        tenantInfo.put("id", BigInteger.ONE);
+        tenantInfo.put("code", "61011888");
+        tenantInfo.put("partitionCode", "zd1");
+        return tenantInfo;
     }
 }
