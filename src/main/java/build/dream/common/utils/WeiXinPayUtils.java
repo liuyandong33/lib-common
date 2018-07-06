@@ -141,6 +141,7 @@ public class WeiXinPayUtils {
         Map<String, String> unifiedOrderRequestParameters = new HashMap<String, String>();
         unifiedOrderRequestParameters.put("appid", weiXinPayAccount.getAppId());
         unifiedOrderRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "device_info", unifiedOrderModel.getDeviceInfo());
         unifiedOrderRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
 
@@ -169,6 +170,25 @@ public class WeiXinPayUtils {
 
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "product_id", unifiedOrderModel.getProductId());
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "limit_pay", unifiedOrderModel.getLimitPay());
+
+        if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType)) {
+            String openId = unifiedOrderModel.getOpenId();
+            if (weiXinPayAccount.isAcceptanceModel()) {
+                String subOpenId = unifiedOrderModel.getSubOpenId();
+                ApplicationHandler.isTrue(StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(subOpenId), "参数openId和subOpenId不能同时为空！");
+                if (StringUtils.isNotBlank(subOpenId)) {
+                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号！");
+                }
+
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
+                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
+            } else {
+                ApplicationHandler.notBlank(openId, "openId");
+                unifiedOrderRequestParameters.put("openid", openId);
+            }
+        }
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
 
         UnifiedOrderModel.SceneInfoModel sceneInfoModel = unifiedOrderModel.getSceneInfoModel();

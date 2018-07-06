@@ -69,6 +69,9 @@ public class UnifiedOrderModel extends BasicModel {
     @Length(max = 128)
     private String openId;
 
+    @Length(max = 128)
+    private String subOpenId;
+
     private SceneInfoModel sceneInfoModel;
 
     public BigInteger getUserId() {
@@ -213,6 +216,14 @@ public class UnifiedOrderModel extends BasicModel {
 
     public void setOpenId(String openId) {
         this.openId = openId;
+    }
+
+    public String getSubOpenId() {
+        return subOpenId;
+    }
+
+    public void setSubOpenId(String subOpenId) {
+        this.subOpenId = subOpenId;
     }
 
     public SceneInfoModel getSceneInfoModel() {
