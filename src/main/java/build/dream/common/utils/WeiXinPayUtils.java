@@ -177,7 +177,7 @@ public class WeiXinPayUtils {
                 String subOpenId = unifiedOrderModel.getSubOpenId();
                 ApplicationHandler.isTrue(StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(subOpenId), "参数openId和subOpenId不能同时为空！");
                 if (StringUtils.isNotBlank(subOpenId)) {
-                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号！");
+                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
                 }
 
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
@@ -188,8 +188,34 @@ public class WeiXinPayUtils {
                 ApplicationHandler.notBlank(openId, "openId");
                 unifiedOrderRequestParameters.put("openid", openId);
             }
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType)) {
+
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
+            if (weiXinPayAccount.isAcceptanceModel()) {
+                ValidateUtils.notBlank(weiXinPayAccount.getSubOpenPlatformAppId(), "支付账号未配置微信开放平台APPID！");
+                unifiedOrderRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
+                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+            }
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType)) {
+
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
+            String openId = unifiedOrderModel.getOpenId();
+            if (weiXinPayAccount.isAcceptanceModel()) {
+                ValidateUtils.notBlank(weiXinPayAccount.getSubMiniProgramAppId(), "支付账号未配置小程序APPID！");
+                unifiedOrderRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
+                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+
+                String subOpenId = unifiedOrderModel.getSubOpenId();
+                if (StringUtils.isNotBlank(subOpenId)) {
+                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
+                }
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
+            } else {
+                ApplicationHandler.notBlank(openId, "openId");
+                unifiedOrderRequestParameters.put("openid", openId);
+            }
         }
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
 
         UnifiedOrderModel.SceneInfoModel sceneInfoModel = unifiedOrderModel.getSceneInfoModel();
         if (sceneInfoModel != null) {
