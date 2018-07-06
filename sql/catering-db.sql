@@ -636,10 +636,16 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         activity.type,
         activity.status,
         buy_give_activity.buy_goods_id AS goods_id,
+        buy_goods.name AS goods_name,
         buy_give_activity.buy_goods_specification_id AS goods_specification_id,
+        buy_goods_specification.name AS goods_specification_name,
+        buy_goods_specification.price,
         buy_give_activity.buy_quantity,
         buy_give_activity.give_goods_id,
+        give_goods.name AS give_goods_name,
         buy_give_activity.give_goods_specification_id,
+        give_goods_specification.name AS give_goods_specification_name,
+        give_goods_specification.price AS give_price,
         buy_give_activity.give_quantity,
         NULL AS total_amount,
         NULL AS discount_type,
@@ -650,6 +656,11 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         FROM activity
         INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
         INNER JOIN buy_give_activity ON buy_give_activity.activity_id = activity.id
+        INNER JOIN goods AS buy_goods ON buy_goods.id = buy_give_activity.buy_goods_id AND buy_goods.deleted = 0
+        INNER JOIN goods_specification AS buy_goods_specification ON buy_goods_specification.id = buy_give_activity.buy_goods_specification_id AND buy_goods_specification.deleted = 0
+        INNER JOIN goods AS give_goods ON give_goods.id = buy_give_activity.give_goods_id AND give_goods.deleted = 0
+        INNER JOIN goods_specification AS give_goods_specification ON give_goods_specification.id = buy_give_activity.give_goods_specification_id AND give_goods_specification.deleted = 0
+        INNER JOIN goods_category ON goods_category.id = give_goods.category_id AND goods_category.deleted = 0
         WHERE activity.deleted = 0
         AND activity.type = 1
         AND activity.start_date <= DATE(NOW())
@@ -673,10 +684,16 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         activity.type,
         activity.status,
         NULL AS goods_id,
+        NULL AS goods_name,
         NULL AS goods_specification_id,
+        NULL AS goods_specification_name,
+        NULL AS price,
         NULL AS buy_quantity,
         NULL AS give_goods_id,
+        NULL AS give_goods_name,
         NULL AS give_goods_specification_id,
+        NULL AS give_goods_specification_name,
+        NULL AS give_price,
         NULL AS give_quantity,
         full_reduction_activity.total_amount,
         full_reduction_activity.discount_type,
@@ -710,10 +727,16 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         activity.type,
         activity.status,
         special_goods_activity.goods_id,
+        goods.name AS goods_name,
         special_goods_activity.goods_specification_id,
+        goods_specification.name AS goods_specification_name,
+        NULL AS price,
         NULL AS buy_quantity,
         NULL AS give_goods_id,
+        NULL AS give_goods_name,
         NULL AS give_goods_specification_id,
+        NULL AS give_goods_specification_name,
+        NULL AS give_price,
         NULL AS give_quantity,
         NULL AS total_amount,
         special_goods_activity.discount_type,
@@ -724,6 +747,8 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         FROM activity
         INNER JOIN activity_branch_r ON activity_branch_r.activity_id = activity.id AND activity_branch_r.tenant_id = tenant_id AND activity_branch_r.branch_id = branch_id
         INNER JOIN special_goods_activity ON special_goods_activity.activity_id = activity.id
+        INNER JOIN goods ON goods.id = special_goods_activity.goods_id AND goods.deleted = 0
+        INNER JOIN goods_specification ON goods_specification.id = special_goods_activity.goods_specification_id AND goods_specification.deleted = 0
         WHERE activity.deleted = 0
         AND activity.type = 3
         AND activity.start_date <= DATE(NOW())
@@ -733,7 +758,7 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         AND activity.status = 2
         AND activity.tenant_id = tenant_id
         AND (CASE (DAYOFWEEK(NOW())) WHEN 2 THEN week_sign % 2 = 0 WHEN 3 THEN week_sign % 3 = 0 WHEN 4 THEN week_sign % 5 = 0 WHEN 5 THEN week_sign % 7 = 0 WHEN 6 THEN week_sign % 11 = 0 WHEN 7 THEN week_sign % 13 = 0 WHEN 1 THEN week_sign % 17 = 0 END)
-        UNION All
+        UNION ALL
         SELECT
         activity.id AS activity_id,
         activity.tenant_id,
@@ -747,10 +772,16 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         activity.type,
         activity.status,
         NULL AS goods_id,
+	      NULL AS goods_name,
         NULL AS goods_specification_id,
+        NULL AS goods_specification_name,
+        NULL AS price,
         NULL AS buy_quantity,
         NULL AS give_goods_id,
+        NULL AS give_goods_name,
         NULL AS give_goods_specification_id,
+        NULL AS give_goods_specification_name,
+        NULL AS give_price,
         NULL AS give_quantity,
         payment_activity.total_amount,
         payment_activity.discount_type,
