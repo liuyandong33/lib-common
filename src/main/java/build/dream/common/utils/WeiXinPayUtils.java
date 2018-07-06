@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.MicroPayModel;
-import build.dream.common.saas.domains.AlipayAccount;
+import build.dream.common.models.weixin.UnifiedOrderModel;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.dom4j.DocumentException;
 
-import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -81,6 +80,7 @@ public class WeiXinPayUtils {
 
     public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws IOException, DocumentException {
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
         Map<String, String> microPayRequestParameters = new HashMap<String, String>();
         microPayRequestParameters.put("appid", weiXinPayAccount.getAppId());
@@ -132,6 +132,107 @@ public class WeiXinPayUtils {
         Validate.isTrue((Constants.SUCCESS.equals(resultCode) || (Constants.FAIL.equals(resultCode) && "USERPAYING".equals(errCode))), microPayResult.get("err_code_des"));
 
         return microPayResult;
+    }
+
+    public static Map<String, String> unifiedOrder(String tenantId, String branchId, UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        Map<String, String> unifiedOrderRequestParameters = new HashMap<String, String>();
+        unifiedOrderRequestParameters.put("appid", weiXinPayAccount.getAppId());
+        unifiedOrderRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "device_info", unifiedOrderModel.getDeviceInfo());
+        unifiedOrderRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+
+        String signType = unifiedOrderModel.getSignType();
+        unifiedOrderRequestParameters.put("sign_type", signType);
+
+        unifiedOrderRequestParameters.put("body", unifiedOrderModel.getBody());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "detail", unifiedOrderModel.getDetail());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "attach", unifiedOrderModel.getAttach());
+
+        String outTradeNo = unifiedOrderModel.getOutTradeNo();
+        unifiedOrderRequestParameters.put("out_trade_no", outTradeNo);
+
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "fee_type", unifiedOrderModel.getFeeType());
+        unifiedOrderRequestParameters.put("total_fee", unifiedOrderModel.getTotalFee().toString());
+        unifiedOrderRequestParameters.put("spbill_create_ip", unifiedOrderModel.getSpbillCreateIp());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_start", unifiedOrderModel.getTimeStart());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", unifiedOrderModel.getTimeExpire());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", unifiedOrderModel.getGoodsTag());
+
+        String notifyUrl = unifiedOrderModel.getNotifyUrl();
+        unifiedOrderRequestParameters.put("notify_url", notifyUrl);
+
+        String tradeType = unifiedOrderModel.getTradeType();
+        unifiedOrderRequestParameters.put("trade_type", tradeType);
+
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "product_id", unifiedOrderModel.getProductId());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "limit_pay", unifiedOrderModel.getLimitPay());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
+
+        UnifiedOrderModel.SceneInfoModel sceneInfoModel = unifiedOrderModel.getSceneInfoModel();
+        if (sceneInfoModel != null) {
+            unifiedOrderRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
+        }
+
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String sign = generateSign(unifiedOrderRequestParameters, apiSecretKey, signType);
+        unifiedOrderRequestParameters.put("sign", sign);
+
+        String unifiedOrderFinalData = generateFinalData(unifiedOrderRequestParameters);
+        Map<String, String> unifiedOrderResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_MICRO_PAY_URI, unifiedOrderFinalData);
+
+        String returnCode = unifiedOrderResult.get("return_code");
+        Validate.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
+
+        Validate.isTrue(checkSign(unifiedOrderResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        String resultCode = unifiedOrderResult.get("result_code");
+
+        Validate.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
+
+        // 保存异步通知记录
+        saveNotifyRecord(outTradeNo, notifyUrl, apiSecretKey, signType);
+
+        Map<String, String> data = new HashMap<String, String>();
+        if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
+            if (weiXinPayAccount.isAcceptanceModel()) {
+                data.put("appid", unifiedOrderResult.get("sub_appid"));
+                data.put("partnerid", unifiedOrderResult.get("sub_mch_id"));
+            } else {
+                data.put("appid", unifiedOrderResult.get("appid"));
+                data.put("partnerid", unifiedOrderResult.get("mch_id"));
+            }
+            data.put("prepayid", unifiedOrderResult.get("prepay_id"));
+            data.put("package", "Sign=WXPay");
+            data.put("noncestr", RandomStringUtils.randomAlphanumeric(32));
+            data.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
+            data.put("sign", generateSign(data, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType)) {
+            data.put("mwebUrl", unifiedOrderResult.get("mweb_url"));
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType)) {
+            data.put("codeUrl", unifiedOrderResult.get("code_url"));
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType)) {
+            data.put("appId", unifiedOrderResult.get("appid"));
+            data.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));
+            data.put("nonceStr", RandomStringUtils.randomAlphanumeric(32));
+            data.put("package", "prepay_id=" + unifiedOrderResult.get("prepay_id"));
+            data.put("signType", signType);
+            data.put("paySign", generateSign(data, weiXinPayAccount.getApiSecretKey(), signType));
+        } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
+            if (weiXinPayAccount.isAcceptanceModel()) {
+                data.put("appId", unifiedOrderResult.get("sub_appid"));
+            } else {
+                data.put("appId", unifiedOrderResult.get("appid"));
+            }
+            data.put("timeStamp", String.valueOf(System.currentTimeMillis() / 1000));
+            data.put("nonceStr", RandomStringUtils.randomAlphanumeric(32));
+            data.put("package", "prepay_id=" + unifiedOrderResult.get("prepay_id"));
+            data.put("signType", signType);
+            data.put("paySign", generateSign(data, weiXinPayAccount.getApiSecretKey(), signType));
+        }
+
+        return data;
     }
 
     private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) throws IOException {
