@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
@@ -47,9 +48,9 @@ public class AlibabaCloudMobilePushUtils {
         requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
 
         String url = "http://cloudpush.aliyuncs.com?" + WebUtils.buildQueryString(requestParameters);
-        String result = OutUtils.doGet(url, null);
+        WebResponse webResponse = OutUtils.doGet(url, null);
 
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         return resultJsonObject;
     }
 

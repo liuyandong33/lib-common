@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.MicroPayModel;
 import build.dream.common.models.weixin.UnifiedOrderModel;
@@ -70,8 +71,8 @@ public class WeiXinPayUtils {
     }
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws IOException, DocumentException {
-        String result = OutUtils.doPost(url, finalData, null, certificate, password);
-        return WebUtils.xmlStringToMap(result);
+        WebResponse webResponse = OutUtils.doPost(url, finalData, null, certificate, password);
+        return WebUtils.xmlStringToMap(webResponse.getResult());
     }
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws IOException, DocumentException {

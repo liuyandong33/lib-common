@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
@@ -37,8 +38,8 @@ public class SmsUtils {
         requestParameters.put("Signature", sign(requestParameters, accessSecret));
 
         String url = "http://dysmsapi.aliyuncs.com?" + WebUtils.buildQueryString(requestParameters);
-        String result = OutUtils.doGet(url, null);
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
+        WebResponse webResponse = OutUtils.doGet(url, null);
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         String code = resultJsonObject.getString("Code");
         Validate.isTrue(Constants.OK.equals(code), resultJsonObject.getString("Message"));
         return new ApiRest(resultJsonObject, "短信发送成功！");

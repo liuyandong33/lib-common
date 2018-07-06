@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.beans.WeiXinJsapiTicket;
 import build.dream.common.beans.WeiXinOAuthAccessToken;
 import build.dream.common.beans.WeiXinUserInfo;
@@ -69,9 +70,9 @@ public class WeiXinUtils {
         obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
 
         String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OAUTH2_ACCESS_TOKEN_URI + "?" + WebUtils.buildQueryString(obtainOAuthAccessTokenRequestParameters);
-        String result = OutUtils.doGet(url, null);
+        WebResponse webResponse = OutUtils.doGet(url, null);
 
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         Validate.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
 
         WeiXinOAuthAccessToken weiXinOAuthAccessToken = new WeiXinOAuthAccessToken();
@@ -93,8 +94,8 @@ public class WeiXinUtils {
         }
 
         String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_USER_INFO_URI + "?" + WebUtils.buildQueryString(obtainUserInfoRequestParameters);
-        String result = OutUtils.doGet(url, null);
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
+        WebResponse webResponse = OutUtils.doGet(url, null);
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         if (resultJsonObject.has("errcode")) {
             Validate.isTrue(false, resultJsonObject.optString("errmsg"));
         }

@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.AlipayTradePagePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
@@ -85,7 +86,8 @@ public class AlipayUtils {
 
     public static String callAlipayApi(String requestBody) throws IOException {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
-        return OutUtils.doPost(alipayGatewayUrl, requestBody, null, null, null);
+        WebResponse webResponse =  OutUtils.doPost(alipayGatewayUrl, requestBody, null, null, null);
+        return webResponse.getResult();
     }
 
     public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
