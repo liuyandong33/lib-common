@@ -1,5 +1,7 @@
 package build.dream.common.utils;
 
+import java.util.List;
+
 public class PagedSearchModel extends SearchModel {
     private Integer page;
     private Integer rows;
@@ -10,6 +12,12 @@ public class PagedSearchModel extends SearchModel {
 
     public PagedSearchModel(boolean setDeletedSearchCondition) {
         super(setDeletedSearchCondition);
+    }
+
+    public PagedSearchModel(List<SearchCondition> searchConditions, Integer page, Integer rows) {
+        super(searchConditions);
+        this.page = page;
+        this.rows = rows;
     }
 
     public Integer getPage() {

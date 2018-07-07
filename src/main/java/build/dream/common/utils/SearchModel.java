@@ -28,6 +28,10 @@ public class SearchModel {
         }
     }
 
+    public SearchModel(List<SearchCondition> searchConditions) {
+        this.searchConditions = searchConditions;
+    }
+
     public List<SearchCondition> getSearchConditions() {
         return searchConditions;
     }
