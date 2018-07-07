@@ -62,10 +62,16 @@ public class CommonUtils {
     }
 
     public static Map<String, Object> obtainTenantInfo(String tenantId, String tenantCode) {
-        Map<String, Object> tenantInfo = new HashMap<String, Object>();
-        tenantInfo.put("id", BigInteger.ONE);
-        tenantInfo.put("code", "61011888");
-        tenantInfo.put("partitionCode", "zd1");
-        return tenantInfo;
+        String tenantInfo = null;
+        if (StringUtils.isNotBlank(tenantId)) {
+            tenantInfo = CacheUtils.hget(Constants.KEY_TENANT_INFOS, tenantId);
+        } else if (StringUtils.isNotBlank(tenantCode)) {
+            tenantInfo = CacheUtils.hget(Constants.KEY_TENANT_INFOS, tenantCode);
+        }
+
+        if (StringUtils.isNotBlank(tenantInfo)) {
+            return JacksonUtils.readValueAsMap(tenantInfo, String.class, Object.class);
+        }
+        return null;
     }
 }
