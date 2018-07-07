@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
@@ -61,7 +62,7 @@ public class CommonUtils {
         return "http://" + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
-    public static Map<String, Object> obtainTenantInfo(String tenantId, String tenantCode) {
+    public static Tenant obtainTenantInfo(String tenantId, String tenantCode) {
         String tenantInfo = null;
         if (StringUtils.isNotBlank(tenantId)) {
             tenantInfo = CacheUtils.hget(Constants.KEY_TENANT_INFOS, tenantId);
@@ -70,7 +71,7 @@ public class CommonUtils {
         }
 
         if (StringUtils.isNotBlank(tenantInfo)) {
-            return JacksonUtils.readValueAsMap(tenantInfo, String.class, Object.class);
+            return JacksonUtils.readValue(tenantInfo, Tenant.class);
         }
         return null;
     }
