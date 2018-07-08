@@ -1040,6 +1040,7 @@ CREATE TABLE vip
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_type_id BIGINT NOT NULL COMMENT '会员类型ID',
     vip_code VARCHAR(20) NOT NULL COMMENT '会员编号',
     vip_name VARCHAR(20) NOT NULL COMMENT '会员姓名',
     birthday DATE NOT NULL COMMENT '会员生日',

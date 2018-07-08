@@ -20,6 +20,10 @@ public class Vip extends BasicDomain {
      */
     private BigInteger branchId;
     /**
+     * 会员类型ID
+     */
+    private BigInteger vipTypeId;
+    /**
      * 会员编号
      */
     private String vipCode;
@@ -82,6 +86,14 @@ public class Vip extends BasicDomain {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
+    }
+
+    public BigInteger getVipTypeId() {
+        return vipTypeId;
+    }
+
+    public void setVipTypeId(BigInteger vipTypeId) {
+        this.vipTypeId = vipTypeId;
     }
 
     public String getVipCode() {
