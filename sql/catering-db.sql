@@ -310,6 +310,7 @@ CREATE TABLE eleme_order
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单';
 
@@ -329,6 +330,7 @@ CREATE TABLE eleme_order_group
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单分组';
 
@@ -360,6 +362,7 @@ CREATE TABLE eleme_order_item
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单详情';
 
@@ -380,6 +383,7 @@ CREATE TABLE eleme_order_item_attribute
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单属性';
 
@@ -400,6 +404,7 @@ CREATE TABLE eleme_order_item_new_spec
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单规格';
 
@@ -423,6 +428,7 @@ CREATE TABLE eleme_order_activity
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么订单活动';
 
