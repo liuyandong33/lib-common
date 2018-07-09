@@ -41,6 +41,10 @@ public class DietOrderPayment extends BasicDomain {
      */
     private BigDecimal paidAmount;
     /**
+     * 发生时间
+     */
+    private Date occurrenceTime;
+    /**
      * 本地ID
      */
     private String localId = Constants.VARCHAR_DEFAULT_VALUE;
@@ -119,6 +123,14 @@ public class DietOrderPayment extends BasicDomain {
 
     public void setPaidAmount(BigDecimal paidAmount) {
         this.paidAmount = paidAmount;
+    }
+
+    public Date getOccurrenceTime() {
+        return occurrenceTime;
+    }
+
+    public void setOccurrenceTime(Date occurrenceTime) {
+        this.occurrenceTime = occurrenceTime;
     }
 
     public String getLocalId() {
