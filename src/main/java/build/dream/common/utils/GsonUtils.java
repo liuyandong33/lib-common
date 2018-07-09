@@ -1,9 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import net.sf.json.JSONObject;
 
@@ -29,7 +27,8 @@ public class GsonUtils {
 
     public static <T> List<T> fromJsonToList(String jsonString, Class<T> clazz, String datePattern) {
         Gson gson = instantiateGson(datePattern, true);
-        Type type = new TypeToken<ArrayList<JsonElement>>() {}.getType();
+        Type type = new TypeToken<ArrayList<JsonElement>>() {
+        }.getType();
         List<JsonElement> jsonElements = gson.fromJson(jsonString, type);
         List<T> list = new ArrayList<T>();
         for (JsonElement jsonElement : jsonElements) {
@@ -44,7 +43,8 @@ public class GsonUtils {
 
     public static <K, V> Map<K, V> fromJsonToMap(String jsonString, Class<K> keyClass, Class<V> valueClass, String datePattern) {
         Gson gson = instantiateGson(datePattern, true);
-        Type type = new TypeToken<Map<JsonElement, JsonElement>>() {}.getType();
+        Type type = new TypeToken<Map<JsonElement, JsonElement>>() {
+        }.getType();
         Map<JsonElement, JsonElement> tempMap = gson.fromJson(jsonString, type);
 
         Map<K, V> map = new HashMap<K, V>();
@@ -96,5 +96,13 @@ public class GsonUtils {
 
     public static <T> T fromJson(JSONObject jsonObject, Class<T> clazz, String datePattern) {
         return instantiateGson(datePattern, true).fromJson(jsonObject.toString(), clazz);
+    }
+
+    public static JsonArray parseJsonArray(String text) {
+        return new JsonParser().parse(text).getAsJsonArray();
+    }
+
+    public static JsonObject parseJsonObject(String text) {
+        return new JsonParser().parse(text).getAsJsonObject();
     }
 }
