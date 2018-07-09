@@ -208,6 +208,11 @@ public class DietOrderPayment extends BasicDomain {
             return this;
         }
 
+        public Builder occurrenceTime(Date occurrenceTime) {
+            instance.setOccurrenceTime(occurrenceTime);
+            return this;
+        }
+
         public Builder localId(String localId) {
             instance.setLocalId(localId);
             return this;
