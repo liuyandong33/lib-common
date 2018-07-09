@@ -84,7 +84,7 @@ CREATE TABLE diet_order
     branch_id BIGINT NOT NULL COMMENT '门店id',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     order_type TINYINT NOT NULL COMMENT '订单类型，1-扫码点餐，2-饿了么订单，3-美团订单',
-    order_status TINYINT NOT NULL COMMENT '订单状态，1-订单未生效，2-订单已生效',
+    order_status TINYINT NOT NULL COMMENT '订单状态，1-未生效订单，2-未处理订单，3-退单中订单，4-已处理订单，5-无效订单，6-已完订单',
     pay_status TINYINT NOT NULL COMMENT '订单付款状态，1-未付款，2-已付款',
     refund_status TINYINT NOT NULL COMMENT '订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
