@@ -258,11 +258,4 @@ public class Constants {
     public static final String WEI_XIN_PAY_MICRO_PAY_URI = "/pay/micropay";
 
     public static final String KEY_TENANT_INFOS = "_tenant_infos";
-
-    public static final String PENDING = "pending";
-    public static final String UNPROCESSED = "unprocessed";
-    public static final String REFUNDING = "refunding";
-    public static final String VALID = "valid";
-    public static final String INVALID = "invalid";
-    public static final String SETTLED = "valid";
 }

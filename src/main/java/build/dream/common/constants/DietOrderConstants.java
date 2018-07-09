@@ -17,6 +17,13 @@ public class DietOrderConstants {
     public static final String INVOICE_TYPE_PERSONAL = "personal";
     public static final String INVOICE_TYPE_COMPANY = "company";
 
+    public static final String PENDING = "pending";
+    public static final String UNPROCESSED = "unprocessed";
+    public static final String REFUNDING = "refunding";
+    public static final String VALID = "valid";
+    public static final String INVALID = "invalid";
+    public static final String SETTLED = "valid";
+
     public static final int ORDER_STATUS_PENDING = 1;
     public static final int ORDER_STATUS_UNPROCESSED = 2;
     public static final int ORDER_STATUS_REFUNDING = 3;
@@ -37,4 +44,8 @@ public class DietOrderConstants {
     public static final int REFUND_STATUS_ARBITRATING = 4;
     public static final int REFUND_STATUS_FAILED = 5;
     public static final int REFUND_STATUS_SUCCESSFUL = 6;
+
+    public static final String GROUP_TYPE_NORMAL = "normal";
+    public static final String GROUP_TYPE_EXTRA = "extra";
+    public static final String GROUP_TYPE_DISCOUNT = "discount";
 }
