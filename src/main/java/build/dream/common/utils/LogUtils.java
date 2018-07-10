@@ -23,11 +23,11 @@ public class LogUtils {
     }
 
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters) {
-        LOGGER.error("{}:{}.{}-{}-{}-{}-{}", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters);
+        LOGGER.error(String.format("%s:%s.%s-%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters));
     }
 
     public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
-        LOGGER.error("{}:{}.{}-{}-{}-{}", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage());
+        LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage()));
     }
 
     public static void error(String errorMessage) {
