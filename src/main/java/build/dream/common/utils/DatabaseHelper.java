@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.ApiException;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -10,16 +11,27 @@ import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import scala.Tuple2;
 
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseHelper {
     private static UniversalMapper universalMapper;
+    private static ConcurrentHashMap<Class<?>, Object> mapperMap = new ConcurrentHashMap<Class<?>, Object>();
+
+    private static Object obtainMapper(Class<?> mapperClass) {
+        if (!mapperMap.contains(mapperClass)) {
+            mapperMap.put(mapperClass, ApplicationHandler.getBean(mapperClass));
+        }
+        return mapperMap.get(mapperClass);
+    }
 
     static {
         ConvertUtils.register(new IntegerConverter(null), Integer.class);
@@ -163,5 +175,41 @@ public class DatabaseHelper {
 
     public static Map<String, Object> executeUniqueResultQuery(Map<String, Object> parameters) {
         return obtainUniversalMapper().executeUniqueResultQuery(parameters);
+    }
+
+    public static <T> T callMapperMethod(Class<?> mapperClass, String methodName, Tuple2<Class<?>, Object>... parameterAndTypes) {
+        try {
+            int length = parameterAndTypes.length;
+            Class<?>[] parameterTypes = new Class<?>[length];
+            Object[] parameters = new Object[length];
+            for (int index = 0; index < length; index++) {
+                parameterTypes[index] = parameterAndTypes[index]._1;
+                parameters[index] = parameterAndTypes[index]._2;
+            }
+            Object mapper = obtainMapper(mapperClass);
+            ValidateUtils.notNull(mapper, "程序装载错误！");
+            Method method = mapperClass.getMethod(methodName, parameterTypes);
+            return (T) method.invoke(mapper, parameters);
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
+    }
+
+    public static <T> T callMapperMethod(Class<?> mapperClass, String methodName, List<Tuple2<Class<?>, Object>> parameterAndTypes) {
+        try {
+            int size = parameterAndTypes.size();
+            Class<?>[] parameterTypes = new Class<?>[size];
+            Object[] parameters = new Object[size];
+            for (int index = 0; index < size; index++) {
+                parameterTypes[index] = parameterAndTypes.get(index)._1;
+                parameters[index] = parameterAndTypes.get(index)._2;
+            }
+            Object mapper = obtainMapper(mapperClass);
+            ValidateUtils.notNull(mapper, "程序装载错误！");
+            Method method = mapperClass.getMethod(methodName, parameterTypes);
+            return (T) method.invoke(mapper, parameters);
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 }
