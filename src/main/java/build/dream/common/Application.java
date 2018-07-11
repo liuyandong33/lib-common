@@ -42,7 +42,9 @@ public class Application extends ClassLoader {
             end1 = startDate;
         } else {
             start1 = startDate;
-            end1 = new Date(86400000 - (startTime % 86400000) + startTime - 1000);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(86400000 - (startTime % 86400000) + startTime - 1000);
+            end1 = calendar.getTime();
             startDay = new Date(86400000 - (startTime % 86400000) + startTime);
         }
 
