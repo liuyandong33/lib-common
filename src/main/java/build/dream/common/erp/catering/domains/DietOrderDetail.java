@@ -86,10 +86,6 @@ public class DietOrderDetail extends BasicDomain {
      */
     private BigDecimal payableAmount;
     /**
-     * 实付金额
-     */
-    private BigDecimal paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
-    /**
      * 本地ID
      */
     private String localId = Constants.VARCHAR_DEFAULT_VALUE;
@@ -268,14 +264,6 @@ public class DietOrderDetail extends BasicDomain {
         this.payableAmount = payableAmount;
     }
 
-    public BigDecimal getPaidAmount() {
-        return paidAmount;
-    }
-
-    public void setPaidAmount(BigDecimal paidAmount) {
-        this.paidAmount = paidAmount;
-    }
-
     public String getLocalId() {
         return localId;
     }
@@ -419,11 +407,6 @@ public class DietOrderDetail extends BasicDomain {
 
         public Builder payableAmount(BigDecimal payableAmount) {
             instance.setPayableAmount(payableAmount);
-            return this;
-        }
-
-        public Builder paidAmount(BigDecimal paidAmount) {
-            instance.setPaidAmount(paidAmount);
             return this;
         }
 

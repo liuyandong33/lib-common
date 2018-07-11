@@ -72,10 +72,6 @@ public class SaleDetail extends BasicDomain {
      */
     private BigDecimal payableAmount;
     /**
-     * 实付金额
-     */
-    private BigDecimal paidAmount;
-    /**
      * 优惠分摊金额
      */
     private BigDecimal discountShare;
@@ -206,14 +202,6 @@ public class SaleDetail extends BasicDomain {
 
     public void setPayableAmount(BigDecimal payableAmount) {
         this.payableAmount = payableAmount;
-    }
-
-    public BigDecimal getPaidAmount() {
-        return paidAmount;
-    }
-
-    public void setPaidAmount(BigDecimal paidAmount) {
-        this.paidAmount = paidAmount;
     }
 
     public BigDecimal getDiscountShare() {
