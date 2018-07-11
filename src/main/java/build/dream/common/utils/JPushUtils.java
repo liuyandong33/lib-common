@@ -1,10 +1,8 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jpush.PushModel;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
@@ -43,12 +41,10 @@ public class JPushUtils {
         return callJPushSystem(appKey, masterSecret, url, requestParameters);
     }
 
-    public ApiRest push(PushModel pushModel) throws IOException {
+    public static Map<String, Object> push(PushModel pushModel) throws IOException {
         String url = ConfigurationUtils.getConfiguration(Constants.JPUSH_API_SERVICE_URL) + Constants.JPUSH_PUSH_URI;
-        String result = JPushUtils.callJPushSystem(url, GsonUtils.toJson(pushModel, false));
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
-
-        ApiRest apiRest = new ApiRest(resultJsonObject, "推送成功！");
-        return apiRest;
+        String result = callJPushSystem(url, GsonUtils.toJson(pushModel, false));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
     }
 }
