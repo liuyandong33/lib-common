@@ -42,8 +42,13 @@ public class JPushUtils {
     }
 
     public static Map<String, Object> push(PushModel pushModel) throws IOException {
+        pushModel.validateAndThrow();
+        return push(GsonUtils.toJson(pushModel, false));
+    }
+
+    public static Map<String, Object> push(String message) throws IOException {
         String url = ConfigurationUtils.getConfiguration(Constants.JPUSH_API_SERVICE_URL) + Constants.JPUSH_PUSH_URI;
-        String result = callJPushSystem(url, GsonUtils.toJson(pushModel, false));
+        String result = callJPushSystem(url, message);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return resultMap;
     }
