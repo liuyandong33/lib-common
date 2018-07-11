@@ -48,4 +48,10 @@ public class DietOrderConstants {
     public static final String GROUP_TYPE_NORMAL = "normal";
     public static final String GROUP_TYPE_EXTRA = "extra";
     public static final String GROUP_TYPE_DISCOUNT = "discount";
+
+    public static final String APPLY = "apply";
+    public static final String AGREE = "agree";
+    public static final String REJECT = "reject";
+    public static final String CANCEL_REFUND = "cancelRefund";
+    public static final String CANCEL_REFUND_COMPLAINT = "cancelRefundComplaint";
 }

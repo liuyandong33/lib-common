@@ -64,13 +64,14 @@ public class WebUtils {
         String result = null;
         Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
+        int responseCode;
         try {
             if (MapUtils.isNotEmpty(requestParameters)) {
                 requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
             }
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout, null);
             setRequestProperties(httpURLConnection, headers, charsetName);
-            int responseCode = httpURLConnection.getResponseCode();
+            responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doGetWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName);
@@ -84,7 +85,7 @@ public class WebUtils {
             }
             throw e;
         }
-        return new WebResponse(result, headerFields);
+        return new WebResponse(result, headerFields, responseCode);
     }
 
     public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
@@ -115,6 +116,7 @@ public class WebUtils {
         String result = null;
         Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
+        int responseCode;
         try {
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
             setRequestProperties(httpURLConnection, headers, charsetName);
@@ -122,7 +124,7 @@ public class WebUtils {
             httpURLConnection.setDoOutput(true);
             String requestBody = buildRequestBody(requestParameters, charsetName);
             httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
-            int responseCode = httpURLConnection.getResponseCode();
+            responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
@@ -136,7 +138,7 @@ public class WebUtils {
             }
             throw e;
         }
-        return new WebResponse(result, headerFields);
+        return new WebResponse(result, headerFields, responseCode);
     }
 
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
@@ -166,9 +168,10 @@ public class WebUtils {
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, Object> requestParameters, String charsetName) throws IOException {
         String result = null;
         Map<String, List<String>> headerFields = null;
+        int responseCode;
         HttpURLConnection httpURLConnection = null;
-        httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
         try {
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, null);
             if (headers == null) {
                 headers = new HashMap<String, String>();
                 headers.put("Content-Type", "multipart/form-data;boundary=" + BOUNDARY);
@@ -178,7 +181,7 @@ public class WebUtils {
             httpURLConnection.setDoOutput(true);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             writeFormData(outputStream, requestParameters, charsetName);
-            int responseCode = httpURLConnection.getResponseCode();
+            responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestParametersAndFiles(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestParameters, charsetName);
@@ -192,7 +195,7 @@ public class WebUtils {
             }
             throw e;
         }
-        return new WebResponse(result, headerFields);
+        return new WebResponse(result, headerFields, responseCode);
     }
 
     public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
@@ -227,13 +230,14 @@ public class WebUtils {
         String result = null;
         Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
+        int responseCode;
         try {
             httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
             httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
-            int responseCode = httpURLConnection.getResponseCode();
+            responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
@@ -247,7 +251,7 @@ public class WebUtils {
             }
             throw e;
         }
-        return new WebResponse(result, headerFields);
+        return new WebResponse(result, headerFields, responseCode);
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers, String charsetName) {
