@@ -977,18 +977,19 @@ DROP TABLE IF EXISTS mei_tuan_order_cancel_message;
 CREATE TABLE mei_tuan_order_cancel_message
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    mei_order_id BIGINT NOT NULL COMMENT 'mei_tuan_order.id',
+    diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
     developer_id BIGINT NOT NULL COMMENT 'ERP厂商入驻新美大餐饮平台得到的唯一身份表示',
     e_poi_id VARCHAR(100) NOT NULL COMMENT 'erp方门店id 最大长度100',
     `sign` VARCHAR(100) NOT NULL COMMENT '数字签名',
     order_id BIGINT NOT NULL COMMENT '美团订单ID',
-    reason_code VARCHAR(20) COMMENT '取消原因类型',
-    reason VARCHAR(100) COMMENT '取消原因描述',
+    reason_code VARCHAR(20) NOT NULL COMMENT '取消原因类型',
+    reason VARCHAR(100) NOT NULL COMMENT '取消原因描述',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '美团取消订单消息';
 

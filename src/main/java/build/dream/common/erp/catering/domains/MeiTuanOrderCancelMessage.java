@@ -1,24 +1,25 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
 public class MeiTuanOrderCancelMessage extends BasicDomain {
-    private BigInteger meiOrderId;
+    private BigInteger dietOrderId;
     private BigInteger developerId;
     private String ePoiId;
     private String sign;
     private BigInteger orderId;
-    private String reasonCode;
-    private String reason;
+    private String reasonCode = Constants.VARCHAR_DEFAULT_VALUE;
+    private String reason = Constants.VARCHAR_DEFAULT_VALUE;
 
-    public BigInteger getMeiOrderId() {
-        return meiOrderId;
+    public BigInteger getDietOrderId() {
+        return dietOrderId;
     }
 
-    public void setMeiOrderId(BigInteger meiOrderId) {
-        this.meiOrderId = meiOrderId;
+    public void setDietOrderId(BigInteger dietOrderId) {
+        this.dietOrderId = dietOrderId;
     }
 
     public BigInteger getDeveloperId() {
