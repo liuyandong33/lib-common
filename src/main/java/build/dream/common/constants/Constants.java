@@ -228,9 +228,26 @@ public class Constants {
     public static final BigDecimal BIG_DECIMAL_HUNDRED = BigDecimal.valueOf(100L);
     public static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
     public static final BigDecimal BIG_DECIMAL_MINUS_TWO = BigDecimal.valueOf(-2L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_THREE = BigDecimal.valueOf(-3L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_FOUR = BigDecimal.valueOf(-4L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_FIVE = BigDecimal.valueOf(-5L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_SIX = BigDecimal.valueOf(-6L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_SEVEN = BigDecimal.valueOf(-7L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_EIGHT = BigDecimal.valueOf(-8L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_NINE = BigDecimal.valueOf(-9L);
+    public static final BigDecimal BIG_DECIMAL_MINUS_TEN = BigDecimal.valueOf(-10L);
+
     public static final BigInteger BIG_INTEGER_HUNDRED = BigInteger.valueOf(100L);
     public static final BigInteger BIG_INTEGER_MINUS_ONE = BigInteger.valueOf(-1L);
     public static final BigInteger BIG_INTEGER_MINUS_TWO = BigInteger.valueOf(-2L);
+    public static final BigInteger BIG_INTEGER_MINUS_THREE = BigInteger.valueOf(-3L);
+    public static final BigInteger BIG_INTEGER_MINUS_FOUR = BigInteger.valueOf(-4L);
+    public static final BigInteger BIG_INTEGER_MINUS_FIVE = BigInteger.valueOf(-5L);
+    public static final BigInteger BIG_INTEGER_MINUS_SIX = BigInteger.valueOf(-6L);
+    public static final BigInteger BIG_INTEGER_MINUS_SEVEN = BigInteger.valueOf(-7L);
+    public static final BigInteger BIG_INTEGER_MINUS_EIGHT = BigInteger.valueOf(-8L);
+    public static final BigInteger BIG_INTEGER_MINUS_NINE = BigInteger.valueOf(-9L);
+    public static final BigInteger BIG_INTEGER_MINUS_TEN = BigInteger.valueOf(-10L);
 
     public static final String HMAC_SHA1 = "HMAC-SHA1";
     public static final String OK = "OK";
