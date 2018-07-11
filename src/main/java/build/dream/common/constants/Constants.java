@@ -113,6 +113,8 @@ public class Constants {
 
     public static final Integer PAID_TYPE_WEI_XIN = 1;
     public static final Integer PAID_TYPE_ALIPAY = 2;
+    public static final Integer PAID_TYPE_ELM = 11;
+    public static final Integer PAID_TYPE_MT = 12;
 
     public static final String WEI_XIN_PAY_TRADE_TYPE_JSAPI = "JSAPI";
     public static final String WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM = "MINIPROGRAM";
