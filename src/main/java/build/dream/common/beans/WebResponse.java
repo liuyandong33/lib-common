@@ -15,6 +15,7 @@ public class WebResponse {
     public WebResponse(String result, Map<String, List<String>> headers, int responseCode) {
         this.result = result;
         this.headers = headers;
+        this.responseCode = responseCode;
     }
 
     public String getResult() {
