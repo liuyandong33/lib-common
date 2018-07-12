@@ -30,6 +30,8 @@ public class WebUtils {
     public static final class RequestMethod {
         public static final String GET = "GET";
         public static final String POST = "POST";
+        public static final String PUT = "PUT";
+        public static final String DELETE = "DELETE";
     }
 
     public static final String TWO_HYPHENS = "--";
@@ -122,8 +124,10 @@ public class WebUtils {
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
-            String requestBody = buildRequestBody(requestParameters, charsetName);
-            httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            if (MapUtils.isNotEmpty(requestParameters)) {
+                String requestBody = buildRequestBody(requestParameters, charsetName);
+                httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            }
             responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
@@ -236,11 +240,129 @@ public class WebUtils {
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
-            httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            if (StringUtils.isNotBlank(requestBody)) {
+                httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            }
             responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
                 httpURLConnection.disconnect();
                 return doPostWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
+            } else {
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
+        }
+        return new WebResponse(result, headerFields, responseCode);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody) throws IOException {
+        return doPutWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doPutWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doPutWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        String result = null;
+        Map<String, List<String>> headerFields = null;
+        HttpURLConnection httpURLConnection = null;
+        int responseCode;
+        try {
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.PUT, readTimeout, connectTimeout, sslSocketFactory);
+            setRequestProperties(httpURLConnection, headers, charsetName);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            if (StringUtils.isNotBlank(requestBody)) {
+                httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            }
+            responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doPutWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
+            } else {
+                result = obtainResult(httpURLConnection, responseCode, charsetName);
+                headerFields = httpURLConnection.getHeaderFields();
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
+        }
+        return new WebResponse(result, headerFields, responseCode);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        return doDeleteWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName, sslSocketFactory);
+    }
+
+    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
+        String result = null;
+        Map<String, List<String>> headerFields = null;
+        HttpURLConnection httpURLConnection = null;
+        int responseCode;
+        try {
+            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.DELETE, readTimeout, connectTimeout, sslSocketFactory);
+            setRequestProperties(httpURLConnection, headers, charsetName);
+            httpURLConnection.setDoInput(true);
+            httpURLConnection.setDoOutput(true);
+            if (StringUtils.isNotBlank(requestBody)) {
+                httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            }
+            responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                httpURLConnection.disconnect();
+                return doDeleteWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, null);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
                 headerFields = httpURLConnection.getHeaderFields();
