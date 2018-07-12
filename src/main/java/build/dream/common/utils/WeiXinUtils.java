@@ -6,11 +6,12 @@ import build.dream.common.beans.WeiXinJsapiTicket;
 import build.dream.common.beans.WeiXinOAuthAccessToken;
 import build.dream.common.beans.WeiXinUserInfo;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.weixin.SendMassMessageModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -18,6 +19,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeiXinUtils {
+    private static final Map<String, String> HEADERS = new HashMap<String, String>();
+
+    static {
+        HEADERS.put("Content-Type", "application/json;charset=UTF-8");
+    }
+
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) throws IOException {
         if (StringUtils.isBlank(scope)) {
             scope = "snsapi_base";
@@ -44,7 +51,7 @@ public class WeiXinUtils {
         obtainJsapiTicketRequestParameters.put("appSecret", appSecret);
         obtainJsapiTicketRequestParameters.put("type", "jsapi");
         ApiRest obtainJsapiTicketApiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_OUT, "weiXin", "obtainJsapiTicket", obtainJsapiTicketRequestParameters);
-        Validate.isTrue(obtainJsapiTicketApiRest.isSuccessful(), obtainJsapiTicketApiRest.getError());
+        ValidateUtils.isTrue(obtainJsapiTicketApiRest.isSuccessful(), obtainJsapiTicketApiRest.getError());
         WeiXinJsapiTicket weiXinJsapiTicket = (WeiXinJsapiTicket) obtainJsapiTicketApiRest.getData();
 
         String ticket = weiXinJsapiTicket.getTicket();
@@ -73,7 +80,7 @@ public class WeiXinUtils {
         WebResponse webResponse = OutUtils.doGet(url, null);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        Validate.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+        ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
 
         WeiXinOAuthAccessToken weiXinOAuthAccessToken = new WeiXinOAuthAccessToken();
         weiXinOAuthAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
@@ -97,7 +104,7 @@ public class WeiXinUtils {
         WebResponse webResponse = OutUtils.doGet(url, null);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         if (resultJsonObject.has("errcode")) {
-            Validate.isTrue(false, resultJsonObject.optString("errmsg"));
+            ValidateUtils.isTrue(false, resultJsonObject.optString("errmsg"));
         }
 
         WeiXinUserInfo weiXinUserInfo = new WeiXinUserInfo();
@@ -112,5 +119,14 @@ public class WeiXinUtils {
         weiXinUserInfo.setUnionId(resultJsonObject.optString("unionid"));
 
         return weiXinUserInfo;
+    }
+
+    public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) throws IOException {
+        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_USER_INFO_URI + "?access_token=" + accessToken;
+        WebResponse webResponse = WebUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendMassMessageModel, false), null);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
     }
 }

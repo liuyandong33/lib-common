@@ -223,6 +223,7 @@ public class Constants {
     public static final String WEI_XIN_API_URL = "wei.xin.api.url";
     public static final String WEI_XIN_OAUTH2_ACCESS_TOKEN_URI = "/sns/oauth2/access_token";
     public static final String WEI_XIN_OBTAIN_USER_INFO_URI = "/sns/userinfo";
+    public static final String WEI_XIN_SEND_MASS_MESSAGE_URI = "/message/mass/send";
 
     public static final String SNSAPI_BASE = "snsapi_base";
     public static final String SNSAPI_USERINFO = "snsapi_userinfo";
