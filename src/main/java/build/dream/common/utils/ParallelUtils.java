@@ -7,9 +7,10 @@ import java.util.Set;
 import java.util.concurrent.*;
 
 public class ParallelUtils {
-    public static <T> Map<String, T> execute(Map<String, Callable<T>> callableMap) throws InterruptedException, ExecutionException {
-        ExecutorService executeService = Executors.newCachedThreadPool();
-        List<Future<T>> futures = executeService.invokeAll(callableMap.values());
+    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+
+    public static <T> Map<String, T> invokeAll(Map<String, Callable<T>> callableMap) throws InterruptedException, ExecutionException {
+        List<Future<T>> futures = EXECUTOR_SERVICE.invokeAll(callableMap.values());
         Set<String> keySet = callableMap.keySet();
 
         int index = 0;
@@ -18,7 +19,6 @@ public class ParallelUtils {
             result.put(key, futures.get(index).get());
             index++;
         }
-        executeService.shutdown();
         return result;
     }
 }
