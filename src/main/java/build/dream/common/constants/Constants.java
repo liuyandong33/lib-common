@@ -294,7 +294,4 @@ public class Constants {
     public static final String DINGTALK_CHAT_SEND_URI = "/chat/send";
     public static final String DINGTALK_SENDER = "dingtalk.sender";
     public static final String DINGTALK_CHAT_ID = "dingtalk.chat.id";
-
-    public static final int DATA_SOURCE_TYPE_READ = 1;
-    public static final int DATA_SOURCE_TYPE_WRITE = 2;
 }
