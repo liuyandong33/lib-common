@@ -1,19 +1,17 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class GoodsSpecification extends BasicDomain {
+public class GoodsUnit extends BasicDomain {
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;
     private BigInteger goodsId;
     private String name;
-    private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
-    private BigDecimal stock;
+    private BigDecimal proportion;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -55,19 +53,11 @@ public class GoodsSpecification extends BasicDomain {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getProportion() {
+        return proportion;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getStock() {
-        return stock;
-    }
-
-    public void setStock(BigDecimal stock) {
-        this.stock = stock;
+    public void setProportion(BigDecimal proportion) {
+        this.proportion = proportion;
     }
 }
