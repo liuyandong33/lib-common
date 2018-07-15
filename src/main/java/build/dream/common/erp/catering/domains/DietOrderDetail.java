@@ -68,7 +68,7 @@ public class DietOrderDetail extends BasicDomain {
     /**
      * 口味加价
      */
-    private BigDecimal flavorIncrease = Constants.DECIMAL_DEFAULT_VALUE;
+    private BigDecimal attributeIncrease = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 总数量
      */
@@ -224,12 +224,12 @@ public class DietOrderDetail extends BasicDomain {
         this.price = price;
     }
 
-    public BigDecimal getFlavorIncrease() {
-        return flavorIncrease;
+    public BigDecimal getAttributeIncrease() {
+        return attributeIncrease;
     }
 
-    public void setFlavorIncrease(BigDecimal flavorIncrease) {
-        this.flavorIncrease = flavorIncrease;
+    public void setAttributeIncrease(BigDecimal attributeIncrease) {
+        this.attributeIncrease = attributeIncrease;
     }
 
     public BigDecimal getQuantity() {
@@ -385,8 +385,8 @@ public class DietOrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder flavorIncrease(BigDecimal flavorIncrease) {
-            instance.setFlavorIncrease(flavorIncrease);
+        public Builder attributeIncrease(BigDecimal attributeIncrease) {
+            instance.setAttributeIncrease(attributeIncrease);
             return this;
         }
 

@@ -1,15 +1,19 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class GoodsFlavorGroup extends BasicDomain {
+public class GoodsAttribute extends BasicDomain {
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;
     private BigInteger goodsId;
+    private BigInteger goodsAttributeGroupId;
     private String name;
+    private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -43,11 +47,27 @@ public class GoodsFlavorGroup extends BasicDomain {
         this.goodsId = goodsId;
     }
 
+    public BigInteger getGoodsAttributeGroupId() {
+        return goodsAttributeGroupId;
+    }
+
+    public void setGoodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+        this.goodsAttributeGroupId = goodsAttributeGroupId;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 }

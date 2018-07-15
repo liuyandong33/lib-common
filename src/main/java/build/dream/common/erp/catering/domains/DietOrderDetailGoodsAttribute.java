@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class DietOrderDetailGoodsFlavor extends BasicDomain {
+public class DietOrderDetailGoodsAttribute extends BasicDomain {
     /**
      * 商户ID
      */
@@ -33,23 +33,23 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
      */
     private BigInteger dietOrderDetailId;
     /**
-     * 口味组ID，goods_flavor_group.id
+     * 口味组ID，goods_attribute_group.id
      */
-    private BigInteger goodsFlavorGroupId;
+    private BigInteger goodsAttributeGroupId;
     /**
-     * 口味组名称，goods_flavor_group.name
+     * 口味组名称，goods_attribute_group.name
      */
-    private String goodsFlavorGroupName;
+    private String goodsAttributeGroupName;
     /**
-     * 口味ID，goods_flavor.id
+     * 口味ID，goods_attribute.id
      */
-    private BigInteger goodsFlavorId;
+    private BigInteger goodsAttributeId;
     /**
-     * 口味名称，goods_flavor.name
+     * 口味名称，goods_attribute.name
      */
-    private String goodsFlavorName;
+    private String goodsAttributeName;
     /**
-     * 口味加价，goods_flavor.price
+     * 口味加价，goods_attribute.price
      */
     private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
     /**
@@ -125,36 +125,36 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
         this.dietOrderDetailId = dietOrderDetailId;
     }
 
-    public BigInteger getGoodsFlavorGroupId() {
-        return goodsFlavorGroupId;
+    public BigInteger getGoodsAttributeGroupId() {
+        return goodsAttributeGroupId;
     }
 
-    public void setGoodsFlavorGroupId(BigInteger goodsFlavorGroupId) {
-        this.goodsFlavorGroupId = goodsFlavorGroupId;
+    public void setGoodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+        this.goodsAttributeGroupId = goodsAttributeGroupId;
     }
 
-    public String getGoodsFlavorGroupName() {
-        return goodsFlavorGroupName;
+    public String getGoodsAttributeGroupName() {
+        return goodsAttributeGroupName;
     }
 
-    public void setGoodsFlavorGroupName(String goodsFlavorGroupName) {
-        this.goodsFlavorGroupName = goodsFlavorGroupName;
+    public void setGoodsAttributeGroupName(String goodsAttributeGroupName) {
+        this.goodsAttributeGroupName = goodsAttributeGroupName;
     }
 
-    public BigInteger getGoodsFlavorId() {
-        return goodsFlavorId;
+    public BigInteger getGoodsAttributeId() {
+        return goodsAttributeId;
     }
 
-    public void setGoodsFlavorId(BigInteger goodsFlavorId) {
-        this.goodsFlavorId = goodsFlavorId;
+    public void setGoodsAttributeId(BigInteger goodsAttributeId) {
+        this.goodsAttributeId = goodsAttributeId;
     }
 
-    public String getGoodsFlavorName() {
-        return goodsFlavorName;
+    public String getGoodsAttributeName() {
+        return goodsAttributeName;
     }
 
-    public void setGoodsFlavorName(String goodsFlavorName) {
-        this.goodsFlavorName = goodsFlavorName;
+    public void setGoodsAttributeName(String goodsAttributeName) {
+        this.goodsAttributeName = goodsAttributeName;
     }
 
     public BigDecimal getPrice() {
@@ -214,7 +214,7 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
     }
 
     public static class Builder {
-        private final DietOrderDetailGoodsFlavor instance = new DietOrderDetailGoodsFlavor();
+        private final DietOrderDetailGoodsAttribute instance = new DietOrderDetailGoodsAttribute();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -246,23 +246,23 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
             return this;
         }
 
-        public Builder goodsFlavorGroupId(BigInteger goodsFlavorGroupId) {
-            instance.setGoodsFlavorGroupId(goodsFlavorGroupId);
+        public Builder goodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+            instance.setGoodsAttributeGroupId(goodsAttributeGroupId);
             return this;
         }
 
-        public Builder goodsFlavorGroupName(String goodsFlavorGroupName) {
-            instance.setGoodsFlavorGroupName(goodsFlavorGroupName);
+        public Builder goodsAttributeGroupName(String goodsAttributeGroupName) {
+            instance.setGoodsAttributeGroupName(goodsAttributeGroupName);
             return this;
         }
 
-        public Builder goodsFlavorId(BigInteger goodsFlavorId) {
-            instance.setGoodsFlavorId(goodsFlavorId);
+        public Builder goodsAttributeId(BigInteger goodsAttributeId) {
+            instance.setGoodsAttributeId(goodsAttributeId);
             return this;
         }
 
-        public Builder goodsFlavorName(String goodsFlavorName) {
-            instance.setGoodsFlavorName(goodsFlavorName);
+        public Builder goodsAttributeName(String goodsAttributeName) {
+            instance.setGoodsAttributeName(goodsAttributeName);
             return this;
         }
 
@@ -336,7 +336,7 @@ public class DietOrderDetailGoodsFlavor extends BasicDomain {
             return this;
         }
 
-        public DietOrderDetailGoodsFlavor build() {
+        public DietOrderDetailGoodsAttribute build() {
             return instance;
         }
     }

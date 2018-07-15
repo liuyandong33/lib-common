@@ -53,7 +53,7 @@ public class Main {
         Object object = classLoader.loadClass("build.dream.common.demo.Main");
         System.out.println(object);
 
-        Class<?> domainClass = DietOrderDetailGoodsFlavor.class;
+        Class<?> domainClass = DietOrderDetailGoodsAttribute.class;
 
         String simpleName = domainClass.getSimpleName();
 

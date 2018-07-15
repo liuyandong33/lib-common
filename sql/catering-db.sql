@@ -158,7 +158,7 @@ CREATE TABLE diet_order_detail
     category_id BIGINT NOT NULL COMMENT '商品分类id',
     category_name VARCHAR(20) NOT NULL COMMENT '商品分类名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '单价',
-    flavor_increase DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
+    attribute_increase DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
     quantity DECIMAL(11, 3) NOT NULL COMMENT '数量',
     total_amount DECIMAL(11, 3) NOT NULL COMMENT '总金额',
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
@@ -177,8 +177,8 @@ CREATE TABLE diet_order_detail
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '餐厅订单明细';
 
-DROP TABLE IF EXISTS diet_order_detail_goods_flavor;
-CREATE TABLE diet_order_detail_goods_flavor
+DROP TABLE IF EXISTS diet_order_detail_goods_attribute;
+CREATE TABLE diet_order_detail_goods_attribute
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
@@ -187,10 +187,10 @@ CREATE TABLE diet_order_detail_goods_flavor
     diet_order_id BIGINT NOT NULL COMMENT '订单详情ID',
     diet_order_group_id BIGINT NOT NULL COMMENT '订单组ID，diet_order_group.id',
     diet_order_detail_id BIGINT NOT NULL COMMENT '订单明细ID',
-    goods_flavor_group_id BIGINT NOT NULL COMMENT 'goods_flavor_group.id',
-    goods_flavor_group_name VARCHAR(20) NOT NULL COMMENT '口味组名称',
-    goods_flavor_id BIGINT NOT NULL COMMENT 'goods_flavor.id',
-    goods_flavor_name VARCHAR(20) NOT NULL COMMENT '口味名称',
+    goods_attribute_group_id BIGINT NOT NULL COMMENT 'goods_attribute_group.id',
+    goods_attribute_group_name VARCHAR(20) NOT NULL COMMENT '口味组名称',
+    goods_attribute_id BIGINT NOT NULL COMMENT 'goods_attribute.id',
+    goods_attribute_name VARCHAR(20) NOT NULL COMMENT '口味名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
     local_id VARCHAR(50) NOT NULL COMMENT '本地ID',
     local_diet_order_id VARCHAR(50) NOT NULL COMMENT '本地订单id，diet_order_id.local_id',
@@ -470,8 +470,8 @@ CREATE TABLE goods_specification
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品规格表';
 
-DROP TABLE IF EXISTS goods_flavor_group;
-CREATE TABLE goods_flavor_group
+DROP TABLE IF EXISTS goods_attribute_group;
+CREATE TABLE goods_attribute_group
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
@@ -488,15 +488,15 @@ CREATE TABLE goods_flavor_group
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品口味组';
 
-DROP TABLE IF EXISTS goods_flavor;
-CREATE TABLE goods_flavor
+DROP TABLE IF EXISTS goods_attribute;
+CREATE TABLE goods_attribute
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     goods_id BIGINT NOT NULL COMMENT '产品ID',
-    goods_flavor_group_id BIGINT NOT NULL COMMENT '产品ID',
+    goods_attribute_group_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '口味组名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
