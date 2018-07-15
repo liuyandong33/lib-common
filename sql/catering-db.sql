@@ -461,6 +461,26 @@ CREATE TABLE goods_specification
     goods_id BIGINT NOT NULL COMMENT '产品ID',
     `name` VARCHAR(20) NOT NULL COMMENT '菜品名称',
     price DECIMAL(11, 3) NOT NULL COMMENT '口味加价',
+    stock DECIMAL(11, 3) NOT NULL COMMENT '库存数量',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '商品规格表';
+
+DROP TABLE IF EXISTS goods_unit;
+CREATE TABLE goods_unit
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    goods_id BIGINT NOT NULL COMMENT '产品ID',
+    `name` VARCHAR(20) NOT NULL COMMENT '单位名称',
+    proportion DECIMAL(11, 3) NOT NULL COMMENT '比例',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
