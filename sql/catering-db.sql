@@ -652,6 +652,8 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         give_goods_specification.name AS give_goods_specification_name,
         give_goods_specification.price AS give_price,
         buy_give_activity.give_quantity,
+        goods_category.id AS category_id,
+        goods_category.name AS category_name,
         NULL AS total_amount,
         NULL AS discount_type,
         NULL AS discount_rate,
@@ -700,6 +702,8 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         NULL AS give_goods_specification_name,
         NULL AS give_price,
         NULL AS give_quantity,
+        NULL AS category_id,
+        NULL AS category_name,
         full_reduction_activity.total_amount,
         full_reduction_activity.discount_type,
         full_reduction_activity.discount_rate,
@@ -743,6 +747,8 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         NULL AS give_goods_specification_name,
         NULL AS give_price,
         NULL AS give_quantity,
+        NULL AS category_id,
+        NULL AS category_name,
         NULL AS total_amount,
         special_goods_activity.discount_type,
         special_goods_activity.discount_rate,
@@ -754,6 +760,7 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         INNER JOIN special_goods_activity ON special_goods_activity.activity_id = activity.id
         INNER JOIN goods ON goods.id = special_goods_activity.goods_id AND goods.deleted = 0
         INNER JOIN goods_specification ON goods_specification.id = special_goods_activity.goods_specification_id AND goods_specification.deleted = 0
+        INNER JOIN goods_category ON goods_category.id = goods.id AND goods_category.deleted = 0
         WHERE activity.deleted = 0
         AND activity.type = 3
         AND activity.start_date <= DATE(NOW())
@@ -782,6 +789,8 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         NULL AS goods_specification_name,
         NULL AS price,
         NULL AS buy_quantity,
+        NULL AS category_id,
+        NULL AS category_name,
         NULL AS give_goods_id,
         NULL AS give_goods_name,
         NULL AS give_goods_specification_id,

@@ -99,6 +99,14 @@ public class EffectiveActivity {
      */
     private BigDecimal giveQuantity;
     /**
+     * 商品分类ID，买A赠B活动与特价商品活动专用，买A赠B活动中赠品对应的分类的ID，特价商品活动中特价商品对应的分类ID
+     */
+    private BigInteger categoryId;
+    /**
+     * 商品分类ID，买A赠B活动与特价商品活动专用，买A赠B活动中赠品对应的分类的名称，特价商品活动中特价商品对应的分类名称
+     */
+    private String categoryName;
+    /**
      * 总金额，整单满减活动、支付促销专用
      */
     private BigDecimal totalAmount;
@@ -305,6 +313,22 @@ public class EffectiveActivity {
 
     public void setGiveQuantity(BigDecimal giveQuantity) {
         this.giveQuantity = giveQuantity;
+    }
+
+    public BigInteger getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(BigInteger categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public BigDecimal getTotalAmount() {
