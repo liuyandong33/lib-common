@@ -488,7 +488,28 @@ CREATE TABLE goods_unit
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '商品规格表';
+) COMMENT '商品单位表';
+
+DROP TABLE IF EXISTS purchase_order;
+CREATE TABLE purchase_order
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    order_number VARCHAR(50) NOT NULL COMMENT '单据编号',
+    originator_user_id BIGINT NOT NULL COMMENT '制单人',
+    reviewer_user_id BIGINT NOT NULL COMMENT '审核人',
+    review_time DATETIME NOT NULL COMMENT '审核时间',
+    remark VARCHAR(255) NOT NULL COMMENT '备注',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '进货单';
 
 DROP TABLE IF EXISTS goods_attribute_group;
 CREATE TABLE goods_attribute_group
