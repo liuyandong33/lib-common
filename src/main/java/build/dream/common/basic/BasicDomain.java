@@ -2,10 +2,11 @@ package build.dream.common.basic;
 
 import build.dream.common.constants.Constants;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class BasicDomain {
+public class BasicDomain implements Serializable {
     private BigInteger id;
     private Date createTime;
     private BigInteger createUserId;
