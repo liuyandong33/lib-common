@@ -204,4 +204,77 @@ public class ApiRest {
     public String toJson(String datePattern) {
         return GsonUtils.toJson(this, datePattern);
     }
+
+    /**
+     * private boolean successful;
+     * private Object data;
+     * private String className;
+     * private String message;
+     * private String error;
+     * private String result;
+     * private String id;
+     * private String timestamp;
+     * private String signature;
+     */
+    public static class Builder {
+        private final ApiRest instance = new ApiRest();
+
+        public Builder successful(boolean successful) {
+            instance.setSuccessful(successful);
+            return this;
+        }
+
+        public Builder data(Object data) {
+            instance.setData(data);
+            return this;
+        }
+
+        public Builder className(String className) {
+            instance.setClassName(className);
+            return this;
+        }
+
+        public Builder message(String message) {
+            instance.setMessage(message);
+            return this;
+        }
+
+        public Builder error(String error) {
+            instance.setError(error);
+            return this;
+        }
+
+        public Builder result(String result) {
+            instance.setResult(result);
+            return this;
+        }
+
+        public Builder id(String id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder timestamp(String timestamp) {
+            instance.setTimestamp(timestamp);
+            return this;
+        }
+
+        public Builder timestamp(Date timestamp) {
+            instance.setTimestamp(timestamp);
+            return this;
+        }
+
+        public Builder signature(String signature) {
+            instance.setSignature(signature);
+            return this;
+        }
+
+        public ApiRest build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
