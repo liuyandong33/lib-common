@@ -1,22 +1,23 @@
 package build.dream.common;
 
 import build.dream.common.constants.Constants;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application extends ClassLoader {
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) throws ParseException, IOException {
 //        SpringApplication.run(Application.class, args);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
-        Date startDate = simpleDateFormat.parse("2018-01-02 12:59:59");
+        Date startDate = simpleDateFormat.parse("2018-01-02 12:01:59");
         Date endDate = simpleDateFormat.parse("2018-12-02 12:10:11");
 
         Calendar startCalendar = Calendar.getInstance();
