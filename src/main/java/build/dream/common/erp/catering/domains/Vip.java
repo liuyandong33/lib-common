@@ -59,10 +59,6 @@ public class Vip extends BasicDomain {
      * 微信会员卡编号
      */
     private String userCardCode = Constants.VARCHAR_DEFAULT_VALUE;
-    /**
-     * 会员积分
-     */
-    private Integer bonus;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -166,13 +162,5 @@ public class Vip extends BasicDomain {
 
     public void setUserCardCode(String userCardCode) {
         this.userCardCode = userCardCode;
-    }
-
-    public Integer getBonus() {
-        return bonus;
-    }
-
-    public void setBonus(Integer bonus) {
-        this.bonus = bonus;
     }
 }

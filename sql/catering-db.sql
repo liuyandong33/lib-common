@@ -1148,7 +1148,6 @@ CREATE TABLE vip
     alipay_user_id VARCHAR(50) NOT NULL COMMENT '支付宝user id',
     card_id VARCHAR(50) NOT NULL COMMENT '微信会员卡id',
     user_card_code VARCHAR(50) NOT NULL COMMENT '微信会员卡编号',
-    bonus INT NOT NULL COMMENT '会员积分',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -1178,6 +1177,25 @@ CREATE TABLE vip_type
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '会员类型表';
+
+DROP TABLE IF EXISTS vip_account;
+CREATE TABLE vip_account
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_id BIGINT NOT NULL COMMENT '会员ID',
+    point DECIMAL(11, 3) NOT NULL COMMENT '会员积分',
+    accumulative_point DECIMAL(11, 3) NOT NULL COMMENT '累计积分',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+) COMMENT '会员账户表';
 
 DROP TABLE IF EXISTS can_not_operate_reason;
 CREATE TABLE can_not_operate_reason
@@ -1379,3 +1397,36 @@ CREATE TABLE sale_payment
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付方式表';
+
+#扣减商品库存存储过程
+DROP PROCEDURE IF EXISTS procedure_deducting_goods_stock;
+DELIMITER $$
+CREATE PROCEDURE procedure_deducting_goods_stock(IN goods_id BIGINT, IN goods_specification_id BIGINT, IN quantity DECIMAL(11, 3))
+    BEGIN
+        UPDATE goods_specification SET stock = stock - quantity WHERE goods_id = goods_id AND id = goods_specification_id AND deleted = 0;
+        SELECT stock FROM goods_specification WHERE goods_id = goods_id AND id = goods_specification_id AND deleted = 0;
+    END$$
+
+DELIMITER ;
+
+#扣减会员积分存储过程
+DROP PROCEDURE IF EXISTS procedure_deducting_vip_point;
+DELIMITER $$
+CREATE PROCEDURE procedure_deducting_vip_point(IN tenant_id BIGINT, IN branch_id BIGINT, IN vip_id BIGINT, IN _point DECIMAL(11, 3))
+    BEGIN
+        UPDATE vip_account SET point = point - _point WHERE tenant_id = tenant_id AND branch_id = branch_id AND vip_id = vip_id AND deleted = 0;
+        SELECT point FROM vip_account WHERE tenant_id = tenant_id AND branch_id = branch_id AND vip_id = vip_id AND deleted = 0;
+    END$$
+
+DELIMITER ;
+
+#扣减会员余额存储过程
+DROP PROCEDURE IF EXISTS procedure_deducting_vip_balance;
+DELIMITER $$
+CREATE PROCEDURE procedure_deducting_vip_balance(IN tenant_id BIGINT, IN branch_id BIGINT, IN vip_id BIGINT, IN _balance DECIMAL(11, 3))
+    BEGIN
+        UPDATE vip_account SET balance = balance - _balance WHERE tenant_id = tenant_id AND branch_id = branch_id AND vip_id = vip_id AND deleted = 0;
+        SELECT balance FROM vip_account WHERE tenant_id = tenant_id AND branch_id = branch_id AND vip_id = vip_id AND deleted = 0;
+    END$$
+
+DELIMITER ;
