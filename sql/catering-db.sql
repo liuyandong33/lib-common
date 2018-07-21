@@ -442,6 +442,7 @@ CREATE TABLE goods
     `type` TINYINT NOT NULL COMMENT '商品名称，1-普通商品，2-套餐',
     category_id BIGINT NOT NULL COMMENT '商品分类',
     image_url VARCHAR(200) NOT NULL COMMENT '商品图片url',
+    stocked TINYINT NOT NULL COMMENT '是否管理库存',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

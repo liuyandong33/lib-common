@@ -39,6 +39,8 @@ public class Goods extends BasicDomain {
      */
     private String imageUrl = Constants.VARCHAR_DEFAULT_VALUE;
 
+    private boolean stocked;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -101,5 +103,13 @@ public class Goods extends BasicDomain {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public boolean isStocked() {
+        return stocked;
+    }
+
+    public void setStocked(boolean stocked) {
+        this.stocked = stocked;
     }
 }
