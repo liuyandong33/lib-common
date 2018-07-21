@@ -14,12 +14,6 @@ public class RefundModel extends BasicModel {
     private static final String[] REFUNDS_ACCOUNTS = {"REFUND_SOURCE_UNSETTLED_FUNDS", "REFUND_SOURCE_RECHARGE_FUNDS"};
     private static final String[] REFUND_FEE_TYPES = {"CNY"};
 
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
     @Length(max = 32)
     private String transactionId;
 
@@ -44,22 +38,6 @@ public class RefundModel extends BasicModel {
     private String refundAccount;
 
     private String tradeType;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getTransactionId() {
         return transactionId;
