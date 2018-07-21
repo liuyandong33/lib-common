@@ -4,6 +4,7 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.MicroPayModel;
+import build.dream.common.models.weixin.RefundModel;
 import build.dream.common.models.weixin.UnifiedOrderModel;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,6 +15,11 @@ import org.apache.commons.lang.Validate;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -77,6 +83,17 @@ public class WeiXinPayUtils {
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws IOException, DocumentException {
         return callWeiXinPaySystem(url, finalData, null, null);
+    }
+
+    private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) throws IOException {
+        Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
+        saveNotifyRecordRequestParameters.put("uuid", uuid);
+        saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
+        saveNotifyRecordRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
+        saveNotifyRecordRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
+
+        ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
+        ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
     }
 
     public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws IOException, DocumentException {
@@ -282,14 +299,48 @@ public class WeiXinPayUtils {
         return data;
     }
 
-    private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) throws IOException {
-        Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
-        saveNotifyRecordRequestParameters.put("uuid", uuid);
-        saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
-        saveNotifyRecordRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
-        saveNotifyRecordRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
+    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException, KeyManagementException, KeyStoreException, DocumentException {
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
-        ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
-        ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+        Map<String, String> refundRequestParameters = new HashMap<String, String>();
+        refundRequestParameters.put("appid", weiXinPayAccount.getAppId());
+        refundRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+
+        String tradeType = refundModel.getTradeType();
+        if (weiXinPayAccount.isAcceptanceModel()) {
+            if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_MICROPAY.equals(tradeType)) {
+                ApplicationHandler.ifNotBlankPut(refundRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
+            } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
+                refundRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
+            }
+            refundRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+        }
+
+        refundRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "transaction_id", refundModel.getTransactionId());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "out_trade_no", refundModel.getOutTradeNo());
+        refundRequestParameters.put("out_refund_no", refundModel.getOutRefundNo());
+        refundRequestParameters.put("total_fee", refundModel.getTotalFee().toString());
+        refundRequestParameters.put("refund_fee", refundModel.getRefundFee().toString());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_fee_type", refundModel.getRefundFeeType());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundModel.getRefund_desc());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundModel.getRefundAccount());
+
+        String sign = generateSign(refundRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
+        refundRequestParameters.put("sign", sign);
+
+        String refundFinalData = generateFinalData(refundRequestParameters);
+        Map<String, String> refundResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_REFUND_URI, refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+
+        String returnCode = refundResult.get("return_code");
+        Validate.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+
+        Validate.isTrue(checkSign(refundResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = refundResult.get("result_code");
+        Validate.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+
+        return refundResult;
     }
 }
