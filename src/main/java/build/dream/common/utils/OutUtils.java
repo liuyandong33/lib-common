@@ -37,7 +37,7 @@ public class OutUtils {
                 sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
             }
             String requestUrl = "http://192.168.0.77?_url=" + Base64.encodeBase64String(url.getBytes(Constants.CHARSET_NAME_UTF_8));
-            return WebUtils.doPostWithRequestBody(requestUrl, headers, requestBody, sslSocketFactory);
+            return WebUtils.doPostWithRequestBody(url, headers, requestBody, sslSocketFactory);
         } catch (Exception e) {
             throw new ApiException(e);
         }

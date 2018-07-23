@@ -15,11 +15,6 @@ import org.apache.commons.lang.Validate;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -102,6 +97,7 @@ public class WeiXinPayUtils {
     }
 
     public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws IOException, DocumentException {
+        microPayModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
@@ -158,6 +154,7 @@ public class WeiXinPayUtils {
     }
 
     public static Map<String, String> unifiedOrder(String tenantId, String branchId, UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
+        unifiedOrderModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
@@ -304,7 +301,9 @@ public class WeiXinPayUtils {
         return data;
     }
 
-    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws CertificateException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException, KeyManagementException, KeyStoreException, DocumentException {
+    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws IOException, DocumentException {
+        refundModel.validateAndThrow();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
