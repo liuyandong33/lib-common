@@ -117,7 +117,7 @@ public class ElemeUtils {
         callElemeSystemRequestParameters.put("requestBody", requestBody);
 
         String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
-        WebResponse webResponse = OutUtils.doPost(url, requestBody, HEADERS);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, requestBody, HEADERS);
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         Map<String, Object> errorMap = MapUtils.getMap(resultMap, "error");

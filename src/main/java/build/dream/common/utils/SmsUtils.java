@@ -37,8 +37,8 @@ public class SmsUtils {
         requestParameters.put("OutId", outId);
         requestParameters.put("Signature", sign(requestParameters, accessSecret));
 
-        String url = "http://dysmsapi.aliyuncs.com?" + WebUtils.buildQueryString(requestParameters);
-        WebResponse webResponse = OutUtils.doGet(url, null);
+        String url = "http://dysmsapi.aliyuncs.com";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, requestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         String code = resultJsonObject.getString("Code");
         Validate.isTrue(Constants.OK.equals(code), resultJsonObject.getString("Message"));

@@ -86,7 +86,7 @@ public class AlipayUtils {
 
     public static String callAlipayApi(String requestBody) throws IOException {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
-        WebResponse webResponse =  OutUtils.doPost(alipayGatewayUrl, requestBody, null, null, null);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(alipayGatewayUrl, requestBody, null);
         return webResponse.getResult();
     }
 

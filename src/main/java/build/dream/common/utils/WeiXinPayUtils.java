@@ -27,7 +27,12 @@ import java.util.TreeMap;
 
 public class WeiXinPayUtils {
     private static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
-        return null;
+        String weiXinPayAccountJson = CacheUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        WeiXinPayAccount weiXinPayAccount = null;
+        if (StringUtils.isNotBlank(weiXinPayAccountJson)) {
+            weiXinPayAccount = GsonUtils.fromJson(weiXinPayAccountJson, WeiXinPayAccount.class);
+        }
+        return weiXinPayAccount;
     }
 
     public static String generateSign(Map<String, String> callWeiXinSystemRequestParameters, String weiXinPayKey, String signType) {
@@ -77,7 +82,7 @@ public class WeiXinPayUtils {
     }
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws IOException, DocumentException {
-        WebResponse webResponse = OutUtils.doPost(url, finalData, null, certificate, password);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password);
         return WebUtils.xmlStringToMap(webResponse.getResult());
     }
 

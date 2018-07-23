@@ -76,8 +76,8 @@ public class WeiXinUtils {
         obtainOAuthAccessTokenRequestParameters.put("code", code);
         obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
 
-        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OAUTH2_ACCESS_TOKEN_URI + "?" + WebUtils.buildQueryString(obtainOAuthAccessTokenRequestParameters);
-        WebResponse webResponse = OutUtils.doGet(url, null);
+        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OAUTH2_ACCESS_TOKEN_URI;
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthAccessTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
@@ -100,8 +100,8 @@ public class WeiXinUtils {
             obtainUserInfoRequestParameters.put("lang", lang);
         }
 
-        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_USER_INFO_URI + "?" + WebUtils.buildQueryString(obtainUserInfoRequestParameters);
-        WebResponse webResponse = OutUtils.doGet(url, null);
+        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_USER_INFO_URI;
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainUserInfoRequestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         if (resultJsonObject.has("errcode")) {
             ValidateUtils.isTrue(false, resultJsonObject.optString("errmsg"));

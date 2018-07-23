@@ -1,58 +1,59 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.ApiException;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.Validate;
+import org.apache.commons.lang.StringUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.ResponseEntity;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OutUtils {
-    public static WebResponse doGet(String url, Map<String, String> headers) throws IOException {
-        Map<String, String> doGetRequestParameters = new HashMap<String, String>();
-        doGetRequestParameters.put("url", url);
-        if (MapUtils.isNotEmpty(headers)) {
-            doGetRequestParameters.put("headers", GsonUtils.toJson(headers));
-        }
+    public static WebResponse doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
+        try {
+            String _url = new String(url);
+            if (MapUtils.isNotEmpty(requestParameters)) {
+                _url = _url + "?" + WebUtils.buildQueryString(requestParameters);
+            }
+            Map<String, String> doGetRequestParameters = new HashMap<String, String>();
+            doGetRequestParameters.put("_url", _url);
 
-        ApiRest doGetApiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_OUT, "proxy", "doGet", doGetRequestParameters);
-        Validate.isTrue(doGetApiRest.isSuccessful(), doGetApiRest.getError());
-        return (WebResponse) doGetApiRest.getData();
+            WebResponse webResponse = WebUtils.doGetWithRequestParameters("http://192.168.0.77", headers, requestParameters);
+            return webResponse;
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 
-    public static WebResponse doPost(String url, String requestBody, Map<String, String> headers) throws IOException {
-        return doPost(url, requestBody, headers, null, null);
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
+        try {
+            SSLSocketFactory sslSocketFactory = null;
+            if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
+                sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
+            }
+            String requestUrl = "http://192.168.0.77?_url=" + Base64.encodeBase64String(url.getBytes(Constants.CHARSET_NAME_UTF_8));
+            return WebUtils.doPostWithRequestBody(requestUrl, headers, requestBody, sslSocketFactory);
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 
-    public static WebResponse doPost(String url, String requestBody, Map<String, String> headers, String certificate, String password) throws IOException {
-        Map<String, String> doPostRequestParameters = new HashMap<String, String>();
-        doPostRequestParameters.put("url", url);
-        doPostRequestParameters.put("requestBody", requestBody);
-        if (MapUtils.isNotEmpty(headers)) {
-            doPostRequestParameters.put("headers", GsonUtils.toJson(headers));
-        }
-        ApplicationHandler.ifNotBlankPut(doPostRequestParameters, "certificate", certificate);
-        ApplicationHandler.ifNotBlankPut(doPostRequestParameters, "password", password);
-        ApiRest doPostApiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_OUT, "proxy", "doPost", doPostRequestParameters);
-        Validate.isTrue(doPostApiRest.isSuccessful(), doPostApiRest.getError());
-        return (WebResponse) doPostApiRest.getData();
+    public static WebResponse doPostWithRequestBody(String url, String requestBody, Map<String, String> headers) {
+        return doPostWithRequestBody(url, headers, requestBody, null, null);
     }
 
-    public static WebResponse doPostMultipart(String url, Map<String, Object> requestParameters, Map<String, String> headers) throws IOException {
-        Map<String, Object> doPostMultipartRequestParameters = new HashMap<String, Object>();
-        doPostMultipartRequestParameters.put("url", url);
-        doPostMultipartRequestParameters.putAll(requestParameters);
-        if (MapUtils.isNotEmpty(headers)) {
-            doPostMultipartRequestParameters.put("headers", GsonUtils.toJson(headers));
+    public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters) {
+        try {
+            String requestUrl = "http://192.168.0.77?_url=" + Base64.encodeBase64String(url.getBytes(Constants.CHARSET_NAME_UTF_8));
+            return WebUtils.doPostWithRequestParametersAndFiles(requestUrl, headers, requestParameters);
+        } catch (Exception e) {
+            throw new ApiException(e);
         }
-
-        ApiRest doPostMultipartApiRest = ProxyUtils.doPostWithRequestParametersAndFiles(Constants.SERVICE_NAME_OUT, "proxy", "doPostMultipart", doPostMultipartRequestParameters);
-        Validate.isTrue(doPostMultipartApiRest.isSuccessful(), doPostMultipartApiRest.getError());
-        return (WebResponse) doPostMultipartApiRest.getData();
     }
 
     public static ResponseEntity<byte[]> doGetOriginal(String url, Map<String, String> headers) throws IOException {

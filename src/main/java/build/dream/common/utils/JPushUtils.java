@@ -23,9 +23,7 @@ public class JPushUtils {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "Basic " + Base64.encodeBase64String((appKey + ":" + masterSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
         headers.put("Content-Type", "application/json");
-
-        String queryString = WebUtils.buildQueryString(requestParameters);
-        WebResponse webResponse = OutUtils.doGet(StringUtils.isNotBlank(queryString) ? url + "?" + queryString : url, headers);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, headers, requestParameters);
         return webResponse.getResult();
     }
 

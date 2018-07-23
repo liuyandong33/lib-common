@@ -47,8 +47,8 @@ public class AlibabaCloudMobilePushUtils {
         requestParameters.put("Body", body);
         requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
 
-        String url = "http://cloudpush.aliyuncs.com?" + WebUtils.buildQueryString(requestParameters);
-        WebResponse webResponse = OutUtils.doGet(url, null);
+        String url = "http://cloudpush.aliyuncs.com";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, requestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         return resultJsonObject;
