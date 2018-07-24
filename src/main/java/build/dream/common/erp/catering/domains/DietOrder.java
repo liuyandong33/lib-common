@@ -113,6 +113,10 @@ public class DietOrder extends BasicDomain {
      */
     private String invoice = Constants.VARCHAR_DEFAULT_VALUE;
     /**
+     * 会员ID
+     */
+    private BigInteger vipId;
+    /**
      * 本地ID
      */
     private String localId = Constants.VARCHAR_DEFAULT_VALUE;
@@ -333,6 +337,14 @@ public class DietOrder extends BasicDomain {
         this.invoice = invoice;
     }
 
+    public BigInteger getVipId() {
+        return vipId;
+    }
+
+    public void setVipId(BigInteger vipId) {
+        this.vipId = vipId;
+    }
+
     public String getLocalId() {
         return localId;
     }
@@ -487,6 +499,11 @@ public class DietOrder extends BasicDomain {
 
         public Builder invoice(String invoice) {
             instance.setInvoice(invoice);
+            return this;
+        }
+
+        public Builder vipId(BigInteger vipId) {
+            instance.setVipId(vipId);
             return this;
         }
 

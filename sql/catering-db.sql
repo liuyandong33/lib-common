@@ -105,6 +105,7 @@ CREATE TABLE diet_order
     invoiced TINYINT NOT NULL COMMENT '是否需要发票',
     invoice_type VARCHAR(10) NOT NULL COMMENT '发票类型，personal-个人，company-企业',
     invoice VARCHAR(30) NOT NULL COMMENT '发票抬头',
+    vip_id BIGINT NOT NULL COMMENT '会员ID',
     local_id VARCHAR(50) NOT NULL COMMENT '本地ID',
     local_create_time DATETIME NOT NULL COMMENT '本地创建时间',
     local_last_update_time DATETIME NOT NULL COMMENT '本地最后更新时间',
