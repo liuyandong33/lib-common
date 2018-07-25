@@ -45,6 +45,10 @@ public class DietOrderPayment extends BasicDomain {
      */
     private Date occurrenceTime;
     /**
+     * 扩展信息，用于保存储值支付的兑换比例，微信支付、支付宝支付的支付场景
+     */
+    private String extraInfo = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
      * 本地ID
      */
     private String localId = Constants.VARCHAR_DEFAULT_VALUE;
@@ -133,6 +137,14 @@ public class DietOrderPayment extends BasicDomain {
         this.occurrenceTime = occurrenceTime;
     }
 
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String extraInfo) {
+        this.extraInfo = extraInfo;
+    }
+
     public String getLocalId() {
         return localId;
     }
@@ -210,6 +222,11 @@ public class DietOrderPayment extends BasicDomain {
 
         public Builder occurrenceTime(Date occurrenceTime) {
             instance.setOccurrenceTime(occurrenceTime);
+            return this;
+        }
+
+        public Builder extraInfo(String extraInfo) {
+            instance.setExtraInfo(extraInfo);
             return this;
         }
 

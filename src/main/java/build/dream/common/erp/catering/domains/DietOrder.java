@@ -33,7 +33,7 @@ public class DietOrder extends BasicDomain {
      */
     private Integer orderStatus;
     /**
-     * 订单付款状态，1-未付款，2-已付款
+     * 订单付款状态，1-未付款，2-已付款，3-部分付款，已经支付了一部分但未全额付款
      */
     private Integer payStatus;
     /**
