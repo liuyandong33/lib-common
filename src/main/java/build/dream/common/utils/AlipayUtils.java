@@ -5,6 +5,7 @@ import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.AlipayTradePagePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
+import build.dream.common.models.alipay.AlipayTradeRefundModel;
 import build.dream.common.models.alipay.AlipayTradeWapPayModel;
 import build.dream.common.saas.domains.AlipayAccount;
 import net.sf.json.JSONObject;
@@ -136,6 +137,12 @@ public class AlipayUtils {
         alipayTradePagePayModel.validateAndThrow();
         AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
         return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
+    }
+
+    public static JSONObject alipayTradeRefund(String tenantId, String branchId, String appAuthToken, AlipayTradeRefundModel alipayTradeRefundModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
+        alipayTradeRefundModel.validateAndThrow();
+        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+        return callAlipayApi(alipayAccount, "alipay.trade.refund", null, appAuthToken, GsonUtils.toJson(alipayTradeRefundModel, false));
     }
 
     private static AlipayAccount saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) throws IOException {
