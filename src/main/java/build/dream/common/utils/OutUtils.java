@@ -37,10 +37,28 @@ public class OutUtils {
         }
     }
 
+    public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
+        return doPostWithRequestParameters(url, headers, requestParameters, null);
+    }
+
     public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             return WebUtils.doPostWithRequestParameters(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody) {
+        return doPostWithRequestBody(url, headers, requestBody, null);
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
+        try {
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            SSLSocketFactory sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
+            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

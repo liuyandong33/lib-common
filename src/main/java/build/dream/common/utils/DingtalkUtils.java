@@ -65,7 +65,7 @@ public class DingtalkUtils {
         textMap.put("content", content);
         sendRequestBody.put("text", textMap);
         String url = ConfigurationUtils.getConfiguration(Constants.DINGTALK_SERVICE_URL) + Constants.DINGTALK_CHAT_SEND_URI + "?access_token=" + obtainAccessToken();
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(sendRequestBody), HEADERS);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendRequestBody));
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");

@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 import org.dom4j.DocumentException;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

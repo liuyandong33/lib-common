@@ -36,7 +36,7 @@ public class ElemeUtils {
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
         String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
-        WebResponse webResponse = WebUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
         return webResponse.getResult();
     }
 
@@ -50,7 +50,7 @@ public class ElemeUtils {
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
         String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
-        WebResponse webResponse = WebUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
         return webResponse.getResult();
     }
 
@@ -117,7 +117,7 @@ public class ElemeUtils {
         callElemeSystemRequestParameters.put("requestBody", requestBody);
 
         String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, requestBody, HEADERS);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         Map<String, Object> errorMap = MapUtils.getMap(resultMap, "error");
