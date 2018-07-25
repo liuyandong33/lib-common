@@ -347,4 +347,22 @@ public class WeiXinPayUtils {
 
         return refundResult;
     }
+
+    public static String obtainTradeType(Integer paidScene) {
+        String tradeType = null;
+        if (paidScene == Constants.PAID_SCENE_WEI_XIN_MICROPAY) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_MICROPAY;
+        } else if (paidScene == Constants.PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI;
+        } else if (paidScene == Constants.PAID_SCENE_WEI_XIN_NATIVE) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE;
+        } else if (paidScene == Constants.PAID_SCENE_WEI_XIN_APP) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_APP;
+        } else if (paidScene == Constants.PAID_SCENE_WEI_XIN_MWEB) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB;
+        } else if (paidScene == Constants.PAID_SCENE_WEI_XIN_JSAPI_MINI_PROGRAM) {
+            tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI;
+        }
+        return tradeType;
+    }
 }
