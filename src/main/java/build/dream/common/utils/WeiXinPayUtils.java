@@ -76,12 +76,12 @@ public class WeiXinPayUtils {
         return weiXinPayFinalData.toString();
     }
 
-    public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws IOException, DocumentException {
+    public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws DocumentException {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password);
         return WebUtils.xmlStringToMap(webResponse.getResult());
     }
 
-    public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws IOException, DocumentException {
+    public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws DocumentException {
         return callWeiXinPaySystem(url, finalData, null, null);
     }
 

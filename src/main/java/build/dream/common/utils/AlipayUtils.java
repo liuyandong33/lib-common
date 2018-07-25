@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.ApiException;
 import build.dream.common.models.alipay.AlipayTradePagePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.alipay.AlipayTradeRefundModel;
@@ -115,34 +116,50 @@ public class AlipayUtils {
         return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static JSONObject alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
-        alipayTradePayModel.validateAndThrow();
-        AlipayAccount alipayAccount = null;
-        if (StringUtils.isNotBlank(notifyUrl)) {
-            alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
-        } else {
-            alipayAccount = obtainAlipayAccount(tenantId, branchId);
-            Validate.notNull(alipayAccount, "未配置支付宝账号！");
+    public static JSONObject alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) {
+        try {
+            alipayTradePayModel.validateAndThrow();
+            AlipayAccount alipayAccount = null;
+            if (StringUtils.isNotBlank(notifyUrl)) {
+                alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
+            } else {
+                alipayAccount = obtainAlipayAccount(tenantId, branchId);
+                Validate.notNull(alipayAccount, "未配置支付宝账号！");
+            }
+            return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
+        } catch (Exception e) {
+            throw new ApiException(e);
         }
-        return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
     }
 
-    public static String alipayTradeWapPay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
-        alipayTradeWapPayModel.validateAndThrow();
-        AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
-        return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
+    public static String alipayTradeWapPay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) {
+        try {
+            alipayTradeWapPayModel.validateAndThrow();
+            AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
+            return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 
-    public static JSONObject alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) throws NoSuchAlgorithmException, SignatureException, InvalidKeySpecException, InvalidKeyException, IOException {
-        alipayTradePagePayModel.validateAndThrow();
-        AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
-        return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
+    public static JSONObject alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) {
+        try {
+            alipayTradePagePayModel.validateAndThrow();
+            AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
+            return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 
-    public static JSONObject alipayTradeRefund(String tenantId, String branchId, String appAuthToken, AlipayTradeRefundModel alipayTradeRefundModel) throws InvalidKeySpecException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, IOException {
-        alipayTradeRefundModel.validateAndThrow();
-        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
-        return callAlipayApi(alipayAccount, "alipay.trade.refund", null, appAuthToken, GsonUtils.toJson(alipayTradeRefundModel, false));
+    public static JSONObject alipayTradeRefund(String tenantId, String branchId, String appAuthToken, AlipayTradeRefundModel alipayTradeRefundModel) {
+        try {
+            alipayTradeRefundModel.validateAndThrow();
+            AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+            return callAlipayApi(alipayAccount, "alipay.trade.refund", null, appAuthToken, GsonUtils.toJson(alipayTradeRefundModel, false));
+        } catch (Exception e) {
+            throw new ApiException(e);
+        }
     }
 
     private static AlipayAccount saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) throws IOException {
