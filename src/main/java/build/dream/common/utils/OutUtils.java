@@ -3,65 +3,90 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
-import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
 
 import javax.net.ssl.SSLSocketFactory;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.SocketAddress;
+import java.util.List;
 import java.util.Map;
 
 public class OutUtils {
+    private static Proxy proxy;
+
+    static {
+        String hostName = ConfigurationUtils.getConfigurationSafe(Constants.PROXY_SERVER_HOST_NAME);
+        String port = ConfigurationUtils.getConfigurationSafe(Constants.PROXY_SERVER_PORT);
+        if (StringUtils.isNotBlank(hostName) && StringUtils.isNotBlank(port)) {
+            SocketAddress socketAddress = new InetSocketAddress(hostName, Integer.parseInt(port));
+            proxy = new Proxy(Proxy.Type.HTTP, socketAddress);
+        }
+    }
+
     public static WebResponse doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
         try {
-            String _url = new String(url);
-            if (MapUtils.isNotEmpty(requestParameters)) {
-                _url = _url + "?" + WebUtils.buildQueryString(requestParameters);
-            }
-            Map<String, String> doGetRequestParameters = new HashMap<String, String>();
-            doGetRequestParameters.put("_url", _url);
-
-            WebResponse webResponse = WebUtils.doGetWithRequestParameters("http://192.168.0.77", headers, requestParameters);
-            return webResponse;
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            return WebUtils.doGetWithRequestParameters(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, proxy);
         } catch (Exception e) {
-            throw new ApiException(e);
+            throw new RuntimeException(e);
         }
     }
 
-    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
+    public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) {
         try {
-            SSLSocketFactory sslSocketFactory = null;
-            if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
-                sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
-            }
-            String requestUrl = "http://192.168.0.77?_url=" + Base64.encodeBase64String(url.getBytes(Constants.CHARSET_NAME_UTF_8));
-            return WebUtils.doPostWithRequestBody(url, headers, requestBody, sslSocketFactory);
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            return WebUtils.doPostWithRequestParameters(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
         } catch (Exception e) {
-            throw new ApiException(e);
+            throw new RuntimeException(e);
         }
     }
 
-    public static WebResponse doPostWithRequestBody(String url, String requestBody, Map<String, String> headers) {
-        return doPostWithRequestBody(url, headers, requestBody, null, null);
-    }
-
-    public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters) {
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) {
         try {
-            String requestUrl = "http://192.168.0.77?_url=" + Base64.encodeBase64String(url.getBytes(Constants.CHARSET_NAME_UTF_8));
-            return WebUtils.doPostWithRequestParametersAndFiles(requestUrl, headers, requestParameters);
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) {
+        try {
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            return WebUtils.doPostWithRequestParametersAndFiles(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
         } catch (Exception e) {
             throw new ApiException(e);
         }
     }
 
-    public static ResponseEntity<byte[]> doGetOriginal(String url, Map<String, String> headers) throws IOException {
-        Map<String, String> doGetOriginalRequestParameters = new HashMap<String, String>();
-        doGetOriginalRequestParameters.put("url", url);
-        if (MapUtils.isNotEmpty(headers)) {
-            doGetOriginalRequestParameters.put("headers", GsonUtils.toJson(headers));
+    public static void doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, HttpServletResponse httpServletResponse) throws IOException {
+        ValidateUtils.notNull(proxy, "未配置代理服务器！");
+        HttpURLConnection httpURLConnection = WebUtils.buildHttpURLConnection(url, WebUtils.RequestMethod.GET, 0, 0, null, proxy);
+        WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
+
+        // 处理重定向
+        int responseCode = httpURLConnection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
+            httpURLConnection.disconnect();
+            httpURLConnection = WebUtils.buildHttpURLConnection(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), WebUtils.RequestMethod.GET, 0, 0, null, proxy);
+            WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
         }
-        return ProxyUtils.obtainRestTemplate().getForEntity(ProxyUtils.obtainUrl(null, Constants.SERVICE_NAME_OUT, "proxy", "doGetOriginal", doGetOriginalRequestParameters), byte[].class);
+
+        Map<String, List<String>> headerFields = httpURLConnection.getHeaderFields();
+        for (Map.Entry<String, List<String>> headerField : headerFields.entrySet()) {
+            String name = headerField.getKey();
+            List<String> values = headerField.getValue();
+            for (String value : values) {
+                httpServletResponse.addHeader(name, value);
+            }
+        }
+
+        IOUtils.copy(httpURLConnection.getInputStream(), httpServletResponse.getOutputStream());
+        httpURLConnection.disconnect();
     }
 }

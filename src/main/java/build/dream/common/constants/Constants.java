@@ -310,4 +310,7 @@ public class Constants {
     public static final String PAYMENT_CODE_WX = "WX";
     // 支付方式编码，支付宝支付
     public static final String PAYMENT_CODE_ALIPAY = "ALIPAY";
+
+    public static final String PROXY_SERVER_HOST_NAME = "proxy.server.host.name";
+    public static final String PROXY_SERVER_PORT = "proxy.server.port";
 }
