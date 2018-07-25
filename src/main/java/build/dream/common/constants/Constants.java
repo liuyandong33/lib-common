@@ -301,4 +301,13 @@ public class Constants {
     public static final String DINGTALK_CHAT_SEND_URI = "/chat/send";
     public static final String DINGTALK_SENDER = "dingtalk.sender";
     public static final String DINGTALK_CHAT_ID = "dingtalk.chat.id";
+
+    // 支付方式编码，会员积分
+    public static final String PAYMENT_CODE_HYJF = "HYJF";
+    // 支付方式编码，会员钱包
+    public static final String PAYMENT_CODE_HYQB = "HYQB";
+    // 支付方式编码，微信支付
+    public static final String PAYMENT_CODE_WX = "WX";
+    // 支付方式编码，支付宝支付
+    public static final String PAYMENT_CODE_ALIPAY = "ALIPAY";
 }
