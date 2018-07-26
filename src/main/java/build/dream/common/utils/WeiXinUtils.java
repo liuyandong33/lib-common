@@ -1,10 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
-import build.dream.common.beans.WebResponse;
-import build.dream.common.beans.WeiXinJsapiTicket;
-import build.dream.common.beans.WeiXinOAuthAccessToken;
-import build.dream.common.beans.WeiXinUserInfo;
+import build.dream.common.beans.*;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.SendMassMessageModel;
 import net.sf.json.JSONObject;
@@ -12,9 +9,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -128,5 +127,70 @@ public class WeiXinUtils {
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
+    }
+
+    public static WeiXinAccessToken obtainAccessToken(String appId, String secret) throws IOException {
+        String weiXinAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
+        boolean isRetrieveAccessToken = false;
+        WeiXinAccessToken weiXinAccessToken = null;
+        if (StringUtils.isNotBlank(weiXinAccessTokenJson)) {
+            weiXinAccessToken = GsonUtils.fromJson(weiXinAccessTokenJson, WeiXinAccessToken.class);
+            if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 >= weiXinAccessToken.getExpiresIn()) {
+                isRetrieveAccessToken = true;
+            }
+        } else {
+            isRetrieveAccessToken = true;
+        }
+        if (isRetrieveAccessToken) {
+            Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
+            obtainAccessTokenRequestParameters.put("appid", appId);
+            obtainAccessTokenRequestParameters.put("secret", secret);
+            obtainAccessTokenRequestParameters.put("grant_type", "client_credential");
+            String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_ACCESS_TOKEN_URI;
+            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
+
+            JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
+            Validate.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+
+            weiXinAccessToken = new WeiXinAccessToken();
+            weiXinAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
+            weiXinAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
+            weiXinAccessToken.setFetchTime(new Date());
+            CacheUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, GsonUtils.toJson(weiXinAccessToken));
+        }
+        return weiXinAccessToken;
+    }
+
+    public WeiXinJsapiTicket obtainJsapiTicket(String appId, String appSecret, String type) throws IOException {
+        String weiXinJsapiTicketJson = CacheUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
+        boolean isRetrieveJsapiTicket = false;
+        WeiXinJsapiTicket weiXinJsapiTicket = null;
+        if (StringUtils.isNotBlank(weiXinJsapiTicketJson)) {
+            weiXinJsapiTicket = GsonUtils.fromJson(weiXinJsapiTicketJson, WeiXinJsapiTicket.class);
+            if ((System.currentTimeMillis() - weiXinJsapiTicket.getFetchTime().getTime()) / 1000 >= weiXinJsapiTicket.getExpiresIn()) {
+                isRetrieveJsapiTicket = true;
+            }
+        } else {
+            isRetrieveJsapiTicket = true;
+        }
+
+        if (isRetrieveJsapiTicket) {
+            WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, appSecret);
+            Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
+            obtainJsapiTicketRequestParameters.put("access_token", weiXinAccessToken.getAccessToken());
+            obtainJsapiTicketRequestParameters.put("type", type);
+
+            String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OBTAIN_JSAPI_TICKET_URI;
+            WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
+            JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
+            Validate.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
+
+            weiXinJsapiTicket = new WeiXinJsapiTicket();
+            weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
+            weiXinJsapiTicket.setExpiresIn(resultJsonObject.optInt("expires_in"));
+            weiXinJsapiTicket.setFetchTime(new Date());
+            CacheUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
+        }
+        return weiXinJsapiTicket;
     }
 }

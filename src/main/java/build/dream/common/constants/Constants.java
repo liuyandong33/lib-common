@@ -230,6 +230,11 @@ public class Constants {
     public static final String WEI_XIN_OAUTH2_ACCESS_TOKEN_URI = "/sns/oauth2/access_token";
     public static final String WEI_XIN_OBTAIN_USER_INFO_URI = "/sns/userinfo";
     public static final String WEI_XIN_SEND_MASS_MESSAGE_URI = "/message/mass/send";
+    public static final String WEI_XIN_OBTAIN_ACCESS_TOKEN_URI = "/cgi-bin/token";
+    public static final String WEI_XIN_OBTAIN_JSAPI_TICKET_URI = "/cgi-bin/ticket/getticket";
+
+    public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
+    public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
 
     public static final String SNSAPI_BASE = "snsapi_base";
     public static final String SNSAPI_USERINFO = "snsapi_userinfo";
