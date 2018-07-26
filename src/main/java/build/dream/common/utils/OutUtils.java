@@ -3,11 +3,14 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import javax.net.ssl.SSLSocketFactory;
-import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -73,6 +76,10 @@ public class OutUtils {
         }
     }
 
+    public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters) {
+        return doPostWithRequestParametersAndFiles(url, headers, requestParameters, null);
+    }
+
     public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
@@ -82,29 +89,35 @@ public class OutUtils {
         }
     }
 
-    public static void doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, HttpServletResponse httpServletResponse) throws IOException {
+    public static ResponseEntity<byte[]> doGet(String url, Map<String, String> headers) throws IOException {
         ValidateUtils.notNull(proxy, "未配置代理服务器！");
         HttpURLConnection httpURLConnection = WebUtils.buildHttpURLConnection(url, WebUtils.RequestMethod.GET, 0, 0, null, proxy);
         WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
 
         // 处理重定向
         int responseCode = httpURLConnection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
+        while (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
             httpURLConnection.disconnect();
             httpURLConnection = WebUtils.buildHttpURLConnection(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), WebUtils.RequestMethod.GET, 0, 0, null, proxy);
             WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
+            responseCode = httpURLConnection.getResponseCode();
         }
 
+        HttpHeaders httpHeaders = new HttpHeaders();
         Map<String, List<String>> headerFields = httpURLConnection.getHeaderFields();
         for (Map.Entry<String, List<String>> headerField : headerFields.entrySet()) {
-            String name = headerField.getKey();
-            List<String> values = headerField.getValue();
-            for (String value : values) {
-                httpServletResponse.addHeader(name, value);
+            String key = headerField.getKey();
+            List<String> value = headerField.getValue();
+            if (StringUtils.isNotBlank(key) && CollectionUtils.isNotEmpty(value)) {
+                httpHeaders.addAll(headerField.getKey(), headerField.getValue());
             }
         }
 
-        IOUtils.copy(httpURLConnection.getInputStream(), httpServletResponse.getOutputStream());
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        IOUtils.copy(httpURLConnection.getInputStream(), byteArrayOutputStream);
+        ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(byteArrayOutputStream.toByteArray(), httpHeaders, HttpStatus.valueOf(responseCode));
+        byteArrayOutputStream.close();
         httpURLConnection.disconnect();
+        return responseEntity;
     }
 }

@@ -49,7 +49,7 @@ public class IOUtils {
         }
     }
 
-    public static void copy(InputStream inputStream, ServletOutputStream outputStream) throws IOException {
+    public static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
         copy(inputStream, outputStream, false);
     }
 }
