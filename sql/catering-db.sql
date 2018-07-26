@@ -1467,3 +1467,22 @@ CREATE PROCEDURE procedure_add_vip_balance(IN _tenant_id BIGINT, IN _branch_id B
     END$$
 
 DELIMITER ;
+
+DROP TABLE IF EXISTS payment;
+CREATE TABLE payment
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    `code` VARCHAR(10) NOT NULL COMMENT '支付方式编码',
+    `name` VARCHAR(10) NOT NULL COMMENT '支付方式名称',
+    `status` TINYINT NOT NULL COMMENT '状态，1-启用，2-禁用',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+) COMMENT '支付方式表';
