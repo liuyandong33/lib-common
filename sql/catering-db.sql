@@ -1191,6 +1191,8 @@ CREATE TABLE vip_account
     vip_id BIGINT NOT NULL COMMENT '会员ID',
     point DECIMAL(11, 3) NOT NULL COMMENT '会员积分',
     accumulative_point DECIMAL(11, 3) NOT NULL COMMENT '累计积分',
+    balance DECIMAL(11, 3) NOT NULL COMMENT '余额',
+    accumulative_recharge DECIMAL(11, 3) NOT NULL COMMENT '累计充值金额',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
