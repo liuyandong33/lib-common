@@ -4,7 +4,10 @@ import build.dream.common.models.BasicModel;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @SerializedName(value = "store_id", alternate = "storeId")
@@ -77,6 +80,93 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @SerializedName(value = "audit_images", alternate = "auditImages")
     @Length(max = 4000)
     private String auditImages;
+
+    @SerializedName(value = "business_time", alternate = "businessTime")
+    @Length(max = 256)
+    private String business_time;
+
+    private String wifi;
+
+    private String parking;
+
+    @SerializedName(value = "value_added", alternate = "valueAdded")
+    @Length(max = 256)
+    private String valueAdded;
+
+    @SerializedName(value = "avg_price", alternate = "avgPrice")
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "99999")
+    private BigDecimal avgPrice;
+
+    @SerializedName(value = "isv_uid", alternate = "isvUid")
+    @NotNull
+    @Length(max = 16)
+    private String isvUid;
+
+    @Length(max = 512)
+    private String licence;
+
+    @SerializedName(value = "licence_code", alternate = "licenceCode")
+    @Length(max = 255)
+    private String licenceCode;
+
+    @SerializedName(value = "licence_name", alternate = "licenceName")
+    @Length(max = 255)
+    private String licenceName;
+
+    @SerializedName(value = "business_certificate", alternate = "businessCertificate")
+    @Length(max = 512)
+    private String businessCertificate;
+
+    @SerializedName(value = "business_certificate_expires", alternate = "businessCertificateExpires")
+    @Length(max = 64)
+    private String businessCertificateExpires;
+
+    @SerializedName(value = "auth_letter", alternate = "authLetter")
+    @Length(max = 512)
+    private String authLetter;
+
+    @SerializedName(value = "is_operating_online", alternate = "isOperatingOnline")
+    private String isOperatingOnline;
+
+    @SerializedName(value = "online_url", alternate = "onlineUrl")
+    @Length(max = 2000)
+    private String onlineUrl;
+
+    @SerializedName(value = "operate_notify_url", alternate = "operateNotifyUrl")
+    @Length(max = 512)
+    private String operateNotifyUrl;
+
+    @SerializedName(value = "implement_id", alternate = "implementId")
+    @Length(max = 256)
+    private String implementId;
+
+    @SerializedName(value = "no_smoking", alternate = "noSmoking")
+    private String noSmoking;
+
+    private String box;
+
+    @SerializedName(value = "request_id", alternate = "requestId")
+    @NotNull
+    @Length(max = 64)
+    private String requestId;
+
+    @SerializedName(value = "other_authorization", alternate = "otherAuthorization")
+    @Length(max = 500)
+    private String otherAuthorization;
+
+    @SerializedName(value = "licence_expires", alternate = "licenceExpires")
+    @Length(max = 64)
+    private String licenceExpires;
+
+    @SerializedName(value = "op_role", alternate = "opRole")
+    @Length(max = 16)
+    private String opRole;
+
+    @SerializedName(value = "biz_version", alternate = "bizVersion")
+    @NotNull
+    @Length(max = 10)
+    private String biz_version;
 
     public String getStoreId() {
         return storeId;
@@ -204,5 +294,189 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
 
     public void setAuditImages(String auditImages) {
         this.auditImages = auditImages;
+    }
+
+    public String getBusiness_time() {
+        return business_time;
+    }
+
+    public void setBusiness_time(String business_time) {
+        this.business_time = business_time;
+    }
+
+    public String getWifi() {
+        return wifi;
+    }
+
+    public void setWifi(String wifi) {
+        this.wifi = wifi;
+    }
+
+    public String getParking() {
+        return parking;
+    }
+
+    public void setParking(String parking) {
+        this.parking = parking;
+    }
+
+    public String getValueAdded() {
+        return valueAdded;
+    }
+
+    public void setValueAdded(String valueAdded) {
+        this.valueAdded = valueAdded;
+    }
+
+    public BigDecimal getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(BigDecimal avgPrice) {
+        this.avgPrice = avgPrice;
+    }
+
+    public String getIsvUid() {
+        return isvUid;
+    }
+
+    public void setIsvUid(String isvUid) {
+        this.isvUid = isvUid;
+    }
+
+    public String getLicence() {
+        return licence;
+    }
+
+    public void setLicence(String licence) {
+        this.licence = licence;
+    }
+
+    public String getLicenceCode() {
+        return licenceCode;
+    }
+
+    public void setLicenceCode(String licenceCode) {
+        this.licenceCode = licenceCode;
+    }
+
+    public String getLicenceName() {
+        return licenceName;
+    }
+
+    public void setLicenceName(String licenceName) {
+        this.licenceName = licenceName;
+    }
+
+    public String getBusinessCertificate() {
+        return businessCertificate;
+    }
+
+    public void setBusinessCertificate(String businessCertificate) {
+        this.businessCertificate = businessCertificate;
+    }
+
+    public String getBusinessCertificateExpires() {
+        return businessCertificateExpires;
+    }
+
+    public void setBusinessCertificateExpires(String businessCertificateExpires) {
+        this.businessCertificateExpires = businessCertificateExpires;
+    }
+
+    public String getAuthLetter() {
+        return authLetter;
+    }
+
+    public void setAuthLetter(String authLetter) {
+        this.authLetter = authLetter;
+    }
+
+    public String getIsOperatingOnline() {
+        return isOperatingOnline;
+    }
+
+    public void setIsOperatingOnline(String isOperatingOnline) {
+        this.isOperatingOnline = isOperatingOnline;
+    }
+
+    public String getOnlineUrl() {
+        return onlineUrl;
+    }
+
+    public void setOnlineUrl(String onlineUrl) {
+        this.onlineUrl = onlineUrl;
+    }
+
+    public String getOperateNotifyUrl() {
+        return operateNotifyUrl;
+    }
+
+    public void setOperateNotifyUrl(String operateNotifyUrl) {
+        this.operateNotifyUrl = operateNotifyUrl;
+    }
+
+    public String getImplementId() {
+        return implementId;
+    }
+
+    public void setImplementId(String implementId) {
+        this.implementId = implementId;
+    }
+
+    public String getNoSmoking() {
+        return noSmoking;
+    }
+
+    public void setNoSmoking(String noSmoking) {
+        this.noSmoking = noSmoking;
+    }
+
+    public String getBox() {
+        return box;
+    }
+
+    public void setBox(String box) {
+        this.box = box;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
+
+    public String getOtherAuthorization() {
+        return otherAuthorization;
+    }
+
+    public void setOtherAuthorization(String otherAuthorization) {
+        this.otherAuthorization = otherAuthorization;
+    }
+
+    public String getLicenceExpires() {
+        return licenceExpires;
+    }
+
+    public void setLicenceExpires(String licenceExpires) {
+        this.licenceExpires = licenceExpires;
+    }
+
+    public String getOpRole() {
+        return opRole;
+    }
+
+    public void setOpRole(String opRole) {
+        this.opRole = opRole;
+    }
+
+    public String getBiz_version() {
+        return biz_version;
+    }
+
+    public void setBiz_version(String biz_version) {
+        this.biz_version = biz_version;
     }
 }
