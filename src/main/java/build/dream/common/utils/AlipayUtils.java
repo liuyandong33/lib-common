@@ -4,10 +4,7 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
-import build.dream.common.models.alipay.AlipayTradePagePayModel;
-import build.dream.common.models.alipay.AlipayTradePayModel;
-import build.dream.common.models.alipay.AlipayTradeRefundModel;
-import build.dream.common.models.alipay.AlipayTradeWapPayModel;
+import build.dream.common.models.alipay.*;
 import build.dream.common.saas.domains.AlipayAccount;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
@@ -176,5 +173,22 @@ public class AlipayUtils {
         ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
 
         return alipayAccount;
+    }
+
+    public static JSONObject alipayOfflineMarketShopCreate(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
+        try {
+            alipayOfflineMarketShopCreateModel.validateAndThrow();
+            AlipayAccount alipayAccount = null;
+            if (StringUtils.isNotBlank(notifyUrl)) {
+                alipayAccount = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
+            } else {
+                alipayAccount = obtainAlipayAccount(tenantId, branchId);
+                Validate.notNull(alipayAccount, "未配置支付宝账号！");
+            }
+            return callAlipayApi(alipayAccount, "alipay.offline.market.shop.create", notifyUrl, appAuthToken, GsonUtils.toJson(alipayOfflineMarketShopCreateModel, false));
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
