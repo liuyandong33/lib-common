@@ -71,10 +71,13 @@ public class ValidateUtils {
             Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
             if (iterator.hasNext()) {
                 ConstraintViolation<Object> constraintViolation = iterator.next();
-                Locale locale = LocaleContextHolder.getLocale();
-                String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
-                String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
-                String message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
+                String message = constraintViolation.getMessage();
+                if (StringUtils.isNotBlank(message)) {
+                    Locale locale = LocaleContextHolder.getLocale();
+                    String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
+                    String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
+                    message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
+                }
                 throw new ApiException(message);
             }
         }
