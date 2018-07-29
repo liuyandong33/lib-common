@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface InList {
     String[] value();
 
-    String message() default "{javax.validation.constraints.InList.message}";
+    String message() default "{build.dream.common.constraints.InList.message}";
 
     Class<?>[] groups() default {};
 
