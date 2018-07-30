@@ -196,7 +196,7 @@ public class AlipayUtils {
         try {
             AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
             Validate.notNull(alipayAccount, "未配置支付宝账号！");
-            return callAlipayApi(alipayAccount, "", null, appAuthToken, GsonUtils.toJson(alipayOfflineMaterialImageUploadModel, false));
+            return callAlipayApi(alipayAccount, "alipay.offline.material.image.upload", null, appAuthToken, GsonUtils.toJson(alipayOfflineMaterialImageUploadModel, false));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
