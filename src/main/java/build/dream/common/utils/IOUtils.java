@@ -2,7 +2,6 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 
-import javax.servlet.ServletOutputStream;
 import java.io.*;
 
 public class IOUtils {
@@ -22,7 +21,7 @@ public class IOUtils {
         try {
             StringBuffer result = new StringBuffer();
             Reader reader = new InputStreamReader(inputStream, charsetName);
-            int length = 0;
+            int length = -1;
             char[] buffer = new char[1024];
             while ((length = reader.read(buffer, 0, 1024)) != -1) {
                 result.append(buffer, 0, length);
@@ -38,7 +37,7 @@ public class IOUtils {
     }
 
     public static void copy(InputStream inputStream, OutputStream outputStream, boolean closed) throws IOException {
-        int length = 0;
+        int length = -1;
         byte[] buffer = new byte[1024];
         while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
             outputStream.write(buffer, 0, length);
