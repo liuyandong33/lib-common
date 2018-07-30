@@ -55,7 +55,12 @@ public class AlipayUtils {
         return alipayAccount;
     }
 
-    public static String buildRequestBody(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static String buildRequestBody(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+        Map<String, String> requestParameters = buildRequestParameters(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
+        return WebUtils.buildRequestBody(requestParameters, charset);
+    }
+
+    public static Map<String, String> buildRequestParameters(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         String signType = alipayAccount.getSignType();
 
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>();
@@ -80,12 +85,18 @@ public class AlipayUtils {
 
         String sign = Base64.encodeBase64String(SignatureUtils.sign(WebUtils.concat(sortedRequestParameters).getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(alipayAccount.getApplicationPrivateKey()), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         sortedRequestParameters.put("sign", sign);
-        return WebUtils.buildRequestBody(sortedRequestParameters, charset);
+        return sortedRequestParameters;
     }
 
     public static String callAlipayApi(String requestBody) throws IOException {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(alipayGatewayUrl, null, requestBody);
+        return webResponse.getResult();
+    }
+
+    public static String callAlipayApi(Map<String, Object> requestParameters) throws IOException {
+        String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
+        WebResponse webResponse = OutUtils.doPostWithRequestParametersAndFiles(alipayGatewayUrl, null, requestParameters);
         return webResponse.getResult();
     }
 
@@ -196,6 +207,8 @@ public class AlipayUtils {
         try {
             AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
             Validate.notNull(alipayAccount, "未配置支付宝账号！");
+            Map<String, String> requestParameters = buildRequestParameters(alipayAccount, "alipay.offline.material.image.upload", Constants.JSON, null, Constants.UTF_8, null, appAuthToken, null);
+
             return callAlipayApi(alipayAccount, "alipay.offline.material.image.upload", null, appAuthToken, GsonUtils.toJson(alipayOfflineMaterialImageUploadModel, false));
         } catch (Exception e) {
             throw new RuntimeException(e);
