@@ -198,6 +198,9 @@ public class Constants {
     public static final String TRANSFER_WEI_XIN_AUTHORIZE_URL = "transfer.wei.xin.authorize.url";
     public static final String TRANSFER_ALIPAY_AUTHORIZE_URL = "transfer.alipay.authorize.url";
     public static final String ALIPAY_PUBLIC_APP_AUTHORIZE_URL = "alipay.public.app.authorize.url";
+    public static final String ALIPAY_APP_TO_APP_AUTHORIZE_URL = "alipay.app.to.app.authorize.url";
+    public static final String AUTHORIZATION_CODE = "authorization_code";
+    public static final String REFRESH_TOKEN = "refresh_token";
 
     public static final String WWW = "www";
     public static final String BETA = "beta";
