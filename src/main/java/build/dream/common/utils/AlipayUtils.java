@@ -24,18 +24,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class AlipayUtils {
-    public static String generateAlipaySystemOauthUrl(String appId, String scope, String redirectUri, String state) throws IOException {
-        StringBuilder alipaySystemOauthUrl = new StringBuilder();
-        alipaySystemOauthUrl.append(ConfigurationUtils.getConfiguration(Constants.ALIPAY_PUBLIC_APP_AUTHORIZE_URL));
-        alipaySystemOauthUrl.append("?").append("app_id=").append(appId);
-        alipaySystemOauthUrl.append("&scope=").append(scope);
-        alipaySystemOauthUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
-        if (StringUtils.isNotBlank(state)) {
-            alipaySystemOauthUrl.append("&state=").append(state);
-        }
-        return alipaySystemOauthUrl.toString();
-    }
-
     public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         if (Constants.RSA.equals(signType)) {
             signType = SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA;
