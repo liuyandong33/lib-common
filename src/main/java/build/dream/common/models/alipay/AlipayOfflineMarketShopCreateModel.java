@@ -1,5 +1,6 @@
 package build.dream.common.models.alipay;
 
+import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
@@ -83,10 +84,12 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
 
     @SerializedName(value = "business_time", alternate = "businessTime")
     @Length(max = 256)
-    private String business_time;
+    private String businessTime;
 
+    @InList(value = {"T", "F"})
     private String wifi;
 
+    @InList(value = {"T", "F"})
     private String parking;
 
     @SerializedName(value = "value_added", alternate = "valueAdded")
@@ -127,6 +130,7 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     private String authLetter;
 
     @SerializedName(value = "is_operating_online", alternate = "isOperatingOnline")
+    @InList(value = {"T", "F"})
     private String isOperatingOnline;
 
     @SerializedName(value = "online_url", alternate = "onlineUrl")
@@ -142,8 +146,10 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     private String implementId;
 
     @SerializedName(value = "no_smoking", alternate = "noSmoking")
+    @InList(value = {"T", "F"})
     private String noSmoking;
 
+    @InList(value = {"T", "F"})
     private String box;
 
     @SerializedName(value = "request_id", alternate = "requestId")
@@ -166,7 +172,7 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @SerializedName(value = "biz_version", alternate = "bizVersion")
     @NotNull
     @Length(max = 10)
-    private String biz_version;
+    private String bizVersion;
 
     public String getStoreId() {
         return storeId;
@@ -296,12 +302,12 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
         this.auditImages = auditImages;
     }
 
-    public String getBusiness_time() {
-        return business_time;
+    public String getBusinessTime() {
+        return businessTime;
     }
 
-    public void setBusiness_time(String business_time) {
-        this.business_time = business_time;
+    public void setBusinessTime(String businessTime) {
+        this.businessTime = businessTime;
     }
 
     public String getWifi() {
@@ -472,11 +478,12 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
         this.opRole = opRole;
     }
 
-    public String getBiz_version() {
-        return biz_version;
+
+    public String getBizVersion() {
+        return bizVersion;
     }
 
-    public void setBiz_version(String biz_version) {
-        this.biz_version = biz_version;
+    public void setBizVersion(String bizVersion) {
+        this.bizVersion = bizVersion;
     }
 }
