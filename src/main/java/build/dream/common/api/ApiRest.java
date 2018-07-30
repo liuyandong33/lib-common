@@ -205,19 +205,8 @@ public class ApiRest {
         return GsonUtils.toJson(this, datePattern);
     }
 
-    /**
-     * private boolean successful;
-     * private Object data;
-     * private String className;
-     * private String message;
-     * private String error;
-     * private String result;
-     * private String id;
-     * private String timestamp;
-     * private String signature;
-     */
     public static class Builder {
-        private final ApiRest instance = new ApiRest();
+        private ApiRest instance = new ApiRest();
 
         public Builder successful(boolean successful) {
             instance.setSuccessful(successful);
