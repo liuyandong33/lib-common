@@ -191,4 +191,14 @@ public class AlipayUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static JSONObject alipayOfflineMaterialImageUpload(String tenantId, String branchId, String appAuthToken, AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
+        try {
+            AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+            Validate.notNull(alipayAccount, "未配置支付宝账号！");
+            return callAlipayApi(alipayAccount, "", null, appAuthToken, GsonUtils.toJson(alipayOfflineMaterialImageUploadModel, false));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
