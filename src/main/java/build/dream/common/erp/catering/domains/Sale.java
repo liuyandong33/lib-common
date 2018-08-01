@@ -115,4 +115,97 @@ public class Sale extends BasicDomain {
     public void setPaidAmount(BigDecimal paidAmount) {
         this.paidAmount = paidAmount;
     }
+
+    public static class Builder {
+        private final Sale instance = new Sale();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder saleCode(String saleCode) {
+            instance.setSaleCode(saleCode);
+            return this;
+        }
+
+        public Builder saleTime(Date saleTime) {
+            instance.setSaleTime(saleTime);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder discountAmount(BigDecimal discountAmount) {
+            instance.setDiscountAmount(discountAmount);
+            return this;
+        }
+
+        public Builder payableAmount(BigDecimal payableAmount) {
+            instance.setPayableAmount(payableAmount);
+            return this;
+        }
+
+        public Builder paidAmount(BigDecimal paidAmount) {
+            instance.setPaidAmount(paidAmount);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

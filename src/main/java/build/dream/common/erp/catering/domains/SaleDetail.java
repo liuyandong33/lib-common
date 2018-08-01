@@ -211,4 +211,137 @@ public class SaleDetail extends BasicDomain {
     public void setDiscountShare(BigDecimal discountShare) {
         this.discountShare = discountShare;
     }
+
+    public static class Builder {
+        private final SaleDetail instance = new SaleDetail();
+
+        public Builder saleId(BigInteger saleId) {
+            instance.setSaleId(saleId);
+            return this;
+        }
+
+        public Builder saleTime(Date saleTime) {
+            instance.setSaleTime(saleTime);
+            return this;
+        }
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder goodsId(BigInteger goodsId) {
+            instance.setGoodsId(goodsId);
+            return this;
+        }
+
+        public Builder goodsName(String goodsName) {
+            instance.setGoodsName(goodsName);
+            return this;
+        }
+
+        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+            instance.setGoodsSpecificationId(goodsSpecificationId);
+            return this;
+        }
+
+        public Builder goodsSpecificationName(String goodsSpecificationName) {
+            instance.setGoodsSpecificationName(goodsSpecificationName);
+            return this;
+        }
+
+        public Builder categoryId(BigInteger categoryId) {
+            instance.setCategoryId(categoryId);
+            return this;
+        }
+
+        public Builder categoryName(String categoryName) {
+            instance.setCategoryName(categoryName);
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            instance.setPrice(price);
+            return this;
+        }
+
+        public Builder quantity(BigDecimal quantity) {
+            instance.setQuantity(quantity);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder discountAmount(BigDecimal discountAmount) {
+            instance.setDiscountAmount(discountAmount);
+            return this;
+        }
+
+        public Builder payableAmount(BigDecimal payableAmount) {
+            instance.setPayableAmount(payableAmount);
+            return this;
+        }
+
+        public Builder discountShare(BigDecimal discountShare) {
+            instance.setDiscountShare(discountShare);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

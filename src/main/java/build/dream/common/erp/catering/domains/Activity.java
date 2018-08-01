@@ -127,4 +127,102 @@ public class Activity extends BasicDomain {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public static class Builder {
+        private final Activity instance = new Activity();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder startDate(Date startDate) {
+            instance.setStartDate(startDate);
+            return this;
+        }
+
+        public Builder startTime(Time startTime) {
+            instance.setStartTime(startTime);
+            return this;
+        }
+
+        public Builder endDate(Date endDate) {
+            instance.setEndDate(endDate);
+            return this;
+        }
+
+        public Builder endTime(Time endTime) {
+            instance.setEndTime(endTime);
+            return this;
+        }
+
+        public Builder weekSign(Integer weekSign) {
+            instance.setWeekSign(weekSign);
+            return this;
+        }
+
+        public Builder type(Integer type) {
+            instance.setType(type);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

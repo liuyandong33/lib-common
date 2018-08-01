@@ -3,6 +3,7 @@ package build.dream.common.erp.catering.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class BuyGiveActivity extends BasicDomain {
     /**
@@ -112,5 +113,98 @@ public class BuyGiveActivity extends BasicDomain {
 
     public void setGiveQuantity(Integer giveQuantity) {
         this.giveQuantity = giveQuantity;
+    }
+
+    public static class Builder {
+        private final BuyGiveActivity instance = new BuyGiveActivity();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder activityId(BigInteger activityId) {
+            instance.setActivityId(activityId);
+            return this;
+        }
+
+        public Builder buyGoodsId(BigInteger buyGoodsId) {
+            instance.setBuyGoodsId(buyGoodsId);
+            return this;
+        }
+
+        public Builder buyGoodsSpecificationId(BigInteger buyGoodsSpecificationId) {
+            instance.setBuyGoodsSpecificationId(buyGoodsSpecificationId);
+            return this;
+        }
+
+        public Builder buyQuantity(Integer buyQuantity) {
+            instance.setBuyQuantity(buyQuantity);
+            return this;
+        }
+
+        public Builder giveGoodsId(BigInteger giveGoodsId) {
+            instance.setGiveGoodsId(giveGoodsId);
+            return this;
+        }
+
+        public Builder giveGoodsSpecificationId(BigInteger giveGoodsSpecificationId) {
+            instance.setGiveGoodsSpecificationId(giveGoodsSpecificationId);
+            return this;
+        }
+
+        public Builder giveQuantity(Integer giveQuantity) {
+            instance.setGiveQuantity(giveQuantity);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

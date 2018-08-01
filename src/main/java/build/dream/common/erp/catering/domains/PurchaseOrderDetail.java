@@ -85,4 +85,57 @@ public class PurchaseOrderDetail {
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
+
+    public static class Builder {
+        private final PurchaseOrderDetail instance = new PurchaseOrderDetail();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder purchaseOrderId(BigInteger purchaseOrderId) {
+            instance.setPurchaseOrderId(purchaseOrderId);
+            return this;
+        }
+
+        public Builder goodsId(BigInteger goodsId) {
+            instance.setGoodsId(goodsId);
+            return this;
+        }
+
+        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+            instance.setGoodsSpecificationId(goodsSpecificationId);
+            return this;
+        }
+
+        public Builder unitId(BigInteger unitId) {
+            instance.setUnitId(unitId);
+            return this;
+        }
+
+        public Builder purchasePrice(BigDecimal purchasePrice) {
+            instance.setPurchasePrice(purchasePrice);
+            return this;
+        }
+
+        public Builder quantity(BigDecimal quantity) {
+            instance.setQuantity(quantity);
+            return this;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
