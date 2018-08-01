@@ -162,6 +162,10 @@ public class PackageGroupDetail extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public PackageGroupDetail build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

@@ -202,6 +202,10 @@ public class BuyGiveActivity extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public BuyGiveActivity build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

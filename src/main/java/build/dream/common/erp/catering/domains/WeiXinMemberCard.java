@@ -134,6 +134,10 @@ public class WeiXinMemberCard extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public WeiXinMemberCard build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

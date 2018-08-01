@@ -187,6 +187,10 @@ public class VipType extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public VipType build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

@@ -149,6 +149,10 @@ public class GoodsSpecification extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public GoodsSpecification build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {
