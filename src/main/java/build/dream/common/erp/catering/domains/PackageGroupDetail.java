@@ -5,7 +5,7 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
-public class PackageGroupGoods extends BasicDomain {
+public class PackageGroupDetail extends BasicDomain {
     private BigInteger packageGroupId;
     private BigInteger goodsId;
     private BigInteger goodsSpecificationId;
