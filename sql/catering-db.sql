@@ -1093,14 +1093,15 @@ CREATE TABLE package_group
 (
     id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     tenant_id BIGINT NOT NULL COMMENT '商户id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
     branch_id BIGINT NOT NULL COMMENT '门店id',
     package_id BIGINT NOT NULL COMMENT '套餐id',
     group_name VARCHAR(20) NOT NULL COMMENT '组名称',
     group_type TINYINT NOT NULL COMMENT '套餐组类型，1-可选组，2-必选组',
     optional_quantity INT NOT NULL COMMENT '可选数量',
-    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
@@ -1111,18 +1112,23 @@ DROP TABLE IF EXISTS package_group_detail;
 CREATE TABLE package_group_detail
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    package_id BIGINT NOT NULL COMMENT '套餐id',
     package_group_id BIGINT NOT NULL COMMENT 'package_group.id',
     goods_id BIGINT NOT NULL COMMENT '商品id',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
     quantity DECIMAL(11, 3) NOT NULL COMMENT '商品数量',
-    create_time DATETIME DEFAULT now() NOT NULL COMMENT '创建时间',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT now() ON UPDATE now() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '套餐组明细';
+
 
 DROP TABLE IF EXISTS data_handle_history;
 CREATE TABLE data_handle_history
