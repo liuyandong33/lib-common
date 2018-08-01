@@ -21,18 +21,18 @@ import java.util.Map;
 public class KafkaUtils {
     private static KafkaTemplate<String, String> kafkaTemplate;
 
-    public KafkaTemplate<String, String> obtainKafkaTemplate() {
+    public static KafkaTemplate<String, String> obtainKafkaTemplate() {
         if (kafkaTemplate == null) {
             kafkaTemplate = ApplicationHandler.getBean(KafkaTemplate.class);
         }
         return kafkaTemplate;
     }
 
-    public String getDefaultTopic() {
+    public static String getDefaultTopic() {
         return obtainKafkaTemplate().getDefaultTopic();
     }
 
-    public void setDefaultTopic(String defaultTopic) {
+    public static void setDefaultTopic(String defaultTopic) {
         obtainKafkaTemplate().setDefaultTopic(defaultTopic);
     }
 
@@ -40,85 +40,85 @@ public class KafkaUtils {
         obtainKafkaTemplate().setProducerListener(producerListener);
     }
 
-    public MessageConverter getMessageConverter() {
+    public static MessageConverter getMessageConverter() {
         return obtainKafkaTemplate().getMessageConverter();
     }
 
-    public void setMessageConverter(RecordMessageConverter messageConverter) {
+    public static void setMessageConverter(RecordMessageConverter messageConverter) {
         obtainKafkaTemplate().setMessageConverter(messageConverter);
     }
 
-    public boolean isTransactional() {
+    public static boolean isTransactional() {
         return obtainKafkaTemplate().isTransactional();
     }
 
-    public ListenableFuture<SendResult<String, String>> sendDefault(String data) {
-        return send(getDefaultTopic(), data);
+    public static ListenableFuture<SendResult<String, String>> sendDefault(String data) {
+        return obtainKafkaTemplate().sendDefault(data);
     }
 
-    public ListenableFuture<SendResult<String, String>> sendDefault(String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> sendDefault(String key, String data) {
         return obtainKafkaTemplate().sendDefault(key, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> sendDefault(Integer partition, String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> sendDefault(Integer partition, String key, String data) {
         return obtainKafkaTemplate().sendDefault(partition, key, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> sendDefault(Integer partition, Long timestamp, String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> sendDefault(Integer partition, Long timestamp, String key, String data) {
         return obtainKafkaTemplate().sendDefault(partition, timestamp, key, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> send(String topic, String data) {
+    public static ListenableFuture<SendResult<String, String>> send(String topic, String data) {
         return obtainKafkaTemplate().send(topic, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> send(String topic, String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> send(String topic, String key, String data) {
         return obtainKafkaTemplate().send(topic, key, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> send(String topic, Integer partition, String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> send(String topic, Integer partition, String key, String data) {
         return obtainKafkaTemplate().send(topic, partition, key, data);
     }
 
-    public ListenableFuture<SendResult<String, String>> send(String topic, Integer partition, Long timestamp, String key, String data) {
+    public static ListenableFuture<SendResult<String, String>> send(String topic, Integer partition, Long timestamp, String key, String data) {
         return obtainKafkaTemplate().send(topic, partition, timestamp, key, data);
     }
 
 
-    public ListenableFuture<SendResult<String, String>> send(ProducerRecord<String, String> record) {
+    public static ListenableFuture<SendResult<String, String>> send(ProducerRecord<String, String> record) {
         return obtainKafkaTemplate().send(record);
     }
 
-    public ListenableFuture<SendResult<String, String>> send(Message<?> message) {
+    public static ListenableFuture<SendResult<String, String>> send(Message<?> message) {
         return obtainKafkaTemplate().send(message);
     }
 
-    public List<PartitionInfo> partitionsFor(String topic) {
+    public static List<PartitionInfo> partitionsFor(String topic) {
         return obtainKafkaTemplate().partitionsFor(topic);
     }
 
-    public Map<MetricName, ? extends Metric> metrics() {
+    public static Map<MetricName, ? extends Metric> metrics() {
         return obtainKafkaTemplate().metrics();
     }
 
-    public <T> T execute(KafkaOperations.ProducerCallback<String, String, T> callback) {
+    public static <T> T execute(KafkaOperations.ProducerCallback<String, String, T> callback) {
         return obtainKafkaTemplate().execute(callback);
     }
 
-    public <T> T executeInTransaction(KafkaOperations.OperationsCallback<String, String, T> callback) {
+    public static <T> T executeInTransaction(KafkaOperations.OperationsCallback<String, String, T> callback) {
         return obtainKafkaTemplate().executeInTransaction(callback);
     }
 
-    public void flush() {
+    public static void flush() {
         obtainKafkaTemplate().flush();
     }
 
 
-    public void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets) {
+    public static void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets) {
         obtainKafkaTemplate().sendOffsetsToTransaction(offsets);
     }
 
-    public void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId) {
+    public static void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId) {
         obtainKafkaTemplate().sendOffsetsToTransaction(offsets, consumerGroupId);
     }
 }
