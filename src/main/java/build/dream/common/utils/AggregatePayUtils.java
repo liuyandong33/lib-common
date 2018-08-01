@@ -9,13 +9,9 @@ import org.dom4j.DocumentException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
-import java.security.spec.InvalidKeySpecException;
 
 public class AggregatePayUtils {
-    public static JSONObject scanCodePay(String tenantId, String branchId, int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws NoSuchAlgorithmException, IOException, InvalidKeySpecException, InvalidKeyException, SignatureException, DocumentException {
+    public static JSONObject scanCodePay(String tenantId, String branchId, int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws IOException, DocumentException {
         JSONObject result = null;
         if (channelType == Constants.CHANNEL_TYPE_WEI_XIN) {
             AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
