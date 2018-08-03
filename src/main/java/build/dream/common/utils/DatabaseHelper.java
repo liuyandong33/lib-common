@@ -12,6 +12,7 @@ import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import scala.Tuple2;
+import scala.Tuple3;
 
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -93,6 +94,22 @@ public class DatabaseHelper {
         return find(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
     }
 
+    public static <T> T find(Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return find(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+    }
+
+    public static <T> T find(Class<T> domainClass, String tableName, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return find(domainClass, tableName, searchModel);
+    }
+
     public static <T> T find(Class<T> domainClass, String tableName, SearchModel searchModel) {
         try {
             searchModel.setTableName(tableName);
@@ -116,6 +133,22 @@ public class DatabaseHelper {
         return findAll(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
     }
 
+    public static <T> List<T> findAll(Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return findAll(domainClass, searchModel);
+    }
+
+    public static <T> List<T> findAll(Class<T> domainClass, String tableName, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return findAll(domainClass, tableName, searchModel);
+    }
+
     public static <T> List<T> findAll(Class<T> domainClass, String tableName, SearchModel searchModel) {
         try {
             searchModel.setTableName(tableName);
@@ -136,8 +169,24 @@ public class DatabaseHelper {
         }
     }
 
-    public static <T> long count(Class<T> domainClass, SearchModel searchModel) {
+    public static long count(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
         return count(DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+    }
+
+    public static long count(Class<?> domainClass, SearchModel searchModel) {
+        return count(DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+    }
+
+    public static long count(String tableName, Tuple3<String, String, Object>... searchConditions) {
+        SearchModel searchModel = new SearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return count(tableName, searchModel);
     }
 
     public static long count(String tableName, SearchModel searchModel) {
