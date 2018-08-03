@@ -50,9 +50,17 @@ public class DietOrderDetail extends BasicDomain {
      */
     private String goodsSpecificationName;
     /**
-     * 套餐编码
+     * 套餐ID
      */
-    private String packageCode = Constants.VARCHAR_DEFAULT_VALUE;
+    private BigInteger packageId = Constants.BIGINT_DEFAULT_VALUE;
+    /**
+     * 套餐组ID
+     */
+    private BigInteger packageGroupId = Constants.BIGINT_DEFAULT_VALUE;
+    /**
+     * 套餐组名称
+     */
+    private String packageGroupName = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 商品分类id
      */
@@ -192,12 +200,28 @@ public class DietOrderDetail extends BasicDomain {
         this.goodsSpecificationName = goodsSpecificationName;
     }
 
-    public String getPackageCode() {
-        return packageCode;
+    public BigInteger getPackageId() {
+        return packageId;
     }
 
-    public void setPackageCode(String packageCode) {
-        this.packageCode = packageCode;
+    public void setPackageId(BigInteger packageId) {
+        this.packageId = packageId;
+    }
+
+    public BigInteger getPackageGroupId() {
+        return packageGroupId;
+    }
+
+    public void setPackageGroupId(BigInteger packageGroupId) {
+        this.packageGroupId = packageGroupId;
+    }
+
+    public String getPackageGroupName() {
+        return packageGroupName;
+    }
+
+    public void setPackageGroupName(String packageGroupName) {
+        this.packageGroupName = packageGroupName;
     }
 
     public BigInteger getCategoryId() {
@@ -365,8 +389,18 @@ public class DietOrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder packageCode(String packageCode) {
-            instance.setPackageCode(packageCode);
+        public Builder packageId(BigInteger packageId) {
+            instance.setPackageId(packageId);
+            return this;
+        }
+
+        public Builder packageGroupId(BigInteger packageGroupId) {
+            instance.setPackageGroupId(packageGroupId);
+            return this;
+        }
+
+        public Builder packageGroupName(String packageGroupName) {
+            instance.setPackageGroupName(packageGroupName);
             return this;
         }
 
