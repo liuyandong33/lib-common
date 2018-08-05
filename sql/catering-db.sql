@@ -892,6 +892,7 @@ CREATE TABLE goods_category
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     `name` VARCHAR(20) NOT NULL COMMENT '门店名称',
     description VARCHAR(50) NOT NULL COMMENT '分类描述',
