@@ -1,18 +1,23 @@
-package build.dream.common.models.weixin;
+package build.dream.common.models.weixinpay;
 
+import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigInteger;
 
-public class MicroPayModel extends BasicModel {
+public class UnifiedOrderModel extends BasicModel {
+    private static final String[] TRADE_TYPES = {Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI, Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM, Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE, Constants.WEI_XIN_PAY_TRADE_TYPE_APP, Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB};
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
+    @NotNull
+    private BigInteger userId;
+
     @Length(max = 32)
     private String deviceInfo;
 
@@ -32,19 +37,14 @@ public class MicroPayModel extends BasicModel {
     @Length(max = 32)
     private String outTradeNo;
 
+    private String feeType;
+
     @NotNull
     private Integer totalFee;
-
-    private String feeType;
 
     @NotNull
     @Length(max = 16)
     private String spbillCreateIp;
-
-    @Length(max = 32)
-    private String goodsTag;
-
-    private String limitPay;
 
     @Length(min = 14, max = 14)
     private String timeStart;
@@ -52,11 +52,35 @@ public class MicroPayModel extends BasicModel {
     @Length(min = 14, max = 14)
     private String timeExpire;
 
+    @Length(max = 32)
+    private String goodsTag;
+
     @NotNull
+    @Length(max = 256)
+    private String notifyUrl;
+
+    private String tradeType;
+
+    @Length(max = 32)
+    private String productId;
+
+    private String limitPay;
+
     @Length(max = 128)
-    private String authCode;
+    private String openId;
+
+    @Length(max = 128)
+    private String subOpenId;
 
     private SceneInfoModel sceneInfoModel;
+
+    public BigInteger getUserId() {
+        return userId;
+    }
+
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
+    }
 
     public String getDeviceInfo() {
         return deviceInfo;
@@ -106,14 +130,6 @@ public class MicroPayModel extends BasicModel {
         this.outTradeNo = outTradeNo;
     }
 
-    public Integer getTotalFee() {
-        return totalFee;
-    }
-
-    public void setTotalFee(Integer totalFee) {
-        this.totalFee = totalFee;
-    }
-
     public String getFeeType() {
         return feeType;
     }
@@ -122,28 +138,20 @@ public class MicroPayModel extends BasicModel {
         this.feeType = feeType;
     }
 
+    public Integer getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(Integer totalFee) {
+        this.totalFee = totalFee;
+    }
+
     public String getSpbillCreateIp() {
         return spbillCreateIp;
     }
 
     public void setSpbillCreateIp(String spbillCreateIp) {
         this.spbillCreateIp = spbillCreateIp;
-    }
-
-    public String getGoodsTag() {
-        return goodsTag;
-    }
-
-    public void setGoodsTag(String goodsTag) {
-        this.goodsTag = goodsTag;
-    }
-
-    public String getLimitPay() {
-        return limitPay;
-    }
-
-    public void setLimitPay(String limitPay) {
-        this.limitPay = limitPay;
     }
 
     public String getTimeStart() {
@@ -162,21 +170,68 @@ public class MicroPayModel extends BasicModel {
         this.timeExpire = timeExpire;
     }
 
-    public String getAuthCode() {
-        return authCode;
+    public String getGoodsTag() {
+        return goodsTag;
     }
 
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
+    public void setGoodsTag(String goodsTag) {
+        this.goodsTag = goodsTag;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getTradeType() {
+        return tradeType;
+    }
+
+    public void setTradeType(String tradeType) {
+        this.tradeType = tradeType;
+    }
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getLimitPay() {
+        return limitPay;
+    }
+
+    public void setLimitPay(String limitPay) {
+        this.limitPay = limitPay;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getSubOpenId() {
+        return subOpenId;
+    }
+
+    public void setSubOpenId(String subOpenId) {
+        this.subOpenId = subOpenId;
     }
 
     public SceneInfoModel getSceneInfoModel() {
         return sceneInfoModel;
     }
 
-    @Override
-    public boolean validate() {
-        return super.validate() && ArrayUtils.contains(SIGN_TYPES, signType) && (StringUtils.isNotBlank(feeType) ? ArrayUtils.contains(FEE_TYPES, feeType) : true) && (StringUtils.isNotBlank(limitPay) ? ArrayUtils.contains(LIMIT_PAYS, limitPay) : true);
+    public void setSceneInfoModel(SceneInfoModel sceneInfoModel) {
+        this.sceneInfoModel = sceneInfoModel;
     }
 
     @Override
@@ -186,18 +241,20 @@ public class MicroPayModel extends BasicModel {
         if (StringUtils.isNotBlank(feeType)) {
             ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
         }
+        ApplicationHandler.inArray(TRADE_TYPES, tradeType, "tradeType");
         if (StringUtils.isNotBlank(limitPay)) {
             ApplicationHandler.inArray(LIMIT_PAYS, limitPay, "limitPay");
         }
-    }
-
-    public void setSceneInfoModel(SceneInfoModel sceneInfoModel) {
-        this.sceneInfoModel = sceneInfoModel;
+        if (sceneInfoModel != null) {
+            ApplicationHandler.isTrue(sceneInfoModel.validate(), "sceneInfo");
+        }
     }
 
     public static class SceneInfoModel extends BasicModel {
-        @SerializedName(value = "store_info", alternate = "storeInfoModel")
+        @SerializedName(value = "store_info", alternate = "storeInfo")
         private StoreInfoModel storeInfoModel;
+        @SerializedName(value = "h5_info", alternate = "h5Info")
+        private H5InfoModel h5InfoModel;
 
         public StoreInfoModel getStoreInfoModel() {
             return storeInfoModel;
@@ -205,6 +262,31 @@ public class MicroPayModel extends BasicModel {
 
         public void setStoreInfoModel(StoreInfoModel storeInfoModel) {
             this.storeInfoModel = storeInfoModel;
+        }
+
+        @Override
+        public boolean validate() {
+            if (!super.validate()) {
+                return false;
+            }
+            if (storeInfoModel != null && !storeInfoModel.validate()) {
+                return false;
+            }
+            if (h5InfoModel != null && !h5InfoModel.validate()) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public void validateAndThrow() {
+            super.validateAndThrow();
+            if (storeInfoModel != null) {
+                storeInfoModel.validateAndThrow();
+            }
+            if (h5InfoModel != null) {
+                h5InfoModel.validateAndThrow();
+            }
         }
     }
 
@@ -252,6 +334,41 @@ public class MicroPayModel extends BasicModel {
 
         public void setAddress(String address) {
             this.address = address;
+        }
+    }
+
+    public static class H5InfoModel extends BasicModel {
+        @NotNull
+        private String type;
+        @NotNull
+        @SerializedName(value = "wap_url", alternate = "wapUrl")
+        private String wapUrl;
+        @NotNull
+        @SerializedName(value = "wap_name", alternate = "wapName")
+        private String wapName;
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getWapUrl() {
+            return wapUrl;
+        }
+
+        public void setWapUrl(String wapUrl) {
+            this.wapUrl = wapUrl;
+        }
+
+        public String getWapName() {
+            return wapName;
+        }
+
+        public void setWapName(String wapName) {
+            this.wapName = wapName;
         }
     }
 }

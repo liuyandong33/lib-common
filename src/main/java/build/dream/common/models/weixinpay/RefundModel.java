@@ -1,4 +1,4 @@
-package build.dream.common.models.weixin;
+package build.dream.common.models.weixinpay;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;

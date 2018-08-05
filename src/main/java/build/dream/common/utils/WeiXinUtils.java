@@ -3,6 +3,8 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.*;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.weixin.AdvancedInfoModel;
+import build.dream.common.models.weixin.BaseInfoModel;
 import build.dream.common.models.weixin.SendMassMessageModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -192,5 +194,27 @@ public class WeiXinUtils {
             CacheUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
         }
         return weiXinJsapiTicket;
+    }
+
+    public static Map<String, Object> createGrouponCoupon(BaseInfoModel baseInfoModel, AdvancedInfoModel advancedInfoModel, String dealDetail, String accessToken) {
+        Map<String, Object> groupon = new HashMap<String, Object>();
+        groupon.put("base_info", baseInfoModel);
+        groupon.put("advanced_info", advancedInfoModel);
+        groupon.put("deal_detail", dealDetail);
+
+        Map<String, Object> card = new HashMap<String, Object>();
+        card.put("card_type", "GROUPON");
+        card.put("groupon", groupon);
+
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("card", card);
+
+        String url = "https://api.weixin.qq.com/card/create?access_token=" + accessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(groupon, false));
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(result, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
+
+        return result;
     }
 }

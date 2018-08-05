@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.jingdong.FkmPayModel;
-import build.dream.common.models.weixin.MicroPayModel;
+import build.dream.common.models.weixinpay.MicroPayModel;
 import net.sf.json.JSONObject;
 import org.dom4j.DocumentException;
 
