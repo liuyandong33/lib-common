@@ -12,7 +12,7 @@ import java.lang.reflect.Field;
 public class Application {
     public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
-        Class<?> domainClass = GoodsUnit.class;
+        Class<?> domainClass = Coupon.class;
         String simpleName = domainClass.getSimpleName();
         StringBuilder code = new StringBuilder("public static class Builder {private final " + simpleName + " instance = new " + simpleName + "();");
         while (domainClass != Object.class) {
@@ -23,6 +23,7 @@ public class Application {
             }
             domainClass = domainClass.getSuperclass();
         }
+        code.append("public " + simpleName + " build() {return instance;}");
         code.append("}");
 
         System.out.println(code.toString());

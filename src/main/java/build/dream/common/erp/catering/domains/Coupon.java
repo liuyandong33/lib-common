@@ -92,6 +92,10 @@ public class Coupon extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public Coupon build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {
