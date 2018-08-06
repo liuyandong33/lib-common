@@ -217,4 +217,25 @@ public class WeiXinUtils {
 
         return result;
     }
+
+    public static Map<String, Object> sendTemplateMessage(String openId, String templateId, String url, Map<String, Object> miniProgram, Map<String, Object> data, String color, String accessToken) {
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("touser", openId);
+        body.put("template_id", templateId);
+        body.put("url", url);
+        if (MapUtils.isNotEmpty(miniProgram)) {
+            body.put("miniprogram", miniProgram);
+        }
+        body.put("data", data);
+        if (StringUtils.isNotBlank(color)) {
+            body.put("data", color);
+        }
+        String _url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + accessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, null, GsonUtils.toJson(body));
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(result, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
+
+        return result;
+    }
 }
