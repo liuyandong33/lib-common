@@ -72,7 +72,7 @@ public class ValidateUtils {
             if (iterator.hasNext()) {
                 ConstraintViolation<Object> constraintViolation = iterator.next();
                 String message = constraintViolation.getMessage();
-                if (StringUtils.isNotBlank(message)) {
+                if (StringUtils.isBlank(message)) {
                     Locale locale = LocaleContextHolder.getLocale();
                     String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
                     String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
