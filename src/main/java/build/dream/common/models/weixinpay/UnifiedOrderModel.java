@@ -8,16 +8,12 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
 
 public class UnifiedOrderModel extends BasicModel {
     private static final String[] TRADE_TYPES = {Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI, Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM, Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE, Constants.WEI_XIN_PAY_TRADE_TYPE_APP, Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB};
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
-    @NotNull
-    private BigInteger userId;
-
     @Length(max = 32)
     private String deviceInfo;
 
@@ -73,14 +69,6 @@ public class UnifiedOrderModel extends BasicModel {
     private String subOpenId;
 
     private SceneInfoModel sceneInfoModel;
-
-    public BigInteger getUserId() {
-        return userId;
-    }
-
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
-    }
 
     public String getDeviceInfo() {
         return deviceInfo;
