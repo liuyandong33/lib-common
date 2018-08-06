@@ -32,7 +32,7 @@ public class WeiXinUtils {
         }
         StringBuilder authorizeUrl = new StringBuilder(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_AUTHORIZE_URL));
         authorizeUrl.append("?").append("appid=").append(appId);
-        authorizeUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, "UTF-8"));
+        authorizeUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
         authorizeUrl.append("&response_type=code");
         authorizeUrl.append("&scope=").append(scope);
         authorizeUrl.append("&connect_redirect=1");
