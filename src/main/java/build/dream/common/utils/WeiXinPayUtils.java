@@ -274,7 +274,7 @@ public class WeiXinPayUtils {
         unifiedOrderRequestParameters.put("sign", sign);
 
         String unifiedOrderFinalData = generateFinalData(unifiedOrderRequestParameters);
-        Map<String, String> unifiedOrderResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_MICRO_PAY_URI, unifiedOrderFinalData);
+        Map<String, String> unifiedOrderResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_UNIFIED_ORDER_URI, unifiedOrderFinalData);
 
         String returnCode = unifiedOrderResult.get("return_code");
         Validate.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));

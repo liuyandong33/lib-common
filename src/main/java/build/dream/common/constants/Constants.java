@@ -290,6 +290,7 @@ public class Constants {
 
     public static final String WEI_XIN_PAY_API_URL = "wei.xin.pay.api.url";
     public static final String WEI_XIN_PAY_MICRO_PAY_URI = "/pay/micropay";
+    public static final String WEI_XIN_PAY_UNIFIED_ORDER_URI = "/pay/unifiedorder";
     public static final String WEI_XIN_PAY_REFUND_URI = "/secapi/pay/refund";
 
     public static final String KEY_TENANT_INFOS = "_tenant_infos";
