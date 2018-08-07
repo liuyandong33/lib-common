@@ -322,4 +322,7 @@ public class Constants {
 
     public static final String PROXY_SERVER_HOST_NAME = "proxy.server.host.name";
     public static final String PROXY_SERVER_PORT = "proxy.server.port";
+
+    public static final String REST_TEMPLATE_CONNECT_TIMEOUT = "rest.template.connect.timeout";
+    public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
 }
