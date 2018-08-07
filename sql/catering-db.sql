@@ -1216,12 +1216,13 @@ CREATE TABLE can_not_operate_reason
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
-	  tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     table_id BIGINT NOT NULL COMMENT '表id',
     table_name VARCHAR(100) NOT NULL COMMENT '表名',
     cause_table_id BIGINT NOT NULL COMMENT '导致不能删除的表id',
     cause_table_name VARCHAR(100) NOT NULL COMMENT '导致不能删除的表名字',
+    operate_type TINYINT NOT NULL COMMENT '操作类型，1-删除，2-编辑，3-删除和编辑',
     reason VARCHAR(255) NOT NULL COMMENT '原因'
 ) COMMENT '不能操作的原因';
 
