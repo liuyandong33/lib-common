@@ -60,7 +60,10 @@ public class OutUtils {
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            SSLSocketFactory sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
+            SSLSocketFactory sslSocketFactory = null;
+            if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
+                sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
+            }
             return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
         } catch (Exception e) {
             throw new RuntimeException(e);
