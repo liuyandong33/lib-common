@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.miya.RefundModel;
-import build.dream.common.saas.domains.MiyaPayAccount;
+import build.dream.common.saas.domains.MiyaAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Map;
 
 public class MiyaUtils {
-    private static MiyaPayAccount obtainMiyaPayAccount(String tenantId, String branchId) {
-        String miyaPayAccountJson = CacheUtils.hget(Constants.KEY_MIYA_PAY_ACCOUNTS, tenantId + "_" + branchId);
-        MiyaPayAccount miyaPayAccount = null;
-        if (StringUtils.isNotBlank(miyaPayAccountJson)) {
-            miyaPayAccount = GsonUtils.fromJson(miyaPayAccountJson, MiyaPayAccount.class);
+    private static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
+        String miyaAccountJson = CacheUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
+        MiyaAccount miyaAccount = null;
+        if (StringUtils.isNotBlank(miyaAccountJson)) {
+            miyaAccount = GsonUtils.fromJson(miyaAccountJson, MiyaAccount.class);
         }
-        return miyaPayAccount;
+        return miyaAccount;
     }
 
     public static String generateSign(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
@@ -69,12 +69,12 @@ public class MiyaUtils {
     }
 
     public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws IOException, DocumentException {
-        MiyaPayAccount miyaPayAccount = obtainMiyaPayAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaPayAccount, "商户未配置米雅账号！");
+        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
+        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaPayAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaPayAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
+        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
         requestDomainRequestParameters.put("A4", refundModel.getPosId().toString());
         requestDomainRequestParameters.put("A5", refundModel.getCashierId().toString());
         requestDomainRequestParameters.put("A6", "C");
@@ -85,7 +85,7 @@ public class MiyaUtils {
         dataDomainRequestParameters.put("B2", refundModel.getRefundNumber());
         dataDomainRequestParameters.put("B4", refundModel.getRefundAmount().toString());
 
-        requestDomainRequestParameters.put("A8", generateSign(requestDomainRequestParameters, dataDomainRequestParameters, miyaPayAccount.getMiyaKey()));
+        requestDomainRequestParameters.put("A8", generateSign(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey()));
         String requestBody = buildRequestBody(requestDomainRequestParameters, dataDomainRequestParameters);
         String url = ConfigurationUtils.getConfiguration(Constants.MIYA_PAY_SERVICE_URL);
         WebResponse webResponse = WebUtils.doPostWithRequestBody(url, requestBody);

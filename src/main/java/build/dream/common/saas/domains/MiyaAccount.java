@@ -4,7 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 
-public class MiyaPayAccount extends BasicDomain {
+public class MiyaAccount extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
     private String miyaMerchantCode;
