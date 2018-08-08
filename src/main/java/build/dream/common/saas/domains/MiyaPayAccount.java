@@ -7,8 +7,9 @@ import java.math.BigInteger;
 public class MiyaPayAccount extends BasicDomain {
     private BigInteger tenantId;
     private BigInteger branchId;
-    private String account;
-    private String miyaPayKey;
+    private String miyaMerchantCode;
+    private String miyaKey;
+    private String miyaBranchCode;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -26,19 +27,27 @@ public class MiyaPayAccount extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public String getAccount() {
-        return account;
+    public String getMiyaMerchantCode() {
+        return miyaMerchantCode;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setMiyaMerchantCode(String miyaMerchantCode) {
+        this.miyaMerchantCode = miyaMerchantCode;
     }
 
-    public String getMiyaPayKey() {
-        return miyaPayKey;
+    public String getMiyaKey() {
+        return miyaKey;
     }
 
-    public void setMiyaPayKey(String miyaPayKey) {
-        this.miyaPayKey = miyaPayKey;
+    public void setMiyaKey(String miyaKey) {
+        this.miyaKey = miyaKey;
+    }
+
+    public String getMiyaBranchCode() {
+        return miyaBranchCode;
+    }
+
+    public void setMiyaBranchCode(String miyaBranchCode) {
+        this.miyaBranchCode = miyaBranchCode;
     }
 }
