@@ -14,4 +14,8 @@ public class DateUtils {
         }
         return date;
     }
+
+    public static String format(Date date, String pattern) {
+        return new SimpleDateFormat(pattern).format(date);
+    }
 }

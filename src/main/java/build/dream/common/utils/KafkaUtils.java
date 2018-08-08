@@ -1,5 +1,7 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
+import build.dream.common.constants.Constants;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.Metric;
@@ -15,6 +17,9 @@ import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.util.concurrent.ListenableFuture;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -120,5 +125,16 @@ public class KafkaUtils {
 
     public static void sendOffsetsToTransaction(Map<TopicPartition, OffsetAndMetadata> offsets, String consumerGroupId) {
         obtainKafkaTemplate().sendOffsetsToTransaction(offsets, consumerGroupId);
+    }
+
+    public static void fixedTimeSend(String topic, String key, String data, Date sendTime) throws IOException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("topic", topic);
+        requestParameters.put("key", key);
+        requestParameters.put("data", data);
+        requestParameters.put("sendTime", DateUtils.format(sendTime, Constants.DEFAULT_DATE_PATTERN));
+        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "kafka", "fixedTimeSend", requestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
 }
