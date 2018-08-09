@@ -327,4 +327,12 @@ public class Constants {
     public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
 
     public static final String MIYA_PAY_SERVICE_URL = "miya.pay.service.url";
+
+    public static final String MONDAY = "MONDAY";
+    public static final String TUESDAY = "TUESDAY";
+    public static final String WEDNESDAY = "WEDNESDAY";
+    public static final String THURSDAY = "THURSDAY";
+    public static final String FRIDAY = "FRIDAY";
+    public static final String SATURDAY = "SATURDAY";
+    public static final String SUNDAY = "SUNDAY";
 }

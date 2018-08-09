@@ -3,9 +3,11 @@ package build.dream.common.models.weixin;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import com.google.gson.annotations.SerializedName;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public class BaseInfoModel extends BasicModel {
     @NotNull
@@ -45,6 +47,99 @@ public class BaseInfoModel extends BasicModel {
     @NotNull
     @SerializedName(value = "date_info", alternate = "dateInfo")
     private DateInfo dateInfo;
+
+    @SerializedName(value = "use_custom_code", alternate = "useCustomCode")
+    private Boolean useCustomCode;
+
+    @InList(value = "GET_CUSTOM_COD E_MODE_DEPOSIT")
+    @SerializedName(value = "get_custom_code_mode", alternate = "getCustomCodeMode")
+    private String getCustomCodeMode;
+
+    @SerializedName(value = "bind_openid", alternate = "bindOpenid")
+    private Boolean bindOpenid;
+
+    @Length(max = 24)
+    @SerializedName(value = "service_phone", alternate = "servicePhone")
+    private String servicePhone;
+
+    @SerializedName(value = "location_id_list", alternate = "locationIdList")
+    private List<String> locationIdList;
+
+    @SerializedName(value = "use_all_locations", alternate = "useAllLocations")
+    private Boolean useAllLocations;
+
+    @Length(max = 18)
+    @SerializedName(value = "center_title", alternate = "centerTitle")
+    private String centerTitle;
+
+    @Length(max = 24)
+    @SerializedName(value = "center_sub_title", alternate = "centerSubTitle")
+    private String centerSubTitle;
+
+    @Length(max = 128)
+    @SerializedName(value = "center_url", alternate = "centerUrl")
+    private String centerUrl;
+
+    @Length(max = 128)
+    @SerializedName(value = "center_app_brand_user_name", alternate = "centerAppBrandUserName")
+    private String centerAppBrandUserName;
+
+    @Length(max = 128)
+    @SerializedName(value = "center_app_brand_pass", alternate = "centerAppBrandPass")
+    private String centerAppBrandPass;
+
+    @Length(max = 15)
+    @SerializedName(value = "custom_url_name", alternate = "customUrlName")
+    private String customUrlName;
+
+    @Length(max = 128)
+    @SerializedName(value = "custom_url", alternate = "customUrl")
+    private String customUrl;
+
+    @Length(max = 18)
+    @SerializedName(value = "custom_url_sub_title", alternate = "customUrlSubTitle")
+    private String customUrlSubTitle;
+
+    @Length(max = 128)
+    @SerializedName(value = "custom_app_brand_user_name", alternate = "customAppBrandUserName")
+    private String customAppBrandUserName;
+
+    @Length(max = 128)
+    @SerializedName(value = "custom_app_brand_pass", alternate = "customAppBrandPass")
+    private String customAppBrandPass;
+
+    @Length(max = 15)
+    @SerializedName(value = "promotion_url_name", alternate = "promotionUrlName")
+    private String promotionUrlName;
+
+    @Length(max = 128)
+    @SerializedName(value = "promotion_url", alternate = "promotionUrl")
+    private String promotionUrl;
+
+    @Length(max = 18)
+    @SerializedName(value = "promotion_url_sub_title", alternate = "promotionUrlSubTitle")
+    private String promotionUrlSubTitle;
+
+    @Length(max = 128)
+    @SerializedName(value = "promotion_app_brand_user_name", alternate = "promotionAppBrandUserName")
+    private String promotionAppBrandUserName;
+
+    @Length(max = 128)
+    @SerializedName(value = "promotion_app_brand_pass", alternate = "promotionAppBrandPass")
+    private String promotionAppBrandPass;
+
+    @SerializedName(value = "get_limit", alternate = "getLimit")
+    private Integer getLimit;
+
+    @SerializedName(value = "use_limit", alternate = "useLimit")
+    private Integer useLimit;
+
+    @SerializedName(value = "can_share", alternate = "canShare")
+    private Boolean canShare;
+
+    @SerializedName(value = "can_give_friend", alternate = "canGiveFriend")
+    private Boolean canGiveFriend;
+
 
     public String getLogoUrl() {
         return logoUrl;
@@ -116,6 +211,206 @@ public class BaseInfoModel extends BasicModel {
 
     public void setDateInfo(DateInfo dateInfo) {
         this.dateInfo = dateInfo;
+    }
+
+    public Boolean getUseCustomCode() {
+        return useCustomCode;
+    }
+
+    public void setUseCustomCode(Boolean useCustomCode) {
+        this.useCustomCode = useCustomCode;
+    }
+
+    public String getGetCustomCodeMode() {
+        return getCustomCodeMode;
+    }
+
+    public void setGetCustomCodeMode(String getCustomCodeMode) {
+        this.getCustomCodeMode = getCustomCodeMode;
+    }
+
+    public Boolean getBindOpenid() {
+        return bindOpenid;
+    }
+
+    public void setBindOpenid(Boolean bindOpenid) {
+        this.bindOpenid = bindOpenid;
+    }
+
+    public String getServicePhone() {
+        return servicePhone;
+    }
+
+    public void setServicePhone(String servicePhone) {
+        this.servicePhone = servicePhone;
+    }
+
+    public List<String> getLocationIdList() {
+        return locationIdList;
+    }
+
+    public void setLocationIdList(List<String> locationIdList) {
+        this.locationIdList = locationIdList;
+    }
+
+    public Boolean getUseAllLocations() {
+        return useAllLocations;
+    }
+
+    public void setUseAllLocations(Boolean useAllLocations) {
+        this.useAllLocations = useAllLocations;
+    }
+
+    public String getCenterTitle() {
+        return centerTitle;
+    }
+
+    public void setCenterTitle(String centerTitle) {
+        this.centerTitle = centerTitle;
+    }
+
+    public String getCenterSubTitle() {
+        return centerSubTitle;
+    }
+
+    public void setCenterSubTitle(String centerSubTitle) {
+        this.centerSubTitle = centerSubTitle;
+    }
+
+    public String getCenterUrl() {
+        return centerUrl;
+    }
+
+    public void setCenterUrl(String centerUrl) {
+        this.centerUrl = centerUrl;
+    }
+
+    public String getCenterAppBrandUserName() {
+        return centerAppBrandUserName;
+    }
+
+    public void setCenterAppBrandUserName(String centerAppBrandUserName) {
+        this.centerAppBrandUserName = centerAppBrandUserName;
+    }
+
+    public String getCenterAppBrandPass() {
+        return centerAppBrandPass;
+    }
+
+    public void setCenterAppBrandPass(String centerAppBrandPass) {
+        this.centerAppBrandPass = centerAppBrandPass;
+    }
+
+    public String getCustomUrlName() {
+        return customUrlName;
+    }
+
+    public void setCustomUrlName(String customUrlName) {
+        this.customUrlName = customUrlName;
+    }
+
+    public String getCustomUrl() {
+        return customUrl;
+    }
+
+    public void setCustomUrl(String customUrl) {
+        this.customUrl = customUrl;
+    }
+
+    public String getCustomUrlSubTitle() {
+        return customUrlSubTitle;
+    }
+
+    public void setCustomUrlSubTitle(String customUrlSubTitle) {
+        this.customUrlSubTitle = customUrlSubTitle;
+    }
+
+    public String getCustomAppBrandUserName() {
+        return customAppBrandUserName;
+    }
+
+    public void setCustomAppBrandUserName(String customAppBrandUserName) {
+        this.customAppBrandUserName = customAppBrandUserName;
+    }
+
+    public String getCustomAppBrandPass() {
+        return customAppBrandPass;
+    }
+
+    public void setCustomAppBrandPass(String customAppBrandPass) {
+        this.customAppBrandPass = customAppBrandPass;
+    }
+
+    public String getPromotionUrlName() {
+        return promotionUrlName;
+    }
+
+    public void setPromotionUrlName(String promotionUrlName) {
+        this.promotionUrlName = promotionUrlName;
+    }
+
+    public String getPromotionUrl() {
+        return promotionUrl;
+    }
+
+    public void setPromotionUrl(String promotionUrl) {
+        this.promotionUrl = promotionUrl;
+    }
+
+    public String getPromotionUrlSubTitle() {
+        return promotionUrlSubTitle;
+    }
+
+    public void setPromotionUrlSubTitle(String promotionUrlSubTitle) {
+        this.promotionUrlSubTitle = promotionUrlSubTitle;
+    }
+
+    public String getPromotionAppBrandUserName() {
+        return promotionAppBrandUserName;
+    }
+
+    public void setPromotionAppBrandUserName(String promotionAppBrandUserName) {
+        this.promotionAppBrandUserName = promotionAppBrandUserName;
+    }
+
+    public String getPromotionAppBrandPass() {
+        return promotionAppBrandPass;
+    }
+
+    public void setPromotionAppBrandPass(String promotionAppBrandPass) {
+        this.promotionAppBrandPass = promotionAppBrandPass;
+    }
+
+    public Integer getGetLimit() {
+        return getLimit;
+    }
+
+    public void setGetLimit(Integer getLimit) {
+        this.getLimit = getLimit;
+    }
+
+    public Integer getUseLimit() {
+        return useLimit;
+    }
+
+    public void setUseLimit(Integer useLimit) {
+        this.useLimit = useLimit;
+    }
+
+    public Boolean getCanShare() {
+        return canShare;
+    }
+
+    public void setCanShare(Boolean canShare) {
+        this.canShare = canShare;
+    }
+
+    public Boolean getCanGiveFriend() {
+        return canGiveFriend;
+    }
+
+    public void setCanGiveFriend(Boolean canGiveFriend) {
+        this.canGiveFriend = canGiveFriend;
     }
 
     public static class Sku extends BasicModel {
