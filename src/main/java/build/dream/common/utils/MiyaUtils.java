@@ -9,12 +9,15 @@ import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MiyaUtils {
+    public static final Map<String, String> HEADERS = new HashMap<String, String>();
+
+    static {
+        HEADERS.put("Content-Type", "text/xml");
+    }
+
     private static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
         String miyaAccountJson = CacheUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
         MiyaAccount miyaAccount = null;
@@ -25,7 +28,7 @@ public class MiyaUtils {
     }
 
     public static String generateSign(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
-        Map<String, String> sortedMap = new HashMap<String, String>();
+        Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.putAll(requestDomainRequestParameters);
         sortedMap.putAll(dataDomainRequestParameters);
 
@@ -42,33 +45,33 @@ public class MiyaUtils {
     public static String buildRequestBody(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters) {
         StringBuilder requestBody = new StringBuilder("<xml>");
         requestBody.append("<request>");
-        for (Map.Entry<String, String> entry : requestDomainRequestParameters.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            requestBody.append("<").append(key).append(">");
-            if (StringUtils.isNotBlank(value)) {
-                requestBody.append(String.format(Constants.CDATA_FORMAT, value));
-            }
-            requestBody.append("</").append(key).append(">");
-        }
+        requestBody.append(buildXml(requestDomainRequestParameters));
         requestBody.append("</request>");
 
         requestBody.append("<data>");
-        for (Map.Entry<String, String> entry : dataDomainRequestParameters.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            requestBody.append("<").append(key).append(">");
-            if (StringUtils.isNotBlank(value)) {
-                requestBody.append(String.format(Constants.CDATA_FORMAT, value));
-            }
-            requestBody.append("</").append(key).append(">");
-        }
+        requestBody.append(buildXml(dataDomainRequestParameters));
         requestBody.append("</data>");
+        
         requestBody.append("</xml>");
         return requestBody.toString();
     }
 
+    public static String buildXml(Map<String, String> map) {
+        StringBuilder xml = new StringBuilder();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            xml.append("<").append(key).append(">");
+            if (StringUtils.isNotBlank(value)) {
+                xml.append(String.format(Constants.CDATA_FORMAT, value));
+            }
+            xml.append("</").append(key).append(">");
+        }
+        return xml.toString();
+    }
+
     public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws IOException, DocumentException {
+        refundModel.validateAndThrow();
         MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
         ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
@@ -88,7 +91,7 @@ public class MiyaUtils {
         requestDomainRequestParameters.put("A8", generateSign(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey()));
         String requestBody = buildRequestBody(requestDomainRequestParameters, dataDomainRequestParameters);
         String url = ConfigurationUtils.getConfiguration(Constants.MIYA_PAY_SERVICE_URL);
-        WebResponse webResponse = WebUtils.doPostWithRequestBody(url, requestBody);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         Map<String, String> result = WebUtils.xmlStringToMap(webResponse.getResult());
         ValidateUtils.isTrue(Constants.SUCCESS.equals(result.get("C1")), result.get("C4"));
         return result;

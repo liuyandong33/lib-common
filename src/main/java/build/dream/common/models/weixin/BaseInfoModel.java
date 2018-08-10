@@ -3,7 +3,6 @@ package build.dream.common.models.weixin;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import com.google.gson.annotations.SerializedName;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
