@@ -238,4 +238,51 @@ public class WeiXinUtils {
 
         return result;
     }
+
+    public static ComponentAccessToken obtainComponentAccessToken(String appId, String componentAppId, String componentAppSecret) {
+        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, appId + "_" + componentAppId);
+        boolean isRetrieveComponentAccessToken = false;
+
+        ComponentAccessToken componentAccessToken = null;
+        if (StringUtils.isNotBlank(componentAccessTokenJson)) {
+            componentAccessToken = GsonUtils.fromJson(componentAccessTokenJson, ComponentAccessToken.class);
+            if ((System.currentTimeMillis() - componentAccessToken.getFetchTime().getTime()) / 1000 >= componentAccessToken.getExpiresIn()) {
+                isRetrieveComponentAccessToken = true;
+            }
+        } else {
+            isRetrieveComponentAccessToken = true;
+        }
+
+        if (isRetrieveComponentAccessToken) {
+            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, appId);
+            ValidateUtils.notBlank(componentAccessTokenJson, "component_verify_ticket 不存在！");
+            String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
+            Map<String, Object> requestBody = new HashMap<String, Object>();
+            requestBody.put("component_appid", componentAppId);
+            requestBody.put("component_appsecret", componentAppSecret);
+            requestBody.put("component_verify_ticket", componentVerifyTicket);
+            WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+            Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+            componentAccessToken = new ComponentAccessToken();
+            componentAccessToken.setComponentAccessToken(MapUtils.getString(result, "component_access_token"));
+            componentAccessToken.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
+            componentAccessToken.setFetchTime(new Date());
+        }
+
+        return componentAccessToken;
+    }
+
+    public String obtainPreAuthCode(String appId, String componentAppId, String componentAppSecret) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(appId, componentAppId, componentAppSecret);
+        return obtainPreAuthCode(componentAppId, componentAccessToken.getComponentAccessToken());
+    }
+
+    public String obtainPreAuthCode(String componentAppId, String componentAccessToken) {
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("component_appid", componentAppId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        return MapUtils.getString(result, "pre_auth_code");
+    }
 }

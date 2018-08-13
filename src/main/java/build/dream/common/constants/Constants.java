@@ -335,4 +335,7 @@ public class Constants {
     public static final String FRIDAY = "FRIDAY";
     public static final String SATURDAY = "SATURDAY";
     public static final String SUNDAY = "SUNDAY";
+
+    public static final String KEY_WEI_XIN_COMPONENT_VERIFY_TICKET = "_wei_xin_component_verify_ticket";
+    public static final String KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN = "_wei_xin_component_access_token";
 }
