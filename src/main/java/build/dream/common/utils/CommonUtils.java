@@ -6,8 +6,6 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CommonUtils {
     public static String getServiceName(String business) {
