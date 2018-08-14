@@ -240,7 +240,7 @@ public class WeiXinUtils {
     }
 
     public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret, String appId) {
-        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, appId + "_" + componentAppId);
+        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId + "_" + appId);
         boolean isRetrieveComponentAccessToken = false;
 
         ComponentAccessToken componentAccessToken = null;
@@ -254,7 +254,7 @@ public class WeiXinUtils {
         }
 
         if (isRetrieveComponentAccessToken) {
-            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, appId);
+            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, componentAppId);
             ValidateUtils.notBlank(componentAccessTokenJson, "component_verify_ticket 不存在！");
             String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
             Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -273,7 +273,7 @@ public class WeiXinUtils {
     }
 
     public String obtainPreAuthCode(String componentAppId, String componentAppSecret, String appId) {
-        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(appId, componentAppId, componentAppSecret);
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret, appId);
         return obtainPreAuthCode(componentAppId, componentAccessToken.getComponentAccessToken());
     }
 
