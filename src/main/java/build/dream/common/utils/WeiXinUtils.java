@@ -8,6 +8,7 @@ import build.dream.common.models.weixin.BaseInfoModel;
 import build.dream.common.models.weixin.SendMassMessageModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,9 +16,7 @@ import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class WeiXinUtils {
     private static final Map<String, String> HEADERS = new HashMap<String, String>();
@@ -318,5 +317,34 @@ public class WeiXinUtils {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         return MapUtils.getString(result, "pre_auth_code");
+    }
+
+    public static AuthorizationInfo apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
+        String url = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("component_appid", componentAppId);
+        requestBody.put("authorization_code", authorizationCode);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
+        authorizationInfo.setAuthorizerAppId(MapUtils.getString(result, "authorizer_appid"));
+        authorizationInfo.setAuthorizerAccessToken(MapUtils.getString(result, "authorizer_access_token"));
+        authorizationInfo.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
+        authorizationInfo.setAuthorizerRefreshToken(MapUtils.getString(result, "authorizer_refresh_token"));
+
+        List<Map<String, Object>> funcInfos = (List<Map<String, Object>>) result.get("func_info");
+        List<Map<String, AuthorizationInfo.FuncScopeCategory>> list = new ArrayList<Map<String, AuthorizationInfo.FuncScopeCategory>>();
+        if (CollectionUtils.isNotEmpty(funcInfos)) {
+            for (Map<String, Object> funcInfo : funcInfos) {
+                Map<String, AuthorizationInfo.FuncScopeCategory> map = new HashMap<String, AuthorizationInfo.FuncScopeCategory>();
+                AuthorizationInfo.FuncScopeCategory funcScopeCategory = new AuthorizationInfo.FuncScopeCategory();
+                funcScopeCategory.setId(MapUtils.getInteger(funcInfo, "id"));
+                map.put("funcscope_category", funcScopeCategory);
+                list.add(map);
+            }
+        }
+
+        authorizationInfo.setFuncInfo(list);
+        return authorizationInfo;
     }
 }
