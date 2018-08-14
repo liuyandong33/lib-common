@@ -27,6 +27,10 @@ public class WeiXinUtils {
     }
 
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) throws IOException {
+        return generateAuthorizeUrl(appId, scope, redirectUri, state, null);
+    }
+
+    public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state, String componentAppId) throws IOException {
         if (StringUtils.isBlank(scope)) {
             scope = "snsapi_base";
         }
@@ -37,10 +41,15 @@ public class WeiXinUtils {
         authorizeUrl.append("&scope=").append(scope);
         authorizeUrl.append("&connect_redirect=1");
         if (StringUtils.isNotBlank(state)) {
+            authorizeUrl.append("&state=");
             if (state.length() > 128) {
-                state = state.substring(0, 128);
+                authorizeUrl.append(state.substring(0, 128));
+            } else {
+                authorizeUrl.append(state);
             }
-            authorizeUrl.append("&state=").append(state);
+        }
+        if (StringUtils.isNotBlank(componentAppId)) {
+            authorizeUrl.append("&component_appid=").append(componentAppId);
         }
         authorizeUrl.append("&#wechat_redirect");
         return authorizeUrl.toString();
@@ -78,6 +87,30 @@ public class WeiXinUtils {
         obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
 
         String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OAUTH2_ACCESS_TOKEN_URI;
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthAccessTokenRequestParameters);
+
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
+        ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+
+        WeiXinOAuthAccessToken weiXinOAuthAccessToken = new WeiXinOAuthAccessToken();
+        weiXinOAuthAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
+        weiXinOAuthAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
+        weiXinOAuthAccessToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
+        weiXinOAuthAccessToken.setOpenId(resultJsonObject.getString("openid"));
+        weiXinOAuthAccessToken.setScope(resultJsonObject.getString("scope"));
+
+        return weiXinOAuthAccessToken;
+    }
+
+    public static WeiXinOAuthAccessToken obtainOAuthAccessToken(String appId, String code, String componentAppId, String componentAccessToken) throws IOException {
+        Map<String, String> obtainOAuthAccessTokenRequestParameters = new HashMap<String, String>();
+        obtainOAuthAccessTokenRequestParameters.put("appid", appId);
+        obtainOAuthAccessTokenRequestParameters.put("code", code);
+        obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
+        obtainOAuthAccessTokenRequestParameters.put("component_appid", componentAppId);
+        obtainOAuthAccessTokenRequestParameters.put("component_access_token", componentAccessToken);
+
+        String url = ConfigurationUtils.getConfiguration(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_OAUTH2_COMPONENT_ACCESS_TOKEN_URI;
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthAccessTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
@@ -255,7 +288,7 @@ public class WeiXinUtils {
 
         if (isRetrieveComponentAccessToken) {
             String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, componentAppId);
-            ValidateUtils.notBlank(componentAccessTokenJson, "component_verify_ticket 不存在！");
+            ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
             String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
             Map<String, Object> requestBody = new HashMap<String, Object>();
             requestBody.put("component_appid", componentAppId);
@@ -267,6 +300,7 @@ public class WeiXinUtils {
             componentAccessToken.setComponentAccessToken(MapUtils.getString(result, "component_access_token"));
             componentAccessToken.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
             componentAccessToken.setFetchTime(new Date());
+            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId + "_" + appId, GsonUtils.toJson(componentAccessToken));
         }
 
         return componentAccessToken;
