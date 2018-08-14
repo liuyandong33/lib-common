@@ -272,12 +272,12 @@ public class WeiXinUtils {
         return componentAccessToken;
     }
 
-    public String obtainPreAuthCode(String componentAppId, String componentAppSecret, String appId) {
+    public static String obtainPreAuthCode(String componentAppId, String componentAppSecret, String appId) {
         ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret, appId);
         return obtainPreAuthCode(componentAppId, componentAccessToken.getComponentAccessToken());
     }
 
-    public String obtainPreAuthCode(String componentAppId, String componentAccessToken) {
+    public static String obtainPreAuthCode(String componentAppId, String componentAccessToken) {
         String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
