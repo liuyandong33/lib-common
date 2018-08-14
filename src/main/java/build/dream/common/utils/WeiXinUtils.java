@@ -239,7 +239,7 @@ public class WeiXinUtils {
         return result;
     }
 
-    public static ComponentAccessToken obtainComponentAccessToken(String appId, String componentAppId, String componentAppSecret) {
+    public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret, String appId) {
         String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, appId + "_" + componentAppId);
         boolean isRetrieveComponentAccessToken = false;
 
@@ -272,7 +272,7 @@ public class WeiXinUtils {
         return componentAccessToken;
     }
 
-    public String obtainPreAuthCode(String appId, String componentAppId, String componentAppSecret) {
+    public String obtainPreAuthCode(String componentAppId, String componentAppSecret, String appId) {
         ComponentAccessToken componentAccessToken = obtainComponentAccessToken(appId, componentAppId, componentAppSecret);
         return obtainPreAuthCode(componentAppId, componentAccessToken.getComponentAccessToken());
     }
