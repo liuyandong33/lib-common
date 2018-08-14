@@ -860,3 +860,21 @@ CREATE TABLE agent_contract_price_info
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '代理商合同价格信息';
+
+DROP TABLE IF EXISTS wei_xin_open_platform_application;
+CREATE TABLE wei_xin_open_platform_application
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
+    encoding_aes_key VARCHAR(50) NOT NULL COMMENT 'encoding aes key',
+    token VARCHAR(50) NOT NULL COMMENT 'token',
+    `type` TINYINT NOT NULL COMMENT '类型，1-移动应用，2-网站应用，3-公众号，4-小程序，5-第三方平台',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '微信开放平台应用';
