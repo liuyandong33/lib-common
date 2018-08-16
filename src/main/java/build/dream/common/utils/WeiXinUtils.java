@@ -5,6 +5,7 @@ import build.dream.common.beans.*;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.AdvancedInfoModel;
 import build.dream.common.models.weixin.BaseInfoModel;
+import build.dream.common.models.weixin.CreateMenuModel;
 import build.dream.common.models.weixin.SendMassMessageModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -346,5 +347,15 @@ public class WeiXinUtils {
 
         authorizationInfo.setFuncInfo(list);
         return authorizationInfo;
+    }
+
+    public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
+        createMenuModel.validateAndThrow();
+        String url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_CREATE_MENU_URI + "?access_token=" + accessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(createMenuModel, false));
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(result, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
+        return result;
     }
 }

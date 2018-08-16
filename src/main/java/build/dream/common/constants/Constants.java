@@ -241,6 +241,7 @@ public class Constants {
     public static final String WEI_XIN_API_COMPONENT_TOKEN_URI = "/cgi-bin/component/api_component_token";
     public static final String WEI_XIN_SEND_TEMPLATE_MESSAGE_URI = "/cgi-bin/message/template/send";
     public static final String WEI_XIN_CREATE_CARD_URI = "/card/create";
+    public static final String WEI_XIN_CREATE_MENU_URI = "/cgi-bin/menu/create";
 
     public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
     public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
