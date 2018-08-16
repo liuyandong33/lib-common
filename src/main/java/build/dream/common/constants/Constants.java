@@ -229,25 +229,13 @@ public class Constants {
     public static final String SCENE_BAR_CODE = "bar_code";
     public static final String SCENE_WAVE_CODE = "wave_code";
 
-    public static final String WEI_XIN_API_URL = "wei.xin.api.url";
-    public static final String WEI_XIN_OAUTH2_ACCESS_TOKEN_URI = "/sns/oauth2/access_token";
-    public static final String WEI_XIN_OAUTH2_COMPONENT_ACCESS_TOKEN_URI = "/sns/oauth2/component/access_token";
-    public static final String WEI_XIN_OBTAIN_USER_INFO_URI = "/sns/userinfo";
-    public static final String WEI_XIN_SEND_MASS_MESSAGE_URI = "/message/mass/send";
-    public static final String WEI_XIN_OBTAIN_ACCESS_TOKEN_URI = "/cgi-bin/token";
-    public static final String WEI_XIN_OBTAIN_JSAPI_TICKET_URI = "/cgi-bin/ticket/getticket";
-    public static final String WEI_XIN_API_CREATE_PRE_AUTH_CODE_URI = "/cgi-bin/component/api_create_preauthcode";
-    public static final String WEI_XIN_API_QUERY_AUTH_URI = "/cgi-bin/component/api_query_auth";
-    public static final String WEI_XIN_API_COMPONENT_TOKEN_URI = "/cgi-bin/component/api_component_token";
-    public static final String WEI_XIN_SEND_TEMPLATE_MESSAGE_URI = "/cgi-bin/message/template/send";
-    public static final String WEI_XIN_CREATE_CARD_URI = "/card/create";
-    public static final String WEI_XIN_CREATE_MENU_URI = "/cgi-bin/menu/create";
-
     public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
     public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
 
     public static final String SNSAPI_BASE = "snsapi_base";
     public static final String SNSAPI_USERINFO = "snsapi_userinfo";
+    public static final String WEI_XIN_TICKET_TYPE_JSAPI = "jsapi";
+    public static final String WEI_XIN_TICKET_TYPE_WX_CARD = "wx_card";
 
     public static final BigDecimal BIG_DECIMAL_HUNDRED = BigDecimal.valueOf(100L);
     public static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
