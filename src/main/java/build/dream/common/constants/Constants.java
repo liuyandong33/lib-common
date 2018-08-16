@@ -236,6 +236,11 @@ public class Constants {
     public static final String WEI_XIN_SEND_MASS_MESSAGE_URI = "/message/mass/send";
     public static final String WEI_XIN_OBTAIN_ACCESS_TOKEN_URI = "/cgi-bin/token";
     public static final String WEI_XIN_OBTAIN_JSAPI_TICKET_URI = "/cgi-bin/ticket/getticket";
+    public static final String WEI_XIN_API_CREATE_PRE_AUTH_CODE_URI = "/cgi-bin/component/api_create_preauthcode";
+    public static final String WEI_XIN_API_QUERY_AUTH_URI = "/cgi-bin/component/api_query_auth";
+    public static final String WEI_XIN_API_COMPONENT_TOKEN_URI = "/cgi-bin/component/api_component_token";
+    public static final String WEI_XIN_SEND_TEMPLATE_MESSAGE_URI = "/cgi-bin/message/template/send";
+    public static final String WEI_XIN_CREATE_CARD_URI = "/card/create";
 
     public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
     public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";

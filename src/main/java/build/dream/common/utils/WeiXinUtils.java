@@ -241,7 +241,7 @@ public class WeiXinUtils {
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("card", card);
 
-        String url = "https://api.weixin.qq.com/card/create?access_token=" + accessToken;
+        String url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_CREATE_CARD_URI + "?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(groupon, false));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
@@ -262,7 +262,7 @@ public class WeiXinUtils {
         if (StringUtils.isNotBlank(color)) {
             body.put("data", color);
         }
-        String _url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=" + accessToken;
+        String _url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_SEND_TEMPLATE_MESSAGE_URI + "?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, null, GsonUtils.toJson(body));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
@@ -288,7 +288,7 @@ public class WeiXinUtils {
         if (isRetrieveComponentAccessToken) {
             String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, componentAppId);
             ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
-            String url = "https://api.weixin.qq.com/cgi-bin/component/api_component_token";
+            String url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_API_COMPONENT_TOKEN_URI;
             Map<String, Object> requestBody = new HashMap<String, Object>();
             requestBody.put("component_appid", componentAppId);
             requestBody.put("component_appsecret", componentAppSecret);
@@ -311,7 +311,7 @@ public class WeiXinUtils {
     }
 
     public static String obtainPreAuthCode(String componentAppId, String componentAccessToken) {
-        String url = "https://api.weixin.qq.com/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken;
+        String url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_API_CREATE_PRE_AUTH_CODE_URI + "?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
@@ -320,7 +320,7 @@ public class WeiXinUtils {
     }
 
     public static AuthorizationInfo apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
-        String url = "https://api.weixin.qq.com/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
+        String url = ConfigurationUtils.getConfigurationSafe(Constants.WEI_XIN_API_URL) + Constants.WEI_XIN_API_QUERY_AUTH_URI + "?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorization_code", authorizationCode);
