@@ -1,6 +1,6 @@
 package build.dream.common;
 
-import build.dream.common.erp.catering.domains.*;
+import build.dream.common.erp.catering.domains.Coupon;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Field;
