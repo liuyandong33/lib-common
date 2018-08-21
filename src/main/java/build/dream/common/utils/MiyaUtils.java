@@ -92,7 +92,7 @@ public class MiyaUtils {
         String requestBody = buildRequestBody(requestDomainRequestParameters, dataDomainRequestParameters);
         String url = ConfigurationUtils.getConfiguration(Constants.MIYA_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
-        Map<String, String> result = WebUtils.xmlStringToMap(webResponse.getResult());
+        Map<String, String> result = XmlUtils.xmlStringToMap(webResponse.getResult());
         ValidateUtils.isTrue(Constants.SUCCESS.equals(result.get("C1")), result.get("C4"));
         return result;
     }

@@ -5,11 +5,6 @@ import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -483,43 +478,6 @@ public class WebUtils {
         return StringUtils.join(requestParameterPairs, "&");
     }
 
-    public static String inputStreamToString(InputStream inputStream) throws IOException {
-        return inputStreamToString(inputStream, Constants.CHARSET_NAME_UTF_8);
-    }
-
-    public static String inputStreamToString(InputStream inputStream, String charsetName) throws IOException {
-        StringBuffer result = new StringBuffer();
-        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, charsetName);
-        int length = -1;
-        char[] buffer = new char[1024];
-        while ((length = inputStreamReader.read(buffer, 0, 1024)) != -1) {
-            result.append(buffer, 0, length);
-        }
-        inputStreamReader.close();
-        return result.toString();
-    }
-
-    public static Map<String, String> xmlStringToMap(String xmlString) throws DocumentException {
-        Document document = DocumentHelper.parseText(xmlString);
-        return xmlDocumentToMap(document);
-    }
-
-    public static Map<String, String> xmlInputStreamToMap(InputStream inputStream) throws DocumentException {
-        SAXReader saxReader = new SAXReader();
-        Document document = saxReader.read(inputStream);
-        return xmlDocumentToMap(document);
-    }
-
-    private static Map<String, String> xmlDocumentToMap(Document document) {
-        Element rootElement = document.getRootElement();
-        List<Element> elements = rootElement.elements();
-        Map<String, String> returnValue = new HashMap<String, String>();
-        for (Element element : elements) {
-            returnValue.put(element.getName(), element.getText());
-        }
-        return returnValue;
-    }
-
     public static SSLSocketFactory initSSLSocketFactory(InputStream inputStream, String password) throws NoSuchAlgorithmException, KeyStoreException, IOException, CertificateException, UnrecoverableKeyException, KeyManagementException {
         SSLContext sslContext = SSLContext.getInstance("TLS");
         KeyStore keyStore = KeyStore.getInstance("PKCS12");
@@ -612,10 +570,10 @@ public class WebUtils {
     public static String obtainResult(HttpURLConnection httpURLConnection, int responseCode, String charsetName) throws IOException {
         String result = null;
         if (responseCode == HttpURLConnection.HTTP_OK) {
-            result = inputStreamToString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
+            result = IOUtils.toString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
             httpURLConnection.disconnect();
         } else {
-            result = inputStreamToString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
+            result = IOUtils.toString(httpURLConnection.getErrorStream(), obtainResponseCharset(httpURLConnection, charsetName));
             httpURLConnection.disconnect();
         }
         return result;

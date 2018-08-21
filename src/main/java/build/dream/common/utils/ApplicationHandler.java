@@ -67,12 +67,12 @@ public class ApplicationHandler {
 
     public static String getRequestBody(String charsetName) throws IOException {
         HttpServletRequest httpServletRequest = getHttpServletRequest();
-        return WebUtils.inputStreamToString(httpServletRequest.getInputStream(), charsetName);
+        return IOUtils.toString(httpServletRequest.getInputStream(), charsetName);
     }
 
     public static String getRequestBody() throws IOException {
         HttpServletRequest httpServletRequest = getHttpServletRequest();
-        return WebUtils.inputStreamToString(httpServletRequest.getInputStream());
+        return IOUtils.toString(httpServletRequest.getInputStream());
     }
 
     public static String getRequestParameter(String requestParameterName) {

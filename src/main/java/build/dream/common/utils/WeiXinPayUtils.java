@@ -78,7 +78,7 @@ public class WeiXinPayUtils {
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws DocumentException {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password);
-        return WebUtils.xmlStringToMap(webResponse.getResult());
+        return XmlUtils.xmlStringToMap(webResponse.getResult());
     }
 
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws DocumentException {
