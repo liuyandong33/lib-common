@@ -15,20 +15,12 @@ public class ConfigurationUtils {
         return environment;
     }
 
-    public static String getConfiguration(String configurationKey) throws IOException {
-        String configurationValue = PropertyUtils.getProperty(configurationKey);
+    public static String getConfiguration(String configurationKey) {
+        String configurationValue = PropertyUtils.getPropertySafe(configurationKey);
         if (StringUtils.isBlank(configurationValue)) {
             configurationValue = obtainEnvironment().getProperty(configurationKey);
         }
         return configurationValue;
-    }
-
-    public static String getConfigurationSafe(String configurationKey) {
-        try {
-            return getConfiguration(configurationKey);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static String getConfiguration(String configurationKey, String defaultValue) throws IOException {

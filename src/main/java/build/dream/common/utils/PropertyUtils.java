@@ -18,6 +18,14 @@ public class PropertyUtils {
         return getProperties().getProperty(key);
     }
 
+    public static String getPropertySafe(String key) {
+        try {
+            return getProperty(key);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static String getProperty(String key, String defaultValue) throws IOException {
         return getProperties().getProperty(key, defaultValue);
     }
