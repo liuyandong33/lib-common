@@ -3,8 +3,6 @@ package build.dream.common.utils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.env.Environment;
 
-import java.io.IOException;
-
 public class ConfigurationUtils {
     private static Environment environment;
 
@@ -23,7 +21,7 @@ public class ConfigurationUtils {
         return configurationValue;
     }
 
-    public static String getConfiguration(String configurationKey, String defaultValue) throws IOException {
+    public static String getConfiguration(String configurationKey, String defaultValue) {
         String configurationValue = getConfiguration(configurationKey);
         if (StringUtils.isNotBlank(configurationValue)) {
             return configurationValue;
