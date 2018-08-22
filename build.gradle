@@ -51,6 +51,8 @@ dependencies {
     compile("com.networknt:json-schema-validator:0.1.13")
     compile("com.belerweb:pinyin4j:2.5.1")
     compile("org.springframework.kafka:spring-kafka:2.1.5.RELEASE")
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.49'
 }
 
 task makeJar(type: Jar) {
