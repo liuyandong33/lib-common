@@ -7,6 +7,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.validator.HibernateValidator;
@@ -26,11 +27,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
@@ -668,21 +669,27 @@ public class ApplicationHandler {
         return map;
     }
 
-    public static <T> T buildObject(Class<T> beanClass, Map<String, Object> properties) throws IllegalAccessException, InstantiationException {
-        T t = beanClass.newInstance();
-        Field[] fields = beanClass.getDeclaredFields();
-        for (Field field : fields) {
-            int modifiers = field.getModifiers();
-            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
-                continue;
+    public static <T> T buildObject(Class<T> beanClass, Map<String, Object> properties) {
+        try {
+            T t = beanClass.newInstance();
+            BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
+            PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
+            for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+                Method writeMethod = propertyDescriptor.getWriteMethod();
+                if (writeMethod == null) {
+                    continue;
+                }
+                ReflectionUtils.makeAccessible(writeMethod);
+                Object value = properties.get(propertyDescriptor.getName());
+                if (value == null && ArrayUtils.contains(Constants.BASIC_DATA_TYPES, propertyDescriptor.getPropertyType())) {
+                    continue;
+                }
+                Object[] arguments = new Object[]{value};
+                writeMethod.invoke(t, arguments);
             }
-            ReflectionUtils.makeAccessible(field);
-            String fieldName = field.getName();
-            Object fieldValue = properties.get(fieldName);
-            if (fieldValue != null) {
-                field.set(t, properties.get(fieldName));
-            }
+            return t;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return t;
     }
 }

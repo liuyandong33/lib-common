@@ -333,4 +333,6 @@ public class Constants {
 
     public static final String KEY_WEI_XIN_COMPONENT_VERIFY_TICKET = "_wei_xin_component_verify_ticket";
     public static final String KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN = "_wei_xin_component_access_token";
+
+    public static final Class<?>[] BASIC_DATA_TYPES = {byte.class, short.class, int.class, long.class, float.class, double.class, char.class, boolean.class};
 }
