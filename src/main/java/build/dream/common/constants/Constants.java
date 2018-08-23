@@ -27,16 +27,6 @@ public class Constants {
     public static final String TRUE = "true";
 
     /**
-     * redis 配置相关常量
-     */
-    public static final String JEDIS_SENTINEL_POOL = "JedisSentinelPool";
-    public static final String JEDIS_POOL = "JedisPool";
-    public static final String REDIS_POOL_TYPE = "redis.pool.type";
-    public static final String REDIS_POOL_HOST = "redis.pool.host";
-    public static final String REDIS_POOL_PORT = "redis.pool.port";
-    public static final String REDIS_POOL_PASSWORD = "redis.pool.password";
-
-    /**
      * 配置相关常量
      */
     public static final String PRODUCTION_PROPERTIES = "production.properties";
@@ -49,9 +39,6 @@ public class Constants {
     public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";
     public static final String PARTITION_CODE = "partition.code";
     public static final String SERVICE_NAME = "service.name";
-
-    public static final String KEY_SERVICE_DOMAIN = "_service_domain";
-    public static final String KEY_OUTSIDE_SERVICE_DOMAIN = "_outside_service_domain";
 
     public static final String SERVICE_NAME_CATERING = "catering";
     public static final String SERVICE_NAME_RETAIL = "retail";
