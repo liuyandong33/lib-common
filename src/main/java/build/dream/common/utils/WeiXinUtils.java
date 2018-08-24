@@ -354,4 +354,14 @@ public class WeiXinUtils {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
         return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
     }
+
+    public static Map<String, Object> apiAuthorizerToken(String componentAccessToken, String componentAppId, String authorizerAppId, String authorizerRefreshToken) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/component/api_authorizer_token?component_access_token=" + componentAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("component_appid", componentAppId);
+        requestBody.put("authorizer_appid", authorizerAppId);
+        requestBody.put("authorizer_refresh_token", authorizerRefreshToken);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+    }
 }
