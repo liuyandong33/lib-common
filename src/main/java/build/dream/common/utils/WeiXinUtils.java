@@ -268,8 +268,8 @@ public class WeiXinUtils {
         return result;
     }
 
-    public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret, String appId) {
-        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId + "_" + appId);
+    public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret) {
+        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId);
         boolean isRetrieveComponentAccessToken = false;
 
         ComponentAccessToken componentAccessToken = null;
@@ -296,19 +296,15 @@ public class WeiXinUtils {
             componentAccessToken.setComponentAccessToken(MapUtils.getString(result, "component_access_token"));
             componentAccessToken.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
             componentAccessToken.setFetchTime(new Date());
-            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId + "_" + appId, GsonUtils.toJson(componentAccessToken));
+            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId, GsonUtils.toJson(componentAccessToken));
         }
 
         return componentAccessToken;
     }
 
-    public static String obtainPreAuthCode(String componentAppId, String componentAppSecret, String appId) {
-        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret, appId);
-        return obtainPreAuthCode(componentAppId, componentAccessToken.getComponentAccessToken());
-    }
-
-    public static String obtainPreAuthCode(String componentAppId, String componentAccessToken) {
-        String url = WEI_XIN_API_URL + "/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken;
+    public static String obtainPreAuthCode(String componentAppId, String componentAppSecret) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
+        String url = WEI_XIN_API_URL + "/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
@@ -366,5 +362,14 @@ public class WeiXinUtils {
         int errcode = MapUtils.getIntValue(result, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
         return result;
+    }
+
+    public static Map<String, Object> apiGetAuthorizerInfo(String componentAccessToken, String componentAppId, String authorizerAppId) {
+        String url = WEI_XIN_API_URL + "/component/api_get_authorizer_info?component_access_token=" + componentAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("component_appid", componentAppId);
+        requestBody.put("authorizer_appid", authorizerAppId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
     }
 }
