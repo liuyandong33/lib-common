@@ -17,10 +17,15 @@ import java.util.*;
 
 public class WeiXinUtils {
     private static final String WEI_XIN_API_URL = "https://api.weixin.qq.com";
+    private static final String COMPONENT_LOGIN_PAGE_URL = "https://mp.weixin.qq.com/cgi-bin/componentloginpage";
     private static final Map<String, String> HEADERS = new HashMap<String, String>();
 
     static {
         HEADERS.put("Content-Type", "application/json;charset=UTF-8");
+    }
+
+    public static String generateComponentLoginPageUrl(String componentAppId, String preAuthCode, String redirectUri, String authType) {
+        return COMPONENT_LOGIN_PAGE_URL + "?component_appid=" + componentAppId + "&pre_auth_code=" + preAuthCode + "&redirect_uri=" + redirectUri + "&auth_type=" + authType;
     }
 
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) throws IOException {
