@@ -101,7 +101,7 @@ public class WeiXinUtils {
         return weiXinOAuthAccessToken;
     }
 
-    public static WeiXinOAuthAccessToken obtainOAuthAccessToken(String appId, String code, String componentAppId, String componentAccessToken) throws IOException {
+    public static WeiXinOAuthAccessToken obtainOAuthAccessToken(String appId, String code, String componentAppId, String componentAccessToken) {
         Map<String, String> obtainOAuthAccessTokenRequestParameters = new HashMap<String, String>();
         obtainOAuthAccessTokenRequestParameters.put("appid", appId);
         obtainOAuthAccessTokenRequestParameters.put("code", code);
@@ -125,7 +125,7 @@ public class WeiXinUtils {
         return weiXinOAuthAccessToken;
     }
 
-    public static WeiXinUserInfo obtainUserInfo(String accessToken, String openId, String lang) throws IOException {
+    public static WeiXinUserInfo obtainUserInfo(String accessToken, String openId, String lang) {
         Map<String, String> obtainUserInfoRequestParameters = new HashMap<String, String>();
         obtainUserInfoRequestParameters.put("access_token", accessToken);
         obtainUserInfoRequestParameters.put("openid", openId);
@@ -163,7 +163,7 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static WeiXinAccessToken obtainAccessToken(String appId, String secret) throws IOException {
+    public static WeiXinAccessToken obtainAccessToken(String appId, String secret) {
         String weiXinAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
         boolean isRetrieveAccessToken = false;
         WeiXinAccessToken weiXinAccessToken = null;
