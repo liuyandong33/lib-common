@@ -20,6 +20,7 @@ import java.util.Map;
 public class WeiXinUtils {
     private static final String WEI_XIN_API_URL = "https://api.weixin.qq.com";
     private static final String COMPONENT_LOGIN_PAGE_URL = "https://mp.weixin.qq.com/cgi-bin/componentloginpage";
+    private static final String WEI_XIN_AUTHORIZE_URL = "https://open.weixin.qq.com/connect/oauth2/authorize";
     private static final Map<String, String> HEADERS = new HashMap<String, String>();
 
     static {
@@ -38,7 +39,7 @@ public class WeiXinUtils {
         if (StringUtils.isBlank(scope)) {
             scope = "snsapi_base";
         }
-        StringBuilder authorizeUrl = new StringBuilder(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_AUTHORIZE_URL));
+        StringBuilder authorizeUrl = new StringBuilder(WEI_XIN_AUTHORIZE_URL);
         authorizeUrl.append("?").append("appid=").append(appId);
         authorizeUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
         authorizeUrl.append("&response_type=code");
