@@ -9,7 +9,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -184,7 +183,7 @@ public class WeiXinUtils {
             WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
 
             JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-            Validate.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+            ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
 
             weiXinAccessToken = new WeiXinAccessToken();
             weiXinAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
@@ -217,7 +216,7 @@ public class WeiXinUtils {
             String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
             WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
             JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-            Validate.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
+            ValidateUtils.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
 
             weiXinJsapiTicket = new WeiXinJsapiTicket();
             weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
