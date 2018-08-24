@@ -5,7 +5,6 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.*;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -13,7 +12,9 @@ import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class WeiXinUtils {
     private static final String WEI_XIN_API_URL = "https://api.weixin.qq.com";
@@ -312,33 +313,14 @@ public class WeiXinUtils {
         return MapUtils.getString(result, "pre_auth_code");
     }
 
-    public static AuthorizationInfo apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
+    public static Map<String, Object> apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorization_code", authorizationCode);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        AuthorizationInfo authorizationInfo = new AuthorizationInfo();
-        authorizationInfo.setAuthorizerAppId(MapUtils.getString(result, "authorizer_appid"));
-        authorizationInfo.setAuthorizerAccessToken(MapUtils.getString(result, "authorizer_access_token"));
-        authorizationInfo.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
-        authorizationInfo.setAuthorizerRefreshToken(MapUtils.getString(result, "authorizer_refresh_token"));
-
-        List<Map<String, Object>> funcInfos = (List<Map<String, Object>>) result.get("func_info");
-        List<Map<String, AuthorizationInfo.FuncScopeCategory>> list = new ArrayList<Map<String, AuthorizationInfo.FuncScopeCategory>>();
-        if (CollectionUtils.isNotEmpty(funcInfos)) {
-            for (Map<String, Object> funcInfo : funcInfos) {
-                Map<String, AuthorizationInfo.FuncScopeCategory> map = new HashMap<String, AuthorizationInfo.FuncScopeCategory>();
-                AuthorizationInfo.FuncScopeCategory funcScopeCategory = new AuthorizationInfo.FuncScopeCategory();
-                funcScopeCategory.setId(MapUtils.getInteger(funcInfo, "id"));
-                map.put("funcscope_category", funcScopeCategory);
-                list.add(map);
-            }
-        }
-
-        authorizationInfo.setFuncInfo(list);
-        return authorizationInfo;
+        return result;
     }
 
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
