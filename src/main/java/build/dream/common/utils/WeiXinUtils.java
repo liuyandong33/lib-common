@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.*;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.*;
+import build.dream.common.saas.domains.WeiXinAuthorizerInfo;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -346,13 +347,29 @@ public class WeiXinUtils {
         return result;
     }
 
-    public static Map<String, Object> apiGetAuthorizerInfo(String componentAccessToken, String componentAppId, String authorizerAppId) {
+    public static WeiXinAuthorizerInfo apiGetAuthorizerInfo(String componentAccessToken, String componentAppId, String authorizerAppId) {
         String url = WEI_XIN_API_URL + "/component/api_get_authorizer_info?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
-        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        WeiXinAuthorizerInfo weiXinAuthorizerInfo = new WeiXinAuthorizerInfo();
+        weiXinAuthorizerInfo.setNickName(MapUtils.getString(result, "nick_name"));
+        weiXinAuthorizerInfo.setHeadImg(MapUtils.getString(result, "head_img"));
+        weiXinAuthorizerInfo.setServiceTypeInfo(MapUtils.getIntValue(result, "service_type_info"));
+        weiXinAuthorizerInfo.setVerifyTypeInfo(MapUtils.getIntValue(result, "verify_type_info"));
+        weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(result, "user_name"));
+        weiXinAuthorizerInfo.setPrincipalName(MapUtils.getString(result, "principal_name"));
+        String alias = MapUtils.getString(result, "alias");
+        weiXinAuthorizerInfo.setAlias(StringUtils.isNotBlank(alias) ? alias : Constants.VARCHAR_DEFAULT_VALUE);
+        weiXinAuthorizerInfo.setBusinessInfo(MapUtils.getString(result, "business_info"));
+        weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(result, "qrcode_url"));
+
+        Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
+        weiXinAuthorizerInfo.setAuthorizationAppId(MapUtils.getString(authorizationInfo, "authorization_appid"));
+        weiXinAuthorizerInfo.setFuncInfo(MapUtils.getString(authorizationInfo, "func_info"));
+        return weiXinAuthorizerInfo;
     }
 
     public static Map<String, Object> apiAuthorizerToken(String componentAccessToken, String componentAppId, String authorizerAppId, String authorizerRefreshToken) {
