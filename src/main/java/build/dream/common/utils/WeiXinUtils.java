@@ -37,7 +37,7 @@ public class WeiXinUtils {
 
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state, String componentAppId) throws IOException {
         if (StringUtils.isBlank(scope)) {
-            scope = "snsapi_base";
+            scope = Constants.SNSAPI_BASE;
         }
         StringBuilder authorizeUrl = new StringBuilder(WEI_XIN_AUTHORIZE_URL);
         authorizeUrl.append("?").append("appid=").append(appId);
