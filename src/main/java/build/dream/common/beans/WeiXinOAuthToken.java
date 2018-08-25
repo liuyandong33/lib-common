@@ -1,6 +1,6 @@
 package build.dream.common.beans;
 
-public class WeiXinOAuthAccessToken {
+public class WeiXinOAuthToken {
     private String accessToken;
     private Integer expiresIn;
     private String refreshToken;

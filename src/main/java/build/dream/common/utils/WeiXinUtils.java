@@ -1,9 +1,11 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
 import build.dream.common.beans.*;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.*;
 import build.dream.common.saas.domains.WeiXinAuthorizerInfo;
+import build.dream.common.saas.domains.WeiXinAuthorizerToken;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -12,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -77,51 +80,51 @@ public class WeiXinUtils {
         return config;
     }
 
-    public static WeiXinOAuthAccessToken obtainOAuthAccessToken(String appId, String secret, String code) {
-        Map<String, String> obtainOAuthAccessTokenRequestParameters = new HashMap<String, String>();
-        obtainOAuthAccessTokenRequestParameters.put("appid", appId);
-        obtainOAuthAccessTokenRequestParameters.put("secret", secret);
-        obtainOAuthAccessTokenRequestParameters.put("code", code);
-        obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
+    public static WeiXinOAuthToken obtainOAuthToken(String appId, String secret, String code) {
+        Map<String, String> obtainOAuthTokenRequestParameters = new HashMap<String, String>();
+        obtainOAuthTokenRequestParameters.put("appid", appId);
+        obtainOAuthTokenRequestParameters.put("secret", secret);
+        obtainOAuthTokenRequestParameters.put("code", code);
+        obtainOAuthTokenRequestParameters.put("grant_type", "authorization_code");
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthAccessTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
 
-        WeiXinOAuthAccessToken weiXinOAuthAccessToken = new WeiXinOAuthAccessToken();
-        weiXinOAuthAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
-        weiXinOAuthAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
-        weiXinOAuthAccessToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
-        weiXinOAuthAccessToken.setOpenId(resultJsonObject.getString("openid"));
-        weiXinOAuthAccessToken.setScope(resultJsonObject.getString("scope"));
+        WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
+        weiXinOAuthToken.setAccessToken(resultJsonObject.getString("access_token"));
+        weiXinOAuthToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
+        weiXinOAuthToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
+        weiXinOAuthToken.setOpenId(resultJsonObject.getString("openid"));
+        weiXinOAuthToken.setScope(resultJsonObject.getString("scope"));
 
-        return weiXinOAuthAccessToken;
+        return weiXinOAuthToken;
     }
 
-    public static WeiXinOAuthAccessToken obtainOAuthAccessToken(String appId, String code, String componentAppId, String componentAccessToken) {
-        Map<String, String> obtainOAuthAccessTokenRequestParameters = new HashMap<String, String>();
-        obtainOAuthAccessTokenRequestParameters.put("appid", appId);
-        obtainOAuthAccessTokenRequestParameters.put("code", code);
-        obtainOAuthAccessTokenRequestParameters.put("grant_type", "authorization_code");
-        obtainOAuthAccessTokenRequestParameters.put("component_appid", componentAppId);
-        obtainOAuthAccessTokenRequestParameters.put("component_access_token", componentAccessToken);
+    public static WeiXinOAuthToken obtainOAuthToken(String appId, String code, String componentAppId, String componentAccessToken) {
+        Map<String, String> obtainOAuthTokenRequestParameters = new HashMap<String, String>();
+        obtainOAuthTokenRequestParameters.put("appid", appId);
+        obtainOAuthTokenRequestParameters.put("code", code);
+        obtainOAuthTokenRequestParameters.put("grant_type", "authorization_code");
+        obtainOAuthTokenRequestParameters.put("component_appid", componentAppId);
+        obtainOAuthTokenRequestParameters.put("component_access_token", componentAccessToken);
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/component/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthAccessTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
 
-        WeiXinOAuthAccessToken weiXinOAuthAccessToken = new WeiXinOAuthAccessToken();
-        weiXinOAuthAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
-        weiXinOAuthAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
-        weiXinOAuthAccessToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
-        weiXinOAuthAccessToken.setOpenId(resultJsonObject.getString("openid"));
-        weiXinOAuthAccessToken.setScope(resultJsonObject.getString("scope"));
+        WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
+        weiXinOAuthToken.setAccessToken(resultJsonObject.getString("access_token"));
+        weiXinOAuthToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
+        weiXinOAuthToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
+        weiXinOAuthToken.setOpenId(resultJsonObject.getString("openid"));
+        weiXinOAuthToken.setScope(resultJsonObject.getString("scope"));
 
-        return weiXinOAuthAccessToken;
+        return weiXinOAuthToken;
     }
 
     public static WeiXinUserInfo obtainUserInfo(String accessToken, String openId, String lang) {
@@ -314,14 +317,46 @@ public class WeiXinUtils {
         return MapUtils.getString(result, "pre_auth_code");
     }
 
-    public static Map<String, Object> apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
+    public static WeiXinAuthorizerToken apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) throws IOException {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorization_code", authorizationCode);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        return result;
+
+        Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
+        String authorizerAppId = MapUtils.getString(authorizationInfo, "authorizer_appid");
+        String authorizerAccessToken = MapUtils.getString(authorizationInfo, "authorizer_appid");
+        long expiresIn = MapUtils.getLongValue(authorizationInfo, "expires_in");
+        String authorizerRefreshToken = MapUtils.getString(authorizationInfo, "authorizer_refresh_token");
+        Date fetchTime = new Date();
+
+        WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
+        weiXinAuthorizerToken.setComponentAppId(componentAppId);
+        weiXinAuthorizerToken.setAuthorizerAppId(authorizerAppId);
+        weiXinAuthorizerToken.setAuthorizerAccessToken(authorizerAccessToken);
+        weiXinAuthorizerToken.setExpiresIn(expiresIn);
+        weiXinAuthorizerToken.setAuthorizerRefreshToken(authorizerRefreshToken);
+        weiXinAuthorizerToken.setFetchTime(fetchTime);
+
+        Map<String, String> saveWeiXinAuthorizerTokenRequestParameters = new HashMap<String, String>();
+        saveWeiXinAuthorizerTokenRequestParameters.put("componentAppId", componentAppId);
+        saveWeiXinAuthorizerTokenRequestParameters.put("authorizerAppId", authorizerAppId);
+        saveWeiXinAuthorizerTokenRequestParameters.put("authorizerAccessToken", authorizerAccessToken);
+        saveWeiXinAuthorizerTokenRequestParameters.put("expiresIn", String.valueOf(expiresIn));
+        saveWeiXinAuthorizerTokenRequestParameters.put("authorizerRefreshToken", authorizerRefreshToken);
+        saveWeiXinAuthorizerTokenRequestParameters.put("fetchTime", new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(fetchTime));
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "saveWeiXinAuthorizerToken", saveWeiXinAuthorizerTokenRequestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+        CacheUtils.hset(Constants.WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
+        return weiXinAuthorizerToken;
+    }
+
+    public static WeiXinAuthorizerToken obtainWeiXinAuthorizerToken(String componentAppId, String authorizerAppId) {
+        String tokenJson = CacheUtils.hget(Constants.SERVICE_NAME_PLATFORM, componentAppId + "_" + authorizerAppId);
+        ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
+        return GsonUtils.fromJson(tokenJson, WeiXinAuthorizerToken.class);
     }
 
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {

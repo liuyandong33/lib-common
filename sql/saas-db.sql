@@ -902,4 +902,23 @@ CREATE TABLE wei_xin_authorizer_info
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT = '微信公众号';
+) COMMENT = '微信公众平台或小程序授权信息';
+
+DROP TABLE IF EXISTS wei_xin_authorizer_token;
+CREATE TABLE wei_xin_authorizer_token
+(
+    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    component_app_id VARCHAR(50) NOT NULL COMMENT '第三方平台appid',
+    authorizer_app_id VARCHAR(50) NOT NULL COMMENT '授权方appid',
+    authorizer_access_token VARCHAR(200) NOT NULL COMMENT '授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌',
+    expires_in INT NOT NULL COMMENT '有效期（在授权的公众号或小程序具备API权限时，才有此返回值）',
+    authorizer_refresh_token VARCHAR(200) NOT NULL COMMENT '接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌',
+    fetch_time DATETIME NOT NULL COMMENT '获取时间',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '微信公众号或小程序授权token';
