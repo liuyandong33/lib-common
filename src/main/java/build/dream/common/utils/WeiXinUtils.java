@@ -415,7 +415,6 @@ public class WeiXinUtils {
         requestBody.put("authorizer_refresh_token", authorizerRefreshToken);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
 
-
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
 
         WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
