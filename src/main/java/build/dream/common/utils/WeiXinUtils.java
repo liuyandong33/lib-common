@@ -349,7 +349,7 @@ public class WeiXinUtils {
         saveWeiXinAuthorizerTokenRequestParameters.put("fetchTime", new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(fetchTime));
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "saveWeiXinAuthorizerToken", saveWeiXinAuthorizerTokenRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        CacheUtils.hset(Constants.WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
+        CacheUtils.hset(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
         return weiXinAuthorizerToken;
     }
 
