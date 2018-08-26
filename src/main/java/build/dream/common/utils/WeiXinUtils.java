@@ -407,13 +407,24 @@ public class WeiXinUtils {
         return weiXinAuthorizerInfo;
     }
 
-    public static Map<String, Object> apiAuthorizerToken(String componentAccessToken, String componentAppId, String authorizerAppId, String authorizerRefreshToken) {
+    public static WeiXinAuthorizerToken apiAuthorizerToken(String componentAccessToken, String componentAppId, String authorizerAppId, String authorizerRefreshToken) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_authorizer_token?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
         requestBody.put("authorizer_refresh_token", authorizerRefreshToken);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
-        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+
+
+        Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+
+        WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
+        weiXinAuthorizerToken.setComponentAppId(componentAppId);
+        weiXinAuthorizerToken.setAuthorizerAppId(authorizerAppId);
+        weiXinAuthorizerToken.setAuthorizerAccessToken(MapUtils.getString(result, "authorizer_access_token"));
+        weiXinAuthorizerToken.setExpiresIn(MapUtils.getIntValue(result, "expires_in"));
+        weiXinAuthorizerToken.setAuthorizerRefreshToken(MapUtils.getString(result, "authorizer_refresh_token"));
+        weiXinAuthorizerToken.setFetchTime(new Date());
+        return weiXinAuthorizerToken;
     }
 }
