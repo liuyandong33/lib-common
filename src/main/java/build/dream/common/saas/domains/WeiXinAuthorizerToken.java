@@ -8,7 +8,7 @@ public class WeiXinAuthorizerToken extends BasicDomain {
     private String componentAppId;
     private String authorizerAppId;
     private String authorizerAccessToken;
-    private Long expiresIn;
+    private Integer expiresIn;
     private String authorizerRefreshToken;
     private Date fetchTime;
 
@@ -36,11 +36,11 @@ public class WeiXinAuthorizerToken extends BasicDomain {
         this.authorizerAccessToken = authorizerAccessToken;
     }
 
-    public Long getExpiresIn() {
+    public Integer getExpiresIn() {
         return expiresIn;
     }
 
-    public void setExpiresIn(Long expiresIn) {
+    public void setExpiresIn(Integer expiresIn) {
         this.expiresIn = expiresIn;
     }
 
