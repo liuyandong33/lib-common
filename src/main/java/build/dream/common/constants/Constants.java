@@ -339,4 +339,7 @@ public class Constants {
 
     public static final Integer AUTHORIZER_TYPE_PUBLIC_ACCOUNT = 1;
     public static final Integer AUTHORIZER_TYPE_MINI_PROGRAM = 2;
+
+    public static final Integer IDENTITY_TYPE_PUBLIC_ACCOUNT = 1;
+    public static final Integer IDENTITY_TYPE_THIRD_PARTY_APPLICATION = 2;
 }

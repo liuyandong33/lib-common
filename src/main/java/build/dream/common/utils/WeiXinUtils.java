@@ -128,9 +128,21 @@ public class WeiXinUtils {
         return weiXinOAuthToken;
     }
 
+    public static WeiXinUserInfo obtainUserInfoByThirdParty(String authorizerAccessToken, String openId, String lang) {
+        return obtainUserInfo(authorizerAccessToken, openId, lang, Constants.IDENTITY_TYPE_THIRD_PARTY_APPLICATION);
+    }
+
     public static WeiXinUserInfo obtainUserInfo(String accessToken, String openId, String lang) {
+        return obtainUserInfo(accessToken, openId, lang, Constants.IDENTITY_TYPE_PUBLIC_ACCOUNT);
+    }
+
+    public static WeiXinUserInfo obtainUserInfo(String token, String openId, String lang, int type) {
         Map<String, String> obtainUserInfoRequestParameters = new HashMap<String, String>();
-        obtainUserInfoRequestParameters.put("access_token", accessToken);
+        if (type == Constants.IDENTITY_TYPE_PUBLIC_ACCOUNT) {
+            obtainUserInfoRequestParameters.put("access_token", token);
+        } else if (type == Constants.IDENTITY_TYPE_THIRD_PARTY_APPLICATION) {
+            obtainUserInfoRequestParameters.put("authorizer_access_token", token);
+        }
         obtainUserInfoRequestParameters.put("openid", openId);
         if (StringUtils.isNotBlank(lang)) {
             obtainUserInfoRequestParameters.put("lang", lang);
