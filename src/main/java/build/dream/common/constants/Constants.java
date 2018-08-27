@@ -342,4 +342,6 @@ public class Constants {
 
     public static final Integer IDENTITY_TYPE_PUBLIC_ACCOUNT = 1;
     public static final Integer IDENTITY_TYPE_THIRD_PARTY_APPLICATION = 2;
+
+    public static final String WEI_XIN_MESSAGE_TOPIC_ = "_wei_xin_message_topic";
 }
