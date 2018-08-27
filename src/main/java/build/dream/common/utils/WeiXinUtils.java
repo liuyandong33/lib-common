@@ -397,17 +397,28 @@ public class WeiXinUtils {
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));
 
+        Map<String, Object> authorizerInfo = MapUtils.getMap(result, "authorizer_info");
+
         WeiXinAuthorizerInfo weiXinAuthorizerInfo = new WeiXinAuthorizerInfo();
-        weiXinAuthorizerInfo.setNickName(MapUtils.getString(result, "nick_name"));
-        weiXinAuthorizerInfo.setHeadImg(MapUtils.getString(result, "head_img"));
-        weiXinAuthorizerInfo.setServiceTypeInfo(MapUtils.getIntValue(result, "service_type_info"));
-        weiXinAuthorizerInfo.setVerifyTypeInfo(MapUtils.getIntValue(result, "verify_type_info"));
-        weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(result, "user_name"));
-        weiXinAuthorizerInfo.setPrincipalName(MapUtils.getString(result, "principal_name"));
-        String alias = MapUtils.getString(result, "alias");
+        weiXinAuthorizerInfo.setNickName(MapUtils.getString(authorizerInfo, "nick_name"));
+        weiXinAuthorizerInfo.setHeadImg(MapUtils.getString(authorizerInfo, "head_img"));
+        weiXinAuthorizerInfo.setServiceTypeInfo(MapUtils.getString(authorizerInfo, "service_type_info"));
+        weiXinAuthorizerInfo.setVerifyTypeInfo(MapUtils.getString(authorizerInfo, "verify_type_info"));
+        weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(authorizerInfo, "user_name"));
+        weiXinAuthorizerInfo.setPrincipalName(MapUtils.getString(authorizerInfo, "principal_name"));
+        String alias = MapUtils.getString(authorizerInfo, "alias");
         weiXinAuthorizerInfo.setAlias(StringUtils.isNotBlank(alias) ? alias : Constants.VARCHAR_DEFAULT_VALUE);
-        weiXinAuthorizerInfo.setBusinessInfo(MapUtils.getString(result, "business_info"));
-        weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(result, "qrcode_url"));
+        weiXinAuthorizerInfo.setBusinessInfo(MapUtils.getString(authorizerInfo, "business_info"));
+        weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(authorizerInfo, "qrcode_url"));
+        weiXinAuthorizerInfo.setSignature(MapUtils.getString(authorizerInfo, "signature"));
+
+        String miniProgramInfo = MapUtils.getString(authorizerInfo, "MiniProgramInfo");
+        if (StringUtils.isBlank(miniProgramInfo)) {
+            weiXinAuthorizerInfo.setAuthorizerType(Constants.AUTHORIZER_TYPE_PUBLIC_ACCOUNT);
+        } else {
+            weiXinAuthorizerInfo.setAuthorizerType(Constants.AUTHORIZER_TYPE_MINI_PROGRAM);
+        }
+        weiXinAuthorizerInfo.setMiniProgramInfo(miniProgramInfo);
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
         weiXinAuthorizerInfo.setAuthorizationAppId(MapUtils.getString(authorizationInfo, "authorization_appid"));
