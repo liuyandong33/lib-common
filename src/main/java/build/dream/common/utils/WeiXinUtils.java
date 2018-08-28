@@ -345,7 +345,7 @@ public class WeiXinUtils {
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
         String authorizerAppId = MapUtils.getString(authorizationInfo, "authorizer_appid");
-        String authorizerAccessToken = MapUtils.getString(authorizationInfo, "authorizer_appid");
+        String authorizerAccessToken = MapUtils.getString(authorizationInfo, "authorizer_access_token");
         int expiresIn = MapUtils.getIntValue(authorizationInfo, "expires_in");
         String authorizerRefreshToken = MapUtils.getString(authorizationInfo, "authorizer_refresh_token");
         Date fetchTime = new Date();
