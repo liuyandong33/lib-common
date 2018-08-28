@@ -418,17 +418,17 @@ public class WeiXinUtils {
         String headImg = MapUtils.getString(authorizerInfo, "head_img");
         weiXinAuthorizerInfo.setHeadImg(StringUtils.isNotBlank(headImg) ? headImg : Constants.VARCHAR_DEFAULT_VALUE);
 
-        weiXinAuthorizerInfo.setServiceTypeInfo(MapUtils.getString(authorizerInfo, "service_type_info"));
-        weiXinAuthorizerInfo.setVerifyTypeInfo(MapUtils.getString(authorizerInfo, "verify_type_info"));
+        weiXinAuthorizerInfo.setServiceTypeInfo(GsonUtils.toJson(authorizerInfo.get("service_type_info")));
+        weiXinAuthorizerInfo.setVerifyTypeInfo(GsonUtils.toJson(authorizerInfo.get("verify_type_info")));
         weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(authorizerInfo, "user_name"));
         weiXinAuthorizerInfo.setPrincipalName(MapUtils.getString(authorizerInfo, "principal_name"));
         String alias = MapUtils.getString(authorizerInfo, "alias");
         weiXinAuthorizerInfo.setAlias(StringUtils.isNotBlank(alias) ? alias : Constants.VARCHAR_DEFAULT_VALUE);
-        weiXinAuthorizerInfo.setBusinessInfo(MapUtils.getString(authorizerInfo, "business_info"));
+        weiXinAuthorizerInfo.setBusinessInfo(GsonUtils.toJson(authorizerInfo.get("business_info")));
         weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(authorizerInfo, "qrcode_url"));
         weiXinAuthorizerInfo.setSignature(MapUtils.getString(authorizerInfo, "signature"));
 
-        String miniProgramInfo = MapUtils.getString(authorizerInfo, "MiniProgramInfo");
+        String miniProgramInfo = GsonUtils.toJson(authorizerInfo.get("MiniProgramInfo"));
         if (StringUtils.isBlank(miniProgramInfo)) {
             weiXinAuthorizerInfo.setAuthorizerType(Constants.AUTHORIZER_TYPE_PUBLIC_ACCOUNT);
         } else {
@@ -438,7 +438,7 @@ public class WeiXinUtils {
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
         weiXinAuthorizerInfo.setAuthorizerAppId(MapUtils.getString(authorizationInfo, "authorizer_appid"));
-        weiXinAuthorizerInfo.setFuncInfo(MapUtils.getString(authorizationInfo, "func_info"));
+        weiXinAuthorizerInfo.setFuncInfo(GsonUtils.toJson(authorizationInfo.get("func_info")));
         return weiXinAuthorizerInfo;
     }
 
