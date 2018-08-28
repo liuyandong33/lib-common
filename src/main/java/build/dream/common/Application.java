@@ -4,6 +4,7 @@ import build.dream.common.erp.catering.domains.Coupon;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 
 /**
  * Created by liuyandong on 2017/7/25.
@@ -28,5 +29,13 @@ public class Application {
 
         System.out.println(code.toString());
         System.out.println("public static Builder builder() {return new Builder();}");
+
+        BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(BigDecimal.TEN.pow(30));
+        System.out.println(sunQuality);
+
+        BigDecimal earthQuality = BigDecimal.valueOf(Double.valueOf(5.965)).multiply(BigDecimal.TEN.pow(24));
+        System.out.println(earthQuality);
+
+        System.out.println(sunQuality.divide(earthQuality, 10, BigDecimal.ROUND_DOWN));
     }
 }
