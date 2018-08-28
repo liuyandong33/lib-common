@@ -896,7 +896,7 @@ CREATE TABLE wei_xin_authorizer_info
     qrcode_url VARCHAR(255) NOT NULL COMMENT '二维码图片的URL',
     signature VARCHAR(255) NOT NULL COMMENT '帐号介绍',
     mini_program_info VARCHAR(255) NOT NULL COMMENT '小程序信息',
-    authorization_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
+    authorizer_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     func_info VARCHAR(255) NOT NULL COMMENT '公众号授权给开发者的权限集列表，ID为1到15时分别代表： 1.消息管理权限 2.用户管理权限 3.帐号服务权限 4.网页服务权限 5.微信小店权限 6.微信多客服权限 7.群发与通知权限 8.微信卡券权限 9.微信扫一扫权限 10.微信连WIFI权限 11.素材管理权限 12.微信摇周边权限 13.微信门店权限 14.微信支付权限 15.自定义菜单权限 请注意： 1）该字段的返回不会考虑公众号是否具备该权限集的权限（因为可能部分具备），请根据公众号的帐号类型和认证情况，来判断公众号的接口权限。',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',

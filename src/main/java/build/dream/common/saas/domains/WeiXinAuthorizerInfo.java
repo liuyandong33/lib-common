@@ -61,7 +61,7 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
     /**
      * app id
      */
-    private String authorizationAppId;
+    private String authorizerAppId;
     /**
      * 公众号授权给开发者的权限集列表，ID为1到15时分别代表： 1.消息管理权限 2.用户管理权限 3.帐号服务权限 4.网页服务权限 5.微信小店权限 6.微信多客服权限 7.群发与通知权限 8.微信卡券权限 9.微信扫一扫权限 10.微信连WIFI权限 11.素材管理权限 12.微信摇周边权限 13.微信门店权限 14.微信支付权限 15.自定义菜单权限 请注意： 1）该字段的返回不会考虑公众号是否具备该权限集的权限（因为可能部分具备），请根据公众号的帐号类型和认证情况，来判断公众号的接口权限。
      */
@@ -171,12 +171,12 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         this.miniProgramInfo = miniProgramInfo;
     }
 
-    public String getAuthorizationAppId() {
-        return authorizationAppId;
+    public String getAuthorizerAppId() {
+        return authorizerAppId;
     }
 
-    public void setAuthorizationAppId(String authorizationAppId) {
-        this.authorizationAppId = authorizationAppId;
+    public void setAuthorizerAppId(String authorizerAppId) {
+        this.authorizerAppId = authorizerAppId;
     }
 
     public String getFuncInfo() {
@@ -255,8 +255,8 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
             return this;
         }
 
-        public Builder authorizationAppId(String authorizationAppId) {
-            instance.setAuthorizationAppId(authorizationAppId);
+        public Builder setAuthorizerAppId(String setAuthorizerAppId) {
+            instance.setAuthorizerAppId(setAuthorizerAppId);
             return this;
         }
 

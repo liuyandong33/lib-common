@@ -434,7 +434,7 @@ public class WeiXinUtils {
         weiXinAuthorizerInfo.setMiniProgramInfo(miniProgramInfo);
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
-        weiXinAuthorizerInfo.setAuthorizationAppId(MapUtils.getString(authorizationInfo, "authorization_appid"));
+        weiXinAuthorizerInfo.setAuthorizerAppId(MapUtils.getString(authorizationInfo, "authorizer_appid"));
         weiXinAuthorizerInfo.setFuncInfo(MapUtils.getString(authorizationInfo, "func_info"));
         return weiXinAuthorizerInfo;
     }
