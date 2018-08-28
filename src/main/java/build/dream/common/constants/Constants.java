@@ -327,9 +327,13 @@ public class Constants {
     // 微信 jsapi_ticket Redis key
     public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
 
+    // snsapi_base
     public static final String SNSAPI_BASE = "snsapi_base";
+    // snsapi_userinfo
     public static final String SNSAPI_USERINFO = "snsapi_userinfo";
+    // jsapi
     public static final String WEI_XIN_TICKET_TYPE_JSAPI = "jsapi";
+    // wx_card
     public static final String WEI_XIN_TICKET_TYPE_WX_CARD = "wx_card";
 
     /**
@@ -490,7 +494,9 @@ public class Constants {
     public static final String LOWER_CASE_Y = "y";
     public static final String LOWER_CASE_Z = "z";
 
+    // HMAC-SHA1
     public static final String HMAC_SHA1 = "HMAC-SHA1";
+    // OK
     public static final String OK = "OK";
 
     /**
