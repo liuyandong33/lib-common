@@ -422,8 +422,10 @@ public class WeiXinUtils {
         weiXinAuthorizerInfo.setVerifyTypeInfo(GsonUtils.toJson(authorizerInfo.get("verify_type_info")));
         weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(authorizerInfo, "user_name"));
         weiXinAuthorizerInfo.setPrincipalName(MapUtils.getString(authorizerInfo, "principal_name"));
+
         String alias = MapUtils.getString(authorizerInfo, "alias");
         weiXinAuthorizerInfo.setAlias(StringUtils.isNotBlank(alias) ? alias : Constants.VARCHAR_DEFAULT_VALUE);
+
         weiXinAuthorizerInfo.setBusinessInfo(GsonUtils.toJson(authorizerInfo.get("business_info")));
         weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(authorizerInfo, "qrcode_url"));
         weiXinAuthorizerInfo.setSignature(MapUtils.getString(authorizerInfo, "signature"));
