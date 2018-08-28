@@ -414,7 +414,10 @@ public class WeiXinUtils {
 
         WeiXinAuthorizerInfo weiXinAuthorizerInfo = new WeiXinAuthorizerInfo();
         weiXinAuthorizerInfo.setNickName(MapUtils.getString(authorizerInfo, "nick_name"));
-        weiXinAuthorizerInfo.setHeadImg(MapUtils.getString(authorizerInfo, "head_img"));
+
+        String headImg = MapUtils.getString(authorizerInfo, "head_img");
+        weiXinAuthorizerInfo.setHeadImg(StringUtils.isNotBlank(headImg) ? headImg : Constants.VARCHAR_DEFAULT_VALUE);
+
         weiXinAuthorizerInfo.setServiceTypeInfo(MapUtils.getString(authorizerInfo, "service_type_info"));
         weiXinAuthorizerInfo.setVerifyTypeInfo(MapUtils.getString(authorizerInfo, "verify_type_info"));
         weiXinAuthorizerInfo.setOriginalId(MapUtils.getString(authorizerInfo, "user_name"));
