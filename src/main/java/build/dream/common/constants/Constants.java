@@ -178,12 +178,6 @@ public class Constants {
     public static final String ELEME_TOKEN = "_eleme_token";
 
     /**
-     * 美团配置key
-     */
-    public static final String MEI_TUAN_MESSAGE_CHANNEL_TOPIC = "mei.tuan.message.channel.topic";
-    public static final String MEI_TUAN_CALLBACK_MESSAGE_CHANNEL_TOPIC = "mei.tuan.callback.message.channel.topic";
-
-    /**
      * 美团回调类型
      * MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE: 订单生效
      * MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL: 订单取消
