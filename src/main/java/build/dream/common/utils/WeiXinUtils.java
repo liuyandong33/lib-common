@@ -402,7 +402,7 @@ public class WeiXinUtils {
     }
 
     public static WeiXinAuthorizerInfo apiGetAuthorizerInfo(String componentAccessToken, String componentAppId, String authorizerAppId) {
-        String url = WEI_XIN_API_URL + "/component/api_get_authorizer_info?component_access_token=" + componentAccessToken;
+        String url = WEI_XIN_API_URL + "/cgi-bin/component/api_get_authorizer_info?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
