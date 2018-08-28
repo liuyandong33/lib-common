@@ -428,13 +428,14 @@ public class WeiXinUtils {
         weiXinAuthorizerInfo.setQrcodeUrl(MapUtils.getString(authorizerInfo, "qrcode_url"));
         weiXinAuthorizerInfo.setSignature(MapUtils.getString(authorizerInfo, "signature"));
 
-        String miniProgramInfo = GsonUtils.toJson(authorizerInfo.get("MiniProgramInfo"));
-        if (StringUtils.isBlank(miniProgramInfo)) {
+        Object miniProgramInfo = authorizerInfo.get("MiniProgramInfo");
+        if (miniProgramInfo != null) {
             weiXinAuthorizerInfo.setAuthorizerType(Constants.AUTHORIZER_TYPE_PUBLIC_ACCOUNT);
+            weiXinAuthorizerInfo.setMiniProgramInfo(GsonUtils.toJson(miniProgramInfo));
         } else {
             weiXinAuthorizerInfo.setAuthorizerType(Constants.AUTHORIZER_TYPE_MINI_PROGRAM);
+            weiXinAuthorizerInfo.setMiniProgramInfo(Constants.VARCHAR_DEFAULT_VALUE);
         }
-        weiXinAuthorizerInfo.setMiniProgramInfo(miniProgramInfo);
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
         weiXinAuthorizerInfo.setAuthorizerAppId(MapUtils.getString(authorizationInfo, "authorizer_appid"));
