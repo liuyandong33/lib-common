@@ -365,6 +365,7 @@ public class WeiXinUtils {
         saveWeiXinAuthorizerTokenRequestParameters.put("expiresIn", String.valueOf(expiresIn));
         saveWeiXinAuthorizerTokenRequestParameters.put("authorizerRefreshToken", authorizerRefreshToken);
         saveWeiXinAuthorizerTokenRequestParameters.put("fetchTime", new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(fetchTime));
+        saveWeiXinAuthorizerTokenRequestParameters.put("userId", CommonUtils.getServiceSystemUserId().toString());
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "saveWeiXinAuthorizerToken", saveWeiXinAuthorizerTokenRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
         CacheUtils.hset(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
