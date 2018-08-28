@@ -255,8 +255,8 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
             return this;
         }
 
-        public Builder setAuthorizerAppId(String setAuthorizerAppId) {
-            instance.setAuthorizerAppId(setAuthorizerAppId);
+        public Builder authorizerAppId(String authorizerAppId) {
+            instance.setAuthorizerAppId(authorizerAppId);
             return this;
         }
 
