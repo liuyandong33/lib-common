@@ -507,7 +507,7 @@ public class Constants {
     public static final int DEVICE_TYPE_ANDROID = 1;
     public static final int DEVICE_TYPE_IOS = 2;
 
-    // 支付宝服务网管
+    // 支付宝服务网关
     public static final String ALIPAY_GATEWAY_URL = "alipay.gateway.url";
 
     // 域名配置key
