@@ -31,24 +31,25 @@ public class Application {
         System.out.println(code.toString());
         System.out.println("public static Builder builder() {return new Builder();}");
 
-        BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(BigDecimal.TEN.pow(30));
-        System.out.println(sunQuality);
+        BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(Constants.BIG_DECIMAL_TEN.pow(30));
+        System.out.println("太阳质量为：" + sunQuality + "kg");
 
-        BigDecimal earthQuality = BigDecimal.valueOf(Double.valueOf(5.965)).multiply(BigDecimal.TEN.pow(24));
-        System.out.println(earthQuality);
+        BigDecimal earthQuality = BigDecimal.valueOf(Double.valueOf(5.965)).multiply(Constants.BIG_DECIMAL_TEN.pow(24));
+        System.out.println("地球质量为：" + earthQuality + "kg");
 
-        System.out.println(sunQuality.divide(earthQuality, 10, BigDecimal.ROUND_DOWN));
+        System.out.println("太阳的质量为地球质量的" + sunQuality.divide(earthQuality, 10, BigDecimal.ROUND_DOWN) + "倍");
 
         BigDecimal sunRadius = BigDecimal.valueOf(6.955).multiply(BigDecimal.TEN.pow(8));
-        System.out.println(sunRadius);
+        System.out.println("太阳的半径为：" + sunRadius + "m");
 
         BigDecimal sunVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(sunRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
-        System.out.println(sunVolume);
+        System.out.println("太阳的体积为：" + sunVolume + "m³");
 
         BigDecimal earthRadius = BigDecimal.valueOf(6371000);
+        System.out.println("地球的半径为：" + earthRadius + "m");
         BigDecimal earthVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(earthRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
-        System.out.println(earthVolume);
+        System.out.println("地球的体积为：" + earthVolume + "m³");
 
-        System.out.println(sunVolume.divide(earthVolume, 10, BigDecimal.ROUND_DOWN));
+        System.out.println("太阳的体积是地球体积的:" + sunVolume.divide(earthVolume, 10, BigDecimal.ROUND_DOWN) + "倍");
     }
 }
