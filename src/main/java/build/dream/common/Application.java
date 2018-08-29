@@ -51,5 +51,10 @@ public class Application {
         System.out.println("地球的体积为：" + earthVolume + "m³");
 
         System.out.println("太阳的体积是地球体积的:" + sunVolume.divide(earthVolume, 10, BigDecimal.ROUND_DOWN) + "倍");
+
+        BigDecimal moonQuality = BigDecimal.valueOf(Double.valueOf(7.349)).multiply(Constants.BIG_DECIMAL_TEN.pow(22));
+        System.out.println("月球的质量为：" + moonQuality + "kg");
+
+        System.out.println("地球的质量是月球质量的：" + earthQuality.divide(moonQuality, 10, BigDecimal.ROUND_DOWN));
     }
 }
