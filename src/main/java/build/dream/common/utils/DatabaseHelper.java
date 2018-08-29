@@ -68,6 +68,34 @@ public class DatabaseHelper {
         return obtainUniversalMapper().delete(deleteModel);
     }
 
+    public static long markedDelete(String tableName, BigInteger id) {
+        UpdateModel updateModel = new UpdateModel(true);
+        updateModel.setTableName(tableName);
+        updateModel.addSearchCondition("id", Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
+        updateModel.addContentValue("delete_time", new Date());
+        updateModel.addContentValue("deleted", 1);
+        return obtainUniversalMapper().universalUpdate(updateModel);
+    }
+
+    public static long markedDelete(Class<?> domainClass, BigInteger id) {
+        return markedDelete(DatabaseUtils.obtainTableName(null, domainClass), id);
+    }
+
+    public static long markedDelete(String tableName, Tuple3<String, String, Object>... searchConditions) {
+        UpdateModel updateModel = new UpdateModel(true);
+        updateModel.setTableName(tableName);
+        for (Tuple3<String, String, Object> searchCondition : searchConditions) {
+            updateModel.addSearchCondition(searchCondition._1(), searchCondition._2(), searchCondition._3());
+        }
+        updateModel.addContentValue("delete_time", new Date());
+        updateModel.addContentValue("deleted", 1);
+        return obtainUniversalMapper().universalUpdate(updateModel);
+    }
+
+    public static long markedDelete(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        return markedDelete(DatabaseUtils.obtainTableName(null, domainClass), searchConditions);
+    }
+
     public static long update(Object domain) {
         return obtainUniversalMapper().update(domain);
     }
