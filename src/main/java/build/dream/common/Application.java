@@ -1,5 +1,6 @@
 package build.dream.common;
 
+import build.dream.common.constants.Constants;
 import build.dream.common.erp.catering.domains.Coupon;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -37,5 +38,17 @@ public class Application {
         System.out.println(earthQuality);
 
         System.out.println(sunQuality.divide(earthQuality, 10, BigDecimal.ROUND_DOWN));
+
+        BigDecimal sunRadius = BigDecimal.valueOf(6.955).multiply(BigDecimal.TEN.pow(8));
+        System.out.println(sunRadius);
+
+        BigDecimal sunVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(sunRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
+        System.out.println(sunVolume);
+
+        BigDecimal earthRadius = BigDecimal.valueOf(6371000);
+        BigDecimal earthVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(earthRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
+        System.out.println(earthVolume);
+
+        System.out.println(sunVolume.divide(earthVolume, 10, BigDecimal.ROUND_DOWN));
     }
 }

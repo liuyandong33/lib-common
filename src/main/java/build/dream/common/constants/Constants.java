@@ -386,6 +386,8 @@ public class Constants {
     public static final BigDecimal BIG_DECIMAL_SEVENTY = BigDecimal.valueOf(70L);
     public static final BigDecimal BIG_DECIMAL_EIGHTY = BigDecimal.valueOf(80L);
     public static final BigDecimal BIG_DECIMAL_NINETY = BigDecimal.valueOf(90L);
+    public static final BigDecimal BIG_DECIMAL_E = BigDecimal.valueOf(Math.E);
+    public static final BigDecimal BIG_DECIMAL_PI = BigDecimal.valueOf(Math.PI);
 
     /**
      * BigInteger 常量
