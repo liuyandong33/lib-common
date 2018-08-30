@@ -370,7 +370,7 @@ CREATE TABLE wei_xin_public_account
     last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号';
 
 DROP TABLE IF EXISTS app_privilege;
@@ -904,7 +904,7 @@ CREATE TABLE wei_xin_authorizer_info
     last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众平台或小程序授权信息';
 
 DROP TABLE IF EXISTS wei_xin_authorizer_token;
@@ -923,5 +923,5 @@ CREATE TABLE wei_xin_authorizer_token
     last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT '0' NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号或小程序授权token';
