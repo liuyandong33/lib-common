@@ -1,6 +1,6 @@
 package build.dream.common.constants;
 
-import build.dream.common.utils.DateUtils;
+import build.dream.common.utils.CustomDateUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -39,6 +39,7 @@ public class Constants {
      */
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public static final String GMT = "GMT";
 
     public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";
     public static final String PARTITION_CODE = "partition.code";
@@ -522,7 +523,7 @@ public class Constants {
     public static final int INT_DEFAULT_VALUE = 0;
     public static final BigInteger BIGINT_DEFAULT_VALUE = BigInteger.ZERO;
     public static final BigDecimal DECIMAL_DEFAULT_VALUE = BigDecimal.ZERO;
-    public static final Date DATETIME_DEFAULT_VALUE = DateUtils.parse("1970-01-01 00:00:00", DEFAULT_DATE_PATTERN);
+    public static final Date DATETIME_DEFAULT_VALUE = CustomDateUtils.parse("1970-01-01 00:00:00", DEFAULT_DATE_PATTERN);
     public static final String VARCHAR_DEFAULT_VALUE = "";
 
     // md5

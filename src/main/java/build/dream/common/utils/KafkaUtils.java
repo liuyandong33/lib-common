@@ -132,7 +132,7 @@ public class KafkaUtils {
         requestParameters.put("topic", topic);
         requestParameters.put("key", key);
         requestParameters.put("data", data);
-        requestParameters.put("sendTime", DateUtils.format(sendTime, Constants.DEFAULT_DATE_PATTERN));
+        requestParameters.put("sendTime", CustomDateUtils.format(sendTime, Constants.DEFAULT_DATE_PATTERN));
         String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "kafka", "fixedTimeSend", requestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
