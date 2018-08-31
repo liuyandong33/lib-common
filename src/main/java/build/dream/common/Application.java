@@ -146,7 +146,6 @@ public class Application {
                 array[innerIndex] = array[innerIndex - 1];
                 array[innerIndex - 1] = temp;
             }
-            printArray(array);
         }
     }
 }
