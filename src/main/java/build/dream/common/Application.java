@@ -62,7 +62,8 @@ public class Application {
         printArray(array);
 
 //        bubbleSort(array);
-        selectionSort(array);
+//        selectionSort(array);
+        insertionSort(array);
 
         System.out.print("排序后：");
         printArray(array);
@@ -128,6 +129,24 @@ public class Application {
             int temp = array[index];
             array[index] = array[position];
             array[position] = temp;
+        }
+    }
+
+    /**
+     * 插入排序
+     *
+     * @param array
+     */
+    public static void insertionSort(int array[]) {
+        int length = array.length;
+
+        for (int index = 1; index < length; index++) {
+            for (int innerIndex = index; innerIndex > 0 && array[innerIndex] > array[innerIndex - 1]; innerIndex--) {
+                int temp = array[innerIndex];
+                array[innerIndex] = array[innerIndex - 1];
+                array[innerIndex - 1] = temp;
+            }
+            printArray(array);
         }
     }
 }
