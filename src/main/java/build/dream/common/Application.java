@@ -57,20 +57,77 @@ public class Application {
 
         System.out.println("地球的质量是月球质量的：" + earthQuality.divide(moonQuality, 10, BigDecimal.ROUND_DOWN) + "倍");
 
-        // 冒泡排序法
-        int array[] = {4, 1, 2, 5, 6, 9, 8, 66};
+        int array[] = buildRandomArray(10, 100);
+        System.out.print("排序前：");
+        printArray(array);
+
+//        bubbleSort(array);
+        selectionSort(array);
+
+        System.out.print("排序后：");
+        printArray(array);
+    }
+
+    public static void printArray(int array[]) {
+        int length = array.length;
+        for (int index = 0; index < length; index++) {
+            System.out.print(array[index]);
+            if (index != length - 1) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+    }
+
+    public static int[] buildRandomArray(int length, int maxValue) {
+        int[] array = new int[length];
+        for (int index = 0; index < length; index++) {
+            array[index] = Double.valueOf(Math.random() * maxValue).intValue();
+        }
+        return array;
+    }
+
+    /**
+     * 冒泡排序
+     *
+     * @param array
+     */
+    public static void bubbleSort(int array[]) {
         int length = array.length;
         for (int index = 0; index < length - 1; index++) {
-            for (int i = 0; i < length - 1 - index; i++) {
-                if (array[i] > array[i + 1]) {
-                    int temp = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = temp;
+            for (int innerIndex = 0; innerIndex < length - 1 - index; innerIndex++) {
+                if (array[innerIndex] < array[innerIndex + 1]) {
+                    int temp = array[innerIndex];
+                    array[innerIndex] = array[innerIndex + 1];
+                    array[innerIndex + 1] = temp;
                 }
             }
         }
+    }
+
+    /**
+     * 选择排序
+     * 假设数组的长度为: length
+     * 第一次循环，选出索引从 array[0]~array[length - 1] 中选出最大值或最小值与array[0]交换
+     * 第二次循环，选出索引从 array[1]~array[length - 1] 中选出最大值或最小值与array[1]交换
+     * 第三次循环，选出索引从 array[2]~array[length - 1] 中选出最大值或最小值与array[2]交换
+     * ...
+     *
+     * @param array
+     */
+    public static void selectionSort(int array[]) {
+        int length = array.length;
+        int position;
         for (int index = 0; index < length; index++) {
-            System.out.println(array[index]);
+            position = index;
+            for (int innerIndex = index; innerIndex < length; innerIndex++) {
+                if (array[innerIndex] < array[position]) {
+                    position = innerIndex;
+                }
+            }
+            int temp = array[index];
+            array[index] = array[position];
+            array[position] = temp;
         }
     }
 }
