@@ -56,5 +56,21 @@ public class Application {
         System.out.println("月球的质量为：" + moonQuality + "kg");
 
         System.out.println("地球的质量是月球质量的：" + earthQuality.divide(moonQuality, 10, BigDecimal.ROUND_DOWN) + "倍");
+
+        // 冒泡排序法
+        int array[] = {4, 1, 2, 5, 6, 9, 8, 66};
+        int length = array.length;
+        for (int index = 0; index < length - 1; index++) {
+            for (int i = 0; i < length - 1 - index; i++) {
+                if (array[i] > array[i + 1]) {
+                    int temp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = temp;
+                }
+            }
+        }
+        for (int index = 0; index < length; index++) {
+            System.out.println(array[index]);
+        }
     }
 }
