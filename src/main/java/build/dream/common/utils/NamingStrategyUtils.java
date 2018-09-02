@@ -24,11 +24,11 @@ public class NamingStrategyUtils {
 
     public static String camelCaseToUnderscore(String camelCase) {
         Matcher matcher = camelCasePattern.matcher(camelCase);
-        StringBuffer underscoreStringBuffer = new StringBuffer();
+        StringBuffer underscore = new StringBuffer();
         while (matcher.find()) {
-            matcher.appendReplacement(underscoreStringBuffer, "_" + matcher.group(0).toLowerCase());
+            matcher.appendReplacement(underscore, "_" + matcher.group(0).toLowerCase());
         }
-        matcher.appendTail(underscoreStringBuffer);
-        return underscoreStringBuffer.toString();
+        matcher.appendTail(underscore);
+        return underscore.toString();
     }
 }
