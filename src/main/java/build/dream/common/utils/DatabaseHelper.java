@@ -57,7 +57,7 @@ public class DatabaseHelper {
     }
 
     public static long delete(Class<?> domainClass, DeleteModel deleteModel) {
-        deleteModel.setTableName(DatabaseUtils.obtainTableName(null, domainClass));
+        deleteModel.setTableName(DatabaseUtils.obtainTableName(domainClass));
         return obtainUniversalMapper().delete(deleteModel);
     }
 
@@ -78,7 +78,7 @@ public class DatabaseHelper {
     }
 
     public static long markedDelete(Class<?> domainClass, BigInteger id) {
-        return markedDelete(DatabaseUtils.obtainTableName(null, domainClass), id);
+        return markedDelete(DatabaseUtils.obtainTableName(domainClass), id);
     }
 
     public static long markedDelete(String tableName, Tuple3<String, String, Object>... searchConditions) {
@@ -93,7 +93,7 @@ public class DatabaseHelper {
     }
 
     public static long markedDelete(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
-        return markedDelete(DatabaseUtils.obtainTableName(null, domainClass), searchConditions);
+        return markedDelete(DatabaseUtils.obtainTableName(domainClass), searchConditions);
     }
 
     public static long update(Object domain) {
@@ -119,7 +119,7 @@ public class DatabaseHelper {
     }
 
     public static <T> T find(Class<T> domainClass, SearchModel searchModel) {
-        return find(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return find(domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static <T> T find(Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
@@ -127,7 +127,7 @@ public class DatabaseHelper {
         for (Tuple3<String, String, Object> tuple3 : searchConditions) {
             searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
         }
-        return find(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return find(domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static <T> T find(Class<T> domainClass, String tableName, Tuple3<String, String, Object>... searchConditions) {
@@ -158,7 +158,7 @@ public class DatabaseHelper {
     }
 
     public static <T> List<T> findAll(Class<T> domainClass, SearchModel searchModel) {
-        return findAll(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return findAll(domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static <T> List<T> findAll(Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
@@ -202,11 +202,11 @@ public class DatabaseHelper {
         for (Tuple3<String, String, Object> tuple3 : searchConditions) {
             searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
         }
-        return count(DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return count(DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static long count(Class<?> domainClass, SearchModel searchModel) {
-        return count(DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return count(DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static long count(String tableName, Tuple3<String, String, Object>... searchConditions) {
@@ -223,7 +223,7 @@ public class DatabaseHelper {
     }
 
     public static <T> List<T> findAllPaged(Class<T> domainClass, SearchModel searchModel) {
-        return findAllPaged(domainClass, DatabaseUtils.obtainTableName(null, domainClass), searchModel);
+        return findAllPaged(domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static <T> List<T> findAllPaged(Class<T> domainClass, String tableName, SearchModel searchModel) {

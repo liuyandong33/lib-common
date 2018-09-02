@@ -249,15 +249,19 @@ public class DatabaseUtils {
         return alias;
     }
 
-    public static String obtainTableName(String tableName, Class<?> clazz) {
+    public static String obtainTableName(String tableName, Class<?> domainClass) {
         if (StringUtils.isNotBlank(tableName)) {
             return tableName;
         }
-        Table table = AnnotationUtils.findAnnotation(clazz, Table.class);
+        return obtainTableName(domainClass);
+    }
+
+    public static String obtainTableName(Class<?> domainClass) {
+        Table table = AnnotationUtils.findAnnotation(domainClass, Table.class);
         if (table != null) {
             return table.name();
         } else {
-            String simpleName = clazz.getSimpleName();
+            String simpleName = domainClass.getSimpleName();
             return NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
         }
     }
