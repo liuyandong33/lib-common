@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.weixinpay.AddRecommendConfModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
 import build.dream.common.models.weixinpay.RefundModel;
 import build.dream.common.models.weixinpay.UnifiedOrderModel;
@@ -328,7 +329,7 @@ public class WeiXinPayUtils {
         return data;
     }
 
-    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws IOException, DocumentException {
+    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws DocumentException {
         refundModel.validateAndThrow();
 
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
@@ -391,5 +392,41 @@ public class WeiXinPayUtils {
             tradeType = Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI;
         }
         return tradeType;
+    }
+
+    public static Map<String, String> addRecommendConf(String tenantId, String branchId, AddRecommendConfModel addRecommendConfModel) throws DocumentException {
+        addRecommendConfModel.validateAndThrow();
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        Map<String, String> addRecommendConfRequestParameters = new HashMap<String, String>();
+        addRecommendConfRequestParameters.put("mch_id", addRecommendConfModel.getMchId());
+        addRecommendConfRequestParameters.put("sub_mch_id", addRecommendConfModel.getSubMchId());
+        addRecommendConfRequestParameters.put("sub_appid", addRecommendConfModel.getSubAppId());
+
+        String subscribeAppId = addRecommendConfModel.getSubscribeAppId();
+        if (StringUtils.isNotBlank(subscribeAppId)) {
+            addRecommendConfRequestParameters.put("subscribe_appid", subscribeAppId);
+        }
+
+        String receiptAppId = addRecommendConfModel.getReceiptAppId();
+        if (StringUtils.isNotBlank(receiptAppId)) {
+            addRecommendConfRequestParameters.put("receipt_appid", receiptAppId);
+        }
+
+        addRecommendConfRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+
+        String signType = addRecommendConfModel.getSignType();
+        addRecommendConfRequestParameters.put("sign_type", signType);
+        addRecommendConfRequestParameters.put("sign", generateSign(addRecommendConfRequestParameters, weiXinPayAccount.getApiSecretKey(), signType));
+
+        String refundFinalData = generateFinalData(addRecommendConfRequestParameters);
+        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_REFUND_URI, refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+
+        String returnCode = addRecommendConfResult.get("return_code");
+        Validate.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
+
+        Validate.isTrue(checkSign(addRecommendConfResult, weiXinPayAccount.getApiSecretKey(), signType), "微信系统返回结果签名校验未通过！");
+        return addRecommendConfResult;
     }
 }
