@@ -533,15 +533,6 @@ public class Constants {
     // cdata 模式
     public static final String CDATA_FORMAT = "<![CDATA[%s]]>";
 
-    // 微信支付服务地址
-    public static final String WEI_XIN_PAY_API_URL = "wei.xin.pay.api.url";
-    // 微信扫码支付uri
-    public static final String WEI_XIN_PAY_MICRO_PAY_URI = "/pay/micropay";
-    // 微信统一下单uri
-    public static final String WEI_XIN_PAY_UNIFIED_ORDER_URI = "/pay/unifiedorder";
-    // 微信退款uri
-    public static final String WEI_XIN_PAY_REFUND_URI = "/secapi/pay/refund";
-
     /**
      * 商户信息Redis key
      */

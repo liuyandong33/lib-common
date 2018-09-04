@@ -3,10 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.weixinpay.AddRecommendConfModel;
-import build.dream.common.models.weixinpay.MicroPayModel;
-import build.dream.common.models.weixinpay.RefundModel;
-import build.dream.common.models.weixinpay.UnifiedOrderModel;
+import build.dream.common.models.weixinpay.*;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
@@ -22,6 +19,8 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class WeiXinPayUtils {
+    private static final String WEI_XIN_PAY_API_URL = "https://api.mch.weixin.qq.com";
+
     private static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
         String weiXinPayAccountJson = CacheUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
         WeiXinPayAccount weiXinPayAccount = null;
@@ -140,7 +139,7 @@ public class WeiXinPayUtils {
         microPayRequestParameters.put("sign", sign);
 
         String microPayFinalData = generateFinalData(microPayRequestParameters);
-        Map<String, String> microPayResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_MICRO_PAY_URI, microPayFinalData);
+        Map<String, String> microPayResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/micropay", microPayFinalData);
 
         String returnCode = microPayResult.get("return_code");
         Validate.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
@@ -275,7 +274,7 @@ public class WeiXinPayUtils {
         unifiedOrderRequestParameters.put("sign", sign);
 
         String unifiedOrderFinalData = generateFinalData(unifiedOrderRequestParameters);
-        Map<String, String> unifiedOrderResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_UNIFIED_ORDER_URI, unifiedOrderFinalData);
+        Map<String, String> unifiedOrderResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/unifiedorder", unifiedOrderFinalData);
 
         String returnCode = unifiedOrderResult.get("return_code");
         Validate.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
@@ -363,7 +362,7 @@ public class WeiXinPayUtils {
         refundRequestParameters.put("sign", sign);
 
         String refundFinalData = generateFinalData(refundRequestParameters);
-        Map<String, String> refundResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_REFUND_URI, refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/pay/refund", refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
 
         String returnCode = refundResult.get("return_code");
         Validate.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
@@ -421,12 +420,24 @@ public class WeiXinPayUtils {
         addRecommendConfRequestParameters.put("sign", generateSign(addRecommendConfRequestParameters, weiXinPayAccount.getApiSecretKey(), signType));
 
         String refundFinalData = generateFinalData(addRecommendConfRequestParameters);
-        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(ConfigurationUtils.getConfiguration(Constants.WEI_XIN_PAY_API_URL) + Constants.WEI_XIN_PAY_REFUND_URI, refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mkt/addrecommendconf", refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
 
         String returnCode = addRecommendConfResult.get("return_code");
         Validate.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
 
         Validate.isTrue(checkSign(addRecommendConfResult, weiXinPayAccount.getApiSecretKey(), signType), "微信系统返回结果签名校验未通过！");
         return addRecommendConfResult;
+    }
+
+    public static Map<String, String> addSubDevConfig(String tenantId, String branchId, AddSubDevConfigModel addSubDevConfigModel) {
+        addSubDevConfigModel.validateAndThrow();
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        Map<String, String> addSubDevConfigRequestParameters = new HashMap<String, String>();
+        addSubDevConfigRequestParameters.put("appid", weiXinPayAccount.getAppId());
+        addSubDevConfigRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        addSubDevConfigRequestParameters.put("jsapi_path", addSubDevConfigModel.getJsApiPath());
+        return null;
     }
 }
