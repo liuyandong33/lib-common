@@ -118,17 +118,19 @@ public class Application {
      */
     public static void selectionSort(int array[]) {
         int length = array.length;
-        int position;
         for (int index = 0; index < length; index++) {
-            position = index;
+            int position = index;
             for (int innerIndex = index; innerIndex < length; innerIndex++) {
                 if (array[innerIndex] < array[position]) {
                     position = innerIndex;
                 }
             }
-            int temp = array[index];
-            array[index] = array[position];
-            array[position] = temp;
+
+            if (index != position) {
+                int temp = array[index];
+                array[index] = array[position];
+                array[position] = temp;
+            }
         }
     }
 
