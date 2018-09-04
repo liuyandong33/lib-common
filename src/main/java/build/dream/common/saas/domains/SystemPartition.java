@@ -1,11 +1,31 @@
 package build.dream.common.saas.domains;
 
-public class SystemPartition {
+import build.dream.common.basic.BasicDomain;
+
+public class SystemPartition extends BasicDomain {
+    /**
+     * 部署环境
+     */
     private String deploymentEnvironment;
+    /**
+     * 分区码
+     */
     private String partitionCode;
+    /**
+     * 服务类型，1-公共服务，2-分区服务
+     */
     private Integer type;
+    /**
+     * 服务名称
+     */
     private String serviceName;
+    /**
+     * 服务地址
+     */
     private String serviceDomain;
+    /**
+     * 外网服务地址
+     */
     private String outsideServiceDomain;
 
     public String getDeploymentEnvironment() {

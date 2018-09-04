@@ -3,10 +3,25 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 public class Configuration extends BasicDomain {
+    /**
+     * 部署环境
+     */
     private String deploymentEnvironment;
+    /**
+     * 分区码
+     */
     private String partitionCode;
+    /**
+     * 服务名称
+     */
     private String serviceName;
+    /**
+     * 配置key
+     */
     private String configurationKey;
+    /**
+     * 配置value
+     */
     private String configurationValue;
 
     public String getDeploymentEnvironment() {
