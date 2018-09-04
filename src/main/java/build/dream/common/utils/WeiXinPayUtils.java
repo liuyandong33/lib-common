@@ -9,7 +9,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
@@ -142,13 +141,13 @@ public class WeiXinPayUtils {
         Map<String, String> microPayResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/micropay", microPayFinalData);
 
         String returnCode = microPayResult.get("return_code");
-        Validate.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
 
-        Validate.isTrue(checkSign(microPayResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(microPayResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = microPayResult.get("result_code");
         String errCode = microPayResult.get("err_code");
-        Validate.isTrue((Constants.SUCCESS.equals(resultCode) || (Constants.FAIL.equals(resultCode) && "USERPAYING".equals(errCode))), microPayResult.get("err_code_des"));
+        ValidateUtils.isTrue((Constants.SUCCESS.equals(resultCode) || (Constants.FAIL.equals(resultCode) && "USERPAYING".equals(errCode))), microPayResult.get("err_code_des"));
 
         return microPayResult;
     }
@@ -277,12 +276,12 @@ public class WeiXinPayUtils {
         Map<String, String> unifiedOrderResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/unifiedorder", unifiedOrderFinalData);
 
         String returnCode = unifiedOrderResult.get("return_code");
-        Validate.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
 
-        Validate.isTrue(checkSign(unifiedOrderResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(unifiedOrderResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
         String resultCode = unifiedOrderResult.get("result_code");
 
-        Validate.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
 
         // 保存异步通知记录
         saveNotifyRecord(outTradeNo, notifyUrl, apiSecretKey, signType);
@@ -365,12 +364,12 @@ public class WeiXinPayUtils {
         Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/pay/refund", refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
 
         String returnCode = refundResult.get("return_code");
-        Validate.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
 
-        Validate.isTrue(checkSign(refundResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(refundResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = refundResult.get("result_code");
-        Validate.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
 
         return refundResult;
     }
@@ -419,17 +418,18 @@ public class WeiXinPayUtils {
         addRecommendConfRequestParameters.put("sign_type", signType);
         addRecommendConfRequestParameters.put("sign", generateSign(addRecommendConfRequestParameters, weiXinPayAccount.getApiSecretKey(), signType));
 
-        String refundFinalData = generateFinalData(addRecommendConfRequestParameters);
-        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mkt/addrecommendconf", refundFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        String addRecommendConfFinalData = generateFinalData(addRecommendConfRequestParameters);
+        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mkt/addrecommendconf", addRecommendConfFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
 
         String returnCode = addRecommendConfResult.get("return_code");
-        Validate.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
 
-        Validate.isTrue(checkSign(addRecommendConfResult, weiXinPayAccount.getApiSecretKey(), signType), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(addRecommendConfResult, weiXinPayAccount.getApiSecretKey(), signType), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(addRecommendConfResult.get("result_code")), addRecommendConfResult.get("err_code_des"));
         return addRecommendConfResult;
     }
 
-    public static Map<String, String> addSubDevConfig(String tenantId, String branchId, AddSubDevConfigModel addSubDevConfigModel) {
+    public static Map<String, String> addSubDevConfig(String tenantId, String branchId, AddSubDevConfigModel addSubDevConfigModel) throws DocumentException {
         addSubDevConfigModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
@@ -438,6 +438,16 @@ public class WeiXinPayUtils {
         addSubDevConfigRequestParameters.put("appid", weiXinPayAccount.getAppId());
         addSubDevConfigRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
         addSubDevConfigRequestParameters.put("jsapi_path", addSubDevConfigModel.getJsApiPath());
-        return null;
+
+        addSubDevConfigRequestParameters.put("sign", generateSign(addSubDevConfigRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        String addSubDevConfigFinalData = generateFinalData(addSubDevConfigRequestParameters);
+        Map<String, String> addSubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/addsubdevconfig", addSubDevConfigFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+
+        String returnCode = addSubDevConfigResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubDevConfigResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(addSubDevConfigResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubDevConfigResult.get("result_code")), addSubDevConfigResult.get("err_code_des"));
+        return addSubDevConfigResult;
     }
 }
