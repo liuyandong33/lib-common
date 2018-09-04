@@ -5,7 +5,6 @@ import build.dream.common.models.jingdong.FkmPayModel;
 import build.dream.common.models.jingdong.UniOrderModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang.Validate;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -61,7 +60,7 @@ public class JingDongPayUtils {
 
         String code = resultElement.element("code").getText();
         String desc = resultElement.element("desc").getText();
-        Validate.isTrue("000000".equals(code), desc);
+        ValidateUtils.isTrue("000000".equals(code), desc);
 
         String merchant = rootElement.element("merchant").getText();
         String encrypt = rootElement.element("encrypt").getText();

@@ -3,8 +3,8 @@ package build.dream.common.models.alipay;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.ValidateUtils;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang.Validate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -375,11 +375,11 @@ public class AlipayTradeWapPayModel extends BasicModel {
     @Override
     public void validateAndThrow() {
         if (extendParamsModel != null) {
-            Validate.isTrue(extendParamsModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extendParams"));
+            ValidateUtils.isTrue(extendParamsModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extendParams"));
         }
 
         if (extUserInfoModel != null) {
-            Validate.isTrue(extUserInfoModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extUserInfo"));
+            ValidateUtils.isTrue(extUserInfoModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extUserInfo"));
         }
         super.validateAndThrow();
     }

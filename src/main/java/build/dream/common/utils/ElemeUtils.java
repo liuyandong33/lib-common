@@ -6,7 +6,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -72,7 +71,7 @@ public class ElemeUtils {
         } else if (elemeAccountType == Constants.ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT) {
             tokenJson = CacheUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
         }
-        Validate.notNull(tokenJson, "未检索到访问令牌！");
+        ValidateUtils.notNull(tokenJson, "未检索到访问令牌！");
         return JSONObject.fromObject(tokenJson).getString("access_token");
     }
 

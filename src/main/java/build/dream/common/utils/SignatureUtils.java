@@ -1,7 +1,5 @@
 package build.dream.common.utils;
 
-import org.apache.commons.lang.Validate;
-
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Signature;
@@ -20,7 +18,7 @@ public class SignatureUtils {
      * @throws NoSuchAlgorithmException
      */
     public static Signature obtainSignature(String signatureType) throws NoSuchAlgorithmException {
-        Validate.isTrue(SIGNATURE_TYPE_SHA1_WITH_RSA.equals(signatureType) || SIGNATURE_TYPE_SHA256_WITH_RSA.equals(signatureType), "不支持的签名方式：" + signatureType + "！");
+        ValidateUtils.isTrue(SIGNATURE_TYPE_SHA1_WITH_RSA.equals(signatureType) || SIGNATURE_TYPE_SHA256_WITH_RSA.equals(signatureType), "不支持的签名方式：" + signatureType + "！");
         return Signature.getInstance(signatureType);
     }
 

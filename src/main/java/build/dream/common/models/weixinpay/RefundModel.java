@@ -3,8 +3,8 @@ package build.dream.common.models.weixinpay;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.ValidateUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -114,7 +114,7 @@ public class RefundModel extends BasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        Validate.isTrue(StringUtils.isNotBlank(transactionId) || StringUtils.isNotBlank(outTradeNo), "参数transactionId，outTradeNo不能同时为空！");
+        ValidateUtils.isTrue(StringUtils.isNotBlank(transactionId) || StringUtils.isNotBlank(outTradeNo), "参数transactionId，outTradeNo不能同时为空！");
         ApplicationHandler.inArray(TRADE_TYPES, tradeType, "tradeType");
         if (StringUtils.isNotBlank(refundFeeType)) {
             ApplicationHandler.inArray(REFUND_FEE_TYPES, refundFeeType, "refundFeeType");

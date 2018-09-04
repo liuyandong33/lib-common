@@ -5,7 +5,6 @@ import build.dream.common.constants.Constants;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -44,7 +43,7 @@ public class DingtalkUtils {
             WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
             JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
             int errcode = resultJsonObject.getInt("errcode");
-            Validate.isTrue(errcode == 0, resultJsonObject.optString("errmsg"));
+            ValidateUtils.isTrue(errcode == 0, resultJsonObject.optString("errmsg"));
 
             Map<String, Object> tokenMap = new HashMap<String, Object>();
             accessToken = resultJsonObject.getString("access_token");
@@ -69,7 +68,7 @@ public class DingtalkUtils {
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
-        Validate.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
         return resultMap;
     }

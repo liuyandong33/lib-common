@@ -1,7 +1,5 @@
 package build.dream.common.utils;
 
-import org.apache.commons.lang.Validate;
-
 import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +11,7 @@ public class SerialNumberGenerator {
     public static String nextSerialNumber(int digit, int currentValue) {
         String currentValueString = String.valueOf(currentValue);
         int length = currentValueString.length();
-        Validate.isTrue(length <= digit, "当前值长度超过指定长度！");
+        ValidateUtils.isTrue(length <= digit, "当前值长度超过指定长度！");
         int zeroCount = digit - length;
         StringBuffer stringBuffer = new StringBuffer();
         for (int i = 0; i < zeroCount; i++) {

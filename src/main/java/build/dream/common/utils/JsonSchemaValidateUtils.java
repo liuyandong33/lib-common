@@ -8,7 +8,6 @@ import com.networknt.schema.JsonValidator;
 import com.networknt.schema.ValidationMessage;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -68,7 +67,7 @@ public class JsonSchemaValidateUtils {
             }
             for (JsonValidator validator : validators.values()) {
                 Set<ValidationMessage> errors = validator.validate(jsonNode);
-                Validate.isTrue(CollectionUtils.isEmpty(errors), "验证未通过！");
+                ValidateUtils.isTrue(CollectionUtils.isEmpty(errors), "验证未通过！");
             }
         }
     }

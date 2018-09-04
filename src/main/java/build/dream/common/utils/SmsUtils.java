@@ -7,7 +7,6 @@ import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -41,7 +40,7 @@ public class SmsUtils {
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, requestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         String code = resultJsonObject.getString("Code");
-        Validate.isTrue(Constants.OK.equals(code), resultJsonObject.getString("Message"));
+        ValidateUtils.isTrue(Constants.OK.equals(code), resultJsonObject.getString("Message"));
         return new ApiRest(resultJsonObject, "短信发送成功！");
     }
 
