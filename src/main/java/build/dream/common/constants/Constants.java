@@ -634,4 +634,7 @@ public class Constants {
      * 微信消息主题
      */
     public static final String WEI_XIN_MESSAGE_TOPIC_ = "_wei_xin_message_topic";
+
+    public static final String CONTACT_WE_CHAT_ID_TYPE_WE_CHAT_ID = "type_wechatid";
+    public static final String CONTACT_WE_CHAT_ID_TYPE_OPEN_ID = "type_openid";
 }

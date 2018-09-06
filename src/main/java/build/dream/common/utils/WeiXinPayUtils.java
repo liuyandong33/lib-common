@@ -599,4 +599,58 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(Constants.SUCCESS.equals(querySubDevConfigResult.get("result_code")), querySubDevConfigResult.get("err_code_des"));
         return querySubDevConfigResult;
     }
+
+    public Map<String, String> addSubMch(String tenantId, String branchId, AddSubMchModel addSubMchModel) throws DocumentException {
+        addSubMchModel.validateAndThrow();
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        Map<String, String> addSubMchRequestParameters = new HashMap<String, String>();
+        addSubMchRequestParameters.put("appid", weiXinPayAccount.getAppId());
+        addSubMchRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        addSubMchRequestParameters.put("merchant_name", addSubMchModel.getMerchantName());
+        addSubMchRequestParameters.put("merchant_shortname", addSubMchModel.getMerchantShortName());
+        addSubMchRequestParameters.put("service_phone", addSubMchModel.getServicePhone());
+
+        String contact = addSubMchModel.getContact();
+        if (StringUtils.isNotBlank(contact)) {
+            addSubMchRequestParameters.put("contact", contact);
+        }
+
+        String contactPhone = addSubMchModel.getContactPhone();
+        if (StringUtils.isNotBlank(contactPhone)) {
+            addSubMchRequestParameters.put("contact_phone", contactPhone);
+        }
+
+        String contactEmail = addSubMchModel.getContactEmail();
+        if (StringUtils.isNotBlank(contactEmail)) {
+            addSubMchRequestParameters.put("contact_email", contactEmail);
+        }
+
+        addSubMchRequestParameters.put("channel_id", addSubMchModel.getChannelId());
+        addSubMchRequestParameters.put("business", addSubMchModel.getBusiness());
+
+        String contactWeChatIdType = addSubMchModel.getContactWeChatIdType();
+        if (StringUtils.isNotBlank(contactWeChatIdType)) {
+            addSubMchRequestParameters.put("contact_wechatid_type", contactWeChatIdType);
+        }
+
+        String contactWeChatId = addSubMchModel.getContactWeChatId();
+        if (StringUtils.isNotBlank(contactWeChatId)) {
+            addSubMchRequestParameters.put("contact_wechatid", contactWeChatId);
+        }
+
+        addSubMchRequestParameters.put("merchant_remark", addSubMchModel.getMerchantRemark());
+
+        addSubMchRequestParameters.put("sign", generateSign(addSubMchRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        String addSubDevConfigFinalData = generateFinalData(addSubMchRequestParameters);
+        Map<String, String> addSubMchResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/submchmanage?action=add", addSubDevConfigFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+
+        String returnCode = addSubMchResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubMchResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(addSubMchResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubMchResult.get("result_code")), addSubMchResult.get("err_code_des"));
+        return addSubMchResult;
+    }
 }
