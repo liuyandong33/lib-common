@@ -600,6 +600,15 @@ public class WeiXinPayUtils {
         return querySubDevConfigResult;
     }
 
+    /**
+     * 银行特约商户录入
+     *
+     * @param tenantId
+     * @param branchId
+     * @param addSubMchModel
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> addSubMch(String tenantId, String branchId, AddSubMchModel addSubMchModel) throws DocumentException {
         addSubMchModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
@@ -654,6 +663,15 @@ public class WeiXinPayUtils {
         return addSubMchResult;
     }
 
+    /**
+     * 银行特约商户信息修改
+     *
+     * @param tenantId
+     * @param branchId
+     * @param modifyMchInfoModel
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> modifyMchInfo(String tenantId, String branchId, ModifyMchInfoModel modifyMchInfoModel) throws DocumentException {
         modifyMchInfoModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
