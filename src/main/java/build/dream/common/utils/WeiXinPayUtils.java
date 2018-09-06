@@ -702,4 +702,8 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(Constants.SUCCESS.equals(modifyMchInfoResult.get("result_code")), modifyMchInfoResult.get("err_code_des"));
         return modifyMchInfoResult;
     }
+
+    public Map<String, String> querySubMch(String tenantId, String branchId, QuerySubMchModel querySubMchModel) {
+        return null;
+    }
 }
