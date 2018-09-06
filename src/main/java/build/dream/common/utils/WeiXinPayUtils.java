@@ -20,6 +20,13 @@ import java.util.TreeMap;
 public class WeiXinPayUtils {
     private static final String WEI_XIN_PAY_API_URL = "https://api.mch.weixin.qq.com";
 
+    /**
+     * 获取微信支付账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
     private static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
         String weiXinPayAccountJson = CacheUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
         WeiXinPayAccount weiXinPayAccount = null;
@@ -29,6 +36,14 @@ public class WeiXinPayUtils {
         return weiXinPayAccount;
     }
 
+    /**
+     * 生成签名
+     *
+     * @param callWeiXinSystemRequestParameters
+     * @param weiXinPayKey
+     * @param signType
+     * @return
+     */
     public static String generateSign(Map<String, String> callWeiXinSystemRequestParameters, String weiXinPayKey, String signType) {
         Map<String, String> sortedCallWeiXinSystemRequestParameters = null;
         if (callWeiXinSystemRequestParameters instanceof TreeMap) {
@@ -54,6 +69,14 @@ public class WeiXinPayUtils {
         return sign;
     }
 
+    /**
+     * 验证签名
+     *
+     * @param weiXinSystemResult
+     * @param weiXinPayKey
+     * @param signType
+     * @return
+     */
     public static boolean checkSign(Map<String, String> weiXinSystemResult, String weiXinPayKey, String signType) {
         Map<String, String> sortedWeiXinSystemResult = new TreeMap<String, String>();
         sortedWeiXinSystemResult.putAll(weiXinSystemResult);
@@ -61,6 +84,12 @@ public class WeiXinPayUtils {
         return sign.equals(generateSign(sortedWeiXinSystemResult, weiXinPayKey, signType));
     }
 
+    /**
+     * 生成代签名字符串
+     *
+     * @param callWeiXinSystemRequestParameters
+     * @return
+     */
     public static String generateFinalData(Map<String, String> callWeiXinSystemRequestParameters) {
         StringBuffer weiXinPayFinalData = new StringBuffer();
         weiXinPayFinalData.append("<xml>");
@@ -75,15 +104,42 @@ public class WeiXinPayUtils {
         return weiXinPayFinalData.toString();
     }
 
+    /**
+     * 调用维系系统
+     *
+     * @param url
+     * @param finalData
+     * @param certificate
+     * @param password
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws DocumentException {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password);
         return XmlUtils.xmlStringToMap(webResponse.getResult());
     }
 
+    /**
+     * 调用微信系统
+     *
+     * @param url
+     * @param finalData
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws DocumentException {
         return callWeiXinPaySystem(url, finalData, null, null);
     }
 
+    /**
+     * 保存异步通知记录
+     *
+     * @param uuid
+     * @param notifyUrl
+     * @param weiXinPayApiSecretKey
+     * @param weiXinPaySignType
+     * @throws IOException
+     */
     private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) throws IOException {
         Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
         saveNotifyRecordRequestParameters.put("uuid", uuid);
@@ -95,7 +151,17 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
     }
 
-    public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws IOException, DocumentException {
+    /**
+     * 刷卡支付
+     *
+     * @param tenantId
+     * @param branchId
+     * @param microPayModel
+     * @return
+     * @throws IOException
+     * @throws DocumentException
+     */
+    public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws DocumentException {
         microPayModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
@@ -152,6 +218,16 @@ public class WeiXinPayUtils {
         return microPayResult;
     }
 
+    /**
+     * 统一下单
+     *
+     * @param tenantId
+     * @param branchId
+     * @param unifiedOrderModel
+     * @return
+     * @throws IOException
+     * @throws DocumentException
+     */
     public static Map<String, String> unifiedOrder(String tenantId, String branchId, UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
         unifiedOrderModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
@@ -327,6 +403,15 @@ public class WeiXinPayUtils {
         return data;
     }
 
+    /**
+     * 退款
+     *
+     * @param tenantId
+     * @param branchId
+     * @param refundModel
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws DocumentException {
         refundModel.validateAndThrow();
 
@@ -374,6 +459,12 @@ public class WeiXinPayUtils {
         return refundResult;
     }
 
+    /**
+     * 根据支付场景获取交易类型
+     *
+     * @param paidScene
+     * @return
+     */
     public static String obtainTradeType(Integer paidScene) {
         String tradeType = null;
         if (paidScene == Constants.PAID_SCENE_WEI_XIN_MICROPAY) {
@@ -392,6 +483,15 @@ public class WeiXinPayUtils {
         return tradeType;
     }
 
+    /**
+     * 服务商特约商户关注功能配置
+     *
+     * @param tenantId
+     * @param branchId
+     * @param addRecommendConfModel
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> addRecommendConf(String tenantId, String branchId, AddRecommendConfModel addRecommendConfModel) throws DocumentException {
         addRecommendConfModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
@@ -429,6 +529,15 @@ public class WeiXinPayUtils {
         return addRecommendConfResult;
     }
 
+    /**
+     * 服务商子商户开发配置新增支付目录
+     *
+     * @param tenantId
+     * @param branchId
+     * @param addSubDevConfigModel
+     * @return
+     * @throws DocumentException
+     */
     public static Map<String, String> addSubDevConfig(String tenantId, String branchId, AddSubDevConfigModel addSubDevConfigModel) throws DocumentException {
         addSubDevConfigModel.validateAndThrow();
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
@@ -437,7 +546,16 @@ public class WeiXinPayUtils {
         Map<String, String> addSubDevConfigRequestParameters = new HashMap<String, String>();
         addSubDevConfigRequestParameters.put("appid", weiXinPayAccount.getAppId());
         addSubDevConfigRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
-        addSubDevConfigRequestParameters.put("jsapi_path", addSubDevConfigModel.getJsApiPath());
+
+        String jsApiPath = addSubDevConfigModel.getJsApiPath();
+        if (StringUtils.isNotBlank(jsApiPath)) {
+            addSubDevConfigRequestParameters.put("jsapi_path", jsApiPath);
+        }
+
+        String subAppId = addSubDevConfigModel.getSubAppId();
+        if (StringUtils.isNotBlank(subAppId)) {
+            addSubDevConfigRequestParameters.put("sub_appid", subAppId);
+        }
 
         addSubDevConfigRequestParameters.put("sign", generateSign(addSubDevConfigRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
         String addSubDevConfigFinalData = generateFinalData(addSubDevConfigRequestParameters);
@@ -449,5 +567,36 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(checkSign(addSubDevConfigResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubDevConfigResult.get("result_code")), addSubDevConfigResult.get("err_code_des"));
         return addSubDevConfigResult;
+    }
+
+    /**
+     * 服务商子商户开发配置查询
+     *
+     * @param tenantId
+     * @param branchId
+     * @param querySubDevConfigModel
+     * @return
+     * @throws DocumentException
+     */
+    public Map<String, String> querySubDevConfig(String tenantId, String branchId, QuerySubDevConfigModel querySubDevConfigModel) throws DocumentException {
+        querySubDevConfigModel.validateAndThrow();
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        Map<String, String> querySubDevConfigRequestParameters = new HashMap<String, String>();
+        querySubDevConfigRequestParameters.put("appid", querySubDevConfigModel.getAppId());
+        querySubDevConfigRequestParameters.put("mch_id", querySubDevConfigModel.getMchId());
+        querySubDevConfigRequestParameters.put("sub_mch_id", querySubDevConfigModel.getSubMchId());
+
+        querySubDevConfigRequestParameters.put("sign", generateSign(querySubDevConfigRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        String addSubDevConfigFinalData = generateFinalData(querySubDevConfigRequestParameters);
+        Map<String, String> querySubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/querysubdevconfig", addSubDevConfigFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+
+        String returnCode = querySubDevConfigResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), querySubDevConfigResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(querySubDevConfigResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(querySubDevConfigResult.get("result_code")), querySubDevConfigResult.get("err_code_des"));
+        return querySubDevConfigResult;
     }
 }
