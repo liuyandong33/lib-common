@@ -99,6 +99,10 @@ public class Branch extends BasicDomain {
      * 美团门店名称
      */
     private String poiName = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 会员分组ID
+     */
+    private BigInteger vipGroupId = Constants.BIGINT_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -284,6 +288,14 @@ public class Branch extends BasicDomain {
         this.poiName = poiName;
     }
 
+    public BigInteger getVipGroupId() {
+        return vipGroupId;
+    }
+
+    public void setVipGroupId(BigInteger vipGroupId) {
+        this.vipGroupId = vipGroupId;
+    }
+
     public static class Builder {
         private final Branch instance = new Branch();
 
@@ -399,6 +411,11 @@ public class Branch extends BasicDomain {
 
         public Builder poiName(String poiName) {
             instance.setPoiName(poiName);
+            return this;
+        }
+
+        public Builder vipGroupId(BigInteger vipGroupId) {
+            instance.setVipGroupId(vipGroupId);
             return this;
         }
 

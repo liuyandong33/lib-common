@@ -36,6 +36,7 @@ CREATE TABLE branch
     app_auth_token VARCHAR(50) NOT NULL COMMENT '门店绑定的授权token',
     poi_id VARCHAR(10) NOT NULL COMMENT '美团门店ID',
     poi_name VARCHAR(20) NOT NULL COMMENT '美团门店名称',
+    vip_group_id BIGINT NOT NULL COMMENT '会员分组ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
