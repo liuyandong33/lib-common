@@ -19,6 +19,10 @@ public class VipAccount extends BasicDomain {
      * 门店id
      */
     private BigInteger branchId;
+    /**
+     * 会员分组Id
+     */
+    private BigInteger vipGroupId;
 
     /**
      * 会员ID
@@ -63,6 +67,14 @@ public class VipAccount extends BasicDomain {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
+    }
+
+    public BigInteger getVipGroupId() {
+        return vipGroupId;
+    }
+
+    public void setVipGroupId(BigInteger vipGroupId) {
+        this.vipGroupId = vipGroupId;
     }
 
     public BigInteger getVipId() {
@@ -120,6 +132,11 @@ public class VipAccount extends BasicDomain {
 
         public Builder branchId(BigInteger branchId) {
             instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder vipGroupId(BigInteger vipGroupId) {
+            instance.setVipGroupId(vipGroupId);
             return this;
         }
 
