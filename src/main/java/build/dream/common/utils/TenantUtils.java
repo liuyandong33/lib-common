@@ -28,7 +28,13 @@ public class TenantUtils {
         return (Tenant) apiRest.getData();
     }
 
-    public static void updateTenantInfo(BigInteger tenantId, Tuple2<String, String>... fields) {
-
+    public static void updateTenantInfo(BigInteger tenantId, Tuple2<String, String>... fields) throws IOException {
+        Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>();
+        updateTenantInfoRequestParameters.put("id", tenantId.toString());
+        for (Tuple2<String, String> field : fields) {
+            updateTenantInfoRequestParameters.put(field._1(), field._2());
+        }
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "updateTenantInfo", updateTenantInfoRequestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
 }
