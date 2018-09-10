@@ -37,4 +37,11 @@ public class TenantUtils {
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "updateTenantInfo", updateTenantInfoRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
+
+    public static void updateTenantInfo(BigInteger tenantId, Map<String, String> fields) throws IOException {
+        Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>(fields);
+        updateTenantInfoRequestParameters.put("id", tenantId.toString());
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "updateTenantInfo", updateTenantInfoRequestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+    }
 }
