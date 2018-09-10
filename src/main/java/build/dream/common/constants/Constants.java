@@ -637,6 +637,4 @@ public class Constants {
 
     public static final String CONTACT_WE_CHAT_ID_TYPE_WE_CHAT_ID = "type_wechatid";
     public static final String CONTACT_WE_CHAT_ID_TYPE_OPEN_ID = "type_openid";
-
-    public static final String SET_COOKIE = "Set-Cookie";
 }

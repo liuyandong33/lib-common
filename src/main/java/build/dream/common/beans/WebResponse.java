@@ -1,7 +1,5 @@
 package build.dream.common.beans;
 
-import build.dream.common.constants.Constants;
-
 import javax.servlet.http.Cookie;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +21,7 @@ public class WebResponse {
         for (Map.Entry<String, List<String>> header : headers.entrySet()) {
             String key = header.getKey();
             List<String> headerValues = header.getValue();
-            if (Constants.SET_COOKIE.equals(key)) {
+            if ("Set-Cookie".equalsIgnoreCase(key)) {
                 this.headers.put(key, headerValues);
                 for (String headerValue : headerValues) {
                     String[] array = headerValue.split("; ");
