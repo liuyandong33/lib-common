@@ -52,12 +52,12 @@ public class CommonUtils {
 
     public static String getUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
-        return "http://" + deploymentEnvironment + "-" + partitionCode + "-" + serviceName + "/" + controllerName + "/" + actionName;
+        return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
     public static String getUrl(String serviceName, String controllerName, String actionName) throws IOException {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
-        return "http://" + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
+        return Constants.HTTP + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
     public static Tenant obtainTenantInfo(String tenantId, String tenantCode) {
