@@ -4,7 +4,6 @@ import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.math.BigInteger;
 
 public class CommonUtils {
@@ -18,7 +17,7 @@ public class CommonUtils {
         return serviceName;
     }
 
-    public static BigInteger getServiceSystemUserId(String partitionCode, String serviceName) throws IOException {
+    public static BigInteger getServiceSystemUserId(String partitionCode, String serviceName) {
         String userId = ConfigurationUtils.getConfiguration(partitionCode + "." + serviceName + ".user.id");
         if (StringUtils.isNotBlank(userId)) {
             return BigInteger.valueOf(Long.valueOf(userId));
@@ -26,36 +25,36 @@ public class CommonUtils {
         return null;
     }
 
-    public static BigInteger getServiceSystemUserId() throws IOException {
+    public static BigInteger getServiceSystemUserId() {
         String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
         return getServiceSystemUserId(partitionCode, serviceName);
     }
 
-    public static String getOutsideServiceDomain(String partitionCode, String serviceName) throws IOException {
+    public static String getOutsideServiceDomain(String partitionCode, String serviceName) {
         String homeUrl = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
         return homeUrl + "/" + partitionCode + "-" + serviceName;
     }
 
-    public static String getOutsideServiceDomain(String serviceName) throws IOException {
+    public static String getOutsideServiceDomain(String serviceName) {
         String domainName = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
         return domainName + "/" + serviceName;
     }
 
-    public static String getOutsideUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
+    public static String getOutsideUrl(String partitionCode, String serviceName, String controllerName, String actionName) {
         return getOutsideServiceDomain(partitionCode, serviceName) + "/" + controllerName + "/" + actionName;
     }
 
-    public static String getOutsideUrl(String serviceName, String controllerName, String actionName) throws IOException {
+    public static String getOutsideUrl(String serviceName, String controllerName, String actionName) {
         return getOutsideServiceDomain(serviceName) + "/" + controllerName + "/" + actionName;
     }
 
-    public static String getUrl(String partitionCode, String serviceName, String controllerName, String actionName) throws IOException {
+    public static String getUrl(String partitionCode, String serviceName, String controllerName, String actionName) {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
-    public static String getUrl(String serviceName, String controllerName, String actionName) throws IOException {
+    public static String getUrl(String serviceName, String controllerName, String actionName) {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
