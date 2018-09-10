@@ -38,7 +38,7 @@ public class Constants {
      * 日期格式化相关常量
      */
     public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    public static final String ISO8601_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    public static final String ISO8601_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String GMT = "GMT";
 
     public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";

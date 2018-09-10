@@ -30,7 +30,7 @@ public class AlibabaCloudMobilePushUtils {
         requestParameters.put("AccessKeyId", accessKeyId);
         requestParameters.put("SignatureMethod", "HMAC-SHA1");
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_FORMAT);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_PATTERN);
         requestParameters.put("Timestamp", simpleDateFormat.format(new Date()));
 
         requestParameters.put("SignatureVersion", "1.0");

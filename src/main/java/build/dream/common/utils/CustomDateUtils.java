@@ -24,7 +24,7 @@ public class CustomDateUtils {
     }
 
     public static SimpleDateFormat buildISO8601SimpleDateFormat() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_FORMAT, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_PATTERN, Locale.US);
         simpleDateFormat.setTimeZone(new SimpleTimeZone(0, Constants.GMT));
         return simpleDateFormat;
     }

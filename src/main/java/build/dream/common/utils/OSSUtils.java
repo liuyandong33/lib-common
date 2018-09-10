@@ -10,7 +10,7 @@ import java.util.*;
 
 public class OSSUtils {
     public static Map<String, String> obtainPolicy(String accessId, String accessKey, String host, String dir, Date expiration, List<Object[]> conditions, Map<String, String> callback) throws UnsupportedEncodingException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_FORMAT, Locale.US);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_PATTERN, Locale.US);
         simpleDateFormat.setTimeZone(new SimpleTimeZone(0, "GMT"));
 
         Map<String, Object> policyMap = new HashMap<String, Object>();
