@@ -1198,6 +1198,7 @@ CREATE TABLE vip_account
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_group_id BIGINT NOT NULL COMMENT '会员分组ID，如果会员共享类型为1-全部共享或2-全部独立，为0，如果会员3-分组共享，则为门店所在的会员分组ID',
     vip_id BIGINT NOT NULL COMMENT '会员ID',
     point DECIMAL(11, 3) NOT NULL COMMENT '会员积分',
     accumulative_point DECIMAL(11, 3) NOT NULL COMMENT '累计积分',
