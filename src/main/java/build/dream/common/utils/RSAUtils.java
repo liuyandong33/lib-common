@@ -3,15 +3,10 @@ package build.dream.common.utils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.ArrayUtils;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import java.io.UnsupportedEncodingException;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
@@ -43,10 +38,8 @@ public class RSAUtils {
      *
      * @param publicKey：公钥字符串
      * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
      */
-    public static PublicKey restorePublicKey(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PublicKey restorePublicKey(String publicKey) {
         byte[] keyBytes = Base64.decodeBase64(publicKey);
         return restorePublicKey(keyBytes);
     }
@@ -56,13 +49,15 @@ public class RSAUtils {
      *
      * @param keyBytes：公钥字节数组
      * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
      */
-    public static PublicKey restorePublicKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        return keyFactory.generatePublic(x509EncodedKeySpec);
+    public static PublicKey restorePublicKey(byte[] keyBytes) {
+        try {
+            X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            return keyFactory.generatePublic(x509EncodedKeySpec);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -70,10 +65,8 @@ public class RSAUtils {
      *
      * @param privateKey：私钥字符串
      * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
      */
-    public static PrivateKey restorePrivateKey(String privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public static PrivateKey restorePrivateKey(String privateKey) {
         byte[] keyBytes = Base64.decodeBase64(privateKey);
         return restorePrivateKey(keyBytes);
     }
@@ -83,13 +76,15 @@ public class RSAUtils {
      *
      * @param keyBytes：私钥字节数组
      * @return
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
      */
-    public static PrivateKey restorePrivateKey(byte[] keyBytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+    public static PrivateKey restorePrivateKey(byte[] keyBytes) {
+        try {
+            PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            return keyFactory.generatePrivate(pkcs8EncodedKeySpec);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -99,14 +94,8 @@ public class RSAUtils {
      * @param publicKey：公钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] encryptByPublicKey(byte[] data, byte[] publicKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static byte[] encryptByPublicKey(byte[] data, byte[] publicKey, String paddingMode) {
         return encryptByPublicKey(data, restorePublicKey(publicKey), paddingMode);
     }
 
@@ -117,24 +106,23 @@ public class RSAUtils {
      * @param publicKey：公钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] encryptByPublicKey(byte[] data, PublicKey publicKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance(paddingMode);
-        cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+    public static byte[] encryptByPublicKey(byte[] data, PublicKey publicKey, String paddingMode) {
+        try {
+            Cipher cipher = Cipher.getInstance(paddingMode);
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
-        RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
-        List<byte[]> splits = splitData(data, rsaPublicKey.getModulus().bitLength() / 8 - 11);
+            RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
+            List<byte[]> splits = splitData(data, rsaPublicKey.getModulus().bitLength() / 8 - 11);
 
-        byte[] encryptedData = new byte[0];
-        for (byte[] split : splits) {
-            encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
+            byte[] encryptedData = new byte[0];
+            for (byte[] split : splits) {
+                encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
+            }
+            return encryptedData;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return encryptedData;
     }
 
     /**
@@ -144,14 +132,8 @@ public class RSAUtils {
      * @param privateKey：私钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] encryptByPrivateKey(byte[] data, byte[] privateKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static byte[] encryptByPrivateKey(byte[] data, byte[] privateKey, String paddingMode) {
         return encryptByPrivateKey(data, restorePrivateKey(privateKey), paddingMode);
     }
 
@@ -162,24 +144,22 @@ public class RSAUtils {
      * @param privateKey：私钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] encryptByPrivateKey(byte[] data, PrivateKey privateKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance(paddingMode);
-        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+    public static byte[] encryptByPrivateKey(byte[] data, PrivateKey privateKey, String paddingMode) {
+        try {
+            Cipher cipher = Cipher.getInstance(paddingMode);
+            cipher.init(Cipher.ENCRYPT_MODE, privateKey);
 
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
-        List<byte[]> splits = splitData(data, rsaPrivateKey.getModulus().bitLength() / 8 - 11);
-        byte[] encryptedData = new byte[0];
-        for (byte[] split : splits) {
-            encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
+            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
+            List<byte[]> splits = splitData(data, rsaPrivateKey.getModulus().bitLength() / 8 - 11);
+            byte[] encryptedData = new byte[0];
+            for (byte[] split : splits) {
+                encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
+            }
+            return encryptedData;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return encryptedData;
     }
 
     /**
@@ -189,14 +169,8 @@ public class RSAUtils {
      * @param publicKey：公钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] decryptByPublicKey(byte[] encryptedData, byte[] publicKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static byte[] decryptByPublicKey(byte[] encryptedData, byte[] publicKey, String paddingMode) {
         return decryptByPublicKey(encryptedData, restorePublicKey(publicKey), paddingMode);
     }
 
@@ -207,24 +181,22 @@ public class RSAUtils {
      * @param publicKey：公钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] decryptByPublicKey(byte[] encryptedData, PublicKey publicKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance(paddingMode);
-        cipher.init(Cipher.DECRYPT_MODE, publicKey);
+    public static byte[] decryptByPublicKey(byte[] encryptedData, PublicKey publicKey, String paddingMode) {
+        try {
+            Cipher cipher = Cipher.getInstance(paddingMode);
+            cipher.init(Cipher.DECRYPT_MODE, publicKey);
 
-        RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
-        List<byte[]> splits = splitData(encryptedData, rsaPublicKey.getModulus().bitLength() / 8);
-        byte[] data = new byte[0];
-        for (byte[] split : splits) {
-            data = ArrayUtils.addAll(data, cipher.doFinal(split));
+            RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
+            List<byte[]> splits = splitData(encryptedData, rsaPublicKey.getModulus().bitLength() / 8);
+            byte[] data = new byte[0];
+            for (byte[] split : splits) {
+                data = ArrayUtils.addAll(data, cipher.doFinal(split));
+            }
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return data;
     }
 
     /**
@@ -234,14 +206,8 @@ public class RSAUtils {
      * @param privateKey：私钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
      */
-    public static byte[] decryptByPrivateKey(byte[] encryptedData, byte[] privateKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static byte[] decryptByPrivateKey(byte[] encryptedData, byte[] privateKey, String paddingMode) {
         return decryptByPrivateKey(encryptedData, restorePrivateKey(privateKey), paddingMode);
     }
 
@@ -252,24 +218,21 @@ public class RSAUtils {
      * @param privateKey：私钥
      * @param paddingMode：填充模式
      * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeySpecException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
-     * @throws UnsupportedEncodingException
      */
-    public static byte[] decryptByPrivateKey(byte[] encryptedData, PrivateKey privateKey, String paddingMode) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-        Cipher cipher = Cipher.getInstance(paddingMode);
-        cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
-        List<byte[]> splits = splitData(encryptedData, rsaPrivateKey.getModulus().bitLength() / 8);
-        byte[] data = new byte[0];
-        for (byte[] split : splits) {
-            data = ArrayUtils.addAll(data, cipher.doFinal(split));
+    public static byte[] decryptByPrivateKey(byte[] encryptedData, PrivateKey privateKey, String paddingMode) {
+        try {
+            Cipher cipher = Cipher.getInstance(paddingMode);
+            cipher.init(Cipher.DECRYPT_MODE, privateKey);
+            RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
+            List<byte[]> splits = splitData(encryptedData, rsaPrivateKey.getModulus().bitLength() / 8);
+            byte[] data = new byte[0];
+            for (byte[] split : splits) {
+                data = ArrayUtils.addAll(data, cipher.doFinal(split));
+            }
+            return data;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        return data;
     }
 
     private static List<byte[]> splitData(byte[] data, int length) {

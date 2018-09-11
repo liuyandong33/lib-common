@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class AlipayUtils {
-    public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) throws IOException {
         if (Constants.RSA.equals(signType)) {
             signType = SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA;
         } else if (Constants.RSA2.equals(signType)) {
@@ -42,12 +42,12 @@ public class AlipayUtils {
         return alipayAccount;
     }
 
-    public static String buildRequestBody(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public static String buildRequestBody(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException {
         Map<String, String> requestParameters = buildRequestParameters(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
         return WebUtils.buildRequestBody(requestParameters, charset);
     }
 
-    public static Map<String, String> buildRequestParameters(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static Map<String, String> buildRequestParameters(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException {
         String signType = alipayAccount.getSignType();
 
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>();
@@ -75,19 +75,19 @@ public class AlipayUtils {
         return sortedRequestParameters;
     }
 
-    public static String callAlipayApi(String requestBody) throws IOException {
+    public static String callAlipayApi(String requestBody) {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(alipayGatewayUrl, null, requestBody);
         return webResponse.getResult();
     }
 
-    public static String callAlipayApi(Map<String, Object> requestParameters) throws IOException {
+    public static String callAlipayApi(Map<String, Object> requestParameters) {
         String alipayGatewayUrl = ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParametersAndFiles(alipayGatewayUrl, null, requestParameters);
         return webResponse.getResult();
     }
 
-    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException, InvalidKeySpecException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
         String requestBody = buildRequestBody(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
 
         String result = callAlipayApi(requestBody);
@@ -107,7 +107,7 @@ public class AlipayUtils {
         return responseJsonObject;
     }
 
-    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String appAuthToken, String bizContent) throws IOException, NoSuchAlgorithmException, InvalidKeySpecException, InvalidKeyException, SignatureException {
+    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
         return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
