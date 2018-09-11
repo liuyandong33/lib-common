@@ -31,6 +31,10 @@ public class OutUtils {
         }
     }
 
+    public static WebResponse doGetWithRequestParameters(String url, Map<String, String> requestParameters) {
+        return doGetWithRequestParameters(url, null, requestParameters);
+    }
+
     public static WebResponse doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
@@ -38,6 +42,10 @@ public class OutUtils {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static WebResponse doPostWithRequestParameters(String url, Map<String, String> requestParameters) {
+        return doPostWithRequestParameters(url, null, requestParameters);
     }
 
     public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {

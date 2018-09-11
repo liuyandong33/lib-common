@@ -171,7 +171,7 @@ public class WeiXinUtils {
 
     public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) throws IOException {
         String url = WEI_XIN_API_URL + "/message/mass/send?access_token=" + accessToken;
-        WebResponse webResponse = WebUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendMassMessageModel, false), null);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendMassMessageModel, false));
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
@@ -230,7 +230,7 @@ public class WeiXinUtils {
             obtainJsapiTicketRequestParameters.put("type", type);
 
             String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
-            WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
+            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
             JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
             ValidateUtils.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
 
