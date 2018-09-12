@@ -66,26 +66,38 @@ public class OutUtils {
     }
 
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody) {
-        return doPostWithRequestBody(url, headers, requestBody, null);
+        return doPostWithRequestBody(url, headers, requestBody, Constants.CHARSET_NAME_UTF_8);
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName) {
+        return doPostWithRequestBody(url, headers, requestBody, charsetName, (SSLSocketFactory) null);
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) {
+        return doPostWithRequestBody(url, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) {
+        try {
+            ValidateUtils.notNull(proxy, "未配置代理服务器！");
+            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, charsetName, sslSocketFactory, proxy);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
+        return doPostWithRequestBody(url, headers, requestBody, Constants.CHARSET_NAME_UTF_8, certificate, password);
+    }
+
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, String certificate, String password) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             SSLSocketFactory sslSocketFactory = null;
             if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
                 sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
             }
-            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) {
-        try {
-            ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
+            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, charsetName, sslSocketFactory, proxy);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

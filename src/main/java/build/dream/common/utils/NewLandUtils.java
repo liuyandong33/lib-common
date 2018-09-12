@@ -47,7 +47,9 @@ public class NewLandUtils {
 
         Map<String, String> barcodePayRequestParameters = new HashMap<String, String>();
         barcodePayRequestParameters.put("opSys", barcodePayModel.getOpSys());
-        barcodePayRequestParameters.put("characterSet", barcodePayModel.getCharacterSet());
+
+        String characterSet = barcodePayModel.getCharacterSet();
+        barcodePayRequestParameters.put("characterSet", characterSet);
 
         String latitude = barcodePayModel.getLatitude();
         if (StringUtils.isNotBlank(latitude)) {
@@ -112,7 +114,15 @@ public class NewLandUtils {
         barcodePayRequestParameters.put("signValue", generateSign(barcodePayRequestParameters, newLandAccount.getSecretKey()));
 
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_PAY + ".json";
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(barcodePayRequestParameters));
+
+        String charsetName = null;
+        if ("00".equals(characterSet)) {
+            charsetName = Constants.CHARSET_NAME_GBK;
+        } else if ("01".equals(characterSet)) {
+            charsetName = Constants.CHARSET_NAME_UTF_8;
+        }
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(barcodePayRequestParameters), charsetName);
         String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
 
         Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);

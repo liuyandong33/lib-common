@@ -12,7 +12,7 @@ public class BarcodePayModel extends BasicModel {
     private String opSys;
 
     @NotNull
-    @InList(value = {"00"})
+    @InList(value = {"00", "01"})
     private String characterSet = "00";
 
     @Length(max = 15)
