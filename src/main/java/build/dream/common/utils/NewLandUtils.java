@@ -40,6 +40,8 @@ public class NewLandUtils {
     }
 
     public static Map<String, String> barcodePay(String tenantId, String branchId, BarcodePayModel barcodePayModel) {
+        barcodePayModel.validateAndThrow();
+
         NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
         ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
 
