@@ -28,7 +28,7 @@ public class NewLandAccount extends BasicDomain {
     /**
      * 新大陆支付密钥
      */
-    private String key;
+    private String secretKey;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -70,11 +70,11 @@ public class NewLandAccount extends BasicDomain {
         this.orgNo = orgNo;
     }
 
-    public String getKey() {
-        return key;
+    public String getSecretKey() {
+        return secretKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 }
