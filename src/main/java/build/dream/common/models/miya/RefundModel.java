@@ -4,14 +4,15 @@ import build.dream.common.models.BasicModel;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
 
 public class RefundModel extends BasicModel {
     @NotNull
-    private BigInteger posId;
+    @Length(max = 10)
+    private String posId;
 
     @NotNull
-    private BigInteger cashierId;
+    @Length(max = 10)
+    private String cashierId;
 
     @NotNull
     @Length(max = 32)
@@ -24,19 +25,19 @@ public class RefundModel extends BasicModel {
     @NotNull
     private Integer refundAmount;
 
-    public BigInteger getPosId() {
+    public String getPosId() {
         return posId;
     }
 
-    public void setPosId(BigInteger posId) {
+    public void setPosId(String posId) {
         this.posId = posId;
     }
 
-    public BigInteger getCashierId() {
+    public String getCashierId() {
         return cashierId;
     }
 
-    public void setCashierId(BigInteger cashierId) {
+    public void setCashierId(String cashierId) {
         this.cashierId = cashierId;
     }
 
