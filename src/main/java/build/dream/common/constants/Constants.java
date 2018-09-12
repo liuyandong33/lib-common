@@ -583,6 +583,7 @@ public class Constants {
     // 米雅接口地址
     public static final String MIYA_PAY_SERVICE_URL = "miya.pay.service.url";
     public static final String NEW_LAND_PAY_SERVICE_URL = "new.lang.pay.service.url";
+    public static final String SDK_BARCODE_PAY = "sdkBarcodePay";
 
     // 星期相关常量
     public static final String MONDAY = "MONDAY";

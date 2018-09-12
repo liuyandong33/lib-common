@@ -79,7 +79,7 @@ public class NewLandUtils {
         barcodePayRequestParameters.put("version", barcodePayModel.getVersion());
         barcodePayRequestParameters.put("signValue", generateSign(barcodePayRequestParameters, newLandAccount.getSecretKey()));
 
-        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_PAY + ".json";
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(barcodePayRequestParameters));
         Map<String, String> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, String.class);
 
