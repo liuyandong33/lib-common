@@ -265,7 +265,12 @@ public class WeiXinUtils {
         return result;
     }
 
-    public static Map<String, Object> sendTemplateMessage(SendTemplateMessageModel sendTemplateMessageModel) {
+    public static Map<String, Object> sendTemplateMessage(String appId, String secret, SendTemplateMessageModel sendTemplateMessageModel) {
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
+        return sendTemplateMessage(weiXinAccessToken.getAccessToken(), sendTemplateMessageModel);
+    }
+
+    public static Map<String, Object> sendTemplateMessage(String accessToken, SendTemplateMessageModel sendTemplateMessageModel) {
         Map<String, Object> body = new HashMap<String, Object>();
         body.put("touser", sendTemplateMessageModel.getOpenId());
         body.put("template_id", sendTemplateMessageModel.getTemplateId());
@@ -281,7 +286,7 @@ public class WeiXinUtils {
         if (StringUtils.isNotBlank(color)) {
             body.put("data", color);
         }
-        String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + obtainAccessToken(sendTemplateMessageModel.getAppId(), sendTemplateMessageModel.getSecret());
+        String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, GsonUtils.toJson(body));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");

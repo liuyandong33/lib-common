@@ -11,8 +11,6 @@ public class SendTemplateMessageModel extends BasicModel {
     private Map<String, Object> miniProgram;
     private Map<String, Object> data;
     private String color;
-    private String appId;
-    private String secret;
 
     public String getOpenId() {
         return openId;
@@ -60,21 +58,5 @@ public class SendTemplateMessageModel extends BasicModel {
 
     public void setColor(String color) {
         this.color = color;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
-
-    public String getSecret() {
-        return secret;
-    }
-
-    public void setSecret(String secret) {
-        this.secret = secret;
     }
 }
