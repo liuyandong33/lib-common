@@ -38,6 +38,33 @@ public class BarcodePayModel extends BasicModel {
     @NotNull
     private String version = "V1.0.0";
 
+    @NotNull
+    private Integer amount;
+
+    @NotNull
+    private Integer totalAmount;
+
+    @NotNull
+    @Length(max = 256)
+    private String authCode;
+
+    @NotNull
+    @InList(value = {"ALIPAY", "WXPAY", "YLPAY"})
+    private String payChannel;
+
+    @Length(max = 512)
+    private String subject;
+
+    @Length(max = 50)
+    private String selOrderNo;
+
+    @Length(max = 512)
+    private String goodsTag;
+
+    @Length(max = 512)
+    private String attach;
+
+
     public String getOpSys() {
         return opSys;
     }
@@ -108,5 +135,69 @@ public class BarcodePayModel extends BasicModel {
 
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public Integer getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    public String getPayChannel() {
+        return payChannel;
+    }
+
+    public void setPayChannel(String payChannel) {
+        this.payChannel = payChannel;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getSelOrderNo() {
+        return selOrderNo;
+    }
+
+    public void setSelOrderNo(String selOrderNo) {
+        this.selOrderNo = selOrderNo;
+    }
+
+    public String getGoodsTag() {
+        return goodsTag;
+    }
+
+    public void setGoodsTag(String goodsTag) {
+        this.goodsTag = goodsTag;
+    }
+
+    public String getAttach() {
+        return attach;
+    }
+
+    public void setAttach(String attach) {
+        this.attach = attach;
     }
 }

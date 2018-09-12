@@ -77,6 +77,31 @@ public class NewLandUtils {
         }
 
         barcodePayRequestParameters.put("version", barcodePayModel.getVersion());
+        barcodePayRequestParameters.put("amount", barcodePayModel.getAmount().toString());
+        barcodePayRequestParameters.put("total_amount", barcodePayModel.getTotalAmount().toString());
+        barcodePayRequestParameters.put("authCode", barcodePayModel.getAuthCode());
+        barcodePayRequestParameters.put("payChannel", barcodePayModel.getPayChannel());
+
+        String subject = barcodePayModel.getSubject();
+        if (StringUtils.isNotBlank(subject)) {
+            barcodePayRequestParameters.put("subject", subject);
+        }
+
+        String selOrderNo = barcodePayModel.getSelOrderNo();
+        if (StringUtils.isNotBlank(selOrderNo)) {
+            barcodePayRequestParameters.put("selOrderNo", selOrderNo);
+        }
+
+        String goodsTag = barcodePayModel.getGoodsTag();
+        if (StringUtils.isNotBlank(goodsTag)) {
+            barcodePayRequestParameters.put("goodsTag", goodsTag);
+        }
+
+        String attach = barcodePayModel.getAttach();
+        if (StringUtils.isNotBlank(attach)) {
+            barcodePayRequestParameters.put("attach", attach);
+        }
+
         barcodePayRequestParameters.put("signValue", generateSign(barcodePayRequestParameters, newLandAccount.getSecretKey()));
 
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_PAY + ".json";
