@@ -89,7 +89,7 @@ public class WeiXinUtils {
         obtainOAuthTokenRequestParameters.put("grant_type", "authorization_code");
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
@@ -113,7 +113,7 @@ public class WeiXinUtils {
         obtainOAuthTokenRequestParameters.put("component_access_token", componentAccessToken);
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/component/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainOAuthTokenRequestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
@@ -149,7 +149,7 @@ public class WeiXinUtils {
         }
 
         String url = WEI_XIN_API_URL + "/sns/userinfo";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainUserInfoRequestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainUserInfoRequestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         if (resultJsonObject.has("errcode")) {
             ValidateUtils.isTrue(false, resultJsonObject.optString("errmsg"));
@@ -196,7 +196,7 @@ public class WeiXinUtils {
             obtainAccessTokenRequestParameters.put("secret", secret);
             obtainAccessTokenRequestParameters.put("grant_type", "client_credential");
             String url = WEI_XIN_API_URL + "/cgi-bin/token";
-            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
+            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainAccessTokenRequestParameters);
 
             JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
             ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
@@ -257,7 +257,7 @@ public class WeiXinUtils {
         body.put("card", card);
 
         String url = WEI_XIN_API_URL + "/card/create?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(groupon, false));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(groupon, false));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
@@ -265,20 +265,24 @@ public class WeiXinUtils {
         return result;
     }
 
-    public static Map<String, Object> sendTemplateMessage(String openId, String templateId, String url, Map<String, Object> miniProgram, Map<String, Object> data, String color, String accessToken) {
+    public static Map<String, Object> sendTemplateMessage(SendTemplateMessageModel sendTemplateMessageModel) {
         Map<String, Object> body = new HashMap<String, Object>();
-        body.put("touser", openId);
-        body.put("template_id", templateId);
-        body.put("url", url);
+        body.put("touser", sendTemplateMessageModel.getOpenId());
+        body.put("template_id", sendTemplateMessageModel.getTemplateId());
+        body.put("url", sendTemplateMessageModel.getUrl());
+
+        Map<String, Object> miniProgram = sendTemplateMessageModel.getMiniProgram();
         if (MapUtils.isNotEmpty(miniProgram)) {
             body.put("miniprogram", miniProgram);
         }
-        body.put("data", data);
+        body.put("data", sendTemplateMessageModel.getData());
+
+        String color = sendTemplateMessageModel.getColor();
         if (StringUtils.isNotBlank(color)) {
             body.put("data", color);
         }
-        String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, null, GsonUtils.toJson(body));
+        String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + obtainAccessToken(sendTemplateMessageModel.getAppId(), sendTemplateMessageModel.getSecret());
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, GsonUtils.toJson(body));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
@@ -308,7 +312,7 @@ public class WeiXinUtils {
             requestBody.put("component_appid", componentAppId);
             requestBody.put("component_appsecret", componentAppSecret);
             requestBody.put("component_verify_ticket", componentVerifyTicket);
-            WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+            WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
             Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
             ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));
 
@@ -327,7 +331,7 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
 
         ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));
@@ -339,7 +343,7 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorization_code", authorizationCode);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));
 
@@ -381,7 +385,7 @@ public class WeiXinUtils {
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
         createMenuModel.validateAndThrow();
         String url = WEI_XIN_API_URL + "/cgi-bin/menu/create?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(createMenuModel, false));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(createMenuModel, false));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
@@ -394,7 +398,7 @@ public class WeiXinUtils {
         requestBody.put("business", addPoiModel);
 
         String url = WEI_XIN_API_URL + "/cgi-bin/poi/addpoi?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody, false));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody, false));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(result, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(result, "errmsg"));
@@ -406,7 +410,7 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));
 
@@ -451,7 +455,7 @@ public class WeiXinUtils {
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
         requestBody.put("authorizer_refresh_token", authorizerRefreshToken);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, GsonUtils.toJson(requestBody));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
 
         Map<String, Object> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(!result.containsKey("errcode"), MapUtils.getString(result, "errmsg"));

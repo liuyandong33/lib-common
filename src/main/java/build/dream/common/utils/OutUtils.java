@@ -61,6 +61,10 @@ public class OutUtils {
         }
     }
 
+    public static WebResponse doPostWithRequestBody(String url, String requestBody) {
+        return doPostWithRequestBody(url, null, requestBody);
+    }
+
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody) {
         return doPostWithRequestBody(url, headers, requestBody, null);
     }
