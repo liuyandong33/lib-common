@@ -21,6 +21,9 @@ public class BarcodePayModel extends BasicModel {
     @Length(max = 15)
     private String longitude;
 
+    @Length(max = 6)
+    private String oprId;
+
     @InList(value = {"P", "A", "C", "T"})
     private String trmTyp;
 
@@ -95,6 +98,14 @@ public class BarcodePayModel extends BasicModel {
 
     public void setLongitude(String longitude) {
         this.longitude = longitude;
+    }
+
+    public String getOprId() {
+        return oprId;
+    }
+
+    public void setOprId(String oprId) {
+        this.oprId = oprId;
     }
 
     public String getTrmTyp() {

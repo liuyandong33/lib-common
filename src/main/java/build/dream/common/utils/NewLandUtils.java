@@ -63,6 +63,11 @@ public class NewLandUtils {
         barcodePayRequestParameters.put("mercId", newLandAccount.getMchId());
         barcodePayRequestParameters.put("trmNo", newLandAccount.getTrmNo());
 
+        String oprId = barcodePayModel.getOprId();
+        if (StringUtils.isNotBlank(oprId)) {
+            barcodePayRequestParameters.put("oprId", oprId);
+        }
+
         String trmTyp = barcodePayModel.getTrmTyp();
         if (StringUtils.isNotBlank(trmTyp)) {
             barcodePayRequestParameters.put("trmTyp", trmTyp);
@@ -108,11 +113,13 @@ public class NewLandUtils {
 
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_PAY + ".json";
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(barcodePayRequestParameters));
-        Map<String, String> result = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, String.class);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
 
-        String message = result.get("message");
-        ValidateUtils.isTrue("000000".equals(result.get("returnCode")), message);
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
 
-        return result;
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
     }
 }
