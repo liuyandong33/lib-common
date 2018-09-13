@@ -244,4 +244,98 @@ public class NewLandUtils {
 
         return resultMap;
     }
+
+    public static Map<String, String> pubSigQry(String tenantId, String branchId, PubSigQryModel pubSigQryModel) {
+        pubSigQryModel.validateAndThrow();
+
+        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
+        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
+
+        Map<String, String> pubSigQryRequestParameters = new HashMap<String, String>();
+        pubSigQryRequestParameters.put("orgNo", newLandAccount.getOrgNo());
+        pubSigQryRequestParameters.put("mercId", newLandAccount.getMchId());
+        pubSigQryRequestParameters.put("trmNo", newLandAccount.getTrmNo());
+        pubSigQryRequestParameters.put("txnTime", pubSigQryModel.getTxnTime());
+
+        String attach = pubSigQryModel.getAttach();
+        if (StringUtils.isNotBlank(attach)) {
+            pubSigQryRequestParameters.put("attach", attach);
+        }
+        pubSigQryRequestParameters.put("version", pubSigQryModel.getVersion());
+
+        pubSigQryRequestParameters.put("signType", Constants.MD5);
+        pubSigQryRequestParameters.put("signValue", generateSign(pubSigQryRequestParameters, newLandAccount.getSecretKey()));
+
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.PUB_SIG_QRY + ".json";
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(Constants.CHARSET_NAME_UTF_8), GsonUtils.toJson(pubSigQryRequestParameters), Constants.CHARSET_NAME_UTF_8);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
+
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
+    }
+
+    public static Map<String, String> pubSigPay(String tenantId, String branchId, PubSigPayModel pubSigPayModel) {
+        pubSigPayModel.validateAndThrow();
+
+        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
+        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
+
+        Map<String, String> pubSigPayRequestParameters = new HashMap<String, String>();
+        pubSigPayRequestParameters.put("orgNo", newLandAccount.getOrgNo());
+        pubSigPayRequestParameters.put("mercId", newLandAccount.getMchId());
+        pubSigPayRequestParameters.put("trmNo", newLandAccount.getTrmNo());
+        pubSigPayRequestParameters.put("txnTime", pubSigPayModel.getTxnTime());
+        pubSigPayRequestParameters.put("version", pubSigPayModel.getVersion());
+
+        String code = pubSigPayModel.getCode();
+        if (StringUtils.isNotBlank(code)) {
+            pubSigPayRequestParameters.put("code", code);
+        }
+
+        String openid = pubSigPayModel.getOpenid();
+        if (StringUtils.isNotBlank(openid)) {
+            pubSigPayRequestParameters.put("openid", openid);
+        }
+
+        pubSigPayRequestParameters.put("amount", pubSigPayModel.getAmount().toString());
+        pubSigPayRequestParameters.put("total_amount", pubSigPayModel.getTotalAmount().toString());
+
+        String subject = pubSigPayModel.getSubject();
+        if (StringUtils.isNotBlank(subject)) {
+            pubSigPayRequestParameters.put("subject", subject);
+        }
+
+        String selOrderNo = pubSigPayModel.getSelOrderNo();
+        if (StringUtils.isNotBlank(selOrderNo)) {
+            pubSigPayRequestParameters.put("selOrderNo", selOrderNo);
+        }
+
+        String goodsTag = pubSigPayModel.getGoodsTag();
+        if (StringUtils.isNotBlank(goodsTag)) {
+            pubSigPayRequestParameters.put("goodsTag", goodsTag);
+        }
+
+        String attach = pubSigPayModel.getAttach();
+        if (StringUtils.isNotBlank(attach)) {
+            pubSigPayRequestParameters.put("attach", attach);
+        }
+
+        pubSigPayRequestParameters.put("signType", Constants.MD5);
+        pubSigPayRequestParameters.put("signValue", generateSign(pubSigPayRequestParameters, newLandAccount.getSecretKey()));
+
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.PUB_SIG_PAY + ".json";
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(Constants.CHARSET_NAME_UTF_8), GsonUtils.toJson(pubSigPayRequestParameters), Constants.CHARSET_NAME_UTF_8);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
+
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
+    }
 }

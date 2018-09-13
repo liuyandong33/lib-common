@@ -587,6 +587,8 @@ public class Constants {
     public static final String SDK_BARCODE_POS_PAY = "sdkBarcodePosPay";
     public static final String SDK_REFUND_BARCODE_PAY = "sdkRefundBarcodePay";
     public static final String SDK_QRY_BARCODE_PAY = "sdkQryBarcodePay";
+    public static final String PUB_SIG_QRY = "pubSigQry";
+    public static final String PUB_SIG_PAY = "pubSigPay";
     public static final String NEW_LAND_PAY_VERSION_1_0_0 = "V1.0.0";
     public static final String ALIPAY = "ALIPAY";
     public static final String WXPAY = "WXPAY";
