@@ -108,11 +108,20 @@ public class ApplicationHandler {
         return instantiateObject(objectClass, parameters, "");
     }
 
+    private static List<Field> obtainAllFields(Class<?> objectClass) {
+        ArrayList<Field> fields = new ArrayList<Field>();
+        while (objectClass != Object.class) {
+            fields.addAll(Arrays.asList(objectClass.getDeclaredFields()));
+            objectClass = objectClass.getSuperclass();
+        }
+        return fields;
+    }
+
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws Exception {
         T object = objectClass.newInstance();
         Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
 
-        Field[] fields = objectClass.getDeclaredFields();
+        List<Field> fields = obtainAllFields(objectClass);
         for (Field field : fields) {
             int modifiers = field.getModifiers();
             if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
