@@ -260,8 +260,8 @@ public class DatabaseHelper {
             Class<?>[] parameterTypes = new Class<?>[length];
             Object[] parameters = new Object[length];
             for (int index = 0; index < length; index++) {
-                parameterTypes[index] = parameterAndTypes[index]._1;
-                parameters[index] = parameterAndTypes[index]._2;
+                parameterTypes[index] = parameterAndTypes[index]._1();
+                parameters[index] = parameterAndTypes[index]._2();
             }
             Object mapper = obtainMapper(mapperClass);
             ValidateUtils.notNull(mapper, "程序装载错误！");
@@ -278,8 +278,8 @@ public class DatabaseHelper {
             Class<?>[] parameterTypes = new Class<?>[size];
             Object[] parameters = new Object[size];
             for (int index = 0; index < size; index++) {
-                parameterTypes[index] = parameterAndTypes.get(index)._1;
-                parameters[index] = parameterAndTypes.get(index)._2;
+                parameterTypes[index] = parameterAndTypes.get(index)._1();
+                parameters[index] = parameterAndTypes.get(index)._2();
             }
             Object mapper = obtainMapper(mapperClass);
             ValidateUtils.notNull(mapper, "程序装载错误！");
