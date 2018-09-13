@@ -217,7 +217,7 @@ public class DatabaseUtils {
         List<String> alias = obtainAllAlias(domainClass);
 
         StringBuilder selectSql = new StringBuilder("SELECT ");
-        selectSql.append(alias);
+        selectSql.append(StringUtils.join(alias, ", "));
         selectSql.append(" FROM ");
         selectSql.append(tableName);
         return selectSql.toString();
