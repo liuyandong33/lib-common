@@ -14,6 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AlibabaCloudMobilePushUtils {
+    private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
+
     public static JSONObject pushMessageToAndroid(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
         return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, appKey, target, targetValue, title, body);
     }
@@ -47,8 +49,7 @@ public class AlibabaCloudMobilePushUtils {
         requestParameters.put("Body", body);
         requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
 
-        String url = "http://cloudpush.aliyuncs.com";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, requestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
 
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         return resultJsonObject;
