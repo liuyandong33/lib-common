@@ -2,7 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.newland.BarcodePayModel;
+import build.dream.common.models.newland.*;
 import build.dream.common.saas.domains.NewLandAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
@@ -27,6 +27,12 @@ public class NewLandUtils {
         return newLandAccount;
     }
 
+    private static Map<String, String> buildHeaders(String charsetName) {
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "application/json;charset=" + charsetName);
+        return headers;
+    }
+
     private static String generateSign(Map<String, String> requestParameters, String secretKey) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.putAll(requestParameters);
@@ -39,53 +45,66 @@ public class NewLandUtils {
         return DigestUtils.md5Hex(stringBuilder.toString());
     }
 
+    private static Map<String, String> buildCommonRequestParameters(CommonModel commonModel, NewLandAccount newLandAccount) {
+        Map<String, String> commonRequestParameters = new HashMap<String, String>();
+        commonRequestParameters.put("opSys", commonModel.getOpSys());
+        commonRequestParameters.put("characterSet", commonModel.getCharacterSet());
+
+        String latitude = commonModel.getLatitude();
+        if (StringUtils.isNotBlank(latitude)) {
+            commonRequestParameters.put("latitude", latitude);
+        }
+
+        String longitude = commonModel.getLongitude();
+        if (StringUtils.isNotBlank(longitude)) {
+            commonRequestParameters.put("longitude", longitude);
+        }
+
+        commonRequestParameters.put("orgNo", newLandAccount.getOrgNo());
+        commonRequestParameters.put("mercId", newLandAccount.getMchId());
+        commonRequestParameters.put("trmNo", newLandAccount.getTrmNo());
+
+        String oprId = commonModel.getOprId();
+        if (StringUtils.isNotBlank(oprId)) {
+            commonRequestParameters.put("oprId", oprId);
+        }
+
+        String trmTyp = commonModel.getTrmTyp();
+        if (StringUtils.isNotBlank(trmTyp)) {
+            commonRequestParameters.put("trmTyp", trmTyp);
+        }
+
+        commonRequestParameters.put("tradeNo", commonModel.getTradeNo());
+        commonRequestParameters.put("txnTime", commonModel.getTxnTime());
+
+        commonRequestParameters.put("signType", Constants.MD5);
+
+        String addField = commonModel.getAddField();
+        if (StringUtils.isNotBlank(addField)) {
+            commonRequestParameters.put("addField", addField);
+        }
+
+        commonRequestParameters.put("version", commonModel.getVersion());
+        return commonRequestParameters;
+    }
+
+    private static String obtainCharsetName(String characterSet) {
+        String charsetName = null;
+        if ("00".equals(characterSet)) {
+            charsetName = Constants.CHARSET_NAME_GBK;
+        } else if ("01".equals(characterSet)) {
+            charsetName = Constants.CHARSET_NAME_UTF_8;
+        }
+        return charsetName;
+    }
+
     public static Map<String, String> barcodePay(String tenantId, String branchId, BarcodePayModel barcodePayModel) {
         barcodePayModel.validateAndThrow();
 
         NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
         ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
 
-        Map<String, String> barcodePayRequestParameters = new HashMap<String, String>();
-        barcodePayRequestParameters.put("opSys", barcodePayModel.getOpSys());
-
-        String characterSet = barcodePayModel.getCharacterSet();
-        barcodePayRequestParameters.put("characterSet", characterSet);
-
-        String latitude = barcodePayModel.getLatitude();
-        if (StringUtils.isNotBlank(latitude)) {
-            barcodePayRequestParameters.put("latitude", latitude);
-        }
-
-        String longitude = barcodePayModel.getLongitude();
-        if (StringUtils.isNotBlank(longitude)) {
-            barcodePayRequestParameters.put("longitude", longitude);
-        }
-
-        barcodePayRequestParameters.put("orgNo", newLandAccount.getOrgNo());
-        barcodePayRequestParameters.put("mercId", newLandAccount.getMchId());
-        barcodePayRequestParameters.put("trmNo", newLandAccount.getTrmNo());
-
-        String oprId = barcodePayModel.getOprId();
-        if (StringUtils.isNotBlank(oprId)) {
-            barcodePayRequestParameters.put("oprId", oprId);
-        }
-
-        String trmTyp = barcodePayModel.getTrmTyp();
-        if (StringUtils.isNotBlank(trmTyp)) {
-            barcodePayRequestParameters.put("trmTyp", trmTyp);
-        }
-
-        barcodePayRequestParameters.put("tradeNo", barcodePayModel.getTradeNo());
-        barcodePayRequestParameters.put("txnTime", barcodePayModel.getTxnTime());
-
-        barcodePayRequestParameters.put("signType", Constants.MD5);
-
-        String addField = barcodePayModel.getAddField();
-        if (StringUtils.isNotBlank(addField)) {
-            barcodePayRequestParameters.put("addField", addField);
-        }
-
-        barcodePayRequestParameters.put("version", barcodePayModel.getVersion());
+        Map<String, String> barcodePayRequestParameters = buildCommonRequestParameters(barcodePayModel, newLandAccount);
         barcodePayRequestParameters.put("amount", barcodePayModel.getAmount().toString());
         barcodePayRequestParameters.put("total_amount", barcodePayModel.getTotalAmount().toString());
         barcodePayRequestParameters.put("authCode", barcodePayModel.getAuthCode());
@@ -115,14 +134,107 @@ public class NewLandUtils {
 
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_PAY + ".json";
 
-        String charsetName = null;
-        if ("00".equals(characterSet)) {
-            charsetName = Constants.CHARSET_NAME_GBK;
-        } else if ("01".equals(characterSet)) {
-            charsetName = Constants.CHARSET_NAME_UTF_8;
+        String charsetName = obtainCharsetName(barcodePayModel.getCharacterSet());
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(barcodePayRequestParameters), charsetName);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
+
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
+    }
+
+    public static Map<String, String> barcodePosPay(String tenantId, String branchId, BarcodePosPayModel barcodePosPayModel) {
+        barcodePosPayModel.validateAndThrow();
+
+        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
+        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
+
+        Map<String, String> barcodePosPayRequestParameters = buildCommonRequestParameters(barcodePosPayModel, newLandAccount);
+        barcodePosPayRequestParameters.put("amount", barcodePosPayModel.getAmount().toString());
+        barcodePosPayRequestParameters.put("total_amount", barcodePosPayModel.getTotalAmount().toString());
+        barcodePosPayRequestParameters.put("payChannel", barcodePosPayModel.getPayChannel());
+
+        String subject = barcodePosPayModel.getSubject();
+        if (StringUtils.isNotBlank(subject)) {
+            barcodePosPayRequestParameters.put("subject", subject);
         }
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(barcodePayRequestParameters), charsetName);
+        String selOrderNo = barcodePosPayModel.getSelOrderNo();
+        if (StringUtils.isNotBlank(selOrderNo)) {
+            barcodePosPayRequestParameters.put("selOrderNo", selOrderNo);
+        }
+
+        String goodsTag = barcodePosPayModel.getGoodsTag();
+        if (StringUtils.isNotBlank(goodsTag)) {
+            barcodePosPayRequestParameters.put("goodsTag", goodsTag);
+        }
+
+        String attach = barcodePosPayModel.getAttach();
+        if (StringUtils.isNotBlank(attach)) {
+            barcodePosPayRequestParameters.put("attach", attach);
+        }
+
+        barcodePosPayRequestParameters.put("signValue", generateSign(barcodePosPayRequestParameters, newLandAccount.getSecretKey()));
+
+        String charsetName = obtainCharsetName(barcodePosPayModel.getCharacterSet());
+
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_BARCODE_POS_PAY + ".json";
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(barcodePosPayRequestParameters), charsetName);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
+
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
+    }
+
+    public static Map<String, String> refundBarcodePay(String tenantId, String branchId, RefundBarcodePayModel refundBarcodePayModel) {
+        refundBarcodePayModel.validateAndThrow();
+
+        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
+        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
+
+        Map<String, String> refundBarcodePayRequestParameters = buildCommonRequestParameters(refundBarcodePayModel, newLandAccount);
+        refundBarcodePayRequestParameters.put("orderNo", refundBarcodePayModel.getOrderNo());
+        Integer txnAmt = refundBarcodePayModel.getTxnAmt();
+        if (txnAmt != null) {
+            refundBarcodePayRequestParameters.put("txnAmt", txnAmt.toString());
+        }
+
+        refundBarcodePayRequestParameters.put("signValue", generateSign(refundBarcodePayRequestParameters, newLandAccount.getSecretKey()));
+
+        String charsetName = obtainCharsetName(refundBarcodePayModel.getCharacterSet());
+
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_REFUND_BARCODE_PAY + ".json";
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(refundBarcodePayRequestParameters), charsetName);
+        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+
+        Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
+
+        String message = resultMap.get("message");
+        ValidateUtils.isTrue("000000".equals(resultMap.get("returnCode")), message);
+
+        return resultMap;
+    }
+
+    public static Map<String, String> qryBarcodePay(String tenantId, String branchId, QryBarcodePayModel qryBarcodePayModel) {
+        qryBarcodePayModel.validateAndThrow();
+
+        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
+        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
+
+        Map<String, String> qryBarcodePayRequestParameters = buildCommonRequestParameters(qryBarcodePayModel, newLandAccount);
+        qryBarcodePayRequestParameters.put("qryNo", qryBarcodePayModel.getQryNo());
+        qryBarcodePayRequestParameters.put("signValue", generateSign(qryBarcodePayRequestParameters, newLandAccount.getSecretKey()));
+
+        String charsetName = obtainCharsetName(qryBarcodePayModel.getCharacterSet());
+        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + Constants.SDK_QRY_BARCODE_PAY + ".json";
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(qryBarcodePayRequestParameters), charsetName);
         String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
 
         Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);

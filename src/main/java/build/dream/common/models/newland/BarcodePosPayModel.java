@@ -6,16 +6,12 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class BarcodePayModel extends CommonModel {
+public class BarcodePosPayModel extends CommonModel {
     @NotNull
     private Integer amount;
 
     @NotNull
     private Integer totalAmount;
-
-    @NotNull
-    @Length(max = 256)
-    private String authCode;
 
     @NotNull
     @InList(value = {Constants.ALIPAY, Constants.WXPAY, Constants.YLPAY})
@@ -47,14 +43,6 @@ public class BarcodePayModel extends CommonModel {
 
     public void setTotalAmount(Integer totalAmount) {
         this.totalAmount = totalAmount;
-    }
-
-    public String getAuthCode() {
-        return authCode;
-    }
-
-    public void setAuthCode(String authCode) {
-        this.authCode = authCode;
     }
 
     public String getPayChannel() {
