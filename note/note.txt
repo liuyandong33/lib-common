@@ -306,3 +306,71 @@ Map<String, List<String>> responseHeaders = webResponse.getHeaders();
 
 System.out.println(GsonUtils.toJson(responseHeaders));
 System.out.println(result);
+
+
+public static long insert(Connection connection, Object object) throws SQLException {
+    Class<?> domainClass = object.getClass();
+    StringBuilder insertSql = new StringBuilder("INSERT INTO ");
+    insertSql.append(DatabaseUtils.obtainTableName(null, domainClass));
+    insertSql.append("(");
+    StringBuilder valuesSql = new StringBuilder(" VALUES (");
+
+    Field idField = null;
+    List<Object> parameters = new ArrayList<Object>();
+    while (domainClass != Object.class) {
+        Field[] fields = domainClass.getDeclaredFields();
+        for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                continue;
+            }
+            String fieldName = field.getName();
+            if ("id".equals(fieldName)) {
+                idField = field;
+                continue;
+            }
+            if ("createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleteTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                continue;
+            }
+            String columnName = null;
+            Column column = field.getAnnotation(Column.class);
+            if (column != null) {
+                columnName = column.name();
+            } else {
+                columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+            }
+            insertSql.append(columnName);
+            insertSql.append(", ");
+            valuesSql.append("?, ");
+
+            ReflectionUtils.makeAccessible(field);
+            parameters.add(ReflectionUtils.getField(field, object));
+        }
+
+        domainClass = domainClass.getSuperclass();
+    }
+
+    insertSql.deleteCharAt(insertSql.length() - 1);
+    insertSql.deleteCharAt(insertSql.length() - 1);
+    insertSql.append(")");
+
+    valuesSql.deleteCharAt(valuesSql.length() - 1);
+    valuesSql.deleteCharAt(valuesSql.length() - 1);
+    valuesSql.append(")");
+
+    PreparedStatement preparedStatement = connection.prepareStatement(insertSql.toString() + valuesSql.toString(), Statement.RETURN_GENERATED_KEYS);
+    int size = parameters.size();
+    for (int index = 0; index < size; index++) {
+        preparedStatement.setObject(index + 1, parameters.get(index));
+    }
+
+    int influenceRows = preparedStatement.executeUpdate();
+
+    ResultSet resultSet = preparedStatement.getGeneratedKeys();
+    resultSet.next();
+    BigInteger id = BigInteger.valueOf(resultSet.getInt(1));
+    ReflectionUtils.makeAccessible(idField);
+    ReflectionUtils.setField(idField, object, id);
+
+    return influenceRows;
+}
