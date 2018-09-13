@@ -2,7 +2,6 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
@@ -16,15 +15,15 @@ import java.util.*;
 public class AlibabaCloudMobilePushUtils {
     private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
 
-    public static JSONObject pushMessageToAndroid(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
+    public static Map<String, Object> pushMessageToAndroid(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
         return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, appKey, target, targetValue, title, body);
     }
 
-    public static JSONObject pushMessageToIos(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
+    public static Map<String, Object> pushMessageToIos(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
         return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, appKey, target, targetValue, title, body);
     }
 
-    public static JSONObject pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
+    public static Map<String, Object> pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("Format", Constants.JSON);
         requestParameters.put("RegionId", "cn-hangzhou");
@@ -50,9 +49,10 @@ public class AlibabaCloudMobilePushUtils {
         requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
 
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
 
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        return resultJsonObject;
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
     }
 
     public static String calculateSignature(String accessKeySecret, Map<String, String> requestParameters) throws UnsupportedEncodingException {
