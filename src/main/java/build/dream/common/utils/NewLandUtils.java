@@ -12,12 +12,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class NewLandUtils {
-    private static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "application/json");
-    }
-
     private static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
         String newLandAccountJson = CacheUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
         NewLandAccount newLandAccount = null;
