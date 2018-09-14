@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.util.List;
-import java.util.Map;
-
 public class ResponseLog extends BasicDomain {
     /**
      * 唯一标识
@@ -13,11 +10,11 @@ public class ResponseLog extends BasicDomain {
     /**
      * 响应体
      */
-    private String responseBody;
+    private String responseContent;
     /**
      * 请求头
      */
-    private Map<String, List<String>> headers;
+    private String headers;
 
     public String getUuid() {
         return uuid;
@@ -27,19 +24,19 @@ public class ResponseLog extends BasicDomain {
         this.uuid = uuid;
     }
 
-    public String getResponseBody() {
-        return responseBody;
+    public String getResponseContent() {
+        return responseContent;
     }
 
-    public void setResponseBody(String responseBody) {
-        this.responseBody = responseBody;
+    public void setResponseContent(String responseContent) {
+        this.responseContent = responseContent;
     }
 
-    public Map<String, List<String>> getHeaders() {
+    public String getHeaders() {
         return headers;
     }
 
-    public void setHeaders(Map<String, List<String>> headers) {
+    public void setHeaders(String headers) {
         this.headers = headers;
     }
 }

@@ -955,7 +955,7 @@ CREATE TABLE mei_tuan_order
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
     last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '美团订单';
 
 DROP TABLE IF EXISTS mei_tuan_order_detail;
@@ -1298,19 +1298,19 @@ CREATE TABLE pos
 DROP TABLE IF EXISTS wei_xin_member_card;
 CREATE TABLE wei_xin_member_card
 (
-    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
-    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     card_id VARCHAR(50) NOT NULL COMMENT '微信会员卡id',
     url VARCHAR(255) NOT NULL COMMENT '投放二维码地址',
     show_qr_code_url VARCHAR(255) NOT NULL COMMENT '投放二维码显示地址',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信会员卡';
 
 DROP TABLE IF EXISTS tenant_config;

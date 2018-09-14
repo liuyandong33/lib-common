@@ -2,12 +2,9 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import javax.servlet.http.Cookie;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-public class AccessLog extends BasicDomain {
+public class RequestLog extends BasicDomain {
     /**
      * 唯一标识
      */
@@ -35,19 +32,19 @@ public class AccessLog extends BasicDomain {
     /**
      * 访问时间
      */
-    private Date accessTime;
+    private Date requestTime;
     /**
      * 请求参数
      */
-    private Map<String, String> requestParameters;
+    private String requestParameters;
     /**
      * 请求头
      */
-    private Map<String, List<String>> headers;
+    private String headers;
     /**
      * cookie
      */
-    private List<Cookie> cookies;
+    private String cookies;
 
     public String getUuid() {
         return uuid;
@@ -97,35 +94,35 @@ public class AccessLog extends BasicDomain {
         this.methodName = methodName;
     }
 
-    public Date getAccessTime() {
-        return accessTime;
+    public Date getRequestTime() {
+        return requestTime;
     }
 
-    public void setAccessTime(Date accessTime) {
-        this.accessTime = accessTime;
+    public void setRequestTime(Date requestTime) {
+        this.requestTime = requestTime;
     }
 
-    public Map<String, String> getRequestParameters() {
+    public String getRequestParameters() {
         return requestParameters;
     }
 
-    public void setRequestParameters(Map<String, String> requestParameters) {
+    public void setRequestParameters(String requestParameters) {
         this.requestParameters = requestParameters;
     }
 
-    public Map<String, List<String>> getHeaders() {
+    public String getHeaders() {
         return headers;
     }
 
-    public void setHeaders(Map<String, List<String>> headers) {
+    public void setHeaders(String headers) {
         this.headers = headers;
     }
 
-    public List<Cookie> getCookies() {
+    public String getCookies() {
         return cookies;
     }
 
-    public void setCookies(List<Cookie> cookies) {
+    public void setCookies(String cookies) {
         this.cookies = cookies;
     }
 }

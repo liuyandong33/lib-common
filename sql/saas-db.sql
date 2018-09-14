@@ -205,8 +205,8 @@ DROP TABLE IF EXISTS eleme_authorized_tenant;
 CREATE TABLE eleme_authorized_tenant
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
-    branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     access_token VARCHAR(200) NOT NULL COMMENT 'access_token',
     refresh_token VARCHAR(200) NOT NULL COMMENT 'refresh_token',
     expires_in INT NOT NULL COMMENT 'expires_in',
@@ -224,9 +224,9 @@ CREATE TABLE eleme_authorized_tenant
 DROP TABLE IF EXISTS eleme_branch_mapping;
 CREATE TABLE eleme_branch_mapping
 (
-    id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
-    branch_id BIGINT(20) NOT NULL COMMENT '门店ID',
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     shop_id VARCHAR(20) NOT NULL COMMENT '饿了么门店ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -324,7 +324,7 @@ CREATE TABLE goods_specification
 ) COMMENT = '产品明细表';
 
 CREATE TABLE logging_event(
-    timestmp bigint(20) NOT NULL,
+    timestmp BIGINT NOT NULL,
     formatted_message text NOT NULL,
     logger_name varchar(254) NOT NULL,
     level_string varchar(254) NOT NULL,
@@ -338,13 +338,13 @@ CREATE TABLE logging_event(
     caller_class varchar(254) NOT NULL,
     caller_method varchar(254) NOT NULL,
     caller_line char(4) NOT NULL,
-    event_id bigint(20) NOT NULL AUTO_INCREMENT,
+    event_id BIGINT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (event_id)
 );
 
 
 CREATE TABLE logging_event_exception (
-    event_id bigint(20) NOT NULL,
+    event_id BIGINT NOT NULL,
     i smallint(6) NOT NULL,
     trace_line varchar(254) NOT NULL,
     PRIMARY KEY (event_id, i)
@@ -352,7 +352,7 @@ CREATE TABLE logging_event_exception (
 
 
 CREATE TABLE logging_event_property (
-    event_id bigint(20) NOT NULL,
+    event_id BIGINT NOT NULL,
     mapped_key varchar(254) NOT NULL,
     mapped_value text,
     PRIMARY KEY (event_id, mapped_key)
@@ -361,19 +361,19 @@ CREATE TABLE logging_event_property (
 DROP TABLE IF EXISTS wei_xin_public_account;
 CREATE TABLE wei_xin_public_account
 (
-    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
-    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
     name VARCHAR(20) NOT NULL COMMENT '微信公众号名称',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
     original_id VARCHAR(50) NOT NULL COMMENT '原始id',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号';
 
 DROP TABLE IF EXISTS app_privilege;
@@ -709,7 +709,7 @@ CREATE TABLE special_goods_activity
     tenant_discount_rate DECIMAL(5, 2) NOT NULL COMMENT '商户折扣率',
     agent_discount_rate DECIMAL(5, 2) NOT NULL COMMENT '代理商折扣率',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
@@ -740,7 +740,7 @@ CREATE TABLE system_parameter
     parameter_name VARCHAR(20) NOT NULL COMMENT '参数名称',
     parameter_value VARCHAR(20) NOT NULL COMMENT '参数值',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
@@ -765,7 +765,7 @@ CREATE TABLE sale_flow
     quantity INT NOT NULL COMMENT '购买数量',
     paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
@@ -788,7 +788,7 @@ CREATE TABLE activation_code_info
     goods_id BIGINT NOT NULL COMMENT '商品id',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
@@ -885,8 +885,8 @@ CREATE TABLE wei_xin_open_platform_application
 DROP TABLE IF EXISTS wei_xin_authorizer_info;
 CREATE TABLE wei_xin_authorizer_info
 (
-    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
-    tenant_id BIGINT(20) NOT NULL COMMENT '商户ID',
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
     authorizer_type TINYINT NOT NULL COMMENT '授权者类型，1-公众号，2-小程序',
     nick_name VARCHAR(20) NOT NULL COMMENT '授权方昵称',
     head_img VARCHAR(255) NOT NULL COMMENT '授权方头像',
@@ -902,18 +902,18 @@ CREATE TABLE wei_xin_authorizer_info
     authorizer_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     func_info VARCHAR(1000) NOT NULL COMMENT '公众号授权给开发者的权限集列表，ID为1到15时分别代表： 1.消息管理权限 2.用户管理权限 3.帐号服务权限 4.网页服务权限 5.微信小店权限 6.微信多客服权限 7.群发与通知权限 8.微信卡券权限 9.微信扫一扫权限 10.微信连WIFI权限 11.素材管理权限 12.微信摇周边权限 13.微信门店权限 14.微信支付权限 15.自定义菜单权限 请注意： 1）该字段的返回不会考虑公众号是否具备该权限集的权限（因为可能部分具备），请根据公众号的帐号类型和认证情况，来判断公众号的接口权限。',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众平台或小程序授权信息';
 
 DROP TABLE IF EXISTS wei_xin_authorizer_token;
 CREATE TABLE wei_xin_authorizer_token
 (
-    id BIGINT(20) PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     component_app_id VARCHAR(50) NOT NULL COMMENT '第三方平台appid',
     authorizer_app_id VARCHAR(50) NOT NULL COMMENT '授权方appid',
     authorizer_access_token VARCHAR(255) NOT NULL COMMENT '授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌',
@@ -921,12 +921,12 @@ CREATE TABLE wei_xin_authorizer_token
     authorizer_refresh_token VARCHAR(255) NOT NULL COMMENT '接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌',
     fetch_time DATETIME NOT NULL COMMENT '获取时间',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT(20) NOT NULL COMMENT '创建人id',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT(20) NOT NULL COMMENT '最后更新人id',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT(4) DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号或小程序授权token';
 
 DROP TABLE IF EXISTS new_land_account;
@@ -947,3 +947,42 @@ CREATE TABLE new_land_account
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '新大陆账号';
+
+DROP TABLE IF EXISTS request_log;
+CREATE TABLE request_log
+(
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    `uuid` VARCHAR(50) NOT NULL COMMENT '唯一ID',
+    deployment_environment VARCHAR(20) NOT NULL COMMENT '部署环境',
+    partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
+    service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
+    class_name VARCHAR(200) NOT NULL COMMENT '服务名称',
+    method_name VARCHAR(200) NOT NULL COMMENT '服务名称',
+    request_time DATETIME NOT NULL COMMENT '请求时间',
+    request_parameters TEXT NOT NULL COMMENT '请求参数',
+    headers TEXT NOT NULL COMMENT '请求头',
+    cookies TEXT NOT NULL COMMENT 'cookie',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '请求日志';
+
+DROP TABLE IF EXISTS response_log;
+CREATE TABLE response_log
+(
+    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    `uuid` VARCHAR(50) NOT NULL COMMENT '唯一ID',
+    response_content TEXT NOT NULL COMMENT '响应内容',
+    headers TEXT NOT NULL COMMENT '响应头',
+    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = '响应日志';
