@@ -2,11 +2,17 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
+import java.util.Date;
+
 public class ResponseLog extends BasicDomain {
     /**
      * 唯一标识
      */
     private String uuid;
+    /**
+     * 响应时间
+     */
+    private Date responseTime;
     /**
      * 响应体
      */
@@ -22,6 +28,14 @@ public class ResponseLog extends BasicDomain {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public Date getResponseTime() {
+        return responseTime;
+    }
+
+    public void setResponseTime(Date responseTime) {
+        this.responseTime = responseTime;
     }
 
     public String getResponseContent() {
