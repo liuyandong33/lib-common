@@ -21,6 +21,7 @@ import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -619,7 +620,65 @@ public class ApplicationHandler {
     }
 
     public static String getHeader(String name) {
-        return getHttpServletRequest().getHeader(name);
+        return getHeader(getHttpServletRequest(), name);
+    }
+
+    public static String getHeader(HttpServletRequest httpServletRequest, String name) {
+        return httpServletRequest.getHeader(name);
+    }
+
+    public static List<String> getHeaders(String name) {
+        return getHeaders(getHttpServletRequest(), name);
+    }
+
+    public static List<String> getHeaders(HttpServletRequest httpServletRequest, String name) {
+        List<String> headers = new ArrayList<String>();
+        Enumeration<String> enumeration = httpServletRequest.getHeaders(name);
+        while (enumeration.hasMoreElements()) {
+            headers.add(enumeration.nextElement());
+        }
+        return headers;
+    }
+
+    public static Map<String, List<String>> getHeaders() {
+        return getHeaders(getHttpServletRequest());
+    }
+
+    public static Map<String, List<String>> getHeaders(HttpServletRequest httpServletRequest) {
+        Map<String, List<String>> headers = new HashMap<String, List<String>>();
+        Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String name = headerNames.nextElement();
+            headers.put(name, getHeaders(httpServletRequest, name));
+        }
+        return headers;
+    }
+
+    public static List<Cookie> getCookies() {
+        return getCookies(getHttpServletRequest());
+    }
+
+    public static List<Cookie> getCookies(HttpServletRequest httpServletRequest) {
+        List<Cookie> cookieList = new ArrayList<Cookie>();
+        Cookie[] cookies = httpServletRequest.getCookies();
+        for (Cookie cookie : cookies) {
+            cookieList.add(cookie);
+        }
+        return cookieList;
+    }
+
+    public static Cookie getCookie(String name) {
+        return getCookie(getHttpServletRequest(), name);
+    }
+
+    public static Cookie getCookie(HttpServletRequest httpServletRequest, String name) {
+        Cookie[] cookies = httpServletRequest.getCookies();
+        for (Cookie cookie : cookies) {
+            if (name.equals(cookie.getName())) {
+                return cookie;
+            }
+        }
+        return null;
     }
 
     public static String today() {
