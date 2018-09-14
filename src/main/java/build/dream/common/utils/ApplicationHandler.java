@@ -619,19 +619,19 @@ public class ApplicationHandler {
         getHttpSession().invalidate();
     }
 
-    public static String getHeader(String name) {
-        return getHeader(getHttpServletRequest(), name);
+    public static String getRequestHeader(String name) {
+        return getRequestHeader(getHttpServletRequest(), name);
     }
 
-    public static String getHeader(HttpServletRequest httpServletRequest, String name) {
+    public static String getRequestHeader(HttpServletRequest httpServletRequest, String name) {
         return httpServletRequest.getHeader(name);
     }
 
-    public static List<String> getHeaders(String name) {
-        return getHeaders(getHttpServletRequest(), name);
+    public static List<String> getRequestHeaders(String name) {
+        return getRequestHeaders(getHttpServletRequest(), name);
     }
 
-    public static List<String> getHeaders(HttpServletRequest httpServletRequest, String name) {
+    public static List<String> getRequestHeaders(HttpServletRequest httpServletRequest, String name) {
         List<String> headers = new ArrayList<String>();
         Enumeration<String> enumeration = httpServletRequest.getHeaders(name);
         while (enumeration.hasMoreElements()) {
@@ -640,16 +640,16 @@ public class ApplicationHandler {
         return headers;
     }
 
-    public static Map<String, List<String>> getHeaders() {
-        return getHeaders(getHttpServletRequest());
+    public static Map<String, List<String>> getRequestHeaders() {
+        return getRequestHeaders(getHttpServletRequest());
     }
 
-    public static Map<String, List<String>> getHeaders(HttpServletRequest httpServletRequest) {
+    public static Map<String, List<String>> getRequestHeaders(HttpServletRequest httpServletRequest) {
         Map<String, List<String>> headers = new HashMap<String, List<String>>();
         Enumeration<String> headerNames = httpServletRequest.getHeaderNames();
         while (headerNames.hasMoreElements()) {
             String name = headerNames.nextElement();
-            headers.put(name, getHeaders(httpServletRequest, name));
+            headers.put(name, getRequestHeaders(httpServletRequest, name));
         }
         return headers;
     }
@@ -679,6 +679,41 @@ public class ApplicationHandler {
             }
         }
         return null;
+    }
+
+    public static String getResponseHeader(String name) {
+        return getResponseHeader(getHttpServletResponse(), name);
+    }
+
+    public static String getResponseHeader(HttpServletResponse httpServletResponse, String name) {
+        return httpServletResponse.getHeader(name);
+    }
+
+    public static List<String> getResponseHeaders(String name) {
+        return getResponseHeaders(getHttpServletResponse(), name);
+    }
+
+    public static List<String> getResponseHeaders(HttpServletResponse httpServletResponse, String name) {
+        List<String> responseHeaders = new ArrayList<String>();
+
+        Collection<String> headers = httpServletResponse.getHeaders(name);
+        for (String header : headers) {
+            responseHeaders.add(header);
+        }
+        return responseHeaders;
+    }
+
+    public static Map<String, List<String>> getResponseHeaders() {
+        return getResponseHeaders(getHttpServletResponse());
+    }
+
+    public static Map<String, List<String>> getResponseHeaders(HttpServletResponse httpServletResponse) {
+        Map<String, List<String>> responseHeaders = new HashMap<String, List<String>>();
+        Collection<String> names = httpServletResponse.getHeaderNames();
+        for (String name : names) {
+            responseHeaders.put(name, getResponseHeaders(name));
+        }
+        return responseHeaders;
     }
 
     public static String today() {
