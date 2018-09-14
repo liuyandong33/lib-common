@@ -1,22 +1,23 @@
 package build.dream.common.saas.domains;
 
-import java.math.BigInteger;
+import build.dream.common.basic.BasicDomain;
+
 import java.util.Date;
 
-public class AccessLog {
-    private BigInteger id;
+public class AccessLog extends BasicDomain {
+    private String deploymentEnvironment;
     private String partitionCode;
     private String serviceName;
     private String controllerName;
     private String actionName;
     private Date accessTime;
 
-    public BigInteger getId() {
-        return id;
+    public String getDeploymentEnvironment() {
+        return deploymentEnvironment;
     }
 
-    public void setId(BigInteger id) {
-        this.id = id;
+    public void setDeploymentEnvironment(String deploymentEnvironment) {
+        this.deploymentEnvironment = deploymentEnvironment;
     }
 
     public String getPartitionCode() {
