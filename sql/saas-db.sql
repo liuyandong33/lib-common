@@ -976,6 +976,7 @@ CREATE TABLE response_log
 (
     id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
     `uuid` VARCHAR(50) NOT NULL COMMENT '唯一ID',
+    response_time DATETIME NOT NULL COMMENT '响应时间',
     response_content TEXT NOT NULL COMMENT '响应内容',
     headers TEXT NOT NULL COMMENT '响应头',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
