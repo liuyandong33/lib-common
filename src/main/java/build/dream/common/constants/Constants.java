@@ -651,4 +651,8 @@ public class Constants {
     public static final String CONTACT_WE_CHAT_ID_TYPE_OPEN_ID = "type_openid";
 
     public static final String RESPONSE_CONTENT = "response_content";
+
+    public static final String ANUBIS_APP_ID = "anubis.app.id";
+    public static final String ANUBIS_APP_SECRET = "anubis.app.secret";
+    public static final String KEY_ANUBIS_TOKENS = "_anubis_tokens";
 }
