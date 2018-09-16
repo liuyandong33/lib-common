@@ -237,7 +237,8 @@ CREATE TABLE diet_order_activity
 ) COMMENT '订单参与的活动';
 
 DROP TABLE IF EXISTS diet_order_payment;
-CREATE TABLE diet_order_payment (
+CREATE TABLE diet_order_payment
+(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
@@ -853,7 +854,7 @@ CREATE PROCEDURE procedure_effective_activity(IN tenant_id BIGINT, IN branch_id 
         activity.type,
         activity.status,
         NULL AS goods_id,
-	      NULL AS goods_name,
+	    NULL AS goods_name,
         NULL AS goods_specification_id,
         NULL AS goods_specification_name,
         NULL AS price,
@@ -910,7 +911,7 @@ CREATE TABLE goods_category
 DROP TABLE IF EXISTS mei_tuan_order;
 CREATE TABLE mei_tuan_order
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
@@ -1095,7 +1096,7 @@ CREATE TABLE mei_tuan_order_refund_message
 DROP TABLE IF EXISTS package_group;
 CREATE TABLE package_group
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
     branch_id BIGINT NOT NULL COMMENT '门店id',
@@ -1298,7 +1299,7 @@ CREATE TABLE pos
 DROP TABLE IF EXISTS wei_xin_member_card;
 CREATE TABLE wei_xin_member_card
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     card_id VARCHAR(50) NOT NULL COMMENT '微信会员卡id',

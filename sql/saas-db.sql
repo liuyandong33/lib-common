@@ -113,7 +113,7 @@ DELIMITER ;
 DROP TABLE IF EXISTS wei_xin_pay_account;
 CREATE TABLE wei_xin_pay_account
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
     app_id VARCHAR(50) NOT NULL COMMENT '微信公众平台app id',
@@ -163,20 +163,20 @@ DROP TABLE IF EXISTS alipay_open_auth_token;
 CREATE TABLE alipay_open_auth_token
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-	  app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
-	  app_auth_token VARCHAR(50) NOT NULL,
-	  user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
-	  auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
-	  expires_in INT NOT NULL COMMENT 'token 有效时间',
-	  re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
-	  app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
-	  create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-	  create_user_id BIGINT NOT NULL COMMENT '创建人id',
-	  last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-	  last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-	  last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+	app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
+	app_auth_token VARCHAR(50) NOT NULL,
+	user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
+	auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
+	expires_in INT NOT NULL COMMENT 'token 有效时间',
+	re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
+	app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
+	create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+	create_user_id BIGINT NOT NULL COMMENT '创建人id',
+	last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+	last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+	last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-	  deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+	deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝token';
 
 DROP TABLE IF EXISTS notify_record;
@@ -361,7 +361,7 @@ CREATE TABLE logging_event_property (
 DROP TABLE IF EXISTS wei_xin_public_account;
 CREATE TABLE wei_xin_public_account
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     name VARCHAR(20) NOT NULL COMMENT '微信公众号名称',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
@@ -645,7 +645,7 @@ CREATE TABLE background_role_privilege_r
 DROP TABLE IF EXISTS bank_account;
 CREATE TABLE bank_account
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户id',
     branch_id BIGINT NOT NULL COMMENT '门店id',
     bank_card_number VARCHAR(50) NOT NULL COMMENT '银行卡卡号',
@@ -885,7 +885,7 @@ CREATE TABLE wei_xin_open_platform_application
 DROP TABLE IF EXISTS wei_xin_authorizer_info;
 CREATE TABLE wei_xin_authorizer_info
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     authorizer_type TINYINT NOT NULL COMMENT '授权者类型，1-公众号，2-小程序',
     nick_name VARCHAR(20) NOT NULL COMMENT '授权方昵称',
@@ -913,7 +913,7 @@ CREATE TABLE wei_xin_authorizer_info
 DROP TABLE IF EXISTS wei_xin_authorizer_token;
 CREATE TABLE wei_xin_authorizer_token
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     component_app_id VARCHAR(50) NOT NULL COMMENT '第三方平台appid',
     authorizer_app_id VARCHAR(50) NOT NULL COMMENT '授权方appid',
     authorizer_access_token VARCHAR(255) NOT NULL COMMENT '授权方接口调用凭据（在授权的公众号或小程序具备API权限时，才有此返回值），也简称为令牌',
@@ -951,7 +951,7 @@ CREATE TABLE new_land_account
 DROP TABLE IF EXISTS request_log;
 CREATE TABLE request_log
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     `uuid` VARCHAR(50) NOT NULL COMMENT '唯一ID',
     deployment_environment VARCHAR(20) NOT NULL COMMENT '部署环境',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
@@ -974,7 +974,7 @@ CREATE TABLE request_log
 DROP TABLE IF EXISTS response_log;
 CREATE TABLE response_log
 (
-    id BIGINT PRIMARY KEY NOT NULL COMMENT 'id' AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     `uuid` VARCHAR(50) NOT NULL COMMENT '唯一ID',
     response_time DATETIME NOT NULL COMMENT '响应时间',
     response_content TEXT NOT NULL COMMENT '响应内容',
