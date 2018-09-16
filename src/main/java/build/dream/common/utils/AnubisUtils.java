@@ -109,48 +109,104 @@ public class AnubisUtils {
         return callAnubisSystem(url, appId, appSecret, data);
     }
 
+    /**
+     * 蜂鸟配送
+     *
+     * @param orderModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> order(OrderModel orderModel) throws IOException {
         orderModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order";
         return callAnubisSystem(url, orderModel);
     }
 
+    /**
+     * 同步取消订单
+     *
+     * @param cancelOrderModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> cancelOrder(CancelOrderModel cancelOrderModel) throws IOException {
         cancelOrderModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/cancel";
         return callAnubisSystem(url, cancelOrderModel);
     }
 
+    /**
+     * 订单查询
+     *
+     * @param queryOrderModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> queryOrder(QueryOrderModel queryOrderModel) throws IOException {
         queryOrderModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/query";
         return callAnubisSystem(url, queryOrderModel);
     }
 
+    /**
+     * 订单投诉
+     *
+     * @param complaintOrderModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> complaintOrder(ComplaintOrderModel complaintOrderModel) throws IOException {
         complaintOrderModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/complaint";
         return callAnubisSystem(url, complaintOrderModel);
     }
 
+    /**
+     * 添加门店信息
+     *
+     * @param chainStoreModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> chainStore(ChainStoreModel chainStoreModel) throws IOException {
         chainStoreModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store";
         return callAnubisSystem(url, chainStoreModel);
     }
 
+    /**
+     * 查询门店信息
+     *
+     * @param queryChainStoreModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> queryChainStore(QueryChainStoreModel queryChainStoreModel) throws IOException {
         queryChainStoreModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/query";
         return callAnubisSystem(url, queryChainStoreModel);
     }
 
+    /**
+     * 更新门店信息
+     *
+     * @param updateChainStoreModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> updateChainStore(UpdateChainStoreModel updateChainStoreModel) throws IOException {
         updateChainStoreModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/update";
         return callAnubisSystem(url, updateChainStoreModel);
     }
 
+    /**
+     * 查询配送服务
+     *
+     * @param queryDeliveryModel
+     * @return
+     * @throws IOException
+     */
     public static Map<String, Object> queryDelivery(QueryDeliveryModel queryDeliveryModel) throws IOException {
         queryDeliveryModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/delivery/query";
