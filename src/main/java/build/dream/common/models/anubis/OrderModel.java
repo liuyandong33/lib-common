@@ -15,4 +15,16 @@ public class OrderModel extends BasicModel {
     @Length(max = 128)
     @SerializedName(value = "partner_order_code", alternate = "partnerOrderCode")
     private String partnerOrderCode;
+
+    @NotNull
+    @Length(max = 255)
+    @SerializedName(value = "notify_url", alternate = "notifyUrl")
+    private String notifyUrl;
+
+    @NotNull
+    @SerializedName(value = "order_type", alternate = "orderType")
+    private Integer orderType;
+
+    @SerializedName(value = "chain_store_code", alternate = "chainStoreCode")
+    private String chainStoreCode;
 }
