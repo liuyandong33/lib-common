@@ -41,8 +41,26 @@ public class OrderModel extends BasicModel {
     @SerializedName(value = "order_total_amount", alternate = "orderTotalAmount")
     private BigDecimal orderTotalAmount;
 
+    @NotNull
     @SerializedName(value = "order_actual_amount", alternate = "orderActualAmount")
     private BigDecimal orderActualAmount;
+
+    @SerializedName(value = "order_weight", alternate = "orderWeight")
+    private BigDecimal orderWeight;
+
+    @Length(max = 255)
+    @SerializedName(value = "order_remark", alternate = "orderRemark")
+    private String orderRemark;
+
+    @SerializedName(value = "is_invoiced", alternate = "isInvoiced")
+    private Integer isInvoiced;
+
+    @Length(max = 128)
+    private String invoice;
+
+    private Integer order_payment_status;
+
+
 
     public static class TransportInfo extends BasicModel {
         private static final Integer[] POSITION_SOURCES = {1, 2, 3};
