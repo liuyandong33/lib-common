@@ -523,4 +523,317 @@ public class ElemeOrder extends BasicDomain {
     public void setCancelOrderCreatedAt(Date cancelOrderCreatedAt) {
         this.cancelOrderCreatedAt = cancelOrderCreatedAt;
     }
+
+    public static class Builder {
+        private final ElemeOrder instance = new ElemeOrder();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder address(String address) {
+            instance.setAddress(address);
+            return this;
+        }
+
+        public Builder createdAt(Date createdAt) {
+            instance.setCreatedAt(createdAt);
+            return this;
+        }
+
+        public Builder activeAt(Date activeAt) {
+            instance.setActiveAt(activeAt);
+            return this;
+        }
+
+        public Builder deliverFee(BigDecimal deliverFee) {
+            instance.setDeliverFee(deliverFee);
+            return this;
+        }
+
+        public Builder vipDeliveryFeeDiscount(BigDecimal vipDeliveryFeeDiscount) {
+            instance.setVipDeliveryFeeDiscount(vipDeliveryFeeDiscount);
+            return this;
+        }
+
+        public Builder deliverTime(Date deliverTime) {
+            instance.setDeliverTime(deliverTime);
+            return this;
+        }
+
+        public Builder description(String description) {
+            instance.setDescription(description);
+            return this;
+        }
+
+        public Builder invoice(String invoice) {
+            instance.setInvoice(invoice);
+            return this;
+        }
+
+        public Builder book(boolean book) {
+            instance.setBook(book);
+            return this;
+        }
+
+        public Builder onlinePaid(boolean onlinePaid) {
+            instance.setOnlinePaid(onlinePaid);
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder phoneList(String phoneList) {
+            instance.setPhoneList(phoneList);
+            return this;
+        }
+
+        public Builder shopId(BigInteger shopId) {
+            instance.setShopId(shopId);
+            return this;
+        }
+
+        public Builder openId(String openId) {
+            instance.setOpenId(openId);
+            return this;
+        }
+
+        public Builder shopName(String shopName) {
+            instance.setShopName(shopName);
+            return this;
+        }
+
+        public Builder daySn(int daySn) {
+            instance.setDaySn(daySn);
+            return this;
+        }
+
+        public Builder status(String status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder refundStatus(String refundStatus) {
+            instance.setRefundStatus(refundStatus);
+            return this;
+        }
+
+        public Builder userId(int userId) {
+            instance.setUserId(userId);
+            return this;
+        }
+
+        public Builder totalPrice(BigDecimal totalPrice) {
+            instance.setTotalPrice(totalPrice);
+            return this;
+        }
+
+        public Builder originalPrice(BigDecimal originalPrice) {
+            instance.setOriginalPrice(originalPrice);
+            return this;
+        }
+
+        public Builder consignee(String consignee) {
+            instance.setConsignee(consignee);
+            return this;
+        }
+
+        public Builder deliveryGeo(String deliveryGeo) {
+            instance.setDeliveryGeo(deliveryGeo);
+            return this;
+        }
+
+        public Builder deliveryPoiAddress(String deliveryPoiAddress) {
+            instance.setDeliveryPoiAddress(deliveryPoiAddress);
+            return this;
+        }
+
+        public Builder invoiced(boolean invoiced) {
+            instance.setInvoiced(invoiced);
+            return this;
+        }
+
+        public Builder income(BigDecimal income) {
+            instance.setIncome(income);
+            return this;
+        }
+
+        public Builder serviceRate(BigDecimal serviceRate) {
+            instance.setServiceRate(serviceRate);
+            return this;
+        }
+
+        public Builder serviceFee(BigDecimal serviceFee) {
+            instance.setServiceFee(serviceFee);
+            return this;
+        }
+
+        public Builder hongbao(BigDecimal hongbao) {
+            instance.setHongbao(hongbao);
+            return this;
+        }
+
+        public Builder packageFee(BigDecimal packageFee) {
+            instance.setPackageFee(packageFee);
+            return this;
+        }
+
+        public Builder activityTotal(BigDecimal activityTotal) {
+            instance.setActivityTotal(activityTotal);
+            return this;
+        }
+
+        public Builder shopPart(BigDecimal shopPart) {
+            instance.setShopPart(shopPart);
+            return this;
+        }
+
+        public Builder elemePart(BigDecimal elemePart) {
+            instance.setElemePart(elemePart);
+            return this;
+        }
+
+        public Builder downgraded(boolean downgraded) {
+            instance.setDowngraded(downgraded);
+            return this;
+        }
+
+        public Builder secretPhoneExpireTime(Date secretPhoneExpireTime) {
+            instance.setSecretPhoneExpireTime(secretPhoneExpireTime);
+            return this;
+        }
+
+        public Builder invoiceType(String invoiceType) {
+            instance.setInvoiceType(invoiceType);
+            return this;
+        }
+
+        public Builder taxpayerId(String taxpayerId) {
+            instance.setTaxpayerId(taxpayerId);
+            return this;
+        }
+
+        public Builder coldBoxFee(BigDecimal coldBoxFee) {
+            instance.setColdBoxFee(coldBoxFee);
+            return this;
+        }
+
+        public Builder cancelOrderDescription(String cancelOrderDescription) {
+            instance.setCancelOrderDescription(cancelOrderDescription);
+            return this;
+        }
+
+        public Builder cancelOrderCreatedAt(Date cancelOrderCreatedAt) {
+            instance.setCancelOrderCreatedAt(cancelOrderCreatedAt);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ElemeOrder build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String ADDRESS = "address";
+        public static final String CREATED_AT = "created_at";
+        public static final String ACTIVE_AT = "active_at";
+        public static final String DELIVER_FEE = "deliver_fee";
+        public static final String VIP_DELIVERY_FEE_DISCOUNT = "vip_delivery_fee_discount";
+        public static final String DELIVER_TIME = "deliver_time";
+        public static final String DESCRIPTION = "description";
+        public static final String INVOICE = "invoice";
+        public static final String BOOK = "book";
+        public static final String ONLINE_PAID = "online_paid";
+        public static final String ORDER_ID = "order_id";
+        public static final String PHONE_LIST = "phone_list";
+        public static final String SHOP_ID = "shop_id";
+        public static final String OPEN_ID = "open_id";
+        public static final String SHOP_NAME = "shop_name";
+        public static final String DAY_SN = "day_sn";
+        public static final String STATUS = "status";
+        public static final String REFUND_STATUS = "refund_status";
+        public static final String USER_ID = "user_id";
+        public static final String TOTAL_PRICE = "total_price";
+        public static final String ORIGINAL_PRICE = "original_price";
+        public static final String CONSIGNEE = "consignee";
+        public static final String DELIVERY_GEO = "delivery_geo";
+        public static final String DELIVERY_POI_ADDRESS = "delivery_poi_address";
+        public static final String INVOICED = "invoiced";
+        public static final String INCOME = "income";
+        public static final String SERVICE_RATE = "service_rate";
+        public static final String SERVICE_FEE = "service_fee";
+        public static final String HONGBAO = "hongbao";
+        public static final String PACKAGE_FEE = "package_fee";
+        public static final String ACTIVITY_TOTAL = "activity_total";
+        public static final String SHOP_PART = "shop_part";
+        public static final String ELEME_PART = "eleme_part";
+        public static final String DOWNGRADED = "downgraded";
+        public static final String SECRET_PHONE_EXPIRE_TIME = "secret_phone_expire_time";
+        public static final String INVOICE_TYPE = "invoice_type";
+        public static final String TAXPAYER_ID = "taxpayer_id";
+        public static final String COLD_BOX_FEE = "cold_box_fee";
+        public static final String CANCEL_ORDER_DESCRIPTION = "cancel_order_description";
+        public static final String CANCEL_ORDER_CREATED_AT = "cancel_order_created_at";
+    }
 }

@@ -166,4 +166,15 @@ public class PurchaseOrder extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String ORDER_NUMBER = "order_number";
+        public static final String ORIGINATOR_USER_ID = "originator_user_id";
+        public static final String REVIEWER_USER_ID = "reviewer_user_id";
+        public static final String REVIEW_TIME = "review_time";
+        public static final String REMARK = "remark";
+    }
 }

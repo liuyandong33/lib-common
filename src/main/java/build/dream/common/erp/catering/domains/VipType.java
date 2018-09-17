@@ -196,4 +196,15 @@ public class VipType extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String NAME = "name";
+        public static final String DISCOUNT_POLICY = "discount_policy";
+        public static final String DISCOUNT_RATE = "discount_rate";
+        public static final String ENABLE_BONUS = "enable_bonus";
+        public static final String BONUS_COEFFICIENT = "bonus_coefficient";
+    }
 }

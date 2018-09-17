@@ -192,4 +192,15 @@ public class SpecialGoodsActivity extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String ACTIVITY_ID = "activity_id";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String DISCOUNT_TYPE = "discount_type";
+        public static final String SPECIAL_PRICE = "special_price";
+        public static final String DISCOUNT_RATE = "discount_rate";
+    }
 }

@@ -255,4 +255,19 @@ public class DietOrderActivity extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String DIET_ORDER_ID = "diet_order_id";
+        public static final String ACTIVITY_ID = "activity_id";
+        public static final String ACTIVITY_NAME = "activity_name";
+        public static final String ACTIVITY_TYPE = "activity_type";
+        public static final String AMOUNT = "amount";
+        public static final String LOCAL_ID = "local_id";
+        public static final String LOCAL_DIET_ORDER_ID = "local_diet_order_id";
+        public static final String LOCAL_CREATE_TIME = "local_create_time";
+        public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
+    }
 }

@@ -1,9 +1,12 @@
 package build.dream.common.erp.catering.domains;
 
+import build.dream.common.basic.BasicDomain;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
-public class PurchaseOrderDetail {
+public class PurchaseOrderDetail extends BasicDomain {
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;
@@ -133,9 +136,65 @@ public class PurchaseOrderDetail {
             instance.setQuantity(quantity);
             return this;
         }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public PurchaseOrderDetail build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String PURCHASE_ORDER_ID = "purchase_order_id";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String UNIT_ID = "unit_id";
+        public static final String PURCHASE_PRICE = "purchase_price";
+        public static final String QUANTITY = "quantity";
     }
 }

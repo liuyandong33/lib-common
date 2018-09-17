@@ -565,4 +565,37 @@ public class DietOrder extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String ORDER_NUMBER = "order_number";
+        public static final String ORDER_TYPE = "order_type";
+        public static final String ORDER_STATUS = "order_status";
+        public static final String PAY_STATUS = "pay_status";
+        public static final String REFUND_STATUS = "refund_status";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String DISCOUNT_AMOUNT = "discount_amount";
+        public static final String PAYABLE_AMOUNT = "payable_amount";
+        public static final String PAID_AMOUNT = "paid_amount";
+        public static final String PAID_TYPE = "paid_type";
+        public static final String REMARK = "remark";
+        public static final String DELIVERY_ADDRESS = "delivery_address";
+        public static final String DELIVERY_LONGITUDE = "delivery_longitude";
+        public static final String DELIVERY_LATITUDE = "delivery_latitude";
+        public static final String DELIVER_TIME = "deliver_time";
+        public static final String ACTIVE_TIME = "active_time";
+        public static final String DELIVER_FEE = "deliver_fee";
+        public static final String TELEPHONE_NUMBER = "telephone_number";
+        public static final String DAY_SERIAL_NUMBER = "day_serial_number";
+        public static final String CONSIGNEE = "consignee";
+        public static final String INVOICED = "invoiced";
+        public static final String INVOICE_TYPE = "invoice_type";
+        public static final String INVOICE = "invoice";
+        public static final String VIP_ID = "vip_id";
+        public static final String LOCAL_ID = "local_id";
+        public static final String LOCAL_CREATE_TIME = "local_create_time";
+        public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
+    }
 }

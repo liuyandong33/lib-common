@@ -171,4 +171,15 @@ public class PackageGroupDetail extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String PACKAGE_ID = "package_id";
+        public static final String PACKAGE_GROUP_ID = "package_group_id";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String QUANTITY = "quantity";
+    }
 }

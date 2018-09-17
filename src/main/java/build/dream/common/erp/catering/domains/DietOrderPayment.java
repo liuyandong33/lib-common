@@ -293,4 +293,21 @@ public class DietOrderPayment extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String DIET_ORDER_ID = "diet_order_id";
+        public static final String PAYMENT_ID = "payment_id";
+        public static final String PAYMENT_CODE = "payment_code";
+        public static final String PAYMENT_NAME = "payment_name";
+        public static final String PAID_AMOUNT = "paid_amount";
+        public static final String OCCURRENCE_TIME = "occurrence_time";
+        public static final String EXTRA_INFO = "extra_info";
+        public static final String LOCAL_ID = "local_id";
+        public static final String LOCAL_DIET_ORDER_ID = "local_diet_order_id";
+        public static final String LOCAL_CREATE_TIME = "local_create_time";
+        public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
+    }
 }

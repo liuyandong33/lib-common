@@ -192,4 +192,15 @@ public class PaymentActivity extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String ACTIVITY_ID = "activity_id";
+        public static final String PAID_TYPE = "paid_type";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String DISCOUNT_TYPE = "discount_type";
+        public static final String DISCOUNT_RATE = "discount_rate";
+        public static final String DISCOUNT_AMOUNT = "discount_amount";
+    }
 }

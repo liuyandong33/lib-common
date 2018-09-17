@@ -280,4 +280,20 @@ public class Vip extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String VIP_TYPE_ID = "vip_type_id";
+        public static final String VIP_CODE = "vip_code";
+        public static final String VIP_NAME = "vip_name";
+        public static final String BIRTHDAY = "birthday";
+        public static final String PHONE_NUMBER = "phone_number";
+        public static final String OPEN_ID = "open_id";
+        public static final String MAIN_OPEN_ID = "main_open_id";
+        public static final String ALIPAY_USER_ID = "alipay_user_id";
+        public static final String CARD_ID = "card_id";
+        public static final String USER_CARD_CODE = "user_card_code";
+    }
 }

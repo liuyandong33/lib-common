@@ -4,6 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class ElemeOrderActivity extends BasicDomain {
     /**
@@ -137,5 +138,126 @@ public class ElemeOrderActivity extends BasicDomain {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public static class Builder {
+        private final ElemeOrderActivity instance = new ElemeOrderActivity();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder elemeOrderId(BigInteger elemeOrderId) {
+            instance.setElemeOrderId(elemeOrderId);
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder elemeActivityId(BigInteger elemeActivityId) {
+            instance.setElemeActivityId(elemeActivityId);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder categoryId(Integer categoryId) {
+            instance.setCategoryId(categoryId);
+            return this;
+        }
+
+        public Builder elemePart(BigDecimal elemePart) {
+            instance.setElemePart(elemePart);
+            return this;
+        }
+
+        public Builder restaurantPart(BigDecimal restaurantPart) {
+            instance.setRestaurantPart(restaurantPart);
+            return this;
+        }
+
+        public Builder amount(BigDecimal amount) {
+            instance.setAmount(amount);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ElemeOrderActivity build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String ELEME_ORDER_ID = "eleme_order_id";
+        public static final String ORDER_ID = "order_id";
+        public static final String ELEME_ACTIVITY_ID = "eleme_activity_id";
+        public static final String NAME = "name";
+        public static final String CATEGORY_ID = "category_id";
+        public static final String ELEME_PART = "eleme_part";
+        public static final String RESTAURANT_PART = "restaurant_part";
+        public static final String AMOUNT = "amount";
     }
 }

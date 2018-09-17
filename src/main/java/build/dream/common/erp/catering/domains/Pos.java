@@ -207,4 +207,16 @@ public class Pos extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String BRANCH_CODE = "branch_code";
+        public static final String USER_ID = "user_id";
+        public static final String REGISTRATION_ID = "registration_id";
+        public static final String TYPE = "type";
+        public static final String VERSION = "version";
+        public static final String ONLINE = "online";
+    }
 }

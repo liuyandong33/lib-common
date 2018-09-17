@@ -344,4 +344,24 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String DIET_ORDER_ID = "diet_order_id";
+        public static final String DIET_ORDER_GROUP_ID = "diet_order_group_id";
+        public static final String DIET_ORDER_DETAIL_ID = "diet_order_detail_id";
+        public static final String GOODS_ATTRIBUTE_GROUP_ID = "goods_attribute_group_id";
+        public static final String GOODS_ATTRIBUTE_GROUP_NAME = "goods_attribute_group_name";
+        public static final String GOODS_ATTRIBUTE_ID = "goods_attribute_id";
+        public static final String GOODS_ATTRIBUTE_NAME = "goods_attribute_name";
+        public static final String PRICE = "price";
+        public static final String LOCAL_ID = "local_id";
+        public static final String LOCAL_DIET_ORDER_ID = "local_diet_order_id";
+        public static final String LOCAL_DIET_ORDER_GROUP_ID = "local_diet_order_group_id";
+        public static final String LOCAL_DIET_ORDER_DETAIL_ID = "local_diet_order_detail_id";
+        public static final String LOCAL_CREATE_TIME = "local_create_time";
+        public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
+    }
 }

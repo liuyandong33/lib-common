@@ -462,4 +462,31 @@ public class Branch extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+        public static final String TYPE = "type";
+        public static final String STATUS = "status";
+        public static final String PROVINCE_CODE = "province_code";
+        public static final String PROVINCE_NAME = "province_name";
+        public static final String CITY_CODE = "city_code";
+        public static final String CITY_NAME = "city_name";
+        public static final String DISTRICT_CODE = "district_code";
+        public static final String DISTRICT_NAME = "district_name";
+        public static final String ADDRESS = "address";
+        public static final String LONGITUDE = "longitude";
+        public static final String LATITUDE = "latitude";
+        public static final String LINKMAN = "linkman";
+        public static final String CONTACT_PHONE = "contact_phone";
+        public static final String ELEME_ACCOUNT_TYPE = "eleme_account_type";
+        public static final String SHOP_ID = "shop_id";
+        public static final String SMART_RESTAURANT_STATUS = "smart_restaurant_status";
+        public static final String APP_AUTH_TOKEN = "app_auth_token";
+        public static final String POI_ID = "poi_id";
+        public static final String POI_NAME = "poi_name";
+        public static final String VIP_GROUP_ID = "vip_group_id";
+    }
 }

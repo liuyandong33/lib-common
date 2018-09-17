@@ -4,6 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class ActOrderChargeByPoi extends BasicDomain {
     /**
@@ -65,5 +66,90 @@ public class ActOrderChargeByPoi extends BasicDomain {
 
     public void setMoneyCent(BigDecimal moneyCent) {
         this.moneyCent = moneyCent;
+    }
+
+    public static class Builder {
+        private final ActOrderChargeByPoi instance = new ActOrderChargeByPoi();
+
+        public Builder meiTuanOrderPoiReceiveDetailId(BigInteger meiTuanOrderPoiReceiveDetailId) {
+            instance.setMeiTuanOrderPoiReceiveDetailId(meiTuanOrderPoiReceiveDetailId);
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            instance.setComment(comment);
+            return this;
+        }
+
+        public Builder feeTypeDesc(String feeTypeDesc) {
+            instance.setFeeTypeDesc(feeTypeDesc);
+            return this;
+        }
+
+        public Builder feeTypeId(BigInteger feeTypeId) {
+            instance.setFeeTypeId(feeTypeId);
+            return this;
+        }
+
+        public Builder moneyCent(BigDecimal moneyCent) {
+            instance.setMoneyCent(moneyCent);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ActOrderChargeByPoi build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String MEI_TUAN_ORDER_POI_RECEIVE_DETAIL_ID = "mei_tuan_order_poi_receive_detail_id";
+        public static final String COMMENT = "comment";
+        public static final String FEE_TYPE_DESC = "fee_type_desc";
+        public static final String FEE_TYPE_ID = "fee_type_id";
+        public static final String MONEY_CENT = "money_cent";
     }
 }

@@ -211,4 +211,16 @@ public class BuyGiveActivity extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String ACTIVITY_ID = "activity_id";
+        public static final String BUY_GOODS_ID = "buy_goods_id";
+        public static final String BUY_GOODS_SPECIFICATION_ID = "buy_goods_specification_id";
+        public static final String BUY_QUANTITY = "buy_quantity";
+        public static final String GIVE_GOODS_ID = "give_goods_id";
+        public static final String GIVE_GOODS_SPECIFICATION_ID = "give_goods_specification_id";
+        public static final String GIVE_QUANTITY = "give_quantity";
+    }
 }

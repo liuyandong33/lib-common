@@ -211,4 +211,161 @@ public class DietOrderDeliveryState extends BasicDomain {
     public void setPushTime(Date pushTime) {
         this.pushTime = pushTime;
     }
+
+    public static class Builder {
+        private final DietOrderDeliveryState instance = new DietOrderDeliveryState();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder dietOrderId(BigInteger dietOrderId) {
+            instance.setDietOrderId(dietOrderId);
+            return this;
+        }
+
+        public Builder dietOrderNumber(String dietOrderNumber) {
+            instance.setDietOrderNumber(dietOrderNumber);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder carrierDriverName(String carrierDriverName) {
+            instance.setCarrierDriverName(carrierDriverName);
+            return this;
+        }
+
+        public Builder carrierDriverPhone(String carrierDriverPhone) {
+            instance.setCarrierDriverPhone(carrierDriverPhone);
+            return this;
+        }
+
+        public Builder description(String description) {
+            instance.setDescription(description);
+            return this;
+        }
+
+        public Builder stationName(String stationName) {
+            instance.setStationName(stationName);
+            return this;
+        }
+
+        public Builder stationTel(String stationTel) {
+            instance.setStationTel(stationTel);
+            return this;
+        }
+
+        public Builder cancelReason(Integer cancelReason) {
+            instance.setCancelReason(cancelReason);
+            return this;
+        }
+
+        public Builder errorCode(String errorCode) {
+            instance.setErrorCode(errorCode);
+            return this;
+        }
+
+        public Builder address(String address) {
+            instance.setAddress(address);
+            return this;
+        }
+
+        public Builder longitude(String longitude) {
+            instance.setLongitude(longitude);
+            return this;
+        }
+
+        public Builder latitude(String latitude) {
+            instance.setLatitude(latitude);
+            return this;
+        }
+
+        public Builder pushTime(Date pushTime) {
+            instance.setPushTime(pushTime);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public DietOrderDeliveryState build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String DIET_ORDER_ID = "diet_order_id";
+        public static final String DIET_ORDER_NUMBER = "diet_order_number";
+        public static final String STATUS = "status";
+        public static final String CARRIER_DRIVER_NAME = "carrier_driver_name";
+        public static final String CARRIER_DRIVER_PHONE = "carrier_driver_phone";
+        public static final String DESCRIPTION = "description";
+        public static final String STATION_NAME = "station_name";
+        public static final String STATION_TEL = "station_tel";
+        public static final String CANCEL_REASON = "cancel_reason";
+        public static final String ERROR_CODE = "error_code";
+        public static final String ADDRESS = "address";
+        public static final String LONGITUDE = "longitude";
+        public static final String LATITUDE = "latitude";
+        public static final String PUSH_TIME = "push_time";
+    }
 }

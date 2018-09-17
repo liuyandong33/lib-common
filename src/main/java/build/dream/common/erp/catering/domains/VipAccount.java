@@ -213,4 +213,16 @@ public class VipAccount extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String VIP_GROUP_ID = "vip_group_id";
+        public static final String VIP_ID = "vip_id";
+        public static final String POINT = "point";
+        public static final String ACCUMULATIVE_POINT = "accumulative_point";
+        public static final String BALANCE = "balance";
+        public static final String ACCUMULATIVE_RECHARGE = "accumulative_recharge";
+    }
 }

@@ -344,4 +344,24 @@ public class SaleDetail extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String SALE_ID = "sale_id";
+        public static final String SALE_TIME = "sale_time";
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_NAME = "goods_name";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String GOODS_SPECIFICATION_NAME = "goods_specification_name";
+        public static final String CATEGORY_ID = "category_id";
+        public static final String CATEGORY_NAME = "category_name";
+        public static final String PRICE = "price";
+        public static final String QUANTITY = "quantity";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String DISCOUNT_AMOUNT = "discount_amount";
+        public static final String PAYABLE_AMOUNT = "payable_amount";
+        public static final String DISCOUNT_SHARE = "discount_share";
+    }
 }

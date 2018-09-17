@@ -143,4 +143,12 @@ public class WeiXinMemberCard extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String APP_ID = "app_id";
+        public static final String CARD_ID = "card_id";
+        public static final String URL = "url";
+        public static final String SHOW_QR_CODE_URL = "show_qr_code_url";
+    }
 }

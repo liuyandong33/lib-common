@@ -235,4 +235,173 @@ public class ElemeOrderItem extends BasicDomain {
     public void setVfoodId(BigInteger vfoodId) {
         this.vfoodId = vfoodId;
     }
+
+    public static class Builder {
+        private final ElemeOrderItem instance = new ElemeOrderItem();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder elemeOrderId(BigInteger elemeOrderId) {
+            instance.setElemeOrderId(elemeOrderId);
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder elemeOrderGroupId(BigInteger elemeOrderGroupId) {
+            instance.setElemeOrderGroupId(elemeOrderGroupId);
+            return this;
+        }
+
+        public Builder elemeItemId(BigInteger elemeItemId) {
+            instance.setElemeItemId(elemeItemId);
+            return this;
+        }
+
+        public Builder skuId(BigInteger skuId) {
+            instance.setSkuId(skuId);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder categoryId(BigInteger categoryId) {
+            instance.setCategoryId(categoryId);
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            instance.setPrice(price);
+            return this;
+        }
+
+        public Builder quantity(Integer quantity) {
+            instance.setQuantity(quantity);
+            return this;
+        }
+
+        public Builder total(BigDecimal total) {
+            instance.setTotal(total);
+            return this;
+        }
+
+        public Builder extendCode(String extendCode) {
+            instance.setExtendCode(extendCode);
+            return this;
+        }
+
+        public Builder barCode(String barCode) {
+            instance.setBarCode(barCode);
+            return this;
+        }
+
+        public Builder weight(BigDecimal weight) {
+            instance.setWeight(weight);
+            return this;
+        }
+
+        public Builder userPrice(BigDecimal userPrice) {
+            instance.setUserPrice(userPrice);
+            return this;
+        }
+
+        public Builder shopPrice(BigDecimal shopPrice) {
+            instance.setShopPrice(shopPrice);
+            return this;
+        }
+
+        public Builder vfoodId(BigInteger vfoodId) {
+            instance.setVfoodId(vfoodId);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ElemeOrderItem build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String ELEME_ORDER_ID = "eleme_order_id";
+        public static final String ORDER_ID = "order_id";
+        public static final String ELEME_ORDER_GROUP_ID = "eleme_order_group_id";
+        public static final String ELEME_ITEM_ID = "eleme_item_id";
+        public static final String SKU_ID = "sku_id";
+        public static final String NAME = "name";
+        public static final String CATEGORY_ID = "category_id";
+        public static final String PRICE = "price";
+        public static final String QUANTITY = "quantity";
+        public static final String TOTAL = "total";
+        public static final String EXTEND_CODE = "extend_code";
+        public static final String BAR_CODE = "bar_code";
+        public static final String WEIGHT = "weight";
+        public static final String USER_PRICE = "user_price";
+        public static final String SHOP_PRICE = "shop_price";
+        public static final String VFOOD_ID = "vfood_id";
+    }
 }
