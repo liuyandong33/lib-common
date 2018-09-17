@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class QueryOrderModel extends BasicModel {
+public class OrderQueryModel extends BasicModel {
     @NotNull
     @Length(max = 128)
     @SerializedName(value = "partner_order_code", alternate = "partnerOrderCode")

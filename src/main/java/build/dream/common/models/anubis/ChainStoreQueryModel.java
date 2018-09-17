@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class QueryChainStoreModel extends BasicModel {
+public class ChainStoreQueryModel extends BasicModel {
     @SerializedName(value = "chain_store_code", alternate = "chainStoreCode")
     private List<String> chainStoreCode;
 

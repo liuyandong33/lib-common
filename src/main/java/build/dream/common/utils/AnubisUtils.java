@@ -125,40 +125,40 @@ public class AnubisUtils {
     /**
      * 同步取消订单
      *
-     * @param cancelOrderModel
+     * @param orderCancelModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> cancelOrder(CancelOrderModel cancelOrderModel) throws IOException {
-        cancelOrderModel.validateAndThrow();
+    public static Map<String, Object> orderCancel(OrderCancelModel orderCancelModel) throws IOException {
+        orderCancelModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/cancel";
-        return callAnubisSystem(url, cancelOrderModel);
+        return callAnubisSystem(url, orderCancelModel);
     }
 
     /**
      * 订单查询
      *
-     * @param queryOrderModel
+     * @param orderQueryModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> queryOrder(QueryOrderModel queryOrderModel) throws IOException {
-        queryOrderModel.validateAndThrow();
+    public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) throws IOException {
+        orderQueryModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/query";
-        return callAnubisSystem(url, queryOrderModel);
+        return callAnubisSystem(url, orderQueryModel);
     }
 
     /**
      * 订单投诉
      *
-     * @param complaintOrderModel
+     * @param orderComplaintModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> complaintOrder(ComplaintOrderModel complaintOrderModel) throws IOException {
-        complaintOrderModel.validateAndThrow();
+    public static Map<String, Object> orderComplaint(OrderComplaintModel orderComplaintModel) throws IOException {
+        orderComplaintModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/order/complaint";
-        return callAnubisSystem(url, complaintOrderModel);
+        return callAnubisSystem(url, orderComplaintModel);
     }
 
     /**
@@ -177,39 +177,39 @@ public class AnubisUtils {
     /**
      * 查询门店信息
      *
-     * @param queryChainStoreModel
+     * @param chainStoreQueryModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> queryChainStore(QueryChainStoreModel queryChainStoreModel) throws IOException {
-        queryChainStoreModel.validateAndThrow();
+    public static Map<String, Object> chainStoreQuery(ChainStoreQueryModel chainStoreQueryModel) throws IOException {
+        chainStoreQueryModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/query";
-        return callAnubisSystem(url, queryChainStoreModel);
+        return callAnubisSystem(url, chainStoreQueryModel);
     }
 
     /**
      * 更新门店信息
      *
-     * @param updateChainStoreModel
+     * @param chainStoreUpdateModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> updateChainStore(UpdateChainStoreModel updateChainStoreModel) throws IOException {
-        updateChainStoreModel.validateAndThrow();
+    public static Map<String, Object> chainStoreUpdate(ChainStoreUpdateModel chainStoreUpdateModel) throws IOException {
+        chainStoreUpdateModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/update";
-        return callAnubisSystem(url, updateChainStoreModel);
+        return callAnubisSystem(url, chainStoreUpdateModel);
     }
 
     /**
      * 查询配送服务
      *
-     * @param queryDeliveryModel
+     * @param chainStoreDeliveryQueryModel
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> queryDelivery(QueryDeliveryModel queryDeliveryModel) throws IOException {
-        queryDeliveryModel.validateAndThrow();
+    public static Map<String, Object> chainStoreDeliveryQuery(ChainStoreDeliveryQueryModel chainStoreDeliveryQueryModel) throws IOException {
+        chainStoreDeliveryQueryModel.validateAndThrow();
         String url = ANUBIS_SERVICE_URL + "/chain_store/delivery/query";
-        return callAnubisSystem(url, queryDeliveryModel);
+        return callAnubisSystem(url, chainStoreDeliveryQueryModel);
     }
 }

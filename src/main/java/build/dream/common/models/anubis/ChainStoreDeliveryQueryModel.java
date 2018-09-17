@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class QueryDeliveryModel extends BasicModel {
+public class ChainStoreDeliveryQueryModel extends BasicModel {
     private static final Integer[] POSITION_SOURCES = {0, 1, 2, 3};
     @NotNull
     @Length(max = 32)

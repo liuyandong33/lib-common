@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class UpdateChainStoreModel extends BasicModel {
+public class ChainStoreUpdateModel extends BasicModel {
     private static final Integer[] POSITION_SOURCES = {1, 2, 3};
     private static final Integer[] SERVICE_CODES = {1, 2, 3};
     @NotNull

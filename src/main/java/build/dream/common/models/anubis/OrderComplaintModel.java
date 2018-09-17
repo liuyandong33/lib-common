@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class ComplaintOrderModel extends BasicModel {
+public class OrderComplaintModel extends BasicModel {
     private static final Integer[] ORDER_COMPLAINT_CODES = {230, 150, 160, 190, 170, 140, 210, 220, 200, 130};
     @NotNull
     @Length(max = 128)

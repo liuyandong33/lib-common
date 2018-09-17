@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class CancelOrderModel extends BasicModel {
+public class OrderCancelModel extends BasicModel {
     private static final Integer[] ORDER_CANCEL_REASON_CODES = {2};
     private static final Integer[] ORDER_CANCEL_CODES = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     @NotNull
