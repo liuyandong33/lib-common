@@ -1,8 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.erp.catering.domains.Coupon;
-import build.dream.common.saas.domains.*;
+import build.dream.common.saas.domains.AlipayMaterialImage;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,16 +16,9 @@ public class Application {
     public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
         Class<?> domainClass = AlipayMaterialImage.class;
+        Class<?> cloneDomainClass = domainClass;
 
-        StringBuilder stringBuilder1 = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
-        Field[] fieldsa = domainClass.getDeclaredFields();
-        for (Field field : fieldsa) {
-            String name = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
-            stringBuilder1.append("public static final String ").append(name.toUpperCase()).append(" = ").append("\"").append(name).append("\";");
-        }
-        stringBuilder1.append("}");
-        System.out.println(stringBuilder1.toString());
-
+        // 生成建造者模式代码
         String simpleName = domainClass.getSimpleName();
         StringBuilder code = new StringBuilder("public static class Builder {private final " + simpleName + " instance = new " + simpleName + "();");
         while (domainClass != Object.class) {
@@ -42,6 +34,16 @@ public class Application {
 
         System.out.println(code.toString());
         System.out.println("public static Builder builder() {return new Builder();}");
+
+        // 生成列名常量类代码
+        StringBuilder stringBuilder = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
+        Field[] fields = cloneDomainClass.getDeclaredFields();
+        for (Field field : fields) {
+            String name = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            stringBuilder.append("public static final String ").append(name.toUpperCase()).append(" = ").append("\"").append(name).append("\";");
+        }
+        stringBuilder.append("}");
+        System.out.println(stringBuilder.toString());
 
         BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(Constants.BIG_DECIMAL_TEN.pow(30));
         System.out.println("太阳质量为：" + sunQuality + "kg");
