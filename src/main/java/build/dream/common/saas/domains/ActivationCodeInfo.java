@@ -127,4 +127,119 @@ public class ActivationCodeInfo extends BasicDomain {
     public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
+
+    public static class Builder {
+        private final ActivationCodeInfo instance = new ActivationCodeInfo();
+
+        public Builder agentId(BigInteger agentId) {
+            instance.setAgentId(agentId);
+            return this;
+        }
+
+        public Builder orderId(BigInteger orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder useOrderId(BigInteger useOrderId) {
+            instance.setUseOrderId(useOrderId);
+            return this;
+        }
+
+        public Builder useTime(Date useTime) {
+            instance.setUseTime(useTime);
+            return this;
+        }
+
+        public Builder expireTime(Date expireTime) {
+            instance.setExpireTime(expireTime);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder remark(String remark) {
+            instance.setRemark(remark);
+            return this;
+        }
+
+        public Builder activationCode(String activationCode) {
+            instance.setActivationCode(activationCode);
+            return this;
+        }
+
+        public Builder goodsId(BigInteger goodsId) {
+            instance.setGoodsId(goodsId);
+            return this;
+        }
+
+        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+            instance.setGoodsSpecificationId(goodsSpecificationId);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ActivationCodeInfo build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String AGENT_ID = "agent_id";
+        public static final String ORDER_ID = "order_id";
+        public static final String USE_ORDER_ID = "use_order_id";
+        public static final String USE_TIME = "use_time";
+        public static final String EXPIRE_TIME = "expire_time";
+        public static final String STATUS = "status";
+        public static final String REMARK = "remark";
+        public static final String ACTIVATION_CODE = "activation_code";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+    }
 }

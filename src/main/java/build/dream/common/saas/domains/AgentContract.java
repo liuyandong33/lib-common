@@ -66,4 +66,89 @@ public class AgentContract extends BasicDomain {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public static class Builder {
+        private final AgentContract instance = new AgentContract();
+
+        public Builder contractNumber(String contractNumber) {
+            instance.setContractNumber(contractNumber);
+            return this;
+        }
+
+        public Builder agentId(BigInteger agentId) {
+            instance.setAgentId(agentId);
+            return this;
+        }
+
+        public Builder startTime(Date startTime) {
+            instance.setStartTime(startTime);
+            return this;
+        }
+
+        public Builder endTime(Date endTime) {
+            instance.setEndTime(endTime);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public AgentContract build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String CONTRACT_NUMBER = "contract_number";
+        public static final String AGENT_ID = "agent_id";
+        public static final String START_TIME = "start_time";
+        public static final String END_TIME = "end_time";
+        public static final String STATUS = "status";
+    }
 }

@@ -4,6 +4,7 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class AlipayAccount extends BasicDomain {
     /**
@@ -125,5 +126,120 @@ public class AlipayAccount extends BasicDomain {
 
     public void setSignType(String signType) {
         this.signType = signType;
+    }
+
+    public static class Builder {
+        private final AlipayAccount instance = new AlipayAccount();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder account(String account) {
+            instance.setAccount(account);
+            return this;
+        }
+
+        public Builder appId(String appId) {
+            instance.setAppId(appId);
+            return this;
+        }
+
+        public Builder partnerId(String partnerId) {
+            instance.setPartnerId(partnerId);
+            return this;
+        }
+
+        public Builder storeId(String storeId) {
+            instance.setStoreId(storeId);
+            return this;
+        }
+
+        public Builder alipayPublicKey(String alipayPublicKey) {
+            instance.setAlipayPublicKey(alipayPublicKey);
+            return this;
+        }
+
+        public Builder applicationPublicKey(String applicationPublicKey) {
+            instance.setApplicationPublicKey(applicationPublicKey);
+            return this;
+        }
+
+        public Builder applicationPrivateKey(String applicationPrivateKey) {
+            instance.setApplicationPrivateKey(applicationPrivateKey);
+            return this;
+        }
+
+        public Builder signType(String signType) {
+            instance.setSignType(signType);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public AlipayAccount build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String ACCOUNT = "account";
+        public static final String APP_ID = "app_id";
+        public static final String PARTNER_ID = "partner_id";
+        public static final String STORE_ID = "store_id";
+        public static final String ALIPAY_PUBLIC_KEY = "alipay_public_key";
+        public static final String APPLICATION_PUBLIC_KEY = "application_public_key";
+        public static final String APPLICATION_PRIVATE_KEY = "application_private_key";
+        public static final String SIGN_TYPE = "sign_type";
     }
 }

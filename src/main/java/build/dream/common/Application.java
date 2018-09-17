@@ -2,6 +2,8 @@ package build.dream.common;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.erp.catering.domains.Coupon;
+import build.dream.common.saas.domains.*;
+import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.lang.reflect.Field;
@@ -14,7 +16,17 @@ import java.math.BigDecimal;
 public class Application {
     public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
-        Class<?> domainClass = Coupon.class;
+        Class<?> domainClass = AlipayMaterialImage.class;
+
+        StringBuilder stringBuilder1 = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
+        Field[] fieldsa = domainClass.getDeclaredFields();
+        for (Field field : fieldsa) {
+            String name = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            stringBuilder1.append("public static final String ").append(name.toUpperCase()).append(" = ").append("\"").append(name).append("\";");
+        }
+        stringBuilder1.append("}");
+        System.out.println(stringBuilder1.toString());
+
         String simpleName = domainClass.getSimpleName();
         StringBuilder code = new StringBuilder("public static class Builder {private final " + simpleName + " instance = new " + simpleName + "();");
         while (domainClass != Object.class) {
