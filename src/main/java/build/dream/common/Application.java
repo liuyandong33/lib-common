@@ -2,6 +2,8 @@ package build.dream.common;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.AlipayMaterialImage;
+import build.dream.common.saas.domains.AlipayOpenAuthToken;
+import build.dream.common.saas.domains.AppPrivilege;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,7 +17,7 @@ import java.math.BigDecimal;
 public class Application {
     public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
-        Class<?> domainClass = AlipayMaterialImage.class;
+        Class<?> domainClass = AppPrivilege.class;
         Class<?> cloneDomainClass = domainClass;
 
         // 生成建造者模式代码
