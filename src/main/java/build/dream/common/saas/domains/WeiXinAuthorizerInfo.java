@@ -313,4 +313,22 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String AUTHORIZER_TYPE = "authorizer_type";
+        public static final String NICK_NAME = "nick_name";
+        public static final String HEAD_IMG = "head_img";
+        public static final String SERVICE_TYPE_INFO = "service_type_info";
+        public static final String VERIFY_TYPE_INFO = "verify_type_info";
+        public static final String ORIGINAL_ID = "original_id";
+        public static final String PRINCIPAL_NAME = "principal_name";
+        public static final String ALIAS = "alias";
+        public static final String BUSINESS_INFO = "business_info";
+        public static final String QRCODE_URL = "qrcode_url";
+        public static final String SIGNATURE = "signature";
+        public static final String MINI_PROGRAM_INFO = "mini_program_info";
+        public static final String AUTHORIZER_APP_ID = "authorizer_app_id";
+        public static final String FUNC_INFO = "func_info";
+    }
 }

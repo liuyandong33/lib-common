@@ -3,6 +3,9 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
+import java.math.BigInteger;
+import java.util.Date;
+
 public class NotifyRecord extends BasicDomain {
     private String uuid;
     private String notifyUrl;
@@ -75,5 +78,108 @@ public class NotifyRecord extends BasicDomain {
 
     public void setExternalSystemNotifyRequestBody(String externalSystemNotifyRequestBody) {
         this.externalSystemNotifyRequestBody = externalSystemNotifyRequestBody;
+    }
+
+    public static class Builder {
+        private final NotifyRecord instance = new NotifyRecord();
+
+        public Builder uuid(String uuid) {
+            instance.setUuid(uuid);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder alipayPublicKey(String alipayPublicKey) {
+            instance.setAlipayPublicKey(alipayPublicKey);
+            return this;
+        }
+
+        public Builder alipaySignType(String alipaySignType) {
+            instance.setAlipaySignType(alipaySignType);
+            return this;
+        }
+
+        public Builder weiXinPayApiSecretKey(String weiXinPayApiSecretKey) {
+            instance.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
+            return this;
+        }
+
+        public Builder weiXinPaySignType(String weiXinPaySignType) {
+            instance.setWeiXinPaySignType(weiXinPaySignType);
+            return this;
+        }
+
+        public Builder notifyResult(Integer notifyResult) {
+            instance.setNotifyResult(notifyResult);
+            return this;
+        }
+
+        public Builder externalSystemNotifyRequestBody(String externalSystemNotifyRequestBody) {
+            instance.setExternalSystemNotifyRequestBody(externalSystemNotifyRequestBody);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public NotifyRecord build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String UUID = "uuid";
+        public static final String NOTIFY_URL = "notify_url";
+        public static final String ALIPAY_PUBLIC_KEY = "alipay_public_key";
+        public static final String ALIPAY_SIGN_TYPE = "alipay_sign_type";
+        public static final String WEI_XIN_PAY_API_SECRET_KEY = "wei_xin_pay_api_secret_key";
+        public static final String WEI_XIN_PAY_SIGN_TYPE = "wei_xin_pay_sign_type";
+        public static final String NOTIFY_RESULT = "notify_result";
+        public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "external_system_notify_request_body";
     }
 }

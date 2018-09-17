@@ -3,6 +3,7 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class NewLandAccount extends BasicDomain {
     /**
@@ -76,5 +77,96 @@ public class NewLandAccount extends BasicDomain {
 
     public void setSecretKey(String secretKey) {
         this.secretKey = secretKey;
+    }
+
+    public static class Builder {
+        private final NewLandAccount instance = new NewLandAccount();
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder mchId(String mchId) {
+            instance.setMchId(mchId);
+            return this;
+        }
+
+        public Builder trmNo(String trmNo) {
+            instance.setTrmNo(trmNo);
+            return this;
+        }
+
+        public Builder orgNo(String orgNo) {
+            instance.setOrgNo(orgNo);
+            return this;
+        }
+
+        public Builder secretKey(String secretKey) {
+            instance.setSecretKey(secretKey);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public NewLandAccount build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String MCH_ID = "mch_id";
+        public static final String TRM_NO = "trm_no";
+        public static final String ORG_NO = "org_no";
+        public static final String SECRET_KEY = "secret_key";
     }
 }

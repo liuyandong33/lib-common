@@ -5,6 +5,7 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
 public class OrderDetail extends BasicDomain {
     /**
@@ -138,5 +139,126 @@ public class OrderDetail extends BasicDomain {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public static class Builder {
+        private final OrderDetail instance = new OrderDetail();
+
+        public Builder orderInfoId(BigInteger orderInfoId) {
+            instance.setOrderInfoId(orderInfoId);
+            return this;
+        }
+
+        public Builder goodsId(BigInteger goodsId) {
+            instance.setGoodsId(goodsId);
+            return this;
+        }
+
+        public Builder goodsName(String goodsName) {
+            instance.setGoodsName(goodsName);
+            return this;
+        }
+
+        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+            instance.setGoodsSpecificationId(goodsSpecificationId);
+            return this;
+        }
+
+        public Builder goodsSpecificationName(String goodsSpecificationName) {
+            instance.setGoodsSpecificationName(goodsSpecificationName);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            instance.setPrice(price);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder discountAmount(BigDecimal discountAmount) {
+            instance.setDiscountAmount(discountAmount);
+            return this;
+        }
+
+        public Builder payableAmount(BigDecimal payableAmount) {
+            instance.setPayableAmount(payableAmount);
+            return this;
+        }
+
+        public Builder quantity(Integer quantity) {
+            instance.setQuantity(quantity);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public OrderDetail build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String ORDER_INFO_ID = "order_info_id";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_NAME = "goods_name";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String GOODS_SPECIFICATION_NAME = "goods_specification_name";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String PRICE = "price";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String DISCOUNT_AMOUNT = "discount_amount";
+        public static final String PAYABLE_AMOUNT = "payable_amount";
+        public static final String QUANTITY = "quantity";
     }
 }

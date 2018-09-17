@@ -277,4 +277,20 @@ public class WeiXinPayAccount extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String APP_ID = "app_id";
+        public static final String MCH_ID = "mch_id";
+        public static final String API_SECRET_KEY = "api_secret_key";
+        public static final String SUB_PUBLIC_ACCOUNT_APP_ID = "sub_public_account_app_id";
+        public static final String SUB_OPEN_PLATFORM_APP_ID = "sub_open_platform_app_id";
+        public static final String SUB_MINI_PROGRAM_APP_ID = "sub_mini_program_app_id";
+        public static final String SUB_MCH_ID = "sub_mch_id";
+        public static final String OPERATION_CERTIFICATE = "operation_certificate";
+        public static final String OPERATION_CERTIFICATE_PASSWORD = "operation_certificate_password";
+        public static final String RSA_PUBLIC_KEY = "rsa_public_key";
+        public static final String ACCEPTANCE_MODEL = "acceptance_model";
+    }
 }
