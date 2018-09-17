@@ -242,7 +242,7 @@ public class RSAUtils {
             splits.add(ArrayUtils.subarray(data, index * length, (index + 1) * length));
         }
         if (data.length % length != 0) {
-            splits.add(ArrayUtils.subarray(data, count * length, data.length + 1));
+            splits.add(ArrayUtils.subarray(data, count * length, data.length));
         }
         return splits;
     }
