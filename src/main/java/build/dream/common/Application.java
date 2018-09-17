@@ -1,7 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.*;
+import build.dream.common.erp.catering.domains.Activity;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class Application {
     public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
-        Class<?> domainClass = WeiXinTemplateMessage.class;
+        Class<?> domainClass = Activity.class;
         Class<?> cloneDomainClass = domainClass;
 
         // 生成建造者模式代码

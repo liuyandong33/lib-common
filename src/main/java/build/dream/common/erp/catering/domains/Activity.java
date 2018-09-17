@@ -229,4 +229,17 @@ public class Activity extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String NAME = "name";
+        public static final String START_DATE = "start_date";
+        public static final String START_TIME = "start_time";
+        public static final String END_DATE = "end_date";
+        public static final String END_TIME = "end_time";
+        public static final String WEEK_SIGN = "week_sign";
+        public static final String TYPE = "type";
+        public static final String STATUS = "status";
+    }
 }
