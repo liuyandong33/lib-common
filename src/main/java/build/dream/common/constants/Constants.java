@@ -20,8 +20,10 @@ public class Constants {
      */
     public static final Charset CHARSET_UTF_8 = Charset.forName("UTF-8");
     public static final Charset CHARSET_GBK = Charset.forName("GBK");
+    public static final Charset CHARSET_ISO_8859_1 = Charset.forName("ISO-8859-1");
     public static final String CHARSET_NAME_UTF_8 = "UTF-8";
     public static final String CHARSET_NAME_GBK = "GBK";
+    public static final String CHARSET_NAME_ISO_8859_1 = "ISO-8859-1";
 
     public static final String FALSE = "false";
     public static final String TRUE = "true";
