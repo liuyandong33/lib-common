@@ -5,6 +5,7 @@ import build.dream.common.erp.catering.domains.*;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.*;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 
@@ -13,9 +14,12 @@ import java.math.BigDecimal;
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
         Class<?> domainClass = WeiXinMemberCard.class;
+
+        String sourcePath = "E:\\huaneng-workspace\\saas-common\\src\\main\\java\\" + domainClass.getName().replaceAll("\\.", "\\\\") + ".java";
+
         Class<?> cloneDomainClass = domainClass;
 
         // 生成建造者模式代码
@@ -44,6 +48,20 @@ public class Application {
         }
         stringBuilder.append("}");
         System.out.println(stringBuilder.toString());
+
+        File file = new File(sourcePath);
+        String fileContent = obtainFileContent(file);
+        FileWriter fileWriter = new FileWriter(file);
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+
+        printWriter.write(fileContent.substring(0, fileContent.lastIndexOf("}")));
+        printWriter.println(code.toString());
+        printWriter.println("public static Builder builder() {return new Builder();}");
+        printWriter.println(stringBuilder.toString());
+        printWriter.println("}");
+        printWriter.flush();
+        printWriter.close();
+        fileWriter.close();
 
         BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(Constants.BIG_DECIMAL_TEN.pow(30));
         System.out.println("太阳质量为：" + sunQuality + "kg");
@@ -163,5 +181,23 @@ public class Application {
                 array[innerIndex - 1] = temp;
             }
         }
+    }
+
+    private static String obtainFileContent(File file) throws IOException {
+        StringBuilder stringBuilder = new StringBuilder();
+        InputStream inputStream = new FileInputStream(file);
+        InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+        char[] buffer = new char[1024];
+        int length = -1;
+        while ((length = bufferedReader.read(buffer, 0, 1024)) != -1) {
+            stringBuilder.append(buffer, 0, length);
+        }
+
+        bufferedReader.close();
+        inputStreamReader.close();
+        inputStream.close();
+        return stringBuilder.toString();
     }
 }
