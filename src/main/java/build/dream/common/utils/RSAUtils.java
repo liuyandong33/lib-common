@@ -115,7 +115,7 @@ public class RSAUtils {
             RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
             List<byte[]> splits = splitData(data, rsaPublicKey.getModulus().bitLength() / 8 - 11);
 
-            byte[] encryptedData = new byte[0];
+            byte[] encryptedData = null;
             for (byte[] split : splits) {
                 encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
             }
@@ -152,7 +152,7 @@ public class RSAUtils {
 
             RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
             List<byte[]> splits = splitData(data, rsaPrivateKey.getModulus().bitLength() / 8 - 11);
-            byte[] encryptedData = new byte[0];
+            byte[] encryptedData = null;
             for (byte[] split : splits) {
                 encryptedData = ArrayUtils.addAll(encryptedData, cipher.doFinal(split));
             }
@@ -189,7 +189,7 @@ public class RSAUtils {
 
             RSAPublicKey rsaPublicKey = (RSAPublicKey) publicKey;
             List<byte[]> splits = splitData(encryptedData, rsaPublicKey.getModulus().bitLength() / 8);
-            byte[] data = new byte[0];
+            byte[] data = null;
             for (byte[] split : splits) {
                 data = ArrayUtils.addAll(data, cipher.doFinal(split));
             }
@@ -225,7 +225,7 @@ public class RSAUtils {
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) privateKey;
             List<byte[]> splits = splitData(encryptedData, rsaPrivateKey.getModulus().bitLength() / 8);
-            byte[] data = new byte[0];
+            byte[] data = null;
             for (byte[] split : splits) {
                 data = ArrayUtils.addAll(data, cipher.doFinal(split));
             }
