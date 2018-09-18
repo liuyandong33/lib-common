@@ -36,6 +36,7 @@ dependencyManagement {
 dependencies {
     compile("org.scala-lang:scala-library:2.12.5")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-mail")
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-redis")
 //    compile("org.springframework.session:spring-session-data-redis")
