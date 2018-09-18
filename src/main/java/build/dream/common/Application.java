@@ -1,7 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.erp.catering.domains.*;
+import build.dream.common.erp.catering.domains.WeiXinMemberCard;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -187,15 +187,13 @@ public class Application {
         StringBuilder stringBuilder = new StringBuilder();
         InputStream inputStream = new FileInputStream(file);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
         char[] buffer = new char[1024];
         int length = -1;
-        while ((length = bufferedReader.read(buffer, 0, 1024)) != -1) {
+        while ((length = inputStreamReader.read(buffer, 0, 1024)) != -1) {
             stringBuilder.append(buffer, 0, length);
         }
 
-        bufferedReader.close();
         inputStreamReader.close();
         inputStream.close();
         return stringBuilder.toString();
