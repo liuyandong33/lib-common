@@ -787,7 +787,8 @@ public class ApplicationHandler {
                 if (value == null && ArrayUtils.contains(Constants.BASIC_DATA_TYPES, propertyDescriptor.getPropertyType())) {
                     continue;
                 }
-                writeMethod.invoke(t, value);
+
+                ReflectionUtils.invokeMethod(writeMethod, t, value);
             }
             return t;
         } catch (Exception e) {
