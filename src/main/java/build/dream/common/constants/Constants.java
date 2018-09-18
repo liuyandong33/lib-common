@@ -657,4 +657,16 @@ public class Constants {
     public static final String ANUBIS_APP_ID = "anubis.app.id";
     public static final String ANUBIS_APP_SECRET = "anubis.app.secret";
     public static final String KEY_ANUBIS_TOKENS = "_anubis_tokens";
+
+    public static final String MAIL_SMTP_HOST = "mail.smtp.host";
+    public static final String MAIL_SMTP_PORT = "mail.smtp.port";
+    public static final String MAIL_SMTP_SSL_ENABLE = "mail.smtp.ssl.enable";
+    public static final String MAIL_SMTP_SSL_SOCKET_FACTORY = "mail.smtp.ssl.socketFactory";
+    public static final String MAIL_SMTP_SOCKET_FACTORY_CLASS = "mail.smtp.socketFactory.class";
+    public static final String MAIL_SMTP_SOCKET_FACTORY_PORT = "mail.smtp.socketFactory.port";
+    public static final String MAIL_TRANSPORT_PROTOCOL = "mail.transport.protocol";
+    public static final String MAIL_SMTP_TIMEOUT = "mail.smtp.timeout";
+    public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
+    public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
+    public static final String MAIL_SMTP_STARTTLS_REQUIRED = "mail.smtp.starttls.required";
 }
