@@ -16,17 +16,6 @@ public class BasicDomain implements Serializable {
     private Date deleteTime = Constants.DATETIME_DEFAULT_VALUE;
     private boolean deleted;
 
-    protected static class ColumnName {
-        public static final String ID = "id";
-        public static final String CREATE_TIME = "id";
-        public static final String CREATE_USER_ID = "create_User_Id";
-        public static final String LAST_UPDATE_TIME = "last_Update_Time";
-        public static final String LAST_UPDATE_USER_ID = "last_Update_User_Id";
-        public static final String LAST_UPDATE_REMARK = "last_Update_Remark";
-        public static final String DELETE_TIME = "delete_Time";
-        public static final String DELETED = "deleted";
-    }
-
     public BigInteger getId() {
         return id;
     }
@@ -89,5 +78,16 @@ public class BasicDomain implements Serializable {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    protected static class ColumnName {
+        public static final String ID = "id";
+        public static final String CREATE_TIME = "id";
+        public static final String CREATE_USER_ID = "create_user_id";
+        public static final String LAST_UPDATE_TIME = "last_update_time";
+        public static final String LAST_UPDATE_USER_ID = "last_update_user_id";
+        public static final String LAST_UPDATE_REMARK = "last_update_remark";
+        public static final String DELETE_TIME = "delete_time";
+        public static final String DELETED = "deleted";
     }
 }
