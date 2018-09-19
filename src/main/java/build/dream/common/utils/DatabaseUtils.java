@@ -25,6 +25,7 @@ public class DatabaseUtils {
     private static final Map<String, String> DOMAIN_CLASS_NAME_SELECT_SQL_MAP = new ConcurrentHashMap<String, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
+    private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
 
     public static String generateInsertSql(String domainClassName) {
         return generateInsertSql(domainClassName, null);
@@ -333,13 +334,18 @@ public class DatabaseUtils {
     }
 
     public static String obtainTableName(Class<?> domainClass) {
-        Table table = AnnotationUtils.findAnnotation(domainClass, Table.class);
-        if (table != null) {
-            return table.name();
-        } else {
-            String simpleName = domainClass.getSimpleName();
-            return NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
+        String tableName = DOMAIN_CLASS_TABLE_NAME_MAP.get(domainClass);
+        if (StringUtils.isBlank(tableName)) {
+            Table table = AnnotationUtils.findAnnotation(domainClass, Table.class);
+            if (table != null) {
+                tableName = table.name();
+            } else {
+                String simpleName = domainClass.getSimpleName();
+                tableName = NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
+            }
+            DOMAIN_CLASS_TABLE_NAME_MAP.put(domainClass, tableName);
         }
+        return tableName;
     }
 
     public static String obtainWhereClause(String sqlFragment) {
