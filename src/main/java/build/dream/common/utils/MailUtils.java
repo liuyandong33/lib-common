@@ -11,7 +11,6 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.InputStream;
-import java.net.InetAddress;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
 
@@ -72,15 +71,22 @@ public class MailUtils {
 
         Folder folder = store.getFolder("INBOX");
         folder.open(Folder.READ_ONLY);
-        System.out.println("未读邮件数: " + folder.getNewMessageCount());
 
-        Message[] messages = folder.getMessages(1, 100);
+        int messageCount = folder.getMessageCount();
+
+        Message[] messages = folder.getMessages(messageCount - 10, messageCount);
         for (Message message : messages) {
-            Address[] addresses = message.getFrom();
+            MimeMessage mimeMessage = (MimeMessage) message;
+
+            Address[] addresses = mimeMessage.getFrom();
             InternetAddress internetAddress = (InternetAddress) addresses[0];
             String address = internetAddress.getAddress();
+            String messageId = mimeMessage.getMessageID();
             System.out.println(address);
+            System.out.println(messageId);
         }
-        int a = 100;
+
+        folder.close();
+        store.close();
     }
 }
