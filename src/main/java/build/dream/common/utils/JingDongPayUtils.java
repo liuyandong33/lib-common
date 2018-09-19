@@ -72,7 +72,7 @@ public class JingDongPayUtils {
         return callJingDongApi(url, ApplicationHandler.toMap(uniOrderModel));
     }
 
-    public static JSONObject fkmPay(FkmPayModel fkmPayModel) {
+    public static Map<String, Object> fkmPay(FkmPayModel fkmPayModel) {
         return null;
     }
 

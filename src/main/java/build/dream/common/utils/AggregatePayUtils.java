@@ -9,10 +9,11 @@ import org.dom4j.DocumentException;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Map;
 
 public class AggregatePayUtils {
-    public static JSONObject scanCodePay(String tenantId, String branchId, int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws IOException, DocumentException {
-        JSONObject result = null;
+    public static Map<String, ? extends Object> scanCodePay(String tenantId, String branchId, int channelType, String outTradeNo, String authCode, String subject, int totalAmount, String notifyUrl, String ipAddress) throws IOException, DocumentException {
+        Map<String, ? extends Object> result = null;
         if (channelType == Constants.CHANNEL_TYPE_WEI_XIN) {
             AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
             alipayTradePayModel.setOutTradeNo(outTradeNo);
@@ -30,7 +31,7 @@ public class AggregatePayUtils {
             microPayModel.setTotalFee(totalAmount);
             microPayModel.setSpbillCreateIp(ipAddress);
             microPayModel.setAuthCode(authCode);
-            result = JSONObject.fromObject(WeiXinPayUtils.microPay(tenantId, branchId, microPayModel));
+            result = WeiXinPayUtils.microPay(tenantId, branchId, microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {
             FkmPayModel fkmPayModel = new FkmPayModel();
             result = JingDongPayUtils.fkmPay(fkmPayModel);

@@ -6,17 +6,13 @@ import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
 import build.dream.common.models.alipay.*;
 import build.dream.common.saas.domains.AlipayAccount;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
-import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -87,31 +83,31 @@ public class AlipayUtils {
         return webResponse.getResult();
     }
 
-    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
+    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
         String requestBody = buildRequestBody(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
 
         String result = callAlipayApi(requestBody);
 
-        JSONObject resultJsonObject = JSONObject.fromObject(result);
-        JSONObject responseJsonObject = resultJsonObject.getJSONObject(method.replaceAll("\\.", "_") + "_response");
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        Map<String, Object> responseMap = MapUtils.getMap(resultMap, method.replaceAll("\\.", "_") + "_response");
 
-        ValidateUtils.isTrue(verifySign(responseJsonObject.toString(), alipayAccount.getSignType(), resultJsonObject.getString("sign"), charset, alipayAccount.getAlipayPublicKey()), "支付宝返回结果签名验证未通过！");
+        ValidateUtils.isTrue(verifySign(GsonUtils.toJson(responseMap), alipayAccount.getSignType(), MapUtils.getString(resultMap, "sign"), charset, alipayAccount.getAlipayPublicKey()), "支付宝返回结果签名验证未通过！");
 
-        String code = responseJsonObject.getString("code");
-        String msg = responseJsonObject.getString("msg");
+        String code = MapUtils.getString(responseMap, "code");
+        String msg = MapUtils.getString(responseMap, "msg");
         ValidateUtils.isTrue("10000".equals(code), msg);
 
-        if (responseJsonObject.has("sub_code")) {
-            ValidateUtils.isTrue(false, responseJsonObject.getString("sub_msg"));
+        if (responseMap.containsKey("sub_code")) {
+            ValidateUtils.isTrue(false, MapUtils.getString(responseMap, "sub_msg"));
         }
-        return responseJsonObject;
+        return responseMap;
     }
 
-    public static JSONObject callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
+    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String appAuthToken, String bizContent) throws IOException {
         return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static JSONObject alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) {
+    public static Map<String, Object> alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) {
         try {
             alipayTradePayModel.validateAndThrow();
             AlipayAccount alipayAccount = null;
@@ -137,7 +133,7 @@ public class AlipayUtils {
         }
     }
 
-    public static JSONObject alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) {
+    public static Map<String, Object> alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) {
         try {
             alipayTradePagePayModel.validateAndThrow();
             AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
@@ -147,7 +143,7 @@ public class AlipayUtils {
         }
     }
 
-    public static JSONObject alipayTradeRefund(String tenantId, String branchId, String appAuthToken, AlipayTradeRefundModel alipayTradeRefundModel) {
+    public static Map<String, Object> alipayTradeRefund(String tenantId, String branchId, String appAuthToken, AlipayTradeRefundModel alipayTradeRefundModel) {
         try {
             alipayTradeRefundModel.validateAndThrow();
             AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
@@ -173,7 +169,7 @@ public class AlipayUtils {
         return alipayAccount;
     }
 
-    public static JSONObject alipayOfflineMarketShopCreate(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
+    public static Map<String, Object> alipayOfflineMarketShopCreate(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
         try {
             alipayOfflineMarketShopCreateModel.validateAndThrow();
             AlipayAccount alipayAccount = null;
@@ -190,7 +186,7 @@ public class AlipayUtils {
         }
     }
 
-    public static JSONObject alipayOfflineMaterialImageUpload(String tenantId, String branchId, String appAuthToken, AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
+    public static Map<String, Object> alipayOfflineMaterialImageUpload(String tenantId, String branchId, String appAuthToken, AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
         try {
             AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
             ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
@@ -209,7 +205,7 @@ public class AlipayUtils {
         return appToAppAuthorizeUrl + "?app_id=" + alipayAccount.getAppId() + "&redirect_uri=" + URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static JSONObject alipayOpenAuthTokenApp(String tenantId, String branchId, AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel) {
+    public static Map<String, Object> alipayOpenAuthTokenApp(String tenantId, String branchId, AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel) {
         try {
             AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
             ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
