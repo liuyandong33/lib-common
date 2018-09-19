@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.annotations.Column;
 import build.dream.common.annotations.Table;
 import build.dream.common.annotations.Transient;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -23,6 +24,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_UPDATE_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<String, String> DOMAIN_CLASS_NAME_SELECT_SQL_MAP = new ConcurrentHashMap<String, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
+    private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
 
     public static String generateInsertSql(String domainClassName) {
         return generateInsertSql(domainClassName, null);
@@ -291,6 +293,15 @@ public class DatabaseUtils {
     }
 
     public static List<String> obtainAllAlias(Class<?> domainClass) {
+        List<String> alias = DOMAIN_CLASS_ALIAS_MAP.get(domainClass);
+        if (CollectionUtils.isEmpty(alias)) {
+            alias = doObtainAllAlias(domainClass);
+            DOMAIN_CLASS_ALIAS_MAP.put(domainClass, alias);
+        }
+        return alias;
+    }
+
+    private static List<String> doObtainAllAlias(Class<?> domainClass) {
         List<String> alias = new ArrayList<String>();
         while (domainClass != Object.class) {
             Field[] fields = domainClass.getDeclaredFields();
