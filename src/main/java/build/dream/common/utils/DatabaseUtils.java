@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.annotations.Column;
 import build.dream.common.annotations.Table;
 import build.dream.common.annotations.Transient;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
@@ -10,20 +11,36 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseUtils {
+    private static final Map<String, String> DOMAIN_CLASS_NAME_INSERT_SQL_MAP = new ConcurrentHashMap<String, String>();
+    private static final Map<Class<?>, String> DOMAIN_CLASS_INSERT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
+    private static final Map<String, String[]> DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP = new ConcurrentHashMap<String, String[]>();
+    private static final Map<Class<?>, String[]> DOMAIN_CLASS_INSERT_ALL_SQL_MAP = new ConcurrentHashMap<Class<?>, String[]>();
+    private static final Map<String, String> DOMAIN_CLASS_NAME_UPDATE_SQL_MAP = new ConcurrentHashMap<String, String>();
+    private static final Map<Class<?>, String> DOMAIN_CLASS_UPDATE_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
+    private static final Map<String, String> DOMAIN_CLASS_NAME_SELECT_SQL_MAP = new ConcurrentHashMap<String, String>();
+    private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
+
     public static String generateInsertSql(String domainClassName) {
         return generateInsertSql(domainClassName, null);
     }
 
     public static String generateInsertSql(String domainClassName, String tableName) {
-        Class<?> domainClass = null;
-        try {
-            domainClass = Class.forName(domainClassName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        String insertSql = DOMAIN_CLASS_NAME_INSERT_SQL_MAP.get(domainClassName);
+        if (StringUtils.isBlank(insertSql)) {
+            Class<?> domainClass = null;
+            try {
+                domainClass = Class.forName(domainClassName);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            insertSql = doGenerateInsertSql(domainClass, tableName);
+            DOMAIN_CLASS_NAME_INSERT_SQL_MAP.put(domainClassName, insertSql);
         }
-        return generateInsertSql(domainClass, tableName);
+        return insertSql;
     }
 
     public static String generateInsertSql(Class<?> domainClass) {
@@ -31,6 +48,15 @@ public class DatabaseUtils {
     }
 
     public static String generateInsertSql(Class<?> domainClass, String tableName) {
+        String insertSql = DOMAIN_CLASS_INSERT_SQL_MAP.get(domainClass);
+        if (StringUtils.isBlank(insertSql)) {
+            insertSql = doGenerateInsertSql(domainClass, tableName);
+            DOMAIN_CLASS_INSERT_SQL_MAP.put(domainClass, insertSql);
+        }
+        return insertSql;
+    }
+
+    public static String doGenerateInsertSql(Class<?> domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
@@ -71,33 +97,46 @@ public class DatabaseUtils {
         return insertSql.toString();
     }
 
-    public static String[] generateInsertAllSql(String className) {
-        return generateInsertAllSql(className, null);
+    public static String[] generateInsertAllSql(String domainClassName) {
+        return generateInsertAllSql(domainClassName, null);
     }
 
-    public static String[] generateInsertAllSql(String className, String tableName) {
-        Class<?> domainClass = null;
-        try {
-            domainClass = Class.forName(className);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+    public static String[] generateInsertAllSql(String domainClassName, String tableName) {
+        String[] insertAllSql = DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP.get(domainClassName);
+        if (ArrayUtils.isEmpty(insertAllSql)) {
+            Class<?> domainClass = null;
+            try {
+                domainClass = Class.forName(domainClassName);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            insertAllSql = doGenerateInsertAllSql(domainClass, tableName);
         }
-        return generateInsertAllSql(domainClass, tableName);
+        return insertAllSql;
     }
 
     public static String[] generateInsertAllSql(List<?> domains) {
         return generateInsertAllSql(domains.get(0).getClass(), null);
     }
 
-    public static String[] generateInsertAllSql(List<?> domains, String tableName) {
-        return generateInsertAllSql(domains.get(0).getClass(), tableName);
-    }
-
     public static String[] generateInsertAllSql(Class<?> domainClass) {
         return generateInsertAllSql(domainClass, null);
     }
 
+    public static String[] generateInsertAllSql(List<?> domains, String tableName) {
+        return generateInsertAllSql(domains.get(0).getClass(), tableName);
+    }
+
     public static String[] generateInsertAllSql(Class<?> domainClass, String tableName) {
+        String[] insertAllSql = DOMAIN_CLASS_INSERT_ALL_SQL_MAP.get(domainClass);
+        if (ArrayUtils.isEmpty(insertAllSql)) {
+            insertAllSql = doGenerateInsertAllSql(domainClass, tableName);
+            DOMAIN_CLASS_INSERT_ALL_SQL_MAP.put(domainClass, insertAllSql);
+        }
+        return insertAllSql;
+    }
+
+    private static String[] doGenerateInsertAllSql(Class<?> domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
@@ -143,13 +182,18 @@ public class DatabaseUtils {
     }
 
     public static String generateUpdateSql(String domainClassName, String tableName) {
-        Class<?> domainClass = null;
-        try {
-            domainClass = Class.forName(domainClassName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        String updateSql = DOMAIN_CLASS_NAME_UPDATE_SQL_MAP.get(domainClassName);
+        if (StringUtils.isBlank(updateSql)) {
+            Class<?> domainClass = null;
+            try {
+                domainClass = Class.forName(domainClassName);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            updateSql = generateUpdateSql(domainClass, tableName);
+            DOMAIN_CLASS_NAME_UPDATE_SQL_MAP.put(domainClassName, updateSql);
         }
-        return generateUpdateSql(domainClass, tableName);
+        return updateSql;
     }
 
     public static String generateUpdateSql(Class<?> domainClass) {
@@ -157,6 +201,15 @@ public class DatabaseUtils {
     }
 
     public static String generateUpdateSql(Class<?> domainClass, String tableName) {
+        String updateSql = DOMAIN_CLASS_UPDATE_SQL_MAP.get(domainClass);
+        if (StringUtils.isBlank(updateSql)) {
+            updateSql = doGenerateUpdateSql(domainClass, tableName);
+            DOMAIN_CLASS_UPDATE_SQL_MAP.put(domainClass, updateSql);
+        }
+        return updateSql;
+    }
+
+    private static String doGenerateUpdateSql(Class<?> domainClass, String tableName) {
         StringBuilder updateSql = new StringBuilder("UPDATE ");
         updateSql.append(obtainTableName(tableName, domainClass));
         updateSql.append(" SET ");
@@ -199,13 +252,18 @@ public class DatabaseUtils {
     }
 
     public static String generateSelectSql(String domainClassName, String tableName) {
-        Class<?> domainClass = null;
-        try {
-            domainClass = Class.forName(domainClassName);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        String selectSql = DOMAIN_CLASS_NAME_SELECT_SQL_MAP.get(domainClassName);
+        if (StringUtils.isBlank(selectSql)) {
+            Class<?> domainClass = null;
+            try {
+                domainClass = Class.forName(domainClassName);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            selectSql = doGenerateSelectSql(domainClass, tableName);
+            DOMAIN_CLASS_NAME_SELECT_SQL_MAP.put(domainClassName, selectSql);
         }
-        return generateSelectSql(domainClass, tableName);
+        return selectSql;
     }
 
     public static String generateSelectSql(Class<?> domainClass) {
@@ -213,13 +271,21 @@ public class DatabaseUtils {
     }
 
     public static String generateSelectSql(Class<?> domainClass, String tableName) {
-        tableName = obtainTableName(tableName, domainClass);
+        String selectSql = DOMAIN_CLASS_SELECT_SQL_MAP.get(domainClass);
+        if (StringUtils.isBlank(selectSql)) {
+            selectSql = doGenerateSelectSql(domainClass, tableName);
+            DOMAIN_CLASS_SELECT_SQL_MAP.put(domainClass, selectSql);
+        }
+        return selectSql;
+    }
+
+    private static String doGenerateSelectSql(Class<?> domainClass, String tableName) {
         List<String> alias = obtainAllAlias(domainClass);
 
         StringBuilder selectSql = new StringBuilder("SELECT ");
         selectSql.append(StringUtils.join(alias, ", "));
         selectSql.append(" FROM ");
-        selectSql.append(tableName);
+        selectSql.append(obtainTableName(tableName, domainClass));
         return selectSql.toString();
     }
 
@@ -235,11 +301,9 @@ public class DatabaseUtils {
                 String fieldName = field.getName();
 
                 String underscoreName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
-                String columnName = null;
                 Column column = field.getAnnotation(Column.class);
                 if (column != null) {
-                    columnName = column.name();
-                    alias.add(columnName + " AS " + underscoreName);
+                    alias.add(column.name() + " AS " + underscoreName);
                 } else {
                     alias.add(underscoreName);
                 }
