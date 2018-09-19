@@ -111,6 +111,7 @@ public class DatabaseUtils {
                 throw new RuntimeException(e);
             }
             insertAllSql = doGenerateInsertAllSql(domainClass, tableName);
+            DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP.put(domainClassName, insertAllSql);
         }
         return insertAllSql;
     }
@@ -190,7 +191,7 @@ public class DatabaseUtils {
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            updateSql = generateUpdateSql(domainClass, tableName);
+            updateSql = doGenerateUpdateSql(domainClass, tableName);
             DOMAIN_CLASS_NAME_UPDATE_SQL_MAP.put(domainClassName, updateSql);
         }
         return updateSql;
