@@ -13,7 +13,6 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -437,19 +436,19 @@ public class WebUtils {
         return StringUtils.join(requestParameterPairs, "&");
     }
 
-    public static String buildQueryString(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
+    public static String buildQueryString(Map<String, String> requestParameters, String charsetName) {
         return concat(requestParameters, charsetName);
     }
 
-    public static String buildRequestBody(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+    public static String buildRequestBody(Map<String, String> requestParameters) {
         return concat(requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String buildRequestBody(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
+    public static String buildRequestBody(Map<String, String> requestParameters, String charsetName) {
         return concat(requestParameters, charsetName);
     }
 
-    public static String concat(Map<String, String> requestParameters, String charsetName) throws UnsupportedEncodingException {
+    public static String concat(Map<String, String> requestParameters, String charsetName) {
         List<String> requestParameterPairs = new ArrayList<String>();
         Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
         for (Map.Entry<String, String> entry : entries) {
@@ -458,7 +457,7 @@ public class WebUtils {
             if (StringUtils.isBlank(value)) {
                 requestParameterPairs.add(key + "=");
             } else {
-                requestParameterPairs.add(key + "=" + URLEncoder.encode(value, charsetName));
+                requestParameterPairs.add(key + "=" + UrlUtils.encode(value, charsetName));
             }
         }
         return StringUtils.join(requestParameterPairs, "&");
