@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
 //        generateCode(WeiXinMemberCard.class);
 //        test();
