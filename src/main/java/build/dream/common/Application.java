@@ -17,7 +17,7 @@ public class Application {
 //        SpringApplication.run(Application.class, args);
 //        generateCode(WeiXinMemberCard.class);
 //        test();
-        testSort();
+//        testSort();
     }
 
     public static void printArray(int array[]) {
