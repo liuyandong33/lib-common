@@ -76,9 +76,9 @@ public class Constants {
 
     /**
      * 门店类型常量
-     * BRANCH_TYPE_HEADQUARTERS: 总部
-     * BRANCH_TYPE_DIRECT_SALE_STORE: 直营店
-     * BRANCH_TYPE_FRANCHISE_STORE: 加盟店
+     * @see #BRANCH_TYPE_HEADQUARTERS: 总部
+     * @see #BRANCH_TYPE_DIRECT_SALE_STORE: 直营店
+     * @see #BRANCH_TYPE_FRANCHISE_STORE: 加盟店
      */
     public static final Integer BRANCH_TYPE_HEADQUARTERS = 1;
     public static final Integer BRANCH_TYPE_DIRECT_SALE_STORE = 2;
@@ -86,8 +86,8 @@ public class Constants {
 
     /**
      * 门店状态常量
-     * BRANCH_STATUS_ENABLED: 启用
-     * BRANCH_STATUS_DISABLED: 禁用
+     * @see #BRANCH_STATUS_ENABLED: 启用
+     * @see #BRANCH_STATUS_DISABLED: 禁用
      */
     public static final Integer BRANCH_STATUS_ENABLED = 1;
     public static final Integer BRANCH_STATUS_DISABLED = 2;
@@ -182,14 +182,14 @@ public class Constants {
 
     /**
      * 美团回调类型
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE: 订单生效
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL: 订单取消
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_REFUND: 订单退款
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_CONFIRM: 订单确认
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_SETTLED: 订单完成
-     * MEI_TUAN_CALLBACK_TYPE_ORDER_SHIPPING_STATUS:
-     * MEI_TUAN_CALLBACK_TYPE_POI_STATUS: 门店状态变化
-     * MEI_TUAN_CALLBACK_TYPE_BINDING_STORE:
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE: 订单生效
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL: 订单取消
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_REFUND: 订单退款
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_CONFIRM: 订单确认
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_SETTLED: 订单完成
+     * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_SHIPPING_STATUS:
+     * @see #MEI_TUAN_CALLBACK_TYPE_POI_STATUS: 门店状态变化
+     * @see #MEI_TUAN_CALLBACK_TYPE_BINDING_STORE:
      */
     public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE = 1;
     public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL = 2;
@@ -202,19 +202,20 @@ public class Constants {
 
     /**
      * 饿了么账号类型
-     * ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT: 连锁账号
-     * ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT: 独立账号
+     * @see #ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT: 连锁账号
+     * @see #ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT: 独立账号
      */
     public static final Integer ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT = 1;
     public static final Integer ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT = 2;
 
     /**
      * 支付账号Redis key
-     * KEY_WEI_XIN_PAY_ACCOUNTS: 微信支付账号
-     * KEY_ALIPAY_ACCOUNTS: 支付宝账号
-     * KEY_UM_PAY_ACCOUNTS: 联动支付账号
-     * KEY_BANK_ACCOUNTS: 银行账号
-     * KEY_MIYA_ACCOUNTS: 米雅账号
+     * @see #KEY_WEI_XIN_PAY_ACCOUNTS: 微信支付账号
+     * @see #KEY_ALIPAY_ACCOUNTS: 支付宝账号
+     * @see #KEY_UM_PAY_ACCOUNTS: 联动支付账号
+     * @see #KEY_BANK_ACCOUNTS: 银行账号
+     * @see #KEY_MIYA_ACCOUNTS: 米雅账号
+     * @see #KEY_NEW_LAND_ACCOUNTS: 新大陆账号
      */
     public static final String KEY_WEI_XIN_PAY_ACCOUNTS = "_wei_xin_pay_accounts";
     public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
@@ -249,16 +250,16 @@ public class Constants {
 
     /**
      * 商品类型
-     * GOODS_STATUS_NORMAL: 正常
-     * GOODS_STATUS_STOP_SALE: 停售
+     * @see #GOODS_STATUS_NORMAL: 正常
+     * @see #GOODS_STATUS_STOP_SALE: 停售
      */
     public static final Integer GOODS_STATUS_NORMAL = 1;
     public static final Integer GOODS_STATUS_STOP_SALE = 2;
 
     /**
      * 商品计量类型
-     * GOODS_METERING_MODE_BY_TIME: 按时间
-     * GOODS_METERING_MODE_BY_QUANTITY: 按数量
+     * @see #GOODS_METERING_MODE_BY_TIME: 按时间
+     * @see #GOODS_METERING_MODE_BY_QUANTITY: 按数量
      */
     public static final Integer GOODS_METERING_MODE_BY_TIME = 1;
     public static final Integer GOODS_METERING_MODE_BY_QUANTITY = 2;
@@ -286,8 +287,8 @@ public class Constants {
 
     /**
      * 智慧餐厅状态
-     * SMART_RESTAURANT_STATUS_NORMAL: 正常
-     * SMART_RESTAURANT_STATUS_DISABLED: 禁用
+     * @see #SMART_RESTAURANT_STATUS_NORMAL: 正常
+     * @see #SMART_RESTAURANT_STATUS_DISABLED: 禁用
      */
     public static final Integer SMART_RESTAURANT_STATUS_NORMAL = 1;
     public static final Integer SMART_RESTAURANT_STATUS_DISABLED = 2;
@@ -315,9 +316,9 @@ public class Constants {
 
     /**
      * 支付渠道常量
-     * CHANNEL_TYPE_WEI_XIN: 微信支付
-     * CHANNEL_TYPE_ALIPAY: 支付宝支付
-     * CHANNEL_TYPE_JING_DONG: 京东支付
+     * @see #CHANNEL_TYPE_WEI_XIN: 微信支付
+     * @see #CHANNEL_TYPE_ALIPAY: 支付宝支付
+     * @see #CHANNEL_TYPE_JING_DONG: 京东支付
      */
     public static final int CHANNEL_TYPE_WEI_XIN = 1;
     public static final int CHANNEL_TYPE_ALIPAY = 2;
@@ -630,16 +631,16 @@ public class Constants {
 
     /**
      * 微信授权类型常量
-     * AUTHORIZER_TYPE_PUBLIC_ACCOUNT: 微信公众号
-     * AUTHORIZER_TYPE_MINI_PROGRAM: 微信小程序
+     * @see #AUTHORIZER_TYPE_PUBLIC_ACCOUNT: 微信公众号
+     * @see #AUTHORIZER_TYPE_MINI_PROGRAM: 微信小程序
      */
     public static final Integer AUTHORIZER_TYPE_PUBLIC_ACCOUNT = 1;
     public static final Integer AUTHORIZER_TYPE_MINI_PROGRAM = 2;
 
     /**
      * 获取微信信息的身份类型
-     * IDENTITY_TYPE_PUBLIC_ACCOUNT: 微信公众号
-     * IDENTITY_TYPE_THIRD_PARTY_APPLICATION: 第三方应用
+     * @see #IDENTITY_TYPE_PUBLIC_ACCOUNT: 微信公众号
+     * @see #IDENTITY_TYPE_THIRD_PARTY_APPLICATION: 第三方应用
      */
     public static final Integer IDENTITY_TYPE_PUBLIC_ACCOUNT = 1;
     public static final Integer IDENTITY_TYPE_THIRD_PARTY_APPLICATION = 2;
