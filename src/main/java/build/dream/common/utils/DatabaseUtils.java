@@ -68,9 +68,14 @@ public class DatabaseUtils {
             Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                     continue;
                 }
+
+                if (field.getAnnotation(Transient.class) != null) {
+                    continue;
+                }
+
                 String fieldName = field.getName();
                 if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleteTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
@@ -149,9 +154,14 @@ public class DatabaseUtils {
             Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                     continue;
                 }
+
+                if (field.getAnnotation(Transient.class) != null) {
+                    continue;
+                }
+
                 String fieldName = field.getName();
                 if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
@@ -221,9 +231,14 @@ public class DatabaseUtils {
             Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                     continue;
                 }
+
+                if (field.getAnnotation(Transient.class) != null) {
+                    continue;
+                }
+
                 String fieldName = field.getName();
                 if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
                     continue;
@@ -308,9 +323,14 @@ public class DatabaseUtils {
             Field[] fields = domainClass.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
-                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers) || field.getAnnotation(Transient.class) != null) {
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                     continue;
                 }
+
+                if (field.getAnnotation(Transient.class) != null) {
+                    continue;
+                }
+
                 String fieldName = field.getName();
 
                 String underscoreName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
