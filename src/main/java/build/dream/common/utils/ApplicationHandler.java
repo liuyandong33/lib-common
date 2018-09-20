@@ -724,6 +724,28 @@ public class ApplicationHandler {
         return (HandlerMethod) getHttpServletRequest().getAttribute(Constants.HANDLER_METHOD);
     }
 
+    public static <T> T obtainSessionAttribute(String name) {
+        return obtainSessionAttribute(getHttpSession(), name);
+    }
+
+    public static <T> T obtainSessionAttribute(HttpSession httpSession, String name) {
+        return (T) httpSession.getAttribute(name);
+    }
+
+    public static Map<String, Object> obtainAllSessionAttributes() {
+        return obtainAllSessionAttributes(getHttpSession());
+    }
+
+    public static Map<String, Object> obtainAllSessionAttributes(HttpSession httpSession) {
+        Enumeration<String> attributeNames = httpSession.getAttributeNames();
+        Map<String, Object> attributesMap = new HashMap<String, Object>();
+        while (attributeNames.hasMoreElements()) {
+            String attributeName = attributeNames.nextElement();
+            attributesMap.put(attributeName, httpSession.getAttribute(attributeName));
+        }
+        return attributesMap;
+    }
+
     public static String callMethod(MethodCaller methodCaller, String errorMessage, Map<String, String> requestParameters) {
         String controllerClassName = null;
         String actionMethodName = null;
