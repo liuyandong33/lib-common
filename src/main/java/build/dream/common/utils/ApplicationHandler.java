@@ -746,6 +746,24 @@ public class ApplicationHandler {
         return attributesMap;
     }
 
+    public static void setSessionAttribute(String name, String value) {
+        setSessionAttribute(getHttpSession(), name, value);
+    }
+
+    public static void setSessionAttribute(HttpSession httpSession, String name, String value) {
+        httpSession.setAttribute(name, value);
+    }
+
+    public static void setSessionAttributes(Map<String, Object> attributes) {
+        setSessionAttributes(getHttpSession(), attributes);
+    }
+
+    public static void setSessionAttributes(HttpSession httpSession, Map<String, Object> attributes) {
+        for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
+            httpSession.setAttribute(attribute.getKey(), attribute.getValue());
+        }
+    }
+
     public static String callMethod(MethodCaller methodCaller, String errorMessage, Map<String, String> requestParameters) {
         String controllerClassName = null;
         String actionMethodName = null;
