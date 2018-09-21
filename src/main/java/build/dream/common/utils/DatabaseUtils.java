@@ -59,7 +59,7 @@ public class DatabaseUtils {
         return insertSql;
     }
 
-    public static String doGenerateInsertSql(Class<?> domainClass, String tableName) {
+    private static String doGenerateInsertSql(Class<?> domainClass, String tableName) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
