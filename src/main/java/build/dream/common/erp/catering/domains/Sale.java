@@ -220,4 +220,16 @@ public class Sale extends BasicDomain {
         public static final String PAYABLE_AMOUNT = "payable_amount";
         public static final String PAID_AMOUNT = "paid_amount";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String SALE_CODE = "saleCode";
+        public static final String SALE_TIME = "saleTime";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String DISCOUNT_AMOUNT = "discountAmount";
+        public static final String PAYABLE_AMOUNT = "payableAmount";
+        public static final String PAID_AMOUNT = "paidAmount";
+    }
 }

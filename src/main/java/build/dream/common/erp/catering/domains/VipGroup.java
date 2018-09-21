@@ -115,4 +115,10 @@ public class VipGroup extends BasicDomain {
         public static final String TENANT_CODE = "tenant_code";
         public static final String NAME = "name";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String NAME = "name";
+    }
 }

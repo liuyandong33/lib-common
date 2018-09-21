@@ -65,4 +65,10 @@ public class BackgroundRole extends BasicDomain {
         public static final String ROLE_CODE = "role_code";
         public static final String ROLE_NAME = "role_name";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String ROLE_CODE = "roleCode";
+        public static final String ROLE_NAME = "roleName";
+    }
 }

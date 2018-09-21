@@ -166,4 +166,14 @@ public class ElemeAuthorizedTenant extends BasicDomain {
         public static final String TOKEN_TYPE = "token_type";
         public static final String FETCH_TOKEN_TIME = "fetch_token_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ACCESS_TOKEN = "accessToken";
+        public static final String REFRESH_TOKEN = "refreshToken";
+        public static final String EXPIRES_IN = "expiresIn";
+        public static final String TOKEN_TYPE = "tokenType";
+        public static final String FETCH_TOKEN_TIME = "fetchTokenTime";
+    }
 }

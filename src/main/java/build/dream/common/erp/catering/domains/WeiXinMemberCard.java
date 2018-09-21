@@ -151,4 +151,12 @@ public class WeiXinMemberCard extends BasicDomain {
         public static final String URL = "url";
         public static final String SHOW_QR_CODE_URL = "show_qr_code_url";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String APP_ID = "appId";
+        public static final String CARD_ID = "cardId";
+        public static final String URL = "url";
+        public static final String SHOW_QR_CODE_URL = "showQrCodeUrl";
+    }
 }

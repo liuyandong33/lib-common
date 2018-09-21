@@ -165,4 +165,13 @@ public class GoodsCategory extends BasicDomain {
         public static final String DESCRIPTION = "description";
         public static final String PARENT_ID = "parent_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String NAME = "name";
+        public static final String DESCRIPTION = "description";
+        public static final String PARENT_ID = "parentId";
+    }
 }

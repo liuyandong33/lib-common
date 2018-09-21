@@ -223,4 +223,16 @@ public class BuyGiveActivity extends BasicDomain {
         public static final String GIVE_GOODS_SPECIFICATION_ID = "give_goods_specification_id";
         public static final String GIVE_QUANTITY = "give_quantity";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String ACTIVITY_ID = "activityId";
+        public static final String BUY_GOODS_ID = "buyGoodsId";
+        public static final String BUY_GOODS_SPECIFICATION_ID = "buyGoodsSpecificationId";
+        public static final String BUY_QUANTITY = "buyQuantity";
+        public static final String GIVE_GOODS_ID = "giveGoodsId";
+        public static final String GIVE_GOODS_SPECIFICATION_ID = "giveGoodsSpecificationId";
+        public static final String GIVE_QUANTITY = "giveQuantity";
+    }
 }

@@ -189,4 +189,14 @@ public class GoodsSpecification extends BasicDomain {
         public static final String TENANT_PRICE = "tenant_price";
         public static final String AGENT_PRICE = "agent_price";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String NAME = "name";
+        public static final String GOODS_ID = "goodsId";
+        public static final String ALLOW_TENANT_BUY = "allowTenantBuy";
+        public static final String ALLOW_AGENT_BUY = "allowAgentBuy";
+        public static final String RENEWAL_TIME = "renewalTime";
+        public static final String TENANT_PRICE = "tenantPrice";
+        public static final String AGENT_PRICE = "agentPrice";
+    }
 }

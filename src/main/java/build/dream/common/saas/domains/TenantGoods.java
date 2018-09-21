@@ -121,4 +121,11 @@ public class TenantGoods extends BasicDomain {
         public static final String GOODS_ID = "goods_id";
         public static final String EXPIRE_TIME = "expire_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String EXPIRE_TIME = "expireTime";
+    }
 }

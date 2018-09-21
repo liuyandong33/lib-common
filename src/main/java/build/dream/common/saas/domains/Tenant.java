@@ -169,4 +169,13 @@ public class Tenant extends BasicDomain {
         public static final String TENANT_TYPE = "tenant_type";
         public static final String VIP_SHARED_TYPE = "vip_shared_type";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+        public static final String BUSINESS = "business";
+        public static final String PARTITION_CODE = "partitionCode";
+        public static final String TENANT_TYPE = "tenantType";
+        public static final String VIP_SHARED_TYPE = "vipSharedType";
+    }
 }

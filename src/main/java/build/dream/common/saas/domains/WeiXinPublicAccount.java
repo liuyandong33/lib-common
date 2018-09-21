@@ -136,4 +136,12 @@ public class WeiXinPublicAccount extends BasicDomain {
         public static final String APP_SECRET = "app_secret";
         public static final String ORIGINAL_ID = "original_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String NAME = "name";
+        public static final String APP_ID = "appId";
+        public static final String APP_SECRET = "appSecret";
+        public static final String ORIGINAL_ID = "originalId";
+    }
 }

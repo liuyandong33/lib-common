@@ -167,4 +167,14 @@ public class PosPrivilege extends BasicDomain {
         public static final String PARENT_ID = "parent_id";
         public static final String REMARK = "remark";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String PRIVILEGE_CODE = "privilegeCode";
+        public static final String PRIVILEGE_NAME = "privilegeName";
+        public static final String SERVICE_NAME = "serviceName";
+        public static final String CONTROLLER_NAME = "controllerName";
+        public static final String ACTION_NAME = "actionName";
+        public static final String PARENT_ID = "parentId";
+        public static final String REMARK = "remark";
+    }
 }

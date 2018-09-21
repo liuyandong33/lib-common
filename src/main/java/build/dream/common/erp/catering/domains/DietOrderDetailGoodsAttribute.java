@@ -364,4 +364,24 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         public static final String LOCAL_CREATE_TIME = "local_create_time";
         public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String DIET_ORDER_ID = "dietOrderId";
+        public static final String DIET_ORDER_GROUP_ID = "dietOrderGroupId";
+        public static final String DIET_ORDER_DETAIL_ID = "dietOrderDetailId";
+        public static final String GOODS_ATTRIBUTE_GROUP_ID = "goodsAttributeGroupId";
+        public static final String GOODS_ATTRIBUTE_GROUP_NAME = "goodsAttributeGroupName";
+        public static final String GOODS_ATTRIBUTE_ID = "goodsAttributeId";
+        public static final String GOODS_ATTRIBUTE_NAME = "goodsAttributeName";
+        public static final String PRICE = "price";
+        public static final String LOCAL_ID = "localId";
+        public static final String LOCAL_DIET_ORDER_ID = "localDietOrderId";
+        public static final String LOCAL_DIET_ORDER_GROUP_ID = "localDietOrderGroupId";
+        public static final String LOCAL_DIET_ORDER_DETAIL_ID = "localDietOrderDetailId";
+        public static final String LOCAL_CREATE_TIME = "localCreateTime";
+        public static final String LOCAL_LAST_UPDATE_TIME = "localLastUpdateTime";
+    }
 }

@@ -242,4 +242,17 @@ public class AlipayAccount extends BasicDomain {
         public static final String APPLICATION_PRIVATE_KEY = "application_private_key";
         public static final String SIGN_TYPE = "sign_type";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ACCOUNT = "account";
+        public static final String APP_ID = "appId";
+        public static final String PARTNER_ID = "partnerId";
+        public static final String STORE_ID = "storeId";
+        public static final String ALIPAY_PUBLIC_KEY = "alipayPublicKey";
+        public static final String APPLICATION_PUBLIC_KEY = "applicationPublicKey";
+        public static final String APPLICATION_PRIVATE_KEY = "applicationPrivateKey";
+        public static final String SIGN_TYPE = "signType";
+    }
 }

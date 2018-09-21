@@ -151,4 +151,12 @@ public class AgentContract extends BasicDomain {
         public static final String END_TIME = "end_time";
         public static final String STATUS = "status";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String CONTRACT_NUMBER = "contractNumber";
+        public static final String AGENT_ID = "agentId";
+        public static final String START_TIME = "startTime";
+        public static final String END_TIME = "endTime";
+        public static final String STATUS = "status";
+    }
 }

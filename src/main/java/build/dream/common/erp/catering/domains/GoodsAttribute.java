@@ -164,4 +164,14 @@ public class GoodsAttribute extends BasicDomain {
         public static final String NAME = "name";
         public static final String PRICE = "price";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_ATTRIBUTE_GROUP_ID = "goodsAttributeGroupId";
+        public static final String NAME = "name";
+        public static final String PRICE = "price";
+    }
 }

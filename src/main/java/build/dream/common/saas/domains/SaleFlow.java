@@ -280,4 +280,19 @@ public class SaleFlow extends BasicDomain {
         public static final String QUANTITY = "quantity";
         public static final String PAID_TYPE = "paid_type";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ORDER_ID = "orderId";
+        public static final String TYPE = "type";
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String AGENT_ID = "agentId";
+        public static final String OCCURRENCE_TIME = "occurrenceTime";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_NAME = "goodsName";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String GOODS_SPECIFICATION_NAME = "goodsSpecificationName";
+        public static final String QUANTITY = "quantity";
+        public static final String PAID_TYPE = "paidType";
+    }
 }

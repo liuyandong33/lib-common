@@ -133,4 +133,11 @@ public class ResponseLog extends BasicDomain {
         public static final String RESPONSE_CONTENT = "response_content";
         public static final String HEADERS = "headers";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String UUID = "uuid";
+        public static final String RESPONSE_TIME = "responseTime";
+        public static final String RESPONSE_CONTENT = "responseContent";
+        public static final String HEADERS = "headers";
+    }
 }

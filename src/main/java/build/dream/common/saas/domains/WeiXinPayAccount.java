@@ -293,4 +293,20 @@ public class WeiXinPayAccount extends BasicDomain {
         public static final String RSA_PUBLIC_KEY = "rsa_public_key";
         public static final String ACCEPTANCE_MODEL = "acceptance_model";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String APP_ID = "appId";
+        public static final String MCH_ID = "mchId";
+        public static final String API_SECRET_KEY = "apiSecretKey";
+        public static final String SUB_PUBLIC_ACCOUNT_APP_ID = "subPublicAccountAppId";
+        public static final String SUB_OPEN_PLATFORM_APP_ID = "subOpenPlatformAppId";
+        public static final String SUB_MINI_PROGRAM_APP_ID = "subMiniProgramAppId";
+        public static final String SUB_MCH_ID = "subMchId";
+        public static final String OPERATION_CERTIFICATE = "operationCertificate";
+        public static final String OPERATION_CERTIFICATE_PASSWORD = "operationCertificatePassword";
+        public static final String RSA_PUBLIC_KEY = "rsaPublicKey";
+        public static final String ACCEPTANCE_MODEL = "acceptanceModel";
+    }
 }

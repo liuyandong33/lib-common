@@ -205,4 +205,15 @@ public class ElemeOrderItemNewSpec extends BasicDomain {
         public static final String NAME = "name";
         public static final String VALUE = "value";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ELEME_ORDER_ID = "elemeOrderId";
+        public static final String ORDER_ID = "orderId";
+        public static final String ELEME_ORDER_ITEM_ID = "elemeOrderItemId";
+        public static final String NAME = "name";
+        public static final String VALUE = "value";
+    }
 }

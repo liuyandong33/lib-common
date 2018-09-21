@@ -136,4 +136,12 @@ public class MiyaAccount extends BasicDomain {
         public static final String MIYA_KEY = "miya_key";
         public static final String MIYA_BRANCH_CODE = "miya_branch_code";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String MIYA_MERCHANT_CODE = "miyaMerchantCode";
+        public static final String MIYA_KEY = "miyaKey";
+        public static final String MIYA_BRANCH_CODE = "miyaBranchCode";
+    }
 }

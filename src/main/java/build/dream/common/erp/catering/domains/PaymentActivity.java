@@ -203,4 +203,15 @@ public class PaymentActivity extends BasicDomain {
         public static final String DISCOUNT_RATE = "discount_rate";
         public static final String DISCOUNT_AMOUNT = "discount_amount";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String ACTIVITY_ID = "activityId";
+        public static final String PAID_TYPE = "paidType";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String DISCOUNT_TYPE = "discountType";
+        public static final String DISCOUNT_RATE = "discountRate";
+        public static final String DISCOUNT_AMOUNT = "discountAmount";
+    }
 }

@@ -368,4 +368,24 @@ public class DietOrderDeliveryState extends BasicDomain {
         public static final String LATITUDE = "latitude";
         public static final String PUSH_TIME = "push_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String DIET_ORDER_ID = "dietOrderId";
+        public static final String DIET_ORDER_NUMBER = "dietOrderNumber";
+        public static final String STATUS = "status";
+        public static final String CARRIER_DRIVER_NAME = "carrierDriverName";
+        public static final String CARRIER_DRIVER_PHONE = "carrierDriverPhone";
+        public static final String DESCRIPTION = "description";
+        public static final String STATION_NAME = "stationName";
+        public static final String STATION_TEL = "stationTel";
+        public static final String CANCEL_REASON = "cancelReason";
+        public static final String ERROR_CODE = "errorCode";
+        public static final String ADDRESS = "address";
+        public static final String LONGITUDE = "longitude";
+        public static final String LATITUDE = "latitude";
+        public static final String PUSH_TIME = "pushTime";
+    }
 }

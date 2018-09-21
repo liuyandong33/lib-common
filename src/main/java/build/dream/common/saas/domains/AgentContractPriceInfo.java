@@ -134,4 +134,11 @@ public class AgentContractPriceInfo extends BasicDomain {
         public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
         public static final String CONTRACT_PRICE = "contract_price";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String AGENT_CONTRACT_ID = "agentContractId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String CONTRACT_PRICE = "contractPrice";
+    }
 }

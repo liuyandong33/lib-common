@@ -63,4 +63,12 @@ public class Configuration extends BasicDomain {
     public void setConfigurationValue(String configurationValue) {
         this.configurationValue = configurationValue;
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String DEPLOYMENT_ENVIRONMENT = "deploymentEnvironment";
+        public static final String PARTITION_CODE = "partitionCode";
+        public static final String SERVICE_NAME = "serviceName";
+        public static final String CONFIGURATION_KEY = "configurationKey";
+        public static final String CONFIGURATION_VALUE = "configurationValue";
+    }
 }

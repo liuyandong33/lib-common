@@ -310,4 +310,21 @@ public class DietOrderPayment extends BasicDomain {
         public static final String LOCAL_CREATE_TIME = "local_create_time";
         public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String DIET_ORDER_ID = "dietOrderId";
+        public static final String PAYMENT_ID = "paymentId";
+        public static final String PAYMENT_CODE = "paymentCode";
+        public static final String PAYMENT_NAME = "paymentName";
+        public static final String PAID_AMOUNT = "paidAmount";
+        public static final String OCCURRENCE_TIME = "occurrenceTime";
+        public static final String EXTRA_INFO = "extraInfo";
+        public static final String LOCAL_ID = "localId";
+        public static final String LOCAL_DIET_ORDER_ID = "localDietOrderId";
+        public static final String LOCAL_CREATE_TIME = "localCreateTime";
+        public static final String LOCAL_LAST_UPDATE_TIME = "localLastUpdateTime";
+    }
 }

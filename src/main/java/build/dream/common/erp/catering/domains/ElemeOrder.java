@@ -836,4 +836,50 @@ public class ElemeOrder extends BasicDomain {
         public static final String CANCEL_ORDER_DESCRIPTION = "cancel_order_description";
         public static final String CANCEL_ORDER_CREATED_AT = "cancel_order_created_at";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ADDRESS = "address";
+        public static final String CREATED_AT = "createdAt";
+        public static final String ACTIVE_AT = "activeAt";
+        public static final String DELIVER_FEE = "deliverFee";
+        public static final String VIP_DELIVERY_FEE_DISCOUNT = "vipDeliveryFeeDiscount";
+        public static final String DELIVER_TIME = "deliverTime";
+        public static final String DESCRIPTION = "description";
+        public static final String INVOICE = "invoice";
+        public static final String BOOK = "book";
+        public static final String ONLINE_PAID = "onlinePaid";
+        public static final String ORDER_ID = "orderId";
+        public static final String PHONE_LIST = "phoneList";
+        public static final String SHOP_ID = "shopId";
+        public static final String OPEN_ID = "openId";
+        public static final String SHOP_NAME = "shopName";
+        public static final String DAY_SN = "daySn";
+        public static final String STATUS = "status";
+        public static final String REFUND_STATUS = "refundStatus";
+        public static final String USER_ID = "userId";
+        public static final String TOTAL_PRICE = "totalPrice";
+        public static final String ORIGINAL_PRICE = "originalPrice";
+        public static final String CONSIGNEE = "consignee";
+        public static final String DELIVERY_GEO = "deliveryGeo";
+        public static final String DELIVERY_POI_ADDRESS = "deliveryPoiAddress";
+        public static final String INVOICED = "invoiced";
+        public static final String INCOME = "income";
+        public static final String SERVICE_RATE = "serviceRate";
+        public static final String SERVICE_FEE = "serviceFee";
+        public static final String HONGBAO = "hongbao";
+        public static final String PACKAGE_FEE = "packageFee";
+        public static final String ACTIVITY_TOTAL = "activityTotal";
+        public static final String SHOP_PART = "shopPart";
+        public static final String ELEME_PART = "elemePart";
+        public static final String DOWNGRADED = "downgraded";
+        public static final String SECRET_PHONE_EXPIRE_TIME = "secretPhoneExpireTime";
+        public static final String INVOICE_TYPE = "invoiceType";
+        public static final String TAXPAYER_ID = "taxpayerId";
+        public static final String COLD_BOX_FEE = "coldBoxFee";
+        public static final String CANCEL_ORDER_DESCRIPTION = "cancelOrderDescription";
+        public static final String CANCEL_ORDER_CREATED_AT = "cancelOrderCreatedAt";
+    }
 }

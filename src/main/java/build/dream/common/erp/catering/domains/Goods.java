@@ -218,4 +218,15 @@ public class Goods extends BasicDomain {
         public static final String IMAGE_URL = "image_url";
         public static final String STOCKED = "stocked";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String NAME = "name";
+        public static final String TYPE = "type";
+        public static final String CATEGORY_ID = "categoryId";
+        public static final String IMAGE_URL = "imageUrl";
+        public static final String STOCKED = "stocked";
+    }
 }

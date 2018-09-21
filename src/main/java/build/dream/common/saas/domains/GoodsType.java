@@ -152,4 +152,12 @@ public class GoodsType extends BasicDomain {
         public static final String RENEW_SQL = "renew_sql";
         public static final String DISABLE_SQL = "disable_sql";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String NAME = "name";
+        public static final String DESCRIPTION = "description";
+        public static final String SINGLE = "single";
+        public static final String RENEW_SQL = "renewSql";
+        public static final String DISABLE_SQL = "disableSql";
+    }
 }

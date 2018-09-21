@@ -152,4 +152,12 @@ public class ActOrderChargeByMt extends BasicDomain {
         public static final String FEE_TYPE_ID = "fee_type_id";
         public static final String MONEY_CENT = "money_cent";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String MEI_TUAN_ORDER_POI_RECEIVE_DETAIL_ID = "meiTuanOrderPoiReceiveDetailId";
+        public static final String COMMENT = "comment";
+        public static final String FEE_TYPE_DESC = "feeTypeDesc";
+        public static final String FEE_TYPE_ID = "feeTypeId";
+        public static final String MONEY_CENT = "moneyCent";
+    }
 }

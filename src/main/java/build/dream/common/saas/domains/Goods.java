@@ -169,4 +169,13 @@ public class Goods extends BasicDomain {
         public static final String METERING_MODE = "metering_mode";
         public static final String BUSINESS = "business";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String NAME = "name";
+        public static final String GOODS_TYPE_ID = "goodsTypeId";
+        public static final String STATUS = "status";
+        public static final String PHOTO_URL = "photoUrl";
+        public static final String METERING_MODE = "meteringMode";
+        public static final String BUSINESS = "business";
+    }
 }

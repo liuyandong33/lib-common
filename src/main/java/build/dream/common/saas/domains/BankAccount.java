@@ -151,4 +151,13 @@ public class BankAccount extends BasicDomain {
         public static final String BANK_NAME = "bank_name";
         public static final String BANK_CODE = "bank_code";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String BANK_CARD_NUMBER = "bankCardNumber";
+        public static final String CARDHOLDER = "cardholder";
+        public static final String BANK_NAME = "bankName";
+        public static final String BANK_CODE = "bankCode";
+    }
 }

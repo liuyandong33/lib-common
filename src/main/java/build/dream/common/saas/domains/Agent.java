@@ -91,4 +91,9 @@ public class Agent extends BasicDomain {
         public static final String CODE = "code";
         public static final String NAME = "name";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+    }
 }

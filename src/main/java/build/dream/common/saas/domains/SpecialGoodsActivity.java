@@ -206,4 +206,15 @@ public class SpecialGoodsActivity extends BasicDomain {
         public static final String TENANT_DISCOUNT_RATE = "tenant_discount_rate";
         public static final String AGENT_DISCOUNT_RATE = "agent_discount_rate";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ACTIVITY_ID = "activityId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String DISCOUNT_TYPE = "discountType";
+        public static final String TENANT_SPECIAL_PRICE = "tenantSpecialPrice";
+        public static final String AGENT_SPECIAL_PRICE = "agentSpecialPrice";
+        public static final String TENANT_DISCOUNT_RATE = "tenantDiscountRate";
+        public static final String AGENT_DISCOUNT_RATE = "agentDiscountRate";
+    }
 }

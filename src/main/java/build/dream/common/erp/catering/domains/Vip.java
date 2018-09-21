@@ -296,4 +296,20 @@ public class Vip extends BasicDomain {
         public static final String CARD_ID = "card_id";
         public static final String USER_CARD_CODE = "user_card_code";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String VIP_TYPE_ID = "vipTypeId";
+        public static final String VIP_CODE = "vipCode";
+        public static final String VIP_NAME = "vipName";
+        public static final String BIRTHDAY = "birthday";
+        public static final String PHONE_NUMBER = "phoneNumber";
+        public static final String OPEN_ID = "openId";
+        public static final String MAIN_OPEN_ID = "mainOpenId";
+        public static final String ALIPAY_USER_ID = "alipayUserId";
+        public static final String CARD_ID = "cardId";
+        public static final String USER_CARD_CODE = "userCardCode";
+    }
 }

@@ -207,4 +207,15 @@ public class VipType extends BasicDomain {
         public static final String ENABLE_BONUS = "enable_bonus";
         public static final String BONUS_COEFFICIENT = "bonus_coefficient";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String NAME = "name";
+        public static final String DISCOUNT_POLICY = "discountPolicy";
+        public static final String DISCOUNT_RATE = "discountRate";
+        public static final String ENABLE_BONUS = "enableBonus";
+        public static final String BONUS_COEFFICIENT = "bonusCoefficient";
+    }
 }

@@ -106,4 +106,10 @@ public class ElemeBranchMapping extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String SHOP_ID = "shop_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String SHOP_ID = "shopId";
+    }
 }

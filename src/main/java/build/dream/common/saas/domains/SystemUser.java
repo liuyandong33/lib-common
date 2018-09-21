@@ -272,4 +272,21 @@ public class SystemUser extends BasicDomain {
         public static final String CREDENTIALS_NON_EXPIRED = "credentials_non_expired";
         public static final String ENABLED = "enabled";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String NAME = "name";
+        public static final String MOBILE = "mobile";
+        public static final String EMAIL = "email";
+        public static final String LOGIN_NAME = "loginName";
+        public static final String PASSWORD = "password";
+        public static final String WEI_XIN_PUBLIC_PLATFORM_OPEN_ID = "weiXinPublicPlatformOpenId";
+        public static final String WEI_XIN_OPEN_PLATFORM_OPEN_ID = "weiXinOpenPlatformOpenId";
+        public static final String USER_TYPE = "userType";
+        public static final String TENANT_ID = "tenantId";
+        public static final String AGENT_ID = "agentId";
+        public static final String ACCOUNT_NON_EXPIRED = "accountNonExpired";
+        public static final String ACCOUNT_NON_LOCKED = "accountNonLocked";
+        public static final String CREDENTIALS_NON_EXPIRED = "credentialsNonExpired";
+        public static final String ENABLED = "enabled";
+    }
 }

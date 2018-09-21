@@ -151,4 +151,13 @@ public class WeiXinTemplateMessage extends BasicDomain {
         public static final String WEI_XIN_TEMPLATE_MESSAGE_CODE = "wei_xin_template_message_code";
         public static final String WEI_XIN_TEMPLATE_MESSAGE_KEYS = "wei_xin_template_message_keys";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String APP_ID = "appId";
+        public static final String APP_SECRET = "appSecret";
+        public static final String ORIGINAL_ID = "originalId";
+        public static final String TEMPLATE_MESSAGE_ID = "templateMessageId";
+        public static final String WEI_XIN_TEMPLATE_MESSAGE_CODE = "weiXinTemplateMessageCode";
+        public static final String WEI_XIN_TEMPLATE_MESSAGE_KEYS = "weiXinTemplateMessageKeys";
+    }
 }

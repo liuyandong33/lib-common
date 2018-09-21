@@ -182,4 +182,15 @@ public class NotifyRecord extends BasicDomain {
         public static final String NOTIFY_RESULT = "notify_result";
         public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "external_system_notify_request_body";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String UUID = "uuid";
+        public static final String NOTIFY_URL = "notifyUrl";
+        public static final String ALIPAY_PUBLIC_KEY = "alipayPublicKey";
+        public static final String ALIPAY_SIGN_TYPE = "alipaySignType";
+        public static final String WEI_XIN_PAY_API_SECRET_KEY = "weiXinPayApiSecretKey";
+        public static final String WEI_XIN_PAY_SIGN_TYPE = "weiXinPaySignType";
+        public static final String NOTIFY_RESULT = "notifyResult";
+        public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "externalSystemNotifyRequestBody";
+    }
 }

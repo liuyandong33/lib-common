@@ -121,4 +121,11 @@ public class UmPayAccount extends BasicDomain {
         public static final String UM_PAY_ID = "um_pay_id";
         public static final String MERCHANT_PRIVATE_KEY = "merchant_private_key";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String UM_PAY_ID = "umPayId";
+        public static final String MERCHANT_PRIVATE_KEY = "merchantPrivateKey";
+    }
 }

@@ -182,4 +182,15 @@ public class PackageGroupDetail extends BasicDomain {
         public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
         public static final String QUANTITY = "quantity";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String PACKAGE_ID = "packageId";
+        public static final String PACKAGE_GROUP_ID = "packageGroupId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String QUANTITY = "quantity";
+    }
 }

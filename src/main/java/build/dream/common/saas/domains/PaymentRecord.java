@@ -296,4 +296,20 @@ public class PaymentRecord extends BasicDomain {
         public static final String NOTIFY_RESULT = "notify_result";
         public static final String NOTIFY_URL = "notify_url";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ORDER_TYPE = "orderType";
+        public static final String ORDER_NUMBER = "orderNumber";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String PAYABLE_AMOUNT = "payableAmount";
+        public static final String PAID_AMOUNT = "paidAmount";
+        public static final String PAID_TYPE = "paidType";
+        public static final String SUBMIT_TIME = "submitTime";
+        public static final String SUBMIT_USER_ID = "submitUserId";
+        public static final String PAY_STATUS = "payStatus";
+        public static final String TRANSACTION_ID = "transactionId";
+        public static final String PAID_TIME = "paidTime";
+        public static final String NOTIFY_RESULT = "notifyResult";
+        public static final String NOTIFY_URL = "notifyUrl";
+    }
 }

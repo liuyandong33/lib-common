@@ -166,4 +166,14 @@ public class AlipayOpenAuthToken extends BasicDomain {
         public static final String RE_EXPIRES_IN = "re_expires_in";
         public static final String APP_REFRESH_TOKEN = "app_refresh_token";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String APP_ID = "appId";
+        public static final String APP_AUTH_TOKEN = "appAuthToken";
+        public static final String USER_ID = "userId";
+        public static final String AUTH_APP_ID = "authAppId";
+        public static final String EXPIRES_IN = "expiresIn";
+        public static final String RE_EXPIRES_IN = "reExpiresIn";
+        public static final String APP_REFRESH_TOKEN = "appRefreshToken";
+    }
 }

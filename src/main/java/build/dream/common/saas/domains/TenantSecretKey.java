@@ -136,4 +136,12 @@ public class TenantSecretKey extends BasicDomain {
         public static final String PRIVATE_KEY = "private_key";
         public static final String PLATFORM_PUBLIC_KEY = "platform_public_key";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String PUBLIC_KEY = "publicKey";
+        public static final String PRIVATE_KEY = "privateKey";
+        public static final String PLATFORM_PUBLIC_KEY = "platformPublicKey";
+    }
 }

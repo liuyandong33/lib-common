@@ -151,4 +151,13 @@ public class WeiXinAuthorizerToken extends BasicDomain {
         public static final String AUTHORIZER_REFRESH_TOKEN = "authorizer_refresh_token";
         public static final String FETCH_TIME = "fetch_time";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String COMPONENT_APP_ID = "componentAppId";
+        public static final String AUTHORIZER_APP_ID = "authorizerAppId";
+        public static final String AUTHORIZER_ACCESS_TOKEN = "authorizerAccessToken";
+        public static final String EXPIRES_IN = "expiresIn";
+        public static final String AUTHORIZER_REFRESH_TOKEN = "authorizerRefreshToken";
+        public static final String FETCH_TIME = "fetchTime";
+    }
 }

@@ -2,8 +2,9 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.ActivationCodeInfo;
-import build.dream.common.saas.domains.Activity;
+import build.dream.common.saas.domains.AgentContract;
+import build.dream.common.saas.domains.AgentContractPriceInfo;
+import build.dream.common.saas.domains.AlipayAccount;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,15 +12,34 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.net.URL;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
 //        SpringApplication.run(Application.class, args);
-        generateFieldNameInnerClassCode(Activity.class);
+
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        String[] packageNames = {"build.dream.common.erp.catering.domains"};
+        for (String packageName : packageNames) {
+            URL url = classLoader.getResource(packageName.replaceAll("\\.", "/"));
+            String path = url.getPath();
+            File directory = new File(path);
+            File[] files = directory.listFiles();
+            for (File file : files) {
+                String fileName = file.getName();
+                if (fileName.contains("$")) {
+                    continue;
+                }
+                String className = packageName + "." + fileName.substring(0, fileName.length() - 6);
+                generateFieldNameInnerClassCode(Class.forName(className));
+            }
+        }
+
+//        generateFieldNameInnerClassCode(Agent.class);
 //        test();
 //        testSort();
     }

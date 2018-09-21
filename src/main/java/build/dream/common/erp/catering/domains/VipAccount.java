@@ -225,4 +225,16 @@ public class VipAccount extends BasicDomain {
         public static final String BALANCE = "balance";
         public static final String ACCUMULATIVE_RECHARGE = "accumulative_recharge";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String VIP_GROUP_ID = "vipGroupId";
+        public static final String VIP_ID = "vipId";
+        public static final String POINT = "point";
+        public static final String ACCUMULATIVE_POINT = "accumulativePoint";
+        public static final String BALANCE = "balance";
+        public static final String ACCUMULATIVE_RECHARGE = "accumulativeRecharge";
+    }
 }

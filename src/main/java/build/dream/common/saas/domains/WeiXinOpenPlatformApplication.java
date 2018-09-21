@@ -136,4 +136,12 @@ public class WeiXinOpenPlatformApplication extends BasicDomain {
         public static final String TOKEN = "token";
         public static final String TYPE = "type";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String APP_ID = "appId";
+        public static final String APP_SECRET = "appSecret";
+        public static final String ENCODING_AES_KEY = "encodingAesKey";
+        public static final String TOKEN = "token";
+        public static final String TYPE = "type";
+    }
 }

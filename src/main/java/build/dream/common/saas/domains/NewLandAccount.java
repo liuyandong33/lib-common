@@ -169,4 +169,13 @@ public class NewLandAccount extends BasicDomain {
         public static final String ORG_NO = "org_no";
         public static final String SECRET_KEY = "secret_key";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
+        public static final String MCH_ID = "mchId";
+        public static final String TRM_NO = "trmNo";
+        public static final String ORG_NO = "orgNo";
+        public static final String SECRET_KEY = "secretKey";
+    }
 }

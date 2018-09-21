@@ -489,4 +489,31 @@ public class Branch extends BasicDomain {
         public static final String POI_NAME = "poi_name";
         public static final String VIP_GROUP_ID = "vip_group_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String CODE = "code";
+        public static final String NAME = "name";
+        public static final String TYPE = "type";
+        public static final String STATUS = "status";
+        public static final String PROVINCE_CODE = "provinceCode";
+        public static final String PROVINCE_NAME = "provinceName";
+        public static final String CITY_CODE = "cityCode";
+        public static final String CITY_NAME = "cityName";
+        public static final String DISTRICT_CODE = "districtCode";
+        public static final String DISTRICT_NAME = "districtName";
+        public static final String ADDRESS = "address";
+        public static final String LONGITUDE = "longitude";
+        public static final String LATITUDE = "latitude";
+        public static final String LINKMAN = "linkman";
+        public static final String CONTACT_PHONE = "contactPhone";
+        public static final String ELEME_ACCOUNT_TYPE = "elemeAccountType";
+        public static final String SHOP_ID = "shopId";
+        public static final String SMART_RESTAURANT_STATUS = "smartRestaurantStatus";
+        public static final String APP_AUTH_TOKEN = "appAuthToken";
+        public static final String POI_ID = "poiId";
+        public static final String POI_NAME = "poiName";
+        public static final String VIP_GROUP_ID = "vipGroupId";
+    }
 }

@@ -404,4 +404,26 @@ public class ElemeOrderItem extends BasicDomain {
         public static final String SHOP_PRICE = "shop_price";
         public static final String VFOOD_ID = "vfood_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ELEME_ORDER_ID = "elemeOrderId";
+        public static final String ORDER_ID = "orderId";
+        public static final String ELEME_ORDER_GROUP_ID = "elemeOrderGroupId";
+        public static final String ELEME_ITEM_ID = "elemeItemId";
+        public static final String SKU_ID = "skuId";
+        public static final String NAME = "name";
+        public static final String CATEGORY_ID = "categoryId";
+        public static final String PRICE = "price";
+        public static final String QUANTITY = "quantity";
+        public static final String TOTAL = "total";
+        public static final String EXTEND_CODE = "extendCode";
+        public static final String BAR_CODE = "barCode";
+        public static final String WEIGHT = "weight";
+        public static final String USER_PRICE = "userPrice";
+        public static final String SHOP_PRICE = "shopPrice";
+        public static final String VFOOD_ID = "vfoodId";
+    }
 }

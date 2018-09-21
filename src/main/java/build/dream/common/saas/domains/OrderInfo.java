@@ -243,4 +243,17 @@ public class OrderInfo extends BasicDomain {
         public static final String PAID_AMOUNT = "paid_amount";
         public static final String PAID_TYPE = "paid_type";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ORDER_NUMBER = "orderNumber";
+        public static final String ORDER_TYPE = "orderType";
+        public static final String ORDER_STATUS = "orderStatus";
+        public static final String TENANT_ID = "tenantId";
+        public static final String AGENT_ID = "agentId";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String DISCOUNT_AMOUNT = "discountAmount";
+        public static final String PAYABLE_AMOUNT = "payableAmount";
+        public static final String PAID_AMOUNT = "paidAmount";
+        public static final String PAID_TYPE = "paidType";
+    }
 }

@@ -177,4 +177,15 @@ public class PurchaseOrder extends BasicDomain {
         public static final String REVIEW_TIME = "review_time";
         public static final String REMARK = "remark";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String ORDER_NUMBER = "orderNumber";
+        public static final String ORIGINATOR_USER_ID = "originatorUserId";
+        public static final String REVIEWER_USER_ID = "reviewerUserId";
+        public static final String REVIEW_TIME = "reviewTime";
+        public static final String REMARK = "remark";
+    }
 }

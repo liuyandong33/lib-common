@@ -261,4 +261,18 @@ public class OrderDetail extends BasicDomain {
         public static final String PAYABLE_AMOUNT = "payable_amount";
         public static final String QUANTITY = "quantity";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ORDER_INFO_ID = "orderInfoId";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_NAME = "goodsName";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String GOODS_SPECIFICATION_NAME = "goodsSpecificationName";
+        public static final String BRANCH_ID = "branchId";
+        public static final String PRICE = "price";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String DISCOUNT_AMOUNT = "discountAmount";
+        public static final String PAYABLE_AMOUNT = "payableAmount";
+        public static final String QUANTITY = "quantity";
+    }
 }

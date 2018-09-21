@@ -241,4 +241,17 @@ public class RequestLog extends BasicDomain {
         public static final String HEADERS = "headers";
         public static final String COOKIES = "cookies";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String UUID = "uuid";
+        public static final String DEPLOYMENT_ENVIRONMENT = "deploymentEnvironment";
+        public static final String PARTITION_CODE = "partitionCode";
+        public static final String SERVICE_NAME = "serviceName";
+        public static final String CLASS_NAME = "className";
+        public static final String METHOD_NAME = "methodName";
+        public static final String REQUEST_TIME = "requestTime";
+        public static final String REQUEST_PARAMETERS = "requestParameters";
+        public static final String HEADERS = "headers";
+        public static final String COOKIES = "cookies";
+    }
 }

@@ -167,4 +167,14 @@ public class PackageGroup extends BasicDomain {
         public static final String GROUP_TYPE = "group_type";
         public static final String OPTIONAL_QUANTITY = "optional_quantity";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String PACKAGE_ID = "packageId";
+        public static final String GROUP_NAME = "groupName";
+        public static final String GROUP_TYPE = "groupType";
+        public static final String OPTIONAL_QUANTITY = "optionalQuantity";
+    }
 }

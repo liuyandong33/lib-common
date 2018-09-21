@@ -91,4 +91,9 @@ public class SystemParameter extends BasicDomain {
         public static final String PARAMETER_NAME = "parameter_name";
         public static final String PARAMETER_VALUE = "parameter_value";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String PARAMETER_NAME = "parameterName";
+        public static final String PARAMETER_VALUE = "parameterValue";
+    }
 }

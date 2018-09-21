@@ -211,4 +211,17 @@ public class ElemeCallbackMessage extends BasicDomain {
         public static final String UUID = "uuid";
         public static final String HANDLE_RESULT = "handle_result";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String REQUEST_ID = "requestId";
+        public static final String TYPE = "type";
+        public static final String APP_ID = "appId";
+        public static final String MESSAGE = "message";
+        public static final String SHOP_ID = "shopId";
+        public static final String TIMESTAMP = "timestamp";
+        public static final String SIGNATURE = "signature";
+        public static final String USER_ID = "userId";
+        public static final String UUID = "uuid";
+        public static final String HANDLE_RESULT = "handleResult";
+    }
 }

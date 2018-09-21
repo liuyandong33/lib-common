@@ -106,4 +106,10 @@ public class AlipayMaterialImage extends BasicDomain {
         public static final String IMAGE_ID = "image_id";
         public static final String IMAGE_URL = "image_url";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String ALIPAY_USER_ID = "alipayUserId";
+        public static final String IMAGE_ID = "imageId";
+        public static final String IMAGE_URL = "imageUrl";
+    }
 }

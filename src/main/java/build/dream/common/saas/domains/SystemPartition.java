@@ -169,4 +169,13 @@ public class SystemPartition extends BasicDomain {
         public static final String SERVICE_DOMAIN = "service_domain";
         public static final String OUTSIDE_SERVICE_DOMAIN = "outside_service_domain";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String DEPLOYMENT_ENVIRONMENT = "deploymentEnvironment";
+        public static final String PARTITION_CODE = "partitionCode";
+        public static final String TYPE = "type";
+        public static final String SERVICE_NAME = "serviceName";
+        public static final String SERVICE_DOMAIN = "serviceDomain";
+        public static final String OUTSIDE_SERVICE_DOMAIN = "outsideServiceDomain";
+    }
 }

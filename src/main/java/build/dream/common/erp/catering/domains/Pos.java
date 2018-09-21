@@ -219,4 +219,16 @@ public class Pos extends BasicDomain {
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String BRANCH_CODE = "branchCode";
+        public static final String USER_ID = "userId";
+        public static final String REGISTRATION_ID = "registrationId";
+        public static final String TYPE = "type";
+        public static final String VERSION = "version";
+        public static final String ONLINE = "online";
+    }
 }
