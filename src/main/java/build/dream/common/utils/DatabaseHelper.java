@@ -68,32 +68,37 @@ public class DatabaseHelper {
         return obtainUniversalMapper().delete(deleteModel);
     }
 
-    public static long markedDelete(String tableName, BigInteger id) {
+    public static long markedDelete(Class<?> domainClass, BigInteger id, BigInteger userId, String lastUpdateRemark) {
+        return markedDelete(DatabaseUtils.obtainTableName(domainClass), id, userId, lastUpdateRemark);
+    }
+
+    public static long markedDelete(String tableName, BigInteger id, BigInteger userId, String lastUpdateRemark) {
         UpdateModel updateModel = new UpdateModel(true);
         updateModel.setTableName(tableName);
         updateModel.addSearchCondition("id", Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
         updateModel.addContentValue("delete_time", new Date());
         updateModel.addContentValue("deleted", 1);
+        updateModel.addContentValue("last_update_user_id", userId);
+        updateModel.addContentValue("last_update_remark", lastUpdateRemark);
         return obtainUniversalMapper().universalUpdate(updateModel);
     }
 
-    public static long markedDelete(Class<?> domainClass, BigInteger id) {
-        return markedDelete(DatabaseUtils.obtainTableName(domainClass), id);
+    public static long markedDelete(Class<?> domainClass, BigInteger userId, String lastUpdateRemark, Tuple3<String, String, Object>... searchConditions) {
+        return markedDelete(DatabaseUtils.obtainTableName(domainClass), userId, lastUpdateRemark, searchConditions);
     }
 
-    public static long markedDelete(String tableName, Tuple3<String, String, Object>... searchConditions) {
+    public static long markedDelete(String tableName, BigInteger userId, String lastUpdateRemark, Tuple3<String, String, Object>... searchConditions) {
         UpdateModel updateModel = new UpdateModel(true);
         updateModel.setTableName(tableName);
+        updateModel.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
         for (Tuple3<String, String, Object> searchCondition : searchConditions) {
             updateModel.addSearchCondition(searchCondition._1(), searchCondition._2(), searchCondition._3());
         }
         updateModel.addContentValue("delete_time", new Date());
         updateModel.addContentValue("deleted", 1);
+        updateModel.addContentValue("last_update_user_id", userId);
+        updateModel.addContentValue("last_update_remark", lastUpdateRemark);
         return obtainUniversalMapper().universalUpdate(updateModel);
-    }
-
-    public static long markedDelete(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
-        return markedDelete(DatabaseUtils.obtainTableName(domainClass), searchConditions);
     }
 
     public static long update(Object domain) {
