@@ -1,11 +1,13 @@
 package build.dream.common;
 
+import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 
 /**
@@ -144,6 +146,14 @@ public class Application {
         StringBuilder stringBuilder = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
         Field[] fields = cloneDomainClass.getDeclaredFields();
         for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+
+            if (field.getAnnotation(Transient.class) != null) {
+                continue;
+            }
             String name = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
             stringBuilder.append("public static final String ").append(name.toUpperCase()).append(" = ").append("\"").append(name).append("\";");
         }
