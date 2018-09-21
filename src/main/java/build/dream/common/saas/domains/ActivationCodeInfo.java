@@ -242,4 +242,17 @@ public class ActivationCodeInfo extends BasicDomain {
         public static final String GOODS_ID = "goods_id";
         public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String AGENT_ID = "agentId";
+        public static final String ORDER_ID = "orderId";
+        public static final String USE_ORDER_ID = "useOrderId";
+        public static final String USE_TIME = "useTime";
+        public static final String EXPIRE_TIME = "expireTime";
+        public static final String STATUS = "status";
+        public static final String REMARK = "remark";
+        public static final String ACTIVATION_CODE = "activationCode";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+    }
 }

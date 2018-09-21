@@ -82,12 +82,23 @@ public class BasicDomain implements Serializable {
 
     protected static class ColumnName {
         public static final String ID = "id";
-        public static final String CREATE_TIME = "id";
+        public static final String CREATE_TIME = "create_time";
         public static final String CREATE_USER_ID = "create_user_id";
         public static final String LAST_UPDATE_TIME = "last_update_time";
         public static final String LAST_UPDATE_USER_ID = "last_update_user_id";
         public static final String LAST_UPDATE_REMARK = "last_update_remark";
         public static final String DELETE_TIME = "delete_time";
+        public static final String DELETED = "deleted";
+    }
+
+    protected static class FieldName {
+        public static final String ID = "id";
+        public static final String CREATE_TIME = "createTime";
+        public static final String CREATE_USER_ID = "createUserId";
+        public static final String LAST_UPDATE_TIME = "lastUpdateTime";
+        public static final String LAST_UPDATE_USER_ID = "lastUpdateUserId";
+        public static final String LAST_UPDATE_REMARK = "lastUpdateRemark";
+        public static final String DELETE_TIME = "deleteTime";
         public static final String DELETED = "deleted";
     }
 }

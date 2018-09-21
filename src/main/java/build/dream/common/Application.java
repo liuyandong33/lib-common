@@ -2,6 +2,8 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
+import build.dream.common.saas.domains.ActivationCodeInfo;
+import build.dream.common.saas.domains.Activity;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -15,9 +17,9 @@ import java.math.BigDecimal;
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
-//        generateCode(WeiXinMemberCard.class);
+        generateFieldNameInnerClassCode(Activity.class);
 //        test();
 //        testSort();
     }
@@ -120,12 +122,68 @@ public class Application {
         return stringBuilder.toString();
     }
 
-    private static void generateCode(Class<?> domainClass) throws IOException {
-        String sourcePath = "E:\\huaneng-workspace\\saas-common\\src\\main\\java\\" + domainClass.getName().replaceAll("\\.", "\\\\") + ".java";
+    /**
+     * 生成列名常量类代码
+     *
+     * @param domainClass
+     * @throws IOException
+     */
+    private static void generateFieldNameInnerClassCode(Class<?> domainClass) throws IOException {
+        // 生成列名常量类代码
+        StringBuilder fieldNameInnerClassCode = new StringBuilder("public static final class FieldName extends BasicDomain.FieldName {");
+        Field[] fields = domainClass.getDeclaredFields();
+        for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
 
+            if (field.getAnnotation(Transient.class) != null) {
+                continue;
+            }
+
+            String fieldName = field.getName();
+            String columnName = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            fieldNameInnerClassCode.append("public static final String ").append(columnName.toUpperCase()).append(" = ").append("\"").append(fieldName).append("\";");
+        }
+        fieldNameInnerClassCode.append("}");
+        writeCode(domainClass, fieldNameInnerClassCode.toString());
+    }
+
+    /**
+     * 生成列名常量类代码
+     *
+     * @param domainClass
+     * @throws IOException
+     */
+    public static void generateColumnNameInnerClassCode(Class<?> domainClass) throws IOException {
+        StringBuilder columnNameInnerClassCode = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
+        Field[] fields = domainClass.getDeclaredFields();
+        for (Field field : fields) {
+            int modifiers = field.getModifiers();
+            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+
+            if (field.getAnnotation(Transient.class) != null) {
+                continue;
+            }
+
+            String fieldName = field.getName();
+            String columnName = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            columnNameInnerClassCode.append("public static final String ").append(columnName.toUpperCase()).append(" = ").append("\"").append(columnName).append("\";");
+        }
+        columnNameInnerClassCode.append("}");
+        writeCode(domainClass, columnNameInnerClassCode.toString());
+    }
+
+    /**
+     * 生成建造者模式代码
+     *
+     * @param domainClass
+     */
+    public static void generateBuildPatternCode(Class<?> domainClass) throws IOException {
         Class<?> cloneDomainClass = domainClass;
-
-        // 生成建造者模式代码
         String simpleName = domainClass.getSimpleName();
         StringBuilder code = new StringBuilder("public static class Builder {private final " + simpleName + " instance = new " + simpleName + "();");
         while (domainClass != Object.class) {
@@ -138,37 +196,19 @@ public class Application {
         }
         code.append("public " + simpleName + " build() {return instance;}");
         code.append("}");
+        code.append("public static Builder builder() {return new Builder();}");
+        writeCode(cloneDomainClass, code.toString());
+    }
 
-        System.out.println(code.toString());
-        System.out.println("public static Builder builder() {return new Builder();}");
-
-        // 生成列名常量类代码
-        StringBuilder stringBuilder = new StringBuilder("public static final class ColumnName extends BasicDomain.ColumnName {");
-        Field[] fields = cloneDomainClass.getDeclaredFields();
-        for (Field field : fields) {
-            int modifiers = field.getModifiers();
-            if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
-                continue;
-            }
-
-            if (field.getAnnotation(Transient.class) != null) {
-                continue;
-            }
-            String name = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
-            stringBuilder.append("public static final String ").append(name.toUpperCase()).append(" = ").append("\"").append(name).append("\";");
-        }
-        stringBuilder.append("}");
-        System.out.println(stringBuilder.toString());
-
+    public static void writeCode(Class<?> domainClass, String code) throws IOException {
+        String sourcePath = "E:\\huaneng-workspace\\saas-common\\src\\main\\java\\" + domainClass.getName().replaceAll("\\.", "\\\\") + ".java";
         File file = new File(sourcePath);
         String fileContent = obtainFileContent(file);
         FileWriter fileWriter = new FileWriter(file);
         PrintWriter printWriter = new PrintWriter(fileWriter);
 
         printWriter.write(fileContent.substring(0, fileContent.lastIndexOf("}")));
-        printWriter.println(code.toString());
-        printWriter.println("public static Builder builder() {return new Builder();}");
-        printWriter.println(stringBuilder.toString());
+        printWriter.println(code);
         printWriter.println("}");
         printWriter.flush();
         printWriter.close();

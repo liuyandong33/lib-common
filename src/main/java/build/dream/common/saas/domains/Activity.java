@@ -151,4 +151,12 @@ public class Activity extends BasicDomain {
         public static final String TYPE = "type";
         public static final String STATUS = "status";
     }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String NAME = "name";
+        public static final String START_TIME = "startTime";
+        public static final String END_TIME = "endTime";
+        public static final String TYPE = "type";
+        public static final String STATUS = "status";
+    }
 }
