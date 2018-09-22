@@ -661,6 +661,9 @@ public class ApplicationHandler {
     public static List<Cookie> getCookies(HttpServletRequest httpServletRequest) {
         List<Cookie> cookieList = new ArrayList<Cookie>();
         Cookie[] cookies = httpServletRequest.getCookies();
+        if (ArrayUtils.isEmpty(cookies)) {
+            return cookieList;
+        }
         for (Cookie cookie : cookies) {
             cookieList.add(cookie);
         }
@@ -673,6 +676,9 @@ public class ApplicationHandler {
 
     public static Cookie getCookie(HttpServletRequest httpServletRequest, String name) {
         Cookie[] cookies = httpServletRequest.getCookies();
+        if (ArrayUtils.isEmpty(cookies)) {
+            return null;
+        }
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
                 return cookie;
