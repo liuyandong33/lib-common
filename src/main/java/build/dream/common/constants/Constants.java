@@ -670,4 +670,7 @@ public class Constants {
     public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
     public static final String MAIL_SMTP_STARTTLS_REQUIRED = "mail.smtp.starttls.required";
+
+    public static final String ALIYUN_ACCESS_KEY_ID = "aliyun.access.key.id";
+    public static final String ALIYUN_ACCESS_KEY_SECRET = "aliyun.access.key.secret";
 }
