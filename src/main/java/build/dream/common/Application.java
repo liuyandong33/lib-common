@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import sun.net.www.protocol.file.FileURLConnection;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -41,7 +42,7 @@ public class Application {
         URL url = classLoader.getResource(Application.class.getPackage().getName().replaceAll("\\.", "/"));
         String protocol = url.getProtocol();
         if ("file".equals(protocol)) {
-
+            FileURLConnection fileURLConnection = (FileURLConnection) url.openConnection();
         } else if ("jar".equals(protocol)) {
             JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
             JarFile jarFile = jarURLConnection.getJarFile();
