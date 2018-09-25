@@ -44,6 +44,7 @@ CREATE TABLE tenant
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
     vip_shared_type TINYINT NOT NULL COMMENT '会员共享类型，1-全部共享，2-全部独立，3-分组共享',
+    agent_id BIGINT NOT NULL COMMENT '代理商ID',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

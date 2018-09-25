@@ -30,6 +30,10 @@ public class Tenant extends BasicDomain {
      * 会员共享类型，1-全部共享，2-全部独立，3-分组共享
      */
     private Integer vipSharedType;
+    /**
+     * 代理商ID
+     */
+    private BigInteger agentId;
 
     public String getCode() {
         return code;
@@ -79,6 +83,14 @@ public class Tenant extends BasicDomain {
         this.vipSharedType = vipSharedType;
     }
 
+    public BigInteger getAgentId() {
+        return agentId;
+    }
+
+    public void setAgentId(BigInteger agentId) {
+        this.agentId = agentId;
+    }
+
     public static class Builder {
         private final Tenant instance = new Tenant();
 
@@ -109,6 +121,11 @@ public class Tenant extends BasicDomain {
 
         public Builder vipSharedType(Integer vipSharedType) {
             instance.setVipSharedType(vipSharedType);
+            return this;
+        }
+
+        public Builder agentId(BigInteger agentId) {
+            instance.setAgentId(agentId);
             return this;
         }
 
@@ -168,6 +185,7 @@ public class Tenant extends BasicDomain {
         public static final String PARTITION_CODE = "partition_code";
         public static final String TENANT_TYPE = "tenant_type";
         public static final String VIP_SHARED_TYPE = "vip_shared_type";
+        public static final String AGENT_ID = "agent_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -177,5 +195,6 @@ public class Tenant extends BasicDomain {
         public static final String PARTITION_CODE = "partitionCode";
         public static final String TENANT_TYPE = "tenantType";
         public static final String VIP_SHARED_TYPE = "vipSharedType";
+        public static final String AGENT_ID = "agentId";
     }
 }
