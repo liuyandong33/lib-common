@@ -3,15 +3,23 @@ package build.dream.common;
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.NamingStrategyUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.net.JarURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * Created by liuyandong on 2017/7/25.
@@ -29,6 +37,34 @@ public class Application {
 
 //        test();
 //        testSort();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        URL url = classLoader.getResource(Application.class.getPackage().getName().replaceAll("\\.", "/"));
+        String protocol = url.getProtocol();
+        if ("file".equals(protocol)) {
+
+        } else if ("jar".equals(protocol)) {
+            JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
+            JarFile jarFile = jarURLConnection.getJarFile();
+
+            Enumeration<JarEntry> entries = jarFile.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry jarEntry = entries.nextElement();
+                String name = jarEntry.getName();
+                if (name.endsWith("Controller.class") && !name.contains("$")) {
+                    String className = name.replaceAll("/", ".").substring(0, name.length() - 6);
+                    Class<?> clazz = Class.forName(className);
+                    Controller controller = AnnotationUtils.findAnnotation(clazz, Controller.class);
+                    if (controller != null) {
+                        RequestMapping requestMapping = AnnotationUtils.findAnnotation(clazz, RequestMapping.class);
+                        if (requestMapping != null) {
+                            System.out.println(StringUtils.join(requestMapping.value(), ","));
+                        } else {
+
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
