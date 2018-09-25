@@ -42,7 +42,7 @@ public class Application {
         URL url = classLoader.getResource(Application.class.getPackage().getName().replaceAll("\\.", "/"));
         String protocol = url.getProtocol();
         if ("file".equals(protocol)) {
-            FileURLConnection fileURLConnection = (FileURLConnection) url.openConnection();
+            System.out.println(url.toString());
         } else if ("jar".equals(protocol)) {
             JarURLConnection jarURLConnection = (JarURLConnection) url.openConnection();
             JarFile jarFile = jarURLConnection.getJarFile();
