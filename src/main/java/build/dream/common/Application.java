@@ -9,6 +9,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,25 @@ public class Application {
 
 //        test();
 //        testSort();
+    }
+
+    public static void generateFibonacciSequence() {
+        BigInteger a1 = Constants.BIG_INTEGER_ONE;
+        BigInteger a2 = Constants.BIG_INTEGER_ONE;
+        System.out.println("a1 = " + a1);
+        System.out.println("a2 = " + a2);
+
+        BigInteger sum = a1.add(a2);
+        BigInteger an = null;
+        for (int index = 3; index <= 10; index++) {
+            an = a1.add(a2);
+            a1 = a2;
+            a2 = an;
+
+            sum = sum.add(an);
+        }
+        System.out.println(an);
+        System.out.println(sum);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
