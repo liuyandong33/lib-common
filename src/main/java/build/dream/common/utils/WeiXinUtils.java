@@ -18,6 +18,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WeiXinUtils {
@@ -473,5 +474,80 @@ public class WeiXinUtils {
         weiXinAuthorizerToken.setAuthorizerRefreshToken(MapUtils.getString(result, "authorizer_refresh_token"));
         weiXinAuthorizerToken.setFetchTime(new Date());
         return weiXinAuthorizerToken;
+    }
+
+    public static Map<String, Object> sendCustomMessage(String appId, String secret, String message) {
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
+        String accessToken = weiXinAccessToken.getAccessToken();
+        String url = WEI_XIN_API_URL + "/cgi-bin/message/custom/send?access_token=" + accessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, message);
+        String result = webResponse.getResult();
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    public static Map<String, Object> getUser(String appId, String secret, String nextOpenId) {
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
+        String accessToken = weiXinAccessToken.getAccessToken();
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", accessToken);
+        if (StringUtils.isNotBlank(nextOpenId)) {
+            requestParameters.put("next_openid", nextOpenId);
+        }
+        String url = WEI_XIN_API_URL + "/cgi-bin/user/get";
+
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        String result = webResponse.getResult();
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+
+        if (resultMap.containsKey("errcode")) {
+            ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
+        }
+
+        return resultMap;
+    }
+
+    public static Map<String, Object> getUserInfo(String appId, String secret, String openId, String lang) {
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
+        String accessToken = weiXinAccessToken.getAccessToken();
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", accessToken);
+        requestParameters.put("openid", openId);
+        if (StringUtils.isNotBlank(lang)) {
+            requestParameters.put("lang", lang);
+        }
+
+        String url = WEI_XIN_API_URL + "/cgi-bin/user/info";
+
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        String result = webResponse.getResult();
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+
+        if (resultMap.containsKey("errcode")) {
+            ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
+        }
+
+        return resultMap;
+    }
+
+    public static Map<String, Object> batchGetUserInfo(String appId, String secret, String userList) {
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
+        String accessToken = weiXinAccessToken.getAccessToken();
+
+        String url = WEI_XIN_API_URL + "/cgi-bin/user/info/batchget?access_token=" + accessToken;
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, userList);
+        String result = webResponse.getResult();
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+
+        if (resultMap.containsKey("errcode")) {
+            ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
+        }
+
+        return resultMap;
     }
 }
