@@ -76,6 +76,7 @@ public class Constants {
 
     /**
      * 门店类型常量
+     *
      * @see #BRANCH_TYPE_HEADQUARTERS: 总部
      * @see #BRANCH_TYPE_DIRECT_SALE_STORE: 直营店
      * @see #BRANCH_TYPE_FRANCHISE_STORE: 加盟店
@@ -86,6 +87,7 @@ public class Constants {
 
     /**
      * 门店状态常量
+     *
      * @see #BRANCH_STATUS_ENABLED: 启用
      * @see #BRANCH_STATUS_DISABLED: 禁用
      */
@@ -182,6 +184,7 @@ public class Constants {
 
     /**
      * 美团回调类型
+     *
      * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE: 订单生效
      * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_CANCEL: 订单取消
      * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_REFUND: 订单退款
@@ -202,6 +205,7 @@ public class Constants {
 
     /**
      * 饿了么账号类型
+     *
      * @see #ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT: 连锁账号
      * @see #ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT: 独立账号
      */
@@ -210,6 +214,7 @@ public class Constants {
 
     /**
      * 支付账号Redis key
+     *
      * @see #KEY_WEI_XIN_PAY_ACCOUNTS: 微信支付账号
      * @see #KEY_ALIPAY_ACCOUNTS: 支付宝账号
      * @see #KEY_UM_PAY_ACCOUNTS: 联动支付账号
@@ -250,6 +255,7 @@ public class Constants {
 
     /**
      * 商品类型
+     *
      * @see #GOODS_STATUS_NORMAL: 正常
      * @see #GOODS_STATUS_STOP_SALE: 停售
      */
@@ -258,6 +264,7 @@ public class Constants {
 
     /**
      * 商品计量类型
+     *
      * @see #GOODS_METERING_MODE_BY_TIME: 按时间
      * @see #GOODS_METERING_MODE_BY_QUANTITY: 按数量
      */
@@ -287,6 +294,7 @@ public class Constants {
 
     /**
      * 智慧餐厅状态
+     *
      * @see #SMART_RESTAURANT_STATUS_NORMAL: 正常
      * @see #SMART_RESTAURANT_STATUS_DISABLED: 禁用
      */
@@ -316,6 +324,7 @@ public class Constants {
 
     /**
      * 支付渠道常量
+     *
      * @see #CHANNEL_TYPE_WEI_XIN: 微信支付
      * @see #CHANNEL_TYPE_ALIPAY: 支付宝支付
      * @see #CHANNEL_TYPE_JING_DONG: 京东支付
@@ -631,6 +640,7 @@ public class Constants {
 
     /**
      * 微信授权类型常量
+     *
      * @see #AUTHORIZER_TYPE_PUBLIC_ACCOUNT: 微信公众号
      * @see #AUTHORIZER_TYPE_MINI_PROGRAM: 微信小程序
      */
@@ -639,6 +649,7 @@ public class Constants {
 
     /**
      * 获取微信信息的身份类型
+     *
      * @see #IDENTITY_TYPE_PUBLIC_ACCOUNT: 微信公众号
      * @see #IDENTITY_TYPE_THIRD_PARTY_APPLICATION: 第三方应用
      */
@@ -648,7 +659,7 @@ public class Constants {
     /**
      * 微信消息主题
      */
-    public static final String WEI_XIN_MESSAGE_TOPIC_ = "_wei_xin_message_topic";
+    public static final String WEI_XIN_MESSAGE_TOPIC = "_wei_xin_message_topic";
 
     public static final String CONTACT_WE_CHAT_ID_TYPE_WE_CHAT_ID = "type_wechatid";
     public static final String CONTACT_WE_CHAT_ID_TYPE_OPEN_ID = "type_openid";
