@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
@@ -31,5 +32,17 @@ public class XmlUtils {
             returnValue.put(element.getName(), element.getText());
         }
         return returnValue;
+    }
+
+    public static String mapToXmlString(Map<String, String> map) {
+        StringBuilder xml = new StringBuilder("<xml>");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            xml.append("<").append(key).append(">");
+            xml.append(String.format(Constants.CDATA_FORMAT, entry.getValue()));
+            xml.append("</").append(key).append(">");
+        }
+        xml.append("</xml>");
+        return xml.toString();
     }
 }
