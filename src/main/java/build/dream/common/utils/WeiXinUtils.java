@@ -534,13 +534,15 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static Map<String, Object> batchGetUserInfo(String appId, String secret, String userList) {
+    public static Map<String, Object> batchGetUserInfo(String appId, String secret, List<Map<String, String>> userList) {
         WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
         String accessToken = weiXinAccessToken.getAccessToken();
 
         String url = WEI_XIN_API_URL + "/cgi-bin/user/info/batchget?access_token=" + accessToken;
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, userList);
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("user_list", userList);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
