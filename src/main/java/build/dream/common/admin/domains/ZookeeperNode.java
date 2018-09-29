@@ -3,6 +3,7 @@ package build.dream.common.admin.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
+import java.util.Date;
 
 public class ZookeeperNode extends BasicDomain {
     /**
@@ -88,5 +89,112 @@ public class ZookeeperNode extends BasicDomain {
 
     public void setZookeeperHome(String zookeeperHome) {
         this.zookeeperHome = zookeeperHome;
+    }
+
+    public static class Builder {
+        private final ZookeeperNode instance = new ZookeeperNode();
+
+        public Builder clusterId(BigInteger clusterId) {
+            instance.setClusterId(clusterId);
+            return this;
+        }
+
+        public Builder hostName(String hostName) {
+            instance.setHostName(hostName);
+            return this;
+        }
+
+        public Builder ipAddress(String ipAddress) {
+            instance.setIpAddress(ipAddress);
+            return this;
+        }
+
+        public Builder sshPort(Integer sshPort) {
+            instance.setSshPort(sshPort);
+            return this;
+        }
+
+        public Builder userName(String userName) {
+            instance.setUserName(userName);
+            return this;
+        }
+
+        public Builder password(String password) {
+            instance.setPassword(password);
+            return this;
+        }
+
+        public Builder zookeeperHome(String zookeeperHome) {
+            instance.setZookeeperHome(zookeeperHome);
+            return this;
+        }
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder createTime(Date createTime) {
+            instance.setCreateTime(createTime);
+            return this;
+        }
+
+        public Builder createUserId(BigInteger createUserId) {
+            instance.setCreateUserId(createUserId);
+            return this;
+        }
+
+        public Builder lastUpdateTime(Date lastUpdateTime) {
+            instance.setLastUpdateTime(lastUpdateTime);
+            return this;
+        }
+
+        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
+            instance.setLastUpdateUserId(lastUpdateUserId);
+            return this;
+        }
+
+        public Builder lastUpdateRemark(String lastUpdateRemark) {
+            instance.setLastUpdateRemark(lastUpdateRemark);
+            return this;
+        }
+
+        public Builder deleteTime(Date deleteTime) {
+            instance.setDeleteTime(deleteTime);
+            return this;
+        }
+
+        public Builder deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return this;
+        }
+
+        public ZookeeperNode build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String CLUSTER_ID = "cluster_id";
+        public static final String HOST_NAME = "host_name";
+        public static final String IP_ADDRESS = "ip_address";
+        public static final String SSH_PORT = "ssh_port";
+        public static final String USER_NAME = "user_name";
+        public static final String PASSWORD = "password";
+        public static final String ZOOKEEPER_HOME = "zookeeper_home";
+    }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String CLUSTER_ID = "clusterId";
+        public static final String HOST_NAME = "hostName";
+        public static final String IP_ADDRESS = "ipAddress";
+        public static final String SSH_PORT = "sshPort";
+        public static final String USER_NAME = "userName";
+        public static final String PASSWORD = "password";
+        public static final String ZOOKEEPER_HOME = "zookeeperHome";
     }
 }
