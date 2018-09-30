@@ -42,22 +42,48 @@ import java.util.*;
  * Created by liuyandong on 2017/3/24.
  */
 public class ApplicationHandler {
+    /**
+     * 获取ServletRequestAttributes
+     *
+     * @return
+     */
     public static ServletRequestAttributes getServletRequestAttributes() {
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 
+    /**
+     * 获取HttpServletRequest
+     *
+     * @return
+     */
     public static HttpServletRequest getHttpServletRequest() {
         return getServletRequestAttributes().getRequest();
     }
 
+    /**
+     * 获取HttpServletResponse
+     *
+     * @return
+     */
     public static HttpServletResponse getHttpServletResponse() {
         return getServletRequestAttributes().getResponse();
     }
 
+    /**
+     * 获取请求参数
+     *
+     * @return
+     */
     public static Map<String, String> getRequestParameters() {
         return getRequestParameters(getHttpServletRequest());
     }
 
+    /**
+     * 获取请求参数
+     *
+     * @param httpServletRequest
+     * @return
+     */
     public static Map<String, String> getRequestParameters(HttpServletRequest httpServletRequest) {
         Map<String, String> requestParameters = new LinkedHashMap<String, String>();
         Map<String, String[]> parameterMap = httpServletRequest.getParameterMap();
@@ -67,57 +93,201 @@ public class ApplicationHandler {
         return requestParameters;
     }
 
+    /**
+     * 获取请求体
+     *
+     * @return
+     * @throws IOException
+     */
+    public static String getRequestBody() throws IOException {
+        return getRequestBody(getHttpServletRequest(), Constants.CHARSET_NAME_UTF_8);
+    }
+
+    /**
+     * 获取请求体
+     *
+     * @param charsetName
+     * @return
+     * @throws IOException
+     */
     public static String getRequestBody(String charsetName) throws IOException {
-        HttpServletRequest httpServletRequest = getHttpServletRequest();
+        return getRequestBody(getHttpServletRequest(), charsetName);
+    }
+
+    /**
+     * 获取请求体
+     *
+     * @param httpServletRequest
+     * @param charsetName
+     * @return
+     * @throws IOException
+     */
+    public static String getRequestBody(HttpServletRequest httpServletRequest, String charsetName) throws IOException {
         return IOUtils.toString(httpServletRequest.getInputStream(), charsetName);
     }
 
-    public static String getRequestBody() throws IOException {
-        HttpServletRequest httpServletRequest = getHttpServletRequest();
-        return IOUtils.toString(httpServletRequest.getInputStream());
-    }
-
+    /**
+     * 根据参数名称获取参数
+     *
+     * @param requestParameterName
+     * @return
+     */
     public static String getRequestParameter(String requestParameterName) {
-        return StringUtils.trimToNull(StringUtils.join(getHttpServletRequest().getParameterValues(requestParameterName), ","));
+        return getRequestParameter(getHttpServletRequest(), requestParameterName);
     }
 
+    /**
+     * 根据参数名称获取参数
+     *
+     * @param httpServletRequest
+     * @param requestParameterName
+     * @return
+     */
+    public static String getRequestParameter(HttpServletRequest httpServletRequest, String requestParameterName) {
+        return StringUtils.trimToNull(StringUtils.join(httpServletRequest.getParameterValues(requestParameterName), ","));
+    }
+
+    /**
+     * 获取session id
+     *
+     * @return
+     */
     public static String getSessionId() {
         return getServletRequestAttributes().getSessionId();
     }
 
+    /**
+     * 获取ServletContext
+     *
+     * @return
+     */
     public static ServletContext getServletContext() {
-        return getHttpServletRequest().getServletContext();
+        return getServletContext(getHttpServletRequest());
     }
 
+    /**
+     * 获取ServletContext
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static ServletContext getServletContext(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getServletContext();
+    }
+
+    /**
+     * 获取客户点IP地址
+     *
+     * @return
+     */
     public static String getRemoteAddress() {
-        return getHttpServletRequest().getRemoteAddr();
+        return getRemoteAddress(getHttpServletRequest());
     }
 
+    /**
+     * 获取客户点IP地址
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String getRemoteAddress(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getRemoteAddr();
+    }
+
+    /**
+     * 获取 HttpSession
+     *
+     * @return
+     */
     public static HttpSession getHttpSession() {
         return getHttpServletRequest().getSession();
     }
 
+    /**
+     * 获取请求的url
+     *
+     * @return
+     */
     public static String getRequestUrl() {
-        return getHttpServletRequest().getRequestURL().toString();
+        return getRequestUrl(getHttpServletRequest());
     }
 
+    /**
+     * 获取请求的url
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String getRequestUrl(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getRequestURL().toString();
+    }
+
+    /**
+     * 获取请求的uri
+     *
+     * @return
+     */
     public static String getRequestUri() {
-        return getHttpServletRequest().getRequestURI();
+        return getRequestUri(getHttpServletRequest());
     }
 
+    /**
+     * 获取请求的uri
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String getRequestUri(HttpServletRequest httpServletRequest) {
+        return httpServletRequest.getRequestURI();
+    }
+
+    /**
+     * 获取请求的url包含queryString
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String obtainRequestUrl(HttpServletRequest httpServletRequest) {
+        String queryString = httpServletRequest.getQueryString();
+        String url = httpServletRequest.getRequestURL().toString();
+        if (StringUtils.isNotBlank(queryString)) {
+            url = url + "?" + queryString;
+        }
+        return url;
+    }
+
+    /**
+     * 获取请求的url包含queryString
+     *
+     * @return
+     */
+    public static String obtainRequestUrl() {
+        return obtainRequestUrl(getHttpServletRequest());
+    }
+
+    /**
+     * 实例化对象
+     *
+     * @param objectClass
+     * @param parameters
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws Exception {
         return instantiateObject(objectClass, parameters, "");
     }
 
-    private static List<Field> obtainAllFields(Class<?> objectClass) {
-        ArrayList<Field> fields = new ArrayList<Field>();
-        while (objectClass != Object.class) {
-            fields.addAll(Arrays.asList(objectClass.getDeclaredFields()));
-            objectClass = objectClass.getSuperclass();
-        }
-        return fields;
-    }
-
+    /**
+     * 实例化对象
+     *
+     * @param objectClass
+     * @param parameters
+     * @param prefix
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws Exception {
         T object = objectClass.newInstance();
         Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
@@ -192,6 +362,28 @@ public class ApplicationHandler {
         return object;
     }
 
+    /**
+     * 获取所有属性，包含父类的属性
+     *
+     * @param objectClass
+     * @return
+     */
+    private static List<Field> obtainAllFields(Class<?> objectClass) {
+        ArrayList<Field> fields = new ArrayList<Field>();
+        while (objectClass != Object.class) {
+            fields.addAll(Arrays.asList(objectClass.getDeclaredFields()));
+            objectClass = objectClass.getSuperclass();
+        }
+        return fields;
+    }
+
+    /**
+     * 获取SimpleDateFormat
+     *
+     * @param simpleDateFormatMap
+     * @param field
+     * @return
+     */
     public static SimpleDateFormat obtainSimpleDateFormat(Map<String, SimpleDateFormat> simpleDateFormatMap, Field field) {
         DateFormat dateFormat = field.getAnnotation(DateFormat.class);
         String datePattern = null;
@@ -208,6 +400,13 @@ public class ApplicationHandler {
         return simpleDateFormatMap.get(datePattern);
     }
 
+    /**
+     * 构建List<Byte>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Byte> buildByteArrayList(String fieldValue, String separator) {
         List<Byte> list = new ArrayList<Byte>();
         String[] array = fieldValue.split(separator);
@@ -217,6 +416,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Short>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Short> buildShortArrayList(String fieldValue, String separator) {
         List<Short> list = new ArrayList<Short>();
         String[] array = fieldValue.split(separator);
@@ -226,6 +432,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Integer>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Integer> buildIntegerArrayList(String fieldValue, String separator) {
         List<Integer> list = new ArrayList<Integer>();
         String[] array = fieldValue.split(separator);
@@ -235,6 +448,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Long>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Long> buildLongArrayList(String fieldValue, String separator) {
         List<Long> list = new ArrayList<Long>();
         String[] array = fieldValue.split(separator);
@@ -244,6 +464,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Float>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Float> buildFloatArrayList(String fieldValue, String separator) {
         List<Float> list = new ArrayList<Float>();
         String[] array = fieldValue.split(separator);
@@ -253,6 +480,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Double>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Double> buildDoubleArrayList(String fieldValue, String separator) {
         List<Double> list = new ArrayList<Double>();
         String[] array = fieldValue.split(separator);
@@ -262,6 +496,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Character>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Character> buildCharacterArrayList(String fieldValue, String separator) {
         List<Character> list = new ArrayList<Character>();
         String[] array = fieldValue.split(separator);
@@ -271,6 +512,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Boolean>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<Boolean> buildBooleanArrayList(String fieldValue, String separator) {
         List<Boolean> list = new ArrayList<Boolean>();
         String[] array = fieldValue.split(separator);
@@ -280,6 +528,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<BigInteger>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<BigInteger> buildBigIntegerArrayList(String fieldValue, String separator) {
         List<BigInteger> list = new ArrayList<BigInteger>();
         String[] array = fieldValue.split(separator);
@@ -289,6 +544,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<BigDecimal>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<BigDecimal> buildBigDecimalArrayList(String fieldValue, String separator) {
         List<BigDecimal> list = new ArrayList<BigDecimal>();
         String[] array = fieldValue.split(separator);
@@ -298,6 +560,14 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<Date>
+     *
+     * @param fieldValue
+     * @param separator
+     * @param simpleDateFormat
+     * @return
+     */
     public static List<Date> buildDateArrayList(String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<Date> list = new ArrayList<Date>();
         String[] array = fieldValue.split(separator);
@@ -311,6 +581,13 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List<String>
+     *
+     * @param fieldValue
+     * @param separator
+     * @return
+     */
     public static List<String> buildStringArrayList(String fieldValue, String separator) {
         List<String> list = new ArrayList<String>();
         String[] array = fieldValue.split(separator);
@@ -320,6 +597,17 @@ public class ApplicationHandler {
         return list;
     }
 
+    /**
+     * 构建List
+     *
+     * @param field
+     * @param type
+     * @param fieldName
+     * @param fieldValue
+     * @param separator
+     * @param simpleDateFormat
+     * @return
+     */
     private static Object buildArrayList(Field field, Type type, String fieldName, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<? extends Object> list = null;
         if (type == Byte.class) {
