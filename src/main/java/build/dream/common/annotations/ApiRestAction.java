@@ -15,4 +15,6 @@ public @interface ApiRestAction {
     String serviceMethodName() default "";
 
     String error() default "";
+
+    boolean isZip() default false;
 }

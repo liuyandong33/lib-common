@@ -26,7 +26,7 @@ public class ZipUtils {
                 zipOutputStream.closeEntry();
                 compressedText = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
             } catch (IOException e) {
-
+                throw new RuntimeException(e);
             } finally {
                 closeZipOutputStream(zipOutputStream);
                 closeByteArrayOutputStream(byteArrayOutputStream);
@@ -35,7 +35,7 @@ public class ZipUtils {
         return compressedText;
     }
 
-    public static void closeZipInputStream(ZipInputStream zipInputStream) {
+    private static void closeZipInputStream(ZipInputStream zipInputStream) {
         if (zipInputStream != null) {
             try {
                 zipInputStream.close();
@@ -45,7 +45,7 @@ public class ZipUtils {
         }
     }
 
-    public static void closeZipOutputStream(ZipOutputStream zipOutputStream) {
+    private static void closeZipOutputStream(ZipOutputStream zipOutputStream) {
         if (zipOutputStream != null) {
             try {
                 zipOutputStream.close();
@@ -55,7 +55,7 @@ public class ZipUtils {
         }
     }
 
-    public static void closeByteArrayInputStream(ByteArrayInputStream byteArrayInputStream) {
+    private static void closeByteArrayInputStream(ByteArrayInputStream byteArrayInputStream) {
         if (byteArrayInputStream != null) {
             try {
                 byteArrayInputStream.close();
@@ -65,7 +65,7 @@ public class ZipUtils {
         }
     }
 
-    public static void closeByteArrayOutputStream(ByteArrayOutputStream byteArrayOutputStream) {
+    private static void closeByteArrayOutputStream(ByteArrayOutputStream byteArrayOutputStream) {
         if (byteArrayOutputStream != null) {
             try {
                 byteArrayOutputStream.close();
@@ -96,7 +96,7 @@ public class ZipUtils {
                 }
                 text = byteArrayOutputStream.toString();
             } catch (IOException e) {
-
+                throw new RuntimeException(e);
             } finally {
                 closeZipInputStream(zipInputStream);
                 closeByteArrayInputStream(byteArrayInputStream);
