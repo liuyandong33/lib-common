@@ -1,5 +1,6 @@
 package build.dream.common.annotations;
 
+import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 
 import java.lang.annotation.*;
@@ -16,5 +17,7 @@ public @interface ApiRestAction {
 
     String error() default "";
 
-    boolean isZip() default false;
+    boolean zipped() default false;
+
+    String datePattern() default Constants.DEFAULT_DATE_PATTERN;
 }
