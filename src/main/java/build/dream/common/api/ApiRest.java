@@ -2,10 +2,7 @@ package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
-import build.dream.common.utils.CacheUtils;
-import build.dream.common.utils.GsonUtils;
-import build.dream.common.utils.JacksonUtils;
-import build.dream.common.utils.SignatureUtils;
+import build.dream.common.utils.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
@@ -25,6 +22,7 @@ public class ApiRest {
     private String id;
     private String timestamp;
     private String signature;
+    private boolean zipped;
 
     public ApiRest() {
         this.id = UUID.randomUUID().toString();
@@ -146,6 +144,9 @@ public class ApiRest {
 
     public static ApiRest fromJson(String jsonString, String datePattern) {
         ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class);
+        if (apiRest.isZipped()) {
+            apiRest.setData(JacksonUtils.readValue(ZipUtils.unzipText(apiRest.data.toString()), Object.class));
+        }
         if (StringUtils.isNotBlank(apiRest.className)) {
             Class<?> clazz = null;
             try {
@@ -159,11 +160,23 @@ public class ApiRest {
         return apiRest;
     }
 
+    public boolean isZipped() {
+        return zipped;
+    }
+
+    public void setZipped(boolean zipped) {
+        this.zipped = zipped;
+    }
+
     public void sign() {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
         if (this.data != null) {
-            sortedMap.put("data", GsonUtils.toJson(data));
+            if (this.data instanceof String) {
+                sortedMap.put("data", data.toString());
+            } else {
+                sortedMap.put("data", GsonUtils.toJson(data));
+            }
         }
         if (StringUtils.isNotBlank(className)) {
             sortedMap.put("className", className);
@@ -198,7 +211,7 @@ public class ApiRest {
     }
 
     public String toJson() {
-        return GsonUtils.toJson(this);
+        return toJson(Constants.DEFAULT_DATE_PATTERN);
     }
 
     public String toJson(String datePattern) {
@@ -255,6 +268,11 @@ public class ApiRest {
 
         public Builder signature(String signature) {
             instance.setSignature(signature);
+            return this;
+        }
+
+        public Builder zipped(boolean zipped) {
+            instance.setZipped(zipped);
             return this;
         }
 
