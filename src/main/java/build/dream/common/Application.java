@@ -30,6 +30,7 @@ public class Application {
 
 //        test();
 //        testSort();
+        "14000605".toString();
     }
 
     public static void generateFibonacciSequence() {
