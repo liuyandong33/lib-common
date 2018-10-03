@@ -142,6 +142,18 @@ public class ApiRest {
         this.signature = signature;
     }
 
+    public boolean isZipped() {
+        return zipped;
+    }
+
+    public void setZipped(boolean zipped) {
+        this.zipped = zipped;
+    }
+
+    public static ApiRest fromJson(String jsonString) {
+        return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
+    }
+
     public static ApiRest fromJson(String jsonString, String datePattern) {
         ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class);
         if (apiRest.isZipped()) {
@@ -160,12 +172,12 @@ public class ApiRest {
         return apiRest;
     }
 
-    public boolean isZipped() {
-        return zipped;
+    public String toJson() {
+        return toJson(Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public void setZipped(boolean zipped) {
-        this.zipped = zipped;
+    public String toJson(String datePattern) {
+        return GsonUtils.toJson(this, datePattern);
     }
 
     public void sign() {
@@ -206,17 +218,6 @@ public class ApiRest {
         }
     }
 
-    public static ApiRest fromJson(String jsonString) {
-        return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
-    }
-
-    public String toJson() {
-        return toJson(Constants.DEFAULT_DATE_PATTERN);
-    }
-
-    public String toJson(String datePattern) {
-        return GsonUtils.toJson(this, datePattern);
-    }
 
     public static class Builder {
         private ApiRest instance = new ApiRest();
