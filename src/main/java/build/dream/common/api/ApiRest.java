@@ -218,7 +218,6 @@ public class ApiRest {
         }
     }
 
-
     public static class Builder {
         private ApiRest instance = new ApiRest();
 

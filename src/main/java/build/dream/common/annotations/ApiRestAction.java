@@ -19,5 +19,7 @@ public @interface ApiRestAction {
 
     boolean zipped() default false;
 
+    boolean signed() default false;
+
     String datePattern() default Constants.DEFAULT_DATE_PATTERN;
 }
