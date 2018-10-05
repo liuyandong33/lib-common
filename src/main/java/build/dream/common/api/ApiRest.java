@@ -23,6 +23,7 @@ public class ApiRest {
     private String timestamp;
     private String signature;
     private boolean zipped;
+    private boolean encrypted;
 
     public ApiRest() {
         this.id = UUID.randomUUID().toString();
@@ -150,6 +151,14 @@ public class ApiRest {
         this.zipped = zipped;
     }
 
+    public boolean isEncrypted() {
+        return encrypted;
+    }
+
+    public void setEncrypted(boolean encrypted) {
+        this.encrypted = encrypted;
+    }
+
     public static ApiRest fromJson(String jsonString) {
         return fromJson(jsonString, Constants.DEFAULT_DATE_PATTERN);
     }
@@ -206,6 +215,8 @@ public class ApiRest {
         sortedMap.put("result", result);
         sortedMap.put("id", id);
         sortedMap.put("timestamp", timestamp);
+        sortedMap.put("zipped", String.valueOf(zipped));
+        sortedMap.put("encrypted", String.valueOf(encrypted));
 
         List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
@@ -233,6 +244,15 @@ public class ApiRest {
             data = ZipUtils.zipText(GsonUtils.toJson(data, datePattern));
         }
         zipped = true;
+    }
+
+    public void encryptData(String publicKey, String datePattern) {
+        if (data instanceof String) {
+            data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(org.apache.commons.codec.binary.StringUtils.getBytesUtf8(data.toString()), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
+        } else {
+            data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(org.apache.commons.codec.binary.StringUtils.getBytesUtf8(GsonUtils.toJson(data, datePattern)), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
+        }
+        encrypted = true;
     }
 
     public static class Builder {
@@ -290,6 +310,11 @@ public class ApiRest {
 
         public Builder zipped(boolean zipped) {
             instance.setZipped(zipped);
+            return this;
+        }
+
+        public Builder encrypted(boolean encrypted) {
+            instance.setEncrypted(encrypted);
             return this;
         }
 

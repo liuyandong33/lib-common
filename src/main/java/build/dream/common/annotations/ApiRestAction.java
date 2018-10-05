@@ -21,5 +21,7 @@ public @interface ApiRestAction {
 
     boolean signed() default false;
 
+    boolean encrypted() default false;
+
     String datePattern() default Constants.DEFAULT_DATE_PATTERN;
 }
