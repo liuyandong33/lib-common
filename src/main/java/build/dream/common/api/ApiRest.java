@@ -222,6 +222,19 @@ public class ApiRest {
         }
     }
 
+    public void zipData() {
+        zipData(Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public void zipData(String datePattern) {
+        if (data instanceof String) {
+            data = ZipUtils.zipText(data.toString());
+        } else {
+            data = ZipUtils.zipText(GsonUtils.toJson(data, datePattern));
+        }
+        zipped = true;
+    }
+
     public static class Builder {
         private ApiRest instance = new ApiRest();
 
