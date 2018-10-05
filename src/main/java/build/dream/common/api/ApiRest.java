@@ -181,13 +181,17 @@ public class ApiRest {
     }
 
     public void sign() {
+        sign(Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public void sign(String datePattern) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
         if (this.data != null) {
             if (this.data instanceof String) {
                 sortedMap.put("data", data.toString());
             } else {
-                sortedMap.put("data", GsonUtils.toJson(data));
+                sortedMap.put("data", GsonUtils.toJson(data, datePattern));
             }
         }
         if (StringUtils.isNotBlank(className)) {
