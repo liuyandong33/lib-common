@@ -723,4 +723,7 @@ public class Constants {
     public static final String BANK_CODE_EVERBRIGHT = "1022";
     public static final String BANK_CODE_BOB = "1032";
     public static final String BANK_CODE_NING_BO = "1056";
+
+    public static final String SEQUENCE_NAME_TENANT_CODE = "tenant_code";
+    public static final String SEQUENCE_NAME_AGENT_CODE = "agent_code";
 }
