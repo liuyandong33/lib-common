@@ -684,4 +684,43 @@ public class Constants {
 
     public static final String ALIYUN_ACCESS_KEY_ID = "aliyun.access.key.id";
     public static final String ALIYUN_ACCESS_KEY_SECRET = "aliyun.access.key.secret";
+
+    /**
+     * 银行编号
+     *
+     * @see #BANK_CODE_ICBC：工商银行（Industrial And Commercial Bank Of China）
+     * @see #BANK_CODE_ABC：农业银行（Agricultural Bank Of China）
+     * @see #BANK_CODE_BOC：中国银行（Bank Of China）
+     * @see #BANK_CODE_CCB：建设银行（China Construction Bank）
+     * @see #BANK_CODE_ICBC：招商银行（China Merchants Bank）
+     * @see #BANK_CODE_PSBC：邮储银行（Postal Savings Bank of China）
+     * @see #BANK_CODE_BCM：交通银行（Bank of Communications）
+     * @see #BANK_CODE_SPDB：浦发银行（Shanghai Pudong Development Bank）
+     * @see #BANK_CODE_CMBC：民生银行（China Minsheng Banking Corp）
+     * @see #BANK_CODE_CIB：兴业银行
+     * @see #BANK_CODE_PING_AN：平安银行
+     * @see #BANK_CODE_HUA_XIA：中信银行（China Citic Bank）
+     * @see #BANK_CODE_PSBC：华夏银行
+     * @see #BANK_CODE_GUANG_FA：广发银行
+     * @see #BANK_CODE_EVERBRIGHT：光大银行
+     * @see #BANK_CODE_BOB：北京银行
+     * @see #BANK_CODE_NING_BO：宁波银行
+     */
+    public static final String BANK_CODE_ICBC = "1002";
+    public static final String BANK_CODE_ABC = "1005";
+    public static final String BANK_CODE_BOC = "1026";
+    public static final String BANK_CODE_CCB = "1003";
+    public static final String BANK_CODE_CMB = "1001";
+    public static final String BANK_CODE_PSBC = "1066";
+    public static final String BANK_CODE_BCM = "1020";
+    public static final String BANK_CODE_SPDB = "1004";
+    public static final String BANK_CODE_CMBC = "1006";
+    public static final String BANK_CODE_CIB = "1009";
+    public static final String BANK_CODE_PING_AN = "1010";
+    public static final String BANK_CODE_CITIC = "1021";
+    public static final String BANK_CODE_HUA_XIA = "1025";
+    public static final String BANK_CODE_GUANG_FA = "1027";
+    public static final String BANK_CODE_EVERBRIGHT = "1022";
+    public static final String BANK_CODE_BOB = "1032";
+    public static final String BANK_CODE_NING_BO = "1056";
 }
