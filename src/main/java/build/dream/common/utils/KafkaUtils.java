@@ -17,7 +17,6 @@ import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.util.concurrent.ListenableFuture;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -127,7 +126,7 @@ public class KafkaUtils {
         obtainKafkaTemplate().sendOffsetsToTransaction(offsets, consumerGroupId);
     }
 
-    public static void fixedTimeSend(String topic, String key, String data, Date sendTime) throws IOException {
+    public static void fixedTimeSend(String topic, String key, String data, Date sendTime) {
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("topic", topic);
         requestParameters.put("key", key);
