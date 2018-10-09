@@ -55,6 +55,7 @@ dependencies {
     compile("com.alibaba:fastjson:1.2.49")
     compile("org.springframework.boot:spring-boot-starter-amqp")
     compile("org.springframework.boot:spring-boot-starter-activemq")
+    compile("com.jcraft:jsch:0.1.54")
 }
 
 task makeJar(type: Jar) {

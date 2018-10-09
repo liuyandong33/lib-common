@@ -726,4 +726,7 @@ public class Constants {
 
     public static final String SEQUENCE_NAME_TENANT_CODE = "tenant_code";
     public static final String SEQUENCE_NAME_AGENT_CODE = "agent_code";
+
+    public static final String CHANNEL_TYPE_EXEC = "exec";
+    public static final String CHANNEL_TYPE_SFTP = "sftp";
 }
