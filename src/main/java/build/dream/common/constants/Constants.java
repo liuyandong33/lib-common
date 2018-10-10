@@ -730,4 +730,9 @@ public class Constants {
 
     public static final String CHANNEL_TYPE_EXEC = "exec";
     public static final String CHANNEL_TYPE_SFTP = "sftp";
+
+    public static Integer ACCESS_MODE_GET = 1;
+    public static Integer ACCESS_MODE_POST = 2;
+    public static Integer ACCESS_MODE_GET_SIGNATURE = 3;
+    public static Integer ACCESS_MODE_POST_SIGNATURE = 4;
 }
