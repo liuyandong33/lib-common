@@ -9,6 +9,7 @@ import java.util.Date;
 public class AppPrivilege extends BasicDomain {
     private String privilegeCode;
     private String privilegeName;
+    private Integer accessMode;
     private String serviceName = Constants.VARCHAR_DEFAULT_VALUE;
     private String controllerName = Constants.VARCHAR_DEFAULT_VALUE;
     private String actionName = Constants.VARCHAR_DEFAULT_VALUE;
@@ -29,6 +30,14 @@ public class AppPrivilege extends BasicDomain {
 
     public void setPrivilegeName(String privilegeName) {
         this.privilegeName = privilegeName;
+    }
+
+    public Integer getAccessMode() {
+        return accessMode;
+    }
+
+    public void setAccessMode(Integer accessMode) {
+        this.accessMode = accessMode;
     }
 
     public String getServiceName() {
@@ -81,6 +90,11 @@ public class AppPrivilege extends BasicDomain {
 
         public Builder privilegeName(String privilegeName) {
             instance.setPrivilegeName(privilegeName);
+            return this;
+        }
+
+        public Builder accessMode(Integer accessMode) {
+            instance.setAccessMode(accessMode);
             return this;
         }
 
@@ -161,6 +175,7 @@ public class AppPrivilege extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String PRIVILEGE_CODE = "privilege_code";
         public static final String PRIVILEGE_NAME = "privilege_name";
+        public static final String ACCESS_MODE = "access_mode";
         public static final String SERVICE_NAME = "service_name";
         public static final String CONTROLLER_NAME = "controller_name";
         public static final String ACTION_NAME = "action_name";
@@ -171,6 +186,7 @@ public class AppPrivilege extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String PRIVILEGE_CODE = "privilegeCode";
         public static final String PRIVILEGE_NAME = "privilegeName";
+        public static final String ACCESS_MODE = "accessMode";
         public static final String SERVICE_NAME = "serviceName";
         public static final String CONTROLLER_NAME = "controllerName";
         public static final String ACTION_NAME = "actionName";

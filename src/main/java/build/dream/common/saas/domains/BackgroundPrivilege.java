@@ -9,7 +9,7 @@ import java.util.Date;
 public class BackgroundPrivilege extends BasicDomain {
     private String privilegeCode;
     private String privilegeName;
-    private Integer privilegeType;
+    private Integer accessMode;
     private String serviceName;
     private String controllerName = Constants.VARCHAR_DEFAULT_VALUE;
     private String actionName = Constants.VARCHAR_DEFAULT_VALUE;
@@ -33,12 +33,12 @@ public class BackgroundPrivilege extends BasicDomain {
         this.privilegeName = privilegeName;
     }
 
-    public Integer getPrivilegeType() {
-        return privilegeType;
+    public Integer getAccessMode() {
+        return accessMode;
     }
 
-    public void setPrivilegeType(Integer privilegeType) {
-        this.privilegeType = privilegeType;
+    public void setAccessMode(Integer accessMode) {
+        this.accessMode = accessMode;
     }
 
     public String getServiceName() {
@@ -102,8 +102,8 @@ public class BackgroundPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder privilegeType(Integer privilegeType) {
-            instance.setPrivilegeType(privilegeType);
+        public Builder accessMode(Integer accessMode) {
+            instance.setAccessMode(accessMode);
             return this;
         }
 
@@ -189,7 +189,7 @@ public class BackgroundPrivilege extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String PRIVILEGE_CODE = "privilege_code";
         public static final String PRIVILEGE_NAME = "privilege_name";
-        public static final String PRIVILEGE_TYPE = "privilege_type";
+        public static final String ACCESS_MODE = "access_mode";
         public static final String SERVICE_NAME = "service_name";
         public static final String CONTROLLER_NAME = "controller_name";
         public static final String ACTION_NAME = "action_name";
@@ -201,7 +201,7 @@ public class BackgroundPrivilege extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String PRIVILEGE_CODE = "privilegeCode";
         public static final String PRIVILEGE_NAME = "privilegeName";
-        public static final String PRIVILEGE_TYPE = "privilegeType";
+        public static final String ACCESS_MODE = "accessMode";
         public static final String SERVICE_NAME = "serviceName";
         public static final String CONTROLLER_NAME = "controllerName";
         public static final String ACTION_NAME = "actionName";
