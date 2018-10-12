@@ -37,13 +37,7 @@ public class Application {
 //        testSort();
         "14000605".toString();
 
-        String uuid = UUID.randomUUID().toString();
-
-        String zippedText = TarUtils.zipText(uuid);
-
-        System.out.println(uuid);
-        System.out.println(zippedText);
-        System.out.println(TarUtils.unzipText(zippedText));
+        TarUtils.unzipFile("C:\\Users\\liuyandong\\Downloads\\kafka_2.12-1.1.0.tgz", "C:\\Users\\liuyandong\\Desktop\\aa\\aa\\aa\\bb\\cc");
     }
 
     public static void generateFibonacciSequence() {

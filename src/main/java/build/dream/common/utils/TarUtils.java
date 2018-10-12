@@ -8,8 +8,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.*;
 
 public class TarUtils {
     public static String zipText(String text) {
@@ -60,5 +59,42 @@ public class TarUtils {
             IOUtils.close(tarArchiveInputStream);
         }
         return text;
+    }
+
+    public static void unzipFile(String source, String destDir) {
+        unzipFile(new File(source), destDir);
+    }
+
+    public static void unzipFile(File file, String destDir) {
+        InputStream inputStream = null;
+        GzipCompressorInputStream gzipCompressorInputStream = null;
+        TarArchiveInputStream tarArchiveInputStream = null;
+        try {
+            ValidateUtils.isTrue(file.exists(), "文件不存在！");
+            inputStream = new FileInputStream(file);
+            gzipCompressorInputStream = new GzipCompressorInputStream(inputStream);
+            tarArchiveInputStream = new TarArchiveInputStream(gzipCompressorInputStream);
+
+            while (true) {
+                TarArchiveEntry tarArchiveEntry = tarArchiveInputStream.getNextTarEntry();
+                if (tarArchiveEntry == null) {
+                    break;
+                }
+
+                if (tarArchiveEntry.isDirectory()) {
+                    FileUtils.createDirectoryIfNotExists(destDir + File.separator + tarArchiveEntry.getName());
+                } else {
+                    File fileEntry = new File(destDir + File.separator + tarArchiveEntry.getName());
+                    FileUtils.createDirectoryIfNotExists(fileEntry.getParentFile());
+                    IOUtils.copy(tarArchiveInputStream, new FileOutputStream(file), true);
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            IOUtils.close(tarArchiveInputStream);
+            IOUtils.close(gzipCompressorInputStream);
+            IOUtils.close(inputStream);
+        }
     }
 }
