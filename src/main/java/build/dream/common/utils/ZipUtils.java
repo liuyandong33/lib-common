@@ -12,9 +12,9 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtils {
     public static String zipText(String text) {
-        String compressedText = null;
+        String zippedText = null;
         if (StringUtils.isBlank(text)) {
-            compressedText = text;
+            zippedText = text;
         } else {
             ByteArrayOutputStream byteArrayOutputStream = null;
             ZipOutputStream zipOutputStream = null;
@@ -24,83 +24,35 @@ public class ZipUtils {
                 zipOutputStream.putNextEntry(new ZipEntry("0"));
                 zipOutputStream.write(text.getBytes());
                 zipOutputStream.closeEntry();
-                compressedText = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
+                zippedText = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
-                closeZipOutputStream(zipOutputStream);
-                closeByteArrayOutputStream(byteArrayOutputStream);
+                IOUtils.close(zipOutputStream);
+                IOUtils.close(byteArrayOutputStream);
             }
         }
-        return compressedText;
+        return zippedText;
     }
 
-    private static void closeZipInputStream(ZipInputStream zipInputStream) {
-        if (zipInputStream != null) {
-            try {
-                zipInputStream.close();
-            } catch (IOException e) {
-                zipInputStream = null;
-            }
-        }
-    }
-
-    private static void closeZipOutputStream(ZipOutputStream zipOutputStream) {
-        if (zipOutputStream != null) {
-            try {
-                zipOutputStream.close();
-            } catch (IOException e) {
-                zipOutputStream = null;
-            }
-        }
-    }
-
-    private static void closeByteArrayInputStream(ByteArrayInputStream byteArrayInputStream) {
-        if (byteArrayInputStream != null) {
-            try {
-                byteArrayInputStream.close();
-            } catch (IOException e) {
-                byteArrayInputStream = null;
-            }
-        }
-    }
-
-    private static void closeByteArrayOutputStream(ByteArrayOutputStream byteArrayOutputStream) {
-        if (byteArrayOutputStream != null) {
-            try {
-                byteArrayOutputStream.close();
-            } catch (IOException e) {
-                byteArrayOutputStream = null;
-            }
-        }
-    }
-
-    public static final String unzipText(String compressedText) {
+    public static final String unzipText(String zippedText) {
         String text = null;
-        if (StringUtils.isBlank(compressedText)) {
-            text = compressedText;
+        if (StringUtils.isBlank(zippedText)) {
+            text = zippedText;
         } else {
-            ByteArrayOutputStream byteArrayOutputStream = null;
             ByteArrayInputStream byteArrayInputStream = null;
             ZipInputStream zipInputStream = null;
             try {
-                byte[] compressed = Base64.decodeBase64(compressedText);
-                byteArrayOutputStream = new ByteArrayOutputStream();
-                byteArrayInputStream = new ByteArrayInputStream(compressed);
+                byte[] data = Base64.decodeBase64(zippedText);
+                byteArrayInputStream = new ByteArrayInputStream(data);
                 zipInputStream = new ZipInputStream(byteArrayInputStream);
                 zipInputStream.getNextEntry();
-                byte[] buffer = new byte[1024];
-                int length = 0;
-                while ((length = zipInputStream.read(buffer)) != -1) {
-                    byteArrayOutputStream.write(buffer, 0, length);
-                }
-                text = byteArrayOutputStream.toString();
+                text = IOUtils.toString(zipInputStream);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
-                closeZipInputStream(zipInputStream);
-                closeByteArrayInputStream(byteArrayInputStream);
-                closeByteArrayOutputStream(byteArrayOutputStream);
+                IOUtils.close(zipInputStream);
+                IOUtils.close(byteArrayInputStream);
             }
         }
         return text;

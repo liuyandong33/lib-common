@@ -51,4 +51,22 @@ public class IOUtils {
     public static void copy(InputStream inputStream, OutputStream outputStream) throws IOException {
         copy(inputStream, outputStream, false);
     }
+
+    public static void close(InputStream inputStream) {
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+            }
+        }
+    }
+
+    public static void close(OutputStream outputStream) {
+        if (outputStream != null) {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+            }
+        }
+    }
 }
