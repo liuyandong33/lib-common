@@ -2,11 +2,7 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
-import build.dream.common.utils.JSchUtils;
 import build.dream.common.utils.NamingStrategyUtils;
-import build.dream.common.utils.TarUtils;
-import com.jcraft.jsch.JSchException;
-import com.jcraft.jsch.Session;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -17,7 +13,6 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by liuyandong on 2017/7/25.
@@ -36,8 +31,6 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
-
-        TarUtils.unzipFile("C:\\Users\\liuyandong\\Downloads\\kafka_2.12-1.1.0.tgz", "C:\\Users\\liuyandong\\Desktop\\aa\\aa\\aa\\bb\\cc");
     }
 
     public static void generateFibonacciSequence() {
