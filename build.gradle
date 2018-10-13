@@ -46,6 +46,7 @@ dependencies {
     compile("com.google.code.gson:gson:2.8.0")
     compile("com.google.zxing:core:3.3.2")
     compile("commons-codec:commons-codec:1.10")
+    compile("org.apache.commons:commons-compress:1.18")
     compile("dom4j:dom4j:1.6.1")
     compile("redis.clients:jedis:2.9.0")
     compile("net.sf.json-lib:json-lib:2.4:jdk15")
