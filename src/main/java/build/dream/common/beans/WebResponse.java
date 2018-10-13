@@ -84,4 +84,12 @@ public class WebResponse {
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
     }
+
+    public Map<String, Cookie> getCookieMap() {
+        return cookieMap;
+    }
+
+    public void setCookieMap(Map<String, Cookie> cookieMap) {
+        this.cookieMap = cookieMap;
+    }
 }

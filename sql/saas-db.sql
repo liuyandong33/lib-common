@@ -18,7 +18,8 @@ CREATE TABLE system_partition
 ) COMMENT = '系统分区表';
 
 DROP TABLE IF EXISTS configuration;
-CREATE TABLE configuration (
+CREATE TABLE configuration
+(
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     deployment_environment VARCHAR(20) NOT NULL COMMENT '部署环境',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
@@ -825,7 +826,7 @@ CREATE TABLE goods_type
     disable_sql TEXT not null COMMENT '禁用sql',
     create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME DEFAULT NOT NULL NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
     last_update_remark VARCHAR(255) not null COMMENT '最后更新备注',
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
