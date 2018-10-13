@@ -93,3 +93,19 @@ CREATE TABLE my_sql_configuration
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'mysql 配置';
+
+DROP TABLE IF EXISTS network_configuration;
+CREATE TABLE network_configuration
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    `name` VARCHAR(50) NOT NULL COMMENT '配置名称',
+    `value` VARCHAR(50) NOT NULL COMMENT '配置值',
+    `comment` VARCHAR(255) NOT NULL COMMENT '注释',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
+) COMMENT '饿了么回调信息';
