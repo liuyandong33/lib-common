@@ -686,6 +686,9 @@ public class Constants {
     public static final String ALIYUN_ACCESS_KEY_ID = "aliyun.access.key.id";
     public static final String ALIYUN_ACCESS_KEY_SECRET = "aliyun.access.key.secret";
 
+    public static final String PLATFORM_PUBLIC_KEY = "platform.public.key";
+    public static final String PLATFORM_PRIVATE_KEY = "platform.private.key";
+
     /**
      * 银行编号
      *

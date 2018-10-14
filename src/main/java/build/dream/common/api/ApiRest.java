@@ -225,7 +225,8 @@ public class ApiRest {
             }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        String platformPrivateKey = CacheUtils.get(Constants.KEY_PLATFORM_PRIVATE_KEY);
+        String platformPrivateKey = ConfigurationUtils.getConfiguration(Constants.KEY_PLATFORM_PRIVATE_KEY);
+        ValidateUtils.notNull(platformPrivateKey, "未配置平台公钥！");
         try {
             this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(platformPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         } catch (Exception e) {
