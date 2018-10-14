@@ -230,15 +230,8 @@ public class Constants {
     public static final String KEY_MIYA_ACCOUNTS = "_miya_accounts";
     public static final String KEY_NEW_LAND_ACCOUNTS = "_new_land_accounts";
 
-    // 平台公钥Redis key
-    public static final String KEY_PLATFORM_PUBLIC_KEY = "_platform_public_key";
-    // 平台私钥Redis key
-    public static final String KEY_PLATFORM_PRIVATE_KEY = "_platform_private_key";
-
     // 网络错误错误信息
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
-    // 商户秘钥Redis key
-    public static final String KEY_TENANT_SECRET_KEYS = "_tenant_secret_keys";
 
     public static final Integer NOTIFY_TYPE_WEI_XIN_PAY = 1;
     public static final Integer NOTIFY_TYPE_ALIPAY = 2;
