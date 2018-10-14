@@ -189,11 +189,11 @@ public class ApiRest {
         return GsonUtils.toJson(this, datePattern);
     }
 
-    public void sign() {
-        sign(Constants.DEFAULT_DATE_PATTERN);
+    public void sign(String privateKey) {
+        sign(privateKey, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public void sign(String datePattern) {
+    public void sign(String privateKey, String datePattern) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
         if (this.data != null) {
@@ -225,10 +225,8 @@ public class ApiRest {
             }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        String platformPrivateKey = ConfigurationUtils.getConfiguration(Constants.KEY_PLATFORM_PRIVATE_KEY);
-        ValidateUtils.notNull(platformPrivateKey, "未配置平台公钥！");
         try {
-            this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(platformPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
+            this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(privateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         } catch (Exception e) {
             throw new ApiException("签名失败！");
         }
