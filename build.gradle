@@ -57,6 +57,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-amqp")
     compile("org.springframework.boot:spring-boot-starter-activemq")
     compile("com.jcraft:jsch:0.1.54")
+    compile("org.quartz-scheduler:quartz:2.3.0")
 }
 
 task makeJar(type: Jar) {

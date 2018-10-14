@@ -733,4 +733,7 @@ public class Constants {
     public static Integer ACCESS_MODE_POST = 2;
     public static Integer ACCESS_MODE_GET_SIGNATURE = 3;
     public static Integer ACCESS_MODE_POST_SIGNATURE = 4;
+
+    public static String JOB_WRAPPER_INSTANCE = "job_wrapper_instance";
+    public static String JOB_NAME = "job_name";
 }
