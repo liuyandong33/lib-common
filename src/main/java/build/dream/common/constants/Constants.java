@@ -681,6 +681,8 @@ public class Constants {
 
     public static final String PLATFORM_PUBLIC_KEY = "platform.public.key";
     public static final String PLATFORM_PRIVATE_KEY = "platform.private.key";
+    public static final String PUBLIC_KEY = "publicKey";
+    public static final String PRIVATE_KEY = "privateKey";
 
     /**
      * 银行编号

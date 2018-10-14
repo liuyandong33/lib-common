@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -28,8 +29,8 @@ public class RSAUtils {
         keyPairGen.initialize(keySize, new SecureRandom());
         KeyPair keyPair = keyPairGen.generateKeyPair();
         Map<String, byte[]> keyMap = new HashMap<String, byte[]>();
-        keyMap.put("publicKey", keyPair.getPublic().getEncoded());
-        keyMap.put("privateKey", keyPair.getPrivate().getEncoded());
+        keyMap.put(Constants.PUBLIC_KEY, keyPair.getPublic().getEncoded());
+        keyMap.put(Constants.PRIVATE_KEY, keyPair.getPrivate().getEncoded());
         return keyMap;
     }
 
