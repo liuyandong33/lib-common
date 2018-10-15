@@ -2,7 +2,9 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
+import build.dream.common.utils.IOUtils;
 import build.dream.common.utils.NamingStrategyUtils;
+import build.dream.common.utils.ValidateUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -13,6 +15,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by liuyandong on 2017/7/25.
@@ -31,6 +34,87 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
+    }
+
+    private static void installMySql() throws IOException, InterruptedException {
+        String baseDir = null;
+        String dataDir = null;
+        String logError = null;
+        String logBin = null;
+        String relayLog = null;
+        String slowQueryLogFile = null;
+        String group = null;
+        String user = null;
+
+        System.out.println("请输入basedir：");
+        Scanner basedirScanner = new Scanner(System.in);
+        baseDir = basedirScanner.next();
+
+        System.out.println("请输入datadir：");
+        Scanner dataDirScanner = new Scanner(System.in);
+        dataDir = dataDirScanner.next();
+
+        System.out.println("请输入log_error：");
+        Scanner logErrorScanner = new Scanner(System.in);
+        logError = logErrorScanner.next();
+
+        System.out.println("请输入bin log 存放目录：");
+        Scanner logBinScanner = new Scanner(System.in);
+        logBin = logBinScanner.next();
+
+        System.out.println("请输入relay log存放目录：");
+        Scanner relayLogScanner = new Scanner(System.in);
+        relayLog = relayLogScanner.next();
+
+        System.out.println("请输入 slow_query_log_file：");
+        Scanner slowQueryLogFileScanner = new Scanner(System.in);
+        slowQueryLogFile = slowQueryLogFileScanner.next();
+
+        System.out.println("请输入用户组：");
+        Scanner groupScanner = new Scanner(System.in);
+        group = groupScanner.next();
+
+        System.out.println("请输入用户名：");
+        Scanner userScanner = new Scanner(System.in);
+        user = userScanner.next();
+
+        File dataDirFile = new File(dataDir);
+        if (!dataDirFile.exists()) {
+            dataDirFile.mkdirs();
+        }
+
+        File logErrorDirectory = new File(logError).getParentFile();
+        if (logErrorDirectory.exists()) {
+            logErrorDirectory.mkdirs();
+        }
+
+        File logBinDirectory = new File(logBin).getParentFile();
+        if (!logBinDirectory.exists()) {
+            logBinDirectory.mkdirs();
+        }
+
+        File relayLogDirectory = new File(relayLog).getParentFile();
+        if (!relayLogDirectory.exists()) {
+            relayLogDirectory.mkdirs();
+        }
+
+        File slowQueryLogFileDirectory = new File(slowQueryLogFile).getParentFile();
+        if (!slowQueryLogFileDirectory.exists()) {
+            slowQueryLogFileDirectory.mkdirs();
+        }
+
+        Runtime runtime = Runtime.getRuntime();
+        Process createGroupProcess = runtime.exec("groupadd -r " + group);
+        int createGroupResultCode = createGroupProcess.waitFor();
+        if (createGroupResultCode != 0) {
+            ValidateUtils.isTrue(false, IOUtils.toString(createGroupProcess.getErrorStream(), true));
+        }
+
+        Process createUserProcess = runtime.exec("useradd -r -g " + group + " -s /sbin/nologin " + user);
+        int createUserResultCode = createUserProcess.waitFor();
+        if (createUserResultCode != 0) {
+            ValidateUtils.isTrue(false, IOUtils.toString(createUserProcess.getErrorStream(), true));
+        }
     }
 
     public static void generateFibonacciSequence() {
