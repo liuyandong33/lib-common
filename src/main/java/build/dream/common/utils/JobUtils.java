@@ -1,8 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
-import build.dream.common.jobs.JobWrapper;
-import build.dream.common.jobs.UniversalJob;
+import org.apache.commons.collections.MapUtils;
 import org.quartz.*;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
@@ -18,15 +16,19 @@ public class JobUtils {
         return schedulerFactoryBean;
     }
 
-    public static void scheduleSimpleJob(JobWrapper jobWrapper, JobKey jobKey, TriggerKey triggerKey, Date startTime, String jobName) throws SchedulerException {
+    public static Scheduler obtainScheduler() {
+        return obtainSchedulerFactoryBean().getScheduler();
+    }
+
+    public static void scheduleSimpleJob(Class<? extends Job> jobClass, JobKey jobKey, TriggerKey triggerKey, Date startTime, JobDataMap jobDataMap) throws SchedulerException {
         Scheduler scheduler = obtainSchedulerFactoryBean().getScheduler();
 
-        JobBuilder jobBuilder = JobBuilder.newJob(UniversalJob.class);
+        JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
         jobBuilder.withIdentity(jobKey);
         JobDetail jobDetail = jobBuilder.build();
-        JobDataMap jobDataMap = jobDetail.getJobDataMap();
-        jobDataMap.put(Constants.JOB_NAME, jobName);
-        jobDataMap.put(Constants.JOB_WRAPPER_INSTANCE, jobWrapper);
+        if (MapUtils.isNotEmpty(jobDataMap)) {
+            jobDetail.getJobDataMap().putAll(jobDataMap);
+        }
 
         SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
 
@@ -39,17 +41,16 @@ public class JobUtils {
         scheduler.scheduleJob(jobDetail, trigger);
     }
 
-    public static void scheduleCronJob(JobWrapper jobWrapper, JobKey jobKey, TriggerKey triggerKey, String cronExpression, String jobName) throws SchedulerException {
-        JobBuilder jobBuilder = JobBuilder.newJob(UniversalJob.class);
-        jobBuilder.storeDurably(true);
+    public static void scheduleCronJob(Class<? extends Job> jobClass, JobKey jobKey, TriggerKey triggerKey, String cronExpression, JobDataMap jobDataMap) throws SchedulerException {
+        JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
         jobBuilder.withIdentity(jobKey);
         JobDetail jobDetail = jobBuilder.build();
-        JobDataMap jobDataMap = jobDetail.getJobDataMap();
-        jobDataMap.put(Constants.JOB_NAME, jobName);
-        jobDataMap.put(Constants.JOB_WRAPPER_INSTANCE, jobWrapper);
+        if (MapUtils.isNotEmpty(jobDataMap)) {
+            jobDetail.getJobDataMap().putAll(jobDataMap);
+        }
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
 
-        TriggerBuilder triggerBuilder = TriggerBuilder.newTrigger();
+        TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
         triggerBuilder.withIdentity(triggerKey);
         triggerBuilder.withSchedule(cronScheduleBuilder);
         Trigger trigger = triggerBuilder.build();
