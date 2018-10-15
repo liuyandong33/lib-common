@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.auth.CustomUserDetails;
 import build.dream.common.constants.Constants;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.security.access.ConfigAttribute;
@@ -36,5 +37,11 @@ public class WebSecurityUtils {
         Method expressionBasedFilterInvocationSecurityMetadataSourceClassProcessMapMethod = expressionBasedFilterInvocationSecurityMetadataSourceClass.getDeclaredMethod("processMap", LinkedHashMap.class, ExpressionParser.class);
         expressionBasedFilterInvocationSecurityMetadataSourceClassProcessMapMethod.setAccessible(true);
         return (LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>) expressionBasedFilterInvocationSecurityMetadataSourceClassProcessMapMethod.invoke(null, requestMap, expressionParser);
+    }
+
+    public static CustomUserDetails obtainCustomUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        return customUserDetails;
     }
 }
