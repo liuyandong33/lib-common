@@ -2,12 +2,12 @@ package build.dream.common.models;
 
 import build.dream.common.utils.ValidateUtils;
 
-public class BasicModel {
-    public boolean validate() {
+public interface BasicModel {
+    default boolean validate() {
         return ValidateUtils.validate(this);
     }
 
-    public void validateAndThrow() {
+    default void validateAndThrow() {
         ValidateUtils.validateAndThrow(this);
     }
 }
