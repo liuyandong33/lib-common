@@ -43,4 +43,12 @@ public class TenantUtils {
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "updateTenantInfo", updateTenantInfoRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
+
+    public static String obtainPublicKey() {
+        return WebSecurityUtils.obtainCustomUserDetails().getPublicKey();
+    }
+
+    public static String obtainPrivateKey() {
+        return WebSecurityUtils.obtainCustomUserDetails().getPrivateKey();
+    }
 }
