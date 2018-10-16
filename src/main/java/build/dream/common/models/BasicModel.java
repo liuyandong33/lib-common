@@ -1,13 +1,22 @@
 package build.dream.common.models;
 
+import build.dream.common.models.weixinpay.UnifiedOrderModel;
 import build.dream.common.utils.ValidateUtils;
 
-public interface BasicModel {
-    default boolean validate() {
+public class BasicModel {
+    public boolean validate() {
         return ValidateUtils.validate(this);
     }
 
-    default void validateAndThrow() {
+    public void validateAndThrow() {
         ValidateUtils.validateAndThrow(this);
+    }
+
+    public BasicModel() {
+        int a = 100;
+    }
+
+    public static void main(String[] args) {
+        UnifiedOrderModel unifiedOrderModel = new UnifiedOrderModel();
     }
 }

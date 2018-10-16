@@ -1,50 +1,78 @@
 package build.dream.common.models;
 
 import build.dream.common.auth.CustomUserDetails;
-import build.dream.common.erp.catering.domains.Branch;
 import build.dream.common.saas.domains.SystemUser;
 import build.dream.common.saas.domains.Tenant;
-import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.WebSecurityUtils;
+import org.apache.commons.collections.MapUtils;
 
-public class CateringBasicModel implements BasicModel {
-    private SystemUser systemUser;
-    private Tenant tenant;
-    private Branch branch;
+import java.math.BigInteger;
+import java.util.Map;
+
+public class CateringBasicModel extends BasicModel {
+    private BigInteger userId;
+    private BigInteger tenantId;
+    private String tenantCode;
+    private BigInteger branchId;
+    private String branchCode;
     private String publicKey;
     private String privateKey;
 
     public CateringBasicModel() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        this.systemUser = customUserDetails.getSystemUser();
-        this.tenant = customUserDetails.getTenant();
-        this.branch = ApplicationHandler.buildObject(Branch.class, customUserDetails.getBranchInfo());
-        this.publicKey = customUserDetails.getPublicKey();
-        this.privateKey = customUserDetails.getPrivateKey();
+        SystemUser systemUser = customUserDetails.getSystemUser();
+        Tenant tenant = customUserDetails.getTenant();
+        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
+        String publicKey = customUserDetails.getPublicKey();
+        String privateKey = customUserDetails.getPrivateKey();
+
+        this.userId = systemUser.getId();
+        this.tenantId = tenant.getId();
+        this.tenantCode = tenant.getCode();
+        this.branchId = BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
+        this.branchCode = MapUtils.getString(branchInfo, "code");
+        this.publicKey = publicKey;
+        this.privateKey = privateKey;
     }
 
-    public SystemUser getSystemUser() {
-        return systemUser;
+    public BigInteger getUserId() {
+        return userId;
     }
 
-    public void setSystemUser(SystemUser systemUser) {
-        this.systemUser = systemUser;
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
     }
 
-    public Branch getBranch() {
-        return branch;
+    public String getTenantCode() {
+        return tenantCode;
     }
 
-    public void setBranch(Branch branch) {
-        this.branch = branch;
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
     }
 
     public String getPublicKey() {

@@ -2,6 +2,7 @@ package build.dream.common.models.weixinpay;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
+import build.dream.common.models.CateringBasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
@@ -9,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class UnifiedOrderModel extends BasicModel {
+public class UnifiedOrderModel extends CateringBasicModel {
     private static final String[] TRADE_TYPES = {Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI, Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM, Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE, Constants.WEI_XIN_PAY_TRADE_TYPE_APP, Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB};
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
