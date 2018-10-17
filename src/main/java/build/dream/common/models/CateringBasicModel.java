@@ -12,25 +12,25 @@ import java.util.Map;
 
 public class CateringBasicModel extends BasicModel {
     @InstantiateObjectIgnore
-    private BigInteger $userId;
+    private BigInteger _userId;
 
     @InstantiateObjectIgnore
-    private BigInteger $tenantId;
+    private BigInteger _tenantId;
 
     @InstantiateObjectIgnore
-    private String $tenantCode;
+    private String _tenantCode;
 
     @InstantiateObjectIgnore
-    private BigInteger $branchId;
+    private BigInteger _branchId;
 
     @InstantiateObjectIgnore
-    private String $branchCode;
+    private String _branchCode;
 
     @InstantiateObjectIgnore
-    private String $publicKey;
+    private String _publicKey;
 
     @InstantiateObjectIgnore
-    private String $privateKey;
+    private String _privateKey;
 
     public CateringBasicModel() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
@@ -40,40 +40,40 @@ public class CateringBasicModel extends BasicModel {
         String publicKey = customUserDetails.getPublicKey();
         String privateKey = customUserDetails.getPrivateKey();
 
-        this.$userId = systemUser.getId();
-        this.$tenantId = tenant.getId();
-        this.$tenantCode = tenant.getCode();
-        this.$branchId = BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
-        this.$branchCode = MapUtils.getString(branchInfo, "code");
-        this.$publicKey = publicKey;
-        this.$privateKey = privateKey;
+        this._userId = systemUser.getId();
+        this._tenantId = tenant.getId();
+        this._tenantCode = tenant.getCode();
+        this._branchId = BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
+        this._branchCode = MapUtils.getString(branchInfo, "code");
+        this._publicKey = publicKey;
+        this._privateKey = privateKey;
     }
 
     public BigInteger obtainUserId() {
-        return $userId;
+        return _userId;
     }
 
     public BigInteger obtainTenantId() {
-        return $tenantId;
+        return _tenantId;
     }
 
     public String obtainTenantCode() {
-        return $tenantCode;
+        return _tenantCode;
     }
 
     public BigInteger obtainBranchId() {
-        return $branchId;
+        return _branchId;
     }
 
     public String obtainBranchCode() {
-        return $branchCode;
+        return _branchCode;
     }
 
     public String obtainPublicKey() {
-        return $publicKey;
+        return _publicKey;
     }
 
     public String obtainPrivateKey() {
-        return $privateKey;
+        return _privateKey;
     }
 }
