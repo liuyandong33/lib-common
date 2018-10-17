@@ -2,10 +2,8 @@ package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.CustomUserDetails;
-import build.dream.common.beans.AlipayUserInfo;
 import build.dream.common.saas.domains.SystemUser;
 import build.dream.common.saas.domains.Tenant;
-import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.WebSecurityUtils;
 import org.apache.commons.collections.MapUtils;
 
@@ -77,9 +75,5 @@ public class CateringBasicModel extends BasicModel {
 
     public String obtainPrivateKey() {
         return privateKey;
-    }
-
-    public static void main(String[] args) throws Exception {
-        ApplicationHandler.instantiateObject(AlipayUserInfo.class, null);
     }
 }
