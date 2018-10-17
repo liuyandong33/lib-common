@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.DateFormat;
+import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
@@ -296,6 +297,9 @@ public class ApplicationHandler {
         for (Field field : fields) {
             int modifiers = field.getModifiers();
             if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                continue;
+            }
+            if (field.getAnnotation(InstantiateObjectIgnore.class) != null) {
                 continue;
             }
             String fieldName = field.getName();

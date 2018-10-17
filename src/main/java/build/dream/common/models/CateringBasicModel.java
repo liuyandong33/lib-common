@@ -1,8 +1,11 @@
 package build.dream.common.models;
 
+import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.CustomUserDetails;
+import build.dream.common.beans.AlipayUserInfo;
 import build.dream.common.saas.domains.SystemUser;
 import build.dream.common.saas.domains.Tenant;
+import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.WebSecurityUtils;
 import org.apache.commons.collections.MapUtils;
 
@@ -10,12 +13,25 @@ import java.math.BigInteger;
 import java.util.Map;
 
 public class CateringBasicModel extends BasicModel {
+    @InstantiateObjectIgnore
     private BigInteger userId;
+
+    @InstantiateObjectIgnore
     private BigInteger tenantId;
+
+    @InstantiateObjectIgnore
     private String tenantCode;
+
+    @InstantiateObjectIgnore
     private BigInteger branchId;
+
+    @InstantiateObjectIgnore
     private String branchCode;
+
+    @InstantiateObjectIgnore
     private String publicKey;
+
+    @InstantiateObjectIgnore
     private String privateKey;
 
     public CateringBasicModel() {
@@ -35,59 +51,35 @@ public class CateringBasicModel extends BasicModel {
         this.privateKey = privateKey;
     }
 
-    public BigInteger getUserId() {
+    public BigInteger obtainUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
-    }
-
-    public BigInteger getTenantId() {
+    public BigInteger obtainTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getTenantCode() {
+    public String obtainTenantCode() {
         return tenantCode;
     }
 
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
-    public BigInteger getBranchId() {
+    public BigInteger obtainBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchCode() {
+    public String obtainBranchCode() {
         return branchCode;
     }
 
-    public void setBranchCode(String branchCode) {
-        this.branchCode = branchCode;
-    }
-
-    public String getPublicKey() {
+    public String obtainPublicKey() {
         return publicKey;
     }
 
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getPrivateKey() {
+    public String obtainPrivateKey() {
         return privateKey;
     }
 
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
+    public static void main(String[] args) throws Exception {
+        ApplicationHandler.instantiateObject(AlipayUserInfo.class, null);
     }
 }
