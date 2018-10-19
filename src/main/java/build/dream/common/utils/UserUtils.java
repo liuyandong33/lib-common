@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class UserUtils {
-    public static Map<String, Object> obtainUserInfo(String loginName) {
+    public static Map<String, Object> obtainUserInfo(BigInteger userId) {
         Map<String, String> obtainUserInfoRequestParameters = new HashMap<String, String>();
-        obtainUserInfoRequestParameters.put("loginName", loginName);
+        obtainUserInfoRequestParameters.put("userId", userId.toString());
 
         ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "user", "obtainUserInfo", obtainUserInfoRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());

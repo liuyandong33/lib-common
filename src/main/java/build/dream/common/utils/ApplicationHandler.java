@@ -1137,42 +1137,42 @@ public class ApplicationHandler {
         }
     }
 
-    public BigInteger obtainUserId() {
+    public static BigInteger obtainUserId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         SystemUser systemUser = customUserDetails.getSystemUser();
         return systemUser.getId();
     }
 
-    public BigInteger obtainTenantId() {
+    public static BigInteger obtainTenantId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         Tenant tenant = customUserDetails.getTenant();
         return tenant.getId();
     }
 
-    public String obtainTenantCode() {
+    public static String obtainTenantCode() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         Tenant tenant = customUserDetails.getTenant();
         return tenant.getCode();
     }
 
-    public BigInteger obtainBranchId() {
+    public static BigInteger obtainBranchId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
         return BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
     }
 
-    public String obtainBranchCode() {
+    public static String obtainBranchCode() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
         return MapUtils.getString(branchInfo, "code");
     }
 
-    public String obtainPublicKey() {
+    public static String obtainPublicKey() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         return customUserDetails.getPublicKey();
     }
 
-    public String obtainPrivateKey() {
+    public static String obtainPrivateKey() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         return customUserDetails.getPrivateKey();
     }
