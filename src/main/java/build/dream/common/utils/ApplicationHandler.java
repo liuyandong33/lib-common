@@ -4,8 +4,11 @@ import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
+import build.dream.common.auth.CustomUserDetails;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.SessionConstants;
+import build.dream.common.saas.domains.SystemUser;
+import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -1132,5 +1135,45 @@ public class ApplicationHandler {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public BigInteger obtainUserId() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        SystemUser systemUser = customUserDetails.getSystemUser();
+        return systemUser.getId();
+    }
+
+    public BigInteger obtainTenantId() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        Tenant tenant = customUserDetails.getTenant();
+        return tenant.getId();
+    }
+
+    public String obtainTenantCode() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        Tenant tenant = customUserDetails.getTenant();
+        return tenant.getCode();
+    }
+
+    public BigInteger obtainBranchId() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
+        return BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
+    }
+
+    public String obtainBranchCode() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
+        return MapUtils.getString(branchInfo, "code");
+    }
+
+    public String obtainPublicKey() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        return customUserDetails.getPublicKey();
+    }
+
+    public String obtainPrivateKey() {
+        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
+        return customUserDetails.getPrivateKey();
     }
 }
