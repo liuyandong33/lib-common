@@ -18,7 +18,6 @@ public class ApiRest {
     private String className;
     private String message;
     private String error;
-    private String result;
     private String id;
     private String timestamp;
     private String signature;
@@ -27,7 +26,6 @@ public class ApiRest {
 
     public ApiRest() {
         this.id = UUID.randomUUID().toString();
-        this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
@@ -35,7 +33,6 @@ public class ApiRest {
     public ApiRest(Throwable throwable) {
         this.id = UUID.randomUUID().toString();
         this.error = throwable.getMessage();
-        this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
@@ -44,7 +41,6 @@ public class ApiRest {
         this.data = data;
         this.message = message;
         this.id = UUID.randomUUID().toString();
-        this.result = Constants.SUCCESS;
         this.successful = true;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
@@ -52,18 +48,12 @@ public class ApiRest {
     public ApiRest(String error) {
         this.error = error;
         this.id = UUID.randomUUID().toString();
-        this.result = Constants.FAILURE;
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public void setSuccessful(boolean successful) {
         this.successful = successful;
-        if (successful) {
-            this.result = Constants.SUCCESS;
-        } else {
-            this.result = Constants.FAILURE;
-        }
     }
 
     public boolean isSuccessful() {
@@ -100,19 +90,6 @@ public class ApiRest {
 
     public String getError() {
         return error;
-    }
-
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-        if (Constants.SUCCESS.equals(result)) {
-            this.successful = true;
-        } else if (Constants.FAILURE.equals(result)) {
-            this.successful = false;
-        }
     }
 
     public String getId() {
@@ -212,7 +189,6 @@ public class ApiRest {
         if (StringUtils.isNotBlank(error)) {
             sortedMap.put("error", error);
         }
-        sortedMap.put("result", result);
         sortedMap.put("id", id);
         sortedMap.put("timestamp", timestamp);
         sortedMap.put("zipped", String.valueOf(zipped));
@@ -279,11 +255,6 @@ public class ApiRest {
 
         public Builder error(String error) {
             instance.setError(error);
-            return this;
-        }
-
-        public Builder result(String result) {
-            instance.setResult(result);
             return this;
         }
 

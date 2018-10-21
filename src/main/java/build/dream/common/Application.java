@@ -1,10 +1,10 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.api.ApiRest;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.utils.IOUtils;
-import build.dream.common.utils.NamingStrategyUtils;
-import build.dream.common.utils.ValidateUtils;
+import build.dream.common.utils.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -13,16 +13,14 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
 
         /*String packageName = "build.dream.common.erp.catering.domains";
@@ -34,6 +32,13 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", "44664109-9c1d-4f42-af65-1951540a9f30");
+        String url = "http://localhost:8888/proxy/doGet/catering/user/obtainUserInfo";
+        WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, requestParameters);
+        System.out.println(webResponse.getResult());
+        System.out.println(GsonUtils.toJson(new ApiRest()));
     }
 
     private static void installMySql() throws IOException, InterruptedException {
