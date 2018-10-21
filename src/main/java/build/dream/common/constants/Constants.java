@@ -736,4 +736,7 @@ public class Constants {
 
     public static String JOB_WRAPPER_INSTANCE = "job_wrapper_instance";
     public static String JOB_NAME = "job_name";
+
+    public static String ERROR_CODE_UNKNOWN_ERROR = "0000";
+    public static String ERROR_CODE_INVALID_PARAMETER = "0001";
 }
