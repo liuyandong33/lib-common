@@ -2,6 +2,8 @@ package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
+import build.dream.common.exceptions.CustomException;
+import build.dream.common.exceptions.Error;
 import build.dream.common.utils.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +19,7 @@ public class ApiRest {
     private Object data;
     private String className;
     private String message;
-    private String error;
+    private Error error;
     private String id;
     private String timestamp;
     private String signature;
@@ -32,7 +34,12 @@ public class ApiRest {
 
     public ApiRest(Throwable throwable) {
         this.id = UUID.randomUUID().toString();
-        this.error = throwable.getMessage();
+        if (throwable instanceof CustomException) {
+            CustomException customException = (CustomException) throwable;
+            this.error = new Error(customException.getCode(), customException.getMessage());
+        } else {
+            this.error = Constants.UNKNOWN_ERROR;
+        }
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
@@ -77,11 +84,11 @@ public class ApiRest {
         return message;
     }
 
-    public void setError(String error) {
+    public void setError(Error error) {
         this.error = error;
     }
 
-    public String getError() {
+    public Error getError() {
         return error;
     }
 
@@ -179,8 +186,8 @@ public class ApiRest {
         if (StringUtils.isNotBlank(message)) {
             sortedMap.put("message", message);
         }
-        if (StringUtils.isNotBlank(error)) {
-            sortedMap.put("error", error);
+        if (error != null) {
+            sortedMap.put("error", GsonUtils.toJson(error));
         }
         sortedMap.put("id", id);
         sortedMap.put("timestamp", timestamp);
@@ -246,7 +253,7 @@ public class ApiRest {
             return this;
         }
 
-        public Builder error(String error) {
+        public Builder error(Error error) {
             instance.setError(error);
             return this;
         }

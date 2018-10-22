@@ -4,6 +4,7 @@ import build.dream.common.annotations.Transient;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.Error;
 import build.dream.common.utils.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -33,12 +34,7 @@ public class Application {
 //        testSort();
         "14000605".toString();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("access_token", "44664109-9c1d-4f42-af65-1951540a9f30");
-        String url = "http://localhost:8888/proxy/doGet/catering/user/obtainUserInfo";
-        WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, requestParameters);
-        System.out.println(webResponse.getResult());
-        System.out.println(GsonUtils.toJson(new ApiRest()));
+        System.out.println(GsonUtils.toJson(ApiRest.builder().error(new Error(Constants.ERROR_CODE_HANDLING_ERROR, "商户不能为空！")).build()));
     }
 
     private static void installMySql() throws IOException, InterruptedException {

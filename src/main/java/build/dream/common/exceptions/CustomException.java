@@ -23,4 +23,12 @@ public class CustomException extends RuntimeException {
         super(error.getMessage());
         this.code = error.getCode();
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

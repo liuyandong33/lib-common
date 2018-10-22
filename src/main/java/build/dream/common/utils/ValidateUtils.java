@@ -1,6 +1,8 @@
 package build.dream.common.utils;
 
-import build.dream.common.exceptions.ApiException;
+import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.CustomException;
+import build.dream.common.exceptions.Error;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -78,50 +80,134 @@ public class ValidateUtils {
                     String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
                     message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
                 }
-                throw new ApiException(message);
+                throw new CustomException(message, Constants.ERROR_CODE_INVALID_PARAMETER);
             }
         }
     }
 
     public static void isTrue(boolean expression, String message) {
         if (!expression) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void isTrue(boolean expression, String message, String code) {
+        if (!expression) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void isTrue(boolean expression, Error error) {
+        if (!expression) {
+            throw new CustomException(error);
         }
     }
 
     public static void notNull(Object object, String message) {
         if (object == null) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notNull(Object object, String message, String code) {
+        if (object == null) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notNull(Object object, Error error) {
+        if (object == null) {
+            throw new CustomException(error);
         }
     }
 
     public static void notBlank(String string, String message) {
         if (StringUtils.isBlank(string)) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notBlank(String string, String message, String code) {
+        if (StringUtils.isBlank(string)) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notBlank(String string, Error error) {
+        if (StringUtils.isBlank(string)) {
+            throw new CustomException(error);
         }
     }
 
     public static void notEmpty(Object[] array, String message) {
         if (ArrayUtils.isEmpty(array)) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notEmpty(Object[] array, String message, String code) {
+        if (ArrayUtils.isEmpty(array)) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notEmpty(Object[] array, Error error) {
+        if (ArrayUtils.isEmpty(array)) {
+            throw new CustomException(error);
         }
     }
 
     public static void notEmpty(Collection collection, String message) {
         if (CollectionUtils.isEmpty(collection)) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notEmpty(Collection collection, String message, String code) {
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notEmpty(Collection collection, Error error) {
+        if (CollectionUtils.isEmpty(collection)) {
+            throw new CustomException(error);
         }
     }
 
     public static void notEmpty(Map map, String message) {
         if (MapUtils.isEmpty(map)) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notEmpty(Map map, String message, String code) {
+        if (MapUtils.isEmpty(map)) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notEmpty(Map map, Error error) {
+        if (MapUtils.isEmpty(map)) {
+            throw new CustomException(error);
         }
     }
 
     public static void notEmpty(String string, String message) {
         if (StringUtils.isEmpty(string)) {
-            throw new ApiException(message);
+            throw new CustomException(message);
+        }
+    }
+
+    public static void notEmpty(String string, String message, String code) {
+        if (StringUtils.isEmpty(string)) {
+            throw new CustomException(message, code);
+        }
+    }
+
+    public static void notEmpty(String string, Error error) {
+        if (StringUtils.isEmpty(string)) {
+            throw new CustomException(error);
         }
     }
 
@@ -129,43 +215,133 @@ public class ValidateUtils {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Object[] array, Object value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Object[] array, Object value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
+    }
+
     public static void inArray(Long[] array, Long value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Long[] array, Long value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Long[] array, Long value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
     }
 
     public static void inArray(Integer[] array, Integer value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Integer[] array, Integer value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Integer[] array, Integer value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
+    }
+
     public static void inArray(Short[] array, Short value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Short[] array, Short value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Short[] array, Short value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
     }
 
     public static void inArray(Character[] array, Character value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Character[] array, Character value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Character[] array, Character value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
+    }
+
     public static void inArray(Byte[] array, Byte value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Byte[] array, Byte value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Byte[] array, Byte value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
     }
 
     public static void inArray(Double[] array, Double value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Double[] array, Double value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Double[] array, Double value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
+    }
+
     public static void inArray(Float[] array, Float value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
+    }
+
+    public static void inArray(Float[] array, Float value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Float[] array, Float value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
     }
 
     public static void inArray(Boolean[] array, Boolean value, String message) {
         isTrue(ArrayUtils.contains(array, value), message);
     }
 
+    public static void inArray(Boolean[] array, Boolean value, String message, String code) {
+        isTrue(ArrayUtils.contains(array, value), message, code);
+    }
+
+    public static void inArray(Boolean[] array, Boolean value, Error error) {
+        isTrue(ArrayUtils.contains(array, value), error);
+    }
+
     public static void noNullElements(Object[] array, String message) {
         notNull(array, message);
         for (int i = 0; i < array.length; i++) {
             if (array[i] == null) {
-                throw new ApiException(message);
+                throw new CustomException(message);
+            }
+        }
+    }
+
+    public static void noNullElements(Object[] array, String message, String code) {
+        notNull(array, message, code);
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                throw new CustomException(message);
+            }
+        }
+    }
+
+    public static void noNullElements(Object[] array, Error error) {
+        notNull(array, error);
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == null) {
+                throw new CustomException(error);
             }
         }
     }
@@ -174,7 +350,25 @@ public class ValidateUtils {
         notNull(collection, message);
         for (Iterator it = collection.iterator(); it.hasNext(); ) {
             if (it.next() == null) {
-                throw new ApiException(message);
+                throw new CustomException(message);
+            }
+        }
+    }
+
+    public static void noNullElements(Collection collection, String message, String code) {
+        notNull(collection, message, code);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (it.next() == null) {
+                throw new CustomException(message, code);
+            }
+        }
+    }
+
+    public static void noNullElements(Collection collection, Error error) {
+        notNull(collection, error);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (it.next() == null) {
+                throw new CustomException(error);
             }
         }
     }
@@ -184,7 +378,27 @@ public class ValidateUtils {
         notNull(clazz, message);
         for (Iterator it = collection.iterator(); it.hasNext(); ) {
             if (!clazz.isInstance(it.next())) {
-                throw new ApiException(message);
+                throw new CustomException(message);
+            }
+        }
+    }
+
+    public static void allElementsOfType(Collection collection, Class clazz, String message, String code) {
+        notNull(collection, message, code);
+        notNull(clazz, message, code);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (!clazz.isInstance(it.next())) {
+                throw new CustomException(message, code);
+            }
+        }
+    }
+
+    public static void allElementsOfType(Collection collection, Class clazz, Error error) {
+        notNull(collection, error);
+        notNull(clazz, error);
+        for (Iterator it = collection.iterator(); it.hasNext(); ) {
+            if (!clazz.isInstance(it.next())) {
+                throw new CustomException(error);
             }
         }
     }

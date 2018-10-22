@@ -1,5 +1,6 @@
 package build.dream.common.constants;
 
+import build.dream.common.exceptions.Error;
 import build.dream.common.utils.CustomDateUtils;
 
 import java.math.BigDecimal;
@@ -739,4 +740,7 @@ public class Constants {
 
     public static String ERROR_CODE_UNKNOWN_ERROR = "0000";
     public static String ERROR_CODE_INVALID_PARAMETER = "0001";
+    public static String ERROR_CODE_HANDLING_ERROR = "0002";
+    public static Error UNKNOWN_ERROR = new Error(ERROR_CODE_UNKNOWN_ERROR, "未知错误！");
+    public static Error INVALID_PARAMETER_ERROR = new Error(ERROR_CODE_INVALID_PARAMETER, "参数错误！");
 }
