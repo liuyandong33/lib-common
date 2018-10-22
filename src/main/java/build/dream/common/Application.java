@@ -1,11 +1,10 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
-import build.dream.common.api.ApiRest;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.exceptions.Error;
-import build.dream.common.utils.*;
+import build.dream.common.utils.IOUtils;
+import build.dream.common.utils.NamingStrategyUtils;
+import build.dream.common.utils.ValidateUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -14,14 +13,16 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 //        SpringApplication.run(Application.class, args);
 
         /*String packageName = "build.dream.common.erp.catering.domains";
@@ -33,8 +34,6 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
-
-        System.out.println(GsonUtils.toJson(ApiRest.builder().error(new Error(Constants.ERROR_CODE_HANDLING_ERROR, "商户不能为空！")).build()));
     }
 
     private static void installMySql() throws IOException, InterruptedException {
