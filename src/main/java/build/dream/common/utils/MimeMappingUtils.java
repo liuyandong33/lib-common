@@ -9,10 +9,6 @@ import java.util.Map;
 public class MimeMappingUtils {
     private static Map<String, String> MIME_MAPPINGS = null;
 
-    static {
-
-    }
-
     public static Map<String, String> obtainMimeMappings() {
         if (MapUtils.isEmpty(MIME_MAPPINGS)) {
             MIME_MAPPINGS = new HashMap<String, String>();
