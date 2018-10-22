@@ -45,13 +45,6 @@ public class ApiRest {
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
-    public ApiRest(String error) {
-        this.error = error;
-        this.id = UUID.randomUUID().toString();
-        this.successful = false;
-        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
-    }
-
     public void setSuccessful(boolean successful) {
         this.successful = successful;
     }
