@@ -62,8 +62,8 @@ dependencies {
 
 task makeJar(type: Jar) {
     baseName "${projectName}"
-    from("build/classes/java/main")
-    exclude("build/dream/common/Application.class")
+    from("build/classes/java/main", "build/resources/main")
+    exclude("build/dream/common/Application.class", "application.properties", "logback.xml", "production.properties")
 }
 
 makeJar.dependsOn(classes)
