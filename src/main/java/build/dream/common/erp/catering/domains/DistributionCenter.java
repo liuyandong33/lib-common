@@ -1,12 +1,11 @@
 package build.dream.common.erp.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
-public class Branch extends BasicDomain {
+public class DistributionCenter extends BasicDomain {
     /**
      * 商户id
      */
@@ -23,10 +22,6 @@ public class Branch extends BasicDomain {
      * 门店名称
      */
     private String name;
-    /**
-     * 门店类型，1-总部，2-直营店，3加盟店
-     */
-    private Integer type;
     /**
      * 状态，1-启用，2-停用
      */
@@ -75,34 +70,6 @@ public class Branch extends BasicDomain {
      * 联系电话
      */
     private String contactPhone;
-    /**
-     * 饿了么账号类型，1-连锁账号，2-独立账号
-     */
-    private Integer elemeAccountType = Constants.ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT;
-    /**
-     * 饿了么门店id
-     */
-    private BigInteger shopId = Constants.BIGINT_DEFAULT_VALUE;
-    /**
-     * 微餐厅状态，1-正常，2-禁用
-     */
-    private Integer smartRestaurantStatus = Constants.SMART_RESTAURANT_STATUS_DISABLED;
-    /**
-     * 美团门店绑定的授权token
-     */
-    private String appAuthToken = Constants.VARCHAR_DEFAULT_VALUE;
-    /**
-     * 美团门店id
-     */
-    private String poiId = Constants.VARCHAR_DEFAULT_VALUE;
-    /**
-     * 美团门店名称
-     */
-    private String poiName = Constants.VARCHAR_DEFAULT_VALUE;
-    /**
-     * 会员分组ID
-     */
-    private BigInteger vipGroupId = Constants.BIGINT_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -134,14 +101,6 @@ public class Branch extends BasicDomain {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
     }
 
     public Integer getStatus() {
@@ -240,64 +199,8 @@ public class Branch extends BasicDomain {
         this.contactPhone = contactPhone;
     }
 
-    public Integer getElemeAccountType() {
-        return elemeAccountType;
-    }
-
-    public void setElemeAccountType(Integer elemeAccountType) {
-        this.elemeAccountType = elemeAccountType;
-    }
-
-    public BigInteger getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(BigInteger shopId) {
-        this.shopId = shopId;
-    }
-
-    public Integer getSmartRestaurantStatus() {
-        return smartRestaurantStatus;
-    }
-
-    public void setSmartRestaurantStatus(Integer smartRestaurantStatus) {
-        this.smartRestaurantStatus = smartRestaurantStatus;
-    }
-
-    public String getAppAuthToken() {
-        return appAuthToken;
-    }
-
-    public void setAppAuthToken(String appAuthToken) {
-        this.appAuthToken = appAuthToken;
-    }
-
-    public String getPoiId() {
-        return poiId;
-    }
-
-    public void setPoiId(String poiId) {
-        this.poiId = poiId;
-    }
-
-    public String getPoiName() {
-        return poiName;
-    }
-
-    public void setPoiName(String poiName) {
-        this.poiName = poiName;
-    }
-
-    public BigInteger getVipGroupId() {
-        return vipGroupId;
-    }
-
-    public void setVipGroupId(BigInteger vipGroupId) {
-        this.vipGroupId = vipGroupId;
-    }
-
     public static class Builder {
-        private final Branch instance = new Branch();
+        private final DistributionCenter instance = new DistributionCenter();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -316,11 +219,6 @@ public class Branch extends BasicDomain {
 
         public Builder name(String name) {
             instance.setName(name);
-            return this;
-        }
-
-        public Builder type(Integer type) {
-            instance.setType(type);
             return this;
         }
 
@@ -384,41 +282,6 @@ public class Branch extends BasicDomain {
             return this;
         }
 
-        public Builder elemeAccountType(Integer elemeAccountType) {
-            instance.setElemeAccountType(elemeAccountType);
-            return this;
-        }
-
-        public Builder shopId(BigInteger shopId) {
-            instance.setShopId(shopId);
-            return this;
-        }
-
-        public Builder smartRestaurantStatus(Integer smartRestaurantStatus) {
-            instance.setSmartRestaurantStatus(smartRestaurantStatus);
-            return this;
-        }
-
-        public Builder appAuthToken(String appAuthToken) {
-            instance.setAppAuthToken(appAuthToken);
-            return this;
-        }
-
-        public Builder poiId(String poiId) {
-            instance.setPoiId(poiId);
-            return this;
-        }
-
-        public Builder poiName(String poiName) {
-            instance.setPoiName(poiName);
-            return this;
-        }
-
-        public Builder vipGroupId(BigInteger vipGroupId) {
-            instance.setVipGroupId(vipGroupId);
-            return this;
-        }
-
         public Builder id(BigInteger id) {
             instance.setId(id);
             return this;
@@ -454,7 +317,7 @@ public class Branch extends BasicDomain {
             return this;
         }
 
-        public Branch build() {
+        public DistributionCenter build() {
             return instance;
         }
     }
@@ -468,7 +331,6 @@ public class Branch extends BasicDomain {
         public static final String TENANT_CODE = "tenant_code";
         public static final String CODE = "code";
         public static final String NAME = "name";
-        public static final String TYPE = "type";
         public static final String STATUS = "status";
         public static final String PROVINCE_CODE = "province_code";
         public static final String PROVINCE_NAME = "province_name";
@@ -481,13 +343,6 @@ public class Branch extends BasicDomain {
         public static final String LATITUDE = "latitude";
         public static final String LINKMAN = "linkman";
         public static final String CONTACT_PHONE = "contact_phone";
-        public static final String ELEME_ACCOUNT_TYPE = "eleme_account_type";
-        public static final String SHOP_ID = "shop_id";
-        public static final String SMART_RESTAURANT_STATUS = "smart_restaurant_status";
-        public static final String APP_AUTH_TOKEN = "app_auth_token";
-        public static final String POI_ID = "poi_id";
-        public static final String POI_NAME = "poi_name";
-        public static final String VIP_GROUP_ID = "vip_group_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -495,7 +350,6 @@ public class Branch extends BasicDomain {
         public static final String TENANT_CODE = "tenantCode";
         public static final String CODE = "code";
         public static final String NAME = "name";
-        public static final String TYPE = "type";
         public static final String STATUS = "status";
         public static final String PROVINCE_CODE = "provinceCode";
         public static final String PROVINCE_NAME = "provinceName";
@@ -508,12 +362,5 @@ public class Branch extends BasicDomain {
         public static final String LATITUDE = "latitude";
         public static final String LINKMAN = "linkman";
         public static final String CONTACT_PHONE = "contactPhone";
-        public static final String ELEME_ACCOUNT_TYPE = "elemeAccountType";
-        public static final String SHOP_ID = "shopId";
-        public static final String SMART_RESTAURANT_STATUS = "smartRestaurantStatus";
-        public static final String APP_AUTH_TOKEN = "appAuthToken";
-        public static final String POI_ID = "poiId";
-        public static final String POI_NAME = "poiName";
-        public static final String VIP_GROUP_ID = "vipGroupId";
     }
 }

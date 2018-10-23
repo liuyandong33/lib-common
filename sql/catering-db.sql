@@ -1568,3 +1568,32 @@ CREATE TABLE vip_group_branch_r
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS distribution_center;
+CREATE TABLE distribution_center
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    `code` VARCHAR(20) NOT NULL COMMENT '配送中心编码',
+    `name` VARCHAR(20) NOT NULL COMMENT '配送中心名称',
+    `status` TINYINT NOT NULL COMMENT '状态，1-启用，2-停用',
+    province_code VARCHAR(10) NOT NULL COMMENT '省编码',
+    province_name VARCHAR(10) NOT NULL COMMENT '省名称',
+    city_code VARCHAR(10) NOT NULL COMMENT '市编码',
+    city_name VARCHAR(10) NOT NULL COMMENT '市名称',
+    district_code VARCHAR(10) NOT NULL COMMENT '区编码',
+    district_name VARCHAR(10) NOT NULL COMMENT '区名称',
+    address VARCHAR(255) NOT NULL COMMENT '门店详细地址',
+    longitude VARCHAR(20) NOT NULL COMMENT '经度',
+    latitude VARCHAR(20) NOT NULL COMMENT '纬度',
+    linkman VARCHAR(20) NOT NULL COMMENT '联系人',
+    contact_phone VARCHAR(20) NOT NULL COMMENT '联系电话',
+    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    create_user_id BIGINT NOT NULL COMMENT '创建人id',
+    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '配送中心';
