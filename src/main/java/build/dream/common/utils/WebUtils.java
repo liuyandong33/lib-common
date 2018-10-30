@@ -568,7 +568,7 @@ public class WebUtils {
 
     public static String obtainResult(HttpURLConnection httpURLConnection, int responseCode, String charsetName) throws IOException {
         String result = null;
-        if (responseCode == HttpURLConnection.HTTP_OK) {
+        if (responseCode == HttpURLConnection.HTTP_OK || responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_ACCEPTED) {
             result = IOUtils.toString(httpURLConnection.getInputStream(), obtainResponseCharset(httpURLConnection, charsetName));
             httpURLConnection.disconnect();
         } else {
