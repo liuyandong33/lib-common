@@ -552,4 +552,23 @@ public class WeiXinUtils {
 
         return resultMap;
     }
+
+    /**
+     * 获取帐号基本信息
+     * @return
+     */
+    public static Map<String, Object> getAccountBasicInfo(String componentAppId, String authorizerAppId) {
+        String authorizerAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
+        ValidateUtils.notBlank(authorizerAccessTokenJson, "未查询到 authorizer_access_token！");
+
+        Map<String, Object> authorizerAccessToken = JacksonUtils.readValueAsMap(authorizerAccessTokenJson, String.class, Object.class);
+        Map<String, String> getAccountBasicInfoRequestParameters = new HashMap<String, String>();
+        getAccountBasicInfoRequestParameters.put("access_token", MapUtils.getString(authorizerAccessToken, "authorizerAccessToken"));
+
+        String url = WEI_XIN_API_URL + "/cgi-bin/account/getaccountbasicinfo";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, getAccountBasicInfoRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
 }
