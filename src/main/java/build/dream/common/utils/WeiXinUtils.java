@@ -555,6 +555,9 @@ public class WeiXinUtils {
 
     /**
      * 获取帐号基本信息
+     *
+     * @param componentAppId
+     * @param authorizerAppId
      * @return
      */
     public static Map<String, Object> getAccountBasicInfo(String componentAppId, String authorizerAppId) {
@@ -567,6 +570,110 @@ public class WeiXinUtils {
 
         String url = WEI_XIN_API_URL + "/cgi-bin/account/getaccountbasicinfo";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, getAccountBasicInfoRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取草稿箱内的所有临时代码草稿
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @return
+     */
+    public static Map<String, Object> getTemplateDraftList(String componentAppId, String componentAppSecret) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
+
+        Map<String, String> getTemplateDraftListRequestParameters = new HashMap<String, String>();
+        getTemplateDraftListRequestParameters.put("access_token", componentAccessToken.getComponentAccessToken());
+
+        String url = WEI_XIN_API_URL + "/wxa/gettemplatedraftlist";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, getTemplateDraftListRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取代码模版库中的所有小程序代码模版
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @return
+     */
+    public static Map<String, Object> getTemplateList(String componentAppId, String componentAppSecret) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
+        Map<String, String> getTemplateListRequestParameters = new HashMap<String, String>();
+        getTemplateListRequestParameters.put("access_token", componentAccessToken.getComponentAccessToken());
+
+        String url = WEI_XIN_API_URL + "/wxa/gettemplatelist";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, getTemplateListRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 将草稿箱的草稿选为小程序代码模版
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @param draftId
+     * @return
+     */
+    public static Map<String, Object> addToTemplate(String componentAppId, String componentAppSecret, int draftId) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
+        String url = WEI_XIN_API_URL + "/wxa/addtotemplate?access_token=" + componentAccessToken.getComponentAccessToken();
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("draft_id", draftId);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 删除指定小程序代码模版
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @param templateId
+     * @return
+     */
+    public static Map<String, Object> deleteTemplate(String componentAppId, String componentAppSecret, int templateId) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
+        String url = WEI_XIN_API_URL + "/wxa/deletetemplate?access_token=" + componentAccessToken.getComponentAccessToken();
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("template_id", templateId);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 为授权的小程序帐号上传小程序代码
+     *
+     * @param authorizerAccessToken
+     * @param templateId
+     * @param extJson
+     * @param userVersion
+     * @param userDesc
+     * @return
+     */
+    public static Map<String, Object> commit(String authorizerAccessToken, int templateId, String extJson, String userVersion, String userDesc) {
+        String url = "https://api.weixin.qq.com/wxa/commit?access_token=" + authorizerAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("template_id", templateId);
+        requestBody.put("ext_json", extJson);
+        requestBody.put("user_version", userVersion);
+        requestBody.put("user_desc", userDesc);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
