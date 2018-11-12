@@ -15,6 +15,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AliyunPushUtils {
+    public static final String DEVICE = "DEVICE";
+    public static final String ACCOUNT = "ACCOUNT";
+    public static final String ALIAS = "ALIAS";
+    public static final String TAG = "TAG";
+    public static final String ALL = "ALL";
+
     private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
 
     public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) throws IOException {
