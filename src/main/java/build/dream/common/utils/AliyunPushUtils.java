@@ -2,8 +2,8 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.alibabacloudmobilepush.PushMessageToAndroidModel;
-import build.dream.common.models.alibabacloudmobilepush.PushMessageToIosModel;
+import build.dream.common.models.aliyunpush.PushMessageToAndroidModel;
+import build.dream.common.models.aliyunpush.PushMessageToIosModel;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class AlibabaCloudMobilePushUtils {
+public class AliyunPushUtils {
     private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
 
     public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) throws IOException {

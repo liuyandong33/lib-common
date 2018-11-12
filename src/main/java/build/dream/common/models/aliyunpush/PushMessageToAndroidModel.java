@@ -1,8 +1,8 @@
-package build.dream.common.models.alibabacloudmobilepush;
+package build.dream.common.models.aliyunpush;
 
 import build.dream.common.models.BasicModel;
 
-public class PushMessageToIosModel extends BasicModel {
+public class PushMessageToAndroidModel extends BasicModel {
     private String appKey;
     private String target;
     private String targetValue;
