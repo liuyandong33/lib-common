@@ -2,6 +2,8 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.alibabacloudmobilepush.PushMessageToAndroidModel;
+import build.dream.common.models.alibabacloudmobilepush.PushMessageToIosModel;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,15 +17,23 @@ import java.util.*;
 public class AlibabaCloudMobilePushUtils {
     private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
 
-    public static Map<String, Object> pushMessageToAndroid(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
-        return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, appKey, target, targetValue, title, body);
+    public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) throws IOException {
+        pushMessageToAndroidModel.validateAndThrow();
+        String accessKeyId = null;
+        String accessKeySecret = null;
+        String appKey = null;
+        return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, appKey, pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
     }
 
-    public static Map<String, Object> pushMessageToIos(String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
-        return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, appKey, target, targetValue, title, body);
+    public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) throws IOException {
+        pushMessageToIosModel.validateAndThrow();
+        String accessKeyId = null;
+        String accessKeySecret = null;
+        String appKey = null;
+        return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, appKey, pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
     }
 
-    public static Map<String, Object> pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
+    private static Map<String, Object> pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("Format", Constants.JSON);
         requestParameters.put("RegionId", "cn-hangzhou");
