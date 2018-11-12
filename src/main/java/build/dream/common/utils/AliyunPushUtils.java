@@ -21,16 +21,14 @@ public class AliyunPushUtils {
         pushMessageToAndroidModel.validateAndThrow();
         String accessKeyId = null;
         String accessKeySecret = null;
-        String appKey = null;
-        return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, appKey, pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
+        return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, pushMessageToAndroidModel.getAppKey(), pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
     }
 
     public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) throws IOException {
         pushMessageToIosModel.validateAndThrow();
         String accessKeyId = null;
         String accessKeySecret = null;
-        String appKey = null;
-        return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, appKey, pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
+        return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, pushMessageToIosModel.getAppKey(), pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
     }
 
     private static Map<String, Object> pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) throws IOException {
