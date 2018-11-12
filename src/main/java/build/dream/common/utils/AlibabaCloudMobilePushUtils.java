@@ -65,7 +65,7 @@ public class AlibabaCloudMobilePushUtils {
         return resultMap;
     }
 
-    public static String calculateSignature(String accessKeySecret, Map<String, String> requestParameters) throws UnsupportedEncodingException {
+    private static String calculateSignature(String accessKeySecret, Map<String, String> requestParameters) throws UnsupportedEncodingException {
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>(requestParameters);
         List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedRequestParameters.entrySet()) {
