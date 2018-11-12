@@ -20,6 +20,10 @@ public class Error {
         this.message = message;
     }
 
+    public Error() {
+        
+    }
+
     public Error(String code, String message) {
         this.code = code;
         this.message = message;
