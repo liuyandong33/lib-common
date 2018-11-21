@@ -1597,3 +1597,18 @@ CREATE TABLE distribution_center
     delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '配送中心';
+
+#先执行update语句，再执行select语句存储过程。
+DROP PROCEDURE IF EXISTS procedure_update;
+DELIMITER $$
+CREATE PROCEDURE procedure_update(IN update_sql VARCHAR(10240), IN select_sql VARCHAR(10240))
+    BEGIN
+        SET @update_sql = update_sql;
+        SET @select_sql = select_sql;
+        PREPARE update_statement FROM @update_sql;
+        PREPARE select_statement FROM @select_sql;
+        EXECUTE update_statement;
+        EXECUTE select_statement;
+    END$$
+
+DELIMITER ;
