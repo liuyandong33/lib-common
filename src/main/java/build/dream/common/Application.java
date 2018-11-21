@@ -1,10 +1,16 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.IOUtils;
 import build.dream.common.utils.NamingStrategyUtils;
 import build.dream.common.utils.ValidateUtils;
+import build.dream.common.utils.WebUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -12,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +29,7 @@ import java.util.Scanner;
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
 
         /*String packageName = "build.dream.common.erp.catering.domains";
@@ -34,6 +41,31 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
+        WebResponse webResponse = WebUtils.doGetWithRequestParameters("https://mirrors.aliyun.com/centos/7/cloud/x86_64/openstack-rocky/", null);
+        String result = webResponse.getResult();
+        Document document = Jsoup.parse(result);
+        Elements elements = document.getElementsByTag("a");
+        for (Element element : elements) {
+            String href = element.attr("href");
+            if ("../".equals(href) || "repodata/".equals(href)) {
+                continue;
+            }
+            new Thread(() -> {
+                try {
+                    URL url = new URL("https://mirrors.aliyun.com/centos/7/cloud/x86_64/openstack-rocky/" + href);
+                    HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                    httpURLConnection.setRequestMethod("GET");
+                    InputStream inputStream = httpURLConnection.getInputStream();
+                    OutputStream outputStream = new FileOutputStream("/Users/liuyandong/Desktop/centos/7/cloud/x86_64/openstack-rocky/" + href);
+                    IOUtils.copy(inputStream, outputStream);
+                    outputStream.close();
+                    httpURLConnection.disconnect();
+                } catch (Exception e) {
+
+                }
+            }).start();
+        }
+        int a = 100;
     }
 
     private static void installMySql() throws IOException, InterruptedException {
