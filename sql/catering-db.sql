@@ -1598,17 +1598,17 @@ CREATE TABLE distribution_center
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '配送中心';
 
-#先执行update语句，再执行select语句存储过程。
-DROP PROCEDURE IF EXISTS procedure_update;
+#连续执行两条sql语句的存储过程。
+DROP PROCEDURE IF EXISTS procedure_execute_sql_2;
 DELIMITER $$
-CREATE PROCEDURE procedure_update(IN update_sql VARCHAR(10240), IN select_sql VARCHAR(10240))
+CREATE PROCEDURE procedure_execute_sql_2(IN sql1 VARCHAR(10240), IN sql2 VARCHAR(10240))
     BEGIN
-        SET @update_sql = update_sql;
-        SET @select_sql = select_sql;
-        PREPARE update_statement FROM @update_sql;
-        PREPARE select_statement FROM @select_sql;
-        EXECUTE update_statement;
-        EXECUTE select_statement;
+	      SET @sql1 = sql1;
+	      SET @sql2 = sql2;
+	      PREPARE sql1_statement FROM @sql1;
+	      PREPARE sql2_statement FROM @sql2;
+        EXECUTE sql1_statement;
+        EXECUTE sql2_statement;
     END$$
 
 DELIMITER ;
