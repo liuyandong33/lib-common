@@ -32,7 +32,7 @@ public class Application {
     public static void main(String[] args) throws IOException {
 //        SpringApplication.run(Application.class, args);
 
-        /*String packageName = "build.dream.common.erp.catering.domains";
+        /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);

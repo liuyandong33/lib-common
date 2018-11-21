@@ -1,13 +1,12 @@
 package build.dream.common.demo;
 
-import build.dream.common.erp.catering.domains.*;
+import build.dream.common.catering.domains.DietOrderDetailGoodsAttribute;
 import build.dream.common.utils.DynamicProxyUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Proxy;
-import java.math.BigInteger;
 
 public class Main {
     public static void main(String[] args) throws ClassNotFoundException {
