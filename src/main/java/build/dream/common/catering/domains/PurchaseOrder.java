@@ -14,6 +14,7 @@ public class PurchaseOrder extends BasicDomain {
     private BigInteger reviewerUserId;
     private Date reviewTime;
     private String remark;
+    private Integer status;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -77,6 +78,14 @@ public class PurchaseOrder extends BasicDomain {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public static class Builder {
@@ -159,6 +168,11 @@ public class PurchaseOrder extends BasicDomain {
 
         public Builder deleted(boolean deleted) {
             instance.setDeleted(deleted);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
             return this;
         }
 
