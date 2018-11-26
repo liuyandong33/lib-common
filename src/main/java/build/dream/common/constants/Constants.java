@@ -108,6 +108,8 @@ public class Constants {
     public static final String SQL_OPERATION_SYMBOL_LESS_THAN_EQUALS = "<=";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN = ">";
     public static final String SQL_OPERATION_SYMBOL_GREATER_THAN_EQUALS = ">=";
+    public static final String DESC = "DESC";
+    public static final String ASC = "ASC";
 
     // 开发环境或测试环境参数错误错误信息
     public static final String PARAMETER_ERROR_MESSAGE_PATTERN = "参数(%s)错误！";
