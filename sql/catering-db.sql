@@ -509,6 +509,7 @@ CREATE TABLE purchase_order
     reviewer_user_id BIGINT NOT NULL COMMENT '审核人',
     review_time DATETIME NOT NULL COMMENT '审核时间',
     remark VARCHAR(255) NOT NULL COMMENT '备注',
+    `status` TINYINT NOT NULL COMMENT '状态，1-未审核，2-已审核',
     create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     create_user_id BIGINT NOT NULL COMMENT '创建人id',
     last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
