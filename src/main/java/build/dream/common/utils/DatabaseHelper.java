@@ -90,7 +90,6 @@ public class DatabaseHelper {
     public static long markedDelete(String tableName, BigInteger userId, String lastUpdateRemark, Tuple3<String, String, Object>... searchConditions) {
         UpdateModel updateModel = new UpdateModel(true);
         updateModel.setTableName(tableName);
-        updateModel.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
         for (Tuple3<String, String, Object> searchCondition : searchConditions) {
             updateModel.addSearchCondition(searchCondition._1(), searchCondition._2(), searchCondition._3());
         }
