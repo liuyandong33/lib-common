@@ -753,4 +753,12 @@ public class Constants {
     public static final String ERROR_CODE_ACCESS_DENIED = "0014";
     public static final Error UNKNOWN_ERROR = new Error(ERROR_CODE_UNKNOWN_ERROR, "未知错误！");
     public static final Error INVALID_PARAMETER_ERROR = new Error(ERROR_CODE_INVALID_PARAMETER, "参数错误！");
+
+    /**
+     * 进货单状态
+     * @see #PURCHASE_ORDER_STATUS_NOT_EXAMINED：未审核
+     * @see #PURCHASE_ORDER_STATUS_EXAMINED：已审核
+     */
+    public static final Integer PURCHASE_ORDER_STATUS_NOT_EXAMINED = 1;
+    public static final Integer PURCHASE_ORDER_STATUS_EXAMINED = 2;
 }

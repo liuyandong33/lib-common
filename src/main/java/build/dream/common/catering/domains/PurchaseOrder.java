@@ -6,14 +6,49 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class PurchaseOrder extends BasicDomain {
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+
+    /**
+     * 商户号
+     */
     private String tenantCode;
+
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+
+    /**
+     * 单据编号
+     */
     private String orderNumber;
+
+    /**
+     * 制单人
+     */
     private BigInteger originatorUserId;
-    private BigInteger reviewerUserId;
-    private Date reviewTime;
+
+    /**
+     * 审核人
+     */
+    private BigInteger examinerUserId;
+
+    /**
+     * 审核时间
+     */
+    private Date examineTime;
+
+    /**
+     * 备注
+     */
     private String remark;
+
+    /**
+     * 状态，1-未审核，2-已审核
+     */
     private Integer status;
 
     public BigInteger getTenantId() {
@@ -56,20 +91,20 @@ public class PurchaseOrder extends BasicDomain {
         this.originatorUserId = originatorUserId;
     }
 
-    public BigInteger getReviewerUserId() {
-        return reviewerUserId;
+    public BigInteger getExaminerUserId() {
+        return examinerUserId;
     }
 
-    public void setReviewerUserId(BigInteger reviewerUserId) {
-        this.reviewerUserId = reviewerUserId;
+    public void setExaminerUserId(BigInteger examinerUserId) {
+        this.examinerUserId = examinerUserId;
     }
 
-    public Date getReviewTime() {
-        return reviewTime;
+    public Date getExamineTime() {
+        return examineTime;
     }
 
-    public void setReviewTime(Date reviewTime) {
-        this.reviewTime = reviewTime;
+    public void setExamineTime(Date examineTime) {
+        this.examineTime = examineTime;
     }
 
     public String getRemark() {
@@ -116,13 +151,13 @@ public class PurchaseOrder extends BasicDomain {
             return this;
         }
 
-        public Builder reviewerUserId(BigInteger reviewerUserId) {
-            instance.setReviewerUserId(reviewerUserId);
+        public Builder examinerUserId(BigInteger examinerUserId) {
+            instance.setExaminerUserId(examinerUserId);
             return this;
         }
 
-        public Builder reviewTime(Date reviewTime) {
-            instance.setReviewTime(reviewTime);
+        public Builder examineTime(Date examineTime) {
+            instance.setExamineTime(examineTime);
             return this;
         }
 
@@ -191,8 +226,8 @@ public class PurchaseOrder extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String ORDER_NUMBER = "order_number";
         public static final String ORIGINATOR_USER_ID = "originator_user_id";
-        public static final String REVIEWER_USER_ID = "reviewer_user_id";
-        public static final String REVIEW_TIME = "review_time";
+        public static final String EXAMINER_USER_ID = "examiner_user_id";
+        public static final String EXAMINE_TIME = "examine_time";
         public static final String REMARK = "remark";
     }
 
@@ -202,8 +237,8 @@ public class PurchaseOrder extends BasicDomain {
         public static final String BRANCH_ID = "branchId";
         public static final String ORDER_NUMBER = "orderNumber";
         public static final String ORIGINATOR_USER_ID = "originatorUserId";
-        public static final String REVIEWER_USER_ID = "reviewerUserId";
-        public static final String REVIEW_TIME = "reviewTime";
+        public static final String EXAMINER_USER_ID = "examinerUserId";
+        public static final String EXAMINE_TIME = "examineTime";
         public static final String REMARK = "remark";
     }
 }
