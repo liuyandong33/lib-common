@@ -7,14 +7,49 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class PurchaseOrderDetail extends BasicDomain {
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+
+    /**
+     * 进货单ID
+     */
     private BigInteger purchaseOrderId;
+
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+
+    /**
+     * 商品规格ID
+     */
     private BigInteger goodsSpecificationId;
+
+    /**
+     * 商品单位ID
+     */
     private BigInteger unitId;
+
+    /**
+     * 进货价
+     */
     private BigDecimal purchasePrice;
+
+    /**
+     * 进货数量
+     */
     private BigDecimal quantity;
 
     public BigInteger getTenantId() {

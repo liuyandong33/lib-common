@@ -2,10 +2,11 @@ package build.dream.common.catering.domains;
 
 import build.dream.common.basic.BasicDomain;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class PurchaseOrder extends BasicDomain {
+public class StockFlow extends BasicDomain {
     /**
      * 商户ID
      */
@@ -22,34 +23,34 @@ public class PurchaseOrder extends BasicDomain {
     private BigInteger branchId;
 
     /**
-     * 单据编号
+     * 商品ID
      */
-    private String orderNumber;
+    private BigInteger goodsId;
 
     /**
-     * 制单人
+     * 商品规格ID
      */
-    private BigInteger originatorUserId;
+    private BigInteger goodsSpecificationId;
 
     /**
-     * 审核人
+     * 商品单位ID
      */
-    private BigInteger examinerUserId;
+    private BigInteger unitId;
 
     /**
-     * 审核时间
+     * 类型，1-进货，2-退货，3-销售
      */
-    private Date examineTime;
+    private Integer type;
 
     /**
-     * 备注
+     * 发生时间
      */
-    private String remark;
+    private Date occurrenceTime;
 
     /**
-     * 状态，1-未审核，2-已审核
+     * 数量
      */
-    private Integer status;
+    private BigDecimal quantity;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -75,56 +76,56 @@ public class PurchaseOrder extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
+    public BigInteger getGoodsId() {
+        return goodsId;
     }
 
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setGoodsId(BigInteger goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public BigInteger getOriginatorUserId() {
-        return originatorUserId;
+    public BigInteger getGoodsSpecificationId() {
+        return goodsSpecificationId;
     }
 
-    public void setOriginatorUserId(BigInteger originatorUserId) {
-        this.originatorUserId = originatorUserId;
+    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+        this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public BigInteger getExaminerUserId() {
-        return examinerUserId;
+    public BigInteger getUnitId() {
+        return unitId;
     }
 
-    public void setExaminerUserId(BigInteger examinerUserId) {
-        this.examinerUserId = examinerUserId;
+    public void setUnitId(BigInteger unitId) {
+        this.unitId = unitId;
     }
 
-    public Date getExamineTime() {
-        return examineTime;
+    public Integer getType() {
+        return type;
     }
 
-    public void setExamineTime(Date examineTime) {
-        this.examineTime = examineTime;
+    public void setType(Integer type) {
+        this.type = type;
     }
 
-    public String getRemark() {
-        return remark;
+    public Date getOccurrenceTime() {
+        return occurrenceTime;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setOccurrenceTime(Date occurrenceTime) {
+        this.occurrenceTime = occurrenceTime;
     }
 
-    public Integer getStatus() {
-        return status;
+    public BigDecimal getQuantity() {
+        return quantity;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setQuantity(BigDecimal quantity) {
+        this.quantity = quantity;
     }
 
     public static class Builder {
-        private final PurchaseOrder instance = new PurchaseOrder();
+        private final StockFlow instance = new StockFlow();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -141,35 +142,6 @@ public class PurchaseOrder extends BasicDomain {
             return this;
         }
 
-        public Builder orderNumber(String orderNumber) {
-            instance.setOrderNumber(orderNumber);
-            return this;
-        }
-
-        public Builder originatorUserId(BigInteger originatorUserId) {
-            instance.setOriginatorUserId(originatorUserId);
-            return this;
-        }
-
-        public Builder examinerUserId(BigInteger examinerUserId) {
-            instance.setExaminerUserId(examinerUserId);
-            return this;
-        }
-
-        public Builder examineTime(Date examineTime) {
-            instance.setExamineTime(examineTime);
-            return this;
-        }
-
-        public Builder remark(String remark) {
-            instance.setRemark(remark);
-            return this;
-        }
-
-        public Builder status(Integer status) {
-            instance.setStatus(status);
-            return this;
-        }
 
         public Builder id(BigInteger id) {
             instance.setId(id);
@@ -211,7 +183,7 @@ public class PurchaseOrder extends BasicDomain {
             return this;
         }
 
-        public PurchaseOrder build() {
+        public StockFlow build() {
             return instance;
         }
     }
@@ -224,23 +196,23 @@ public class PurchaseOrder extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
-        public static final String ORDER_NUMBER = "order_number";
-        public static final String ORIGINATOR_USER_ID = "originator_user_id";
-        public static final String EXAMINER_USER_ID = "examiner_user_id";
-        public static final String EXAMINE_TIME = "examine_time";
-        public static final String REMARK = "remark";
-        public static final String STATUS = "status";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String UNIT_ID = "unit_id";
+        public static final String TYPE = "type";
+        public static final String OCCURRENCE_TIME = "occurrence_time";
+        public static final String QUANTITY = "quantity";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
-        public static final String ORDER_NUMBER = "orderNumber";
-        public static final String ORIGINATOR_USER_ID = "originatorUserId";
-        public static final String EXAMINER_USER_ID = "examinerUserId";
-        public static final String EXAMINE_TIME = "examineTime";
-        public static final String REMARK = "remark";
-        public static final String STATUS = "status";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String UNIT_ID = "unitId";
+        public static final String TYPE = "type";
+        public static final String OCCURRENCE_TIME = "occurrenceTime";
+        public static final String QUANTITY = "quantity";
     }
 }
