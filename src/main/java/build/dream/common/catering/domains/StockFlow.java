@@ -142,6 +142,35 @@ public class StockFlow extends BasicDomain {
             return this;
         }
 
+        public Builder goodsId(BigInteger goodsId) {
+            instance.setGoodsId(goodsId);
+            return this;
+        }
+
+        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+            instance.setGoodsSpecificationId(goodsSpecificationId);
+            return this;
+        }
+
+        public Builder unitId(BigInteger unitId) {
+            instance.setUnitId(unitId);
+            return this;
+        }
+
+        public Builder type(Integer type) {
+            instance.setType(type);
+            return this;
+        }
+
+        public Builder occurrenceTime(Date occurrenceTime) {
+            instance.setOccurrenceTime(occurrenceTime);
+            return this;
+        }
+
+        public Builder quantity(BigDecimal quantity) {
+            instance.setQuantity(quantity);
+            return this;
+        }
 
         public Builder id(BigInteger id) {
             instance.setId(id);
