@@ -756,9 +756,19 @@ public class Constants {
 
     /**
      * 进货单状态
+     *
      * @see #PURCHASE_ORDER_STATUS_NOT_EXAMINED：未审核
      * @see #PURCHASE_ORDER_STATUS_EXAMINED：已审核
      */
     public static final Integer PURCHASE_ORDER_STATUS_NOT_EXAMINED = 1;
     public static final Integer PURCHASE_ORDER_STATUS_EXAMINED = 2;
+
+    public static final String REQUEST_METHOD_GET = "GET";
+    public static final String REQUEST_METHOD_HEAD = "HEAD";
+    public static final String REQUEST_METHOD_POST = "POST";
+    public static final String REQUEST_METHOD_PUT = "PUT";
+    public static final String REQUEST_METHOD_PATCH = "PATCH";
+    public static final String REQUEST_METHOD_DELETE = "DELETE";
+    public static final String REQUEST_METHOD_OPTIONS = "OPTIONS";
+    public static final String REQUEST_METHOD_TRACE = "TRACE";
 }

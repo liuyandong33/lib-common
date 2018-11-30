@@ -118,14 +118,14 @@ public class OutUtils {
 
     public static ResponseEntity<byte[]> doGet(String url, Map<String, String> headers) throws IOException {
         ValidateUtils.notNull(proxy, "未配置代理服务器！");
-        HttpURLConnection httpURLConnection = WebUtils.buildHttpURLConnection(url, WebUtils.RequestMethod.GET, 0, 0, null, proxy);
+        HttpURLConnection httpURLConnection = WebUtils.buildHttpURLConnection(url, Constants.REQUEST_METHOD_GET, 0, 0, null, proxy);
         WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
 
         // 处理重定向
         int responseCode = httpURLConnection.getResponseCode();
         while (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
             httpURLConnection.disconnect();
-            httpURLConnection = WebUtils.buildHttpURLConnection(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), WebUtils.RequestMethod.GET, 0, 0, null, proxy);
+            httpURLConnection = WebUtils.buildHttpURLConnection(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), Constants.REQUEST_METHOD_GET, 0, 0, null, proxy);
             WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
             responseCode = httpURLConnection.getResponseCode();
         }

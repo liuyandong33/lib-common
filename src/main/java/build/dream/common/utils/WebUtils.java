@@ -22,13 +22,6 @@ import java.util.*;
  * Created by liuyandong on 2017/7/15.
  */
 public class WebUtils {
-    public static final class RequestMethod {
-        public static final String GET = "GET";
-        public static final String POST = "POST";
-        public static final String PUT = "PUT";
-        public static final String DELETE = "DELETE";
-    }
-
     public static final String TWO_HYPHENS = "--";
     public static final String BOUNDARY = UUID.randomUUID().toString();
     public static final String ENTER_NEW_LINE = "\r\n";
@@ -66,7 +59,7 @@ public class WebUtils {
             if (MapUtils.isNotEmpty(requestParameters)) {
                 requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
             }
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.GET, readTimeout, connectTimeout, null, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_GET, readTimeout, connectTimeout, null, proxy);
             setRequestProperties(httpURLConnection, headers, charsetName);
             responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
@@ -119,7 +112,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         int responseCode;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -178,7 +171,7 @@ public class WebUtils {
         int responseCode;
         HttpURLConnection httpURLConnection = null;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
             if (headers == null) {
                 headers = new HashMap<String, String>();
                 headers.put("Content-Type", "multipart/form-data;boundary=" + BOUNDARY);
@@ -239,7 +232,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         int responseCode;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -297,7 +290,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         int responseCode;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.PUT, readTimeout, connectTimeout, sslSocketFactory, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_PUT, readTimeout, connectTimeout, sslSocketFactory, proxy);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -355,7 +348,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         int responseCode;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, RequestMethod.DELETE, readTimeout, connectTimeout, sslSocketFactory, proxy);
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_DELETE, readTimeout, connectTimeout, sslSocketFactory, proxy);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
