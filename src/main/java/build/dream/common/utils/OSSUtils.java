@@ -6,13 +6,14 @@ import org.apache.commons.codec.digest.HmacUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OSSUtils {
     public static Map<String, String> obtainPolicy(String accessId, String accessKey, String host, String dir, Date expiration, List<Object[]> conditions, Map<String, String> callback) throws UnsupportedEncodingException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_PATTERN, Locale.US);
-        simpleDateFormat.setTimeZone(new SimpleTimeZone(0, "GMT"));
-
+        SimpleDateFormat simpleDateFormat = CustomDateUtils.buildISO8601SimpleDateFormat();
         Map<String, Object> policyMap = new HashMap<String, Object>();
         policyMap.put("expiration", simpleDateFormat.format(expiration));
         policyMap.put("conditions", conditions);
