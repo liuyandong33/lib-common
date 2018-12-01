@@ -9,6 +9,7 @@ import build.dream.common.saas.domains.WeiXinAuthorizerToken;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -673,6 +674,48 @@ public class WeiXinUtils {
         requestBody.put("ext_json", extJson);
         requestBody.put("user_version", userVersion);
         requestBody.put("user_desc", userDesc);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    public static Map<String, Object> modifyDomain(String authorizerAccessToken, String action, String[] requestDomains, String[] wsRequestDomains, String[] uploadDomains, String[] downloadDomains) {
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("action", action);
+
+        if (ArrayUtils.isNotEmpty(requestDomains)) {
+            requestBody.put("requestdomain", requestDomains);
+        }
+
+        if (ArrayUtils.isNotEmpty(requestDomains)) {
+            requestBody.put("wsrequestdomain", wsRequestDomains);
+        }
+
+        if (ArrayUtils.isNotEmpty(requestDomains)) {
+            requestBody.put("uploaddomain", uploadDomains);
+        }
+
+        if (ArrayUtils.isNotEmpty(requestDomains)) {
+            requestBody.put("downloaddomain", downloadDomains);
+        }
+
+        String url = WEI_XIN_API_URL + "/wxa/modify_domain?access_token=" + authorizerAccessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    public static Map<String, Object> setWebViewDomain(String authorizerAccessToken, String action, String webViewDomain) {
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("action", action);
+
+        if (StringUtils.isNotEmpty(webViewDomain)) {
+            requestBody.put("webviewdomain", webViewDomain);
+        }
+
+        String url = WEI_XIN_API_URL + "/wxa/setwebviewdomain?access_token=" + authorizerAccessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
