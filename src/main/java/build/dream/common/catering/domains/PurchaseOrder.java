@@ -34,12 +34,12 @@ public class PurchaseOrder extends BasicDomain {
     /**
      * 审核人
      */
-    private BigInteger examinerUserId;
+    private BigInteger auditorUserId;
 
     /**
      * 审核时间
      */
-    private Date examineTime;
+    private Date auditTime;
 
     /**
      * 备注
@@ -91,20 +91,20 @@ public class PurchaseOrder extends BasicDomain {
         this.originatorUserId = originatorUserId;
     }
 
-    public BigInteger getExaminerUserId() {
-        return examinerUserId;
+    public BigInteger getAuditorUserId() {
+        return auditorUserId;
     }
 
-    public void setExaminerUserId(BigInteger examinerUserId) {
-        this.examinerUserId = examinerUserId;
+    public void setAuditorUserId(BigInteger auditorUserId) {
+        this.auditorUserId = auditorUserId;
     }
 
-    public Date getExamineTime() {
-        return examineTime;
+    public Date getAuditTime() {
+        return auditTime;
     }
 
-    public void setExamineTime(Date examineTime) {
-        this.examineTime = examineTime;
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
     }
 
     public String getRemark() {
@@ -151,13 +151,13 @@ public class PurchaseOrder extends BasicDomain {
             return this;
         }
 
-        public Builder examinerUserId(BigInteger examinerUserId) {
-            instance.setExaminerUserId(examinerUserId);
+        public Builder auditorUserId(BigInteger auditorUserId) {
+            instance.setAuditorUserId(auditorUserId);
             return this;
         }
 
-        public Builder examineTime(Date examineTime) {
-            instance.setExamineTime(examineTime);
+        public Builder auditTime(Date auditTime) {
+            instance.setAuditTime(auditTime);
             return this;
         }
 
@@ -226,8 +226,8 @@ public class PurchaseOrder extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String ORDER_NUMBER = "order_number";
         public static final String ORIGINATOR_USER_ID = "originator_user_id";
-        public static final String EXAMINER_USER_ID = "examiner_user_id";
-        public static final String EXAMINE_TIME = "examine_time";
+        public static final String AUDITOR_USER_ID = "auditor_user_id";
+        public static final String AUDIT_TIME = "auditTime";
         public static final String REMARK = "remark";
         public static final String STATUS = "status";
     }
@@ -238,8 +238,8 @@ public class PurchaseOrder extends BasicDomain {
         public static final String BRANCH_ID = "branchId";
         public static final String ORDER_NUMBER = "orderNumber";
         public static final String ORIGINATOR_USER_ID = "originatorUserId";
-        public static final String EXAMINER_USER_ID = "examinerUserId";
-        public static final String EXAMINE_TIME = "examineTime";
+        public static final String AUDITOR_USER_ID = "auditorUserId";
+        public static final String AUDIT_TIME = "auditTime";
         public static final String REMARK = "remark";
         public static final String STATUS = "status";
     }
