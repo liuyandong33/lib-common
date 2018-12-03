@@ -1,14 +1,15 @@
 package build.dream.common.utils;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.MultiFormatWriter;
-import com.google.zxing.WriterException;
+import build.dream.common.constants.Constants;
+import com.google.zxing.*;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.util.HashMap;
 
 public class QRCodeUtils {
     public static final int BLACK = 0xFF000000;
@@ -24,5 +25,20 @@ public class QRCodeUtils {
             }
         }
         ImageIO.write(bufferedImage, FORMAT_NAME, outputStream);
+    }
+
+    public static String parseQRCode(InputStream inputStream) throws IOException, NotFoundException {
+        BufferedImage bufferedImage = ImageIO.read(inputStream);
+        LuminanceSource luminanceSource = new BufferedImageLuminanceSource(bufferedImage);
+        Binarizer binarizer = new HybridBinarizer(luminanceSource);
+        BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
+        HashMap<DecodeHintType, Object> decodeHints = new HashMap<DecodeHintType, Object>();
+        decodeHints.put(DecodeHintType.CHARACTER_SET, Constants.CHARSET_NAME_UTF_8);
+        Result result = new MultiFormatReader().decode(binaryBitmap, decodeHints);
+        return result.getText();
+    }
+
+    public static String parseQRCode(File file) throws IOException, NotFoundException {
+        return parseQRCode(new FileInputStream(file));
     }
 }
