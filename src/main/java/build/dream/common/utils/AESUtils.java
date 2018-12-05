@@ -37,6 +37,18 @@ public class AESUtils {
         }
     }
 
+    public static byte[] encrypt(byte[] data, byte[] aesKey, byte[] iv, String algorithm, String providerName) {
+        try {
+            SecretKey secretKey = new SecretKeySpec(aesKey, KEY_ALGORITHM);
+            Cipher cipher = Cipher.getInstance(algorithm, providerName);
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivParameterSpec);
+            return cipher.doFinal(data);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static byte[] decrypt(byte[] encryptedData, byte[] aesKey, String algorithm, String providerName) {
         try {
             SecretKey secretKey = new SecretKeySpec(aesKey, KEY_ALGORITHM);
