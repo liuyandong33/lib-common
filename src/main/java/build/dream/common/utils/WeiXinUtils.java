@@ -479,7 +479,10 @@ public class WeiXinUtils {
 
     public static Map<String, Object> sendCustomMessage(String appId, String secret, String message) {
         WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
-        String accessToken = weiXinAccessToken.getAccessToken();
+        return sendCustomMessage(weiXinAccessToken.getAccessToken(), message);
+    }
+
+    public static Map<String, Object> sendCustomMessage(String accessToken, String message) {
         String url = WEI_XIN_API_URL + "/cgi-bin/message/custom/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, message);
         String result = webResponse.getResult();
