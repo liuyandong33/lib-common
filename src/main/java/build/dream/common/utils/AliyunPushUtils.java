@@ -97,4 +97,80 @@ public class AliyunPushUtils {
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return resultMap;
     }
+
+    public static Map<String, Object> queryDevicesByAccount(String accessKeyId, String accessKeySecret, String account) throws UnsupportedEncodingException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.putAll(buildCommonRequestParameters());
+        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("Action", "QueryDevicesByAccount");
+        requestParameters.put("Account", account);
+        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    public static Map<String, Object> bindAlias(String accessKeyId, String accessKeySecret, String deviceId, String aliasName) throws UnsupportedEncodingException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.putAll(buildCommonRequestParameters());
+        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("Action", "BindAlias");
+        requestParameters.put("DeviceId", deviceId);
+        requestParameters.put("AliasName", aliasName);
+        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    public static Map<String, Object> queryAliases(String accessKeyId, String accessKeySecret, String deviceId) throws UnsupportedEncodingException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.putAll(buildCommonRequestParameters());
+        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("Action", "QueryAliases");
+        requestParameters.put("DeviceId", deviceId);
+        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    public static Map<String, Object> queryDevicesByAlias(String accessKeyId, String accessKeySecret, String alias) throws UnsupportedEncodingException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.putAll(buildCommonRequestParameters());
+        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("Action", "QueryDevicesByAlias");
+        requestParameters.put("Alias", alias);
+        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    public static Map<String, Object> unbindAlias(String accessKeyId, String accessKeySecret, String deviceId, boolean unbindAll, String aliasName) throws UnsupportedEncodingException {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.putAll(buildCommonRequestParameters());
+        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("Action", "UnbindAlias");
+        requestParameters.put("DeviceId", deviceId);
+        requestParameters.put("UnbindAll", String.valueOf(unbindAll));
+        if (!unbindAll) {
+            requestParameters.put("AliasName", aliasName);
+        }
+        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
 }
