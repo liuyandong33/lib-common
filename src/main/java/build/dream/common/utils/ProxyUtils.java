@@ -143,8 +143,8 @@ public class ProxyUtils {
         return ApiRest.fromJson(doPostOriginalWithRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
     }
 
-    public static String doGetOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().getForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), String.class);
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
+        return obtainRestTemplate().getForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), byte[].class);
     }
 
     public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
