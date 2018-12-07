@@ -8,7 +8,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -71,14 +70,14 @@ public class AliyunPushUtils {
         return resultMap;
     }
 
-    public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) throws IOException {
+    public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) throws UnsupportedEncodingException {
         pushMessageToAndroidModel.validateAndThrow();
         String accessKeyId = null;
         String accessKeySecret = null;
         return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, pushMessageToAndroidModel.getAppKey(), pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
     }
 
-    public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) throws IOException {
+    public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) throws UnsupportedEncodingException {
         pushMessageToIosModel.validateAndThrow();
         String accessKeyId = null;
         String accessKeySecret = null;
