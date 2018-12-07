@@ -27,7 +27,7 @@ public class Pos extends BasicDomain {
      */
     private BigInteger userId;
     /**
-     * jpush 注册Id
+     * 阿里云推送服务设备ID
      */
     private String deviceId;
     /**
