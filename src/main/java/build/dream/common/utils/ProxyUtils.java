@@ -6,6 +6,7 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayOutputStream;
@@ -140,5 +141,21 @@ public class ProxyUtils {
 
     public static ApiRest doPostWithRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
         return ApiRest.fromJson(doPostOriginalWithRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+    }
+
+    public static String doGetOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
+        return obtainRestTemplate().getForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), String.class);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
+        return obtainRestTemplate().getForEntity(obtainUrl(null, serviceName, controllerName, actionName, requestParameters), byte[].class);
+    }
+
+    public static ResponseEntity<byte[]> doPostOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
+        return obtainRestTemplate().postForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), byte[].class);
+    }
+
+    public static ResponseEntity<byte[]> doPostOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
+        return obtainRestTemplate().postForEntity(obtainUrl(null, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), byte[].class);
     }
 }
