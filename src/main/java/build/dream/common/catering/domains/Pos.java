@@ -29,7 +29,7 @@ public class Pos extends BasicDomain {
     /**
      * jpush 注册Id
      */
-    private String registrationId;
+    private String deviceId;
     /**
      * pos 类型，安卓-android，苹果-ios
      */
@@ -83,12 +83,12 @@ public class Pos extends BasicDomain {
         this.userId = userId;
     }
 
-    public String getRegistrationId() {
-        return registrationId;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public void setRegistrationId(String registrationId) {
-        this.registrationId = registrationId;
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 
     public String getType() {
@@ -143,8 +143,8 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Builder registrationId(String registrationId) {
-            instance.setRegistrationId(registrationId);
+        public Builder deviceId(String deviceId) {
+            instance.setDeviceId(deviceId);
             return this;
         }
 
@@ -214,7 +214,7 @@ public class Pos extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String BRANCH_CODE = "branch_code";
         public static final String USER_ID = "user_id";
-        public static final String REGISTRATION_ID = "registration_id";
+        public static final String DEVICE_ID = "device_id";
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
@@ -226,7 +226,7 @@ public class Pos extends BasicDomain {
         public static final String BRANCH_ID = "branchId";
         public static final String BRANCH_CODE = "branchCode";
         public static final String USER_ID = "userId";
-        public static final String REGISTRATION_ID = "registrationId";
+        public static final String DEVICE_ID = "deviceId";
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
