@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.InstantiateObjectIgnore;
+import build.dream.common.annotations.InstantiateObjectKey;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.CustomUserDetails;
@@ -305,8 +306,16 @@ public class ApplicationHandler {
             if (field.getAnnotation(InstantiateObjectIgnore.class) != null) {
                 continue;
             }
-            String fieldName = field.getName();
-            String fieldValue = parameters.get(prefix + fieldName);
+
+            InstantiateObjectKey instantiateObjectKey = field.getAnnotation(InstantiateObjectKey.class);
+
+            String parameterName = null;
+            if (instantiateObjectKey == null) {
+                parameterName = field.getName();
+            } else {
+                parameterName = instantiateObjectKey.name();
+            }
+            String fieldValue = parameters.get(prefix + parameterName);
             if (StringUtils.isBlank(fieldValue)) {
                 continue;
             }
@@ -345,7 +354,7 @@ public class ApplicationHandler {
                     if (itemType instanceof Date) {
                         simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
                     }
-                    field.set(object, buildArrayList(field, itemType, fieldName, fieldValue, ",", simpleDateFormat));
+                    field.set(object, buildArrayList(field, itemType, parameterName, fieldValue, ",", simpleDateFormat));
                 }
             } else if (fieldClass == Map.class) {
                 Type type = field.getGenericType();
@@ -360,7 +369,7 @@ public class ApplicationHandler {
                 if (isJson) {
                     JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
                     if (jsonSchema != null) {
-                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName), Constants.ERROR_CODE_INVALID_PARAMETER);
+                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
                     }
                     field.set(object, JacksonUtils.readValue(fieldValue, field.getType()));
                 }
@@ -609,13 +618,13 @@ public class ApplicationHandler {
      *
      * @param field
      * @param type
-     * @param fieldName
+     * @param parameterName
      * @param fieldValue
      * @param separator
      * @param simpleDateFormat
      * @return
      */
-    private static Object buildArrayList(Field field, Type type, String fieldName, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
+    private static Object buildArrayList(Field field, Type type, String parameterName, String fieldValue, String separator, SimpleDateFormat simpleDateFormat) {
         List<? extends Object> list = null;
         if (type == Byte.class) {
             list = buildByteArrayList(fieldValue, separator);
@@ -646,7 +655,7 @@ public class ApplicationHandler {
             if (isJson) {
                 JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
                 if (jsonSchema != null) {
-                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(fieldName), Constants.ERROR_CODE_INVALID_PARAMETER);
+                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
                 }
                 list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
             }
