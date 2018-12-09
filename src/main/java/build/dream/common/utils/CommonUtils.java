@@ -49,6 +49,16 @@ public class CommonUtils {
         return getOutsideServiceDomain(serviceName) + "/" + controllerName + "/" + actionName;
     }
 
+    public static String getServiceDomain(String partitionCode, String serviceName) {
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName;
+    }
+
+    public static String getServiceDomain(String serviceName) {
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        return Constants.HTTP + deploymentEnvironment + "-" + serviceName;
+    }
+
     public static String getUrl(String partitionCode, String serviceName, String controllerName, String actionName) {
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName + "/" + controllerName + "/" + actionName;
