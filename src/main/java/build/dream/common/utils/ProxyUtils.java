@@ -158,4 +158,8 @@ public class ProxyUtils {
     public static ResponseEntity<byte[]> doPostOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
         return obtainRestTemplate().postForEntity(obtainUrl(null, serviceName, controllerName, actionName), buildHttpEntity(requestParameters), byte[].class);
     }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String url) {
+        return obtainRestTemplate().getForEntity(url, byte[].class);
+    }
 }
