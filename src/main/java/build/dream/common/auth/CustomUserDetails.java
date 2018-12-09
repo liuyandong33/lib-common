@@ -17,6 +17,7 @@ public class CustomUserDetails implements UserDetails {
     private Map<String, Object> branchInfo;
     private String publicKey;
     private String privateKey;
+    private String clientType;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -103,5 +104,13 @@ public class CustomUserDetails implements UserDetails {
 
     public void setPrivateKey(String privateKey) {
         this.privateKey = privateKey;
+    }
+
+    public String getClientType() {
+        return clientType;
+    }
+
+    public void setClientType(String clientType) {
+        this.clientType = clientType;
     }
 }

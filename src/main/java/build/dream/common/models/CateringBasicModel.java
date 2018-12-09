@@ -35,6 +35,9 @@ public class CateringBasicModel extends BasicModel {
     @InstantiateObjectIgnore
     private String _partitionCode;
 
+    @InstantiateObjectIgnore
+    private String _clientType;
+
     public CateringBasicModel() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
         SystemUser systemUser = customUserDetails.getSystemUser();
@@ -51,6 +54,7 @@ public class CateringBasicModel extends BasicModel {
         this._publicKey = publicKey;
         this._privateKey = privateKey;
         this._partitionCode = tenant.getPartitionCode();
+        this._clientType = customUserDetails.getClientType();
     }
 
     public BigInteger obtainUserId() {
@@ -83,5 +87,9 @@ public class CateringBasicModel extends BasicModel {
 
     public String obtainPartitionCode() {
         return _partitionCode;
+    }
+
+    public String obtainClientType() {
+        return this._clientType;
     }
 }
