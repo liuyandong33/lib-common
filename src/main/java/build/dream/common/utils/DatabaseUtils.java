@@ -77,7 +77,7 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleteTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
 
@@ -163,7 +163,7 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
 
@@ -240,7 +240,7 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createTime".equals(fieldName) || "lastUpdateTime".equals(fieldName)) {
+                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName)) {
                     continue;
                 }
 
