@@ -773,4 +773,60 @@ public class WeiXinUtils {
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
+
+    /**
+     * 获取公众号关联的小程序
+     *
+     * @param authorizerAccessToken
+     * @return
+     */
+    public static Map<String, Object> getWxAmpLink(String authorizerAccessToken) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/wxopen/wxamplinkget?access_token=" + authorizerAccessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 关联小程序
+     *
+     * @param authorizerAccessToken
+     * @param appId
+     * @param notifyUsers
+     * @param showProfile
+     * @return
+     */
+    public static Map<String, Object> wxAmpLink(String authorizerAccessToken, String appId, String notifyUsers, String showProfile) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/wxopen/wxamplink?access_token=" + authorizerAccessToken;
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("appid", appId);
+        requestBody.put("notify_users", notifyUsers);
+        requestBody.put("show_profile", showProfile);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 解除已关联的小程序
+     *
+     * @param authorizerAccessToken
+     * @param appId
+     * @return
+     */
+    public static Map<String, Object> wxAmpUnlink(String authorizerAccessToken, String appId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/wxopen/wxampunlink?access_token=" + authorizerAccessToken;
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("appid", appId);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
 }
