@@ -8,12 +8,12 @@ import java.util.Date;
 
 public class BasicDomain implements Serializable {
     private BigInteger id;
-    private Date createTime;
-    private BigInteger createUserId;
-    private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
-    private String lastUpdateRemark = Constants.VARCHAR_DEFAULT_VALUE;
-    private Date deleteTime = Constants.DATETIME_DEFAULT_VALUE;
+    private Date createdTime;
+    private BigInteger createdUserId;
+    private Date updatedTime;
+    private BigInteger updatedUserId;
+    private String updatedRemark = Constants.VARCHAR_DEFAULT_VALUE;
+    private Date deletedTime = Constants.DATETIME_DEFAULT_VALUE;
     private boolean deleted;
 
     public BigInteger getId() {
@@ -24,52 +24,52 @@ public class BasicDomain implements Serializable {
         this.id = id;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public BigInteger getCreateUserId() {
-        return createUserId;
+    public BigInteger getCreatedUserId() {
+        return createdUserId;
     }
 
-    public void setCreateUserId(BigInteger createUserId) {
-        this.createUserId = createUserId;
+    public void setCreatedUserId(BigInteger createdUserId) {
+        this.createdUserId = createdUserId;
     }
 
-    public Date getLastUpdateTime() {
-        return lastUpdateTime;
+    public Date getUpdatedTime() {
+        return updatedTime;
     }
 
-    public void setLastUpdateTime(Date lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
-    public BigInteger getLastUpdateUserId() {
-        return lastUpdateUserId;
+    public BigInteger getUpdatedUserId() {
+        return updatedUserId;
     }
 
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
-        this.lastUpdateUserId = lastUpdateUserId;
+    public void setUpdatedUserId(BigInteger updatedUserId) {
+        this.updatedUserId = updatedUserId;
     }
 
-    public String getLastUpdateRemark() {
-        return lastUpdateRemark;
+    public String getUpdatedRemark() {
+        return updatedRemark;
     }
 
-    public void setLastUpdateRemark(String lastUpdateRemark) {
-        this.lastUpdateRemark = lastUpdateRemark;
+    public void setUpdatedRemark(String updatedRemark) {
+        this.updatedRemark = updatedRemark;
     }
 
-    public Date getDeleteTime() {
-        return deleteTime;
+    public Date getDeletedTime() {
+        return deletedTime;
     }
 
-    public void setDeleteTime(Date deleteTime) {
-        this.deleteTime = deleteTime;
+    public void setDeletedTime(Date deletedTime) {
+        this.deletedTime = deletedTime;
     }
 
     public boolean isDeleted() {
@@ -82,23 +82,23 @@ public class BasicDomain implements Serializable {
 
     protected static class ColumnName {
         public static final String ID = "id";
-        public static final String CREATE_TIME = "create_time";
-        public static final String CREATE_USER_ID = "create_user_id";
-        public static final String LAST_UPDATE_TIME = "last_update_time";
-        public static final String LAST_UPDATE_USER_ID = "last_update_user_id";
-        public static final String LAST_UPDATE_REMARK = "last_update_remark";
-        public static final String DELETE_TIME = "delete_time";
+        public static final String CREATED_TIME = "created_time";
+        public static final String CREATED_USER_ID = "created_user_id";
+        public static final String UPDATED_TIME = "updated_time";
+        public static final String UPDATED_USER_ID = "updated_user_id";
+        public static final String UPDATED_REMARK = "updated_remark";
+        public static final String DELETED_TIME = "deleted_time";
         public static final String DELETED = "deleted";
     }
 
     protected static class FieldName {
         public static final String ID = "id";
-        public static final String CREATE_TIME = "createTime";
-        public static final String CREATE_USER_ID = "createUserId";
-        public static final String LAST_UPDATE_TIME = "lastUpdateTime";
-        public static final String LAST_UPDATE_USER_ID = "lastUpdateUserId";
-        public static final String LAST_UPDATE_REMARK = "lastUpdateRemark";
-        public static final String DELETE_TIME = "deleteTime";
+        public static final String CREATED_TIME = "createdTime";
+        public static final String CREATED_USER_ID = "createdUserId";
+        public static final String UPDATED_TIME = "updatedTime";
+        public static final String UPDATED_USER_ID = "updatedUserId";
+        public static final String UPDATED_REMARK = "updatedRemark";
+        public static final String DELETED_TIME = "deletedTime";
         public static final String DELETED = "deleted";
     }
 }

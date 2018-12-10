@@ -58,33 +58,33 @@ public class Coupon extends BasicDomain {
             return this;
         }
 
-        public Builder createTime(Date createTime) {
-            instance.setCreateTime(createTime);
+        public Builder createdTime(Date createdTime) {
+            instance.setCreatedTime(createdTime);
             return this;
         }
 
-        public Builder createUserId(BigInteger createUserId) {
-            instance.setCreateUserId(createUserId);
+        public Builder createdUserId(BigInteger createdUserId) {
+            instance.setCreatedUserId(createdUserId);
             return this;
         }
 
-        public Builder lastUpdateTime(Date lastUpdateTime) {
-            instance.setLastUpdateTime(lastUpdateTime);
+        public Builder updatedTime(Date updatedTime) {
+            instance.setUpdatedTime(updatedTime);
             return this;
         }
 
-        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
-            instance.setLastUpdateUserId(lastUpdateUserId);
+        public Builder updatedUserId(BigInteger updatedUserId) {
+            instance.setUpdatedUserId(updatedUserId);
             return this;
         }
 
-        public Builder lastUpdateRemark(String lastUpdateRemark) {
-            instance.setLastUpdateRemark(lastUpdateRemark);
+        public Builder updatedRemark(String updatedRemark) {
+            instance.setUpdatedRemark(updatedRemark);
             return this;
         }
 
-        public Builder deleteTime(Date deleteTime) {
-            instance.setDeleteTime(deleteTime);
+        public Builder deletedTime(Date deletedTime) {
+            instance.setDeletedTime(deletedTime);
             return this;
         }
 

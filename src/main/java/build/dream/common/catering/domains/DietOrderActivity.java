@@ -51,11 +51,11 @@ public class DietOrderActivity extends BasicDomain {
     /**
      * 本地创建时间
      */
-    private Date localCreateTime = Constants.DATETIME_DEFAULT_VALUE;
+    private Date localCreatedTime = Constants.DATETIME_DEFAULT_VALUE;
     /**
      * 本地最后更新时间
      */
-    private Date localLastUpdateTime = Constants.DATETIME_DEFAULT_VALUE;
+    private Date localUpdatedTime = Constants.DATETIME_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -137,29 +137,24 @@ public class DietOrderActivity extends BasicDomain {
         this.localDietOrderId = localDietOrderId;
     }
 
-    public Date getLocalCreateTime() {
-        return localCreateTime;
+    public Date getLocalCreatedTime() {
+        return localCreatedTime;
     }
 
-    public void setLocalCreateTime(Date localCreateTime) {
-        this.localCreateTime = localCreateTime;
+    public void setLocalCreatedTime(Date localCreatedTime) {
+        this.localCreatedTime = localCreatedTime;
     }
 
-    public Date getLocalLastUpdateTime() {
-        return localLastUpdateTime;
+    public Date getLocalUpdatedTime() {
+        return localUpdatedTime;
     }
 
-    public void setLocalLastUpdateTime(Date localLastUpdateTime) {
-        this.localLastUpdateTime = localLastUpdateTime;
+    public void setLocalUpdatedTime(Date localUpdatedTime) {
+        this.localUpdatedTime = localUpdatedTime;
     }
 
     public static class Builder {
         private final DietOrderActivity instance = new DietOrderActivity();
-
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -211,33 +206,48 @@ public class DietOrderActivity extends BasicDomain {
             return this;
         }
 
-        public Builder localCreateTime(Date localCreateTime) {
-            instance.setLocalCreateTime(localCreateTime);
+        public Builder localCreatedTime(Date localCreatedTime) {
+            instance.setLocalCreatedTime(localCreatedTime);
             return this;
         }
 
-        public Builder createTime(Date createTime) {
-            instance.setCreateTime(createTime);
+        public Builder localUpdatedTime(Date localUpdatedTime) {
+            instance.setLocalUpdatedTime(localUpdatedTime);
             return this;
         }
 
-        public Builder createUserId(BigInteger createUserId) {
-            instance.setCreateUserId(createUserId);
+        public Builder id(BigInteger id) {
+            instance.setId(id);
             return this;
         }
 
-        public Builder lastUpdateTime(Date lastUpdateTime) {
-            instance.setLastUpdateTime(lastUpdateTime);
+        public Builder createdTime(Date createdTime) {
+            instance.setCreatedTime(createdTime);
             return this;
         }
 
-        public Builder lastUpdateUserId(BigInteger lastUpdateUserId) {
-            instance.setLastUpdateUserId(lastUpdateUserId);
+        public Builder createdUserId(BigInteger createdUserId) {
+            instance.setCreatedUserId(createdUserId);
             return this;
         }
 
-        public Builder lastUpdateRemark(String lastUpdateRemark) {
-            instance.setLastUpdateRemark(lastUpdateRemark);
+        public Builder updatedTime(Date updatedTime) {
+            instance.setUpdatedTime(updatedTime);
+            return this;
+        }
+
+        public Builder updatedUserId(BigInteger updatedUserId) {
+            instance.setUpdatedUserId(updatedUserId);
+            return this;
+        }
+
+        public Builder updatedRemark(String updatedRemark) {
+            instance.setUpdatedRemark(updatedRemark);
+            return this;
+        }
+
+        public Builder deletedTime(Date deletedTime) {
+            instance.setDeletedTime(deletedTime);
             return this;
         }
 
@@ -267,8 +277,8 @@ public class DietOrderActivity extends BasicDomain {
         public static final String AMOUNT = "amount";
         public static final String LOCAL_ID = "local_id";
         public static final String LOCAL_DIET_ORDER_ID = "local_diet_order_id";
-        public static final String LOCAL_CREATE_TIME = "local_create_time";
-        public static final String LOCAL_LAST_UPDATE_TIME = "local_last_update_time";
+        public static final String LOCAL_CREATED_TIME = "local_created_time";
+        public static final String LOCAL_UPDATED_TIME = "local_updated_time";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -282,7 +292,7 @@ public class DietOrderActivity extends BasicDomain {
         public static final String AMOUNT = "amount";
         public static final String LOCAL_ID = "localId";
         public static final String LOCAL_DIET_ORDER_ID = "localDietOrderId";
-        public static final String LOCAL_CREATE_TIME = "localCreateTime";
-        public static final String LOCAL_LAST_UPDATE_TIME = "localLastUpdateTime";
+        public static final String LOCAL_CREATED_TIME = "localCreatedTime";
+        public static final String LOCAL_UPDATED_TIME = "localUpdatedTime";
     }
 }

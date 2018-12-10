@@ -8,12 +8,12 @@ CREATE TABLE system_partition
     service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
     service_domain VARCHAR(200) NOT NULL COMMENT '服务地址',
     outside_service_domain VARCHAR(200) NOT NULL COMMENT '外网服务地址',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户ID',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新用户id',
-    last_update_remark VARCHAR(255) COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户ID',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新用户id',
+    updated_remark VARCHAR(255) COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统分区表';
 
@@ -26,12 +26,12 @@ CREATE TABLE configuration
     service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
     configuration_key VARCHAR(200) COMMENT '配置key',
     configuration_value VARCHAR(200) COMMENT '配置value',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '配置表';
 
@@ -46,12 +46,12 @@ CREATE TABLE tenant
     tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
     vip_shared_type TINYINT NOT NULL COMMENT '会员共享类型，1-全部共享，2-全部独立，3-分组共享',
     agent_id BIGINT NOT NULL COMMENT '代理商ID',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '商户表';
 
@@ -73,12 +73,12 @@ CREATE TABLE `system_user`
     account_non_locked TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否没有锁定，1-没有锁定，0-已经锁定',
     credentials_non_expired TINYINT NOT NULL DEFAULT 1 COMMENT '账户凭证是否没有过期，1-没有过期，0-已经过期',
     enabled TINYINT NOT NULL DEFAULT 1 COMMENT '账户是否启用，1-启用，0-禁用',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统用户表';
 
@@ -129,12 +129,12 @@ CREATE TABLE wei_xin_pay_account
     operation_certificate_password VARCHAR(20) NOT NULL COMMENT '操作证书密码',
     rsa_public_key VARCHAR(500) NOT NULL COMMENT 'rsa 公钥',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信支付账号';
 
@@ -152,12 +152,12 @@ CREATE TABLE alipay_account
     application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
     application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
     sign_type ENUM('RSA', 'RSA2') NOT NULL COMMENT '签名方式',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝账号';
 
@@ -172,12 +172,12 @@ CREATE TABLE alipay_open_auth_token
 	expires_in INT NOT NULL COMMENT 'token 有效时间',
 	re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
 	app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
-	create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-	create_user_id BIGINT NOT NULL COMMENT '创建人id',
-	last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-	last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-	last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+	created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+	created_user_id BIGINT NOT NULL COMMENT '创建人id',
+	updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+	updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+	updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
 	deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝token';
 
@@ -193,12 +193,12 @@ CREATE TABLE notify_record
     wei_xin_pay_api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
     wei_xin_pay_sign_type ENUM('MD5', 'HMAC-SHA256') NOT NULL COMMENT '微信支付签名方式',
     external_system_notify_request_body TEXT not null COMMENT '外部系统异步通知请求参数',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '回调记录';
 
@@ -214,12 +214,12 @@ CREATE TABLE eleme_authorized_tenant
     expires_in INT NOT NULL COMMENT 'expires_in',
     token_type VARCHAR(20) NOT NULL COMMENT 'token_type',
     fetch_token_time DATETIME NOT NULL COMMENT '获取token时间',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id INT(11) NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id INT(11) NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id INT(11) NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id INT(11) NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '饿了么授权商户表';
 
@@ -230,12 +230,12 @@ CREATE TABLE eleme_branch_mapping
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     shop_id VARCHAR(20) NOT NULL COMMENT '饿了么门店ID',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '饿了么门店映射表';
 
@@ -253,12 +253,12 @@ CREATE TABLE order_info
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     paid_amount DECIMAL(11, 3) NOT NULL COMMENT '实付金额',
     paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '订单表';
 
@@ -277,12 +277,12 @@ CREATE TABLE order_detail
     discount_amount DECIMAL(11, 3) NOT NULL COMMENT '优惠金额',
     payable_amount DECIMAL(11, 3) NOT NULL COMMENT '应付金额',
     quantity INT NOT NULL COMMENT '数量',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '订单明细表';
 
@@ -296,12 +296,12 @@ CREATE TABLE goods
     photo_url VARCHAR(255) NOT NULL COMMENT '产品图片路径',
     metering_mode TINYINT NOT NULL COMMENT '计量方式，1-按时间，按数量',
     business VARCHAR(10) NOT NULL COMMENT '业态，1-餐饮，2-零售',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '产品表';
 
@@ -316,12 +316,12 @@ CREATE TABLE goods_specification
     renewal_time TINYINT NOT NULL COMMENT '续费时间',
     tenant_price DECIMAL(11, 3) NOT NULL COMMENT '商户价格',
     agent_price DECIMAL(11, 3) NOT NULL COMMENT '代理商价格',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '产品明细表';
 
@@ -369,12 +369,12 @@ CREATE TABLE wei_xin_public_account
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
     original_id VARCHAR(50) NOT NULL COMMENT '原始id',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号';
 
@@ -390,12 +390,12 @@ CREATE TABLE app_privilege
     action_name VARCHAR(50) NOT NULL COMMENT 'action name',
     parent_id BIGINT NOT NULL COMMENT '父级权限ID',
     remark VARCHAR(255) NOT NULL COMMENT '备注',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'APP权限';
 
@@ -405,12 +405,12 @@ CREATE TABLE app_role
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'app 角色';
 
@@ -436,12 +436,12 @@ CREATE TABLE wei_xin_public_platform_application
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     app_secret VARCHAR(50) NOT NULL COMMENT 'app secret',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT = '微信开放平台应用';
 
@@ -454,12 +454,12 @@ CREATE TABLE tenant_secret_key
     public_key VARCHAR(500) NOT NULL COMMENT '公钥',
     private_key VARCHAR(2000) NOT NULL COMMENT '私钥',
     platform_public_key VARCHAR(500) NOT NULL COMMENT '平台公钥',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商户秘钥';
 
@@ -477,12 +477,12 @@ CREATE TABLE eleme_callback_message
     user_id BIGINT NOT NULL COMMENT 'user id',
     `uuid` VARCHAR(50) NOT NULL COMMENT 'message md5值',
     handle_result TINYINT NOT NULL COMMENT '处理结果，1-成功，2-失败',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '饿了么回调信息';
 
@@ -494,12 +494,12 @@ CREATE TABLE um_pay_account
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     um_pay_id VARCHAR(20) NOT NULL COMMENT 'um pay id',
     merchant_private_key VARCHAR(2000) NOT NULL COMMENT '商户私钥',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '联动支付账号';
 
@@ -513,12 +513,12 @@ CREATE TABLE wei_xin_template_message
     template_message_id VARCHAR(50) NOT NULL COMMENT '模版ID',
     wei_xin_template_message_code VARCHAR(10) NOT NULL COMMENT '模板消息编码',
     wei_xin_template_message_keys VARCHAR(200) NOT NULL COMMENT '模板的key数组，中间以,隔开',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '微信模板消息';
 
@@ -530,12 +530,12 @@ CREATE TABLE tenant_goods
     branch_id BIGINT NOT NULL COMMENT '门店id',
     goods_id BIGINT NOT NULL COMMENT '产品id',
     expire_time DATETIME NOT NULL COMMENT '过期时间',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '商户产品表';
 
@@ -551,12 +551,12 @@ CREATE TABLE pos_privilege
     action_name VARCHAR(50) NOT NULL COMMENT 'action name',
     parent_id BIGINT NOT NULL COMMENT '父级权限ID',
     remark VARCHAR(255) NOT NULL COMMENT '备注',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'POS权限';
 
@@ -567,12 +567,12 @@ CREATE TABLE pos_role
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     role_code VARCHAR(20) NOT NULL COMMENT '权限编码',
     role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'pos角色';
 
@@ -605,12 +605,12 @@ CREATE TABLE background_privilege
     parent_id BIGINT NOT NULL COMMENT '父级权限ID',
     hidden TINYINT NOT NULL COMMENT '是否在权限设置页面隐藏，1-隐藏，2-不隐藏',
     remark VARCHAR(255) NOT NULL COMMENT '备注',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '后台权限';
 
@@ -621,12 +621,12 @@ CREATE TABLE background_role
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     role_code VARCHAR(20) NOT NULL COMMENT '权限编码',
     role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '后台角色';
 
@@ -656,12 +656,12 @@ CREATE TABLE bank_account
     cardholder VARCHAR(50) NOT NULL COMMENT '持卡人',
     bank_name VARCHAR(20) NOT NULL COMMENT '开户行',
     bank_code VARCHAR(20) NOT NULL COMMENT '开户行编号',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建用户id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新user id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '银行账号';
 
@@ -673,12 +673,12 @@ CREATE TABLE miya_pay_account
     branch_id BIGINT NOT NULL COMMENT '商户ID',
     account VARCHAR(50) NOT NULL COMMENT '米雅账号',
     miya_pay_key VARCHAR(50) NOT NULL COMMENT '米雅秘钥',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '米雅支付账号';
 
@@ -691,12 +691,12 @@ CREATE TABLE activity
     end_time DATETIME NOT NULL COMMENT '结束时间',
     `type` TINYINT NOT NULL COMMENT '活动类型，1-特价商品活动',
     `status` TINYINT NOT NULL COMMENT '活动状态，1-未执行，2-执行中，3-已终止，4-已过期',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '活动';
 
@@ -712,12 +712,12 @@ CREATE TABLE special_goods_activity
     agent_special_price DECIMAL(11, 3) NOT NULL COMMENT '代理商特价金额',
     tenant_discount_rate DECIMAL(5, 2) NOT NULL COMMENT '商户折扣率',
     agent_discount_rate DECIMAL(5, 2) NOT NULL COMMENT '代理商折扣率',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '特价商品活动';
 
@@ -728,12 +728,12 @@ CREATE TABLE alipay_material_image
     alipay_user_id VARCHAR(50) NOT NULL COMMENT '支付宝user id',
     image_id VARCHAR(32) NOT NULL COMMENT '图片/视频在商家中心的唯一标识',
     image_url VARCHAR(512) NOT NULL COMMENT '图片/视频的访问地址',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '订单表';
 
@@ -743,12 +743,12 @@ CREATE TABLE system_parameter
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     parameter_name VARCHAR(20) NOT NULL COMMENT '参数名称',
     parameter_value VARCHAR(20) NOT NULL COMMENT '参数值',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '系统参数';
 
@@ -768,12 +768,12 @@ CREATE TABLE sale_flow
     goods_specification_name VARCHAR(20) NOT NULL COMMENT '产品名称',
     quantity INT NOT NULL COMMENT '购买数量',
     paid_type TINYINT NOT NULL COMMENT '支付类型，1-微信支付，2-支付宝支付',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '销售流水';
 
@@ -791,12 +791,12 @@ CREATE TABLE activation_code_info
     activation_code VARCHAR(30) NOT NULL COMMENT '激活码',
     goods_id BIGINT NOT NULL COMMENT '商品id',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格id',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 );
 
@@ -806,12 +806,12 @@ CREATE TABLE agent
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `code` VARCHAR(20) NOT NULL COMMENT '商户编码',
     `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '代理商信息表';
 
@@ -824,12 +824,12 @@ CREATE TABLE goods_type
     single TINYINT NOT NULL COMMENT '类型下是否只能有一个商品，1-是，0-否',
     renew_sql TEXT not null COMMENT '续费sql',
     disable_sql TEXT not null COMMENT '禁用sql',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) not null COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) not null COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '商品类型表';
 
@@ -842,12 +842,12 @@ CREATE TABLE agent_contract
     start_time DATETIME NOT NULL COMMENT '开始时间',
     end_time DATETIME NOT NULL COMMENT '结束时间',
     status TINYINT NOT NULL COMMENT '合同状态，1-未审核，2-未执行，3-执行中，4-已终止，5-已过期',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '代理商合同';
 
@@ -859,12 +859,12 @@ CREATE TABLE agent_contract_price_info
     goods_id BIGINT NOT NULL COMMENT '商品ID',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
     contract_price DECIMAL(11, 3) NOT NULL COMMENT '合同价格',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '代理商合同价格信息';
 
@@ -877,12 +877,12 @@ CREATE TABLE wei_xin_open_platform_application
     encoding_aes_key VARCHAR(50) NOT NULL COMMENT 'encoding aes key',
     token VARCHAR(50) NOT NULL COMMENT 'token',
     `type` TINYINT NOT NULL COMMENT '类型，1-移动应用，2-网站应用，3-公众号，4-小程序，5-第三方平台',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '微信开放平台应用';
 
@@ -905,12 +905,12 @@ CREATE TABLE wei_xin_authorizer_info
     mini_program_info VARCHAR(255) NOT NULL COMMENT '小程序信息',
     authorizer_app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     func_info VARCHAR(1000) NOT NULL COMMENT '公众号授权给开发者的权限集列表，ID为1到15时分别代表： 1.消息管理权限 2.用户管理权限 3.帐号服务权限 4.网页服务权限 5.微信小店权限 6.微信多客服权限 7.群发与通知权限 8.微信卡券权限 9.微信扫一扫权限 10.微信连WIFI权限 11.素材管理权限 12.微信摇周边权限 13.微信门店权限 14.微信支付权限 15.自定义菜单权限 请注意： 1）该字段的返回不会考虑公众号是否具备该权限集的权限（因为可能部分具备），请根据公众号的帐号类型和认证情况，来判断公众号的接口权限。',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众平台或小程序授权信息';
 
@@ -924,12 +924,12 @@ CREATE TABLE wei_xin_authorizer_token
     expires_in INT NOT NULL COMMENT '有效期（在授权的公众号或小程序具备API权限时，才有此返回值）',
     authorizer_refresh_token VARCHAR(255) NOT NULL COMMENT '接口调用凭据刷新令牌（在授权的公众号具备API权限时，才有此返回值），刷新令牌主要用于第三方平台获取和刷新已授权用户的access_token，只会在授权时刻提供，请妥善保存。 一旦丢失，只能让用户重新授权，才能再次拿到新的刷新令牌',
     fetch_time DATETIME NOT NULL COMMENT '获取时间',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号或小程序授权token';
 
@@ -943,12 +943,12 @@ CREATE TABLE new_land_account
     trm_no VARCHAR(50) NOT NULL COMMENT '新大陆支付设备号',
     org_no VARCHAR(50) NOT NULL COMMENT '新大陆支付机构号',
     secret_key VARCHAR(50) NOT NULL COMMENT '新大陆支付密钥',
-    create_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '新大陆账号';
 
@@ -966,12 +966,12 @@ CREATE TABLE request_log
     request_parameters TEXT NOT NULL COMMENT '请求参数',
     headers TEXT NOT NULL COMMENT '请求头',
     cookies TEXT NOT NULL COMMENT 'cookie',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '请求日志';
 
@@ -983,11 +983,11 @@ CREATE TABLE response_log
     response_time DATETIME NOT NULL COMMENT '响应时间',
     response_content TEXT NOT NULL COMMENT '响应内容',
     headers TEXT NOT NULL COMMENT '响应头',
-    create_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-    create_user_id BIGINT NOT NULL COMMENT '创建人id',
-    last_update_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    last_update_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    last_update_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    delete_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '响应日志';
