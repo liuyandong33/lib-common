@@ -724,4 +724,53 @@ public class WeiXinUtils {
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
+
+    /**
+     * 绑定微信用户为小程序体验者
+     *
+     * @return
+     */
+    public static Map<String, Object> bindTester(String authorizerAccessToken, String weChatId) {
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("wechatid", weChatId);
+        String url = WEI_XIN_API_URL + "/wxa/bind_tester?access_token=" + authorizerAccessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 解除绑定小程序的体验者
+     *
+     * @param authorizerAccessToken
+     * @param weChatId
+     * @return
+     */
+    public static Map<String, Object> unbindTester(String authorizerAccessToken, String weChatId) {
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("wechatid", weChatId);
+        String url = WEI_XIN_API_URL + "/wxa/unbind_tester?access_token=" + authorizerAccessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取体验者列表
+     *
+     * @param authorizerAccessToken
+     * @param action
+     * @return
+     */
+    public static Map<String, Object> memberAuth(String authorizerAccessToken, String action) {
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("action", action);
+        String url = WEI_XIN_API_URL + "/wxa/memberauth?access_token=" + authorizerAccessToken;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
 }
