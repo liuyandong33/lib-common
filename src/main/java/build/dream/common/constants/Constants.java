@@ -771,4 +771,8 @@ public class Constants {
     public static final String REQUEST_METHOD_DELETE = "DELETE";
     public static final String REQUEST_METHOD_OPTIONS = "OPTIONS";
     public static final String REQUEST_METHOD_TRACE = "TRACE";
+
+    public static final String CLIENT_TYPE_APP = "APP";
+    public static final String CLIENT_TYPE_POS = "POS";
+    public static final String CLIENT_TYPE_WEB = "WEB";
 }
