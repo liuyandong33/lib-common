@@ -6,6 +6,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.*;
 import build.dream.common.saas.domains.WeiXinAuthorizerInfo;
 import build.dream.common.saas.domains.WeiXinAuthorizerToken;
+import build.dream.common.saas.domains.WeiXinPublicAccount;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -828,5 +829,14 @@ public class WeiXinUtils {
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
+    }
+
+    public static WeiXinPublicAccount obtainWeiXinPublicAccount(String tenantId) {
+        Map<String, String> obtainWeiXinPublicAccountRequestParameters = new HashMap<String, String>();
+        obtainWeiXinPublicAccountRequestParameters.put("tenantId", tenantId);
+        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinPublicAccount", obtainWeiXinPublicAccountRequestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+        WeiXinPublicAccount weiXinPublicAccount = (WeiXinPublicAccount) apiRest.getData();
+        return weiXinPublicAccount;
     }
 }
