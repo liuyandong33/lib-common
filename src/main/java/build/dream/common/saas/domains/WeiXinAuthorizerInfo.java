@@ -67,6 +67,11 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
      */
     private String funcInfo;
 
+    /**
+     * 开放平台应用ID
+     */
+    private String componentAppId;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -187,6 +192,14 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         this.funcInfo = funcInfo;
     }
 
+    public String getComponentAppId() {
+        return componentAppId;
+    }
+
+    public void setComponentAppId(String componentAppId) {
+        this.componentAppId = componentAppId;
+    }
+
     public static class Builder {
         private final WeiXinAuthorizerInfo instance = new WeiXinAuthorizerInfo();
 
@@ -265,6 +278,11 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
             return this;
         }
 
+        public Builder componentAppId(String componentAppId) {
+            instance.setComponentAppId(componentAppId);
+            return this;
+        }
+
         public Builder id(BigInteger id) {
             instance.setId(id);
             return this;
@@ -330,6 +348,7 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         public static final String MINI_PROGRAM_INFO = "mini_program_info";
         public static final String AUTHORIZER_APP_ID = "authorizer_app_id";
         public static final String FUNC_INFO = "func_info";
+        public static final String COMPONENT_APP_ID = "component_app_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -348,5 +367,6 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         public static final String MINI_PROGRAM_INFO = "miniProgramInfo";
         public static final String AUTHORIZER_APP_ID = "authorizerAppId";
         public static final String FUNC_INFO = "funcInfo";
+        public static final String COMPONENT_APP_ID = "componentAppId";
     }
 }

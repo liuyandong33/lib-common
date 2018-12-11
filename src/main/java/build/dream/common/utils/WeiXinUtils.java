@@ -450,6 +450,7 @@ public class WeiXinUtils {
         Map<String, Object> authorizationInfo = MapUtils.getMap(result, "authorization_info");
         weiXinAuthorizerInfo.setAuthorizerAppId(MapUtils.getString(authorizationInfo, "authorizer_appid"));
         weiXinAuthorizerInfo.setFuncInfo(GsonUtils.toJson(authorizationInfo.get("func_info")));
+        weiXinAuthorizerInfo.setComponentAppId(componentAppId);
         return weiXinAuthorizerInfo;
     }
 
