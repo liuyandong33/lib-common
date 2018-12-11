@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.weixin.*;
 import build.dream.common.saas.domains.WeiXinAuthorizerInfo;
 import build.dream.common.saas.domains.WeiXinAuthorizerToken;
-import build.dream.common.saas.domains.WeiXinPublicAccount;
 import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -18,10 +17,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class WeiXinUtils {
     private static final String WEI_XIN_API_URL = "https://api.weixin.qq.com";
@@ -831,12 +827,28 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static WeiXinPublicAccount obtainWeiXinPublicAccount(String tenantId) {
-        Map<String, String> obtainWeiXinPublicAccountRequestParameters = new HashMap<String, String>();
-        obtainWeiXinPublicAccountRequestParameters.put("tenantId", tenantId);
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinPublicAccount", obtainWeiXinPublicAccountRequestParameters);
+    public static WeiXinAuthorizerInfo obtainWeiXinPublicAccount(String tenantId) {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("tenantId", tenantId);
+        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinPublicAccount", requestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        WeiXinPublicAccount weiXinPublicAccount = (WeiXinPublicAccount) apiRest.getData();
-        return weiXinPublicAccount;
+        return (WeiXinAuthorizerInfo) apiRest.getData();
+    }
+
+    public static List<WeiXinAuthorizerInfo> obtainWeiXinMiniPrograms(String tenantId) {
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("tenantId", tenantId);
+        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinMiniPrograms", requestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+
+        List<Map<String, Object>> data = (List<Map<String, Object>>) apiRest.getData();
+
+        List<WeiXinAuthorizerInfo> weiXinAuthorizerInfos = new ArrayList<WeiXinAuthorizerInfo>();
+        for (Map<String, Object> map : data) {
+            WeiXinAuthorizerInfo weiXinAuthorizerInfo = ApplicationHandler.buildObject(WeiXinAuthorizerInfo.class, map);
+            weiXinAuthorizerInfos.add(weiXinAuthorizerInfo);
+        }
+
+        return weiXinAuthorizerInfos;
     }
 }
