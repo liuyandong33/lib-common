@@ -1270,6 +1270,7 @@ CREATE TABLE require_goods_order
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店id',
+    distribution_center_id BIGINT NOT NULL COMMENT '配送中心ID',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
     originator_user_id BIGINT NOT NULL COMMENT '制单人',
     auditor_user_id BIGINT NOT NULL COMMENT '审核人',

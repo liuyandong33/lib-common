@@ -20,6 +20,10 @@ public class RequireGoodsOrder extends BasicDomain {
      * 门店ID
      */
     private BigInteger branchId;
+    /**
+     * 配送中心ID
+     */
+    private BigInteger distributionCenterId;
 
     /**
      * 单据编号
@@ -75,6 +79,14 @@ public class RequireGoodsOrder extends BasicDomain {
         this.branchId = branchId;
     }
 
+    public BigInteger getDistributionCenterId() {
+        return distributionCenterId;
+    }
+
+    public void setDistributionCenterId(BigInteger distributionCenterId) {
+        this.distributionCenterId = distributionCenterId;
+    }
+
     public String getOrderNumber() {
         return orderNumber;
     }
@@ -124,7 +136,7 @@ public class RequireGoodsOrder extends BasicDomain {
     }
 
     public static class Builder {
-        private final PurchaseOrder instance = new PurchaseOrder();
+        private final RequireGoodsOrder instance = new RequireGoodsOrder();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -138,6 +150,11 @@ public class RequireGoodsOrder extends BasicDomain {
 
         public Builder branchId(BigInteger branchId) {
             instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder distributionCenterId(BigInteger distributionCenterId) {
+            instance.setDistributionCenterId(distributionCenterId);
             return this;
         }
 
@@ -211,7 +228,7 @@ public class RequireGoodsOrder extends BasicDomain {
             return this;
         }
 
-        public PurchaseOrder build() {
+        public RequireGoodsOrder build() {
             return instance;
         }
     }
@@ -224,6 +241,7 @@ public class RequireGoodsOrder extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
+        public static final String DISTRIBUTION_CENTER_ID = "distribution_center_id";
         public static final String ORDER_NUMBER = "order_number";
         public static final String ORIGINATOR_USER_ID = "originator_user_id";
         public static final String AUDITOR_USER_ID = "auditor_user_id";
@@ -236,6 +254,7 @@ public class RequireGoodsOrder extends BasicDomain {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
+        public static final String DISTRIBUTION_CENTER_ID = "distributionCenterId";
         public static final String ORDER_NUMBER = "orderNumber";
         public static final String ORIGINATOR_USER_ID = "originatorUserId";
         public static final String AUDITOR_USER_ID = "auditorUserId";
