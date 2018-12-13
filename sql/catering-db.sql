@@ -1262,3 +1262,46 @@ CREATE PROCEDURE procedure_execute_sql_2(IN sql1 VARCHAR(10240), IN sql2 VARCHAR
     END$$
 
 DELIMITER ;
+
+DROP TABLE IF EXISTS require_goods_order;
+CREATE TABLE require_goods_order
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
+    originator_user_id BIGINT NOT NULL COMMENT '制单人',
+    auditor_user_id BIGINT NOT NULL COMMENT '审核人',
+    audit_time DATETIME NOT NULL COMMENT '审核时间',
+    remark VARCHAR(255) NOT NULL COMMENT '备注',
+    `status` TINYINT NOT NULL COMMENT '状态，1-未审核，2-已审核',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '要货单';
+
+DROP TABLE IF EXISTS require_goods_order_detail;
+CREATE TABLE require_goods_order_detail
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户号',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    require_goods_order_id BIGINT NOT NULL COMMENT '要货单ID',
+    goods_id BIGINT NOT NULL COMMENT '商品ID',
+    goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
+    unit_id BIGINT NOT NULL COMMENT '商品单位ID',
+    quantity DECIMAL(11, 3) NOT NULL COMMENT '进货数量',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '要货单明细';
