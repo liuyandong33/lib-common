@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.annotations.Column;
 import build.dream.common.annotations.Table;
 import build.dream.common.annotations.Transient;
+import build.dream.common.constants.Constants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +27,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
+    private static final String DATABASE_PROVIDER = ConfigurationUtils.getConfiguration(Constants.DATABASE_PROVIDER);
 
     public static String generateInsertSql(String domainClassName) {
         return generateInsertSql(domainClassName, null);
@@ -77,21 +79,33 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if ("createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
 
-                String columnName = null;
-                Column column = field.getAnnotation(Column.class);
-                if (column != null) {
-                    columnName = column.name();
+                if ("id".equals(fieldName)) {
+                    if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYSQL)) {
+                        continue;
+                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
+
+                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
+                        insertSql.append("id");
+                        insertSql.append(", ");
+                        valuesSql.append("NEXT VALUE FOR MYCATSEQ_GLOBAL, ");
+                    }
                 } else {
-                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                    String columnName = null;
+                    Column column = field.getAnnotation(Column.class);
+                    if (column != null) {
+                        columnName = column.name();
+                    } else {
+                        columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                    }
+                    insertSql.append(columnName);
+                    insertSql.append(", ");
+                    valuesSql.append("#{").append(fieldName);
+                    valuesSql.append("}, ");
                 }
-                insertSql.append(columnName);
-                insertSql.append(", ");
-                valuesSql.append("#{").append(fieldName);
-                valuesSql.append("}, ");
             }
             domainClass = domainClass.getSuperclass();
         }
@@ -163,22 +177,34 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if ("createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
                     continue;
                 }
 
-                String columnName = null;
-                Column column = field.getAnnotation(Column.class);
-                if (column != null) {
-                    columnName = column.name();
-                } else {
-                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
-                }
-                insertSql.append(columnName);
+                if ("id".equals(fieldName)) {
+                    if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYSQL)) {
 
-                insertSql.append(", ");
-                valuesSql.append("#{item.").append(fieldName);
-                valuesSql.append("}, ");
+                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
+
+                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
+                        insertSql.append("id");
+                        insertSql.append(", ");
+                        valuesSql.append("NEXT VALUE FOR MYCATSEQ_GLOBAL, ");
+                    }
+                } else {
+                    String columnName = null;
+                    Column column = field.getAnnotation(Column.class);
+                    if (column != null) {
+                        columnName = column.name();
+                    } else {
+                        columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                    }
+                    insertSql.append(columnName);
+
+                    insertSql.append(", ");
+                    valuesSql.append("#{item.").append(fieldName);
+                    valuesSql.append("}, ");
+                }
             }
             domainClass = domainClass.getSuperclass();
         }
