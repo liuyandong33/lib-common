@@ -28,6 +28,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final String DATABASE_PROVIDER = ConfigurationUtils.getConfiguration(Constants.DATABASE_PROVIDER);
+    private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
 
     public static String generateInsertSql(String domainClassName) {
         return generateInsertSql(domainClassName, null);
@@ -91,7 +92,7 @@ public class DatabaseUtils {
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
                         insertSql.append("id");
                         insertSql.append(", ");
-                        valuesSql.append("NEXT VALUE FOR MYCATSEQ_GLOBAL, ");
+                        valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
                     }
                 } else {
                     String columnName = null;
@@ -189,7 +190,7 @@ public class DatabaseUtils {
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
                         insertSql.append("id");
                         insertSql.append(", ");
-                        valuesSql.append("NEXT VALUE FOR MYCATSEQ_GLOBAL, ");
+                        valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
                     }
                 } else {
                     String columnName = null;
