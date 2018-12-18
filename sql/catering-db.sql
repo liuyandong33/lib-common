@@ -4,6 +4,7 @@ CREATE TABLE merge_user_branch
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     user_id BIGINT NOT NULL COMMENT '用户ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -438,6 +439,7 @@ CREATE TABLE activity_branch_r
 (
     activity_id BIGINT NOT NULL COMMENT '活动Id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     PRIMARY KEY(activity_id, tenant_id, branch_id)
 );
@@ -786,10 +788,20 @@ DROP TABLE IF EXISTS data_handle_history;
 CREATE TABLE data_handle_history
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户id',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
     signature VARCHAR(50) NOT NULL COMMENT '数据签名',
     data_type VARCHAR(20) NOT NULL COMMENT '数据类型',
     data_content TEXT NOT NULL COMMENT '数据内容',
-    handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间'
+    handle_time DATETIME NOT NULL DEFAULT NOW() COMMENT '处理时间',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建用户id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新user id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '数据处理历史';
 
 DROP TABLE IF EXISTS vip;
@@ -948,6 +960,7 @@ CREATE TABLE wei_xin_member_card
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编号',
     app_id VARCHAR(50) NOT NULL COMMENT 'app id',
     card_id VARCHAR(50) NOT NULL COMMENT '微信会员卡id',
     url VARCHAR(255) NOT NULL COMMENT '投放二维码地址',
@@ -965,10 +978,11 @@ DROP TABLE IF EXISTS tenant_config;
 CREATE TABLE tenant_config
 (
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     name VARCHAR(50) NOT NULL COMMENT '序列名称',
     current_value INT(11) UNSIGNED NOT NULL COMMENT '当前值',
     max_value INT UNSIGNED NOT NULL COMMENT '最大值',
-    PRIMARY KEY (tenant_id, name)
+    PRIMARY KEY (tenant_id, tenant_code, name)
 ) COMMENT '商户配置';
 
 DROP PROCEDURE IF EXISTS add_tenant_config;
