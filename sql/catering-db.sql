@@ -985,23 +985,25 @@ CREATE TABLE tenant_config
     PRIMARY KEY (tenant_id, tenant_code, name)
 ) COMMENT '商户配置';
 
-DROP PROCEDURE IF EXISTS add_tenant_config;
-CREATE PROCEDURE add_tenant_config(IN tid BIGINT, IN config_name VARCHAR(50), IN increment INT)
+DROP PROCEDURE IF EXISTS procedure_add_tenant_config;
+DELIMITER $$
+CREATE PROCEDURE procedure_add_tenant_config(IN tid BIGINT, IN tcode VARCHAR(20), IN config_name VARCHAR(50), IN increment INT)
 BEGIN
-    DECLARE count INT;
-    DECLARE max_value INT;
-    SELECT COUNT(1) INTO count FROM tenant_config WHERE name = config_name AND tenant_id = tid;
-    IF count = 0 THEN
+    DECLARE `count` INT;
+    DECLARE `max_value` INT;
+    SELECT COUNT(1) INTO `count` FROM tenant_config WHERE `name` = config_name AND tenant_id = tid AND tenant_code = tcode;
+    IF `count` = 0 THEN
         CASE config_name
-            WHEN 'vip_num' THEN SET max_value = 10000;
-            WHEN 'goods_num' THEN SET max_value = 20000;
+            WHEN 'vip_num' THEN SET `max_value` = 10000;
+            WHEN 'goods_num' THEN SET `max_value` = 20000;
         END CASE;
-        INSERT INTO tenant_config(tenant_id, name, current_value, max_value) VALUES (tid, config_name, increment, max_value);
+        INSERT INTO tenant_config(tenant_id, tenant_code, `name`, current_value, `max_value`) VALUES (tid, tcode, config_name, increment, `max_value`);
     ELSE
-        UPDATE tenant_config SET current_value = current_value + increment WHERE name = config_name AND tenant_config.tenant_id = tid;
+        UPDATE tenant_config SET current_value = current_value + increment WHERE `name` = config_name AND tenant_id = tid AND tenant_code = tcode;
     END IF;
-    SELECT * FROM tenant_config WHERE name = config_name AND tenant_config.tenant_id = tid;
-END;
+    SELECT * FROM tenant_config WHERE `name` = config_name AND tenant_id = tid AND tenant_code = tcode;
+END$$
+DELIMITER ;
 
 DROP TABLE IF EXISTS sale;
 CREATE TABLE sale
