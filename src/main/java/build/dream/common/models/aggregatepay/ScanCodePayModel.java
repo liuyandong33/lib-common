@@ -151,5 +151,13 @@ public class ScanCodePayModel extends BasicModel {
             instance.setIpAddress(ipAddress);
             return this;
         }
+
+        public ScanCodePayModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

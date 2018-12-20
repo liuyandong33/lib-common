@@ -1322,3 +1322,27 @@ CREATE TABLE require_goods_order_detail
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '要货单明细';
+
+
+DROP TABLE IF EXISTS offline_pay_record;
+CREATE TABLE offline_pay_record
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    user_id BIGINT NOT NULL COMMENT 'user id',
+    order_number VARCHAR(50) NOT NULL COMMENT '订单号',
+    channel_type TINYINT NOT NULL COMMENT '通道类型',
+    out_trade_no VARCHAR(50) NOT NULL COMMENT '外部订单号',
+    total_amount INT NOT NULL COMMENT '支付金额',
+    auth_code VARCHAR(50) NOT NULL COMMENT '支付码',
+    `status` TINYINT NOT NULL COMMENT '状态，1-未支付，2-已支付',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '线下支付记录';
