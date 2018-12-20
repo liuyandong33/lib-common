@@ -1,40 +1,3 @@
-DROP TABLE IF EXISTS system_partition;
-CREATE TABLE system_partition
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    deployment_environment VARCHAR(20) NOT NULL COMMENT '部署环境',
-    partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
-    `type` TINYINT NOT NULL COMMENT '服务类型，1-公共服务，2-分区服务',
-    service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
-    service_domain VARCHAR(200) NOT NULL COMMENT '服务地址',
-    outside_service_domain VARCHAR(200) NOT NULL COMMENT '外网服务地址',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建用户ID',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新用户id',
-    updated_remark VARCHAR(255) COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT = '系统分区表';
-
-DROP TABLE IF EXISTS configuration;
-CREATE TABLE configuration
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    deployment_environment VARCHAR(20) NOT NULL COMMENT '部署环境',
-    partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
-    service_name VARCHAR(20) NOT NULL COMMENT '服务名称',
-    configuration_key VARCHAR(200) COMMENT '配置key',
-    configuration_value VARCHAR(200) COMMENT '配置value',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建人id',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT = '配置表';
-
 DROP TABLE IF EXISTS tenant;
 CREATE TABLE tenant
 (
@@ -165,20 +128,20 @@ DROP TABLE IF EXISTS alipay_open_auth_token;
 CREATE TABLE alipay_open_auth_token
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-	app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
-	app_auth_token VARCHAR(50) NOT NULL,
-	user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
-	auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
-	expires_in INT NOT NULL COMMENT 'token 有效时间',
-	re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
-	app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
-	created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
-	created_user_id BIGINT NOT NULL COMMENT '创建人id',
-	updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-	updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-	updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
+    app_auth_token VARCHAR(50) NOT NULL,
+    user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
+    auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
+    expires_in INT NOT NULL COMMENT 'token 有效时间',
+    re_expires_in INT NOT NULL COMMENT '刷新token有效时间',
+    app_refresh_token VARCHAR(50) NOT NULL COMMENT '刷新token',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-	deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝token';
 
 DROP TABLE IF EXISTS notify_record;
@@ -324,41 +287,6 @@ CREATE TABLE goods_specification
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '产品明细表';
-
-CREATE TABLE logging_event(
-    timestmp BIGINT NOT NULL,
-    formatted_message text NOT NULL,
-    logger_name varchar(254) NOT NULL,
-    level_string varchar(254) NOT NULL,
-    thread_name varchar(254) DEFAULT NULL,
-    reference_flag smallint(6) DEFAULT NULL,
-    arg0 varchar(254) DEFAULT NULL,
-    arg1 varchar(254) DEFAULT NULL,
-    arg2 varchar(254) DEFAULT NULL,
-    arg3 varchar(254) DEFAULT NULL,
-    caller_filename varchar(254) NOT NULL,
-    caller_class varchar(254) NOT NULL,
-    caller_method varchar(254) NOT NULL,
-    caller_line char(4) NOT NULL,
-    event_id BIGINT NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (event_id)
-);
-
-
-CREATE TABLE logging_event_exception (
-    event_id BIGINT NOT NULL,
-    i smallint(6) NOT NULL,
-    trace_line varchar(254) NOT NULL,
-    PRIMARY KEY (event_id, i)
-);
-
-
-CREATE TABLE logging_event_property (
-    event_id BIGINT NOT NULL,
-    mapped_key varchar(254) NOT NULL,
-    mapped_value text,
-    PRIMARY KEY (event_id, mapped_key)
-);
 
 DROP TABLE IF EXISTS wei_xin_public_account;
 CREATE TABLE wei_xin_public_account
