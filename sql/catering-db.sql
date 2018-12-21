@@ -227,7 +227,7 @@ CREATE TABLE diet_order_activity
     diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
     activity_id BIGINT NOT NULL COMMENT '活动id，activity.id',
     activity_name VARCHAR(20) NOT NULL COMMENT '活动名称，activity.name',
-    activity_type TINYINT NOT NULL COMMENT '活动名称，activity.type',
+    activity_type TINYINT NOT NULL COMMENT '活动类型，activity.type',
     amount DECIMAL(11, 3) NOT NULL COMMENT '金额',
     local_id VARCHAR(50) NOT NULL COMMENT '本地ID',
     local_diet_order_id VARCHAR(50) NOT NULL COMMENT '本地订单ID，local_diet_order.local_id',
