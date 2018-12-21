@@ -53,8 +53,8 @@ public class ElemeUtils {
         return webResponse.getResult();
     }
 
-    public static boolean checkSignature(JSONObject callbackJsonObject, String appSecret) {
-        Map<String, Object> sortedMap = new TreeMap<String, Object>(callbackJsonObject);
+    public static boolean checkSignature(Map<String, Object> callbackMap, String appSecret) {
+        Map<String, Object> sortedMap = new TreeMap<String, Object>(callbackMap);
         String signature = sortedMap.remove("signature").toString();
         StringBuilder stringBuilder = new StringBuilder();
         for (Map.Entry<String, Object> entry : sortedMap.entrySet()) {
