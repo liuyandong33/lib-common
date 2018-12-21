@@ -5,7 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class Pos extends BasicDomain {
+public class OfflinePayRecord extends BasicDomain {
     /**
      * 商户ID
      */
@@ -19,29 +19,33 @@ public class Pos extends BasicDomain {
      */
     private BigInteger branchId;
     /**
-     * 门店编号
-     */
-    private String branchCode;
-    /**
      * 用户ID
      */
     private BigInteger userId;
     /**
-     * 阿里云推送服务设备ID
+     * 订单号
      */
-    private String deviceId;
+    private String orderNumber;
     /**
-     * pos 类型，安卓-android，苹果-ios
+     * 通道类型，1-微信支付，2-支付宝支付，3-京东支付
      */
-    private String type;
+    private Integer channelType;
     /**
-     * pos 版本号
+     * 外部订单号
      */
-    private String version;
+    private String outTradeNo;
     /**
-     * 是否在线
+     * 支付金额，单位为分
      */
-    private boolean online;
+    private Integer totalAmount;
+    /**
+     * 付款码
+     */
+    private String authCode;
+    /**
+     * 支付状态，1-未支付，2-已支付
+     */
+    private Integer status;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -67,14 +71,6 @@ public class Pos extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public String getBranchCode() {
-        return branchCode;
-    }
-
-    public void setBranchCode(String branchCode) {
-        this.branchCode = branchCode;
-    }
-
     public BigInteger getUserId() {
         return userId;
     }
@@ -83,40 +79,56 @@ public class Pos extends BasicDomain {
         this.userId = userId;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
-    public String getType() {
-        return type;
+    public Integer getChannelType() {
+        return channelType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setChannelType(Integer channelType) {
+        this.channelType = channelType;
     }
 
-    public String getVersion() {
-        return version;
+    public String getOutTradeNo() {
+        return outTradeNo;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
+    public void setOutTradeNo(String outTradeNo) {
+        this.outTradeNo = outTradeNo;
     }
 
-    public boolean isOnline() {
-        return online;
+    public Integer getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setOnline(boolean online) {
-        this.online = online;
+    public void setTotalAmount(Integer totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public static class Builder {
-        private final Pos instance = new Pos();
+        private final OfflinePayRecord instance = new OfflinePayRecord();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -133,33 +145,38 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Builder branchCode(String branchCode) {
-            instance.setBranchCode(branchCode);
-            return this;
-        }
-
         public Builder userId(BigInteger userId) {
             instance.setUserId(userId);
             return this;
         }
 
-        public Builder deviceId(String deviceId) {
-            instance.setDeviceId(deviceId);
+        public Builder orderNumber(String orderNumber) {
+            instance.setOrderNumber(orderNumber);
             return this;
         }
 
-        public Builder type(String type) {
-            instance.setType(type);
+        public Builder channelType(Integer channelType) {
+            instance.setChannelType(channelType);
             return this;
         }
 
-        public Builder version(String version) {
-            instance.setVersion(version);
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
             return this;
         }
 
-        public Builder online(boolean online) {
-            instance.setOnline(online);
+        public Builder totalAmount(Integer totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder authCode(String authCode) {
+            instance.setAuthCode(authCode);
+            return this;
+        }
+
+        public Builder status(Integer status) {
+            instance.setStatus(status);
             return this;
         }
 
@@ -203,7 +220,7 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Pos build() {
+        public OfflinePayRecord build() {
             return instance;
         }
     }
@@ -216,23 +233,25 @@ public class Pos extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
-        public static final String BRANCH_CODE = "branch_code";
         public static final String USER_ID = "user_id";
-        public static final String DEVICE_ID = "device_id";
-        public static final String TYPE = "type";
-        public static final String VERSION = "version";
-        public static final String ONLINE = "online";
+        public static final String ORDER_NUMBER = "order_number";
+        public static final String CHANNEL_TYPE = "channel_type";
+        public static final String OUT_TRADE_NO = "out_trade_no";
+        public static final String TOTAL_AMOUNT = "total_amount";
+        public static final String AUTH_CODE = "auth_code";
+        public static final String STATUS = "status";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
-        public static final String BRANCH_CODE = "branchCode";
         public static final String USER_ID = "userId";
-        public static final String DEVICE_ID = "deviceId";
-        public static final String TYPE = "type";
-        public static final String VERSION = "version";
-        public static final String ONLINE = "online";
+        public static final String ORDER_NUMBER = "orderNumber";
+        public static final String CHANNEL_TYPE = "channelType";
+        public static final String OUT_TRADE_NO = "outTradeNo";
+        public static final String TOTAL_AMOUNT = "totalAmount";
+        public static final String AUTH_CODE = "authCode";
+        public static final String STATUS = "status";
     }
 }
