@@ -1,12 +1,15 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeCallbackMessage {
-    private BigInteger id;
+public class ElemeCallbackMessage extends BasicDomain {
+    private BigInteger tenantId;
+    private String tenantCode;
+    private BigInteger branchId;
     private String orderId = Constants.VARCHAR_DEFAULT_VALUE;
     private String requestId;
     private Integer type;
@@ -17,12 +20,28 @@ public class ElemeCallbackMessage {
     private String signature;
     private BigInteger userId;
 
-    public BigInteger getId() {
-        return id;
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setId(BigInteger id) {
-        this.id = id;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getTenantCode() {
+        return tenantCode;
+    }
+
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
     }
 
     public String getOrderId() {
