@@ -784,4 +784,6 @@ public class Constants {
     public static final int[] WEI_XIN_PAY_CODE_PREFIXES = {10, 11, 12, 13, 14, 15};
     public static final int[] ALIPAY_PAY_CODE_PREFIXES = {28};
     public static final int[] JING_DONG_PAY_CODE_PREFIXES = {};
+
+    public static final String CLIENT_TYPE = "clientType";
 }

@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.Column;
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.annotations.Table;
 import build.dream.common.annotations.Transient;
 import build.dream.common.constants.Constants;
@@ -253,6 +254,7 @@ public class DatabaseUtils {
     private static String doGenerateUpdateSql(Class<?> domainClass, String tableName) {
         StringBuilder updateSql = new StringBuilder("UPDATE ");
         updateSql.append(obtainTableName(tableName, domainClass));
+        ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
         updateSql.append(" SET ");
         while (domainClass != Object.class) {
             Field[] fields = domainClass.getDeclaredFields();
@@ -289,7 +291,11 @@ public class DatabaseUtils {
         }
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.deleteCharAt(updateSql.length() - 1);
+
         updateSql.append(" WHERE id = #{id}");
+        if (shardingColumn != null) {
+            updateSql.append(" AND ").append(shardingColumn.columnName()).append(" = ").append("#{").append(shardingColumn.fieldName()).append("}");
+        }
         return updateSql.toString();
     }
 

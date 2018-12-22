@@ -1,11 +1,13 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
+@ShardingColumn(fieldName = "tenantId", columnName = "tenant_id")
 public class Branch extends BasicDomain {
     /**
      * 商户id

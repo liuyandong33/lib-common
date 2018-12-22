@@ -82,4 +82,16 @@ public class CommonUtils {
         }
         return null;
     }
+
+    public static String obtainApiServiceName(String clientType) {
+        String apiServiceName = null;
+        if (Constants.CLIENT_TYPE_APP.equals(clientType)) {
+            apiServiceName = Constants.SERVICE_NAME_APPAPI;
+        } else if (Constants.CLIENT_TYPE_POS.equals(clientType)) {
+            apiServiceName = Constants.SERVICE_NAME_POSAPI;
+        } else if (Constants.CLIENT_TYPE_WEB.equals(clientType)) {
+            apiServiceName = Constants.SERVICE_NAME_WEBAPI;
+        }
+        return apiServiceName;
+    }
 }
