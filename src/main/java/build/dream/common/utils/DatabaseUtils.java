@@ -68,8 +68,10 @@ public class DatabaseUtils {
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder(" VALUES (");
-        while (domainClass != Object.class) {
-            Field[] fields = domainClass.getDeclaredFields();
+
+        Class<?> clazz = domainClass;
+        while (clazz != Object.class) {
+            Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
@@ -109,7 +111,7 @@ public class DatabaseUtils {
                     valuesSql.append("}, ");
                 }
             }
-            domainClass = domainClass.getSuperclass();
+            clazz = clazz.getSuperclass();
         }
         insertSql.deleteCharAt(insertSql.length() - 1);
         insertSql.deleteCharAt(insertSql.length() - 1);
@@ -166,8 +168,10 @@ public class DatabaseUtils {
         insertSql.append(obtainTableName(tableName, domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder("(");
-        while (domainClass != Object.class) {
-            Field[] fields = domainClass.getDeclaredFields();
+
+        Class<?> clazz = domainClass;
+        while (clazz != Object.class) {
+            Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
@@ -208,7 +212,7 @@ public class DatabaseUtils {
                     valuesSql.append("}, ");
                 }
             }
-            domainClass = domainClass.getSuperclass();
+            clazz = clazz.getSuperclass();
         }
         insertSql.deleteCharAt(insertSql.length() - 1);
         insertSql.deleteCharAt(insertSql.length() - 1);
@@ -254,10 +258,11 @@ public class DatabaseUtils {
     private static String doGenerateUpdateSql(Class<?> domainClass, String tableName) {
         StringBuilder updateSql = new StringBuilder("UPDATE ");
         updateSql.append(obtainTableName(tableName, domainClass));
-        ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
         updateSql.append(" SET ");
-        while (domainClass != Object.class) {
-            Field[] fields = domainClass.getDeclaredFields();
+
+        Class<?> clazz = domainClass;
+        while (clazz != Object.class) {
+            Field[] fields = clazz.getDeclaredFields();
             for (Field field : fields) {
                 int modifiers = field.getModifiers();
                 if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
@@ -287,12 +292,14 @@ public class DatabaseUtils {
                 updateSql.append(fieldName);
                 updateSql.append("}, ");
             }
-            domainClass = domainClass.getSuperclass();
+            clazz = clazz.getSuperclass();
         }
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.deleteCharAt(updateSql.length() - 1);
 
         updateSql.append(" WHERE id = #{id}");
+
+        ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
         if (shardingColumn != null) {
             updateSql.append(" AND ").append(shardingColumn.columnName()).append(" = ").append("#{").append(shardingColumn.fieldName()).append("}");
         }
