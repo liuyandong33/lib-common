@@ -6,6 +6,12 @@ import build.dream.common.utils.IOUtils;
 import build.dream.common.utils.NamingStrategyUtils;
 import build.dream.common.utils.ValidateUtils;
 import com.google.zxing.NotFoundException;
+import eleme.openapi.ws.sdk.Bootstrap;
+import eleme.openapi.ws.sdk.config.BusinessHandle;
+import eleme.openapi.ws.sdk.config.Config;
+import eleme.openapi.ws.sdk.config.ElemeSdkLogger;
+import eleme.openapi.ws.sdk.entity.Account;
+import eleme.openapi.ws.sdk.exception.UnableConnectionException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -23,7 +29,7 @@ import java.util.Scanner;
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException, NotFoundException {
+    public static void main(String[] args) throws IOException, NotFoundException, UnableConnectionException {
 //        SpringApplication.run(Application.class, args);
 
         /*String packageName = "build.dream.common.catering.domains";
@@ -35,6 +41,29 @@ public class Application {
 //        test();
 //        testSort();
         "14000605".toString();
+
+        Account account = new Account("bkhOO7cS2A", "864427542b518392dc0a8fcdd06ad0f9");
+        List<Account> accounts = new ArrayList<Account>();
+        accounts.add(account);
+
+        BusinessHandle businessHandle = message -> {
+            System.out.println(message);
+            return false;
+        };
+
+        ElemeSdkLogger elemeSdkLogger = new ElemeSdkLogger() {
+            @Override
+            public void info(String message) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void error(String message) {
+                System.out.println(message);
+            }
+        };
+        Config config = new Config(accounts, businessHandle, elemeSdkLogger);
+        Bootstrap.start(config);
     }
 
     private static void installMySql() throws IOException, InterruptedException {
