@@ -93,7 +93,7 @@ public class DatabaseUtils {
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
 
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
-                        insertSql.append("`id`");
+                        insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
                     }
@@ -105,9 +105,8 @@ public class DatabaseUtils {
                     } else {
                         columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
                     }
-                    insertSql.append("`");
+                    
                     insertSql.append(columnName);
-                    insertSql.append("`");
                     insertSql.append(", ");
                     valuesSql.append("#{").append(fieldName);
                     valuesSql.append("}, ");
@@ -195,7 +194,7 @@ public class DatabaseUtils {
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
 
                     } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
-                        insertSql.append("`id`");
+                        insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
                     }
@@ -208,9 +207,7 @@ public class DatabaseUtils {
                         columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
                     }
 
-                    insertSql.append("`");
                     insertSql.append(columnName);
-                    insertSql.append("`");
                     insertSql.append(", ");
                     valuesSql.append("#{item.").append(fieldName);
                     valuesSql.append("}, ");
@@ -290,9 +287,7 @@ public class DatabaseUtils {
                     columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
                 }
 
-                updateSql.append("`");
                 updateSql.append(columnName);
-                updateSql.append("`");
                 updateSql.append(" = ");
                 updateSql.append("#{");
                 updateSql.append(fieldName);
@@ -307,7 +302,12 @@ public class DatabaseUtils {
 
         ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
         if (shardingColumn != null) {
-            updateSql.append(" AND ").append(shardingColumn.columnName()).append(" = ").append("#{").append(shardingColumn.fieldName()).append("}");
+            updateSql.append(" AND ");
+            updateSql.append(shardingColumn.columnName());
+            updateSql.append(" = ");
+            updateSql.append("#{");
+            updateSql.append(shardingColumn.fieldName());
+            updateSql.append("}");
         }
         return updateSql.toString();
     }
