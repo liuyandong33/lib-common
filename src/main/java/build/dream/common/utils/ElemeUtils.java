@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.exceptions.CustomException;
 import build.dream.common.saas.domains.ElemeToken;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -87,7 +88,7 @@ public class ElemeUtils {
         return DigestUtils.md5Hex(String.format("%s%s%s%s", action, accessToken, stringBuilder, appSecret)).toUpperCase();
     }
 
-    public static String constructRequestBody(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) throws IOException {
+    public static String constructRequestBody(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String appKey = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_KEY);
         String appSecret = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_SECRET);
         Map<String, Object> metas = new HashMap<String, Object>();
@@ -111,7 +112,7 @@ public class ElemeUtils {
         return GsonUtils.toJson(requestBody);
     }
 
-    public static Map<String, Object> callElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) throws IOException {
+    private static Map<String, Object> doCallElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String requestBody = constructRequestBody(tenantId, branchId, elemeAccountType, action, params);
         Map<String, String> callElemeSystemRequestParameters = new HashMap<String, String>();
         callElemeSystemRequestParameters.put("requestBody", requestBody);
@@ -120,10 +121,30 @@ public class ElemeUtils {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    public static Map<String, Object> callElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
+        Map<String, Object> resultMap = doCallElemeSystem(tenantId, branchId, elemeAccountType, action, params);
         Map<String, Object> errorMap = MapUtils.getMap(resultMap, "error");
         if (MapUtils.isNotEmpty(errorMap)) {
             ValidateUtils.isTrue(false, MapUtils.getString(errorMap, "message"));
         }
         return MapUtils.getMap(resultMap, "result");
+    }
+
+    public static boolean verifyToken(String tenantId, String branchId, Integer elemeAccountType) {
+        Map<String, Object> resultMap = doCallElemeSystem(tenantId, branchId, elemeAccountType, "eleme.user.getUser", null);
+        Map<String, Object> errorMap = MapUtils.getMap(resultMap, "error");
+        if (MapUtils.isEmpty(errorMap)) {
+            return true;
+        }
+
+        String code = MapUtils.getString(errorMap, "code");
+        if ("UNAUTHORIZED".equals(code)) {
+            return false;
+        }
+
+        throw new CustomException(MapUtils.getString(errorMap, "message"));
     }
 }
