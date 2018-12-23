@@ -2,7 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import net.sf.json.JSONObject;
+import build.dream.common.saas.domains.ElemeToken;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -72,7 +72,8 @@ public class ElemeUtils {
             tokenJson = CacheUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
         }
         ValidateUtils.notNull(tokenJson, "未检索到访问令牌！");
-        return JSONObject.fromObject(tokenJson).getString("access_token");
+        ElemeToken elemeToken = JacksonUtils.readValue(tokenJson, ElemeToken.class);
+        return elemeToken.getAccessToken();
     }
 
     private static String generateSignature(String appKey, String appSecret, long timestamp, String action, String accessToken, Map<String, Object> params) {

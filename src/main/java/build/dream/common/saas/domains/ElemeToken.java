@@ -5,8 +5,8 @@ import build.dream.common.basic.BasicDomain;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class ElemeAuthorizedTenant extends BasicDomain {
-    public static final String TABLE_NAME = "eleme_authorized_tenant";
+public class ElemeToken extends BasicDomain {
+    public static final String TABLE_NAME = "eleme_token";
     /**
      * 商户ID
      */
@@ -34,7 +34,7 @@ public class ElemeAuthorizedTenant extends BasicDomain {
     /**
      * 获取token时间
      */
-    private Date fetchTokenTime;
+    private Date fetchTime;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -84,16 +84,16 @@ public class ElemeAuthorizedTenant extends BasicDomain {
         this.tokenType = tokenType;
     }
 
-    public Date getFetchTokenTime() {
-        return fetchTokenTime;
+    public Date getFetchTime() {
+        return fetchTime;
     }
 
-    public void setFetchTokenTime(Date fetchTokenTime) {
-        this.fetchTokenTime = fetchTokenTime;
+    public void setFetchTime(Date fetchTime) {
+        this.fetchTime = fetchTime;
     }
 
     public static class Builder {
-        private final ElemeAuthorizedTenant instance = new ElemeAuthorizedTenant();
+        private final ElemeToken instance = new ElemeToken();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -125,8 +125,8 @@ public class ElemeAuthorizedTenant extends BasicDomain {
             return this;
         }
 
-        public Builder fetchTokenTime(Date fetchTokenTime) {
-            instance.setFetchTokenTime(fetchTokenTime);
+        public Builder fetchTime(Date fetchTime) {
+            instance.setFetchTime(fetchTime);
             return this;
         }
 
@@ -170,7 +170,7 @@ public class ElemeAuthorizedTenant extends BasicDomain {
             return this;
         }
 
-        public ElemeAuthorizedTenant build() {
+        public ElemeToken build() {
             return instance;
         }
     }
@@ -186,7 +186,7 @@ public class ElemeAuthorizedTenant extends BasicDomain {
         public static final String REFRESH_TOKEN = "refresh_token";
         public static final String EXPIRES_IN = "expires_in";
         public static final String TOKEN_TYPE = "token_type";
-        public static final String FETCH_TOKEN_TIME = "fetch_token_time";
+        public static final String FETCH_TIME = "fetch_time";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -196,6 +196,6 @@ public class ElemeAuthorizedTenant extends BasicDomain {
         public static final String REFRESH_TOKEN = "refreshToken";
         public static final String EXPIRES_IN = "expiresIn";
         public static final String TOKEN_TYPE = "tokenType";
-        public static final String FETCH_TOKEN_TIME = "fetchTokenTime";
+        public static final String FETCH_TIME = "fetchTime";
     }
 }
