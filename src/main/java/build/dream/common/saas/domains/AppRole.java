@@ -6,8 +6,18 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class AppRole extends BasicDomain {
+    public static final String TABLE_NAME = "app_role";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 角色编号
+     */
     private String roleCode;
+    /**
+     * 角色名称
+     */
     private String roleName;
 
     public BigInteger getTenantId() {

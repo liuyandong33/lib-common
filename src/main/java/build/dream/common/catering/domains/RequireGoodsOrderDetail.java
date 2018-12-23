@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class RequireGoodsOrderDetail extends BasicDomain {
+    public static final String TABLE_NAME = "require_goods_order_detail";
     /**
      * 商户ID
      */

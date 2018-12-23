@@ -6,8 +6,18 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class AlipayMaterialImage extends BasicDomain {
+    public static final String TABLE_NAME = "alipay_material_image";
+    /**
+     * 支付宝用户ID
+     */
     private String alipayUserId;
+    /**
+     * 图片ID
+     */
     private String imageId;
+    /**
+     * 图片URL
+     */
     private String imageUrl;
 
     public String getAlipayUserId() {

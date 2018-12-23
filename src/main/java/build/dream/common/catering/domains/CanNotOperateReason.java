@@ -3,6 +3,7 @@ package build.dream.common.catering.domains;
 import java.math.BigInteger;
 
 public class CanNotOperateReason {
+    public static final String TABLE_NAME = "can_not_operate_reason";
     /**
      * id
      */

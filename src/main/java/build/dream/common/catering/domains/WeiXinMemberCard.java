@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class WeiXinMemberCard extends BasicDomain {
+    public static final String TABLE_NAME = "wei_xin_member_card";
     /**
      * 商户ID
      */

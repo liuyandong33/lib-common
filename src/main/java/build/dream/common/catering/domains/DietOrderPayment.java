@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class DietOrderPayment extends BasicDomain {
+    public static final String TABLE_NAME = "diet_order_payment";
     /**
      * 商户ID
      */

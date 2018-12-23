@@ -9,6 +9,7 @@ import java.util.Date;
 
 @ShardingColumn(fieldName = "tenantId", columnName = "tenant_id")
 public class Branch extends BasicDomain {
+    public static final String TABLE_NAME = "branch";
     /**
      * 商户id
      */

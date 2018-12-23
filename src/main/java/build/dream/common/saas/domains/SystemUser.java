@@ -7,19 +7,62 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class SystemUser extends BasicDomain {
+    public static final String TABLE_NAME = "system_user";
+    /**
+     * 员工姓名
+     */
     private String name;
+    /**
+     * 手机号码
+     */
     private String mobile = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 邮箱
+     */
     private String email = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 登录名
+     */
     private String loginName = Constants.VARCHAR_DEFAULT_VALUE;
-    private String password;
-    private String weiXinPublicPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
-    private String weiXinOpenPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 员工类型，1-商户主账号，2-商户员工，3-代理商
+     */
     private Integer userType;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 微信公众平台open id
+     */
+    private String weiXinPublicPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 微信开放平台open id
+     */
+    private String weiXinOpenPlatformOpenId = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
+    /**
+     * 代理商ID
+     */
     private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;
+    /**
+     * 账户是否没有过期，1-没有过期，0-已经过期
+     */
     private boolean accountNonExpired;
+    /**
+     * 账户是否没有锁定，1-没有锁定，0-已经锁定
+     */
     private boolean accountNonLocked;
+    /**
+     * 账户凭证是否没有过期，1-没有过期，0-已经过期
+     */
     private boolean credentialsNonExpired;
+    /**
+     * 账户是否启用，1-启用，0-禁用
+     */
     private boolean enabled;
 
     public String getName() {
@@ -54,6 +97,14 @@ public class SystemUser extends BasicDomain {
         this.loginName = loginName;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -76,14 +127,6 @@ public class SystemUser extends BasicDomain {
 
     public void setWeiXinOpenPlatformOpenId(String weiXinOpenPlatformOpenId) {
         this.weiXinOpenPlatformOpenId = weiXinOpenPlatformOpenId;
-    }
-
-    public Integer getUserType() {
-        return userType;
-    }
-
-    public void setUserType(Integer userType) {
-        this.userType = userType;
     }
 
     public BigInteger getTenantId() {
@@ -157,6 +200,11 @@ public class SystemUser extends BasicDomain {
             return this;
         }
 
+        public Builder userType(Integer userType) {
+            instance.setUserType(userType);
+            return this;
+        }
+
         public Builder password(String password) {
             instance.setPassword(password);
             return this;
@@ -169,11 +217,6 @@ public class SystemUser extends BasicDomain {
 
         public Builder weiXinOpenPlatformOpenId(String weiXinOpenPlatformOpenId) {
             instance.setWeiXinOpenPlatformOpenId(weiXinOpenPlatformOpenId);
-            return this;
-        }
-
-        public Builder userType(Integer userType) {
-            instance.setUserType(userType);
             return this;
         }
 
@@ -261,10 +304,10 @@ public class SystemUser extends BasicDomain {
         public static final String MOBILE = "mobile";
         public static final String EMAIL = "email";
         public static final String LOGIN_NAME = "login_name";
+        public static final String USER_TYPE = "user_type";
         public static final String PASSWORD = "password";
         public static final String WEI_XIN_PUBLIC_PLATFORM_OPEN_ID = "wei_xin_public_platform_open_id";
         public static final String WEI_XIN_OPEN_PLATFORM_OPEN_ID = "wei_xin_open_platform_open_id";
-        public static final String USER_TYPE = "user_type";
         public static final String TENANT_ID = "tenant_id";
         public static final String AGENT_ID = "agent_id";
         public static final String ACCOUNT_NON_EXPIRED = "account_non_expired";
@@ -278,10 +321,10 @@ public class SystemUser extends BasicDomain {
         public static final String MOBILE = "mobile";
         public static final String EMAIL = "email";
         public static final String LOGIN_NAME = "loginName";
+        public static final String USER_TYPE = "userType";
         public static final String PASSWORD = "password";
         public static final String WEI_XIN_PUBLIC_PLATFORM_OPEN_ID = "weiXinPublicPlatformOpenId";
         public static final String WEI_XIN_OPEN_PLATFORM_OPEN_ID = "weiXinOpenPlatformOpenId";
-        public static final String USER_TYPE = "userType";
         public static final String TENANT_ID = "tenantId";
         public static final String AGENT_ID = "agentId";
         public static final String ACCOUNT_NON_EXPIRED = "accountNonExpired";

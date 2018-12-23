@@ -7,13 +7,38 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class PackageGroupDetail extends BasicDomain {
+    public static final String TABLE_NAME = "package_group_detail";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 套餐ID
+     */
     private BigInteger packageId;
+    /**
+     * 套餐组ID
+     */
     private BigInteger packageGroupId;
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 商品规格ID
+     */
     private BigInteger goodsSpecificationId;
+    /**
+     * 数量
+     */
     private Integer quantity = Constants.INT_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {

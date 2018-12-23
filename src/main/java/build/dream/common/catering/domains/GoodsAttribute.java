@@ -8,12 +8,34 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class GoodsAttribute extends BasicDomain {
+    public static final String TABLE_NAME = "goods_attribute";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 商品属性组ID
+     */
     private BigInteger goodsAttributeGroupId;
+    /**
+     * 属性名称
+     */
     private String name;
+    /**
+     * 加价
+     */
     private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {

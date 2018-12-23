@@ -6,7 +6,14 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Agent extends BasicDomain {
+    public static final String TABLE_NAME = "agent";
+    /**
+     * 代理商编码
+     */
     private String code;
+    /**
+     * 代理商名称
+     */
     private String name;
 
     public String getCode() {

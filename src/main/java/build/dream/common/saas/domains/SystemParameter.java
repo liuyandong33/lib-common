@@ -6,7 +6,14 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class SystemParameter extends BasicDomain {
+    public static final String TABLE_NAME = "system_parameter";
+    /**
+     * 参数名称
+     */
     private String parameterName;
+    /**
+     * 参数值
+     */
     private String parameterValue;
 
     public String getParameterName() {

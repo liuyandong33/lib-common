@@ -129,7 +129,7 @@ CREATE TABLE alipay_open_auth_token
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     app_id VARCHAR(50) NOT NULL COMMENT '支付宝app id',
-    app_auth_token VARCHAR(50) NOT NULL,
+    app_auth_token VARCHAR(50) NOT NULL COMMENT '授权令牌',
     user_id VARCHAR(50) NOT NULL COMMENT '支付宝用户id',
     auth_app_id VARCHAR(50) NOT NULL COMMENT '授权app id',
     expires_in INT NOT NULL COMMENT 'token 有效时间',

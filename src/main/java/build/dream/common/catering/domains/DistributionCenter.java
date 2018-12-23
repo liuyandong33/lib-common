@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class DistributionCenter extends BasicDomain {
+    public static final String TABLE_NAME = "distribution_center";
     /**
      * 商户id
      */

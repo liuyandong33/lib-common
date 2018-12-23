@@ -7,13 +7,38 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class AppPrivilege extends BasicDomain {
+    public static final String TABLE_NAME = "app_privilege";
+    /**
+     * 权限编号
+     */
     private String privilegeCode;
+    /**
+     * 权限名称
+     */
     private String privilegeName;
+    /**
+     * 访问方式，1-GET，2-POST，3-签名GET，4-签名POST
+     */
     private Integer accessMode;
+    /**
+     * 服务名称
+     */
     private String serviceName = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * controller name
+     */
     private String controllerName = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * action name
+     */
     private String actionName = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 父级权限ID
+     */
     private BigInteger parentId;
+    /**
+     * 备注
+     */
     private String remark = Constants.VARCHAR_DEFAULT_VALUE;
 
     public String getPrivilegeCode() {

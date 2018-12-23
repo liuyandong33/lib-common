@@ -6,9 +6,22 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class TenantGoods extends BasicDomain {
+    public static final String TABLE_NAME = "tenant_goods";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 过期时间
+     */
     private Date expireTime;
 
     public BigInteger getTenantId() {

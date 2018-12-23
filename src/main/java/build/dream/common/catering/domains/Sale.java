@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Sale extends BasicDomain {
+    public static final String TABLE_NAME = "sale";
     /**
      * 商户ID
      */

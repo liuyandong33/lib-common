@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class GoodsAttributeGroup extends BasicDomain {
+    public static final String TABLE_NAME = "goods_attribute_group";
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;

@@ -6,12 +6,34 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class AlipayOpenAuthToken extends BasicDomain {
+    public static final String TABLE_NAME = "alipay_open_auth_token";
+    /**
+     * 支付宝app id
+     */
     private String appId;
+    /**
+     * 授权令牌
+     */
     private String appAuthToken;
+    /**
+     * 支付宝用户id
+     */
     private String userId;
+    /**
+     * 授权app id
+     */
     private String authAppId;
+    /**
+     * token 有效时间
+     */
     private Integer expiresIn;
+    /**
+     * 刷新token有效时间
+     */
     private Integer reExpiresIn;
+    /**
+     * 刷新token
+     */
     private String appRefreshToken;
 
     public String getAppId() {

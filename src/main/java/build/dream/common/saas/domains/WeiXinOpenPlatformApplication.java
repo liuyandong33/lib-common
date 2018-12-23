@@ -6,10 +6,26 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class WeiXinOpenPlatformApplication extends BasicDomain {
+    public static final String TABLE_NAME = "wei_xin_open_platform_application";
+    /**
+     * app id
+     */
     private String appId;
+    /**
+     * app secret
+     */
     private String appSecret;
+    /**
+     * encoding aes key
+     */
     private String encodingAesKey;
+    /**
+     * token
+     */
     private String token;
+    /**
+     * 类型，1-移动应用，2-网站应用，3-公众号，4-小程序，5-第三方平台
+     */
     private Integer type;
 
     public String getAppId() {

@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class PaymentRecord extends BasicDomain {
+    public static final String TABLE_NAME = "payment_record";
     /**
      * 订单类型，1-商户购买平台产品订单，2-代理商购买平台产品订单
      */

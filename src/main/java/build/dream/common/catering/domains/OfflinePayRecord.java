@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class OfflinePayRecord extends BasicDomain {
+    public static final String TABLE_NAME = "goods_attribute";
     /**
      * 商户ID
      */

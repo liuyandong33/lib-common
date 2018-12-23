@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class AgentContractPriceInfo extends BasicDomain {
+    public static final String TABLE_NAME = "agent_contract_price_info";
     /**
      * 代理商合同ID
      */

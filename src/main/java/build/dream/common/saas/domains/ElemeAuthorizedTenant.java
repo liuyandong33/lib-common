@@ -6,12 +6,34 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeAuthorizedTenant extends BasicDomain {
+    public static final String TABLE_NAME = "eleme_authorized_tenant";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 访问令牌
+     */
     private String accessToken;
+    /**
+     * 刷新令牌
+     */
     private String refreshToken;
+    /**
+     * 过期时间
+     */
     private Integer expiresIn;
+    /**
+     * token类型
+     */
     private String tokenType;
+    /**
+     * 获取token时间
+     */
     private Date fetchTokenTime;
 
     public BigInteger getTenantId() {

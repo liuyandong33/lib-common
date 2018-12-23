@@ -7,11 +7,30 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class GoodsUnit extends BasicDomain {
+    public static final String TABLE_NAME = "goods_unit";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 单位名称
+     */
     private String name;
+    /**
+     * 比例
+     */
     private BigDecimal proportion;
 
     public BigInteger getTenantId() {

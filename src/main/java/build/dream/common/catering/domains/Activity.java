@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.util.Date;
 
 public class Activity extends BasicDomain {
+    public static final String TABLE_NAME = "activity";
     /**
      * 商户id
      */

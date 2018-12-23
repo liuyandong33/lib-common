@@ -6,11 +6,30 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class WeiXinTemplateMessage extends BasicDomain {
+    public static final String TABLE_NAME = "wei_xin_template_message";
+    /**
+     * app id
+     */
     private String appId;
+    /**
+     * app secret
+     */
     private String appSecret;
+    /**
+     * 原始ID
+     */
     private String originalId;
+    /**
+     * 模板消息ID
+     */
     private String templateMessageId;
+    /**
+     * 模板消息编码
+     */
     private String weiXinTemplateMessageCode;
+    /**
+     * 模板消息keys
+     */
     private String weiXinTemplateMessageKeys;
 
     public String getAppId() {

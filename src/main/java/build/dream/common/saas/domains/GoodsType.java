@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class GoodsType extends BasicDomain {
+    public static final String TABLE_NAME = "goods_type";
     /**
      * 产品类型名称
      */

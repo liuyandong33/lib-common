@@ -7,13 +7,38 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class NotifyRecord extends BasicDomain {
+    public static final String TABLE_NAME = "notify_record";
+    /**
+     * 唯一ID
+     */
     private String uuid;
+    /**
+     * 回调地址
+     */
     private String notifyUrl;
+    /**
+     * 支付宝公钥
+     */
     private String alipayPublicKey = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 支付宝签名类型
+     */
     private String alipaySignType = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 微信秘钥
+     */
     private String weiXinPayApiSecretKey = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 微信签名类型
+     */
     private String weiXinPaySignType = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
+     * 回调结果，1-未回调 2-回调成功，3-回调失败
+     */
     private Integer notifyResult;
+    /**
+     * 回调内容
+     */
     private String externalSystemNotifyRequestBody;
 
     public String getUuid() {

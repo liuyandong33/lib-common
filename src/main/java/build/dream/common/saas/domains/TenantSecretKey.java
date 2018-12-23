@@ -6,10 +6,26 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class TenantSecretKey extends BasicDomain {
+    public static final String TABLE_NAME = "tenant_secret_key";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 公钥
+     */
     private String publicKey;
+    /**
+     * 私钥
+     */
     private String privateKey;
+    /**
+     * 平台公钥
+     */
     private String platformPublicKey;
 
     public BigInteger getTenantId() {

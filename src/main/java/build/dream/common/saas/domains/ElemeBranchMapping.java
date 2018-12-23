@@ -6,8 +6,18 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeBranchMapping extends BasicDomain {
+    public static final String TABLE_NAME = "eleme_branch_mapping";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 饿了么门店ID
+     */
     private BigInteger shopId;
 
     public BigInteger getTenantId() {

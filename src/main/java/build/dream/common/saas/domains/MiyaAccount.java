@@ -6,10 +6,26 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class MiyaAccount extends BasicDomain {
+    public static final String TABLE_NAME = "miya_account";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 米雅商户编号
+     */
     private String miyaMerchantCode;
+    /**
+     * 米雅秘钥
+     */
     private String miyaKey;
+    /**
+     * 米雅门店编号
+     */
     private String miyaBranchCode;
 
     public BigInteger getTenantId() {

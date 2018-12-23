@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class StockFlow extends BasicDomain {
+    public static final String TABLE_NAME = "stock_flow";
     /**
      * 商户ID
      */

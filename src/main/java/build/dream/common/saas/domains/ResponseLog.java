@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ResponseLog extends BasicDomain {
+    public static final String TABLE_NAME = "response_log";
     /**
      * 唯一标识
      */

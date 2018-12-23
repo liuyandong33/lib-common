@@ -6,11 +6,30 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class BankAccount extends BasicDomain {
+    public static final String TABLE_NAME = "bank_account";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 银行卡卡号
+     */
     private String bankCardNumber;
+    /**
+     * 持卡人
+     */
     private String cardholder;
+    /**
+     * 开户行
+     */
     private String bankName;
+    /**
+     * 开户行编号
+     */
     private String bankCode;
 
     public BigInteger getTenantId() {

@@ -6,11 +6,30 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class WeiXinAuthorizerToken extends BasicDomain {
+    public static final String TABLE_NAME = "wei_xin_authorizer_token";
+    /**
+     * 开放平台ID
+     */
     private String componentAppId;
+    /**
+     * 授权方app id
+     */
     private String authorizerAppId;
+    /**
+     * 访问令牌
+     */
     private String authorizerAccessToken;
+    /**
+     * 过期时间
+     */
     private Integer expiresIn;
+    /**
+     * 刷新令牌
+     */
     private String authorizerRefreshToken;
+    /**
+     * 获取时间
+     */
     private Date fetchTime;
 
     public String getComponentAppId() {

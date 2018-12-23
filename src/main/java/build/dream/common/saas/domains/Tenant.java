@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Tenant extends BasicDomain {
+    public static final String TABLE_NAME = "tenant";
     /**
      * 商户编码
      */

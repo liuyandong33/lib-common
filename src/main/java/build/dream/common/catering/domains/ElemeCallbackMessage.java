@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeCallbackMessage extends BasicDomain {
+    public static final String TABLE_NAME = "eleme_callback_message";
     private BigInteger tenantId;
     private String tenantCode;
     private BigInteger branchId;

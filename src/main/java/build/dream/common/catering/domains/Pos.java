@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class Pos extends BasicDomain {
+    public static final String TABLE_NAME = "pos";
     /**
      * 商户ID
      */

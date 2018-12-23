@@ -10,7 +10,14 @@ import java.util.Date;
  * Created by liuyandong on 2017/7/20.
  */
 public class WeiXinPayAccount extends BasicDomain {
+    public static final String TABLE_NAME = "wei_xin_pay_account";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
     /**
      * 微信公众平台app id

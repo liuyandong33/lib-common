@@ -6,9 +6,22 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class UmPayAccount extends BasicDomain {
+    public static final String TABLE_NAME = "um_pay_account";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 联动支付ID
+     */
     private String umPayId;
+    /**
+     * 联动支付私钥
+     */
     private String merchantPrivateKey;
 
     public BigInteger getTenantId() {

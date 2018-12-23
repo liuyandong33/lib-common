@@ -6,6 +6,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class VipGroup extends BasicDomain {
+    public static final String TABLE_NAME = "vip_group";
     /**
      * 商户ID
      */
