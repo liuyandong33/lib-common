@@ -106,6 +106,10 @@ public class Branch extends BasicDomain {
      * 会员分组ID
      */
     private BigInteger vipGroupId = Constants.BIGINT_DEFAULT_VALUE;
+    /**
+     * 营业时间
+     */
+    private String businessTimes;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -299,6 +303,14 @@ public class Branch extends BasicDomain {
         this.vipGroupId = vipGroupId;
     }
 
+    public String getBusinessTimes() {
+        return businessTimes;
+    }
+
+    public void setBusinessTimes(String businessTimes) {
+        this.businessTimes = businessTimes;
+    }
+
     public static class Builder {
         private final Branch instance = new Branch();
 
@@ -422,6 +434,11 @@ public class Branch extends BasicDomain {
             return this;
         }
 
+        public Builder businessTimes(String businessTimes) {
+            instance.setBusinessTimes(businessTimes);
+            return this;
+        }
+
         public Builder id(BigInteger id) {
             instance.setId(id);
             return this;
@@ -496,6 +513,7 @@ public class Branch extends BasicDomain {
         public static final String POI_ID = "poi_id";
         public static final String POI_NAME = "poi_name";
         public static final String VIP_GROUP_ID = "vip_group_id";
+        public static final String BUSINESS_TIMES = "business_times";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -523,5 +541,6 @@ public class Branch extends BasicDomain {
         public static final String POI_ID = "poiId";
         public static final String POI_NAME = "poiName";
         public static final String VIP_GROUP_ID = "vipGroupId";
+        public static final String BUSINESS_TIMES = "businessTimes";
     }
 }
