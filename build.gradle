@@ -92,13 +92,13 @@ publishing {
         mavenJava(MavenPublication) {
             artifacts = ["build/libs/${projectName}-${version}.jar"]
 
-            groupId project.group
+            groupId group
             if (!project.hasProperty("release")) {
                 version version + "-SNAPSHOT"
             } else {
                 version version
             }
-            artifactId = projectName
+            artifactId projectName
         }
     }
 }
