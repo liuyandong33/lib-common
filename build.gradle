@@ -5,7 +5,7 @@ buildscript {
     ext {
         springBootVersion = "2.1.0.RELEASE"
         springCloudVersion = "Finchley.SR2"
-        projectName = "saas-common"
+        projectName = "lib-common"
     }
     repositories {
         mavenLocal()
