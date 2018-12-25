@@ -102,5 +102,3 @@ publishing {
         }
     }
 }
-
-publish.dependsOn(makeJar)
