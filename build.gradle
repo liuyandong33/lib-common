@@ -9,7 +9,7 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "http://node1:8081/repository/maven-public/" }
+        maven { url "${mavenPublicRepositoryUrl}" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -25,7 +25,7 @@ apply plugin: "maven-publish"
 
 repositories {
     mavenLocal()
-    maven { url "http://node1:8081/repository/maven-public/" }
+    maven { url "${mavenPublicRepositoryUrl}" }
 }
 
 dependencyManagement {
@@ -72,18 +72,18 @@ publishing {
     repositories {
         if (project.hasProperty("release")) {
             maven {
-                url "http://node1:8081/repository/maven-releases/"
+                url "${mavenReleasesRepositoryUrl}"
                 credentials {
-                    username = "admin"
-                    password = "admin"
+                    username = "${nexusUserName}"
+                    password = "${nexusPassword}"
                 }
             }
         } else {
             maven {
-                url "http://node1:8081/repository/maven-snapshots/"
+                url "${mavenSnapshotsRepositoryUrl}"
                 credentials {
-                    username = "admin"
-                    password = "admin"
+                    username = "${nexusUserName}"
+                    password = "${nexusPassword}"
                 }
             }
         }
