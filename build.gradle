@@ -57,7 +57,6 @@ dependencies {
     compile("com.jcraft:jsch:0.1.54")
     compile("org.quartz-scheduler:quartz:2.3.0")
     compile("org.jsoup:jsoup:1.11.2")
-    compile 'me.ele.openapi:eleme-java-ws-openapi:1.0.2-RELEASE'
 }
 
 task makeJar(type: Jar) {

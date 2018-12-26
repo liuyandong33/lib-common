@@ -1,169 +1,27 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
-import build.dream.common.constants.Constants;
-import build.dream.common.utils.IOUtils;
 import build.dream.common.utils.NamingStrategyUtils;
-import build.dream.common.utils.ValidateUtils;
-import com.google.zxing.NotFoundException;
-import eleme.openapi.ws.sdk.Bootstrap;
-import eleme.openapi.ws.sdk.config.BusinessHandle;
-import eleme.openapi.ws.sdk.config.Config;
-import eleme.openapi.ws.sdk.config.ElemeSdkLogger;
-import eleme.openapi.ws.sdk.entity.Account;
-import eleme.openapi.ws.sdk.exception.UnableConnectionException;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException, NotFoundException, UnableConnectionException {
-//        SpringApplication.run(Application.class, args);
-
-        /*String packageName = "build.dream.common.catering.domains";
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);
-        }*/
-
-//        test();
-//        testSort();
-        "14000605".toString();
-
-        Account account = new Account("bkhOO7cS2A", "864427542b518392dc0a8fcdd06ad0f9");
-        List<Account> accounts = new ArrayList<Account>();
-        accounts.add(account);
-
-        BusinessHandle businessHandle = message -> {
-            System.out.println(message);
-            return false;
-        };
-
-        ElemeSdkLogger elemeSdkLogger = new ElemeSdkLogger() {
-            @Override
-            public void info(String message) {
-                System.out.println(message);
-            }
-
-            @Override
-            public void error(String message) {
-                System.out.println(message);
-            }
-        };
-        Config config = new Config(accounts, businessHandle, elemeSdkLogger);
-        Bootstrap.start(config);
-    }
-
-    private static void installMySql() throws IOException, InterruptedException {
-        String baseDir = null;
-        String dataDir = null;
-        String logError = null;
-        String logBin = null;
-        String relayLog = null;
-        String slowQueryLogFile = null;
-        String group = null;
-        String user = null;
-
-        System.out.println("请输入basedir：");
-        Scanner basedirScanner = new Scanner(System.in);
-        baseDir = basedirScanner.next();
-
-        System.out.println("请输入datadir：");
-        Scanner dataDirScanner = new Scanner(System.in);
-        dataDir = dataDirScanner.next();
-
-        System.out.println("请输入log_error：");
-        Scanner logErrorScanner = new Scanner(System.in);
-        logError = logErrorScanner.next();
-
-        System.out.println("请输入bin log 存放目录：");
-        Scanner logBinScanner = new Scanner(System.in);
-        logBin = logBinScanner.next();
-
-        System.out.println("请输入relay log存放目录：");
-        Scanner relayLogScanner = new Scanner(System.in);
-        relayLog = relayLogScanner.next();
-
-        System.out.println("请输入 slow_query_log_file：");
-        Scanner slowQueryLogFileScanner = new Scanner(System.in);
-        slowQueryLogFile = slowQueryLogFileScanner.next();
-
-        System.out.println("请输入用户组：");
-        Scanner groupScanner = new Scanner(System.in);
-        group = groupScanner.next();
-
-        System.out.println("请输入用户名：");
-        Scanner userScanner = new Scanner(System.in);
-        user = userScanner.next();
-
-        File dataDirFile = new File(dataDir);
-        if (!dataDirFile.exists()) {
-            dataDirFile.mkdirs();
         }
-
-        File logErrorDirectory = new File(logError).getParentFile();
-        if (logErrorDirectory.exists()) {
-            logErrorDirectory.mkdirs();
-        }
-
-        File logBinDirectory = new File(logBin).getParentFile();
-        if (!logBinDirectory.exists()) {
-            logBinDirectory.mkdirs();
-        }
-
-        File relayLogDirectory = new File(relayLog).getParentFile();
-        if (!relayLogDirectory.exists()) {
-            relayLogDirectory.mkdirs();
-        }
-
-        File slowQueryLogFileDirectory = new File(slowQueryLogFile).getParentFile();
-        if (!slowQueryLogFileDirectory.exists()) {
-            slowQueryLogFileDirectory.mkdirs();
-        }
-
-        Runtime runtime = Runtime.getRuntime();
-        Process createGroupProcess = runtime.exec("groupadd -r " + group);
-        int createGroupResultCode = createGroupProcess.waitFor();
-        if (createGroupResultCode != 0) {
-            ValidateUtils.isTrue(false, IOUtils.toString(createGroupProcess.getErrorStream(), true));
-        }
-
-        Process createUserProcess = runtime.exec("useradd -r -g " + group + " -s /sbin/nologin " + user);
-        int createUserResultCode = createUserProcess.waitFor();
-        if (createUserResultCode != 0) {
-            ValidateUtils.isTrue(false, IOUtils.toString(createUserProcess.getErrorStream(), true));
-        }
-    }
-
-    public static void generateFibonacciSequence() {
-        BigInteger a1 = Constants.BIG_INTEGER_ONE;
-        BigInteger a2 = Constants.BIG_INTEGER_ONE;
-        System.out.println("a1 = " + a1);
-        System.out.println("a2 = " + a2);
-
-        BigInteger sum = a1.add(a2);
-        BigInteger an = null;
-        for (int index = 3; index <= 10; index++) {
-            an = a1.add(a2);
-            a1 = a2;
-            a2 = an;
-
-            sum = sum.add(an);
-        }
-        System.out.println(an);
-        System.out.println(sum);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
@@ -374,34 +232,6 @@ public class Application {
         printWriter.flush();
         printWriter.close();
         fileWriter.close();
-    }
-
-    private static void test() {
-        BigDecimal sunQuality = BigDecimal.valueOf(Double.valueOf(1.9891)).multiply(Constants.BIG_DECIMAL_TEN.pow(30));
-        System.out.println("太阳质量为：" + sunQuality + "kg");
-
-        BigDecimal earthQuality = BigDecimal.valueOf(Double.valueOf(5.965)).multiply(Constants.BIG_DECIMAL_TEN.pow(24));
-        System.out.println("地球质量为：" + earthQuality + "kg");
-
-        System.out.println("太阳的质量为地球质量的" + sunQuality.divide(earthQuality, 10, BigDecimal.ROUND_DOWN) + "倍");
-
-        BigDecimal sunRadius = BigDecimal.valueOf(6.955).multiply(BigDecimal.TEN.pow(8));
-        System.out.println("太阳的半径为：" + sunRadius + "m");
-
-        BigDecimal sunVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(sunRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
-        System.out.println("太阳的体积为：" + sunVolume + "m³");
-
-        BigDecimal earthRadius = BigDecimal.valueOf(6371000);
-        System.out.println("地球的半径为：" + earthRadius + "m");
-        BigDecimal earthVolume = Constants.BIG_DECIMAL_FOUR.multiply(Constants.BIG_DECIMAL_PI).multiply(earthRadius.pow(3)).divide(Constants.BIG_DECIMAL_THREE, 10, BigDecimal.ROUND_DOWN);
-        System.out.println("地球的体积为：" + earthVolume + "m³");
-
-        System.out.println("太阳的体积是地球体积的:" + sunVolume.divide(earthVolume, 10, BigDecimal.ROUND_DOWN) + "倍");
-
-        BigDecimal moonQuality = BigDecimal.valueOf(Double.valueOf(7.349)).multiply(Constants.BIG_DECIMAL_TEN.pow(22));
-        System.out.println("月球的质量为：" + moonQuality + "kg");
-
-        System.out.println("地球的质量是月球质量的：" + earthQuality.divide(moonQuality, 10, BigDecimal.ROUND_DOWN) + "倍");
     }
 
     private static void testSort() {
