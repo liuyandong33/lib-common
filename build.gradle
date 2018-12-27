@@ -74,6 +74,7 @@ makeJar.dependsOn(classes)
 publishing {
     repositories {
         if (project.hasProperty("release")) {
+            project.hasProperty("release")
             print(project.getProperties())
             maven {
                 url "${mavenReleasesRepositoryUrl}"
@@ -83,6 +84,7 @@ publishing {
                 }
             }
         } else {
+            project.hasProperty("release")
             print(project.getProperties())
             maven {
                 url "${mavenSnapshotsRepositoryUrl}"
