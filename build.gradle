@@ -34,6 +34,10 @@ dependencyManagement {
     }
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+}
+
 dependencies {
     compile("org.scala-lang:scala-library:2.12.5")
     compile("org.springframework.boot:spring-boot-starter-web")
