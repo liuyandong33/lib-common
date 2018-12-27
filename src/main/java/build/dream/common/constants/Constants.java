@@ -32,7 +32,7 @@ public class Constants {
     /**
      * 配置文件名称常量
      */
-    public static final String PRODUCTION_PROPERTIES = "production.properties";
+    public static final String PRODUCTION_PROPERTIES = "development.properties";
     public static final String TEST_PROPERTIES = "test.properties";
     public static final String DEVELOPMENT_PROPERTIES = "development.properties";
 

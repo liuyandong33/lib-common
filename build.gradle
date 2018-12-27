@@ -69,6 +69,12 @@ task makeJar(type: Jar) {
     exclude("build/dream/common/Application.class", "application.properties", "logback.xml", "production.properties")
 }
 
+task makeSourceJar(type: Jar) {
+    classifier = "sources"
+    from sourceSets.main.allSource
+    exclude("build/dream/common/Application.java", "application.properties", "logback.xml", "production.properties")
+}
+
 makeJar.dependsOn(classes)
 
 publishing {
@@ -93,7 +99,7 @@ publishing {
     }
     publications {
         mavenJava(MavenPublication) {
-            artifacts = ["build/libs/${projectName}-${version}.jar"]
+            artifacts = ["build/libs/${projectName}-${version}.jar", "build/libs/${projectName}-${version}-sources.jar"]
 
             groupId group
             if (!project.hasProperty("release")) {
