@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import java.util.Map;
  */
 public class LogUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogUtils.class);
+    private static final boolean LOG_STACK_INFO = Boolean.parseBoolean(ConfigurationUtils.getConfiguration(Constants.LOG_STACK_INFO));
 
     public static void info(String message) {
         LOGGER.info(message);
@@ -23,11 +25,19 @@ public class LogUtils {
     }
 
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters) {
-        LOGGER.error(String.format("%s:%s.%s-%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters));
+        if (LOG_STACK_INFO) {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters));
+        } else {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), parameters));
+        }
     }
 
     public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
-        LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage()));
+        if (LOG_STACK_INFO) {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage()));
+        } else {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage()));
+        }
     }
 
     public static void error(String errorMessage) {

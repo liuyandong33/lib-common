@@ -788,4 +788,5 @@ public class Constants {
     public static final int[] JING_DONG_PAY_CODE_PREFIXES = {};
 
     public static final String CLIENT_TYPE = "clientType";
+    public static final String LOG_STACK_INFO = "log.stack.info";
 }
