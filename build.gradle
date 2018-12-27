@@ -98,7 +98,7 @@ publishing {
         }
     }
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
             artifacts = [makeJar, sourceJar]
 
             groupId group
