@@ -35,7 +35,7 @@ public class CacheUtils {
      * @param pattern
      * @return
      */
-    private static Set<String> keys(String pattern) {
+    public static Set<String> keys(String pattern) {
         return obtainStringRedisTemplate().keys(pattern);
     }
 
