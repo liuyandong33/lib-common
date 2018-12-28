@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -370,48 +369,6 @@ public class CacheUtils {
 
     public static Long hdel(String key, String... fields) {
         return obtainHashOperations().delete(key, fields);
-    }
-
-    public static String obtainSessionId(String sessionId) {
-        return Constants.SESSION_ID_PREFIX + sessionId;
-    }
-
-    public static void setAttributeToSession(String sessionId, String field, String value) {
-        String key = obtainSessionId(sessionId);
-        hset(key, field, value);
-        setSessionExpireTime(key);
-    }
-
-    public static void setAttributesToSession(String sessionId, Map<String, String> map) {
-        String key = obtainSessionId(sessionId);
-        hmset(key, map);
-        setSessionExpireTime(key);
-    }
-
-    public static String obtainAttributeFromSession(String sessionId, String field) {
-        String key = obtainSessionId(sessionId);
-        setSessionExpireTime(key);
-        return hget(key, field);
-    }
-
-    public static Map<String, String> obtainAttributesFromSession(String sessionId) {
-        String key = obtainSessionId(sessionId);
-        setSessionExpireTime(key);
-        return hgetAll(key);
-    }
-
-    public static void deleteAttributesFromSession(String sessionId, String... fields) {
-        String key = obtainSessionId(sessionId);
-        setSessionExpireTime(key);
-        hdel(key, fields);
-    }
-
-    public static void deleteSession(String sessionId) {
-        delete(obtainSessionId(sessionId));
-    }
-
-    private static void setSessionExpireTime(String sessionId) {
-        expire(sessionId, 3, TimeUnit.HOURS);
     }
 
     public static Long ttl(String key) {

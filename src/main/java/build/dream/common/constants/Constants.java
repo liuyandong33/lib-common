@@ -118,9 +118,6 @@ public class Constants {
     // 生产环境参数错误错误信息
     public static final String API_PARAMETER_ERROR_MESSAGE = "API参数错误！";
 
-    // session redis key 前缀
-    public static final String SESSION_ID_PREFIX = "_session_id_";
-
     // Spring Security 默认密码
     public static final String SECURITY_DEFAULT_PASSWORD = "0";
 
