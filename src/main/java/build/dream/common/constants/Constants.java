@@ -3,9 +3,12 @@ package build.dream.common.constants;
 import build.dream.common.exceptions.Error;
 import build.dream.common.utils.CustomDateUtils;
 
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.security.cert.X509Certificate;
 import java.util.Date;
 
 /**
@@ -786,4 +789,26 @@ public class Constants {
 
     public static final String CLIENT_TYPE = "clientType";
     public static final String LOG_STACK_INFO = "log.stack.info";
+
+    public static final String TLS = "TLS";
+    public static final String PKCS12 = "PKCS12";
+
+    private static final X509TrustManager X509_TRUST_MANAGER = new X509TrustManager() {
+        @Override
+        public X509Certificate[] getAcceptedIssuers() {
+            return new X509Certificate[]{};
+        }
+
+        @Override
+        public void checkClientTrusted(X509Certificate[] x509Certificates, String authType) {
+
+        }
+
+        @Override
+        public void checkServerTrusted(X509Certificate[] x509Certificates, String authType) {
+
+        }
+    };
+
+    public static final TrustManager[] TRUST_MANAGERS = new TrustManager[]{X509_TRUST_MANAGER};
 }

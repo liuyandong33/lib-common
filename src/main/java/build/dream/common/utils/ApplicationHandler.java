@@ -7,14 +7,12 @@ import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.CustomUserDetails;
 import build.dream.common.constants.Constants;
-import build.dream.common.constants.SessionConstants;
 import build.dream.common.saas.domains.SystemUser;
 import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
@@ -755,22 +753,6 @@ public class ApplicationHandler {
 
     public static String obtainRequestMethod() {
         return getHttpServletRequest().getMethod();
-    }
-
-    public static BigInteger obtainUserId(String sessionId) {
-        String userId = CacheUtils.obtainAttributeFromSession(sessionId, SessionConstants.KEY_USER_ID);
-        if (StringUtils.isNotBlank(userId)) {
-            return NumberUtils.createBigInteger(userId);
-        }
-        return null;
-    }
-
-    public static BigInteger obtainTenantId(String sessionId) {
-        String tenantId = CacheUtils.obtainAttributeFromSession(sessionId, SessionConstants.KEY_TENANT_ID);
-        if (StringUtils.isNotBlank(tenantId)) {
-            return NumberUtils.createBigInteger(tenantId);
-        }
-        return null;
     }
 
     public static void forward(String controllerName, String actionName, Map<String, Object> attributes) throws ServletException, IOException {

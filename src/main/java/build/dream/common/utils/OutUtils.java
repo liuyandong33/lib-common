@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -86,16 +87,16 @@ public class OutUtils {
         }
     }
 
-    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password) {
-        return doPostWithRequestBody(url, headers, requestBody, Constants.CHARSET_NAME_UTF_8, certificate, password);
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String certificate, String password, String certificateType, TrustManager[] trustManagers) {
+        return doPostWithRequestBody(url, headers, requestBody, Constants.CHARSET_NAME_UTF_8, certificate, password, certificateType, trustManagers);
     }
 
-    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, String certificate, String password) {
+    public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, String certificate, String password, String certificateType, TrustManager[] trustManagers) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             SSLSocketFactory sslSocketFactory = null;
             if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
-                sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password);
+                sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password, certificateType, trustManagers);
             }
             return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, charsetName, sslSocketFactory, proxy);
         } catch (Exception e) {

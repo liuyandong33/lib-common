@@ -115,7 +115,7 @@ public class WeiXinPayUtils {
      * @throws DocumentException
      */
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws DocumentException {
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password, Constants.PKCS12, Constants.TRUST_MANAGERS);
         return XmlUtils.xmlStringToMap(webResponse.getResult());
     }
 
