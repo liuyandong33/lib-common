@@ -3,6 +3,10 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
+import build.dream.common.models.web.DoGetWithRequestParametersModel;
+import build.dream.common.models.web.DoPostWithRequestBodyModel;
+import build.dream.common.models.web.DoPostWithRequestParametersAndFilesModel;
+import build.dream.common.models.web.DoPostWithRequestParametersModel;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
@@ -39,7 +43,16 @@ public class OutUtils {
     public static WebResponse doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            return WebUtils.doGetWithRequestParameters(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, proxy);
+            DoGetWithRequestParametersModel doGetWithRequestParametersModel = DoGetWithRequestParametersModel.builder()
+                    .requestUrl(url)
+                    .readTimeout(0)
+                    .connectTimeout(0)
+                    .headers(headers)
+                    .requestParameters(requestParameters)
+                    .charsetName(Constants.CHARSET_NAME_UTF_8)
+                    .proxy(proxy)
+                    .build();
+            return WebUtils.doGetWithRequestParameters(doGetWithRequestParametersModel);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -56,7 +69,17 @@ public class OutUtils {
     public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            return WebUtils.doPostWithRequestParameters(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
+            DoPostWithRequestParametersModel doPostWithRequestParametersModel = DoPostWithRequestParametersModel.builder()
+                    .requestUrl(url)
+                    .readTimeout(0)
+                    .connectTimeout(0)
+                    .headers(headers)
+                    .requestParameters(requestParameters)
+                    .charsetName(Constants.CHARSET_NAME_UTF_8)
+                    .sslSocketFactory(sslSocketFactory)
+                    .proxy(proxy)
+                    .build();
+            return WebUtils.doPostWithRequestParameters(doPostWithRequestParametersModel);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +104,17 @@ public class OutUtils {
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, charsetName, sslSocketFactory, proxy);
+            DoPostWithRequestBodyModel doPostWithRequestBodyModel = DoPostWithRequestBodyModel.builder()
+                    .requestUrl(url)
+                    .readTimeout(0)
+                    .connectTimeout(0)
+                    .headers(headers)
+                    .requestBody(requestBody)
+                    .charsetName(charsetName)
+                    .sslSocketFactory(sslSocketFactory)
+                    .proxy(proxy)
+                    .build();
+            return WebUtils.doPostWithRequestBody(doPostWithRequestBodyModel);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -98,7 +131,17 @@ public class OutUtils {
             if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
                 sslSocketFactory = WebUtils.initSSLSocketFactory(certificate, password, certificateType, trustManagers);
             }
-            return WebUtils.doPostWithRequestBody(url, 0, 0, headers, requestBody, charsetName, sslSocketFactory, proxy);
+            DoPostWithRequestBodyModel doPostWithRequestBodyModel = DoPostWithRequestBodyModel.builder()
+                    .requestUrl(url)
+                    .readTimeout(0)
+                    .connectTimeout(0)
+                    .headers(headers)
+                    .requestBody(requestBody)
+                    .charsetName(charsetName)
+                    .sslSocketFactory(sslSocketFactory)
+                    .proxy(proxy)
+                    .build();
+            return WebUtils.doPostWithRequestBody(doPostWithRequestBodyModel);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -111,7 +154,17 @@ public class OutUtils {
     public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) {
         try {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
-            return WebUtils.doPostWithRequestParametersAndFiles(url, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, proxy);
+            DoPostWithRequestParametersAndFilesModel doPostWithRequestParametersAndFilesModel = DoPostWithRequestParametersAndFilesModel.builder()
+                    .requestUrl(url)
+                    .readTimeout(0)
+                    .connectTimeout(0)
+                    .headers(headers)
+                    .requestParameters(requestParameters)
+                    .charsetName(Constants.CHARSET_NAME_UTF_8)
+                    .sslSocketFactory(sslSocketFactory)
+                    .proxy(proxy)
+                    .build();
+            return WebUtils.doPostWithRequestParametersAndFiles(doPostWithRequestParametersAndFilesModel);
         } catch (Exception e) {
             throw new ApiException(e);
         }
