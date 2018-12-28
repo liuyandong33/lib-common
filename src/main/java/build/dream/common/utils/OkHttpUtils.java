@@ -12,6 +12,7 @@ import javax.net.ssl.X509TrustManager;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class OkHttpUtils {
         Request.Builder builder = new Request.Builder().url(requestUrl);
         if (MapUtils.isEmpty(requestHeaders)) {
             requestHeaders = new HashMap<String, String>();
-            requestHeaders.put("Content-Type", "application/x-www-form-urlencoded;charset=" + charsetName);
+            requestHeaders.put("Content-Type", "application/x-www-form-urlencoded; charset=" + charsetName);
         }
         builder.headers(Headers.of(requestHeaders));
         Request request = builder.build();
@@ -131,12 +132,15 @@ public class OkHttpUtils {
 
     public static WebResponse doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestHeaders, Map<String, String> requestParameters, String charsetName, SSLSocketFactory sslSocketFactory, X509TrustManager x509TrustManager, Proxy proxy) throws IOException {
         Request.Builder builder = new Request.Builder().url(requestUrl);
-        if (MapUtils.isEmpty(requestHeaders)) {
-            requestHeaders = new HashMap<String, String>();
-            requestHeaders.put("Content-Type", "application/x-www-form-urlencoded;charset=" + charsetName);
+        if (MapUtils.isNotEmpty(requestHeaders)) {
+            builder.headers(Headers.of(requestHeaders));
         }
-        builder.headers(Headers.of(requestHeaders));
-        builder.post(RequestBody.create(MediaType.parse("application/x-www-form-urlencoded;charset=" + charsetName), WebUtils.buildRequestBody(requestParameters)));
+
+        if (MapUtils.isNotEmpty(requestParameters)) {
+            MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded; charset=" + charsetName);
+            RequestBody requestBody = RequestBody.create(mediaType, WebUtils.buildRequestBody(requestParameters));
+            builder.post(requestBody);
+        }
         Request request = builder.build();
 
         OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
@@ -145,7 +149,11 @@ public class OkHttpUtils {
         if (proxy != null) {
             okHttpClientBuilder.proxy(proxy);
         }
-        okHttpClientBuilder.sslSocketFactory(sslSocketFactory, x509TrustManager);
+
+        if (sslSocketFactory != null && x509TrustManager != null) {
+            okHttpClientBuilder.sslSocketFactory(sslSocketFactory, x509TrustManager);
+        }
+
         OkHttpClient okHttpClient = okHttpClientBuilder.build();
         Call call = okHttpClient.newCall(request);
         Response response = call.execute();

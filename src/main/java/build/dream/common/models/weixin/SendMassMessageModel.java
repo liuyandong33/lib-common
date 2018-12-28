@@ -3,8 +3,8 @@ package build.dream.common.models.weixin;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import org.apache.commons.lang.ArrayUtils;
-import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
