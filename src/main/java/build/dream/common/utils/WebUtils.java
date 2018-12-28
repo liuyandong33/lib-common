@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.web.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -25,12 +26,23 @@ public class WebUtils {
     public static final String BOUNDARY = UUID.randomUUID().toString();
     public static final String ENTER_NEW_LINE = "\r\n";
 
+    public static WebResponse doGetWithRequestParameters(DoGetWithRequestParametersModel doGetWithRequestParametersModel) throws IOException {
+        String requestUrl = doGetWithRequestParametersModel.getRequestUrl();
+        int readTimeout = doGetWithRequestParametersModel.getReadTimeout();
+        int connectTimeout = doGetWithRequestParametersModel.getConnectTimeout();
+        Map<String, String> headers = doGetWithRequestParametersModel.getHeaders();
+        Map<String, String> requestParameters = doGetWithRequestParametersModel.getRequestParameters();
+        String charsetName = doGetWithRequestParametersModel.getCharsetName();
+        Proxy proxy = doGetWithRequestParametersModel.getProxy();
+        return doGetWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters, charsetName, proxy);
+    }
+
     public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
-        return doGetWithRequestParameters(requestUrl, null, requestParameters);
+        return doGetWithRequestParameters(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
     }
 
     public static WebResponse doGetWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
-        return doGetWithRequestParameters(requestUrl, null, requestParameters, charsetName);
+        return doGetWithRequestParameters(requestUrl, 0, 0, null, requestParameters, charsetName, null);
     }
 
     public static WebResponse doGetWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
@@ -77,16 +89,28 @@ public class WebUtils {
         return new WebResponse(result, headerFields, responseCode);
     }
 
+    public static WebResponse doPostWithRequestParameters(DoPostWithRequestParametersModel doPostWithRequestParametersModel) throws IOException {
+        String requestUrl = doPostWithRequestParametersModel.getRequestUrl();
+        int readTimeout = doPostWithRequestParametersModel.getReadTimeout();
+        int connectTimeout = doPostWithRequestParametersModel.getConnectTimeout();
+        Map<String, String> headers = doPostWithRequestParametersModel.getHeaders();
+        Map<String, String> requestParameters = doPostWithRequestParametersModel.getRequestParameters();
+        String charsetName = doPostWithRequestParametersModel.getCharsetName();
+        SSLSocketFactory sslSocketFactory = doPostWithRequestParametersModel.getSslSocketFactory();
+        Proxy proxy = doPostWithRequestParametersModel.getProxy();
+        return doPostWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters, charsetName, sslSocketFactory, proxy);
+    }
+
     public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
-        return doPostWithRequestParameters(requestUrl, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
+        return doPostWithRequestParameters(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null, null);
     }
 
     public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestParameters(requestUrl, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+        return doPostWithRequestParameters(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestParameters(requestUrl, null, requestParameters, charsetName, sslSocketFactory);
+        return doPostWithRequestParameters(requestUrl, 0, 0, null, requestParameters, charsetName, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) throws IOException {
@@ -136,16 +160,28 @@ public class WebUtils {
         return new WebResponse(result, headerFields, responseCode);
     }
 
+    public static WebResponse doPostWithRequestParametersAndFiles(DoPostWithRequestParametersAndFilesModel doPostWithRequestParametersAndFilesModel) throws IOException {
+        String requestUrl = doPostWithRequestParametersAndFilesModel.getRequestUrl();
+        int readTimeout = doPostWithRequestParametersAndFilesModel.getReadTimeout();
+        int connectTimeout = doPostWithRequestParametersAndFilesModel.getConnectTimeout();
+        Map<String, String> headers = doPostWithRequestParametersAndFilesModel.getHeaders();
+        Map<String, Object> requestParameters = doPostWithRequestParametersAndFilesModel.getRequestParameters();
+        String charsetName = doPostWithRequestParametersAndFilesModel.getCharsetName();
+        SSLSocketFactory sslSocketFactory = doPostWithRequestParametersAndFilesModel.getSslSocketFactory();
+        Proxy proxy = doPostWithRequestParametersAndFilesModel.getProxy();
+        return doPostWithRequestParametersAndFiles(requestUrl, readTimeout, connectTimeout, headers, requestParameters, charsetName, sslSocketFactory, proxy);
+    }
+
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters) throws IOException {
-        return doPostWithRequestParametersAndFiles(requestUrl, requestParameters, null);
+        return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null, null);
     }
 
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestParametersAndFiles(requestUrl, null, requestParameters, sslSocketFactory);
+        return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, Map<String, Object> requestParameters, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestParametersAndFiles(requestUrl, null, requestParameters, charsetName, sslSocketFactory);
+        return doPostWithRequestParametersAndFiles(requestUrl, 0, 0, null, requestParameters, charsetName, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestParametersAndFiles(String requestUrl, int readTimeout, int connectTimeout, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) throws IOException {
@@ -197,16 +233,28 @@ public class WebUtils {
         return new WebResponse(result, headerFields, responseCode);
     }
 
+    public static WebResponse doPostWithRequestBody(DoPostWithRequestBodyModel doPostWithRequestBodyModel) throws IOException {
+        String requestUrl = doPostWithRequestBodyModel.getRequestUrl();
+        int readTimeout = doPostWithRequestBodyModel.getReadTimeout();
+        int connectTimeout = doPostWithRequestBodyModel.getConnectTimeout();
+        Map<String, String> headers = doPostWithRequestBodyModel.getHeaders();
+        String requestBody = doPostWithRequestBodyModel.getRequestBody();
+        String charsetName = doPostWithRequestBodyModel.getCharsetName();
+        SSLSocketFactory sslSocketFactory = doPostWithRequestBodyModel.getSslSocketFactory();
+        Proxy proxy = doPostWithRequestBodyModel.getProxy();
+        return doPostWithRequestBody(requestUrl, readTimeout, connectTimeout, headers, requestBody, charsetName, sslSocketFactory, proxy);
+    }
+
     public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody) throws IOException {
-        return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
+        return doPostWithRequestBody(requestUrl, 0, 0, null, requestBody, Constants.CHARSET_NAME_UTF_8, null, null);
     }
 
     public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+        return doPostWithRequestBody(requestUrl, 0, 0, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPostWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
+        return doPostWithRequestBody(requestUrl, 0, 0, null, requestBody, charsetName, sslSocketFactory, null);
     }
 
     public static WebResponse doPostWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
@@ -255,16 +303,28 @@ public class WebUtils {
         return new WebResponse(result, headerFields, responseCode);
     }
 
+    public static WebResponse doPutWithRequestBody(DoPutWithRequestBodyModel doPutWithRequestBodyModel) throws IOException {
+        String requestUrl = doPutWithRequestBodyModel.getRequestUrl();
+        int readTimeout = doPutWithRequestBodyModel.getReadTimeout();
+        int connectTimeout = doPutWithRequestBodyModel.getConnectTimeout();
+        Map<String, String> headers = doPutWithRequestBodyModel.getHeaders();
+        String requestBody = doPutWithRequestBodyModel.getRequestBody();
+        String charsetName = doPutWithRequestBodyModel.getCharsetName();
+        SSLSocketFactory sslSocketFactory = doPutWithRequestBodyModel.getSslSocketFactory();
+        Proxy proxy = doPutWithRequestBodyModel.getProxy();
+        return doPutWithRequestBody(requestUrl, readTimeout, connectTimeout, headers, requestBody, charsetName, sslSocketFactory, proxy);
+    }
+
     public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody) throws IOException {
-        return doPutWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
+        return doPutWithRequestBody(requestUrl, 0, 0, null, requestBody, Constants.CHARSET_NAME_UTF_8, null, null);
     }
 
     public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPutWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+        return doPutWithRequestBody(requestUrl, 0, 0, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
     }
 
     public static WebResponse doPutWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doPutWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
+        return doPutWithRequestBody(requestUrl, 0, 0, null, requestBody, charsetName, sslSocketFactory, null);
     }
 
     public static WebResponse doPutWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
@@ -313,51 +373,56 @@ public class WebUtils {
         return new WebResponse(result, headerFields, responseCode);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, null);
+    public static WebResponse doDeleteWithRequestParameters(DoDeleteWithRequestParametersModel doDeleteWithRequestParametersModel) throws IOException {
+        String requestUrl = doDeleteWithRequestParametersModel.getRequestUrl();
+        int readTimeout = doDeleteWithRequestParametersModel.getReadTimeout();
+        int connectTimeout = doDeleteWithRequestParametersModel.getConnectTimeout();
+        Map<String, String> headers = doDeleteWithRequestParametersModel.getHeaders();
+        Map<String, String> requestParameters = doDeleteWithRequestParametersModel.getRequestParameters();
+        String charsetName = doDeleteWithRequestParametersModel.getCharsetName();
+        Proxy proxy = doDeleteWithRequestParametersModel.getProxy();
+        return doDeleteWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters, charsetName, proxy);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, null, requestBody, charsetName, sslSocketFactory);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, 0, 0, null, requestParameters, charsetName, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, readTimeout, connectTimeout, null, requestBody, charsetName, sslSocketFactory, null);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, charsetName, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, 0, 0, headers, requestBody, Constants.CHARSET_NAME_UTF_8, sslSocketFactory, null);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) throws IOException {
-        return doDeleteWithRequestBody(requestUrl, 0, 0, headers, requestBody, charsetName, sslSocketFactory, null);
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doDeleteWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, charsetName, null);
     }
 
-    public static WebResponse doDeleteWithRequestBody(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory, Proxy proxy) throws IOException {
+    public static WebResponse doDeleteWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName, Proxy proxy) throws IOException {
         String result = null;
         Map<String, List<String>> headerFields = null;
         HttpURLConnection httpURLConnection = null;
         int responseCode;
         try {
-            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_DELETE, readTimeout, connectTimeout, sslSocketFactory, proxy);
-            setRequestProperties(httpURLConnection, headers, charsetName);
-            httpURLConnection.setDoInput(true);
-            httpURLConnection.setDoOutput(true);
-            if (StringUtils.isNotBlank(requestBody)) {
-                httpURLConnection.getOutputStream().write(requestBody.getBytes(charsetName));
+            if (MapUtils.isNotEmpty(requestParameters)) {
+                requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
             }
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_DELETE, readTimeout, connectTimeout, null, proxy);
+            setRequestProperties(httpURLConnection, headers, charsetName);
             responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
                 httpURLConnection.disconnect();
-                return doDeleteWithRequestBody(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, requestBody, charsetName, sslSocketFactory, proxy);
+                return doDeleteWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName, proxy);
             } else {
                 result = obtainResult(httpURLConnection, responseCode, charsetName);
                 headerFields = httpURLConnection.getHeaderFields();
