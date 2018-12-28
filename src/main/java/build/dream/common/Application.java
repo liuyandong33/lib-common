@@ -1,9 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.utils.NamingStrategyUtils;
-import build.dream.common.utils.OutUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -19,13 +17,11 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        /*String packageName = "build.dream.common.catering.domains";
+        String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);
-        }*/
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters("https://www.baidu.com", null);
-        System.out.println(webResponse.getResult());
+        }
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {

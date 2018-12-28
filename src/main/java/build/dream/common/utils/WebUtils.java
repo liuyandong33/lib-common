@@ -4,9 +4,12 @@ import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.web.*;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.net.ssl.*;
@@ -434,6 +437,80 @@ public class WebUtils {
             throw e;
         }
         return new WebResponse(result, headerFields, responseCode);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(DoGetOrdinaryWithRequestParametersModel doGetOrdinaryWithRequestParametersModel) throws IOException {
+        String requestUrl = doGetOrdinaryWithRequestParametersModel.getRequestUrl();
+        int readTimeout = doGetOrdinaryWithRequestParametersModel.getReadTimeout();
+        int connectTimeout = doGetOrdinaryWithRequestParametersModel.getConnectTimeout();
+        Map<String, String> headers = doGetOrdinaryWithRequestParametersModel.getHeaders();
+        Map<String, String> requestParameters = doGetOrdinaryWithRequestParametersModel.getRequestParameters();
+        String charsetName = doGetOrdinaryWithRequestParametersModel.getCharsetName();
+        Proxy proxy = doGetOrdinaryWithRequestParametersModel.getProxy();
+        return doGetOrdinaryWithRequestParameters(requestUrl, readTimeout, connectTimeout, headers, requestParameters, charsetName, proxy);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, Map<String, String> requestParameters) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, 0, 0, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, 0, 0, null, requestParameters, charsetName, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, readTimeout, connectTimeout, null, requestParameters, charsetName, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, Constants.CHARSET_NAME_UTF_8, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, Map<String, String> headers, Map<String, String> requestParameters, String charsetName) throws IOException {
+        return doGetOrdinaryWithRequestParameters(requestUrl, 0, 0, headers, requestParameters, charsetName, null);
+    }
+
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String requestUrl, int readTimeout, int connectTimeout, Map<String, String> headers, Map<String, String> requestParameters, String charsetName, Proxy proxy) throws IOException {
+        ResponseEntity<byte[]> responseEntity = null;
+        HttpURLConnection httpURLConnection = null;
+        int responseCode;
+        try {
+            if (MapUtils.isNotEmpty(requestParameters)) {
+                requestUrl = requestUrl + "?" + buildQueryString(requestParameters, charsetName);
+            }
+            httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_GET, readTimeout, connectTimeout, null, proxy);
+            setRequestProperties(httpURLConnection, headers, charsetName);
+            responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
+                httpURLConnection.disconnect();
+                return doGetOrdinaryWithRequestParameters(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), readTimeout, connectTimeout, headers, null, charsetName, proxy);
+            } else {
+                HttpHeaders httpHeaders = new HttpHeaders();
+                Map<String, List<String>> headerFields = httpURLConnection.getHeaderFields();
+                for (Map.Entry<String, List<String>> headerField : headerFields.entrySet()) {
+                    String key = headerField.getKey();
+                    List<String> value = headerField.getValue();
+                    if (StringUtils.isNotBlank(key) && CollectionUtils.isNotEmpty(value)) {
+                        httpHeaders.addAll(headerField.getKey(), headerField.getValue());
+                    }
+                }
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                IOUtils.copy(httpURLConnection.getInputStream(), byteArrayOutputStream);
+                responseEntity = new ResponseEntity<byte[]>(byteArrayOutputStream.toByteArray(), httpHeaders, HttpStatus.valueOf(responseCode));
+                byteArrayOutputStream.close();
+                httpURLConnection.disconnect();
+            }
+        } catch (Exception e) {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+            throw e;
+        }
+        return responseEntity;
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers, String charsetName) {

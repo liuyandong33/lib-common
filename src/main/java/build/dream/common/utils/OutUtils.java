@@ -3,33 +3,24 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
-import build.dream.common.models.web.DoGetWithRequestParametersModel;
-import build.dream.common.models.web.DoPostWithRequestBodyModel;
-import build.dream.common.models.web.DoPostWithRequestParametersAndFilesModel;
-import build.dream.common.models.web.DoPostWithRequestParametersModel;
-import org.apache.commons.collections.CollectionUtils;
+import build.dream.common.models.web.*;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.SocketAddress;
-import java.util.List;
 import java.util.Map;
 
 public class OutUtils {
     private static Proxy proxy;
 
     static {
-        String hostName = ConfigurationUtils.getConfiguration(Constants.PROXY_SERVER_HOST_NAME);
-        String port = ConfigurationUtils.getConfiguration(Constants.PROXY_SERVER_PORT);
+        String hostName = "leopard";
+        String port = "3128";
         if (StringUtils.isNotBlank(hostName) && StringUtils.isNotBlank(port)) {
             SocketAddress socketAddress = new InetSocketAddress(hostName, Integer.parseInt(port));
             proxy = new Proxy(Proxy.Type.HTTP, socketAddress);
@@ -170,35 +161,14 @@ public class OutUtils {
         }
     }
 
-    public static ResponseEntity<byte[]> doGet(String url, Map<String, String> headers) throws IOException {
+    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
         ValidateUtils.notNull(proxy, "未配置代理服务器！");
-        HttpURLConnection httpURLConnection = WebUtils.buildHttpURLConnection(url, Constants.REQUEST_METHOD_GET, 0, 0, null, proxy);
-        WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
-
-        // 处理重定向
-        int responseCode = httpURLConnection.getResponseCode();
-        while (responseCode == HttpURLConnection.HTTP_MOVED_PERM || responseCode == HttpURLConnection.HTTP_MOVED_TEMP) {
-            httpURLConnection.disconnect();
-            httpURLConnection = WebUtils.buildHttpURLConnection(httpURLConnection.getHeaderField(HttpHeaders.LOCATION), Constants.REQUEST_METHOD_GET, 0, 0, null, proxy);
-            WebUtils.setRequestProperties(httpURLConnection, headers, Constants.CHARSET_NAME_UTF_8);
-            responseCode = httpURLConnection.getResponseCode();
-        }
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        Map<String, List<String>> headerFields = httpURLConnection.getHeaderFields();
-        for (Map.Entry<String, List<String>> headerField : headerFields.entrySet()) {
-            String key = headerField.getKey();
-            List<String> value = headerField.getValue();
-            if (StringUtils.isNotBlank(key) && CollectionUtils.isNotEmpty(value)) {
-                httpHeaders.addAll(headerField.getKey(), headerField.getValue());
-            }
-        }
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        IOUtils.copy(httpURLConnection.getInputStream(), byteArrayOutputStream);
-        ResponseEntity<byte[]> responseEntity = new ResponseEntity<byte[]>(byteArrayOutputStream.toByteArray(), httpHeaders, HttpStatus.valueOf(responseCode));
-        byteArrayOutputStream.close();
-        httpURLConnection.disconnect();
-        return responseEntity;
+        DoGetOrdinaryWithRequestParametersModel doGetOrdinaryWithRequestParametersModel = DoGetOrdinaryWithRequestParametersModel.builder()
+                .requestUrl(url)
+                .headers(headers)
+                .requestParameters(requestParameters)
+                .proxy(proxy)
+                .build();
+        return WebUtils.doGetOrdinaryWithRequestParameters(doGetOrdinaryWithRequestParametersModel);
     }
 }
