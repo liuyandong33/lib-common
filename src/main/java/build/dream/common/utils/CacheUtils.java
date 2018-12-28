@@ -29,6 +29,12 @@ public class CacheUtils {
         return obtainStringRedisTemplate().opsForHash();
     }
 
+    /**
+     * KEYS
+     *
+     * @param pattern
+     * @return
+     */
     private static Set<String> keys(String pattern) {
         return obtainStringRedisTemplate().keys(pattern);
     }
