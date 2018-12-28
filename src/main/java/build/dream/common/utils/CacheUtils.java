@@ -29,6 +29,10 @@ public class CacheUtils {
         return obtainStringRedisTemplate().opsForHash();
     }
 
+    private static Set<String> keys(String pattern) {
+        return obtainStringRedisTemplate().keys(pattern);
+    }
+
     /**
      * SET
      *
