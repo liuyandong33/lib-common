@@ -24,16 +24,6 @@ public class AggregatePayUtils {
 
         Map<String, ? extends Object> result = null;
         if (channelType == Constants.CHANNEL_TYPE_WEI_XIN) {
-            AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
-            alipayTradePayModel.setOutTradeNo(outTradeNo);
-            alipayTradePayModel.setAuthCode(authCode);
-            alipayTradePayModel.setScene(Constants.SCENE_BAR_CODE);
-            alipayTradePayModel.setSubject(subject);
-            alipayTradePayModel.setTotalAmount(BigDecimal.valueOf(totalAmount).divide(BigDecimal.valueOf(100)).toString());
-
-            String appId = null;
-            result = AlipayUtils.alipayTradePay(tenantId, branchId, notifyUrl, null, alipayTradePayModel);
-        } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
             MicroPayModel microPayModel = MicroPayModel.builder()
                     .tenantId(tenantId)
                     .branchId(branchId)
@@ -44,6 +34,18 @@ public class AggregatePayUtils {
                     .authCode(authCode)
                     .build();
             result = WeiXinPayUtils.microPay(microPayModel);
+        } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
+            AlipayTradePayModel alipayTradePayModel = AlipayTradePayModel.builder()
+                    .tenantId(tenantId)
+                    .branchId(branchId)
+                    .notifyUrl(notifyUrl)
+                    .outTradeNo(outTradeNo)
+                    .authCode(authCode)
+                    .scene(Constants.SCENE_BAR_CODE)
+                    .subject(subject)
+                    .totalAmount(BigDecimal.valueOf(totalAmount).divide(BigDecimal.valueOf(100)).toString())
+                    .build();
+            result = AlipayUtils.alipayTradePay(alipayTradePayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {
             FkmPayModel fkmPayModel = new FkmPayModel();
             result = JingDongPayUtils.fkmPay(fkmPayModel);
