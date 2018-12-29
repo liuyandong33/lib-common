@@ -154,15 +154,31 @@ public class WeiXinPayUtils {
     /**
      * 刷卡支付
      *
-     * @param tenantId
-     * @param branchId
      * @param microPayModel
      * @return
      * @throws IOException
      * @throws DocumentException
      */
-    public static Map<String, String> microPay(String tenantId, String branchId, MicroPayModel microPayModel) throws DocumentException {
+    public static Map<String, String> microPay(MicroPayModel microPayModel) throws DocumentException {
         microPayModel.validateAndThrow();
+        String tenantId = microPayModel.getTenantId();
+        String branchId = microPayModel.getBranchId();
+        String deviceInfo = microPayModel.getDeviceInfo();
+        String signType = microPayModel.getSignType();
+        String body = microPayModel.getBody();
+        String detail = microPayModel.getDetail();
+        String attach = microPayModel.getAttach();
+        String outTradeNo = microPayModel.getOutTradeNo();
+        Integer totalFee = microPayModel.getTotalFee();
+        String feeType = microPayModel.getFeeType();
+        String spbillCreateIp = microPayModel.getSpbillCreateIp();
+        String goodsTag = microPayModel.getGoodsTag();
+        String limitPay = microPayModel.getLimitPay();
+        String timeStart = microPayModel.getTimeStart();
+        String timeExpire = microPayModel.getTimeExpire();
+        String authCode = microPayModel.getAuthCode();
+        MicroPayModel.SceneInfoModel sceneInfoModel = microPayModel.getSceneInfoModel();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
@@ -178,26 +194,25 @@ public class WeiXinPayUtils {
         }
 
         microPayRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "device_info", microPayModel.getDeviceInfo());
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "device_info", deviceInfo);
         microPayRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
 
-        String signType = microPayModel.getSignType();
         microPayRequestParameters.put("sign_type", signType);
 
-        microPayRequestParameters.put("body", microPayModel.getBody());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "detail", microPayModel.getDetail());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "attach", microPayModel.getAttach());
-        microPayRequestParameters.put("out_trade_no", microPayModel.getOutTradeNo());
-        microPayRequestParameters.put("total_fee", microPayModel.getTotalFee().toString());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "fee_type", microPayModel.getFeeType());
-        microPayRequestParameters.put("spbill_create_ip", microPayModel.getSpbillCreateIp());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "goods_tag", microPayModel.getGoodsTag());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "limit_pay", microPayModel.getLimitPay());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_start", microPayModel.getTimeStart());
-        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_expire", microPayModel.getTimeExpire());
-        microPayRequestParameters.put("auth_code", microPayModel.getAuthCode());
-        if (microPayModel.getSceneInfoModel() != null) {
-            microPayRequestParameters.put("scene_info", GsonUtils.toJson(microPayModel.getSceneInfoModel(), false));
+        microPayRequestParameters.put("body", body);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "detail", detail);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "attach", attach);
+        microPayRequestParameters.put("out_trade_no", outTradeNo);
+        microPayRequestParameters.put("total_fee", totalFee.toString());
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "fee_type", feeType);
+        microPayRequestParameters.put("spbill_create_ip", spbillCreateIp);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "goods_tag", goodsTag);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "limit_pay", limitPay);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_start", timeStart);
+        ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_expire", timeExpire);
+        microPayRequestParameters.put("auth_code", authCode);
+        if (sceneInfoModel != null) {
+            microPayRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
         String sign = generateSign(microPayRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
@@ -221,15 +236,36 @@ public class WeiXinPayUtils {
     /**
      * 统一下单
      *
-     * @param tenantId
-     * @param branchId
      * @param unifiedOrderModel
      * @return
      * @throws IOException
      * @throws DocumentException
      */
-    public static Map<String, String> unifiedOrder(String tenantId, String branchId, UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
+    public static Map<String, String> unifiedOrder(UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
         unifiedOrderModel.validateAndThrow();
+
+        String tenantId = unifiedOrderModel.getTenantId();
+        String branchId = unifiedOrderModel.getBranchId();
+        String deviceInfo = unifiedOrderModel.getDeviceInfo();
+        String signType = unifiedOrderModel.getSignType();
+        String body = unifiedOrderModel.getBody();
+        String detail = unifiedOrderModel.getDetail();
+        String attach = unifiedOrderModel.getAttach();
+        String outTradeNo = unifiedOrderModel.getOutTradeNo();
+        String feeType = unifiedOrderModel.getFeeType();
+        Integer totalFee = unifiedOrderModel.getTotalFee();
+        String spbillCreateIp = unifiedOrderModel.getSpbillCreateIp();
+        String timeStart = unifiedOrderModel.getTimeStart();
+        String timeExpire = unifiedOrderModel.getTimeExpire();
+        String goodsTag = unifiedOrderModel.getGoodsTag();
+        String notifyUrl = unifiedOrderModel.getNotifyUrl();
+        String tradeType = unifiedOrderModel.getTradeType();
+        String productId = unifiedOrderModel.getProductId();
+        String limitPay = unifiedOrderModel.getLimitPay();
+        String openId = unifiedOrderModel.getOpenId();
+        String subOpenId = unifiedOrderModel.getSubOpenId();
+        UnifiedOrderModel.SceneInfoModel sceneInfoModel = unifiedOrderModel.getSceneInfoModel();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
@@ -237,43 +273,37 @@ public class WeiXinPayUtils {
         unifiedOrderRequestParameters.put("appid", weiXinPayAccount.getAppId());
         unifiedOrderRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
 
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "device_info", unifiedOrderModel.getDeviceInfo());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "device_info", deviceInfo);
         unifiedOrderRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
 
-        String signType = unifiedOrderModel.getSignType();
         unifiedOrderRequestParameters.put("sign_type", signType);
 
-        unifiedOrderRequestParameters.put("body", unifiedOrderModel.getBody());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "detail", unifiedOrderModel.getDetail());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "attach", unifiedOrderModel.getAttach());
+        unifiedOrderRequestParameters.put("body", body);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "detail", detail);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "attach", attach);
 
-        String outTradeNo = unifiedOrderModel.getOutTradeNo();
         unifiedOrderRequestParameters.put("out_trade_no", outTradeNo);
 
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "fee_type", unifiedOrderModel.getFeeType());
-        unifiedOrderRequestParameters.put("total_fee", unifiedOrderModel.getTotalFee().toString());
-        unifiedOrderRequestParameters.put("spbill_create_ip", unifiedOrderModel.getSpbillCreateIp());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_start", unifiedOrderModel.getTimeStart());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", unifiedOrderModel.getTimeExpire());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", unifiedOrderModel.getGoodsTag());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "fee_type", feeType);
+        unifiedOrderRequestParameters.put("total_fee", totalFee.toString());
+        unifiedOrderRequestParameters.put("spbill_create_ip", spbillCreateIp);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_start", timeStart);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", timeExpire);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", goodsTag);
 
-        String notifyUrl = unifiedOrderModel.getNotifyUrl();
         unifiedOrderRequestParameters.put("notify_url", notifyUrl);
 
-        String tradeType = unifiedOrderModel.getTradeType();
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
             unifiedOrderRequestParameters.put("trade_type", Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI);
         } else {
             unifiedOrderRequestParameters.put("trade_type", tradeType);
         }
 
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "product_id", unifiedOrderModel.getProductId());
-        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "limit_pay", unifiedOrderModel.getLimitPay());
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "product_id", productId);
+        ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "limit_pay", limitPay);
 
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType)) {
-            String openId = unifiedOrderModel.getOpenId();
             if (weiXinPayAccount.isAcceptanceModel()) {
-                String subOpenId = unifiedOrderModel.getSubOpenId();
                 ApplicationHandler.isTrue(StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(subOpenId), "参数openId和subOpenId不能同时为空！");
                 if (StringUtils.isNotBlank(subOpenId)) {
                     ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
@@ -288,18 +318,17 @@ public class WeiXinPayUtils {
                 unifiedOrderRequestParameters.put("openid", openId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType)) {
-            ApplicationHandler.notBlank(unifiedOrderModel.getProductId(), "productId");
+            ApplicationHandler.notBlank(productId, "productId");
             if (weiXinPayAccount.isAcceptanceModel()) {
-                String subOpenId = unifiedOrderModel.getSubOpenId();
                 if (StringUtils.isNotBlank(subOpenId)) {
                     ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
                 }
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
                 unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
             if (weiXinPayAccount.isAcceptanceModel()) {
@@ -309,25 +338,22 @@ public class WeiXinPayUtils {
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType)) {
             if (weiXinPayAccount.isAcceptanceModel()) {
-                String subOpenId = unifiedOrderModel.getSubOpenId();
                 if (StringUtils.isNotBlank(subOpenId)) {
                     ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
                 }
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
                 unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", unifiedOrderModel.getOpenId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
-            String openId = unifiedOrderModel.getOpenId();
             if (weiXinPayAccount.isAcceptanceModel()) {
                 ValidateUtils.notBlank(weiXinPayAccount.getSubMiniProgramAppId(), "支付账号未配置小程序APPID！");
                 unifiedOrderRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
                 unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
 
-                String subOpenId = unifiedOrderModel.getSubOpenId();
                 if (StringUtils.isNotBlank(subOpenId)) {
                     ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
                 }
@@ -339,7 +365,6 @@ public class WeiXinPayUtils {
             }
         }
 
-        UnifiedOrderModel.SceneInfoModel sceneInfoModel = unifiedOrderModel.getSceneInfoModel();
         if (sceneInfoModel != null) {
             unifiedOrderRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
@@ -406,14 +431,24 @@ public class WeiXinPayUtils {
     /**
      * 退款
      *
-     * @param tenantId
-     * @param branchId
      * @param refundModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws DocumentException {
+    public static Map<String, String> refund(RefundModel refundModel) throws DocumentException {
         refundModel.validateAndThrow();
+
+        String tenantId = refundModel.getTenantId();
+        String branchId = refundModel.getBranchId();
+        String transactionId = refundModel.getTransactionId();
+        String outTradeNo = refundModel.getOutTradeNo();
+        String outRefundNo = refundModel.getOutRefundNo();
+        Integer totalFee = refundModel.getTotalFee();
+        Integer refundFee = refundModel.getRefundFee();
+        String refundFeeType = refundModel.getRefundFeeType();
+        String refundDesc = refundModel.getRefundDesc();
+        String refundAccount = refundModel.getRefundAccount();
+        String tradeType = refundModel.getTradeType();
 
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
@@ -422,7 +457,6 @@ public class WeiXinPayUtils {
         refundRequestParameters.put("appid", weiXinPayAccount.getAppId());
         refundRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
 
-        String tradeType = refundModel.getTradeType();
         if (weiXinPayAccount.isAcceptanceModel()) {
             if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType) || Constants.WEI_XIN_PAY_TRADE_TYPE_MICROPAY.equals(tradeType)) {
                 ApplicationHandler.ifNotBlankPut(refundRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
@@ -433,14 +467,14 @@ public class WeiXinPayUtils {
         }
 
         refundRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
-        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "transaction_id", refundModel.getTransactionId());
-        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "out_trade_no", refundModel.getOutTradeNo());
-        refundRequestParameters.put("out_refund_no", refundModel.getOutRefundNo());
-        refundRequestParameters.put("total_fee", refundModel.getTotalFee().toString());
-        refundRequestParameters.put("refund_fee", refundModel.getRefundFee().toString());
-        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_fee_type", refundModel.getRefundFeeType());
-        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundModel.getRefund_desc());
-        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundModel.getRefundAccount());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "transaction_id", transactionId);
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "out_trade_no", outTradeNo);
+        refundRequestParameters.put("out_refund_no", outRefundNo);
+        refundRequestParameters.put("total_fee", totalFee.toString());
+        refundRequestParameters.put("refund_fee", refundFee.toString());
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_fee_type", refundFeeType);
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundDesc);
+        ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
 
         String sign = generateSign(refundRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
         refundRequestParameters.put("sign", sign);

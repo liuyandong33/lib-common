@@ -14,6 +14,12 @@ public class UnifiedOrderModel extends BasicModel {
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
+    @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
     @Length(max = 32)
     private String deviceInfo;
 
@@ -69,6 +75,22 @@ public class UnifiedOrderModel extends BasicModel {
     private String subOpenId;
 
     private SceneInfoModel sceneInfoModel;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getDeviceInfo() {
         return deviceInfo;
@@ -358,5 +380,122 @@ public class UnifiedOrderModel extends BasicModel {
         public void setWapName(String wapName) {
             this.wapName = wapName;
         }
+    }
+
+    public static class Builder {
+        private UnifiedOrderModel instance = new UnifiedOrderModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder deviceInfo(String deviceInfo) {
+            instance.setDeviceInfo(deviceInfo);
+            return this;
+        }
+
+        public Builder signType(String signType) {
+            instance.setSignType(signType);
+            return this;
+        }
+
+        public Builder body(String body) {
+            instance.setBody(body);
+            return this;
+        }
+
+        public Builder detail(String detail) {
+            instance.setDetail(detail);
+            return this;
+        }
+
+        public Builder attach(String attach) {
+            instance.setAttach(attach);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder feeType(String feeType) {
+            instance.setFeeType(feeType);
+            return this;
+        }
+
+        public Builder totalFee(Integer totalFee) {
+            instance.setTotalFee(totalFee);
+            return this;
+        }
+
+        public Builder spbillCreateIp(String spbillCreateIp) {
+            instance.setSpbillCreateIp(spbillCreateIp);
+            return this;
+        }
+
+        public Builder timeStart(String timeStart) {
+            instance.setTimeStart(timeStart);
+            return this;
+        }
+
+        public Builder timeExpire(String timeExpire) {
+            instance.setTimeExpire(timeExpire);
+            return this;
+        }
+
+        public Builder goodsTag(String goodsTag) {
+            instance.setGoodsTag(goodsTag);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder tradeType(String tradeType) {
+            instance.setTradeType(tradeType);
+            return this;
+        }
+
+        public Builder productId(String productId) {
+            instance.setProductId(productId);
+            return this;
+        }
+
+        public Builder limitPay(String limitPay) {
+            instance.setLimitPay(limitPay);
+            return this;
+        }
+
+        public Builder openId(String openId) {
+            instance.setOpenId(openId);
+            return this;
+        }
+
+        public Builder subOpenId(String subOpenId) {
+            instance.setSubOpenId(subOpenId);
+            return this;
+        }
+
+        public Builder sceneInfoModel(SceneInfoModel sceneInfoModel) {
+            instance.setSceneInfoModel(sceneInfoModel);
+            return this;
+        }
+
+        public UnifiedOrderModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

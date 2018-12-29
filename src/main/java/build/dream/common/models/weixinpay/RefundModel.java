@@ -14,6 +14,12 @@ public class RefundModel extends BasicModel {
     private static final String[] REFUNDS_ACCOUNTS = {"REFUND_SOURCE_UNSETTLED_FUNDS", "REFUND_SOURCE_RECHARGE_FUNDS"};
     private static final String[] REFUND_FEE_TYPES = {"CNY"};
 
+    @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
     @Length(max = 32)
     private String transactionId;
 
@@ -33,11 +39,27 @@ public class RefundModel extends BasicModel {
     private String refundFeeType;
 
     @Length(max = 80)
-    private String refund_desc;
+    private String refundDesc;
 
     private String refundAccount;
 
     private String tradeType;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getTransactionId() {
         return transactionId;
@@ -87,12 +109,12 @@ public class RefundModel extends BasicModel {
         this.refundFeeType = refundFeeType;
     }
 
-    public String getRefund_desc() {
-        return refund_desc;
+    public String getRefundDesc() {
+        return refundDesc;
     }
 
-    public void setRefund_desc(String refund_desc) {
-        this.refund_desc = refund_desc;
+    public void setRefundDesc(String refundDesc) {
+        this.refundDesc = refundDesc;
     }
 
     public String getRefundAccount() {
@@ -122,5 +144,72 @@ public class RefundModel extends BasicModel {
         if (StringUtils.isNotBlank(refundAccount)) {
             ApplicationHandler.inArray(REFUNDS_ACCOUNTS, refundAccount, "refundAccount");
         }
+    }
+
+    public static class Builder {
+        private RefundModel instance = new RefundModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder transactionId(String transactionId) {
+            instance.setTransactionId(transactionId);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder outRefundNo(String outRefundNo) {
+            instance.setOutRefundNo(outRefundNo);
+            return this;
+        }
+
+        public Builder totalFee(Integer totalFee) {
+            instance.setTotalFee(totalFee);
+            return this;
+        }
+
+        public Builder refundFee(Integer refundFee) {
+            instance.setRefundFee(refundFee);
+            return this;
+        }
+
+        public Builder refundFeeType(String refundFeeType) {
+            instance.setRefundFeeType(refundFeeType);
+            return this;
+        }
+
+        public Builder refundDesc(String refundDesc) {
+            instance.setRefundDesc(refundDesc);
+            return this;
+        }
+
+        public Builder refundAccount(String refundAccount) {
+            instance.setRefundAccount(refundAccount);
+            return this;
+        }
+
+        public Builder tradeType(String tradeType) {
+            instance.setTradeType(tradeType);
+            return this;
+        }
+
+        public RefundModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
