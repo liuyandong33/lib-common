@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.notify.SaveNotifyRecordModel;
 import build.dream.common.models.weixinpay.*;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -10,6 +11,10 @@ import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.DocumentException;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -141,14 +146,35 @@ public class WeiXinPayUtils {
      * @throws IOException
      */
     private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) {
-        Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
-        saveNotifyRecordRequestParameters.put("uuid", uuid);
-        saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
-        saveNotifyRecordRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
-        saveNotifyRecordRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
+            SaveNotifyRecordModel saveNotifyRecordModel = SaveNotifyRecordModel.builder()
+                    .uuid(uuid)
+                    .notifyUrl(notifyUrl)
+                    .weiXinPayApiSecretKey(weiXinPayApiSecretKey)
+                    .weiXinPaySignType(weiXinPaySignType)
+                    .build();
 
-        ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
-        ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+            DataSourceTransactionManager dataSourceTransactionManager = ApplicationHandler.getBean(DataSourceTransactionManager.class);
+            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+            TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
+            try {
+                NotifyUtils.saveNotifyRecord(saveNotifyRecordModel);
+                dataSourceTransactionManager.commit(transactionStatus);
+            } catch (Exception e) {
+                dataSourceTransactionManager.rollback(transactionStatus);
+            }
+
+        } else {
+            Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
+            saveNotifyRecordRequestParameters.put("uuid", uuid);
+            saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
+            saveNotifyRecordRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
+            saveNotifyRecordRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
+            ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
+            ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+        }
     }
 
     /**
