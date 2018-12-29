@@ -196,7 +196,6 @@ public class WeiXinPayUtils {
         if (acceptanceModel) {
             ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "sub_appid", subPublicAccountAppId);
             microPayRequestParameters.put("sub_mch_id", subMchId);
-
         }
 
         ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "device_info", deviceInfo);
