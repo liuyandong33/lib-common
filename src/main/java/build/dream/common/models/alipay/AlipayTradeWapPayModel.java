@@ -4,12 +4,27 @@ import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.ValidateUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
 public class AlipayTradeWapPayModel extends BasicModel {
+    @NotNull
+    @JsonIgnore
+    private String tenantId;
+
+    @NotNull
+    @JsonIgnore
+    private String branchId;
+
+    @JsonIgnore
+    private String returnUrl;
+
+    @JsonIgnore
+    private String notifyUrl;
+
     @Length(max = 128)
     private String body;
 
@@ -77,6 +92,38 @@ public class AlipayTradeWapPayModel extends BasicModel {
 
     @SerializedName(value = "ext_user_info", alternate = "extUserInfoModel")
     private ExtUserInfoModel extUserInfoModel;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public void setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
 
     public String getBody() {
         return body;
@@ -382,5 +429,122 @@ public class AlipayTradeWapPayModel extends BasicModel {
             ValidateUtils.isTrue(extUserInfoModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extUserInfo"));
         }
         super.validateAndThrow();
+    }
+
+    public static class Builder {
+        private AlipayTradeWapPayModel instance = new AlipayTradeWapPayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder body(String body) {
+            instance.setBody(body);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder timeoutExpress(String timeoutExpress) {
+            instance.setTimeoutExpress(timeoutExpress);
+            return this;
+        }
+
+        public Builder timeExpire(String timeExpire) {
+            instance.setTimeExpire(timeExpire);
+            return this;
+        }
+
+        public Builder totalAmount(String totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
+        public Builder productCode(String productCode) {
+            instance.setProductCode(productCode);
+            return this;
+        }
+
+        public Builder goodsType(String goodsType) {
+            instance.setGoodsType(goodsType);
+            return this;
+        }
+
+        public Builder passbackParams(String passbackParams) {
+            instance.setPassbackParams(passbackParams);
+            return this;
+        }
+
+        public Builder promoParams(String promoParams) {
+            instance.setPromoParams(promoParams);
+            return this;
+        }
+
+        public Builder extendParamsModel(ExtendParamsModel extendParamsModel) {
+            instance.setExtendParamsModel(extendParamsModel);
+            return this;
+        }
+
+        public Builder enablePayChannels(String enablePayChannels) {
+            instance.setEnablePayChannels(enablePayChannels);
+            return this;
+        }
+
+        public Builder disablePayChannels(String disablePayChannels) {
+            instance.setDisablePayChannels(disablePayChannels);
+            return this;
+        }
+
+        public Builder storeId(String storeId) {
+            instance.setStoreId(storeId);
+            return this;
+        }
+
+        public Builder quitUrl(String quitUrl) {
+            instance.setQuitUrl(quitUrl);
+            return this;
+        }
+
+        public Builder extUserInfoModel(ExtUserInfoModel extUserInfoModel) {
+            instance.setExtUserInfoModel(extUserInfoModel);
+            return this;
+        }
+
+        public AlipayTradeWapPayModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

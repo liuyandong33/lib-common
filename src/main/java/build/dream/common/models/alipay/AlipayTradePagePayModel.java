@@ -2,6 +2,7 @@ package build.dream.common.models.alipay;
 
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -15,6 +16,23 @@ import java.math.BigDecimal;
 public class AlipayTradePagePayModel extends BasicModel {
     private static final String[] GOODS_TYPES = {"0", "1"};
     private static final String[] QR_PAY_MODES = {"0", "1", "2", "3", "4"};
+    @NotNull
+    @JsonIgnore
+    private String tenantId;
+
+    @NotNull
+    @JsonIgnore
+    private String branchId;
+
+    @JsonIgnore
+    private String returnUrl;
+
+    @JsonIgnore
+    private String notifyUrl;
+
+    @JsonIgnore
+    private String appAuthToken;
+
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
@@ -69,6 +87,46 @@ public class AlipayTradePagePayModel extends BasicModel {
 
     @SerializedName(value = "qrcode_width", alternate = "qrcodeWidth")
     private String qrcodeWidth;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public void setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getAppAuthToken() {
+        return appAuthToken;
+    }
+
+    public void setAppAuthToken(String appAuthToken) {
+        this.appAuthToken = appAuthToken;
+    }
 
     public String getOutTradeNo() {
         return outTradeNo;
@@ -196,5 +254,112 @@ public class AlipayTradePagePayModel extends BasicModel {
         if (StringUtils.isNotBlank(qrPayMode)) {
             ApplicationHandler.inArray(QR_PAY_MODES, qrPayMode, "qrPayMode");
         }
+    }
+
+    public static class Builder {
+        private AlipayTradePagePayModel instance = new AlipayTradePagePayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder appAuthToken(String appAuthToken) {
+            instance.setAppAuthToken(appAuthToken);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder productCode(String productCode) {
+            instance.setProductCode(productCode);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder body(String body) {
+            instance.setBody(body);
+            return this;
+        }
+
+        public Builder goodsDetail(String goodsDetail) {
+            instance.setGoodsDetail(goodsDetail);
+            return this;
+        }
+
+        public Builder passbackParams(String passbackParams) {
+            instance.setPassbackParams(passbackParams);
+            return this;
+        }
+
+        public Builder goodsType(String goodsType) {
+            instance.setGoodsType(goodsType);
+            return this;
+        }
+
+        public Builder timeoutExpress(String timeoutExpress) {
+            instance.setTimeoutExpress(timeoutExpress);
+            return this;
+        }
+
+        public Builder enablePayChannels(String enablePayChannels) {
+            instance.setEnablePayChannels(enablePayChannels);
+            return this;
+        }
+
+        public Builder disablePayChannels(String disablePayChannels) {
+            instance.setDisablePayChannels(disablePayChannels);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
+        public Builder qrPayMode(String qrPayMode) {
+            instance.setQrPayMode(qrPayMode);
+            return this;
+        }
+
+        public Builder qrcodeWidth(String qrcodeWidth) {
+            instance.setQrcodeWidth(qrcodeWidth);
+            return this;
+        }
+
+        public AlipayTradePagePayModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

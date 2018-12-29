@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.GsonUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
@@ -12,6 +13,52 @@ import java.util.List;
 
 public class AlipayTradePayModel extends BasicModel {
     private static final String[] SCENES = {Constants.SCENE_BAR_CODE, Constants.SCENE_WAVE_CODE};
+    @NotNull
+    @JsonIgnore
+    private String tenantId;
+
+    @NotNull
+    @JsonIgnore
+    private String branchId;
+
+    @JsonIgnore
+    private String notifyUrl;
+
+    @JsonIgnore
+    private String appAuthToken;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
+
+    public String getAppAuthToken() {
+        return appAuthToken;
+    }
+
+    public void setAppAuthToken(String appAuthToken) {
+        this.appAuthToken = appAuthToken;
+    }
+
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
@@ -305,5 +352,118 @@ public class AlipayTradePayModel extends BasicModel {
         public void setSysServiceProviderId(String sysServiceProviderId) {
             this.sysServiceProviderId = sysServiceProviderId;
         }
+    }
+
+    public static class Builder {
+        private AlipayTradePayModel instance = new AlipayTradePayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder appAuthToken(String appAuthToken) {
+            instance.setAppAuthToken(appAuthToken);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder scene(String scene) {
+            instance.setScene(scene);
+            return this;
+        }
+
+        public Builder authCode(String authCode) {
+            instance.setAuthCode(authCode);
+            return this;
+        }
+
+        public Builder productCode(String productCode) {
+            instance.setProductCode(productCode);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder buyerId(String buyerId) {
+            instance.setBuyerId(buyerId);
+            return this;
+        }
+
+        public Builder sellerId(String sellerId) {
+            instance.setSellerId(sellerId);
+            return this;
+        }
+
+        public Builder totalAmount(String totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder discountableAmount(String discountableAmount) {
+            instance.setDiscountableAmount(discountableAmount);
+            return this;
+        }
+
+        public Builder body(String body) {
+            instance.setBody(body);
+            return this;
+        }
+
+        public Builder goodsDetails(List<GoodsDetail> goodsDetails) {
+            instance.setGoodsDetails(goodsDetails);
+            return this;
+        }
+
+        public Builder operatorId(String operatorId) {
+            instance.setOperatorId(operatorId);
+            return this;
+        }
+
+        public Builder storeId(String storeId) {
+            instance.setStoreId(storeId);
+            return this;
+        }
+
+        public Builder terminalId(String terminalId) {
+            instance.setTerminalId(terminalId);
+            return this;
+        }
+
+        public Builder extendParams(ExtendParams extendParams) {
+            instance.setExtendParams(extendParams);
+            return this;
+        }
+
+        public Builder timeoutExpress(String timeoutExpress) {
+            instance.setTimeoutExpress(timeoutExpress);
+            return this;
+        }
+
+        public AlipayTradePayModel build() {
+            return instance;
+        }
+
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

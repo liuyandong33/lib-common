@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.text.SimpleDateFormat;
@@ -12,23 +13,40 @@ import java.util.concurrent.ConcurrentHashMap;
 public class JacksonUtils {
     private static ConcurrentHashMap<String, ObjectMapper> objectMapperMap = new ConcurrentHashMap<String, ObjectMapper>();
 
-    private static ObjectMapper obtainObjectMapper(String datePattern) {
-        if (!objectMapperMap.contains(datePattern)) {
+    private static ObjectMapper obtainObjectMapper(String datePattern, JsonInclude.Include serializationInclusion) {
+        String key = datePattern;
+        if (serializationInclusion != null) {
+            key += "@@@" + serializationInclusion.name();
+        }
+        if (!objectMapperMap.contains(key)) {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-            objectMapperMap.put(datePattern, objectMapper);
+
+            if (serializationInclusion != null) {
+                objectMapper.setSerializationInclusion(serializationInclusion);
+            }
+
+            objectMapperMap.put(key, objectMapper);
         }
-        return objectMapperMap.get(datePattern);
+        return objectMapperMap.get(key);
     }
 
     public static String writeValueAsString(Object object) {
-        return writeValueAsString(object, Constants.DEFAULT_DATE_PATTERN);
+        return writeValueAsString(object, Constants.DEFAULT_DATE_PATTERN, null);
+    }
+
+    public static String writeValueAsString(Object object, JsonInclude.Include serializationInclusion) {
+        return writeValueAsString(object, Constants.DEFAULT_DATE_PATTERN, serializationInclusion);
     }
 
     public static String writeValueAsString(Object object, String datePattern) {
+        return writeValueAsString(object, datePattern, null);
+    }
+
+    public static String writeValueAsString(Object object, String datePattern, JsonInclude.Include serializationInclusion) {
         String jsonString = null;
         try {
-            jsonString = obtainObjectMapper(datePattern).writeValueAsString(object);
+            jsonString = obtainObjectMapper(datePattern, serializationInclusion).writeValueAsString(object);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -42,7 +60,7 @@ public class JacksonUtils {
     public static <T> T readValue(String content, Class<T> clazz, String datePattern) {
         T t = null;
         try {
-            t = obtainObjectMapper(datePattern).readValue(content, clazz);
+            t = obtainObjectMapper(datePattern, null).readValue(content, clazz);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -56,7 +74,7 @@ public class JacksonUtils {
     public static <T> List<T> readValueAsList(String content, Class<T> elementClass, String datePattern) {
         List<T> list = null;
         try {
-            ObjectMapper objectMapper = obtainObjectMapper(datePattern);
+            ObjectMapper objectMapper = obtainObjectMapper(datePattern, null);
             list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(List.class, elementClass));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -71,7 +89,7 @@ public class JacksonUtils {
     public static <T> List<T> readValueAsSet(String content, Class<T> elementClass, String datePattern) {
         List<T> list = null;
         try {
-            ObjectMapper objectMapper = obtainObjectMapper(datePattern);
+            ObjectMapper objectMapper = obtainObjectMapper(datePattern, null);
             list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -86,7 +104,7 @@ public class JacksonUtils {
     public static <K, V> Map<K, V> readValueAsMap(String content, Class<K> keyClass, Class<V> valueClass, String datePattern) {
         Map<K, V> map = null;
         try {
-            ObjectMapper objectMapper = obtainObjectMapper(datePattern);
+            ObjectMapper objectMapper = obtainObjectMapper(datePattern, null);
             map = objectMapper.readValue(content, objectMapper.getTypeFactory().constructMapType(Map.class, keyClass, valueClass));
         } catch (Exception e) {
             throw new RuntimeException(e);

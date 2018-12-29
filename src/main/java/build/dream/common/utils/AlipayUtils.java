@@ -6,6 +6,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
 import build.dream.common.models.alipay.*;
 import build.dream.common.saas.domains.AlipayAccount;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -107,9 +108,15 @@ public class AlipayUtils {
         return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
     }
 
-    public static Map<String, Object> alipayTradePay(String tenantId, String branchId, String notifyUrl, String appAuthToken, AlipayTradePayModel alipayTradePayModel) {
+    public static Map<String, Object> alipayTradePay(AlipayTradePayModel alipayTradePayModel) {
         try {
             alipayTradePayModel.validateAndThrow();
+
+            String tenantId = alipayTradePayModel.getTenantId();
+            String branchId = alipayTradePayModel.getBranchId();
+            String notifyUrl = alipayTradePayModel.getNotifyUrl();
+            String appAuthToken = alipayTradePayModel.getAppAuthToken();
+
             AlipayAccount alipayAccount = null;
             if (StringUtils.isNotBlank(notifyUrl)) {
                 alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
@@ -117,27 +124,36 @@ public class AlipayUtils {
                 alipayAccount = obtainAlipayAccount(tenantId, branchId);
                 ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
             }
-            return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, GsonUtils.toJson(alipayTradePayModel, false));
+            return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
     }
 
-    public static String alipayTradeWapPay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradeWapPayModel alipayTradeWapPayModel) {
+    public static String alipayTradeWapPay(AlipayTradeWapPayModel alipayTradeWapPayModel) {
         try {
             alipayTradeWapPayModel.validateAndThrow();
+
+            String tenantId = alipayTradeWapPayModel.getTenantId();
+            String branchId = alipayTradeWapPayModel.getBranchId();
+            String returnUrl = alipayTradeWapPayModel.getReturnUrl();
+            String notifyUrl = alipayTradeWapPayModel.getNotifyUrl();
             AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
-            return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradeWapPayModel));
+            return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, JacksonUtils.writeValueAsString(alipayTradeWapPayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
     }
 
-    public static Map<String, Object> alipayTradePagePay(String tenantId, String branchId, String returnUrl, String notifyUrl, AlipayTradePagePayModel alipayTradePagePayModel) {
+    public static Map<String, Object> alipayTradePagePay(AlipayTradePagePayModel alipayTradePagePayModel) {
         try {
-            alipayTradePagePayModel.validateAndThrow();
+            String tenantId = alipayTradePagePayModel.getTenantId();
+            String branchId = alipayTradePagePayModel.getBranchId();
+            String returnUrl = alipayTradePagePayModel.getReturnUrl();
+            String notifyUrl = alipayTradePagePayModel.getNotifyUrl();
+            String appAuthToken = alipayTradePagePayModel.getAppAuthToken();
             AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
-            return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, GsonUtils.toJson(alipayTradePagePayModel, false));
+            return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, appAuthToken, JacksonUtils.writeValueAsString(alipayTradePagePayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
