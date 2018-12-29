@@ -256,6 +256,17 @@ public class Constants {
     public static final Integer NOTIFY_TYPE_WEI_XIN_REFUND = 4;
 
     /**
+     * 回调结果
+     *
+     * @see #NOTIFY_RESULT_NOT_NOTIFY: 未回调
+     * @see #NOTIFY_RESULT_NOTIFY_SUCCESS: 回调成功
+     * @see #NOTIFY_RESULT_NOTIFY_FAILURE: 回调失败
+     */
+    public static final Integer NOTIFY_RESULT_NOT_NOTIFY = 1;
+    public static final Integer NOTIFY_RESULT_NOTIFY_SUCCESS = 1;
+    public static final Integer NOTIFY_RESULT_NOTIFY_FAILURE = 1;
+
+    /**
      * 微信卡券类型
      */
     public static final String CARD_TYPE_GROUPON = "GROUPON";

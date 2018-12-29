@@ -39,7 +39,7 @@ public class NotifyRecord extends BasicDomain {
     /**
      * 回调内容
      */
-    private String externalSystemNotifyRequestBody;
+    private String externalSystemNotifyRequestBody = Constants.VARCHAR_DEFAULT_VALUE;
 
     public String getUuid() {
         return uuid;

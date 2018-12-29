@@ -31,6 +31,7 @@ public class NotifyUtils {
             if (StringUtils.isNotBlank(alipaySignType)) {
                 notifyRecord.setAlipaySignType(alipaySignType);
             }
+            notifyRecord.setNotifyResult(Constants.NOTIFY_RESULT_NOT_NOTIFY);
             if (StringUtils.isNotBlank(weiXinPayApiSecretKey)) {
                 notifyRecord.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
             }
