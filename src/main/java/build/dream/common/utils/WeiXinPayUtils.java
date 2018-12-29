@@ -140,7 +140,7 @@ public class WeiXinPayUtils {
      * @param weiXinPaySignType
      * @throws IOException
      */
-    private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) throws IOException {
+    private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) {
         Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
         saveNotifyRecordRequestParameters.put("uuid", uuid);
         saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
@@ -246,7 +246,7 @@ public class WeiXinPayUtils {
      * @throws IOException
      * @throws DocumentException
      */
-    public static Map<String, String> unifiedOrder(UnifiedOrderModel unifiedOrderModel) throws IOException, DocumentException {
+    public static Map<String, String> unifiedOrder(UnifiedOrderModel unifiedOrderModel) throws DocumentException {
         unifiedOrderModel.validateAndThrow();
 
         String tenantId = unifiedOrderModel.getTenantId();
