@@ -182,18 +182,23 @@ public class WeiXinPayUtils {
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
-        Map<String, String> microPayRequestParameters = new HashMap<String, String>();
-        microPayRequestParameters.put("appid", weiXinPayAccount.getAppId());
-        microPayRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        String appId = weiXinPayAccount.getAppId();
+        String mchId = weiXinPayAccount.getMchId();
+        boolean acceptanceModel = weiXinPayAccount.isAcceptanceModel();
+        String subPublicAccountAppId = weiXinPayAccount.getSubPublicAccountAppId();
+        String subMchId = weiXinPayAccount.getSubMchId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
 
-        if (weiXinPayAccount.isAcceptanceModel()) {
-            String subAppId = weiXinPayAccount.getSubPublicAccountAppId();
-            ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "sub_appid", subAppId);
-            microPayRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+        Map<String, String> microPayRequestParameters = new HashMap<String, String>();
+        microPayRequestParameters.put("appid", appId);
+        microPayRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "sub_appid", subPublicAccountAppId);
+            microPayRequestParameters.put("sub_mch_id", subMchId);
 
         }
 
-        microPayRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
         ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "device_info", deviceInfo);
         microPayRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
 
@@ -215,7 +220,7 @@ public class WeiXinPayUtils {
             microPayRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
-        String sign = generateSign(microPayRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
+        String sign = generateSign(microPayRequestParameters, apiSecretKey, Constants.MD5);
         microPayRequestParameters.put("sign", sign);
 
         String microPayFinalData = generateFinalData(microPayRequestParameters);
@@ -224,7 +229,7 @@ public class WeiXinPayUtils {
         String returnCode = microPayResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(microPayResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(microPayResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = microPayResult.get("result_code");
         String errCode = microPayResult.get("err_code");
@@ -268,10 +273,17 @@ public class WeiXinPayUtils {
 
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+        String appId = weiXinPayAccount.getAppId();
+        String mchId = weiXinPayAccount.getMchId();
+        boolean acceptanceModel = weiXinPayAccount.isAcceptanceModel();
+        String subPublicAccountAppId = weiXinPayAccount.getSubPublicAccountAppId();
+        String subMchId = weiXinPayAccount.getSubMchId();
+        String subMiniProgramAppId = weiXinPayAccount.getSubMiniProgramAppId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
 
         Map<String, String> unifiedOrderRequestParameters = new HashMap<String, String>();
-        unifiedOrderRequestParameters.put("appid", weiXinPayAccount.getAppId());
-        unifiedOrderRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        unifiedOrderRequestParameters.put("appid", appId);
+        unifiedOrderRequestParameters.put("mch_id", mchId);
 
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "device_info", deviceInfo);
         unifiedOrderRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
@@ -303,14 +315,14 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "limit_pay", limitPay);
 
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
+            if (acceptanceModel) {
                 ApplicationHandler.isTrue(StringUtils.isNotBlank(openId) || StringUtils.isNotBlank(subOpenId), "参数openId和subOpenId不能同时为空！");
                 if (StringUtils.isNotBlank(subOpenId)) {
-                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
+                    ValidateUtils.notBlank(subPublicAccountAppId, "支付账号未配置子商户公众账号APPID！");
                 }
 
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
-                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", subPublicAccountAppId);
+                unifiedOrderRequestParameters.put("sub_mch_id", subMchId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
@@ -319,44 +331,41 @@ public class WeiXinPayUtils {
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType)) {
             ApplicationHandler.notBlank(productId, "productId");
-            if (weiXinPayAccount.isAcceptanceModel()) {
+            if (acceptanceModel) {
                 if (StringUtils.isNotBlank(subOpenId)) {
-                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
+                    ValidateUtils.notBlank(subPublicAccountAppId, "支付账号未配置子商户公众账号APPID！");
                 }
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
-                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", subPublicAccountAppId);
+                unifiedOrderRequestParameters.put("sub_mch_id", subMchId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
-                ValidateUtils.notBlank(weiXinPayAccount.getSubOpenPlatformAppId(), "支付账号未配置微信开放平台APPID！");
-                unifiedOrderRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
-                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+            if (acceptanceModel) {
+                ValidateUtils.notBlank(subPublicAccountAppId, "支付账号未配置微信开放平台APPID！");
+                unifiedOrderRequestParameters.put("sub_appid", subPublicAccountAppId);
+                unifiedOrderRequestParameters.put("sub_mch_id", subMchId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
+            if (acceptanceModel) {
                 if (StringUtils.isNotBlank(subOpenId)) {
-                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
+                    ValidateUtils.notBlank(subPublicAccountAppId, "支付账号未配置子商户公众账号APPID！");
                 }
-                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", weiXinPayAccount.getSubPublicAccountAppId());
-                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+                ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_appid", subPublicAccountAppId);
+                unifiedOrderRequestParameters.put("sub_mch_id", subMchId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
             }
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
-                ValidateUtils.notBlank(weiXinPayAccount.getSubMiniProgramAppId(), "支付账号未配置小程序APPID！");
-                unifiedOrderRequestParameters.put("sub_appid", weiXinPayAccount.getSubOpenPlatformAppId());
-                unifiedOrderRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+            if (acceptanceModel) {
+                ValidateUtils.notBlank(subMiniProgramAppId, "支付账号未配置小程序APPID！");
+                unifiedOrderRequestParameters.put("sub_appid", subMiniProgramAppId);
+                unifiedOrderRequestParameters.put("sub_mch_id", subMchId);
 
-                if (StringUtils.isNotBlank(subOpenId)) {
-                    ValidateUtils.notBlank(weiXinPayAccount.getSubPublicAccountAppId(), "支付账号未配置子商户公众账号APPID！");
-                }
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "openid", openId);
                 ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "sub_openid", subOpenId);
             } else {
@@ -369,7 +378,6 @@ public class WeiXinPayUtils {
             unifiedOrderRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
-        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
         String sign = generateSign(unifiedOrderRequestParameters, apiSecretKey, signType);
         unifiedOrderRequestParameters.put("sign", sign);
 
@@ -379,7 +387,7 @@ public class WeiXinPayUtils {
         String returnCode = unifiedOrderResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(unifiedOrderResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(unifiedOrderResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         String resultCode = unifiedOrderResult.get("result_code");
 
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
@@ -389,7 +397,7 @@ public class WeiXinPayUtils {
 
         Map<String, String> data = new HashMap<String, String>();
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
+            if (acceptanceModel) {
                 data.put("appid", unifiedOrderResult.get("sub_appid"));
                 data.put("partnerid", unifiedOrderResult.get("sub_mch_id"));
             } else {
@@ -400,7 +408,7 @@ public class WeiXinPayUtils {
             data.put("package", "Sign=WXPay");
             data.put("noncestr", RandomStringUtils.randomAlphanumeric(32));
             data.put("timestamp", String.valueOf(System.currentTimeMillis() / 1000));
-            data.put("sign", generateSign(data, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+            data.put("sign", generateSign(data, apiSecretKey, Constants.MD5));
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB.equals(tradeType)) {
             data.put("mwebUrl", unifiedOrderResult.get("mweb_url"));
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE.equals(tradeType)) {
@@ -411,9 +419,9 @@ public class WeiXinPayUtils {
             data.put("nonceStr", RandomStringUtils.randomAlphanumeric(32));
             data.put("package", "prepay_id=" + unifiedOrderResult.get("prepay_id"));
             data.put("signType", signType);
-            data.put("paySign", generateSign(data, weiXinPayAccount.getApiSecretKey(), signType));
+            data.put("paySign", generateSign(data, apiSecretKey, signType));
         } else if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
-            if (weiXinPayAccount.isAcceptanceModel()) {
+            if (acceptanceModel) {
                 data.put("appId", unifiedOrderResult.get("sub_appid"));
             } else {
                 data.put("appId", unifiedOrderResult.get("appid"));
@@ -422,7 +430,7 @@ public class WeiXinPayUtils {
             data.put("nonceStr", RandomStringUtils.randomAlphanumeric(32));
             data.put("package", "prepay_id=" + unifiedOrderResult.get("prepay_id"));
             data.put("signType", signType);
-            data.put("paySign", generateSign(data, weiXinPayAccount.getApiSecretKey(), signType));
+            data.put("paySign", generateSign(data, apiSecretKey, signType));
         }
 
         return data;
