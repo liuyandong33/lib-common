@@ -154,6 +154,17 @@ public class Constants {
 
     /**
      * 支付场景常量
+     *
+     * @see #PAID_SCENE_WEI_XIN_MICROPAY: 微信付款码支付
+     * @see #PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT: 微信JSAPI支付
+     * @see #PAID_SCENE_WEI_XIN_NATIVE: 微信Native支付
+     * @see #PAID_SCENE_WEI_XIN_APP: 微信APP支付
+     * @see #PAID_SCENE_WEI_XIN_MWEB: 微信H5支付
+     * @see #PAID_SCENE_WEI_XIN_JSAPI_MINI_PROGRAM: 微信小程序支付
+     * @see #PAID_SCENE_ALIPAY_MOBILE_WEBSITE: 支付宝手机网站支付
+     * @see #PAID_SCENE_ALIPAY_PC_WEBSITE: 支付宝电脑网站支付支付
+     * @see #PAID_SCENE_ALIPAY_APP: 支付宝APP支付
+     * @see #PAID_SCENE_ALIPAY_FAC_TO_FACE: 支付宝当面付
      */
     public static final Integer PAID_SCENE_WEI_XIN_MICROPAY = 1;
     public static final Integer PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT = 2;
@@ -164,6 +175,7 @@ public class Constants {
     public static final Integer PAID_SCENE_ALIPAY_MOBILE_WEBSITE = 7;
     public static final Integer PAID_SCENE_ALIPAY_PC_WEBSITE = 8;
     public static final Integer PAID_SCENE_ALIPAY_APP = 9;
+    public static final Integer PAID_SCENE_ALIPAY_FAC_TO_FACE = 10;
 
     // 微信支付场景
     public static final Integer[] WEI_XIN_PAID_SCENES = {PAID_SCENE_WEI_XIN_MICROPAY, PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT, PAID_SCENE_WEI_XIN_NATIVE, PAID_SCENE_WEI_XIN_APP, PAID_SCENE_WEI_XIN_MWEB, PAID_SCENE_WEI_XIN_JSAPI_MINI_PROGRAM};
