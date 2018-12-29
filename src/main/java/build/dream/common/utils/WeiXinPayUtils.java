@@ -161,7 +161,6 @@ public class WeiXinPayUtils {
             TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
             try {
                 NotifyUtils.saveNotifyRecord(saveNotifyRecordModel);
-                int a = 1 / 0;
                 dataSourceTransactionManager.commit(transactionStatus);
             } catch (Exception e) {
                 dataSourceTransactionManager.rollback(transactionStatus);
