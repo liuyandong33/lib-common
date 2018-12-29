@@ -5,10 +5,12 @@ import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.ValidateUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 public class AlipayTradeWapPayModel extends BasicModel {
     @NotNull
@@ -35,62 +37,77 @@ public class AlipayTradeWapPayModel extends BasicModel {
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
+    @JsonProperty(value = "out_trade_no")
     private String outTradeNo;
 
     @Length(max = 6)
     @SerializedName(value = "timeout_express", alternate = "timeoutExpress")
+    @JsonProperty(value = "timeout_express")
     private String timeoutExpress;
 
     @Length(max = 32)
     @SerializedName(value = "time_expire", alternate = "timeExpire")
+    @JsonProperty(value = "time_expire")
     private String timeExpire;
 
     @NotNull
     @Length(max = 9)
     @SerializedName(value = "total_amount", alternate = "totalAmount")
-    private String totalAmount;
+    @JsonProperty(value = "total_amount")
+    private BigDecimal totalAmount;
 
     @Length(max = 40)
     @SerializedName(value = "auth_token", alternate = "authToken")
+    @JsonProperty(value = "auth_token")
     private String authToken;
 
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "product_code", alternate = "productCode")
+    @JsonProperty(value = "product_code")
     private String productCode;
 
     @InList(value = {"0", "1"})
     @SerializedName(value = "goods_type", alternate = "goodsType")
+    @JsonProperty(value = "goods_type")
     private String goodsType;
 
     @Length(max = 512)
     @SerializedName(value = "passback_params", alternate = "passbackParams")
+    @JsonProperty(value = "passback_params")
     private String passbackParams;
 
     @Length(max = 512)
     @SerializedName(value = "promo_params", alternate = "promoParams")
+    @JsonProperty(value = "promo_params")
     private String promoParams;
 
     @SerializedName(value = "extend_params", alternate = "extendParamsModel")
+    @JsonProperty(value = "extend_params")
     private ExtendParamsModel extendParamsModel;
 
     @Length(max = 128)
     @SerializedName(value = "enable_pay_channels", alternate = "enablePayChannels")
+    @JsonProperty(value = "enable_pay_channels")
     private String enablePayChannels;
 
     @Length(max = 128)
     @SerializedName(value = "disable_pay_channels", alternate = "disablePayChannels")
+    @JsonProperty(value = "disable_pay_channels")
     private String disablePayChannels;
 
     @Length(max = 32)
     @SerializedName(value = "store_id", alternate = "storeId")
+    @JsonProperty(value = "store_id")
     private String storeId;
 
     @Length(max = 400)
     @SerializedName(value = "quit_url", alternate = "quitUrl")
+    @JsonProperty(value = "quit_url")
     private String quitUrl;
 
     @SerializedName(value = "ext_user_info", alternate = "extUserInfoModel")
+    @JsonProperty(value = "ext_user_info")
     private ExtUserInfoModel extUserInfoModel;
 
     public String getTenantId() {
@@ -165,11 +182,11 @@ public class AlipayTradeWapPayModel extends BasicModel {
         this.timeExpire = timeExpire;
     }
 
-    public String getTotalAmount() {
+    public BigDecimal getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(String totalAmount) {
+    public void setTotalAmount(BigDecimal totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -264,22 +281,27 @@ public class AlipayTradeWapPayModel extends BasicModel {
     public static class ExtendParamsModel extends BasicModel {
         @Length(max = 64)
         @SerializedName(value = "sys_service_provider_id", alternate = "sysServiceProviderId")
+        @JsonProperty(value = "sys_service_provider_id")
         private String sysServiceProviderId;
 
         @InList(value = {"T", "F"})
-        @SerializedName(value = "needBuyerRealnamed", alternate = "needBuyerRealNamed")
+        @SerializedName(value = "need_buyer_realnamed", alternate = "needBuyerRealNamed")
+        @JsonProperty(value = "need_buyer_realnamed")
         private String needBuyerRealNamed;
 
         @Length(max = 128)
         @SerializedName(value = "TRANS_MEMO", alternate = "transMemo")
+        @JsonProperty(value = "TRANS_MEMO")
         private String transMemo;
 
         @InList(value = {"3", "6", "12"})
         @SerializedName(value = "hb_fq_num", alternate = "hbFqNum")
+        @JsonProperty(value = "hb_fq_num")
         private String hbFqNum;
 
         @InList(value = {"0", "100"})
         @SerializedName(value = "hb_fq_seller_percent", alternate = "hbFqSellerPercent")
+        @JsonProperty(value = "hb_fq_seller_percent")
         private String hbFqSellerPercent;
 
         public String getSysServiceProviderId() {
@@ -332,22 +354,27 @@ public class AlipayTradeWapPayModel extends BasicModel {
 
         @InList(value = {"IDENTITY_CARD", "PASSPORT", "OFFICER_CARD", "SOLDIER_CARD", "HOKOU"})
         @SerializedName(value = "cert_type", alternate = "certType")
+        @JsonProperty(value = "cert_type")
         private String certType;
 
         @Length(max = 64)
         @SerializedName(value = "cert_no", alternate = "certNo")
+        @JsonProperty(value = "cert_no")
         private String certNo;
 
         @Length(max = 3)
         @SerializedName(value = "min_age", alternate = "minAge")
+        @JsonProperty(value = "min_age")
         private String minAge;
 
         @InList(value = {"T", "F"})
         @SerializedName(value = "fix_buyer", alternate = "fixBuyer")
+        @JsonProperty(value = "fix_buyer")
         private String fixBuyer;
 
         @InList(value = {"T", "F"})
         @SerializedName(value = "need_check_info", alternate = "needCheckInfo")
+        @JsonProperty(value = "need_check_info")
         private String needCheckInfo;
 
         public String getName() {
@@ -479,7 +506,7 @@ public class AlipayTradeWapPayModel extends BasicModel {
             return this;
         }
 
-        public Builder totalAmount(String totalAmount) {
+        public Builder totalAmount(BigDecimal totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }

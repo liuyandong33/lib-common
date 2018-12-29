@@ -43,7 +43,7 @@ public class AggregatePayUtils {
                     .authCode(authCode)
                     .scene(Constants.SCENE_BAR_CODE)
                     .subject(subject)
-                    .totalAmount(BigDecimal.valueOf(totalAmount).divide(BigDecimal.valueOf(100)).toString())
+                    .totalAmount(BigDecimal.valueOf(totalAmount).divide(Constants.BIG_DECIMAL_ONE_HUNDRED))
                     .build();
             result = AlipayUtils.alipayTradePay(alipayTradePayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {

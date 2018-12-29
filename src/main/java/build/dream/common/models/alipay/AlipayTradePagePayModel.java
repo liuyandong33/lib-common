@@ -3,6 +3,7 @@ package build.dream.common.models.alipay;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -36,17 +37,20 @@ public class AlipayTradePagePayModel extends BasicModel {
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
+    @JsonProperty(value = "out_trade_no")
     private String outTradeNo;
 
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "product_code", alternate = "productCode")
+    @JsonProperty(value = "product_code")
     private String productCode;
 
     @NotNull
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
-    @SerializedName(value = "totalAmount", alternate = "totalAmount")
+    @SerializedName(value = "total_amount", alternate = "totalAmount")
+    @JsonProperty(value = "total_amount")
     private BigDecimal totalAmount;
 
     @NotNull
@@ -57,35 +61,44 @@ public class AlipayTradePagePayModel extends BasicModel {
     private String body;
 
     @SerializedName(value = "goods_detail", alternate = "goodsDetail")
+    @JsonProperty(value = "goods_detail")
     private String goodsDetail;
 
     @Length(max = 512)
     @SerializedName(value = "passback_params", alternate = "passbackParams")
+    @JsonProperty(value = "passback_params")
     private String passbackParams;
 
     @SerializedName(value = "goods_type", alternate = "goodsType")
+    @JsonProperty(value = "goods_type")
     private String goodsType;
 
     @Length(max = 6)
     @SerializedName(value = "timeout_express", alternate = "timeoutExpress")
+    @JsonProperty(value = "timeout_express")
     private String timeoutExpress;
 
     @Length(max = 128)
     @SerializedName(value = "enable_pay_channels", alternate = "enablePayChannels")
+    @JsonProperty(value = "enable_pay_channels")
     private String enablePayChannels;
 
     @Length(max = 128)
     @SerializedName(value = "disable_pay_channels", alternate = "disablePayChannels")
+    @JsonProperty(value = "disable_pay_channels")
     private String disablePayChannels;
 
     @Length(max = 40)
     @SerializedName(value = "auth_token", alternate = "authToken")
+    @JsonProperty(value = "auth_token")
     private String authToken;
 
     @SerializedName(value = "qr_pay_mode", alternate = "qrPayMode")
+    @JsonProperty(value = "qr_pay_mode")
     private String qrPayMode;
 
     @SerializedName(value = "qrcode_width", alternate = "qrcodeWidth")
+    @JsonProperty(value = "qrcode_width")
     private String qrcodeWidth;
 
     public String getTenantId() {
