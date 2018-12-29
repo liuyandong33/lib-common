@@ -9,6 +9,12 @@ import javax.validation.constraints.NotNull;
 
 public class AddSubMchModel extends BasicModel {
     @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
+    @NotNull
     @Length(max = 50)
     private String merchantName;
 
@@ -47,6 +53,22 @@ public class AddSubMchModel extends BasicModel {
     @NotNull
     @Length(max = 20)
     private String merchantRemark;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getMerchantName() {
         return merchantName;

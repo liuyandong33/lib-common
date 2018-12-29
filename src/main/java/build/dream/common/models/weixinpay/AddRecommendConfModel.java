@@ -11,6 +11,12 @@ import javax.validation.constraints.NotNull;
 
 public class AddRecommendConfModel extends BasicModel {
     @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
+    @NotNull
     @Length(max = 32)
     private String mchId;
 
@@ -30,6 +36,22 @@ public class AddRecommendConfModel extends BasicModel {
 
     @InList(value = {Constants.HMAC_SHA256})
     private String signType;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getMchId() {
         return mchId;
@@ -88,5 +110,57 @@ public class AddRecommendConfModel extends BasicModel {
     public void validateAndThrow() {
         super.validateAndThrow();
         ValidateUtils.isTrue(StringUtils.isNotBlank(subscribeAppId) || StringUtils.isNotBlank(receiptAppId), "参数subscribeAppId和subscribeAppId不能同时为空！");
+    }
+
+    public static class Builder {
+        private AddRecommendConfModel instance = new AddRecommendConfModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder mchId(String mchId) {
+            instance.setMchId(mchId);
+            return this;
+        }
+
+        public Builder subMchId(String subMchId) {
+            instance.setSubMchId(subMchId);
+            return this;
+        }
+
+        public Builder subAppId(String subAppId) {
+            instance.setSubAppId(subAppId);
+            return this;
+        }
+
+        public Builder subscribeAppId(String subscribeAppId) {
+            instance.setSubscribeAppId(subscribeAppId);
+            return this;
+        }
+
+        public Builder receiptAppId(String receiptAppId) {
+            instance.setReceiptAppId(receiptAppId);
+            return this;
+        }
+
+        public Builder signType(String signType) {
+            instance.setSignType(signType);
+            return this;
+        }
+
+        public AddRecommendConfModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

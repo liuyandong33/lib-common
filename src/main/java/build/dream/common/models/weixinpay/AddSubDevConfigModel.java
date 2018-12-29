@@ -8,11 +8,33 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class AddSubDevConfigModel extends BasicModel {
+    @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
     @Length(max = 256)
     private String jsApiPath;
 
     @Length(max = 32)
     private String subAppId;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getJsApiPath() {
         return jsApiPath;

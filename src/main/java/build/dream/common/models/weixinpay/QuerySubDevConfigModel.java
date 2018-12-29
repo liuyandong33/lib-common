@@ -7,6 +7,12 @@ import javax.validation.constraints.NotNull;
 
 public class QuerySubDevConfigModel extends BasicModel {
     @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
+    @NotNull
     @Length(max = 32)
     private String appId;
 
@@ -17,6 +23,22 @@ public class QuerySubDevConfigModel extends BasicModel {
     @NotNull
     @Length(max = 32)
     private String subMchId;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getAppId() {
         return appId;

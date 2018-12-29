@@ -528,45 +528,53 @@ public class WeiXinPayUtils {
     /**
      * 服务商特约商户关注功能配置
      *
-     * @param tenantId
-     * @param branchId
      * @param addRecommendConfModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> addRecommendConf(String tenantId, String branchId, AddRecommendConfModel addRecommendConfModel) throws DocumentException {
+    public static Map<String, String> addRecommendConf(AddRecommendConfModel addRecommendConfModel) throws DocumentException {
         addRecommendConfModel.validateAndThrow();
+        String tenantId = addRecommendConfModel.getTenantId();
+        String branchId = addRecommendConfModel.getBranchId();
+        String mchId = addRecommendConfModel.getMchId();
+        String subMchId = addRecommendConfModel.getSubMchId();
+        String subAppId = addRecommendConfModel.getSubAppId();
+        String subscribeAppId = addRecommendConfModel.getSubscribeAppId();
+        String receiptAppId = addRecommendConfModel.getReceiptAppId();
+        String signType = addRecommendConfModel.getSignType();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
-        Map<String, String> addRecommendConfRequestParameters = new HashMap<String, String>();
-        addRecommendConfRequestParameters.put("mch_id", addRecommendConfModel.getMchId());
-        addRecommendConfRequestParameters.put("sub_mch_id", addRecommendConfModel.getSubMchId());
-        addRecommendConfRequestParameters.put("sub_appid", addRecommendConfModel.getSubAppId());
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String operationCertificate = weiXinPayAccount.getOperationCertificate();
+        String operationCertificatePassword = weiXinPayAccount.getOperationCertificatePassword();
 
-        String subscribeAppId = addRecommendConfModel.getSubscribeAppId();
+        Map<String, String> addRecommendConfRequestParameters = new HashMap<String, String>();
+        addRecommendConfRequestParameters.put("mch_id", mchId);
+        addRecommendConfRequestParameters.put("sub_mch_id", subMchId);
+        addRecommendConfRequestParameters.put("sub_appid", subAppId);
+
         if (StringUtils.isNotBlank(subscribeAppId)) {
             addRecommendConfRequestParameters.put("subscribe_appid", subscribeAppId);
         }
 
-        String receiptAppId = addRecommendConfModel.getReceiptAppId();
         if (StringUtils.isNotBlank(receiptAppId)) {
             addRecommendConfRequestParameters.put("receipt_appid", receiptAppId);
         }
 
         addRecommendConfRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
 
-        String signType = addRecommendConfModel.getSignType();
         addRecommendConfRequestParameters.put("sign_type", signType);
-        addRecommendConfRequestParameters.put("sign", generateSign(addRecommendConfRequestParameters, weiXinPayAccount.getApiSecretKey(), signType));
+        addRecommendConfRequestParameters.put("sign", generateSign(addRecommendConfRequestParameters, apiSecretKey, signType));
 
         String addRecommendConfFinalData = generateFinalData(addRecommendConfRequestParameters);
-        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mkt/addrecommendconf", addRecommendConfFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> addRecommendConfResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mkt/addrecommendconf", addRecommendConfFinalData, operationCertificate, operationCertificatePassword);
 
         String returnCode = addRecommendConfResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addRecommendConfResult, weiXinPayAccount.getApiSecretKey(), signType), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(addRecommendConfResult, apiSecretKey, signType), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addRecommendConfResult.get("result_code")), addRecommendConfResult.get("err_code_des"));
         return addRecommendConfResult;
     }
@@ -574,39 +582,45 @@ public class WeiXinPayUtils {
     /**
      * 服务商子商户开发配置新增支付目录
      *
-     * @param tenantId
-     * @param branchId
      * @param addSubDevConfigModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> addSubDevConfig(String tenantId, String branchId, AddSubDevConfigModel addSubDevConfigModel) throws DocumentException {
+    public static Map<String, String> addSubDevConfig(AddSubDevConfigModel addSubDevConfigModel) throws DocumentException {
         addSubDevConfigModel.validateAndThrow();
+        String tenantId = addSubDevConfigModel.getTenantId();
+        String branchId = addSubDevConfigModel.getBranchId();
+        String jsApiPath = addSubDevConfigModel.getJsApiPath();
+        String subAppId = addSubDevConfigModel.getSubAppId();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+        String appId = weiXinPayAccount.getAppId();
+        String mchId = weiXinPayAccount.getMchId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String operationCertificate = weiXinPayAccount.getOperationCertificate();
+        String operationCertificatePassword = weiXinPayAccount.getOperationCertificatePassword();
 
         Map<String, String> addSubDevConfigRequestParameters = new HashMap<String, String>();
-        addSubDevConfigRequestParameters.put("appid", weiXinPayAccount.getAppId());
-        addSubDevConfigRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
+        addSubDevConfigRequestParameters.put("appid", appId);
+        addSubDevConfigRequestParameters.put("mch_id", mchId);
 
-        String jsApiPath = addSubDevConfigModel.getJsApiPath();
         if (StringUtils.isNotBlank(jsApiPath)) {
             addSubDevConfigRequestParameters.put("jsapi_path", jsApiPath);
         }
 
-        String subAppId = addSubDevConfigModel.getSubAppId();
         if (StringUtils.isNotBlank(subAppId)) {
             addSubDevConfigRequestParameters.put("sub_appid", subAppId);
         }
 
-        addSubDevConfigRequestParameters.put("sign", generateSign(addSubDevConfigRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        addSubDevConfigRequestParameters.put("sign", generateSign(addSubDevConfigRequestParameters, apiSecretKey, Constants.MD5));
         String addSubDevConfigFinalData = generateFinalData(addSubDevConfigRequestParameters);
-        Map<String, String> addSubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/addsubdevconfig", addSubDevConfigFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> addSubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/addsubdevconfig", addSubDevConfigFinalData, operationCertificate, operationCertificatePassword);
 
         String returnCode = addSubDevConfigResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubDevConfigResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addSubDevConfigResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(addSubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubDevConfigResult.get("result_code")), addSubDevConfigResult.get("err_code_des"));
         return addSubDevConfigResult;
     }
@@ -614,30 +628,35 @@ public class WeiXinPayUtils {
     /**
      * 服务商子商户开发配置查询
      *
-     * @param tenantId
-     * @param branchId
      * @param querySubDevConfigModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> querySubDevConfig(String tenantId, String branchId, QuerySubDevConfigModel querySubDevConfigModel) throws DocumentException {
+    public static Map<String, String> querySubDevConfig(QuerySubDevConfigModel querySubDevConfigModel) throws DocumentException {
         querySubDevConfigModel.validateAndThrow();
+        String tenantId = querySubDevConfigModel.getTenantId();
+        String branchId = querySubDevConfigModel.getBranchId();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String operationCertificate = weiXinPayAccount.getOperationCertificate();
+        String operationCertificatePassword = weiXinPayAccount.getOperationCertificatePassword();
 
         Map<String, String> querySubDevConfigRequestParameters = new HashMap<String, String>();
         querySubDevConfigRequestParameters.put("appid", querySubDevConfigModel.getAppId());
         querySubDevConfigRequestParameters.put("mch_id", querySubDevConfigModel.getMchId());
         querySubDevConfigRequestParameters.put("sub_mch_id", querySubDevConfigModel.getSubMchId());
 
-        querySubDevConfigRequestParameters.put("sign", generateSign(querySubDevConfigRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        querySubDevConfigRequestParameters.put("sign", generateSign(querySubDevConfigRequestParameters, apiSecretKey, Constants.MD5));
         String querySubDevConfigFinalData = generateFinalData(querySubDevConfigRequestParameters);
-        Map<String, String> querySubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/querysubdevconfig", querySubDevConfigFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> querySubDevConfigResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/querysubdevconfig", querySubDevConfigFinalData, operationCertificate, operationCertificatePassword);
 
         String returnCode = querySubDevConfigResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), querySubDevConfigResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(querySubDevConfigResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(querySubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(querySubDevConfigResult.get("result_code")), querySubDevConfigResult.get("err_code_des"));
         return querySubDevConfigResult;
     }
@@ -645,62 +664,76 @@ public class WeiXinPayUtils {
     /**
      * 银行特约商户录入
      *
-     * @param tenantId
-     * @param branchId
      * @param addSubMchModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> addSubMch(String tenantId, String branchId, AddSubMchModel addSubMchModel) throws DocumentException {
+    public static Map<String, String> addSubMch(AddSubMchModel addSubMchModel) throws DocumentException {
         addSubMchModel.validateAndThrow();
+
+        String tenantId = addSubMchModel.getTenantId();
+        String branchId = addSubMchModel.getBranchId();
+        String merchantName = addSubMchModel.getMerchantName();
+        String merchantShortName = addSubMchModel.getMerchantShortName();
+        String servicePhone = addSubMchModel.getServicePhone();
+        String contact = addSubMchModel.getContact();
+        String contactPhone = addSubMchModel.getContactPhone();
+        String contactEmail = addSubMchModel.getContactEmail();
+        String channelId = addSubMchModel.getChannelId();
+        String business = addSubMchModel.getBusiness();
+        String contactWeChatIdType = addSubMchModel.getContactWeChatIdType();
+        String contactWeChatId = addSubMchModel.getContactWeChatId();
+        String merchantRemark = addSubMchModel.getMerchantRemark();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
 
-        Map<String, String> addSubMchRequestParameters = new HashMap<String, String>();
-        addSubMchRequestParameters.put("appid", weiXinPayAccount.getAppId());
-        addSubMchRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
-        addSubMchRequestParameters.put("merchant_name", addSubMchModel.getMerchantName());
-        addSubMchRequestParameters.put("merchant_shortname", addSubMchModel.getMerchantShortName());
-        addSubMchRequestParameters.put("service_phone", addSubMchModel.getServicePhone());
+        String appId = weiXinPayAccount.getAppId();
+        String mchId = weiXinPayAccount.getMchId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String operationCertificate = weiXinPayAccount.getOperationCertificate();
+        String operationCertificatePassword = weiXinPayAccount.getOperationCertificatePassword();
 
-        String contact = addSubMchModel.getContact();
+        Map<String, String> addSubMchRequestParameters = new HashMap<String, String>();
+        addSubMchRequestParameters.put("appid", appId);
+        addSubMchRequestParameters.put("mch_id", mchId);
+        addSubMchRequestParameters.put("merchant_name", merchantName);
+        addSubMchRequestParameters.put("merchant_shortname", merchantShortName);
+        addSubMchRequestParameters.put("service_phone", servicePhone);
+
         if (StringUtils.isNotBlank(contact)) {
             addSubMchRequestParameters.put("contact", contact);
         }
 
-        String contactPhone = addSubMchModel.getContactPhone();
         if (StringUtils.isNotBlank(contactPhone)) {
             addSubMchRequestParameters.put("contact_phone", contactPhone);
         }
 
-        String contactEmail = addSubMchModel.getContactEmail();
         if (StringUtils.isNotBlank(contactEmail)) {
             addSubMchRequestParameters.put("contact_email", contactEmail);
         }
 
-        addSubMchRequestParameters.put("channel_id", addSubMchModel.getChannelId());
-        addSubMchRequestParameters.put("business", addSubMchModel.getBusiness());
+        addSubMchRequestParameters.put("channel_id", channelId);
+        addSubMchRequestParameters.put("business", business);
 
-        String contactWeChatIdType = addSubMchModel.getContactWeChatIdType();
         if (StringUtils.isNotBlank(contactWeChatIdType)) {
             addSubMchRequestParameters.put("contact_wechatid_type", contactWeChatIdType);
         }
 
-        String contactWeChatId = addSubMchModel.getContactWeChatId();
         if (StringUtils.isNotBlank(contactWeChatId)) {
             addSubMchRequestParameters.put("contact_wechatid", contactWeChatId);
         }
 
-        addSubMchRequestParameters.put("merchant_remark", addSubMchModel.getMerchantRemark());
+        addSubMchRequestParameters.put("merchant_remark", merchantRemark);
 
-        addSubMchRequestParameters.put("sign", generateSign(addSubMchRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        addSubMchRequestParameters.put("sign", generateSign(addSubMchRequestParameters, apiSecretKey, Constants.MD5));
         String addSubMchFinalData = generateFinalData(addSubMchRequestParameters);
-        Map<String, String> addSubMchResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/submchmanage?action=add", addSubMchFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> addSubMchResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/submchmanage?action=add", addSubMchFinalData, operationCertificate, operationCertificatePassword);
 
         String returnCode = addSubMchResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubMchResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addSubMchResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(addSubMchResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubMchResult.get("result_code")), addSubMchResult.get("err_code_des"));
         return addSubMchResult;
     }
@@ -708,44 +741,51 @@ public class WeiXinPayUtils {
     /**
      * 银行特约商户信息修改
      *
-     * @param tenantId
-     * @param branchId
      * @param modifyMchInfoModel
      * @return
      * @throws DocumentException
      */
-    public static Map<String, String> modifyMchInfo(String tenantId, String branchId, ModifyMchInfoModel modifyMchInfoModel) throws DocumentException {
+    public static Map<String, String> modifyMchInfo(ModifyMchInfoModel modifyMchInfoModel) throws DocumentException {
         modifyMchInfoModel.validateAndThrow();
+
+        String tenantId = modifyMchInfoModel.getTenantId();
+        String branchId = modifyMchInfoModel.getBranchId();
+        String merchantShortName = modifyMchInfoModel.getMerchantShortName();
+        String servicePhone = modifyMchInfoModel.getServicePhone();
+
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+        String mchId = weiXinPayAccount.getMchId();
+        String subMchId = weiXinPayAccount.getSubMchId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+        String operationCertificate = weiXinPayAccount.getOperationCertificate();
+        String operationCertificatePassword = weiXinPayAccount.getOperationCertificatePassword();
 
         Map<String, String> modifyMchInfoRequestParameters = new HashMap<String, String>();
-        modifyMchInfoRequestParameters.put("mch_id", weiXinPayAccount.getMchId());
-        modifyMchInfoRequestParameters.put("sub_mch_id", weiXinPayAccount.getSubMchId());
+        modifyMchInfoRequestParameters.put("mch_id", mchId);
+        modifyMchInfoRequestParameters.put("sub_mch_id", subMchId);
 
-        String merchantShortName = modifyMchInfoModel.getMerchantShortName();
         if (StringUtils.isNotBlank(merchantShortName)) {
             modifyMchInfoRequestParameters.put("merchant_shortname", merchantShortName);
         }
 
-        String servicePhone = modifyMchInfoModel.getServicePhone();
         if (StringUtils.isNotBlank(servicePhone)) {
             modifyMchInfoRequestParameters.put("service_phone", servicePhone);
         }
 
-        modifyMchInfoRequestParameters.put("sign", generateSign(modifyMchInfoRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5));
+        modifyMchInfoRequestParameters.put("sign", generateSign(modifyMchInfoRequestParameters, apiSecretKey, Constants.MD5));
         String modifyMchInfoFinalData = generateFinalData(modifyMchInfoRequestParameters);
-        Map<String, String> modifyMchInfoResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/modifymchinfo", modifyMchInfoFinalData, weiXinPayAccount.getOperationCertificate(), weiXinPayAccount.getOperationCertificatePassword());
+        Map<String, String> modifyMchInfoResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/mch/modifymchinfo", modifyMchInfoFinalData, operationCertificate, operationCertificatePassword);
 
         String returnCode = modifyMchInfoResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), modifyMchInfoResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(modifyMchInfoResult, weiXinPayAccount.getApiSecretKey(), Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(modifyMchInfoResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(modifyMchInfoResult.get("result_code")), modifyMchInfoResult.get("err_code_des"));
         return modifyMchInfoResult;
     }
 
-    public Map<String, String> querySubMch(String tenantId, String branchId, QuerySubMchModel querySubMchModel) {
+    public Map<String, String> querySubMch(QuerySubMchModel querySubMchModel) {
         return null;
     }
 }
