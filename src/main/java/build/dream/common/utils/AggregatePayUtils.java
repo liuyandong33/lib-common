@@ -34,13 +34,16 @@ public class AggregatePayUtils {
             String appId = null;
             result = AlipayUtils.alipayTradePay(tenantId, branchId, notifyUrl, null, alipayTradePayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
-            MicroPayModel microPayModel = new MicroPayModel();
-            microPayModel.setBody(subject);
-            microPayModel.setOutTradeNo(outTradeNo);
-            microPayModel.setTotalFee(totalAmount);
-            microPayModel.setSpbillCreateIp(ipAddress);
-            microPayModel.setAuthCode(authCode);
-            result = WeiXinPayUtils.microPay(tenantId, branchId, microPayModel);
+            MicroPayModel microPayModel = MicroPayModel.builder()
+                    .tenantId(tenantId)
+                    .branchId(branchId)
+                    .body(subject)
+                    .outTradeNo(outTradeNo)
+                    .totalFee(totalAmount)
+                    .spbillCreateIp(ipAddress)
+                    .authCode(authCode)
+                    .build();
+            result = WeiXinPayUtils.microPay(microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {
             FkmPayModel fkmPayModel = new FkmPayModel();
             result = JingDongPayUtils.fkmPay(fkmPayModel);
