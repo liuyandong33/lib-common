@@ -270,4 +270,16 @@ public class AlipayUtils {
         }
         return publicAppAuthorizeUrl.toString();
     }
+
+    public static String alipayTradeAppPay(AlipayTradeAppPayModel alipayTradeAppPayModel) {
+        try {
+            String tenantId = alipayTradeAppPayModel.getTenantId();
+            String branchId = alipayTradeAppPayModel.getBranchId();
+            String notifyUrl = alipayTradeAppPayModel.getNotifyUrl();
+            AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeAppPayModel.getOutTradeNo(), notifyUrl);
+            return buildRequestBody(alipayAccount, "alipay.trade.app.pay", Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, NotifyUtils.obtainAlipayNotifyUrl(), null, JacksonUtils.writeValueAsString(alipayTradeAppPayModel, JsonInclude.Include.NON_NULL));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
