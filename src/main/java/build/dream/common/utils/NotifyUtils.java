@@ -55,4 +55,12 @@ public class NotifyUtils {
 
         return notifyRecord;
     }
+
+    public static String obtainAlipayNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayCallback");
+    }
+
+    public static String obtainWeiXinNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
+    }
 }

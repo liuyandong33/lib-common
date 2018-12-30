@@ -129,7 +129,7 @@ public class AlipayUtils {
                 alipayAccount = obtainAlipayAccount(tenantId, branchId);
                 ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
             }
-            return callAlipayApi(alipayAccount, "alipay.trade.pay", notifyUrl, appAuthToken, JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
+            return callAlipayApi(alipayAccount, "alipay.trade.pay", NotifyUtils.obtainAlipayNotifyUrl(), appAuthToken, JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
@@ -144,7 +144,7 @@ public class AlipayUtils {
             String returnUrl = alipayTradeWapPayModel.getReturnUrl();
             String notifyUrl = alipayTradeWapPayModel.getNotifyUrl();
             AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
-            return buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, null, JacksonUtils.writeValueAsString(alipayTradeWapPayModel, JsonInclude.Include.NON_NULL));
+            return ConfigurationUtils.getConfiguration(Constants.ALIPAY_GATEWAY_URL) + "?" + buildRequestBody(alipayAccount, "alipay.trade.wap.pay", Constants.JSON, returnUrl, Constants.UTF_8, NotifyUtils.obtainAlipayNotifyUrl(), null, JacksonUtils.writeValueAsString(alipayTradeWapPayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
@@ -158,7 +158,7 @@ public class AlipayUtils {
             String notifyUrl = alipayTradePagePayModel.getNotifyUrl();
             String appAuthToken = alipayTradePagePayModel.getAppAuthToken();
             AlipayAccount alipayAccount = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
-            return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, appAuthToken, JacksonUtils.writeValueAsString(alipayTradePagePayModel, JsonInclude.Include.NON_NULL));
+            return callAlipayApi(alipayAccount, "alipay.trade.page.pay", Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, NotifyUtils.obtainAlipayNotifyUrl(), appAuthToken, JacksonUtils.writeValueAsString(alipayTradePagePayModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new ApiException(e);
         }
@@ -221,7 +221,7 @@ public class AlipayUtils {
                 alipayAccount = obtainAlipayAccount(tenantId, branchId);
                 ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
             }
-            return callAlipayApi(alipayAccount, "alipay.offline.market.shop.create", notifyUrl, appAuthToken, GsonUtils.toJson(alipayOfflineMarketShopCreateModel, false));
+            return callAlipayApi(alipayAccount, "alipay.offline.market.shop.create", NotifyUtils.obtainAlipayNotifyUrl(), appAuthToken, GsonUtils.toJson(alipayOfflineMarketShopCreateModel, false));
 
         } catch (Exception e) {
             throw new RuntimeException(e);
