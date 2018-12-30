@@ -164,6 +164,7 @@ public class WeiXinPayUtils {
                 dataSourceTransactionManager.commit(transactionStatus);
             } catch (Exception e) {
                 dataSourceTransactionManager.rollback(transactionStatus);
+                throw e;
             }
 
         } else {
