@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -51,7 +53,8 @@ public class AlipayTradeWapPayModel extends BasicModel {
     private String timeExpire;
 
     @NotNull
-    @Length(max = 9)
+    @DecimalMin(value = "0.01")
+    @DecimalMax(value = "100000000")
     @SerializedName(value = "total_amount", alternate = "totalAmount")
     @JsonProperty(value = "total_amount")
     private BigDecimal totalAmount;

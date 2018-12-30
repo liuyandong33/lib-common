@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
@@ -94,12 +96,14 @@ public class AlipayTradePayModel extends BasicModel {
     @JsonProperty(value = "seller_id")
     private String sellerId;
 
-    @Length(max = 11)
+    @DecimalMin(value = "0.01")
+    @DecimalMax(value = "100000000")
     @SerializedName(value = "total_amount", alternate = "totalAmount")
     @JsonProperty(value = "total_amount")
     private BigDecimal totalAmount;
 
-    @Length(max = 11)
+    @DecimalMin(value = "0.01")
+    @DecimalMax(value = "100000000")
     @SerializedName(value = "discountable_amount", alternate = "discountableAmount")
     @JsonProperty(value = "discountable_amount")
     private BigDecimal discountableAmount;
