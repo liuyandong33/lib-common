@@ -851,4 +851,141 @@ public class AlipayTradeAppPayModel extends BasicModel {
             this.needCheckInfo = needCheckInfo;
         }
     }
+
+    public static class Builder {
+        private final AlipayTradeAppPayModel instance = new AlipayTradeAppPayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder timeoutExpress(String timeoutExpress) {
+            instance.setTimeoutExpress(timeoutExpress);
+            return this;
+        }
+
+        public Builder totalAmount(BigDecimal totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder sellerId(String sellerId) {
+            instance.setSellerId(sellerId);
+            return this;
+        }
+
+        public Builder productCode(String productCode) {
+            instance.setProductCode(productCode);
+            return this;
+        }
+
+        public Builder body(String body) {
+            instance.setBody(body);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder timeExpire(String timeExpire) {
+            instance.setTimeExpire(timeExpire);
+            return this;
+        }
+
+        public Builder goodsType(String goodsType) {
+            instance.setGoodsType(goodsType);
+            return this;
+        }
+
+        public Builder promoParams(String promoParams) {
+            instance.setPromoParams(promoParams);
+            return this;
+        }
+
+        public Builder passbackParams(String passbackParams) {
+            instance.setPassbackParams(passbackParams);
+            return this;
+        }
+
+        public Builder royaltyInfo(RoyaltyInfo royaltyInfo) {
+            instance.setRoyaltyInfo(royaltyInfo);
+            return this;
+        }
+
+        public Builder extendParams(ExtendParams extendParams) {
+            instance.setExtendParams(extendParams);
+            return this;
+        }
+
+        public Builder subMerchant(SubMerchant subMerchant) {
+            instance.setSubMerchant(subMerchant);
+            return this;
+        }
+
+        public Builder enablePayChannels(String enablePayChannels) {
+            instance.setEnablePayChannels(enablePayChannels);
+            return this;
+        }
+
+        public Builder storeId(String storeId) {
+            instance.setStoreId(storeId);
+            return this;
+        }
+
+        public Builder specifiedChannel(String specifiedChannel) {
+            instance.setSpecifiedChannel(specifiedChannel);
+            return this;
+        }
+
+        public Builder disablePayChannels(String disablePayChannels) {
+            instance.setDisablePayChannels(disablePayChannels);
+            return this;
+        }
+
+        public Builder settleInfo(SettleInfo settleInfo) {
+            instance.setSettleInfo(settleInfo);
+            return this;
+        }
+
+        public Builder invoiceInfo(InvoiceInfo invoiceInfo) {
+            instance.setInvoiceInfo(invoiceInfo);
+            return this;
+        }
+
+        public Builder extUserInfo(ExtUserInfo extUserInfo) {
+            instance.setExtUserInfo(extUserInfo);
+            return this;
+        }
+
+        public Builder businessParams(String businessParams) {
+            instance.setBusinessParams(businessParams);
+            return this;
+        }
+
+        public AlipayTradeAppPayModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
