@@ -46,8 +46,8 @@ public class NotifyUtils {
             notifyRecord.setNotifyUrl(notifyUrl);
             notifyRecord.setAlipayPublicKey(StringUtils.isNotBlank(alipayPublicKey) ? alipayPublicKey : Constants.VARCHAR_DEFAULT_VALUE);
             notifyRecord.setAlipaySignType(StringUtils.isNotBlank(alipaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setWeiXinPayApiSecretKey(StringUtils.isNotBlank(weiXinPayApiSecretKey) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
+            notifyRecord.setWeiXinPayApiSecretKey(StringUtils.isNotBlank(weiXinPayApiSecretKey) ? weiXinPayApiSecretKey : Constants.VARCHAR_DEFAULT_VALUE);
+            notifyRecord.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? weiXinPaySignType : Constants.VARCHAR_DEFAULT_VALUE);
             notifyRecord.setUpdatedUserId(userId);
             notifyRecord.setUpdatedRemark("修改回调记录！");
             DatabaseHelper.update(notifyRecord);
