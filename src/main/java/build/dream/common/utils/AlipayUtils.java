@@ -5,11 +5,16 @@ import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.ApiException;
 import build.dream.common.models.alipay.*;
+import build.dream.common.models.notify.SaveNotifyRecordModel;
 import build.dream.common.saas.domains.AlipayAccount;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -169,18 +174,39 @@ public class AlipayUtils {
         }
     }
 
-    private static AlipayAccount saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) throws IOException {
+    private static AlipayAccount saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) {
         AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
         ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
 
-        Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
-        saveNotifyRecordRequestParameters.put("uuid", uuid);
-        saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
-        saveNotifyRecordRequestParameters.put("alipayPublicKey", alipayAccount.getAlipayPublicKey());
-        saveNotifyRecordRequestParameters.put("alipaySignType", alipayAccount.getSignType());
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
+            SaveNotifyRecordModel saveNotifyRecordModel = SaveNotifyRecordModel.builder()
+                    .uuid(uuid)
+                    .notifyUrl(notifyUrl)
+                    .alipayPublicKey(alipayAccount.getAlipayPublicKey())
+                    .alipaySignType(alipayAccount.getSignType())
+                    .build();
+            DataSourceTransactionManager dataSourceTransactionManager = ApplicationHandler.getBean(DataSourceTransactionManager.class);
+            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
+            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+            TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
+            try {
+                NotifyUtils.saveNotifyRecord(saveNotifyRecordModel);
+                dataSourceTransactionManager.commit(transactionStatus);
+            } catch (Exception e) {
+                dataSourceTransactionManager.rollback(transactionStatus);
+                throw e;
+            }
+        } else {
+            Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
+            saveNotifyRecordRequestParameters.put("uuid", uuid);
+            saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
+            saveNotifyRecordRequestParameters.put("alipayPublicKey", alipayAccount.getAlipayPublicKey());
+            saveNotifyRecordRequestParameters.put("alipaySignType", alipayAccount.getSignType());
 
-        ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
-        ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+            ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
+            ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+        }
 
         return alipayAccount;
     }

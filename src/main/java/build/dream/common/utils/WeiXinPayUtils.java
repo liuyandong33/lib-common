@@ -166,7 +166,6 @@ public class WeiXinPayUtils {
                 dataSourceTransactionManager.rollback(transactionStatus);
                 throw e;
             }
-
         } else {
             Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
             saveNotifyRecordRequestParameters.put("uuid", uuid);
