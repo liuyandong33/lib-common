@@ -19,7 +19,7 @@ public class NotifyUtils {
         BigInteger userId = CommonUtils.getServiceSystemUserId();
 
         SearchModel searchModel = new SearchModel(true);
-        searchModel.addSearchCondition("uuid", Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
+        searchModel.addSearchCondition(NotifyRecord.ColumnName.UUID, Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
         NotifyRecord notifyRecord = DatabaseHelper.find(NotifyRecord.class, searchModel);
         if (notifyRecord == null) {
             notifyRecord = new NotifyRecord();
