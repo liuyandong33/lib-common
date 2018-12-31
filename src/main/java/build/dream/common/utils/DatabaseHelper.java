@@ -161,6 +161,15 @@ public class DatabaseHelper {
         }
     }
 
+    public static <T> List<T> findAll(Class<T> domainClass) {
+        return findAll(domainClass, DatabaseUtils.obtainTableName(domainClass));
+    }
+
+    public static <T> List<T> findAll(Class<T> domainClass, String tableName) {
+        SearchModel searchModel = new SearchModel(true);
+        return findAll(domainClass, tableName, searchModel);
+    }
+
     public static <T> List<T> findAll(Class<T> domainClass, SearchModel searchModel) {
         return findAll(domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
