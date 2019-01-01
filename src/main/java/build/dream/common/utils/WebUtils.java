@@ -671,11 +671,7 @@ public class WebUtils {
                 }
                 outputStream.write(("Content-Disposition: form-data; " + "name=\"" + key + "\";filename=\"" + fileName + "\"" + ENTER_NEW_LINE).getBytes(Constants.CHARSET_NAME_UTF_8));
                 outputStream.write(("Content-Type:" + MimeMappingUtils.obtainMimeTypeByFileName(fileName) + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(Constants.CHARSET_NAME_UTF_8));
-                int length = 0;
-                byte[] buffer = new byte[1024];
-                while ((length = inputStream.read(buffer, 0, 1024)) != -1) {
-                    outputStream.write(buffer, 0, length);
-                }
+                IOUtils.copy(inputStream, outputStream);
                 inputStream.close();
             }
             outputStream.write(ENTER_NEW_LINE.getBytes(charsetName));
