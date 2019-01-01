@@ -17,7 +17,6 @@ public class SearchModel {
     private String tableName;
     private String groupBy;
     private String orderBy;
-    private String limit;
 
     public SearchModel() {
 
@@ -109,13 +108,5 @@ public class SearchModel {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
-    }
-
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
     }
 }
