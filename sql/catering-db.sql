@@ -838,6 +838,7 @@ CREATE TABLE vip_type
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_group_id BIGINT NOT NULL COMMENT '会员分组ID',
     name VARCHAR(20) NOT NULL COMMENT '会员类型名称',
     discount_policy TINYINT NOT NULL COMMENT '优惠政策，1-无优惠，2-会员价，3-固定折扣',
     discount_rate DECIMAL(5, 2) NOT NULL COMMENT '折扣率',
