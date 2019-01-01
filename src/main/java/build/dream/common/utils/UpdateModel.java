@@ -83,4 +83,8 @@ public class UpdateModel {
     public String getOrderBy() {
         return null;
     }
+
+    public String getLimit() {
+        return null;
+    }
 }
