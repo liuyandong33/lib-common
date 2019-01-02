@@ -555,23 +555,12 @@ public class WebUtils {
         return buildQueryString(requestParameters, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String buildQueryStringOriginal(Map<String, String> requestParameters) {
-        List<String> requestParameterPairs = new ArrayList<String>();
-        Set<Map.Entry<String, String>> entries = requestParameters.entrySet();
-        for (Map.Entry<String, String> entry : entries) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            if (StringUtils.isBlank(value)) {
-                requestParameterPairs.add(key + "=");
-            } else {
-                requestParameterPairs.add(key + "=" + value);
-            }
-        }
-        return StringUtils.join(requestParameterPairs, "&");
-    }
-
     public static String buildQueryString(Map<String, String> requestParameters, String charsetName) {
         return concat(requestParameters, charsetName);
+    }
+
+    public static String buildQueryStringOriginal(Map<String, String> requestParameters) {
+        return concat(requestParameters);
     }
 
     public static String buildRequestBody(Map<String, String> requestParameters) {
@@ -589,9 +578,9 @@ public class WebUtils {
             String key = entry.getKey();
             String value = entry.getValue();
             if (StringUtils.isBlank(value)) {
-                requestParameterPairs.add(key + "=");
+                requestParameterPairs.add(UrlUtils.encode(key, charsetName) + "=");
             } else {
-                requestParameterPairs.add(key + "=" + UrlUtils.encode(value, charsetName));
+                requestParameterPairs.add(UrlUtils.encode(key, charsetName) + "=" + UrlUtils.encode(value, charsetName));
             }
         }
         return StringUtils.join(requestParameterPairs, "&");
