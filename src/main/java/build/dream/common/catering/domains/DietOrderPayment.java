@@ -1,5 +1,6 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+@ShardingColumn(fieldName = DietOrderPayment.FieldName.TENANT_ID, columnName = DietOrderPayment.ColumnName.TENANT_ID)
 public class DietOrderPayment extends BasicDomain {
     public static final String TABLE_NAME = "diet_order_payment";
     /**

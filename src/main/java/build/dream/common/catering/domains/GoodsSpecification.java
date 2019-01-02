@@ -1,5 +1,6 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
@@ -7,14 +8,37 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
+@ShardingColumn(fieldName = GoodsSpecification.FieldName.TENANT_ID, columnName = GoodsSpecification.ColumnName.TENANT_ID)
 public class GoodsSpecification extends BasicDomain {
     public static final String TABLE_NAME = "goods_specification";
+
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+    /**
+     * 商户编号
+     */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+    /**
+     * 规格名称
+     */
     private String name;
+    /**
+     * 口味加价
+     */
     private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
+    /**
+     * 库存数量
+     */
     private BigDecimal stock;
 
     public BigInteger getTenantId() {
