@@ -2,6 +2,8 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.beeleme.ShopAnnouncementGetModel;
+import build.dream.common.models.beeleme.ShopAnnouncementSetModel;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -23,7 +25,7 @@ public class BeElemeUtils {
         return DigestUtils.md5Hex(StringUtils.join(requestParameterPairs, "&")).toUpperCase();
     }
 
-    public static String callBeElemeSystem(String cmd, String source, String body, String encrypt, String fields) throws UnsupportedEncodingException {
+    public static Map<String, Object> callBeElemeSystem(String cmd, String source, String body, String encrypt, String fields) throws UnsupportedEncodingException {
         long timestamp = System.currentTimeMillis();
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("cmd", cmd);
@@ -42,6 +44,19 @@ public class BeElemeUtils {
 
         requestParameters.put("sign", generateSignature(requestParameters));
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(BE_ELE_ME_SERVICE_URL, requestParameters);
-        return webResponse.getResult();
+        String result = webResponse.getResult();
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
+    }
+
+    public static Map<String, Object> shopAnnouncementGet(ShopAnnouncementGetModel shopAnnouncementGetModel) throws UnsupportedEncodingException {
+        shopAnnouncementGetModel.validateAndThrow();
+        String source = shopAnnouncementGetModel.getSource();
+        return callBeElemeSystem("shop.announcement.get", source, JacksonUtils.writeValueAsString(shopAnnouncementGetModel), null, null);
+    }
+
+    public static Map<String, Object> shopAnnouncementSet(ShopAnnouncementSetModel shopAnnouncementSetModel) throws UnsupportedEncodingException {
+        shopAnnouncementSetModel.validateAndThrow();
+        String source = shopAnnouncementSetModel.getSource();
+        return callBeElemeSystem("shop.announcement.set", source, JacksonUtils.writeValueAsString(shopAnnouncementSetModel), null, null);
     }
 }
