@@ -212,8 +212,8 @@ public class WebUtils {
             httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
             if (headers == null) {
                 headers = new HashMap<String, String>();
-                headers.put("Content-Type", "multipart/form-data;boundary=" + BOUNDARY);
             }
+            headers.put(HttpHeaders.CONTENT_TYPE, "multipart/form-data;boundary=" + BOUNDARY);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);
@@ -514,13 +514,16 @@ public class WebUtils {
     }
 
     public static void setRequestProperties(HttpURLConnection httpURLConnection, Map<String, String> headers, String charsetName) {
-        if (MapUtils.isNotEmpty(headers)) {
+        if (MapUtils.isEmpty(headers)) {
+            httpURLConnection.setRequestProperty(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=" + charsetName);
+        } else {
             Set<Map.Entry<String, String>> entries = headers.entrySet();
             for (Map.Entry<String, String> entry : entries) {
                 httpURLConnection.setRequestProperty(entry.getKey(), entry.getValue());
             }
-        } else {
-            httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=" + charsetName);
+            if (!headers.containsKey(HttpHeaders.CONTENT_TYPE)) {
+                httpURLConnection.setRequestProperty(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=" + charsetName);
+            }
         }
     }
 
