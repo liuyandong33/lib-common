@@ -77,4 +77,41 @@ public class ShopAnnouncementSetModel extends BasicModel {
         super.validateAndThrow();
         ValidateUtils.isTrue(StringUtils.isNotBlank(baiduShopId) || StringUtils.isNotBlank(shopId), "参数 baiduShopId 和 shopId 和不能同时为空！");
     }
+
+    public static class Builder {
+        private ShopAnnouncementSetModel instance = new ShopAnnouncementSetModel();
+
+        public Builder source(String source) {
+            instance.setSource(source);
+            return this;
+        }
+
+        public Builder baiduShopId(String baiduShopId) {
+            instance.setBaiduShopId(baiduShopId);
+            return this;
+        }
+
+        public Builder shopId(String shopId) {
+            instance.setShopId(shopId);
+            return this;
+        }
+
+        public Builder descritption(String descritption) {
+            instance.setDescritption(descritption);
+            return this;
+        }
+
+        public Builder content(String content) {
+            instance.setContent(content);
+            return this;
+        }
+
+        public ShopAnnouncementSetModel build() {
+            return instance;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
