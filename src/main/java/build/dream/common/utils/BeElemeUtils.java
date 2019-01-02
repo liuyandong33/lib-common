@@ -4,6 +4,7 @@ import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.beeleme.ShopAnnouncementGetModel;
 import build.dream.common.models.beeleme.ShopAnnouncementSetModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -51,12 +52,12 @@ public class BeElemeUtils {
     public static Map<String, Object> shopAnnouncementGet(ShopAnnouncementGetModel shopAnnouncementGetModel) throws UnsupportedEncodingException {
         shopAnnouncementGetModel.validateAndThrow();
         String source = shopAnnouncementGetModel.getSource();
-        return callBeElemeSystem("shop.announcement.get", source, JacksonUtils.writeValueAsString(shopAnnouncementGetModel), null, null);
+        return callBeElemeSystem("shop.announcement.get", source, JacksonUtils.writeValueAsString(shopAnnouncementGetModel, JsonInclude.Include.NON_NULL), null, null);
     }
 
     public static Map<String, Object> shopAnnouncementSet(ShopAnnouncementSetModel shopAnnouncementSetModel) throws UnsupportedEncodingException {
         shopAnnouncementSetModel.validateAndThrow();
         String source = shopAnnouncementSetModel.getSource();
-        return callBeElemeSystem("shop.announcement.set", source, JacksonUtils.writeValueAsString(shopAnnouncementSetModel), null, null);
+        return callBeElemeSystem("shop.announcement.set", source, JacksonUtils.writeValueAsString(shopAnnouncementSetModel, JsonInclude.Include.NON_NULL), null, null);
     }
 }
