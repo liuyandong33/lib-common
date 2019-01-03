@@ -829,27 +829,42 @@ public class WeiXinUtils {
     }
 
     public static WeiXinAuthorizerInfo obtainWeiXinPublicAccount(String tenantId) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("tenantId", tenantId);
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinPublicAccount", requestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        return (WeiXinAuthorizerInfo) apiRest.getData();
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
+            SearchModel searchModel = new SearchModel(true);
+            searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.TENANT_ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, tenantId);
+            searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.AUTHORIZER_TYPE, Constants.SQL_OPERATION_SYMBOL_EQUAL, Constants.AUTHORIZER_TYPE_PUBLIC_ACCOUNT);
+            return DatabaseHelper.find(WeiXinAuthorizerInfo.class, searchModel);
+        } else {
+            Map<String, String> requestParameters = new HashMap<String, String>();
+            requestParameters.put("tenantId", tenantId);
+            ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinPublicAccount", requestParameters);
+            ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+            return (WeiXinAuthorizerInfo) apiRest.getData();
+        }
     }
 
     public static List<WeiXinAuthorizerInfo> obtainWeiXinMiniPrograms(String tenantId) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("tenantId", tenantId);
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinMiniPrograms", requestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
+            SearchModel searchModel = new SearchModel(true);
+            searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.TENANT_ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, tenantId);
+            searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.AUTHORIZER_TYPE, Constants.SQL_OPERATION_SYMBOL_EQUAL, Constants.AUTHORIZER_TYPE_MINI_PROGRAM);
+            return DatabaseHelper.findAll(WeiXinAuthorizerInfo.class, searchModel);
+        } else {
+            Map<String, String> requestParameters = new HashMap<String, String>();
+            requestParameters.put("tenantId", tenantId);
+            ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinMiniPrograms", requestParameters);
+            ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
 
-        List<Map<String, Object>> data = (List<Map<String, Object>>) apiRest.getData();
+            List<Map<String, Object>> data = (List<Map<String, Object>>) apiRest.getData();
 
-        List<WeiXinAuthorizerInfo> weiXinAuthorizerInfos = new ArrayList<WeiXinAuthorizerInfo>();
-        for (Map<String, Object> map : data) {
-            WeiXinAuthorizerInfo weiXinAuthorizerInfo = ApplicationHandler.buildObject(WeiXinAuthorizerInfo.class, map);
-            weiXinAuthorizerInfos.add(weiXinAuthorizerInfo);
+            List<WeiXinAuthorizerInfo> weiXinAuthorizerInfos = new ArrayList<WeiXinAuthorizerInfo>();
+            for (Map<String, Object> map : data) {
+                WeiXinAuthorizerInfo weiXinAuthorizerInfo = ApplicationHandler.buildObject(WeiXinAuthorizerInfo.class, map);
+                weiXinAuthorizerInfos.add(weiXinAuthorizerInfo);
+            }
+            return weiXinAuthorizerInfos;
         }
-
-        return weiXinAuthorizerInfos;
     }
 }
