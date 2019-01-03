@@ -7,11 +7,19 @@ import java.util.List;
 
 public class CreateMenuModel extends BasicModel {
     @SerializedName(value = "button", alternate = "buttonModels")
-    private List<ButtonModel> buttonModels;
+    private List<Button> buttons;
 
-    public static class ButtonModel extends BasicModel {
+    public List<Button> getButtons() {
+        return buttons;
+    }
+
+    public void setButtons(List<Button> buttons) {
+        this.buttons = buttons;
+    }
+
+    public static class Button extends BasicModel {
         @SerializedName(value = "sub_button", alternate = "subButtons")
-        private List<SubButtonModel> subButtons;
+        private List<SubButton> subButtons;
 
         private String type;
 
@@ -30,11 +38,11 @@ public class CreateMenuModel extends BasicModel {
         @SerializedName(value = "pagepath", alternate = "pagePath")
         private String pagePath;
 
-        public List<SubButtonModel> getSubButtons() {
+        public List<SubButton> getSubButtons() {
             return subButtons;
         }
 
-        public void setSubButtons(List<SubButtonModel> subButtons) {
+        public void setSubButtons(List<SubButton> subButtons) {
             this.subButtons = subButtons;
         }
 
@@ -95,7 +103,7 @@ public class CreateMenuModel extends BasicModel {
         }
     }
 
-    public static class SubButtonModel extends BasicModel {
+    public static class SubButton extends BasicModel {
         private String type;
 
         private String name;
