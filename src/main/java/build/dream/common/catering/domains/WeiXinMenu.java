@@ -24,9 +24,9 @@ public class WeiXinMenu extends BasicDomain {
      */
     private String name;
     /**
-     * 菜单类型
+     * 菜单类型，click，view，scancode_push，scancode_waitmsg，pic_sysphoto，pic_photo_or_album，pic_weixin，location_select，media_id，view_limited，miniprogram
      */
-    private Integer type;
+    private String type;
     /**
      * 文本消息内容
      */
@@ -80,11 +80,11 @@ public class WeiXinMenu extends BasicDomain {
         this.name = name;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -151,7 +151,7 @@ public class WeiXinMenu extends BasicDomain {
             return this;
         }
 
-        public Builder type(Integer type) {
+        public Builder type(String type) {
             instance.setType(type);
             return this;
         }
