@@ -68,7 +68,7 @@ public class FileUtils {
             int remainder = (int) ((end - start + 1) % 1024);
             byte[] buffer = new byte[1024];
             int length = 0;
-            for (int index = 0; index < count; index++) {
+            for (long index = 0; index < count; index++) {
                 length = inputStream.read(buffer, 0, 1024);
                 outputStream.write(buffer, 0, length);
                 outputStream.flush();
