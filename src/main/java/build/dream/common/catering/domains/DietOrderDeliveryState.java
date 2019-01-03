@@ -1,11 +1,13 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
+@ShardingColumn(fieldName = DietOrderDeliveryState.FieldName.TENANT_ID, columnName = DietOrderDeliveryState.ColumnName.TENANT_ID)
 public class DietOrderDeliveryState extends BasicDomain {
     public static final String TABLE_NAME = "diet_order_delivery_state";
     /**

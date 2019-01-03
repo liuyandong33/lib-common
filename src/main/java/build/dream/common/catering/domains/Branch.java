@@ -7,7 +7,7 @@ import build.dream.common.constants.Constants;
 import java.math.BigInteger;
 import java.util.Date;
 
-@ShardingColumn(fieldName = "tenantId", columnName = "tenant_id")
+@ShardingColumn(fieldName = Branch.FieldName.TENANT_ID, columnName = Branch.ColumnName.TENANT_ID)
 public class Branch extends BasicDomain {
     public static final String TABLE_NAME = "branch";
     /**

@@ -1,10 +1,12 @@
 package build.dream.common.catering.domains;
 
+import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 import java.util.Date;
 
+@ShardingColumn(fieldName = VipGroup.FieldName.TENANT_ID, columnName = VipGroup.ColumnName.TENANT_ID)
 public class VipGroup extends BasicDomain {
     public static final String TABLE_NAME = "vip_group";
     /**
