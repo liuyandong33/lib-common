@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class CreateMenuModel extends BasicModel {
-    @SerializedName(value = "button", alternate = "buttonModels")
+    @SerializedName(value = "button", alternate = "buttons")
     private List<Button> buttons;
 
     public List<Button> getButtons() {
