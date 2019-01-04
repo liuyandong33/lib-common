@@ -88,11 +88,11 @@ public class DatabaseUtils {
                 }
 
                 if ("id".equals(fieldName)) {
-                    if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYSQL)) {
+                    if (Constants.DATABASE_PROVIDER_MYSQL.equals(DATABASE_PROVIDER)) {
                         continue;
-                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
+                    } else if (Constants.DATABASE_PROVIDER_ORACLE.equals(DATABASE_PROVIDER)) {
 
-                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
+                    } else if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
@@ -105,7 +105,7 @@ public class DatabaseUtils {
                     } else {
                         columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
                     }
-                    
+
                     insertSql.append(columnName);
                     insertSql.append(", ");
                     valuesSql.append("#{").append(fieldName);
@@ -189,11 +189,11 @@ public class DatabaseUtils {
                 }
 
                 if ("id".equals(fieldName)) {
-                    if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYSQL)) {
+                    if (Constants.DATABASE_PROVIDER_MYSQL.equals(DATABASE_PROVIDER)) {
 
-                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_ORACLE)) {
+                    } else if (Constants.DATABASE_PROVIDER_ORACLE.equals(DATABASE_PROVIDER)) {
 
-                    } else if (DATABASE_PROVIDER.equals(Constants.DATABASE_PROVIDER_MYCAT)) {
+                    } else if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
@@ -300,14 +300,16 @@ public class DatabaseUtils {
 
         updateSql.append(" WHERE id = #{id}");
 
-        ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
-        if (shardingColumn != null) {
-            updateSql.append(" AND ");
-            updateSql.append(shardingColumn.columnName());
-            updateSql.append(" = ");
-            updateSql.append("#{");
-            updateSql.append(shardingColumn.fieldName());
-            updateSql.append("}");
+        if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
+            ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
+            if (shardingColumn != null) {
+                updateSql.append(" AND ");
+                updateSql.append(shardingColumn.columnName());
+                updateSql.append(" = ");
+                updateSql.append("#{");
+                updateSql.append(shardingColumn.fieldName());
+                updateSql.append("}");
+            }
         }
         return updateSql.toString();
     }
