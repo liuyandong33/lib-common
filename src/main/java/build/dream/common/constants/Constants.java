@@ -816,7 +816,7 @@ public class Constants {
     public static final String TLS = "TLS";
     public static final String PKCS12 = "PKCS12";
 
-    private static final X509TrustManager X509_TRUST_MANAGER = new X509TrustManager() {
+    public static final X509TrustManager X509_TRUST_MANAGER = new X509TrustManager() {
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[]{};
@@ -834,4 +834,16 @@ public class Constants {
     };
 
     public static final TrustManager[] TRUST_MANAGERS = new TrustManager[]{X509_TRUST_MANAGER};
+
+    public static final String WEI_XIN_MENU_TYPE_CLICK = "click";
+    public static final String WEI_XIN_MENU_TYPE_VIEW = "view";
+    public static final String WEI_XIN_MENU_TYPE_SCANCODE_PUSH = "scancode_push";
+    public static final String WEI_XIN_MENU_TYPE_SCANCODE_WAITMSG = "scancode_waitmsg";
+    public static final String WEI_XIN_MENU_TYPE_PIC_SYSPHOTO = "pic_sysphoto";
+    public static final String WEI_XIN_MENU_TYPE_PIC_PHOTO_OR_ALBUM = "pic_photo_or_album";
+    public static final String WEI_XIN_MENU_TYPE_PIC_WEIXIN = "pic_weixin";
+    public static final String WEI_XIN_MENU_TYPE_LOCATION_SELECT = "location_select";
+    public static final String WEI_XIN_MENU_TYPE_MEDIA_ID = "media_id";
+    public static final String WEI_XIN_MENU_TYPE_VIEW_LIMITED = "view_limited";
+    public static final String WEI_XIN_MENU_TYPE_MINIPROGRAM = "miniprogram";
 }
