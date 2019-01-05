@@ -33,7 +33,7 @@ public class ElasticsearchUtils {
         return indexResponse;
     }
 
-    public static void indexAll(String index, String type, List<BasicDomain> domains) throws IOException {
+    public static void indexAll(String index, String type, List<? extends BasicDomain> domains) throws IOException {
         for (BasicDomain domain : domains) {
             index(index, type, domain);
         }
