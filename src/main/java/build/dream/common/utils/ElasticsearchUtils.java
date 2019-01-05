@@ -31,7 +31,7 @@ public class ElasticsearchUtils {
             contentBuilder.field(entry.getKey(), entry.getValue());
         }
         contentBuilder.endObject();
-        IndexResponse indexResponse = obtainTransportClient().prepareIndex("catering", "goods", domain.getId().toString()).setSource(contentBuilder).get();
+        IndexResponse indexResponse = obtainTransportClient().prepareIndex(index, type, domain.getId().toString()).setSource(contentBuilder).get();
         return indexResponse;
     }
 }
