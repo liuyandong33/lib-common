@@ -63,6 +63,7 @@ dependencies {
     compile("org.quartz-scheduler:quartz:2.3.0")
     compile("org.jsoup:jsoup:1.11.2")
 //    compile("com.squareup.okhttp3:okhttp:3.12.1")
+    compile("org.elasticsearch.client:transport:6.5.4")
 }
 
 task makeJar(type: Jar) {

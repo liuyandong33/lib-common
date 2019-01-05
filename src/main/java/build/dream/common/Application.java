@@ -1,6 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.models.alipay.AlipayTradeAppPayModel;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -17,11 +18,13 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        String packageName = "build.dream.common.catering.domains";
+        /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);
-        }
+        }*/
+
+        generateBuildPatternCode(AlipayTradeAppPayModel.class);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
@@ -220,7 +223,7 @@ public class Application {
     }
 
     public static void writeCode(Class<?> domainClass, String code) throws IOException {
-        String sourcePath = "E:\\huaneng-workspace\\saas-common\\src\\main\\java\\" + domainClass.getName().replaceAll("\\.", "\\\\") + ".java";
+        String sourcePath = "/Users/liuyandong/Workspace/lib-common/src/main/java/" + domainClass.getName().replaceAll("\\.", "/") + ".java";
         File file = new File(sourcePath);
         String fileContent = obtainFileContent(file);
         FileWriter fileWriter = new FileWriter(file);
