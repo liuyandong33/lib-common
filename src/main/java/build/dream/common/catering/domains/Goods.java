@@ -236,5 +236,6 @@ public class Goods extends BasicDomain {
         public static final String CATEGORY_ID = "categoryId";
         public static final String IMAGE_URL = "imageUrl";
         public static final String STOCKED = "stocked";
+        public static final String CATEGORY_NAME = "categoryName";
     }
 }
