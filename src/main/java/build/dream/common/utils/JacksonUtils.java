@@ -82,19 +82,19 @@ public class JacksonUtils {
         return list;
     }
 
-    public static <T> List<T> readValueAsSet(String content, Class<T> elementClass) {
+    public static <T> Set<T> readValueAsSet(String content, Class<T> elementClass) {
         return readValueAsSet(content, elementClass, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public static <T> List<T> readValueAsSet(String content, Class<T> elementClass, String datePattern) {
-        List<T> list = null;
+    public static <T> Set<T> readValueAsSet(String content, Class<T> elementClass, String datePattern) {
+        Set<T> set = null;
         try {
             ObjectMapper objectMapper = obtainObjectMapper(datePattern, null);
-            list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
+            set = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return list;
+        return set;
     }
 
     public static <K, V> Map<K, V> readValueAsMap(String content, Class<K> keyClass, Class<V> valueClass) {
