@@ -32,6 +32,14 @@ public class LogUtils {
         }
     }
 
+    public static void error(String errorMessage, String className, String methodName, Throwable throwable, String body) {
+        if (LOG_STACK_INFO) {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), body));
+        } else {
+            LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), body));
+        }
+    }
+
     public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
         if (LOG_STACK_INFO) {
             LOGGER.error(String.format("%s:%s.%s-%s-%s-%s", errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage()));
