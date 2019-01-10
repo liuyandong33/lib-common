@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -266,6 +267,16 @@ public class ApplicationHandler {
      */
     public static String obtainRequestUrl() {
         return obtainRequestUrl(getHttpServletRequest());
+    }
+
+    public static <T> T instantiateObject(Class<T> objectClass, String json) {
+        JsonSchema jsonSchema = AnnotationUtils.findAnnotation(objectClass, JsonSchema.class);
+        if (jsonSchema != null) {
+            if (jsonSchema != null) {
+                ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, Constants.ERROR_CODE_INVALID_PARAMETER);
+            }
+        }
+        return JacksonUtils.readValue(json, objectClass);
     }
 
     /**
