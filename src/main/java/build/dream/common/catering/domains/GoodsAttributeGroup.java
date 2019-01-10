@@ -122,6 +122,10 @@ public class GoodsAttributeGroup extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public GoodsAttributeGroup build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

@@ -173,6 +173,10 @@ public class FullReductionActivity extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public FullReductionActivity build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

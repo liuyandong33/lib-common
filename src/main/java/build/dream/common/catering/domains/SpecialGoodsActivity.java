@@ -190,6 +190,10 @@ public class SpecialGoodsActivity extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public SpecialGoodsActivity build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

@@ -154,6 +154,10 @@ public class GoodsCategory extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public GoodsCategory build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

@@ -342,6 +342,10 @@ public class SaleDetail extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public SaleDetail build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

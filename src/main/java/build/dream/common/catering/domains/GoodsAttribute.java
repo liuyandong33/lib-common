@@ -173,6 +173,10 @@ public class GoodsAttribute extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public GoodsAttribute build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

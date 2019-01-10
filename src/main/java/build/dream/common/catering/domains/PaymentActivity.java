@@ -190,6 +190,10 @@ public class PaymentActivity extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public PaymentActivity build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {

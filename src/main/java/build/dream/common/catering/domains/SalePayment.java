@@ -206,6 +206,10 @@ public class SalePayment extends BasicDomain {
             instance.setDeleted(deleted);
             return this;
         }
+
+        public SalePayment build() {
+            return instance;
+        }
     }
 
     public static Builder builder() {
