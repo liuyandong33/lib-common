@@ -116,4 +116,30 @@ public class CanNotOperateReason {
     public void setReason(String reason) {
         this.reason = reason;
     }
+
+    public static final class ColumnName {
+        public static final String ID = "id";
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
+        public static final String TABLE_ID = "table_id";
+        public static final String TABLE_NAME = "table_name";
+        public static final String CAUSE_TABLE_ID = "cause_table_id";
+        public static final String CAUSE_TABLE_NAME = "cause_table_name";
+        public static final String OPERATE_TYPE = "operate_type";
+        public static final String REASON = "reason";
+    }
+
+    public static final class FieldName {
+        public static final String ID = "id";
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
+        public static final String TABLE_ID = "tableId";
+        public static final String TABLE_NAME = "tableName";
+        public static final String CAUSE_TABLE_ID = "causeTableId";
+        public static final String CAUSE_TABLE_NAME = "causeTableName";
+        public static final String OPERATE_TYPE = "operateType";
+        public static final String REASON = "reason";
+    }
 }
