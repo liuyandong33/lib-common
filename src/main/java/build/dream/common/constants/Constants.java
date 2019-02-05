@@ -846,4 +846,6 @@ public class Constants {
     public static final String WEI_XIN_MENU_TYPE_MEDIA_ID = "media_id";
     public static final String WEI_XIN_MENU_TYPE_VIEW_LIMITED = "view_limited";
     public static final String WEI_XIN_MENU_TYPE_MINIPROGRAM = "miniprogram";
+
+    public static final String PERCENT_SIGN = "%";
 }
