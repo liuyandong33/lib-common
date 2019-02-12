@@ -205,18 +205,47 @@ public class Application {
         Class<?> cloneDomainClass = domainClass;
         String simpleName = domainClass.getSimpleName();
         StringBuilder code = new StringBuilder("public static class Builder {private final " + simpleName + " instance = new " + simpleName + "();");
-        while (domainClass != Object.class) {
-            Field[] fields = domainClass.getDeclaredFields();
+        while (cloneDomainClass != Object.class) {
+            Field[] fields = cloneDomainClass.getDeclaredFields();
             for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                    continue;
+                }
                 String name = field.getName();
                 code.append("public Builder " + name + "(" + field.getType().getSimpleName() + " " + name + ") { instance.set" + name.substring(0, 1).toUpperCase() + name.substring(1) + "(" + name + ");return this;}");
             }
-            domainClass = domainClass.getSuperclass();
+            cloneDomainClass = cloneDomainClass.getSuperclass();
         }
-        code.append("public " + simpleName + " build() {return instance;}");
-        code.append("}");
+        code.append("public " + simpleName + " build() {");
+        String variableName = simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1);
+        code.append(simpleName).append(" ").append(variableName).append(" = ").append("new ").append(simpleName).append("();");
+
+        cloneDomainClass = domainClass;
+        while (cloneDomainClass != Object.class) {
+            Field[] fields = cloneDomainClass.getDeclaredFields();
+            for (Field field : fields) {
+                int modifiers = field.getModifiers();
+                if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
+                    continue;
+                }
+
+                String name = field.getName();
+                String setMethodName = "set" + name.substring(0, 1).toUpperCase() + name.substring(1);
+                String getMethodName = null;
+                if (field.getType() == boolean.class) {
+                    getMethodName = "is" + name.substring(0, 1).toUpperCase() + name.substring(1);
+                } else {
+                    getMethodName = "get" + name.substring(0, 1).toUpperCase() + name.substring(1);
+                }
+                code.append(variableName).append(".").append(setMethodName).append("(").append("instance.").append(getMethodName).append("());");
+            }
+            cloneDomainClass = cloneDomainClass.getSuperclass();
+        }
+
+        code.append("return ").append(variableName).append(";}}");
         code.append("public static Builder builder() {return new Builder();}");
-        writeCode(cloneDomainClass, code.toString());
+        writeCode(domainClass, code.toString());
     }
 
     public static void writeCode(Class<?> domainClass, String code) throws IOException {
