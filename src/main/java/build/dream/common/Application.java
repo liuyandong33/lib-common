@@ -1,7 +1,6 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
-import build.dream.common.models.alipay.AlipayTradeAppPayModel;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -23,8 +22,6 @@ public class Application {
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);
         }*/
-
-        generateBuildPatternCode(AlipayTradeAppPayModel.class);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
