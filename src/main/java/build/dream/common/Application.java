@@ -29,6 +29,9 @@ public class Application {
         path = path.replace("out/production/classes", "src/main/java");
         path = path + Tenant.class.getName().replaceAll("\\.", "/") + ".java";
         System.out.println(path);
+
+        String sourcePath = Tenant.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        System.out.println(sourcePath);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
@@ -256,7 +259,7 @@ public class Application {
     }
 
     public static void writeCode(Class<?> domainClass, String code) throws IOException {
-        String sourcePath = "/Users/liuyandong/Workspace/lib-common/src/main/java/" + domainClass.getName().replaceAll("\\.", "/") + ".java";
+        String sourcePath = domainClass.getProtectionDomain().getCodeSource().getLocation().getPath();
         File file = new File(sourcePath);
         String fileContent = obtainFileContent(file);
         FileWriter fileWriter = new FileWriter(file);
