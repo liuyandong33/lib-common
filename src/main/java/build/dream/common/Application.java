@@ -1,6 +1,7 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -22,6 +23,12 @@ public class Application {
         for (Class<?> clazz : classes) {
             generateFieldNameInnerClassCode(clazz);
         }*/
+
+        String path = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        System.out.println(path);
+        path = path.replace("out/production/classes", "src/main/java");
+        path = path + Tenant.class.getName().replaceAll("\\.", "/") + ".java";
+        System.out.println(path);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
