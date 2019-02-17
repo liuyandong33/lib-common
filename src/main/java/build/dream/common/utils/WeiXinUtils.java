@@ -62,13 +62,10 @@ public class WeiXinUtils {
         return authorizeUrl.toString();
     }
 
-    public static Map<String, String> generateJsApiConfig(String url, String appId, String appSecret) throws IOException {
-        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicket(appId, appSecret, Constants.WEI_XIN_TICKET_TYPE_JSAPI);
-
-        String ticket = weiXinJsapiTicket.getTicket();
+    public static Map<String, String> buildJsApiConfig(String appId, String jsapiTicket, String url) {
         String nonceStr = RandomStringUtils.randomAlphanumeric(32);
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
-        String str = "jsapi_ticket=" + ticket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
+        String str = "jsapi_ticket=" + jsapiTicket + "&noncestr=" + nonceStr + "&timestamp=" + timestamp + "&url=" + url;
         String signature = DigestUtils.sha1Hex(str);
 
         Map<String, String> config = new HashMap<String, String>();
@@ -78,6 +75,16 @@ public class WeiXinUtils {
         config.put("url", url);
         config.put("signature", signature);
         return config;
+    }
+
+    public static Map<String, String> buildJsApiConfigByPublicAccount(String url, String appId, String appSecret) {
+        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicketByPublicAccount(appId, appSecret, Constants.WEI_XIN_TICKET_TYPE_JSAPI);
+        return buildJsApiConfig(appId, weiXinJsapiTicket.getTicket(), url);
+    }
+
+    public static Map<String, String> buildJsApiConfigByOpenPlatform(String url, String appId, String appSecret) {
+        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicketByOpenPlatform(appId, appSecret, Constants.WEI_XIN_TICKET_TYPE_JSAPI);
+        return buildJsApiConfig(appId, weiXinJsapiTicket.getTicket(), url);
     }
 
     public static WeiXinOAuthToken obtainOAuthToken(String appId, String secret, String code) {
@@ -168,7 +175,7 @@ public class WeiXinUtils {
         return weiXinUserInfo;
     }
 
-    public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) throws IOException {
+    public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) {
         String url = WEI_XIN_API_URL + "/message/mass/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendMassMessageModel, false));
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
@@ -209,35 +216,53 @@ public class WeiXinUtils {
         return weiXinAccessToken;
     }
 
-    public static WeiXinJsapiTicket obtainJsapiTicket(String appId, String appSecret, String type) throws IOException {
+    private static WeiXinJsapiTicket obtainJsapiTicket(String appId, String type) {
         String weiXinJsapiTicketJson = CacheUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
-        boolean isRetrieveJsapiTicket = false;
-        WeiXinJsapiTicket weiXinJsapiTicket = null;
-        if (StringUtils.isNotBlank(weiXinJsapiTicketJson)) {
-            weiXinJsapiTicket = GsonUtils.fromJson(weiXinJsapiTicketJson, WeiXinJsapiTicket.class);
-            if ((System.currentTimeMillis() - weiXinJsapiTicket.getFetchTime().getTime()) / 1000 >= weiXinJsapiTicket.getExpiresIn()) {
-                isRetrieveJsapiTicket = true;
-            }
-        } else {
-            isRetrieveJsapiTicket = true;
+        if (StringUtils.isBlank(weiXinJsapiTicketJson)) {
+            return null;
         }
 
-        if (isRetrieveJsapiTicket) {
+        WeiXinJsapiTicket weiXinJsapiTicket = GsonUtils.fromJson(weiXinJsapiTicketJson, WeiXinJsapiTicket.class);
+        if ((System.currentTimeMillis() - weiXinJsapiTicket.getFetchTime().getTime()) / 1000 >= weiXinJsapiTicket.getExpiresIn()) {
+            return weiXinJsapiTicket;
+        }
+        return null;
+    }
+
+    private static WeiXinJsapiTicket getTicket(String accessToken, String appId, String type) {
+        Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
+        obtainJsapiTicketRequestParameters.put("access_token", accessToken);
+        obtainJsapiTicketRequestParameters.put("type", type);
+
+        String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
+        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
+        ValidateUtils.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
+
+        WeiXinJsapiTicket weiXinJsapiTicket = new WeiXinJsapiTicket();
+        weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
+        weiXinJsapiTicket.setExpiresIn(resultJsonObject.optInt("expires_in"));
+        weiXinJsapiTicket.setFetchTime(new Date());
+        CacheUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
+        return weiXinJsapiTicket;
+    }
+
+    public static WeiXinJsapiTicket obtainJsapiTicketByPublicAccount(String appId, String appSecret, String type) {
+        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicket(appId, type);
+
+        if (weiXinJsapiTicket == null) {
             WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, appSecret);
-            Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
-            obtainJsapiTicketRequestParameters.put("access_token", weiXinAccessToken.getAccessToken());
-            obtainJsapiTicketRequestParameters.put("type", type);
+            weiXinJsapiTicket = getTicket(weiXinAccessToken.getAccessToken(), appId, type);
+        }
+        return weiXinJsapiTicket;
+    }
 
-            String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
-            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
-            JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-            ValidateUtils.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
+    public static WeiXinJsapiTicket obtainJsapiTicketByOpenPlatform(String componentAppId, String authorizerAppId, String type) {
+        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicket(authorizerAppId, type);
 
-            weiXinJsapiTicket = new WeiXinJsapiTicket();
-            weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
-            weiXinJsapiTicket.setExpiresIn(resultJsonObject.optInt("expires_in"));
-            weiXinJsapiTicket.setFetchTime(new Date());
-            CacheUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
+        if (weiXinJsapiTicket == null) {
+            String authorizerToken = obtainAuthorizerToken(componentAppId, authorizerAppId);
+            weiXinJsapiTicket = getTicket(authorizerToken, authorizerAppId, type);
         }
         return weiXinJsapiTicket;
     }
@@ -342,7 +367,7 @@ public class WeiXinUtils {
         return MapUtils.getString(result, "pre_auth_code");
     }
 
-    public static WeiXinAuthorizerToken apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) throws IOException {
+    public static WeiXinAuthorizerToken apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
@@ -384,6 +409,11 @@ public class WeiXinUtils {
         String tokenJson = CacheUtils.hget(Constants.SERVICE_NAME_PLATFORM, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
         return GsonUtils.fromJson(tokenJson, WeiXinAuthorizerToken.class);
+    }
+
+    public static String obtainAuthorizerToken(String componentAppId, String authorizerAppId) {
+        WeiXinAuthorizerToken weiXinAuthorizerToken = obtainWeiXinAuthorizerToken(componentAppId, authorizerAppId);
+        return weiXinAuthorizerToken.getAuthorizerAccessToken();
     }
 
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
