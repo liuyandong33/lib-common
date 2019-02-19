@@ -586,7 +586,7 @@ public class Constants {
     /**
      * 钉钉开放平台相关配置
      */
-    public static final String KEY_DINGTALK_TOKEN = "_dingtalk_token";
+    public static final String KEY_DINGTALK_TOKENS = "_dingtalk_tokens";
     public static final String DINGTALK_CORP_ID = "dingtalk.corp.id";
     public static final String DINGTALK_CORP_SECRET = "dingtalk.corp.secret";
     public static final String DINGTALK_SERVICE_URL = "dingtalk.service.url";
