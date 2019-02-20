@@ -50,7 +50,7 @@ public class DingtalkUtils {
         tokenMap.put("access_token", accessToken);
         tokenMap.put("expires_in", resultJsonObject.getLong("expires_in"));
         tokenMap.put("fetch_time", System.currentTimeMillis());
-        CacheUtils.set(Constants.KEY_DINGTALK_TOKENS, GsonUtils.toJson(tokenMap));
+        CacheUtils.hset(Constants.KEY_DINGTALK_TOKENS, corpId, GsonUtils.toJson(tokenMap));
         return accessToken;
     }
 
