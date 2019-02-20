@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.dingtalk.CreateChatModel;
+import build.dream.common.models.dingtalk.ListDepartmentsModel;
 import build.dream.common.models.dingtalk.SendModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.MapUtils;
@@ -148,5 +149,53 @@ public class DingtalkUtils {
         String corpId = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_ID);
         String corpSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_SECRET);
         return createChat(corpId, corpSecret, createChatModel);
+    }
+
+    /**
+     * 获取部门列表
+     *
+     * @param corpId
+     * @param corpSecret
+     * @param listDepartmentsModel
+     * @return
+     */
+    public static Map<String, Object> listDepartments(String corpId, String corpSecret, ListDepartmentsModel listDepartmentsModel) {
+        String lang = listDepartmentsModel.getLang();
+        Boolean fetchChild = listDepartmentsModel.getFetchChild();
+        String id = listDepartmentsModel.getId();
+
+        Map<String, String> listDepartmentsRequestParameters = new HashMap<String, String>();
+        listDepartmentsRequestParameters.put("access_token", obtainAccessToken(corpId, corpSecret));
+        if (StringUtils.isNotBlank(lang)) {
+            listDepartmentsRequestParameters.put("lang", lang);
+        }
+
+        if (fetchChild != null) {
+            listDepartmentsRequestParameters.put("fetch_child", fetchChild.toString());
+        }
+
+        if (StringUtils.isNotBlank(id)) {
+            listDepartmentsRequestParameters.put("id", id);
+        }
+
+        String url = DINGTALK_SERVICE_URL + "/department/list?access_token=" + obtainAccessToken(corpId, corpSecret);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listDepartmentsRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+
+        return resultMap;
+    }
+
+    /**
+     * 获取部门列表
+     *
+     * @param listDepartmentsModel
+     * @return
+     */
+    public static Map<String, Object> listDepartments(ListDepartmentsModel listDepartmentsModel) {
+        String corpId = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_ID);
+        String corpSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_SECRET);
+        return listDepartments(corpId, corpSecret, listDepartmentsModel);
     }
 }
