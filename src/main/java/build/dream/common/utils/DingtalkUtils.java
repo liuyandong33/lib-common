@@ -39,7 +39,7 @@ public class DingtalkUtils {
         Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
         obtainAccessTokenRequestParameters.put("corpid", corpId);
         obtainAccessTokenRequestParameters.put("corpsecret", corpSecret);
-        String url = ConfigurationUtils.getConfiguration(Constants.DINGTALK_SERVICE_URL) + Constants.DINGTALK_GET_TOKEN_URI;
+        String url = DINGTALK_SERVICE_URL + "/gettoken";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
         int errcode = resultJsonObject.getInt("errcode");

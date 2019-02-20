@@ -589,11 +589,6 @@ public class Constants {
     public static final String KEY_DINGTALK_TOKENS = "_dingtalk_tokens";
     public static final String DINGTALK_CORP_ID = "dingtalk.corp.id";
     public static final String DINGTALK_CORP_SECRET = "dingtalk.corp.secret";
-    public static final String DINGTALK_SERVICE_URL = "dingtalk.service.url";
-    public static final String DINGTALK_GET_TOKEN_URI = "/gettoken";
-    public static final String DINGTALK_CHAT_SEND_URI = "/chat/send";
-    public static final String DINGTALK_SENDER = "dingtalk.sender";
-    public static final String DINGTALK_CHAT_ID = "dingtalk.chat.id";
 
     // 支付方式编码，会员积分
     public static final String PAYMENT_CODE_HYJF = "HYJF";
