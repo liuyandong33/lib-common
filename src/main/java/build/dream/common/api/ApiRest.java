@@ -141,9 +141,9 @@ public class ApiRest {
     }
 
     public static ApiRest fromJson(String jsonString, String datePattern) {
-        ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class);
+        ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class, datePattern);
         if (apiRest.isZipped()) {
-            apiRest.setData(JacksonUtils.readValue(ZipUtils.unzipText(apiRest.data.toString()), Object.class));
+            apiRest.setData(JacksonUtils.readValue(ZipUtils.unzipText(apiRest.data.toString()), Object.class, datePattern));
         }
         if (StringUtils.isNotBlank(apiRest.className)) {
             Class<?> clazz = null;
