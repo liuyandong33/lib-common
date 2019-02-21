@@ -633,7 +633,7 @@ public class WebUtils {
                 return pair[1].trim();
             }
         }
-        return null;
+        return defaultCharset;
     }
 
     public static void writeFormData(OutputStream outputStream, Map<String, Object> requestParameters, String charsetName) throws IOException {
