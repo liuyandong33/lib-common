@@ -82,9 +82,9 @@ public class WeiXinUtils {
         return buildJsApiConfig(appId, weiXinJsapiTicket.getTicket(), url);
     }
 
-    public static Map<String, String> buildJsApiConfigByOpenPlatform(String url, String appId, String appSecret) {
-        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicketByOpenPlatform(appId, appSecret, Constants.WEI_XIN_TICKET_TYPE_JSAPI);
-        return buildJsApiConfig(appId, weiXinJsapiTicket.getTicket(), url);
+    public static Map<String, String> buildJsApiConfigByOpenPlatform(String url, String componentAppId, String authorizerAppId) {
+        WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicketByOpenPlatform(componentAppId, authorizerAppId, Constants.WEI_XIN_TICKET_TYPE_JSAPI);
+        return buildJsApiConfig(authorizerAppId, weiXinJsapiTicket.getTicket(), url);
     }
 
     public static WeiXinOAuthToken obtainOAuthToken(String appId, String secret, String code) {
