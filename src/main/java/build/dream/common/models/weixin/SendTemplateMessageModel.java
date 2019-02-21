@@ -5,19 +5,19 @@ import build.dream.common.models.BasicModel;
 import java.util.Map;
 
 public class SendTemplateMessageModel extends BasicModel {
-    private String openId;
+    private String toUser;
     private String templateId;
     private String url;
     private Map<String, Object> miniProgram;
     private Map<String, Object> data;
     private String color;
 
-    public String getOpenId() {
-        return openId;
+    public String getToUser() {
+        return toUser;
     }
 
-    public void setOpenId(String openId) {
-        this.openId = openId;
+    public void setToUser(String toUser) {
+        this.toUser = toUser;
     }
 
     public String getTemplateId() {

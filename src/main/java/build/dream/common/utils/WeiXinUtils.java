@@ -294,21 +294,33 @@ public class WeiXinUtils {
         return sendTemplateMessage(weiXinAccessToken.getAccessToken(), sendTemplateMessageModel);
     }
 
-    public static Map<String, Object> sendTemplateMessage(String accessToken, SendTemplateMessageModel sendTemplateMessageModel) {
-        Map<String, Object> body = new HashMap<String, Object>();
-        body.put("touser", sendTemplateMessageModel.getOpenId());
-        body.put("template_id", sendTemplateMessageModel.getTemplateId());
-        body.put("url", sendTemplateMessageModel.getUrl());
+    public static Map<String, Object> sendTemplateMessageByThirdParty(String componentAppId, String authorizerAppId, SendTemplateMessageModel sendTemplateMessageModel) {
+        return sendTemplateMessage(obtainAuthorizerToken(componentAppId, authorizerAppId), sendTemplateMessageModel);
+    }
 
+    public static Map<String, Object> sendTemplateMessage(String accessToken, SendTemplateMessageModel sendTemplateMessageModel) {
+        String toUser = sendTemplateMessageModel.getToUser();
+        String templateId = sendTemplateMessageModel.getTemplateId();
+        String url = sendTemplateMessageModel.getUrl();
         Map<String, Object> miniProgram = sendTemplateMessageModel.getMiniProgram();
+        Map<String, Object> data = sendTemplateMessageModel.getData();
+        String color = sendTemplateMessageModel.getColor();
+
+        Map<String, Object> body = new HashMap<String, Object>();
+        body.put("touser", toUser);
+        body.put("template_id", templateId);
+        if (StringUtils.isNotBlank(url)) {
+            body.put("url", url);
+        }
+
         if (MapUtils.isNotEmpty(miniProgram)) {
             body.put("miniprogram", miniProgram);
         }
-        body.put("data", sendTemplateMessageModel.getData());
 
-        String color = sendTemplateMessageModel.getColor();
+        body.put("data", data);
+
         if (StringUtils.isNotBlank(color)) {
-            body.put("data", color);
+            body.put("color", color);
         }
         String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, GsonUtils.toJson(body));
