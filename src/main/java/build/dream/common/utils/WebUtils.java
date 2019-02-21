@@ -619,25 +619,21 @@ public class WebUtils {
     }
 
     public static String obtainResponseCharset(HttpURLConnection httpURLConnection, String defaultCharset) {
-        String charset = null;
         String contentType = httpURLConnection.getContentType();
-        if (StringUtils.isNotBlank(contentType)) {
-            contentType = contentType.toUpperCase();
-            String[] array = contentType.split(";");
-            int length = array.length;
-            for (int index = 0; index < length; index++) {
-                String str = array[index].trim();
-                if (str.startsWith("CHARSET")) {
-                    String[] pair = str.split("=");
-                    charset = pair[1].trim();
-                    break;
-                }
+        if (StringUtils.isBlank(contentType)) {
+            return defaultCharset;
+        }
+
+        contentType = contentType.toUpperCase();
+        String[] array = contentType.split(";");
+        for (int index = 0; index < array.length; index++) {
+            String str = array[index].trim();
+            if (str.startsWith("CHARSET")) {
+                String[] pair = str.split("=");
+                return pair[1].trim();
             }
         }
-        if (StringUtils.isBlank(charset)) {
-            charset = defaultCharset;
-        }
-        return charset;
+        return null;
     }
 
     public static void writeFormData(OutputStream outputStream, Map<String, Object> requestParameters, String charsetName) throws IOException {
