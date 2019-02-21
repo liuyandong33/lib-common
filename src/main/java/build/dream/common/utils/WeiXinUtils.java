@@ -332,7 +332,7 @@ public class WeiXinUtils {
     }
 
     public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret) {
-        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId);
+        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
         boolean isRetrieveComponentAccessToken = false;
 
         ComponentAccessToken componentAccessToken = null;
@@ -346,7 +346,7 @@ public class WeiXinUtils {
         }
 
         if (isRetrieveComponentAccessToken) {
-            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKET, componentAppId);
+            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
             ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
             String url = WEI_XIN_API_URL + "/cgi-bin/component/api_component_token";
             Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -361,7 +361,7 @@ public class WeiXinUtils {
             componentAccessToken.setComponentAccessToken(MapUtils.getString(resultMap, "component_access_token"));
             componentAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
             componentAccessToken.setFetchTime(new Date());
-            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKEN, componentAppId, GsonUtils.toJson(componentAccessToken));
+            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, GsonUtils.toJson(componentAccessToken));
         }
 
         return componentAccessToken;
@@ -418,7 +418,7 @@ public class WeiXinUtils {
     }
 
     public static WeiXinAuthorizerToken obtainWeiXinAuthorizerToken(String componentAppId, String authorizerAppId) {
-        String tokenJson = CacheUtils.hget(Constants.SERVICE_NAME_PLATFORM, componentAppId + "_" + authorizerAppId);
+        String tokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
         return GsonUtils.fromJson(tokenJson, WeiXinAuthorizerToken.class);
     }
