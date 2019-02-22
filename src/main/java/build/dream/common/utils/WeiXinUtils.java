@@ -184,19 +184,20 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static WeiXinAccessToken obtainAccessToken(String appId, String secret) {
+    private static WeiXinAccessToken obtainAccessToken(String appId) {
         String weiXinAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
-        boolean isRetrieveAccessToken = false;
-        WeiXinAccessToken weiXinAccessToken = null;
         if (StringUtils.isNotBlank(weiXinAccessTokenJson)) {
-            weiXinAccessToken = GsonUtils.fromJson(weiXinAccessTokenJson, WeiXinAccessToken.class);
-            if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 >= weiXinAccessToken.getExpiresIn()) {
-                isRetrieveAccessToken = true;
+            WeiXinAccessToken weiXinAccessToken = GsonUtils.fromJson(weiXinAccessTokenJson, WeiXinAccessToken.class);
+            if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 < weiXinAccessToken.getExpiresIn()) {
+                return weiXinAccessToken;
             }
-        } else {
-            isRetrieveAccessToken = true;
         }
-        if (isRetrieveAccessToken) {
+        return null;
+    }
+
+    public static WeiXinAccessToken obtainAccessToken(String appId, String secret) {
+        WeiXinAccessToken weiXinAccessToken = null;
+        if (weiXinAccessToken == null) {
             Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
             obtainAccessTokenRequestParameters.put("appid", appId);
             obtainAccessTokenRequestParameters.put("secret", secret);
@@ -211,7 +212,7 @@ public class WeiXinUtils {
             weiXinAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
             weiXinAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
             weiXinAccessToken.setFetchTime(new Date());
-            CacheUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, GsonUtils.toJson(weiXinAccessToken));
+//            CacheUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, GsonUtils.toJson(weiXinAccessToken));
         }
         return weiXinAccessToken;
     }
@@ -904,5 +905,26 @@ public class WeiXinUtils {
             }
             return weiXinAuthorizerInfos;
         }
+    }
+
+    public static Map<String, Object> apiAddTemplate(String accessToken, String templateIdShort) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/template/api_add_template?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("template_id_short", templateIdShort);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    public static Map<String, Object> getAllPrivateTemplate(String accessToken) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/template/get_all_private_template";
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", accessToken);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
     }
 }
