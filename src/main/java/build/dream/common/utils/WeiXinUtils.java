@@ -907,6 +907,13 @@ public class WeiXinUtils {
         }
     }
 
+    /**
+     * 获得模板ID
+     *
+     * @param accessToken
+     * @param templateIdShort
+     * @return
+     */
     public static Map<String, Object> apiAddTemplate(String accessToken, String templateIdShort) {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/api_add_template?access_token=" + accessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -918,13 +925,84 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static Map<String, Object> getAllPrivateTemplate(String accessToken) {
+    /**
+     * 获取模板列表
+     *
+     * @param accessToken
+     * @return
+     */
+    public static List<Map<String, Object>> getAllPrivateTemplate(String accessToken) {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/get_all_private_template";
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("access_token", accessToken);
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return (List<Map<String, Object>>) resultMap.get("template_list");
+    }
+
+    public static String obtainTemplateId(List<Map<String, Object>> templates, String title, String content, String example) {
+        for (Map<String, Object> template : templates) {
+            String templateTitle = MapUtils.getString(template, "title");
+            String templateContent = MapUtils.getString(template, "content");
+            String templateExample = MapUtils.getString(template, "example");
+            if (title.equals(templateTitle) && content.equals(templateContent) && example.equals(templateExample)) {
+                return MapUtils.getString(template, "template_id");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 设置所属行业
+     *
+     * @param accessToken
+     * @param industryId1
+     * @param industryId2
+     * @return
+     */
+    public static Map<String, Object> apiSetIndustry(String accessToken, String industryId1, String industryId2) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/template/api_set_industry?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("industry_id1", industryId1);
+        requestBody.put("industry_id2", industryId2);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取设置的行业信息
+     *
+     * @param accessToken
+     * @return
+     */
+    public static Map<String, Object> getIndustry(String accessToken) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/template/get_industry";
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", accessToken);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 删除模板
+     *
+     * @param accessToken
+     * @param templateId
+     * @return
+     */
+    public static Map<String, Object> delPrivateTemplate(String accessToken, String templateId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/template/del_private_template?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("template_id", templateId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
 }
