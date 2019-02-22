@@ -2,7 +2,6 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.exceptions.ApiException;
 import build.dream.common.models.web.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.ResponseEntity;
@@ -157,7 +156,7 @@ public class OutUtils {
                     .build();
             return WebUtils.doPostWithRequestParametersAndFiles(doPostWithRequestParametersAndFilesModel);
         } catch (Exception e) {
-            throw new ApiException(e);
+            throw new RuntimeException(e);
         }
     }
 
