@@ -28,4 +28,7 @@ public class SessionConstants {
     public static final String KEY_OPEN_ID = "_open_id";
 
     public static final String KEY_ALIPAY_USER_ID = "_alipay_user_id";
+
+    public static final String KEY_COMPONENT_APP_ID = "_component_app_id";
+    public static final String KEY_AUTHORIZER_APP_ID = "_authorizer_app_id";
 }

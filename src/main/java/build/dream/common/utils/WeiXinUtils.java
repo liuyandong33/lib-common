@@ -332,39 +332,42 @@ public class WeiXinUtils {
         return resultMap;
     }
 
-    public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret) {
+    private static ComponentAccessToken obtainComponentAccessToken(String componentAppId) {
         String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
-        boolean isRetrieveComponentAccessToken = false;
-
-        ComponentAccessToken componentAccessToken = null;
         if (StringUtils.isNotBlank(componentAccessTokenJson)) {
-            componentAccessToken = GsonUtils.fromJson(componentAccessTokenJson, ComponentAccessToken.class);
-            if ((System.currentTimeMillis() - componentAccessToken.getFetchTime().getTime()) / 1000 >= componentAccessToken.getExpiresIn()) {
-                isRetrieveComponentAccessToken = true;
+            ComponentAccessToken componentAccessToken = GsonUtils.fromJson(componentAccessTokenJson, ComponentAccessToken.class);
+            if ((System.currentTimeMillis() - componentAccessToken.getFetchTime().getTime()) / 1000 < componentAccessToken.getExpiresIn()) {
+                return componentAccessToken;
             }
-        } else {
-            isRetrieveComponentAccessToken = true;
         }
+        return null;
+    }
 
-        if (isRetrieveComponentAccessToken) {
-            String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
-            ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
-            String url = WEI_XIN_API_URL + "/cgi-bin/component/api_component_token";
-            Map<String, Object> requestBody = new HashMap<String, Object>();
-            requestBody.put("component_appid", componentAppId);
-            requestBody.put("component_appsecret", componentAppSecret);
-            requestBody.put("component_verify_ticket", componentVerifyTicket);
-            WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
-            Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-            ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+    private static ComponentAccessToken apiComponentToken(String componentAppId, String componentAppSecret) {
+        String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
+        ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
+        String url = WEI_XIN_API_URL + "/cgi-bin/component/api_component_token";
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("component_appid", componentAppId);
+        requestBody.put("component_appsecret", componentAppSecret);
+        requestBody.put("component_verify_ticket", componentVerifyTicket);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
-            componentAccessToken = new ComponentAccessToken();
-            componentAccessToken.setComponentAccessToken(MapUtils.getString(resultMap, "component_access_token"));
-            componentAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
-            componentAccessToken.setFetchTime(new Date());
-            CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, GsonUtils.toJson(componentAccessToken));
+        ComponentAccessToken componentAccessToken = new ComponentAccessToken();
+        componentAccessToken.setComponentAccessToken(MapUtils.getString(resultMap, "component_access_token"));
+        componentAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
+        componentAccessToken.setFetchTime(new Date());
+        CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, GsonUtils.toJson(componentAccessToken));
+        return componentAccessToken;
+    }
+
+    public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret) {
+        ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId);
+        if (componentAccessToken == null) {
+            componentAccessToken = apiComponentToken(componentAppId, componentAppSecret);
         }
-
         return componentAccessToken;
     }
 
