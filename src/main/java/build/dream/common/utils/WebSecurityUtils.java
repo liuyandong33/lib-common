@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.auth.CustomUserDetails;
+import build.dream.common.auth.VipUserDetails;
 import build.dream.common.constants.Constants;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.security.access.ConfigAttribute;
@@ -43,5 +44,11 @@ public class WebSecurityUtils {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         return customUserDetails;
+    }
+
+    public static VipUserDetails obtainVipUserDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        VipUserDetails vipUserDetails = (VipUserDetails) authentication.getPrincipal();
+        return vipUserDetails;
     }
 }
