@@ -37,13 +37,11 @@ public class VipBasicModel extends BasicModel {
         VipUserDetails vipUserDetails = WebSecurityUtils.obtainVipUserDetails();
         Tenant tenant = vipUserDetails.getTenant();
         Vip vip = vipUserDetails.getVip();
-        String publicKey = vipUserDetails.getPublicKey();
-        String privateKey = vipUserDetails.getPrivateKey();
 
         this._tenantId = tenant.getId();
         this._tenantCode = tenant.getCode();
-        this._publicKey = publicKey;
-        this._privateKey = privateKey;
+        this._publicKey = vipUserDetails.getPublicKey();
+        this._privateKey = vipUserDetails.getPrivateKey();
         this._partitionCode = tenant.getPartitionCode();
         this._clientType = vipUserDetails.getClientType();
         this._vipSharedType = tenant.getVipSharedType();
@@ -76,5 +74,9 @@ public class VipBasicModel extends BasicModel {
 
     public Integer obtainVipSharedType() {
         return this._vipSharedType;
+    }
+
+    public BigInteger obtainVipId() {
+        return this._vipId;
     }
 }
