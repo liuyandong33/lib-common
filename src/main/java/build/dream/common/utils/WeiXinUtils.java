@@ -1008,4 +1008,164 @@ public class WeiXinUtils {
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
+
+    /**
+     * 创建标签
+     *
+     * @param accessToken
+     * @param name
+     * @return
+     */
+    public static Map<String, Object> createTag(String accessToken, String name) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/create?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("name", name);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取公众号已创建的标签
+     *
+     * @param accessToken
+     * @return
+     */
+    public static Map<String, Object> obtainTags(String accessToken) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/get";
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("access_token", accessToken);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 编辑标签
+     *
+     * @param accessToken
+     * @param id
+     * @param name
+     * @return
+     */
+    public static Map<String, Object> updateTag(String accessToken, String id, String name) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/update?access_token=" + accessToken;
+        Map<String, Object> tag = new HashMap<String, Object>();
+        tag.put("id", id);
+        tag.put("name", name);
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("tag", tag);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 删除标签
+     *
+     * @param accessToken
+     * @param id
+     * @return
+     */
+    public static Map<String, Object> deleteTag(String accessToken, String id) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/delete?access_token=" + accessToken;
+
+        Map<String, Object> tag = new HashMap<String, Object>();
+        tag.put("id", id);
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("tag", tag);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取标签下粉丝列表
+     *
+     * @param accessToken
+     * @param tagId
+     * @param nextOpenId
+     * @return
+     */
+    public static Map<String, Object> obtainUsers(String accessToken, String tagId, String nextOpenId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/user/tag/get?access_token=" + accessToken;
+
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("tagid", tagId);
+
+        if (StringUtils.isNotBlank(nextOpenId)) {
+            requestBody.put("next_openid", nextOpenId);
+        }
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 批量为用户打标签
+     *
+     * @param accessToken
+     * @param openIdList
+     * @param tagId
+     * @return
+     */
+    public static Map<String, Object> batchTagging(String accessToken, List<String> openIdList, String tagId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/members/batchtagging?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("openid_list", openIdList);
+        requestBody.put("tagid", tagId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 批量为用户取消标签
+     *
+     * @param accessToken
+     * @param openIdList
+     * @param tagId
+     * @return
+     */
+    public static Map<String, Object> batchUnTagging(String accessToken, List<String> openIdList, String tagId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/members/batchuntagging?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("openid_list", openIdList);
+        requestBody.put("tagid", tagId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
+
+    /**
+     * 获取用户身上的标签列表
+     *
+     * @param accessToken
+     * @param openId
+     * @return
+     */
+    public static Map<String, Object> obtainTags(String accessToken, String openId) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/tags/getidlist?access_token=" + accessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("openid", openId);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
 }
