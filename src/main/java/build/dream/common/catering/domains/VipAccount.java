@@ -23,6 +23,10 @@ public class VipAccount extends BasicDomain {
      */
     private BigInteger branchId;
     /**
+     * 会员类型ID
+     */
+    private BigInteger vipTypeId;
+    /**
      * 会员分组Id
      */
     private BigInteger vipGroupId;
@@ -70,6 +74,14 @@ public class VipAccount extends BasicDomain {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
+    }
+
+    public BigInteger getVipTypeId() {
+        return vipTypeId;
+    }
+
+    public void setVipTypeId(BigInteger vipTypeId) {
+        this.vipTypeId = vipTypeId;
     }
 
     public BigInteger getVipGroupId() {
@@ -135,6 +147,11 @@ public class VipAccount extends BasicDomain {
 
         public Builder branchId(BigInteger branchId) {
             instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder vipTypeId(BigInteger vipTypeId) {
+            instance.setVipTypeId(vipTypeId);
             return this;
         }
 
@@ -221,6 +238,7 @@ public class VipAccount extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
+        public static final String VIP_TYPE_ID = "VIP_TYPE_ID";
         public static final String VIP_GROUP_ID = "vip_group_id";
         public static final String VIP_ID = "vip_id";
         public static final String POINT = "point";
@@ -233,6 +251,7 @@ public class VipAccount extends BasicDomain {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
+        public static final String VIP_TYPE_ID = "vipTypeId";
         public static final String VIP_GROUP_ID = "vipGroupId";
         public static final String VIP_ID = "vipId";
         public static final String POINT = "point";
