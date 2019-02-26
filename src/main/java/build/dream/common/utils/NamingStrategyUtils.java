@@ -14,7 +14,7 @@ public class NamingStrategyUtils {
             if (underscoreSplit.length() == 1) {
                 camelCase.append(underscoreSplit.toUpperCase());
             } else {
-                camelCase.append(underscoreSplit.substring(0, 1).toUpperCase()).append(underscoreSplit.substring(1, underscoreSplit.length()));
+                camelCase.append(underscoreSplit.substring(0, 1).toUpperCase()).append(underscoreSplit.substring(1));
             }
         }
         return camelCase.toString();
