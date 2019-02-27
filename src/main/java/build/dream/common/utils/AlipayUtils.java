@@ -282,4 +282,16 @@ public class AlipayUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static Map<String, Object> aftAiFinFireEyeOcrImageQuery(AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel) {
+        try {
+            String tenantId = aftAiFinFireEyeOcrImageQueryModel.getTenantId();
+            String branchId = aftAiFinFireEyeOcrImageQueryModel.getBranchId();
+            AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+            ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
+            return callAlipayApi(alipayAccount, "aft.aifin.fireeye.ocr.image.query", null, null, JacksonUtils.writeValueAsString(aftAiFinFireEyeOcrImageQueryModel));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
