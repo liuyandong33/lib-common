@@ -294,4 +294,23 @@ public class AlipayUtils {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * 添加收款账号接口
+     * 允许开发者调用该接口将收款账号与当前生活号绑定，从而支持支付成功页引导推荐关注生活号
+     *
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPayeeBindCreate(AlipayOpenPublicPayeeBindCreateModel alipayOpenPublicPayeeBindCreateModel) {
+        try {
+            String tenantId = alipayOpenPublicPayeeBindCreateModel.getTenantId();
+            String branchId = alipayOpenPublicPayeeBindCreateModel.getBranchId();
+            AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+            ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
+
+            return callAlipayApi(alipayAccount, "alipay.open.public.payee.bind.create", null, null, JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindCreateModel));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
