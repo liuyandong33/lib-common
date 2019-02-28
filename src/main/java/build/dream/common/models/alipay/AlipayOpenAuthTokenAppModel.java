@@ -4,17 +4,44 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
 
 public class AlipayOpenAuthTokenAppModel extends BasicModel {
-    @SerializedName(value = "grant_type", alternate = "grantType")
+    @NotNull
+    @JsonIgnore
+    private String tenantId;
+
+    @NotNull
+    @JsonIgnore
+    private String branchId;
+
     @InList(value = {Constants.AUTHORIZATION_CODE, Constants.REFRESH_TOKEN})
+    @JsonProperty(value = "grant_type")
     private String grantType;
 
     private String code;
 
-    @SerializedName(value = "refresh_token", alternate = "refreshToken")
+    @JsonProperty(value = "refresh_token")
     private String refreshToken;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getGrantType() {
         return grantType;

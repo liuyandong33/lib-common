@@ -299,7 +299,6 @@ public class Constants {
     public static final String TRANSFER_ALIPAY_AUTHORIZE_URL = "transfer.alipay.authorize.url";
 
     public static final String ALIPAY_PUBLIC_APP_AUTHORIZE_URL = "alipay.public.app.authorize.url";
-    public static final String ALIPAY_APP_TO_APP_AUTHORIZE_URL = "alipay.app.to.app.authorize.url";
 
     // authorization_code
     public static final String AUTHORIZATION_CODE = "authorization_code";
@@ -544,9 +543,6 @@ public class Constants {
      */
     public static final int DEVICE_TYPE_ANDROID = 1;
     public static final int DEVICE_TYPE_IOS = 2;
-
-    // 支付宝服务网关
-    public static final String ALIPAY_GATEWAY_URL = "alipay.gateway.url";
 
     // 域名配置key
     public static final String HOME_URL = "home.url";
@@ -844,4 +840,6 @@ public class Constants {
     public static final String WEI_XIN_MENU_TYPE_MINIPROGRAM = "miniprogram";
 
     public static final String PERCENT_SIGN = "%";
+
+    public static final String KEY_ALIPAY_AUTHORIZER_INFOS = "_alipay_authorizer_infos";
 }
