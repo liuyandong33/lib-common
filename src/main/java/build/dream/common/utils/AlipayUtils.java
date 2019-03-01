@@ -27,14 +27,15 @@ public class AlipayUtils {
     private static final String ALIPAY_APP_TO_APP_AUTHORIZE_URL = "https://openauth.alipay.com/oauth2/appToAppAuth.htm";
 
     public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) {
+        String signatureType = null;
         if (Constants.RSA.equals(signType)) {
-            signType = SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA;
+            signatureType = SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA;
         } else if (Constants.RSA2.equals(signType)) {
-            signType = SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA;
+            signatureType = SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA;
         }
 
         byte[] data = org.apache.commons.codec.binary.StringUtils.getBytesUnchecked(originalString, charset);
-        return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signType);
+        return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signatureType);
     }
 
     public static AlipayAccount obtainAlipayAccount(String tenantId, String branchId) {
@@ -60,7 +61,7 @@ public class AlipayUtils {
         return webResponse.getResult();
     }
 
-    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) {
+    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String bizContent) {
         String signType = alipayAccount.getSignType();
         BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
                 .appId(alipayAccount.getAppId())
@@ -70,7 +71,6 @@ public class AlipayUtils {
                 .charset(charset)
                 .signType(signType)
                 .notifyUrl(notifyUrl)
-                .appAuthToken(appAuthToken)
                 .bizContent(bizContent)
                 .privateKey(alipayAccount.getApplicationPrivateKey())
                 .build();
@@ -93,23 +93,19 @@ public class AlipayUtils {
         return responseMap;
     }
 
-    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String returnUrl, String notifyUrl, String appAuthToken, String bizContent) {
-        return callAlipayApi(alipayAccount, method, Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
+    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String returnUrl, String notifyUrl, String bizContent) {
+        return callAlipayApi(alipayAccount, method, Constants.JSON, returnUrl, Constants.UTF_8, notifyUrl, bizContent);
     }
 
-    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String appAuthToken, String bizContent) {
-        return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, appAuthToken, bizContent);
-    }
-
-    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String appAuthToken, String bizContent) {
-        return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, null, appAuthToken, bizContent);
+    public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String notifyUrl, String bizContent) {
+        return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, notifyUrl, bizContent);
     }
 
     public static Map<String, Object> callAlipayApi(AlipayAccount alipayAccount, String method, String bizContent) {
-        return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, null, null, bizContent);
+        return callAlipayApi(alipayAccount, method, Constants.JSON, null, Constants.UTF_8, null, bizContent);
     }
 
-    public static Map<String, String> buildRequestParameters(String appId, String method, String format, String returnUrl, String charset, String signType, String notifyUrl, String appAuthToken, String bizContent, String privateKey) {
+    public static Map<String, String> buildRequestParameters(String appId, String method, String format, String returnUrl, String charset, String signType, String notifyUrl, String authToken, String appAuthToken, String bizContent, String privateKey) {
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>();
         sortedRequestParameters.put("app_id", appId);
         sortedRequestParameters.put("method", method);
@@ -123,6 +119,10 @@ public class AlipayUtils {
         sortedRequestParameters.put("version", "1.0");
         if (StringUtils.isNotBlank(notifyUrl)) {
             sortedRequestParameters.put("notify_url", notifyUrl);
+        }
+
+        if (StringUtils.isNotBlank(authToken)) {
+            sortedRequestParameters.put("auth_token", authToken);
         }
 
         sortedRequestParameters.put("app_auth_token", appAuthToken);
@@ -141,8 +141,8 @@ public class AlipayUtils {
         return sortedRequestParameters;
     }
 
-    public static String buildRequestBody(String appId, String method, String format, String returnUrl, String charset, String signType, String notifyUrl, String appAuthToken, String bizContent, String privateKey) {
-        Map<String, String> requestParameters = buildRequestParameters(appId, method, format, returnUrl, charset, signType, notifyUrl, appAuthToken, bizContent, privateKey);
+    public static String buildRequestBody(String appId, String method, String format, String returnUrl, String charset, String signType, String notifyUrl, String authToken, String appAuthToken, String bizContent, String privateKey) {
+        Map<String, String> requestParameters = buildRequestParameters(appId, method, format, returnUrl, charset, signType, notifyUrl, authToken, appAuthToken, bizContent, privateKey);
         return WebUtils.buildRequestBody(requestParameters, charset);
     }
 
@@ -154,13 +154,14 @@ public class AlipayUtils {
         String charset = buildRequestBodyModel.getCharset();
         String signType = buildRequestBodyModel.getSignType();
         String notifyUrl = buildRequestBodyModel.getNotifyUrl();
+        String authToken = buildRequestBodyModel.getAuthToken();
         String appAuthToken = buildRequestBodyModel.getAppAuthToken();
         String bizContent = buildRequestBodyModel.getBizContent();
         String privateKey = buildRequestBodyModel.getPrivateKey();
-        return buildRequestBody(appId, method, format, returnUrl, charset, signType, notifyUrl, appAuthToken, bizContent, privateKey);
+        return buildRequestBody(appId, method, format, returnUrl, charset, signType, notifyUrl, authToken, appAuthToken, bizContent, privateKey);
     }
 
-    public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String format, String returnUrl, String charset, String notifyUrl, String bizContent) {
+    public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String format, String returnUrl, String charset, String notifyUrl, String authToken, String bizContent) {
         AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
         String signType = alipayAccount.getSignType();
 
@@ -172,6 +173,7 @@ public class AlipayUtils {
                 .charset(charset)
                 .signType(signType)
                 .notifyUrl(notifyUrl)
+                .authToken(authToken)
                 .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
                 .bizContent(bizContent)
                 .privateKey(alipayAccount.getApplicationPrivateKey())
@@ -195,16 +197,20 @@ public class AlipayUtils {
         return responseMap;
     }
 
+    public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String returnUrl, String notifyUrl, String authToken, String bizContent) {
+        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, authToken, bizContent);
+    }
+
     public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String returnUrl, String notifyUrl, String bizContent) {
-        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, bizContent);
+        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, returnUrl, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, bizContent);
     }
 
     public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String notifyUrl, String bizContent) {
-        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, notifyUrl, bizContent);
+        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, notifyUrl, null, bizContent);
     }
 
     public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String bizContent) {
-        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, null, bizContent);
+        return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, null, null, bizContent);
     }
 
     public static Map<String, Object> alipayTradePay(AlipayTradePayModel alipayTradePayModel) {
@@ -1377,4 +1383,231 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.create", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateCreateModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 会员卡模板修改
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardTemplateModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardTemplateModify(AlipayMarketingCardTemplateModifyModel alipayMarketingCardTemplateModifyModel) {
+        alipayMarketingCardTemplateModifyModel.validateAndThrow();
+        String tenantId = alipayMarketingCardTemplateModifyModel.getTenantId();
+        String branchId = alipayMarketingCardTemplateModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.modify", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板查询接口
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardTemplateQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardTemplateQuery(AlipayMarketingCardTemplateQueryModel alipayMarketingCardTemplateQueryModel) {
+        alipayMarketingCardTemplateQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCardTemplateQueryModel.getTenantId();
+        String branchId = alipayMarketingCardTemplateQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.query", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡开卡表单模板配置
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardFormTemplateSetModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardFormTemplateSet(AlipayMarketingCardFormTemplateSetModel alipayMarketingCardFormTemplateSetModel) {
+        alipayMarketingCardFormTemplateSetModel.validateAndThrow();
+        String tenantId = alipayMarketingCardFormTemplateSetModel.getTenantId();
+        String branchId = alipayMarketingCardFormTemplateSetModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.formtemplate.set", JacksonUtils.writeValueAsString(alipayMarketingCardFormTemplateSetModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 获取会员卡领卡投放链接
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardActivateUrlApplyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardActivateUrlApply(AlipayMarketingCardActivateUrlApplyModel alipayMarketingCardActivateUrlApplyModel) {
+        alipayMarketingCardActivateUrlApplyModel.validateAndThrow();
+        String tenantId = alipayMarketingCardActivateUrlApplyModel.getTenantId();
+        String branchId = alipayMarketingCardActivateUrlApplyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.activateurl.apply", JacksonUtils.writeValueAsString(alipayMarketingCardActivateUrlApplyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询用户提交的会员卡表单信息
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardActivateFormQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardActivateFormQuery(AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel) {
+        alipayMarketingCardActivateFormQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCardActivateFormQueryModel.getTenantId();
+        String branchId = alipayMarketingCardActivateFormQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.activateform.query", JacksonUtils.writeValueAsString(alipayMarketingCardActivateFormQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡开卡
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardOpenModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardOpen(AlipayMarketingCardOpenModel alipayMarketingCardOpenModel) {
+        alipayMarketingCardOpenModel.validateAndThrow();
+        String tenantId = alipayMarketingCardOpenModel.getTenantId();
+        String branchId = alipayMarketingCardOpenModel.getBranchId();
+        String authToken = alipayMarketingCardOpenModel.getAuthToken();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.open", null, null, authToken, JacksonUtils.writeValueAsString(alipayMarketingCardOpenModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡更新
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardUpdateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardUpdate(AlipayMarketingCardUpdateModel alipayMarketingCardUpdateModel) {
+        alipayMarketingCardUpdateModel.validateAndThrow();
+        String tenantId = alipayMarketingCardUpdateModel.getTenantId();
+        String branchId = alipayMarketingCardUpdateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.update", JacksonUtils.writeValueAsString(alipayMarketingCardUpdateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡删卡
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardDelete(AlipayMarketingCardDeleteModel alipayMarketingCardDeleteModel) {
+        alipayMarketingCardDeleteModel.validateAndThrow();
+        String tenantId = alipayMarketingCardDeleteModel.getTenantId();
+        String branchId = alipayMarketingCardDeleteModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.delete", JacksonUtils.writeValueAsString(alipayMarketingCardDeleteModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡查询
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardQuery(AlipayMarketingCardQueryModel alipayMarketingCardQueryModel) {
+        alipayMarketingCardQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCardQueryModel.getTenantId();
+        String branchId = alipayMarketingCardQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.query", JacksonUtils.writeValueAsString(alipayMarketingCardQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板外部权益修改
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardBenefitModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardBenefitModify(AlipayMarketingCardBenefitModifyModel alipayMarketingCardBenefitModifyModel) {
+        alipayMarketingCardBenefitModifyModel.validateAndThrow();
+        String tenantId = alipayMarketingCardBenefitModifyModel.getTenantId();
+        String branchId = alipayMarketingCardBenefitModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.modify", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板外部权益删除
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardBenefitDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardBenefitDelete(AlipayMarketingCardBenefitDeleteModel alipayMarketingCardBenefitDeleteModel) {
+        alipayMarketingCardBenefitDeleteModel.validateAndThrow();
+        String tenantId = alipayMarketingCardBenefitDeleteModel.getTenantId();
+        String branchId = alipayMarketingCardBenefitDeleteModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.delete", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitDeleteModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板外部权益创建
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardBenefitCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardBenefitCreate(AlipayMarketingCardBenefitCreateModel alipayMarketingCardBenefitCreateModel) {
+        alipayMarketingCardBenefitCreateModel.validateAndThrow();
+        String tenantId = alipayMarketingCardBenefitCreateModel.getTenantId();
+        String branchId = alipayMarketingCardBenefitCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.create", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板外部权益查询
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardBenefitQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardBenefitQuery(AlipayMarketingCardBenefitQueryModel alipayMarketingCardBenefitQueryModel) {
+        alipayMarketingCardBenefitQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCardBenefitQueryModel.getTenantId();
+        String branchId = alipayMarketingCardBenefitQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.query", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 会员卡模板批量查询
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCardTemplateBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCardTemplateBatchQuery(AlipayMarketingCardTemplateBatchQueryModel alipayMarketingCardTemplateBatchQueryModel) {
+        alipayMarketingCardTemplateBatchQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCardTemplateBatchQueryModel.getTenantId();
+        String branchId = alipayMarketingCardTemplateBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.batchquery", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 活动创建接口
+     * TODO: model 未实现
+     *
+     * @param koubeiMarketingCampaignActivityCreateModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignActivityCreate(KoubeiMarketingCampaignActivityCreateModel koubeiMarketingCampaignActivityCreateModel) {
+        koubeiMarketingCampaignActivityCreateModel.validateAndThrow();
+        String tenantId = koubeiMarketingCampaignActivityCreateModel.getTenantId();
+        String branchId = koubeiMarketingCampaignActivityCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.create", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityCreateModel, JsonInclude.Include.NON_NULL));
+    }
+    /***************************************************************商户会员卡API结束***************************************************************/
 }

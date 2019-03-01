@@ -8,6 +8,7 @@ public class BuildRequestBodyModel {
     private String charset;
     private String signType;
     private String notifyUrl;
+    private String authToken;
     private String appAuthToken;
     private String bizContent;
     private String privateKey;
@@ -66,6 +67,14 @@ public class BuildRequestBodyModel {
 
     public void setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
+    }
+
+    public String getAuthToken() {
+        return authToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
     }
 
     public String getAppAuthToken() {
@@ -127,6 +136,11 @@ public class BuildRequestBodyModel {
 
         public Builder notifyUrl(String notifyUrl) {
             instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
             return this;
         }
 
