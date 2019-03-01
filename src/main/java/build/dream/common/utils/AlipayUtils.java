@@ -47,6 +47,15 @@ public class AlipayUtils {
         return alipayAccount;
     }
 
+    public static AlipayAccount obtainAlipayAccount(String appId) {
+        String alipayAccountJson = CacheUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
+        AlipayAccount alipayAccount = null;
+        if (StringUtils.isNotBlank(alipayAccountJson)) {
+            alipayAccount = GsonUtils.fromJson(alipayAccountJson, AlipayAccount.class);
+        }
+        return alipayAccount;
+    }
+
     public static String buildRequestBody(AlipayAccount alipayAccount, String method, String format, String returnUrl, String charset, String notifyUrl, String appAuthToken, String bizContent) throws UnsupportedEncodingException {
         Map<String, String> requestParameters = buildRequestParameters(alipayAccount, method, format, returnUrl, charset, notifyUrl, appAuthToken, bizContent);
         return WebUtils.buildRequestBody(requestParameters, charset);
@@ -149,14 +158,15 @@ public class AlipayUtils {
     }
 
     public static Map<String, Object> callAlipayApi(AlipayAuthorizerInfo alipayAuthorizerInfo, String method, String format, String returnUrl, String charset, String notifyUrl, String bizContent) throws IOException {
-        String appId = alipayAuthorizerInfo.getAppId();
-        String signType = callAlipayApi(appId + "." + Constants.ALIPAY_SIGN_TYPE);
+        AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
+        String signType = alipayAccount.getSignType();
+
         String requestBody = buildRequestBody(alipayAuthorizerInfo, method, format, returnUrl, charset, signType, notifyUrl, bizContent);
         String result = callAlipayApi(requestBody);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         Map<String, Object> responseMap = MapUtils.getMap(resultMap, method.replaceAll("\\.", "_") + "_response");
 
-        String alipayPublicKey = ConfigurationUtils.getConfiguration(appId + "." + Constants.ALIPAY_PUBLIC_KEY);
+        String alipayPublicKey = alipayAccount.getAlipayPublicKey();
         ValidateUtils.isTrue(verifySign(GsonUtils.toJson(responseMap), signType, MapUtils.getString(resultMap, "sign"), charset, alipayPublicKey), "支付宝返回结果签名验证未通过！");
 
         String code = MapUtils.getString(responseMap, "code");
