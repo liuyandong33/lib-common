@@ -842,4 +842,8 @@ public class Constants {
     public static final String PERCENT_SIGN = "%";
 
     public static final String KEY_ALIPAY_AUTHORIZER_INFOS = "_alipay_authorizer_infos";
+
+    public static final String ALIPAY_APPLICATION_PRIVATE_KEY = "alipay.application.private.key";
+    public static final String ALIPAY_PUBLIC_KEY = "alipay.public.key";
+    public static final String ALIPAY_SIGN_TYPE = "alipay.sign.type";
 }

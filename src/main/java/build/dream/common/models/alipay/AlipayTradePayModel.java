@@ -6,7 +6,6 @@ import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.GsonUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMax;
@@ -27,9 +26,6 @@ public class AlipayTradePayModel extends BasicModel {
 
     @JsonIgnore
     private String notifyUrl;
-
-    @JsonIgnore
-    private String appAuthToken;
 
     public String getTenantId() {
         return tenantId;
@@ -55,17 +51,8 @@ public class AlipayTradePayModel extends BasicModel {
         this.notifyUrl = notifyUrl;
     }
 
-    public String getAppAuthToken() {
-        return appAuthToken;
-    }
-
-    public void setAppAuthToken(String appAuthToken) {
-        this.appAuthToken = appAuthToken;
-    }
-
     @NotNull
     @Length(max = 64)
-    @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
     @JsonProperty(value = "out_trade_no")
     private String outTradeNo;
 
@@ -73,12 +60,10 @@ public class AlipayTradePayModel extends BasicModel {
 
     @NotNull
     @Length(max = 32)
-    @SerializedName(value = "auth_code", alternate = "authCode")
     @JsonProperty(value = "auth_code")
     private String authCode;
 
     @Length(max = 32)
-    @SerializedName(value = "product_code", alternate = "productCode")
     @JsonProperty(value = "product_code")
     private String productCode;
 
@@ -87,55 +72,45 @@ public class AlipayTradePayModel extends BasicModel {
     private String subject;
 
     @Length(max = 28)
-    @SerializedName(value = "buyer_id", alternate = "buyerId")
     @JsonProperty(value = "buyer_id")
     private String buyerId;
 
     @Length(max = 28)
-    @SerializedName(value = "seller_id", alternate = "sellerId")
     @JsonProperty(value = "seller_id")
     private String sellerId;
 
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
-    @SerializedName(value = "total_amount", alternate = "totalAmount")
     @JsonProperty(value = "total_amount")
     private BigDecimal totalAmount;
 
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
-    @SerializedName(value = "discountable_amount", alternate = "discountableAmount")
     @JsonProperty(value = "discountable_amount")
     private BigDecimal discountableAmount;
 
     @Length(max = 128)
     private String body;
 
-    @SerializedName(value = "goods_detail", alternate = "goodsDetails")
     @JsonProperty(value = "goods_detail")
     private List<GoodsDetail> goodsDetails;
 
     @Length(max = 28)
-    @SerializedName(value = "operator_id", alternate = "operatorId")
     @JsonProperty(value = "operator_id")
     private String operatorId;
 
     @Length(max = 32)
-    @SerializedName(value = "store_id", alternate = "storeId")
     @JsonProperty(value = "store_id")
     private String storeId;
 
     @Length(max = 32)
-    @SerializedName(value = "terminal_id", alternate = "terminalId")
     @JsonProperty(value = "terminal_id")
     private String terminalId;
 
-    @SerializedName(value = "extend_params", alternate = "extendParams")
     @JsonProperty(value = "extend_params")
     private ExtendParams extendParams;
 
     @Length(max = 6)
-    @SerializedName(value = "timeout_express", alternate = "timeoutExpress")
     @JsonProperty(value = "timeout_express")
     private String timeoutExpress;
 
@@ -284,11 +259,9 @@ public class AlipayTradePayModel extends BasicModel {
     }
 
     public static class GoodsDetail extends BasicModel {
-        @SerializedName(value = "goods_id", alternate = "goodsId")
         @JsonProperty(value = "goods_id")
         private String goodsId;
 
-        @SerializedName(value = "goods_name", alternate = "goodsName")
         @JsonProperty(value = "goods_name")
         private String goodsName;
 
@@ -296,13 +269,11 @@ public class AlipayTradePayModel extends BasicModel {
 
         private String price;
 
-        @SerializedName(value = "goods_category", alternate = "goodsCategory")
         @JsonProperty(value = "goods_category")
         private String goodsCategory;
 
         private String body;
 
-        @SerializedName(value = "show_url", alternate = "showUrl")
         @JsonProperty(value = "show_url")
         private String showUrl;
 
@@ -365,7 +336,6 @@ public class AlipayTradePayModel extends BasicModel {
 
     public static class ExtendParams extends BasicModel {
         @Length(max = 64)
-        @SerializedName(value = "sys_service_provider_id", alternate = "sysServiceProviderId")
         @JsonProperty(value = "sys_service_provider_id")
         private String sysServiceProviderId;
 
@@ -393,11 +363,6 @@ public class AlipayTradePayModel extends BasicModel {
 
         public Builder notifyUrl(String notifyUrl) {
             instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder appAuthToken(String appAuthToken) {
-            instance.setAppAuthToken(appAuthToken);
             return this;
         }
 
