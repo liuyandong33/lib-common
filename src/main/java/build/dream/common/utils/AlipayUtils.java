@@ -500,6 +500,12 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.follow.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicFollowBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
 
+    /**
+     * 消息模板领取接口
+     *
+     * @param alipayOpenPublicTemplateMessageGetModel
+     * @return
+     */
     public static Map<String, Object> alipayOpenPublicTemplateMessageGet(AlipayOpenPublicTemplateMessageGetModel alipayOpenPublicTemplateMessageGetModel) {
         String tenantId = alipayOpenPublicTemplateMessageGetModel.getTenantId();
         String branchId = alipayOpenPublicTemplateMessageGetModel.getBranchId();
