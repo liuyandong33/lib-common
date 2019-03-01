@@ -940,4 +940,17 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.aboard.apply", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAboardApplyModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 生活号查询行业设置接口
+     *
+     * @param alipayOpenPublicSettingCategoryQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicSettingCategoryQuery(AlipayOpenPublicSettingCategoryQueryModel alipayOpenPublicSettingCategoryQueryModel) {
+        String tenantId = alipayOpenPublicSettingCategoryQueryModel.getTenantId();
+        String branchId = alipayOpenPublicSettingCategoryQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.setting.category.query", JacksonUtils.writeValueAsString(alipayOpenPublicSettingCategoryQueryModel, JsonInclude.Include.NON_NULL));
+    }
 }
