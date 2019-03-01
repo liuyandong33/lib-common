@@ -512,4 +512,32 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.template.message.get", JacksonUtils.writeValueAsString(alipayOpenPublicTemplateMessageGetModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 单发模板消息
+     * TODO: model未实现
+     *
+     * @param alipayOpenPublicMessageSingleSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageSingleSend(AlipayOpenPublicMessageSingleSendModel alipayOpenPublicMessageSingleSendModel) {
+        String tenantId = alipayOpenPublicMessageSingleSendModel.getTenantId();
+        String branchId = alipayOpenPublicMessageSingleSendModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.single.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageSingleSendModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 带参推广二维码接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicQrCodeCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicQrCodeCreate(AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel) {
+        String tenantId = alipayOpenPublicQrCodeCreateModel.getTenantId();
+        String branchId = alipayOpenPublicQrCodeCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.qrcode.create", JacksonUtils.writeValueAsString(alipayOpenPublicQrCodeCreateModel, JsonInclude.Include.NON_NULL));
+    }
 }
