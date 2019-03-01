@@ -1259,6 +1259,47 @@ public class AlipayUtils {
         String tenantId = alipayEbppPdeductSignValidateModel.getTenantId();
         String branchId = alipayEbppPdeductSignValidateModel.getBranchId();
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.ebpp.pdeduct.sign.validate", JacksonUtils.writeValueAsString(alipayEbppPdeductSignValidateModel));
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.ebpp.pdeduct.sign.validate", JacksonUtils.writeValueAsString(alipayEbppPdeductSignValidateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /***************************************************************会员API开始***************************************************************/
+
+    /**
+     * 支付宝会员授权信息查询接口
+     *
+     * @param alipayUserInfoShareModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserInfoShare(AlipayUserInfoShareModel alipayUserInfoShareModel) {
+        String tenantId = alipayUserInfoShareModel.getTenantId();
+        String branchId = alipayUserInfoShareModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.info.share", JacksonUtils.writeValueAsString(alipayUserInfoShareModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 芝麻企业征信基于身份的协议授权
+     *
+     * @param alipayUserAuthZhiMaOrgIdentityApplyModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserAuthZhiMaOrgIdentityApply(AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel) {
+        String tenantId = alipayUserAuthZhiMaOrgIdentityApplyModel.getTenantId();
+        String branchId = alipayUserAuthZhiMaOrgIdentityApplyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.auth.zhimaorg.identity.apply", JacksonUtils.writeValueAsString(alipayUserAuthZhiMaOrgIdentityApplyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询是否在支付宝公益捐赠的接口
+     *
+     * @param alipayUserCharityRecordExistQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserCharityRecordExistQuery(AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel) {
+        String tenantId = alipayUserCharityRecordExistQueryModel.getTenantId();
+        String branchId = alipayUserCharityRecordExistQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.charity.recordexist.query", JacksonUtils.writeValueAsString(alipayUserCharityRecordExistQueryModel, JsonInclude.Include.NON_NULL));
     }
 }
