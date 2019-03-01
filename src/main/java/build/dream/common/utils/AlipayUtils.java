@@ -1315,4 +1315,45 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.query", JacksonUtils.writeValueAsString(alipayUserCertifyOpenQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 身份认证初始化服务
+     * TODO: model 未实现
+     *
+     * @param alipayUserCertifyOpenInitializeModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserCertifyOpenInitialize(AlipayUserCertifyOpenInitializeModel alipayUserCertifyOpenInitializeModel) {
+        String tenantId = alipayUserCertifyOpenInitializeModel.getTenantId();
+        String branchId = alipayUserCertifyOpenInitializeModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.initialize", JacksonUtils.writeValueAsString(alipayUserCertifyOpenInitializeModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 身份认证开始认证
+     *
+     * @param alipayUserCertifyOpenCertifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserCertifyOpenCertify(AlipayUserCertifyOpenCertifyModel alipayUserCertifyOpenCertifyModel) {
+        String tenantId = alipayUserCertifyOpenCertifyModel.getTenantId();
+        String branchId = alipayUserCertifyOpenCertifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.certify", JacksonUtils.writeValueAsString(alipayUserCertifyOpenCertifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 通用当面付二阶段接口
+     *
+     * @param alipayUserTwoStageCommonUseModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserTwoStageCommonUse(AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel) {
+        String tenantId = alipayUserTwoStageCommonUseModel.getTenantId();
+        String branchId = alipayUserTwoStageCommonUseModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.twostage.common.use", JacksonUtils.writeValueAsString(alipayUserTwoStageCommonUseModel, JsonInclude.Include.NON_NULL));
+    }
+    /***************************************************************会员API结束***************************************************************/
 }
