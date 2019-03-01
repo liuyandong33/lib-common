@@ -2,6 +2,7 @@ package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
@@ -11,6 +12,17 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class AlipayOfflineMarketShopCreateModel extends BasicModel {
+    @NotNull
+    @JsonIgnore
+    private String tenantId;
+
+    @NotNull
+    @JsonIgnore
+    private String branchId;
+
+    @JsonIgnore
+    private String notifyUrl;
+
     @SerializedName(value = "store_id", alternate = "storeId")
     @NotNull
     @Length(max = 32)
@@ -173,6 +185,30 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @NotNull
     @Length(max = 10)
     private String bizVersion;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
 
     public String getStoreId() {
         return storeId;

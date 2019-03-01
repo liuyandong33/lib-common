@@ -289,9 +289,13 @@ public class AlipayUtils {
         }
     }
 
-    public static Map<String, Object> alipayTradeRefund(String tenantId, String branchId, AlipayTradeRefundModel alipayTradeRefundModel) {
+    public static Map<String, Object> alipayTradeRefund(AlipayTradeRefundModel alipayTradeRefundModel) {
         try {
             alipayTradeRefundModel.validateAndThrow();
+
+            String tenantId = alipayTradeRefundModel.getTenantId();
+            String branchId = alipayTradeRefundModel.getBranchId();
+
             AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
             return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.refund", JacksonUtils.writeValueAsString(alipayTradeRefundModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
@@ -339,9 +343,13 @@ public class AlipayUtils {
         return alipayAuthorizerInfo;
     }
 
-    public static Map<String, Object> alipayOfflineMarketShopCreate(String tenantId, String branchId, String notifyUrl, AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
+    public static Map<String, Object> alipayOfflineMarketShopCreate(AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
         try {
             alipayOfflineMarketShopCreateModel.validateAndThrow();
+            String tenantId = alipayOfflineMarketShopCreateModel.getTenantId();
+            String branchId = alipayOfflineMarketShopCreateModel.getBranchId();
+            String notifyUrl = alipayOfflineMarketShopCreateModel.getNotifyUrl();
+
             AlipayAuthorizerInfo alipayAuthorizerInfo = null;
             if (StringUtils.isNotBlank(notifyUrl)) {
                 alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
@@ -356,12 +364,17 @@ public class AlipayUtils {
         }
     }
 
-    public static Map<String, Object> alipayOfflineMaterialImageUpload(String tenantId, String branchId, String appAuthToken, AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
+    public static Map<String, Object> alipayOfflineMaterialImageUpload(AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
         try {
-            AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
-            ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
+            alipayOfflineMaterialImageUploadModel.validateAndThrow();
 
-            return callAlipayApi(alipayAccount, "alipay.offline.material.image.upload", null, appAuthToken, GsonUtils.toJson(alipayOfflineMaterialImageUploadModel, false));
+            String tenantId = alipayOfflineMaterialImageUploadModel.getTenantId();
+            String branchId = alipayOfflineMaterialImageUploadModel.getBranchId();
+
+            AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+            ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
+
+            return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.material.image.upload", JacksonUtils.writeValueAsString(alipayOfflineMaterialImageUploadModel, JsonInclude.Include.NON_NULL));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
