@@ -723,4 +723,195 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.custom.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageCustomSendModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 默认菜单更新接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicMenuModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMenuModify(AlipayOpenPublicMenuModifyModel alipayOpenPublicMenuModifyModel) {
+        String tenantId = alipayOpenPublicMenuModifyModel.getTenantId();
+        String branchId = alipayOpenPublicMenuModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.custom.send", JacksonUtils.writeValueAsString(alipayOpenPublicMenuModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 个性化菜单创建
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicPersonalizedMenuCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPersonalizedMenuCreate(AlipayOpenPublicPersonalizedMenuCreateModel alipayOpenPublicPersonalizedMenuCreateModel) {
+        String tenantId = alipayOpenPublicPersonalizedMenuCreateModel.getTenantId();
+        String branchId = alipayOpenPublicPersonalizedMenuCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.menu.create", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedMenuCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 默认菜单创建接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicMenuCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMenuCreate(AlipayOpenPublicMenuCreateModel alipayOpenPublicMenuCreateModel) {
+        String tenantId = alipayOpenPublicMenuCreateModel.getTenantId();
+        String branchId = alipayOpenPublicMenuCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.menu.create", JacksonUtils.writeValueAsString(alipayOpenPublicMenuCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 个性化扩展区创建接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicPersonalizedExtensionCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPersonalizedExtensionCreate(AlipayOpenPublicPersonalizedExtensionCreateModel alipayOpenPublicPersonalizedExtensionCreateModel) {
+        String tenantId = alipayOpenPublicPersonalizedExtensionCreateModel.getTenantId();
+        String branchId = alipayOpenPublicPersonalizedExtensionCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.extension.create", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedExtensionCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询用户分组列表
+     *
+     * @param alipayOpenPublicGroupBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicGroupBatchQuery(AlipayOpenPublicGroupBatchQueryModel alipayOpenPublicGroupBatchQueryModel) {
+        String tenantId = alipayOpenPublicGroupBatchQueryModel.getTenantId();
+        String branchId = alipayOpenPublicGroupBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicGroupBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 用户分组修改接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicGroupModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicGroupModify(AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel) {
+        String tenantId = alipayOpenPublicGroupModifyModel.getTenantId();
+        String branchId = alipayOpenPublicGroupModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicGroupModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 用户分组删除接口
+     *
+     * @param alipayOpenPublicGroupDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicGroupDelete(AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel) {
+        String tenantId = alipayOpenPublicGroupDeleteModel.getTenantId();
+        String branchId = alipayOpenPublicGroupDeleteModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.delete", JacksonUtils.writeValueAsString(alipayOpenPublicGroupDeleteModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 分组消息发送接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicMessageGroupSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageGroupSend(AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel) {
+        String tenantId = alipayOpenPublicMessageGroupSendModel.getTenantId();
+        String branchId = alipayOpenPublicMessageGroupSendModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.group.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageGroupSendModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 用户分组创建接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicGroupCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicGroupCreate(AlipayOpenPublicGroupCreateModel alipayOpenPublicGroupCreateModel) {
+        String tenantId = alipayOpenPublicGroupCreateModel.getTenantId();
+        String branchId = alipayOpenPublicGroupCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.create", JacksonUtils.writeValueAsString(alipayOpenPublicGroupCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 人群数量查询
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicGroupCrowdQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicGroupCrowdQuery(AlipayOpenPublicGroupCrowdQueryModel alipayOpenPublicGroupCrowdQueryModel) {
+        String tenantId = alipayOpenPublicGroupCrowdQueryModel.getTenantId();
+        String branchId = alipayOpenPublicGroupCrowdQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.crowd.query", JacksonUtils.writeValueAsString(alipayOpenPublicGroupCrowdQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 扩展区批量查询接口
+     *
+     * @param alipayOpenPublicPersonalizedExtensionBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPersonalizedExtensionBatchQuery(AlipayOpenPublicPersonalizedExtensionBatchQueryModel alipayOpenPublicPersonalizedExtensionBatchQueryModel) {
+        String tenantId = alipayOpenPublicPersonalizedExtensionBatchQueryModel.getTenantId();
+        String branchId = alipayOpenPublicPersonalizedExtensionBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.extension.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedExtensionBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 默认扩展区创建接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicDefaultExtensionCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicDefaultExtensionCreate(AlipayOpenPublicDefaultExtensionCreateModel alipayOpenPublicDefaultExtensionCreateModel) {
+        String tenantId = alipayOpenPublicDefaultExtensionCreateModel.getTenantId();
+        String branchId = alipayOpenPublicDefaultExtensionCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.default.extension.create", JacksonUtils.writeValueAsString(alipayOpenPublicDefaultExtensionCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 标签删除接口
+     *
+     * @param alipayOpenPublicLifeLabelDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeLabelDelete(AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel) {
+        String tenantId = alipayOpenPublicLifeLabelDeleteModel.getTenantId();
+        String branchId = alipayOpenPublicLifeLabelDeleteModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.label.delete", JacksonUtils.writeValueAsString(alipayOpenPublicLifeLabelDeleteModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * isv代创建生活号申请状态查询接口
+     *
+     * @param alipayOpenPublicLifeAgentCreateQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeAgentCreateQuery(AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel) {
+        String tenantId = alipayOpenPublicLifeAgentCreateQueryModel.getTenantId();
+        String branchId = alipayOpenPublicLifeAgentCreateQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.agentcreate.query", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAgentCreateQueryModel, JsonInclude.Include.NON_NULL));
+    }
 }
