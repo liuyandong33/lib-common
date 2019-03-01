@@ -710,4 +710,17 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.total.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageTotalSendModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 异步单发消息
+     *
+     * @param alipayOpenPublicMessageCustomSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageCustomSend(AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel) {
+        String tenantId = alipayOpenPublicMessageCustomSendModel.getTenantId();
+        String branchId = alipayOpenPublicMessageCustomSendModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.custom.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageCustomSendModel, JsonInclude.Include.NON_NULL));
+    }
 }
