@@ -409,21 +409,6 @@ public class AlipayUtils {
     }
 
     /**
-     * 添加收款账号接口
-     * 允许开发者调用该接口将收款账号与当前生活号绑定，从而支持支付成功页引导推荐关注生活号
-     *
-     * @return
-     */
-    public static Map<String, Object> alipayOpenPublicPayeeBindCreate(AlipayOpenPublicPayeeBindCreateModel alipayOpenPublicPayeeBindCreateModel) {
-        String tenantId = alipayOpenPublicPayeeBindCreateModel.getTenantId();
-        String branchId = alipayOpenPublicPayeeBindCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
-
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.payee.bind.create", JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindCreateModel));
-    }
-
-    /**
      * 换取应用授权令牌
      *
      * @param alipayOpenAuthTokenAppModel
@@ -1205,5 +1190,75 @@ public class AlipayUtils {
         String branchId = alipayOpenPublicInfoModifyModel.getBranchId();
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.info.modify", JacksonUtils.writeValueAsString(alipayOpenPublicInfoModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 添加收款账号接口
+     * 允许开发者调用该接口将收款账号与当前生活号绑定，从而支持支付成功页引导推荐关注生活号
+     *
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPayeeBindCreate(AlipayOpenPublicPayeeBindCreateModel alipayOpenPublicPayeeBindCreateModel) {
+        String tenantId = alipayOpenPublicPayeeBindCreateModel.getTenantId();
+        String branchId = alipayOpenPublicPayeeBindCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.payee.bind.create", JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindCreateModel));
+    }
+
+    /**
+     * 解绑收款账号接口
+     *
+     * @param alipayOpenPublicPayeeBindDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicPayeeBindDelete(AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel) {
+        String tenantId = alipayOpenPublicPayeeBindDeleteModel.getTenantId();
+        String branchId = alipayOpenPublicPayeeBindDeleteModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.payee.bind.delete", JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindDeleteModel));
+    }
+
+
+    /**
+     * 创建图文消息内容接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicMessageContentCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageContentCreate(AlipayOpenPublicMessageContentCreateModel alipayOpenPublicMessageContentCreateModel) {
+        String tenantId = alipayOpenPublicMessageContentCreateModel.getTenantId();
+        String branchId = alipayOpenPublicMessageContentCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.content.create", JacksonUtils.writeValueAsString(alipayOpenPublicMessageContentCreateModel));
+    }
+
+    /**
+     * 更新图文消息内容接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicMessageContentModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageContentModify(AlipayOpenPublicMessageContentModifyModel alipayOpenPublicMessageContentModifyModel) {
+        String tenantId = alipayOpenPublicMessageContentModifyModel.getTenantId();
+        String branchId = alipayOpenPublicMessageContentModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.content.modify", JacksonUtils.writeValueAsString(alipayOpenPublicMessageContentModifyModel));
+    }
+
+    /**
+     * 缴费直连代扣签约前置校验
+     * TODO: model 未实现
+     *
+     * @param alipayEbppPdeductSignValidateModel
+     * @return
+     */
+    public static Map<String, Object> alipayEbppPdeductSignValidate(AlipayEbppPdeductSignValidateModel alipayEbppPdeductSignValidateModel) {
+        String tenantId = alipayEbppPdeductSignValidateModel.getTenantId();
+        String branchId = alipayEbppPdeductSignValidateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.ebpp.pdeduct.sign.validate", JacksonUtils.writeValueAsString(alipayEbppPdeductSignValidateModel));
     }
 }
