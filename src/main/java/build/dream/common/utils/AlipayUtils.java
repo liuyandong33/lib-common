@@ -463,18 +463,6 @@ public class AlipayUtils {
     }
 
     /**
-     * 生活号基础信息查询接口
-     *
-     * @param tenantId
-     * @param branchId
-     * @return
-     */
-    public static Map<String, Object> alipayOpenPublicInfoQuery(String tenantId, String branchId) {
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.info.query", "{}");
-    }
-
-    /**
      * 重新设置绑定商家会员号
      *
      * @param alipayOpenPublicAccountResetModel
@@ -952,5 +940,70 @@ public class AlipayUtils {
         String branchId = alipayOpenPublicSettingCategoryQueryModel.getBranchId();
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.setting.category.query", JacksonUtils.writeValueAsString(alipayOpenPublicSettingCategoryQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 生活号查询已发送消息接口
+     *
+     * @param alipayOpenPublicMessageQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicMessageQuery(AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel) {
+        String tenantId = alipayOpenPublicMessageQueryModel.getTenantId();
+        String branchId = alipayOpenPublicMessageQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.query", JacksonUtils.writeValueAsString(alipayOpenPublicMessageQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 生活号消息撤回接口
+     *
+     * @param alipayOpenPublicLifeMsgRecallModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeMsgRecall(AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel) {
+        String tenantId = alipayOpenPublicLifeMsgRecallModel.getTenantId();
+        String branchId = alipayOpenPublicLifeMsgRecallModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.msg.recall", JacksonUtils.writeValueAsString(alipayOpenPublicLifeMsgRecallModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 生活号基础信息查询接口
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicInfoQuery(String tenantId, String branchId) {
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.info.query", "{}");
+    }
+
+    /**
+     * isv代创建生活号接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicLifeAgentCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeAgentCreate(AlipayOpenPublicLifeAgentCreateModel alipayOpenPublicLifeAgentCreateModel) {
+        String tenantId = alipayOpenPublicLifeAgentCreateModel.getTenantId();
+        String branchId = alipayOpenPublicLifeAgentCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.agent.create", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAgentCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 模板消息行业设置修改接口
+     *
+     * @param alipayOpenPublicTemplateMessageIndustryModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicTemplateMessageIndustryModify(AlipayOpenPublicTemplateMessageIndustryModifyModel alipayOpenPublicTemplateMessageIndustryModifyModel) {
+        String tenantId = alipayOpenPublicTemplateMessageIndustryModifyModel.getTenantId();
+        String branchId = alipayOpenPublicTemplateMessageIndustryModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.template.message.industry.modify", JacksonUtils.writeValueAsString(alipayOpenPublicTemplateMessageIndustryModifyModel, JsonInclude.Include.NON_NULL));
     }
 }
