@@ -1192,4 +1192,18 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.menu.data.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicMenuDataBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 生活号基础信息修改接口
+     * TODO: model 未实现
+     *
+     * @param alipayOpenPublicInfoModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicInfoModify(AlipayOpenPublicInfoModifyModel alipayOpenPublicInfoModifyModel) {
+        String tenantId = alipayOpenPublicInfoModifyModel.getTenantId();
+        String branchId = alipayOpenPublicInfoModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.info.modify", JacksonUtils.writeValueAsString(alipayOpenPublicInfoModifyModel, JsonInclude.Include.NON_NULL));
+    }
 }
