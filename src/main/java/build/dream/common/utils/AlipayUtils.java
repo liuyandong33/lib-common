@@ -1302,4 +1302,17 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.user.charity.recordexist.query", JacksonUtils.writeValueAsString(alipayUserCharityRecordExistQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 身份认证记录查询
+     *
+     * @param alipayUserCertifyOpenQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayUserCertifyOpenQuery(AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel) {
+        String tenantId = alipayUserCertifyOpenQueryModel.getTenantId();
+        String branchId = alipayUserCertifyOpenQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.query", JacksonUtils.writeValueAsString(alipayUserCertifyOpenQueryModel, JsonInclude.Include.NON_NULL));
+    }
 }
