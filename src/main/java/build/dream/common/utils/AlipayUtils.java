@@ -914,4 +914,30 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.agentcreate.query", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAgentCreateQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 下架生活号
+     *
+     * @param alipayOpenPublicLifeDebarkApplyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeDebarkApply(AlipayOpenPublicLifeDebarkApplyModel alipayOpenPublicLifeDebarkApplyModel) {
+        String tenantId = alipayOpenPublicLifeDebarkApplyModel.getTenantId();
+        String branchId = alipayOpenPublicLifeDebarkApplyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.debark.apply", JacksonUtils.writeValueAsString(alipayOpenPublicLifeDebarkApplyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 上架生活号
+     *
+     * @param alipayOpenPublicLifeAboardApplyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenPublicLifeAboardApply(AlipayOpenPublicLifeAboardApplyModel alipayOpenPublicLifeAboardApplyModel) {
+        String tenantId = alipayOpenPublicLifeAboardApplyModel.getTenantId();
+        String branchId = alipayOpenPublicLifeAboardApplyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.aboard.apply", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAboardApplyModel, JsonInclude.Include.NON_NULL));
+    }
 }
