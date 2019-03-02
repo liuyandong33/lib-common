@@ -1371,7 +1371,6 @@ public class AlipayUtils {
 
     /**
      * 会员卡模板创建
-     * TODO: model 未实现完
      *
      * @param alipayMarketingCardTemplateCreateModel
      * @return
