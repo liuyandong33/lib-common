@@ -17,10 +17,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class AlipayUtils {
     private static final String ALIPAY_GATEWAY_URL = "https://openapi.alipay.com/gateway.do";
@@ -1688,4 +1685,161 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.applyorder.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketApplyOrderBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /***************************************************************店铺API结束***************************************************************/
+
+    /***************************************************************第三方API开始***************************************************************/
+    /**
+     * 代商家创建小程序应用
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentMiniCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentMiniCreate(AlipayOpenAgentMiniCreateModel alipayOpenAgentMiniCreateModel) {
+        alipayOpenAgentMiniCreateModel.validateAndThrow();
+        String tenantId = alipayOpenAgentMiniCreateModel.getTenantId();
+        String branchId = alipayOpenAgentMiniCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.mini.create", JacksonUtils.writeValueAsString(alipayOpenAgentMiniCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 代签约APP支付产品
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentMobilePaySignModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentMobilePaySign(AlipayOpenAgentMobilePaySignModel alipayOpenAgentMobilePaySignModel) {
+        alipayOpenAgentMobilePaySignModel.validateAndThrow();
+        String tenantId = alipayOpenAgentMobilePaySignModel.getTenantId();
+        String branchId = alipayOpenAgentMobilePaySignModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.mobilepay.sign", JacksonUtils.writeValueAsString(alipayOpenAgentMobilePaySignModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 代签约当面付产品
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentFaceToFaceSignModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentFaceToFaceSign(AlipayOpenAgentFaceToFaceSignModel alipayOpenAgentFaceToFaceSignModel) {
+        alipayOpenAgentFaceToFaceSignModel.validateAndThrow();
+        String tenantId = alipayOpenAgentFaceToFaceSignModel.getTenantId();
+        String branchId = alipayOpenAgentFaceToFaceSignModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.facetoface.sign", JacksonUtils.writeValueAsString(alipayOpenAgentFaceToFaceSignModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 代签约芝麻信用（普惠版）产品
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentZhiMaBriefSignModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentZhiMaBriefSign(AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel) {
+        alipayOpenAgentZhiMaBriefSignModel.validateAndThrow();
+        String tenantId = alipayOpenAgentZhiMaBriefSignModel.getTenantId();
+        String branchId = alipayOpenAgentZhiMaBriefSignModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.zhimabrief.sign", JacksonUtils.writeValueAsString(alipayOpenAgentZhiMaBriefSignModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 开启代商户签约、创建应用事务
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentCreate(AlipayOpenAgentCreateModel alipayOpenAgentCreateModel) {
+        alipayOpenAgentCreateModel.validateAndThrow();
+        String tenantId = alipayOpenAgentCreateModel.getTenantId();
+        String branchId = alipayOpenAgentCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.create", JacksonUtils.writeValueAsString(alipayOpenAgentCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 提交代商户签约、创建应用事务
+     *
+     * @param alipayOpenAgentConfirmModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentConfirm(AlipayOpenAgentConfirmModel alipayOpenAgentConfirmModel) {
+        alipayOpenAgentConfirmModel.validateAndThrow();
+        String tenantId = alipayOpenAgentConfirmModel.getTenantId();
+        String branchId = alipayOpenAgentConfirmModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.confirm", JacksonUtils.writeValueAsString(alipayOpenAgentConfirmModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 取消代商户签约、创建应用事务
+     *
+     * @param alipayOpenAgentCancelModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentCancel(AlipayOpenAgentCancelModel alipayOpenAgentCancelModel) {
+        alipayOpenAgentCancelModel.validateAndThrow();
+        String tenantId = alipayOpenAgentCancelModel.getTenantId();
+        String branchId = alipayOpenAgentCancelModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.cancel", JacksonUtils.writeValueAsString(alipayOpenAgentCancelModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询申请单状态
+     *
+     * @param alipayOpenAgentOrderQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentOrderQuery(AlipayOpenAgentOrderQueryModel alipayOpenAgentOrderQueryModel) {
+        alipayOpenAgentOrderQueryModel.validateAndThrow();
+        String tenantId = alipayOpenAgentOrderQueryModel.getTenantId();
+        String branchId = alipayOpenAgentOrderQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.order.query", JacksonUtils.writeValueAsString(alipayOpenAgentOrderQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询商户某个产品的签约状态
+     *
+     * @param alipayOpenAgentSignStatusQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentSignStatusQuery(AlipayOpenAgentSignStatusQueryModel alipayOpenAgentSignStatusQueryModel) {
+        alipayOpenAgentSignStatusQueryModel.validateAndThrow();
+        String tenantId = alipayOpenAgentSignStatusQueryModel.getTenantId();
+        String branchId = alipayOpenAgentSignStatusQueryModel.getBranchId();
+        List<String> productCodes = alipayOpenAgentSignStatusQueryModel.getProductCodes();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+
+        Map<String, Object> bizContentMap = new HashMap<String, Object>();
+        bizContentMap.put("pid", alipayAuthorizerInfo.getUserId());
+        bizContentMap.put("product_codes", productCodes);
+
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.signstatus.query", JacksonUtils.writeValueAsString(bizContentMap));
+    }
+
+    /**
+     * 代签约线下收钱产品
+     * TODO: model 未实现
+     *
+     * @param alipayOpenAgentOfflinePaymentSignModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAgentOfflinePaymentSign(AlipayOpenAgentOfflinePaymentSignModel alipayOpenAgentOfflinePaymentSignModel) {
+        alipayOpenAgentOfflinePaymentSignModel.validateAndThrow();
+        String tenantId = alipayOpenAgentOfflinePaymentSignModel.getTenantId();
+        String branchId = alipayOpenAgentOfflinePaymentSignModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.offlinepayment.sign", JacksonUtils.writeValueAsString(alipayOpenAgentOfflinePaymentSignModel, JsonInclude.Include.NON_NULL));
+    }
+    /***************************************************************第三方API结束***************************************************************/
 }
