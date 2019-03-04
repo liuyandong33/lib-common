@@ -333,22 +333,6 @@ public class AlipayUtils {
         return alipayAuthorizerInfo;
     }
 
-    public static Map<String, Object> alipayOfflineMarketShopCreate(AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
-        alipayOfflineMarketShopCreateModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopCreateModel.getTenantId();
-        String branchId = alipayOfflineMarketShopCreateModel.getBranchId();
-        String notifyUrl = alipayOfflineMarketShopCreateModel.getNotifyUrl();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = null;
-        if (StringUtils.isNotBlank(notifyUrl)) {
-            alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
-        } else {
-            alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-            ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
-        }
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.create", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayOfflineMarketShopCreateModel, JsonInclude.Include.NON_NULL));
-    }
-
     public static String generateAppToAppAuthorizeUrl(String tenantId, String branchId, String redirectUri) {
         AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
         ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
@@ -1609,4 +1593,21 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.create", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityCreateModel, JsonInclude.Include.NON_NULL));
     }
     /***************************************************************商户会员卡API结束***************************************************************/
+
+    /***************************************************************店铺API开始***************************************************************/
+    public static Map<String, Object> alipayOfflineMarketShopCreate(AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
+        alipayOfflineMarketShopCreateModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopCreateModel.getTenantId();
+        String branchId = alipayOfflineMarketShopCreateModel.getBranchId();
+        String notifyUrl = alipayOfflineMarketShopCreateModel.getNotifyUrl();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = null;
+        if (StringUtils.isNotBlank(notifyUrl)) {
+            alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
+        } else {
+            alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+            ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
+        }
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.create", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayOfflineMarketShopCreateModel, JsonInclude.Include.NON_NULL));
+    }
 }

@@ -3,7 +3,7 @@ package build.dream.common.models.alipay;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.DecimalMax;
@@ -23,46 +23,46 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @JsonIgnore
     private String notifyUrl;
 
-    @SerializedName(value = "store_id", alternate = "storeId")
     @NotNull
     @Length(max = 32)
+    @JsonProperty(value = "store_id")
     private String storeId;
 
-    @SerializedName(value = "category_id", alternate = "categoryId")
     @NotNull
     @Length(max = 32)
+    @JsonProperty(value = "category_id")
     private String categoryId;
 
-    @SerializedName(value = "brand_name", alternate = "brandName")
     @Length(max = 512)
+    @JsonProperty(value = "brand_name")
     private String brandName;
 
-    @SerializedName(value = "brand_logo", alternate = "brandLogo")
     @Length(max = 512)
+    @JsonProperty(value = "brand_logo")
     private String brandLogo;
 
-    @SerializedName(value = "main_shop_name", alternate = "mainShopName")
     @NotNull
     @Length(max = 20)
+    @JsonProperty(value = "main_shop_name")
     private String mainShopName;
 
-    @SerializedName(value = "branch_shop_name", alternate = "branchShopName")
     @Length(max = 20)
+    @JsonProperty(value = "branch_shop_name")
     private String branchShopName;
 
-    @SerializedName(value = "province_code", alternate = "provinceCode")
     @NotNull
     @Length(max = 10)
+    @JsonProperty(value = "province_code")
     private String provinceCode;
 
-    @SerializedName(value = "city_code", alternate = "cityCode")
     @NotNull
     @Length(max = 10)
+    @JsonProperty(value = "city_code")
     private String cityCode;
 
-    @SerializedName(value = "district_code", alternate = "districtCode")
     @NotNull
     @Length(max = 10)
+    @JsonProperty(value = "district_code")
     private String districtCode;
 
     @NotNull
@@ -77,25 +77,25 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @Length(max = 15)
     private String latitude;
 
-    @SerializedName(value = "contact_number", alternate = "contactNumber")
     @NotNull
     @Length(max = 512)
+    @JsonProperty(value = "contact_number")
     private String contactNumber;
 
-    @SerializedName(value = "notify_mobile", alternate = "notifyMobile")
     @Length(max = 512)
+    @JsonProperty(value = "notify_mobile")
     private String notifyMobile;
 
-    @SerializedName(value = "main_image", alternate = "mainImage")
     @Length(max = 512)
+    @JsonProperty(value = "main_image")
     private String mainImage;
 
-    @SerializedName(value = "audit_images", alternate = "auditImages")
     @Length(max = 4000)
+    @JsonProperty(value = "audit_images")
     private String auditImages;
 
-    @SerializedName(value = "business_time", alternate = "businessTime")
     @Length(max = 256)
+    @JsonProperty(value = "business_time")
     private String businessTime;
 
     @InList(value = {"T", "F"})
@@ -104,86 +104,86 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @InList(value = {"T", "F"})
     private String parking;
 
-    @SerializedName(value = "value_added", alternate = "valueAdded")
     @Length(max = 256)
+    @JsonProperty(value = "value_added")
     private String valueAdded;
 
-    @SerializedName(value = "avg_price", alternate = "avgPrice")
     @DecimalMin(value = "1")
     @DecimalMax(value = "99999")
+    @JsonProperty(value = "avg_price")
     private BigDecimal avgPrice;
 
-    @SerializedName(value = "isv_uid", alternate = "isvUid")
     @NotNull
     @Length(max = 16)
+    @JsonProperty(value = "isv_uid")
     private String isvUid;
 
     @Length(max = 512)
     private String licence;
 
-    @SerializedName(value = "licence_code", alternate = "licenceCode")
     @Length(max = 255)
+    @JsonProperty(value = "licence_code")
     private String licenceCode;
 
-    @SerializedName(value = "licence_name", alternate = "licenceName")
     @Length(max = 255)
+    @JsonProperty(value = "licence_name")
     private String licenceName;
 
-    @SerializedName(value = "business_certificate", alternate = "businessCertificate")
     @Length(max = 512)
+    @JsonProperty(value = "business_certificate")
     private String businessCertificate;
 
-    @SerializedName(value = "business_certificate_expires", alternate = "businessCertificateExpires")
     @Length(max = 64)
+    @JsonProperty(value = "business_certificate_expires")
     private String businessCertificateExpires;
 
-    @SerializedName(value = "auth_letter", alternate = "authLetter")
     @Length(max = 512)
+    @JsonProperty(value = "auth_letter")
     private String authLetter;
 
-    @SerializedName(value = "is_operating_online", alternate = "isOperatingOnline")
     @InList(value = {"T", "F"})
+    @JsonProperty(value = "is_operating_online")
     private String isOperatingOnline;
 
-    @SerializedName(value = "online_url", alternate = "onlineUrl")
     @Length(max = 2000)
+    @JsonProperty(value = "online_url")
     private String onlineUrl;
 
-    @SerializedName(value = "operate_notify_url", alternate = "operateNotifyUrl")
     @Length(max = 512)
+    @JsonProperty(value = "operate_notify_url")
     private String operateNotifyUrl;
 
-    @SerializedName(value = "implement_id", alternate = "implementId")
     @Length(max = 256)
+    @JsonProperty(value = "implement_id")
     private String implementId;
 
-    @SerializedName(value = "no_smoking", alternate = "noSmoking")
     @InList(value = {"T", "F"})
+    @JsonProperty(value = "no_smoking")
     private String noSmoking;
 
     @InList(value = {"T", "F"})
     private String box;
 
-    @SerializedName(value = "request_id", alternate = "requestId")
     @NotNull
     @Length(max = 64)
+    @JsonProperty(value = "request_id")
     private String requestId;
 
-    @SerializedName(value = "other_authorization", alternate = "otherAuthorization")
     @Length(max = 500)
+    @JsonProperty(value = "other_authorization")
     private String otherAuthorization;
 
-    @SerializedName(value = "licence_expires", alternate = "licenceExpires")
     @Length(max = 64)
+    @JsonProperty(value = "licence_expires")
     private String licenceExpires;
 
-    @SerializedName(value = "op_role", alternate = "opRole")
     @Length(max = 16)
+    @JsonProperty(value = "op_role")
     private String opRole;
 
-    @SerializedName(value = "biz_version", alternate = "bizVersion")
     @NotNull
     @Length(max = 10)
+    @JsonProperty(value = "biz_version")
     private String bizVersion;
 
     public String getTenantId() {
