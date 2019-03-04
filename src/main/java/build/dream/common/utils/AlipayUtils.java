@@ -1595,6 +1595,13 @@ public class AlipayUtils {
     /***************************************************************商户会员卡API结束***************************************************************/
 
     /***************************************************************店铺API开始***************************************************************/
+    /**
+     * 创建门店信息
+     * TODO: 未实现Builder模式
+     *
+     * @param alipayOfflineMarketShopCreateModel
+     * @return
+     */
     public static Map<String, Object> alipayOfflineMarketShopCreate(AlipayOfflineMarketShopCreateModel alipayOfflineMarketShopCreateModel) {
         alipayOfflineMarketShopCreateModel.validateAndThrow();
         String tenantId = alipayOfflineMarketShopCreateModel.getTenantId();
@@ -1606,8 +1613,94 @@ public class AlipayUtils {
             alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
         } else {
             alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-            ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
         }
         return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.create", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayOfflineMarketShopCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 门店类目配置查询接口
+     *
+     * @param alipayOfflineMarketShopCategoryQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketShopCategoryQuery(AlipayOfflineMarketShopCategoryQueryModel alipayOfflineMarketShopCategoryQueryModel) {
+        alipayOfflineMarketShopCategoryQueryModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopCategoryQueryModel.getTenantId();
+        String branchId = alipayOfflineMarketShopCategoryQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.category.query", JacksonUtils.writeValueAsString(alipayOfflineMarketShopCategoryQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 修改门店信息
+     * TODO: model 未实现
+     *
+     * @param alipayOfflineMarketShopModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketShopModify(AlipayOfflineMarketShopModifyModel alipayOfflineMarketShopModifyModel) {
+        alipayOfflineMarketShopModifyModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopModifyModel.getTenantId();
+        String branchId = alipayOfflineMarketShopModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.modify", JacksonUtils.writeValueAsString(alipayOfflineMarketShopModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询单个门店信息接口
+     *
+     * @param alipayOfflineMarketShopQueryDetailModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketShopQueryDetail(AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel) {
+        alipayOfflineMarketShopQueryDetailModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopQueryDetailModel.getTenantId();
+        String branchId = alipayOfflineMarketShopQueryDetailModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.querydetail", JacksonUtils.writeValueAsString(alipayOfflineMarketShopQueryDetailModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询商户的门店编号列表
+     *
+     * @param alipayOfflineMarketShopBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketShopBatchQuery(AlipayOfflineMarketShopBatchQueryModel alipayOfflineMarketShopBatchQueryModel) {
+        alipayOfflineMarketShopBatchQueryModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopBatchQueryModel.getTenantId();
+        String branchId = alipayOfflineMarketShopBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketShopBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 门店摘要信息批量查询接口
+     * TODO: model 未实现
+     *
+     * @param alipayOfflineMarketShopSummaryBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketShopSummaryBatchQuery(AlipayOfflineMarketShopSummaryBatchQueryModel alipayOfflineMarketShopSummaryBatchQueryModel) {
+        alipayOfflineMarketShopSummaryBatchQueryModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketShopSummaryBatchQueryModel.getTenantId();
+        String branchId = alipayOfflineMarketShopSummaryBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.summary.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketShopSummaryBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 业务流水批量查询接口
+     * TODO: model 未实现
+     *
+     * @param alipayOfflineMarketApplyOrderBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayOfflineMarketApplyOrderBatchQuery(AlipayOfflineMarketApplyOrderBatchQueryModel alipayOfflineMarketApplyOrderBatchQueryModel) {
+        alipayOfflineMarketApplyOrderBatchQueryModel.validateAndThrow();
+        String tenantId = alipayOfflineMarketApplyOrderBatchQueryModel.getTenantId();
+        String branchId = alipayOfflineMarketApplyOrderBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.applyorder.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketApplyOrderBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
 }
