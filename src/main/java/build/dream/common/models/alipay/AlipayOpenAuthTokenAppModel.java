@@ -12,11 +12,7 @@ import javax.validation.constraints.NotNull;
 public class AlipayOpenAuthTokenAppModel extends BasicModel {
     @NotNull
     @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
+    private String appId;
 
     @InList(value = {Constants.AUTHORIZATION_CODE, Constants.REFRESH_TOKEN})
     @JsonProperty(value = "grant_type")
@@ -27,20 +23,12 @@ public class AlipayOpenAuthTokenAppModel extends BasicModel {
     @JsonProperty(value = "refresh_token")
     private String refreshToken;
 
-    public String getTenantId() {
-        return tenantId;
+    public String getAppId() {
+        return appId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
     public String getGrantType() {

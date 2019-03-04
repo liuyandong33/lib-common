@@ -38,15 +38,6 @@ public class AlipayUtils {
         return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signatureType);
     }
 
-    public static AlipayAccount obtainAlipayAccount(String tenantId, String branchId) {
-        String alipayAccountJson = CacheUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, tenantId + "_" + branchId);
-        AlipayAccount alipayAccount = null;
-        if (StringUtils.isNotBlank(alipayAccountJson)) {
-            alipayAccount = GsonUtils.fromJson(alipayAccountJson, AlipayAccount.class);
-        }
-        return alipayAccount;
-    }
-
     public static AlipayAccount obtainAlipayAccount(String appId) {
         String alipayAccountJson = CacheUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
         AlipayAccount alipayAccount = null;
@@ -333,19 +324,14 @@ public class AlipayUtils {
         return alipayAuthorizerInfo;
     }
 
-    public static String generateAppToAppAuthorizeUrl(String tenantId, String branchId, String redirectUri) {
-        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
-        ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
-        return ALIPAY_APP_TO_APP_AUTHORIZE_URL + "?app_id=" + alipayAccount.getAppId() + "&redirect_uri=" + UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8);
+    public static String generateAppToAppAuthorizeUrl(String appId, String redirectUri) {
+        return ALIPAY_APP_TO_APP_AUTHORIZE_URL + "?app_id=" + appId + "&redirect_uri=" + UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8);
     }
 
-    public static String generatePublicAppAuthorizeUrl(String tenantId, String branchId, String scope, String redirectUri, String state) {
-        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
-        ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
-
+    public static String generatePublicAppAuthorizeUrl(String appId, String scope, String redirectUri, String state) {
         StringBuilder publicAppAuthorizeUrl = new StringBuilder();
         publicAppAuthorizeUrl.append(ConfigurationUtils.getConfiguration(Constants.ALIPAY_PUBLIC_APP_AUTHORIZE_URL));
-        publicAppAuthorizeUrl.append("?app_id=").append(alipayAccount.getAppId());
+        publicAppAuthorizeUrl.append("?app_id=").append(appId);
         publicAppAuthorizeUrl.append("&scope=").append(scope);
         publicAppAuthorizeUrl.append("&redirect_uri=").append(UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
         if (StringUtils.isNotBlank(state)) {
@@ -393,14 +379,13 @@ public class AlipayUtils {
      * @return
      */
     public static AlipayAuthorizerInfo alipayOpenAuthTokenApp(AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel) {
-        String tenantId = alipayOpenAuthTokenAppModel.getTenantId();
-        String branchId = alipayOpenAuthTokenAppModel.getBranchId();
-        AlipayAccount alipayAccount = obtainAlipayAccount(tenantId, branchId);
+        String appId = alipayOpenAuthTokenAppModel.getAppId();
+        AlipayAccount alipayAccount = obtainAlipayAccount(appId);
         ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
         Map<String, Object> resultMap = callAlipayApi(alipayAccount, "alipay.open.auth.token.app", JacksonUtils.writeValueAsString(alipayOpenAuthTokenAppModel, JsonInclude.Include.NON_NULL));
 
         AlipayAuthorizerInfo alipayAuthorizerInfo = new AlipayAuthorizerInfo();
-        alipayAuthorizerInfo.setAppId(alipayAccount.getAppId());
+        alipayAuthorizerInfo.setAppId(appId);
         alipayAuthorizerInfo.setAppAuthToken(MapUtils.getString(resultMap, "app_auth_token"));
         alipayAuthorizerInfo.setUserId(MapUtils.getString(resultMap, "user_id"));
         alipayAuthorizerInfo.setAuthAppId(MapUtils.getString(resultMap, "auth_app_id"));
