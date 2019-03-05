@@ -201,6 +201,127 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, null, null, bizContent);
     }
 
+
+    /***************************************************************支付API开始***************************************************************/
+    /**
+     * 统一收单交易退款查询
+     *
+     * @param alipayTradeFastPayRefundQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeFastPayRefundQuery(AlipayTradeFastPayRefundQueryModel alipayTradeFastPayRefundQueryModel) {
+        alipayTradeFastPayRefundQueryModel.validateAndThrow();
+
+        String tenantId = alipayTradeFastPayRefundQueryModel.getTenantId();
+        String branchId = alipayTradeFastPayRefundQueryModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.fastpay.refund.query", JacksonUtils.writeValueAsString(alipayTradeFastPayRefundQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易结算接口
+     *
+     * @param alipayTradeOrderSettleModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeOrderSettle(AlipayTradeOrderSettleModel alipayTradeOrderSettleModel) {
+        alipayTradeOrderSettleModel.validateAndThrow();
+
+        String tenantId = alipayTradeOrderSettleModel.getTenantId();
+        String branchId = alipayTradeOrderSettleModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.order.settle", JacksonUtils.writeValueAsString(alipayTradeOrderSettleModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易关闭接口
+     *
+     * @param alipayTradeCloseModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeClose(AlipayTradeCloseModel alipayTradeCloseModel) {
+        alipayTradeCloseModel.validateAndThrow();
+
+        String tenantId = alipayTradeCloseModel.getTenantId();
+        String branchId = alipayTradeCloseModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.close", JacksonUtils.writeValueAsString(alipayTradeCloseModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易撤销接口
+     *
+     * @param alipayTradeCancelModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeCancel(AlipayTradeCancelModel alipayTradeCancelModel) {
+        alipayTradeCancelModel.validateAndThrow();
+
+        String tenantId = alipayTradeCancelModel.getTenantId();
+        String branchId = alipayTradeCancelModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.cancel", JacksonUtils.writeValueAsString(alipayTradeCancelModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易退款接口
+     * TODO: model 未实现
+     *
+     * @param alipayTradeRefundModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeRefund(AlipayTradeRefundModel alipayTradeRefundModel) {
+        alipayTradeRefundModel.validateAndThrow();
+
+        String tenantId = alipayTradeRefundModel.getTenantId();
+        String branchId = alipayTradeRefundModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.refund", JacksonUtils.writeValueAsString(alipayTradeRefundModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单线下交易预创建
+     *
+     * @param alipayTradePreCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradePreCreate(AlipayTradePreCreateModel alipayTradePreCreateModel) {
+        alipayTradePreCreateModel.validateAndThrow();
+
+        String tenantId = alipayTradePreCreateModel.getTenantId();
+        String branchId = alipayTradePreCreateModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.precreate", JacksonUtils.writeValueAsString(alipayTradePreCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易创建接口
+     *
+     * @param alipayTradeCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeCreate(AlipayTradeCreateModel alipayTradeCreateModel) {
+        alipayTradeCreateModel.validateAndThrow();
+
+        String tenantId = alipayTradeCreateModel.getTenantId();
+        String branchId = alipayTradeCreateModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.create", JacksonUtils.writeValueAsString(alipayTradeCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单交易支付接口
+     *
+     * @param alipayTradePayModel
+     * @return
+     */
     public static Map<String, Object> alipayTradePay(AlipayTradePayModel alipayTradePayModel) {
         alipayTradePayModel.validateAndThrow();
 
@@ -218,6 +339,125 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.pay", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
     }
 
+    /**
+     * 统一收单线下交易查询
+     *
+     * @param alipayTradeQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeQuery(AlipayTradeQueryModel alipayTradeQueryModel) {
+        alipayTradeQueryModel.validateAndThrow();
+
+        String tenantId = alipayTradeQueryModel.getTenantId();
+        String branchId = alipayTradeQueryModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.query", JacksonUtils.writeValueAsString(alipayTradeQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑商品交易查询接口
+     *
+     * @param koubeiTradeItemOrderQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeItemOrderQuery(KoubeiTradeItemOrderQueryModel koubeiTradeItemOrderQueryModel) {
+        koubeiTradeItemOrderQueryModel.validateAndThrow();
+
+        String tenantId = koubeiTradeItemOrderQueryModel.getTenantId();
+        String branchId = koubeiTradeItemOrderQueryModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.query", JacksonUtils.writeValueAsString(koubeiTradeItemOrderQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑商品交易购买接口
+     * TODO: model 未实现
+     *
+     * @param koubeiTradeItemOrderBuyModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeItemOrderBuy(KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel) {
+        koubeiTradeItemOrderBuyModel.validateAndThrow();
+
+        String tenantId = koubeiTradeItemOrderBuyModel.getTenantId();
+        String branchId = koubeiTradeItemOrderBuyModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.buy", JacksonUtils.writeValueAsString(koubeiTradeItemOrderBuyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑商品交易退货接口
+     * TODO: model 未实现
+     *
+     * @param koubeiTradeItemOrderRefundModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeItemOrderRefund(KoubeiTradeItemOrderRefundModel koubeiTradeItemOrderRefundModel) {
+        koubeiTradeItemOrderRefundModel.validateAndThrow();
+
+        String tenantId = koubeiTradeItemOrderRefundModel.getTenantId();
+        String branchId = koubeiTradeItemOrderRefundModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.refund", JacksonUtils.writeValueAsString(koubeiTradeItemOrderRefundModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 资金授权冻结接口
+     * TODO: model 未实现
+     *
+     * @param alipayFundAuthOrderFreezeModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundAuthOrderFreeze(AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel) {
+        alipayFundAuthOrderFreezeModel.validateAndThrow();
+
+        String tenantId = alipayFundAuthOrderFreezeModel.getTenantId();
+        String branchId = alipayFundAuthOrderFreezeModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.fund.auth.order.freeze", JacksonUtils.writeValueAsString(alipayFundAuthOrderFreezeModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * app支付接口2.0
+     *
+     * @param alipayTradeAppPayModel
+     * @return
+     */
+    public static String alipayTradeAppPay(AlipayTradeAppPayModel alipayTradeAppPayModel) {
+        String tenantId = alipayTradeAppPayModel.getTenantId();
+        String branchId = alipayTradeAppPayModel.getBranchId();
+        String notifyUrl = alipayTradeAppPayModel.getNotifyUrl();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradeAppPayModel.getOutTradeNo(), notifyUrl);
+        AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
+
+        BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
+                .appId(alipayAuthorizerInfo.getAppId())
+                .method("alipay.trade.app.pay")
+                .format(Constants.JSON)
+                .returnUrl(null)
+                .charset(Constants.CHARSET_NAME_UTF_8)
+                .signType(alipayAccount.getSignType())
+                .notifyUrl(notifyUrl)
+                .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
+                .bizContent(JacksonUtils.writeValueAsString(alipayTradeAppPayModel, JsonInclude.Include.NON_NULL))
+                .privateKey(alipayAccount.getApplicationPrivateKey())
+                .build();
+
+        return buildRequestBody(buildRequestBodyModel);
+    }
+
+    /**
+     * 手机网站支付接口2.0
+     *
+     * @param alipayTradeWapPayModel
+     * @return
+     */
     public static String alipayTradeWapPay(AlipayTradeWapPayModel alipayTradeWapPayModel) {
         alipayTradeWapPayModel.validateAndThrow();
 
@@ -245,6 +485,92 @@ public class AlipayUtils {
         return ALIPAY_GATEWAY_URL + "?" + buildRequestBody(buildRequestBodyModel);
     }
 
+    /**
+     * 码商发码成功回调接口
+     *
+     * @param koubeiTradeTicketTicketCodeSendModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeSend(KoubeiTradeTicketTicketCodeSendModel koubeiTradeTicketTicketCodeSendModel) {
+        koubeiTradeTicketTicketCodeSendModel.validateAndThrow();
+
+        String tenantId = koubeiTradeTicketTicketCodeSendModel.getTenantId();
+        String branchId = koubeiTradeTicketTicketCodeSendModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.send", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeSendModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑凭证延期接口
+     *
+     * @param koubeiTradeTicketTicketCodeDelayModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeDelay(KoubeiTradeTicketTicketCodeDelayModel koubeiTradeTicketTicketCodeDelayModel) {
+        koubeiTradeTicketTicketCodeDelayModel.validateAndThrow();
+
+        String tenantId = koubeiTradeTicketTicketCodeDelayModel.getTenantId();
+        String branchId = koubeiTradeTicketTicketCodeDelayModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.delay", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeDelayModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑凭证码撤销核销
+     *
+     * @param koubeiTradeTicketTicketCodeCancelModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeCancel(KoubeiTradeTicketTicketCodeCancelModel koubeiTradeTicketTicketCodeCancelModel) {
+        koubeiTradeTicketTicketCodeCancelModel.validateAndThrow();
+
+        String tenantId = koubeiTradeTicketTicketCodeCancelModel.getTenantId();
+        String branchId = koubeiTradeTicketTicketCodeCancelModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.cancel", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeCancelModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑凭证码查询
+     *
+     * @param koubeiTradeTicketTicketCodeQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeQuery(KoubeiTradeTicketTicketCodeQueryModel koubeiTradeTicketTicketCodeQueryModel) {
+        koubeiTradeTicketTicketCodeQueryModel.validateAndThrow();
+
+        String tenantId = koubeiTradeTicketTicketCodeQueryModel.getTenantId();
+        String branchId = koubeiTradeTicketTicketCodeQueryModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.query", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 支付宝订单信息同步接口
+     *
+     * @param alipayTradeOrderInfoSyncModel
+     * @return
+     */
+    public static Map<String, Object> alipayTradeOrderInfoSync(AlipayTradeOrderInfoSyncModel alipayTradeOrderInfoSyncModel) {
+        alipayTradeOrderInfoSyncModel.validateAndThrow();
+
+        String tenantId = alipayTradeOrderInfoSyncModel.getTenantId();
+        String branchId = alipayTradeOrderInfoSyncModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.orderinfo.sync", JacksonUtils.writeValueAsString(alipayTradeOrderInfoSyncModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 统一收单下单并支付页面接口
+     *
+     * @param alipayTradePagePayModel
+     * @return
+     */
     public static String alipayTradePagePay(AlipayTradePagePayModel alipayTradePagePayModel) {
         alipayTradePagePayModel.validateAndThrow();
 
@@ -271,14 +597,37 @@ public class AlipayUtils {
         return ALIPAY_GATEWAY_URL + "?" + buildRequestBody(buildRequestBodyModel);
     }
 
-    public static Map<String, Object> alipayTradeRefund(AlipayTradeRefundModel alipayTradeRefundModel) {
-        alipayTradeRefundModel.validateAndThrow();
+    /**
+     * 口碑订单预下单
+     *
+     * @param koubeiTradeOrderPreCreateModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeOrderPreCreate(KoubeiTradeOrderPreCreateModel koubeiTradeOrderPreCreateModel) {
+        koubeiTradeOrderPreCreateModel.validateAndThrow();
 
-        String tenantId = alipayTradeRefundModel.getTenantId();
-        String branchId = alipayTradeRefundModel.getBranchId();
+        String tenantId = koubeiTradeOrderPreCreateModel.getTenantId();
+        String branchId = koubeiTradeOrderPreCreateModel.getBranchId();
 
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.refund", JacksonUtils.writeValueAsString(alipayTradeRefundModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.order.precreate", JacksonUtils.writeValueAsString(koubeiTradeOrderPreCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 网商银行全渠道收单业务订单创建
+     * TODO: model 未实现
+     *
+     * @param myBankPaymentTradeOrderCreateModel
+     * @return
+     */
+    public static Map<String, Object> myBankPaymentTradeOrderCreate(MyBankPaymentTradeOrderCreateModel myBankPaymentTradeOrderCreateModel) {
+        myBankPaymentTradeOrderCreateModel.validateAndThrow();
+
+        String tenantId = myBankPaymentTradeOrderCreateModel.getTenantId();
+        String branchId = myBankPaymentTradeOrderCreateModel.getBranchId();
+
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "mybank.payment.trade.order.create", JacksonUtils.writeValueAsString(myBankPaymentTradeOrderCreateModel, JsonInclude.Include.NON_NULL));
     }
 
     private static AlipayAuthorizerInfo saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) {
@@ -335,30 +684,6 @@ public class AlipayUtils {
             publicAppAuthorizeUrl.append("&state=").append(state);
         }
         return publicAppAuthorizeUrl.toString();
-    }
-
-    public static String alipayTradeAppPay(AlipayTradeAppPayModel alipayTradeAppPayModel) {
-        String tenantId = alipayTradeAppPayModel.getTenantId();
-        String branchId = alipayTradeAppPayModel.getBranchId();
-        String notifyUrl = alipayTradeAppPayModel.getNotifyUrl();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradeAppPayModel.getOutTradeNo(), notifyUrl);
-        AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
-
-        BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
-                .appId(alipayAuthorizerInfo.getAppId())
-                .method("alipay.trade.app.pay")
-                .format(Constants.JSON)
-                .returnUrl(null)
-                .charset(Constants.CHARSET_NAME_UTF_8)
-                .signType(alipayAccount.getSignType())
-                .notifyUrl(notifyUrl)
-                .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
-                .bizContent(JacksonUtils.writeValueAsString(alipayTradeAppPayModel, JsonInclude.Include.NON_NULL))
-                .privateKey(alipayAccount.getApplicationPrivateKey())
-                .build();
-
-        return buildRequestBody(buildRequestBodyModel);
     }
 
     public static Map<String, Object> aftAiFinFireEyeOcrImageQuery(AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel) {
