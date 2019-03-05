@@ -1,6 +1,7 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.models.BasicModel;
+import build.dream.common.utils.ApplicationHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
@@ -54,6 +55,17 @@ public class AlipayOpenAgentCreateModel extends BasicModel {
 
     public void setOrderTicket(String orderTicket) {
         this.orderTicket = orderTicket;
+    }
+
+    @Override
+    public boolean validate() {
+        return super.validate() && contactInfo.validate();
+    }
+
+    @Override
+    public void validateAndThrow() {
+        super.validateAndThrow();
+        ApplicationHandler.isTrue(contactInfo.validate(), "contactInfo");
     }
 
     public static class Builder {
