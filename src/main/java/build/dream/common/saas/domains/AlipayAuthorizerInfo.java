@@ -10,6 +10,10 @@ public class AlipayAuthorizerInfo extends BasicDomain {
      * 商户ID
      */
     private BigInteger tenantId;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
 
     /**
      * app id
@@ -52,6 +56,14 @@ public class AlipayAuthorizerInfo extends BasicDomain {
 
     public void setTenantId(BigInteger tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
     }
 
     public String getAppId() {
@@ -115,6 +127,11 @@ public class AlipayAuthorizerInfo extends BasicDomain {
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
             return this;
         }
 
@@ -200,6 +217,7 @@ public class AlipayAuthorizerInfo extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
+        public static final String BRANCH_ID = "branch_id";
         public static final String APP_ID = "app_id";
         public static final String APP_AUTH_TOKEN = "app_auth_token";
         public static final String USER_ID = "user_id";
@@ -211,6 +229,7 @@ public class AlipayAuthorizerInfo extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
+        public static final String BRANCH_ID = "branchId";
         public static final String APP_ID = "appId";
         public static final String APP_AUTH_TOKEN = "appAuthToken";
         public static final String USER_ID = "userId";
