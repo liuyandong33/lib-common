@@ -630,6 +630,8 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "mybank.payment.trade.order.create", JacksonUtils.writeValueAsString(myBankPaymentTradeOrderCreateModel, JsonInclude.Include.NON_NULL));
     }
 
+    /***************************************************************支付API结束***************************************************************/
+
     private static AlipayAuthorizerInfo saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到支付宝授权信息");
