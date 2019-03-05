@@ -1829,7 +1829,7 @@ public class AlipayUtils {
 
     /**
      * 代签约线下收钱产品
-     * TODO: model 未实现
+     * TODO: model 未实现完
      *
      * @param alipayOpenAgentOfflinePaymentSignModel
      * @return
