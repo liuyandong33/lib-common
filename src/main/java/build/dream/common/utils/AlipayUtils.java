@@ -1751,7 +1751,6 @@ public class AlipayUtils {
 
     /**
      * 开启代商户签约、创建应用事务
-     * TODO: model 未实现
      *
      * @param alipayOpenAgentCreateModel
      * @return
