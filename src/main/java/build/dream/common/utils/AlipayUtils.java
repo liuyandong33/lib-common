@@ -1759,7 +1759,19 @@ public class AlipayUtils {
         alipayOpenAgentCreateModel.validateAndThrow();
         String tenantId = alipayOpenAgentCreateModel.getTenantId();
         String branchId = alipayOpenAgentCreateModel.getBranchId();
+        AlipayOpenAgentCreateModel.ContactInfo contactInfo = alipayOpenAgentCreateModel.getContactInfo();
+        String orderTicket = alipayOpenAgentCreateModel.getOrderTicket();
+
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+
+        AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
+        Map<String, Object> bizContentMap = new HashMap<String, Object>();
+        bizContentMap.put("account", alipayAccount.getAccount());
+        bizContentMap.put("contact_info", contactInfo);
+        if (StringUtils.isNotBlank(orderTicket)) {
+            bizContentMap.put("order_ticket", orderTicket);
+        }
+
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.create", JacksonUtils.writeValueAsString(alipayOpenAgentCreateModel, JsonInclude.Include.NON_NULL));
     }
 
