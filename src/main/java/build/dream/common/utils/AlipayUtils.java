@@ -2311,6 +2311,7 @@ public class AlipayUtils {
 
     /**
      * 活动修改接口
+     * TODO: model 未实现
      *
      * @param koubeiMarketingCampaignActivityModifyModel
      * @return
@@ -2321,5 +2322,105 @@ public class AlipayUtils {
         String branchId = koubeiMarketingCampaignActivityModifyModel.getBranchId();
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.modify", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 活动详情查询
+     *
+     * @param koubeiMarketingCampaignActivityQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignActivityQuery(KoubeiMarketingCampaignActivityQueryModel koubeiMarketingCampaignActivityQueryModel) {
+        koubeiMarketingCampaignActivityQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingCampaignActivityQueryModel.getTenantId();
+        String branchId = koubeiMarketingCampaignActivityQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.query", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询当前用户可用的模板列表
+     *
+     * @param alipayMarketingToolFengDieTemplateQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingToolFengDieTemplateQuery(AlipayMarketingToolFengDieTemplateQueryModel alipayMarketingToolFengDieTemplateQueryModel) {
+        alipayMarketingToolFengDieTemplateQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingToolFengDieTemplateQueryModel.getTenantId();
+        String branchId = alipayMarketingToolFengDieTemplateQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.template.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieTemplateQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 查询H5应用详情
+     *
+     * @param alipayMarketingToolFengDieActivityQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingToolFengDieActivityQuery(AlipayMarketingToolFengDieActivityQueryModel alipayMarketingToolFengDieActivityQueryModel) {
+        alipayMarketingToolFengDieActivityQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingToolFengDieActivityQueryModel.getTenantId();
+        String branchId = alipayMarketingToolFengDieActivityQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.activity.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieActivityQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 创建H5应用
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingToolFengDieActivityCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingToolFengDieActivityCreate(AlipayMarketingToolFengDieActivityCreateModel alipayMarketingToolFengDieActivityCreateModel) {
+        alipayMarketingToolFengDieActivityCreateModel.validateAndThrow();
+        String tenantId = alipayMarketingToolFengDieActivityCreateModel.getTenantId();
+        String branchId = alipayMarketingToolFengDieActivityCreateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.activity.create", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieActivityCreateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 唤起凤蝶H5应用的编辑器
+     *
+     * @param alipayMarketingToolFengDieEditorQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingToolFengDieEditorQuery(AlipayMarketingToolFengDieEditorQueryModel alipayMarketingToolFengDieEditorQueryModel) {
+        alipayMarketingToolFengDieEditorQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingToolFengDieEditorQueryModel.getTenantId();
+        String branchId = alipayMarketingToolFengDieEditorQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.editor.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieEditorQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 商户会员交易习惯查询接口
+     *
+     * @param koubeiMarketingDataTradeHabbitQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataTradeHabbitQuery(KoubeiMarketingDataTradeHabbitQueryModel koubeiMarketingDataTradeHabbitQueryModel) {
+        koubeiMarketingDataTradeHabbitQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingDataTradeHabbitQueryModel.getTenantId();
+        String branchId = koubeiMarketingDataTradeHabbitQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.trade.habbit.query", JacksonUtils.writeValueAsString(koubeiMarketingDataTradeHabbitQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 根据菜品类型查询菜品数据
+     * TODO: model 未实现
+     *
+     * @param koubeiMarketingDataDishDiagnoseBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataDishDiagnoseBatchQuery(KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel) {
+        koubeiMarketingDataDishDiagnoseBatchQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingDataDishDiagnoseBatchQueryModel.getTenantId();
+        String branchId = koubeiMarketingDataDishDiagnoseBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.dishdiagnose.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingDataDishDiagnoseBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
 }
