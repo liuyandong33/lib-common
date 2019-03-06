@@ -926,6 +926,7 @@ CREATE TABLE alipay_authorizer_info
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     app_id VARCHAR(20) NOT NULL COMMENT 'app id',
     app_auth_token VARCHAR(200) NOT NULL COMMENT '商户授权令牌',
     user_id VARCHAR(50) NOT NULL COMMENT '授权商户的ID',
