@@ -2423,4 +2423,32 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.dishdiagnose.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingDataDishDiagnoseBatchQueryModel, JsonInclude.Include.NON_NULL));
     }
+
+    /**
+     * 菜品类型查询
+     *
+     * @param koubeiMarketingDataDishDiagnoseTypeBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataDishDiagnoseTypeBatchQuery(KoubeiMarketingDataDishDiagnoseTypeBatchQueryModel koubeiMarketingDataDishDiagnoseTypeBatchQueryModel) {
+        koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.getTenantId();
+        String branchId = koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.dishdiagnosetype.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingDataDishDiagnoseTypeBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 触发现金红包活动
+     *
+     * @param alipayMarketingCampaignCashTriggerModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCampaignCashTrigger(AlipayMarketingCampaignCashTriggerModel alipayMarketingCampaignCashTriggerModel) {
+        alipayMarketingCampaignCashTriggerModel.validateAndThrow();
+        String tenantId = alipayMarketingCampaignCashTriggerModel.getTenantId();
+        String branchId = alipayMarketingCampaignCashTriggerModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.trigger", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashTriggerModel, JsonInclude.Include.NON_NULL));
+    }
 }
