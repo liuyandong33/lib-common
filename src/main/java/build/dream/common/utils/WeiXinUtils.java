@@ -87,6 +87,14 @@ public class WeiXinUtils {
         return buildJsApiConfig(authorizerAppId, weiXinJsapiTicket.getTicket(), url);
     }
 
+    /**
+     * 通过code换取网页授权access_token
+     *
+     * @param appId
+     * @param secret
+     * @param code
+     * @return
+     */
     public static WeiXinOAuthToken obtainOAuthToken(String appId, String secret, String code) {
         Map<String, String> obtainOAuthTokenRequestParameters = new HashMap<String, String>();
         obtainOAuthTokenRequestParameters.put("appid", appId);
@@ -110,6 +118,15 @@ public class WeiXinUtils {
         return weiXinOAuthToken;
     }
 
+    /**
+     * 通过code换取网页授权access_token
+     *
+     * @param appId
+     * @param code
+     * @param componentAppId
+     * @param componentAccessToken
+     * @return
+     */
     public static WeiXinOAuthToken obtainOAuthToken(String appId, String code, String componentAppId, String componentAccessToken) {
         Map<String, String> obtainOAuthTokenRequestParameters = new HashMap<String, String>();
         obtainOAuthTokenRequestParameters.put("appid", appId);
@@ -134,14 +151,39 @@ public class WeiXinUtils {
         return weiXinOAuthToken;
     }
 
+    /**
+     * 拉取用户信息
+     *
+     * @param authorizerAccessToken
+     * @param openId
+     * @param lang
+     * @return
+     */
     public static WeiXinUserInfo obtainUserInfoByThirdParty(String authorizerAccessToken, String openId, String lang) {
         return obtainUserInfo(authorizerAccessToken, openId, lang, Constants.IDENTITY_TYPE_THIRD_PARTY_APPLICATION);
     }
 
+    /**
+     * 拉取用户信息
+     *
+     * @param accessToken
+     * @param openId
+     * @param lang
+     * @return
+     */
     public static WeiXinUserInfo obtainUserInfo(String accessToken, String openId, String lang) {
         return obtainUserInfo(accessToken, openId, lang, Constants.IDENTITY_TYPE_PUBLIC_ACCOUNT);
     }
 
+    /**
+     * 拉取用户信息
+     *
+     * @param token
+     * @param openId
+     * @param lang
+     * @param type
+     * @return
+     */
     public static WeiXinUserInfo obtainUserInfo(String token, String openId, String lang, int type) {
         Map<String, String> obtainUserInfoRequestParameters = new HashMap<String, String>();
         if (type == Constants.IDENTITY_TYPE_PUBLIC_ACCOUNT) {
@@ -175,6 +217,13 @@ public class WeiXinUtils {
         return weiXinUserInfo;
     }
 
+    /**
+     * 根据OpenID列表群发
+     *
+     * @param accessToken
+     * @param sendMassMessageModel
+     * @return
+     */
     public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) {
         String url = WEI_XIN_API_URL + "/message/mass/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendMassMessageModel, false));
@@ -184,6 +233,12 @@ public class WeiXinUtils {
         return resultMap;
     }
 
+    /**
+     * 获取access_token
+     *
+     * @param appId
+     * @return
+     */
     private static WeiXinAccessToken obtainAccessToken(String appId) {
         String weiXinAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
         if (StringUtils.isNotBlank(weiXinAccessTokenJson)) {
@@ -195,6 +250,13 @@ public class WeiXinUtils {
         return null;
     }
 
+    /**
+     * 获取access_token
+     *
+     * @param appId
+     * @param secret
+     * @return
+     */
     public static WeiXinAccessToken obtainAccessToken(String appId, String secret) {
         WeiXinAccessToken weiXinAccessToken = null;
         if (weiXinAccessToken == null) {
@@ -217,6 +279,13 @@ public class WeiXinUtils {
         return weiXinAccessToken;
     }
 
+    /**
+     * 获取api_ticket
+     *
+     * @param appId
+     * @param type
+     * @return
+     */
     private static WeiXinJsapiTicket obtainJsapiTicket(String appId, String type) {
         String weiXinJsapiTicketJson = CacheUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
         if (StringUtils.isBlank(weiXinJsapiTicketJson)) {
@@ -230,6 +299,14 @@ public class WeiXinUtils {
         return null;
     }
 
+    /**
+     * 获取api_ticket
+     *
+     * @param accessToken
+     * @param appId
+     * @param type
+     * @return
+     */
     private static WeiXinJsapiTicket getTicket(String accessToken, String appId, String type) {
         Map<String, String> obtainJsapiTicketRequestParameters = new HashMap<String, String>();
         obtainJsapiTicketRequestParameters.put("access_token", accessToken);
@@ -248,6 +325,14 @@ public class WeiXinUtils {
         return weiXinJsapiTicket;
     }
 
+    /**
+     * 获取api_ticket
+     *
+     * @param appId
+     * @param appSecret
+     * @param type
+     * @return
+     */
     public static WeiXinJsapiTicket obtainJsapiTicketByPublicAccount(String appId, String appSecret, String type) {
         WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicket(appId, type);
 
@@ -258,6 +343,14 @@ public class WeiXinUtils {
         return weiXinJsapiTicket;
     }
 
+    /**
+     * 获取api_ticket
+     *
+     * @param componentAppId
+     * @param authorizerAppId
+     * @param type
+     * @return
+     */
     public static WeiXinJsapiTicket obtainJsapiTicketByOpenPlatform(String componentAppId, String authorizerAppId, String type) {
         WeiXinJsapiTicket weiXinJsapiTicket = obtainJsapiTicket(authorizerAppId, type);
 
@@ -268,6 +361,15 @@ public class WeiXinUtils {
         return weiXinJsapiTicket;
     }
 
+    /**
+     * 创建卡券
+     *
+     * @param baseInfoModel
+     * @param advancedInfoModel
+     * @param dealDetail
+     * @param accessToken
+     * @return
+     */
     public static Map<String, Object> createGrouponCoupon(BaseInfoModel baseInfoModel, AdvancedInfoModel advancedInfoModel, String dealDetail, String accessToken) {
         Map<String, Object> groupon = new HashMap<String, Object>();
         groupon.put("base_info", baseInfoModel);
@@ -290,15 +392,38 @@ public class WeiXinUtils {
         return resultMap;
     }
 
+    /**
+     * 发送模板消息
+     *
+     * @param appId
+     * @param secret
+     * @param sendTemplateMessageModel
+     * @return
+     */
     public static Map<String, Object> sendTemplateMessage(String appId, String secret, SendTemplateMessageModel sendTemplateMessageModel) {
         WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
         return sendTemplateMessage(weiXinAccessToken.getAccessToken(), sendTemplateMessageModel);
     }
 
+    /**
+     * 发送模板消息
+     *
+     * @param componentAppId
+     * @param authorizerAppId
+     * @param sendTemplateMessageModel
+     * @return
+     */
     public static Map<String, Object> sendTemplateMessageByThirdParty(String componentAppId, String authorizerAppId, SendTemplateMessageModel sendTemplateMessageModel) {
         return sendTemplateMessage(obtainAuthorizerToken(componentAppId, authorizerAppId), sendTemplateMessageModel);
     }
 
+    /**
+     * 发送模板消息
+     *
+     * @param accessToken
+     * @param sendTemplateMessageModel
+     * @return
+     */
     public static Map<String, Object> sendTemplateMessage(String accessToken, SendTemplateMessageModel sendTemplateMessageModel) {
         String toUser = sendTemplateMessageModel.getToUser();
         String templateId = sendTemplateMessageModel.getTemplateId();
@@ -332,6 +457,12 @@ public class WeiXinUtils {
         return resultMap;
     }
 
+    /**
+     * 获取第三方平台component_access_token
+     *
+     * @param componentAppId
+     * @return
+     */
     private static ComponentAccessToken obtainComponentAccessToken(String componentAppId) {
         String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
         if (StringUtils.isNotBlank(componentAccessTokenJson)) {
@@ -343,6 +474,13 @@ public class WeiXinUtils {
         return null;
     }
 
+    /**
+     * 获取第三方平台component_access_token
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @return
+     */
     private static ComponentAccessToken apiComponentToken(String componentAppId, String componentAppSecret) {
         String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
         ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
@@ -363,6 +501,13 @@ public class WeiXinUtils {
         return componentAccessToken;
     }
 
+    /**
+     * 获取第三方平台component_access_token
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @return
+     */
     public static ComponentAccessToken obtainComponentAccessToken(String componentAppId, String componentAppSecret) {
         ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId);
         if (componentAccessToken == null) {
@@ -371,6 +516,13 @@ public class WeiXinUtils {
         return componentAccessToken;
     }
 
+    /**
+     * 获取预授权码pre_auth_code
+     *
+     * @param componentAppId
+     * @param componentAppSecret
+     * @return
+     */
     public static String obtainPreAuthCode(String componentAppId, String componentAppSecret) {
         ComponentAccessToken componentAccessToken = obtainComponentAccessToken(componentAppId, componentAppSecret);
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
@@ -383,6 +535,14 @@ public class WeiXinUtils {
         return MapUtils.getString(resultMap, "pre_auth_code");
     }
 
+    /**
+     * 使用授权码换取公众号或小程序的接口调用凭据和授权信息
+     *
+     * @param componentAccessToken
+     * @param componentAppId
+     * @param authorizationCode
+     * @return
+     */
     public static WeiXinAuthorizerToken apiQueryAuth(String componentAccessToken, String componentAppId, String authorizationCode) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_query_auth?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -421,17 +581,38 @@ public class WeiXinUtils {
         return weiXinAuthorizerToken;
     }
 
+    /**
+     * 获取公众号或小程序的授权token
+     *
+     * @param componentAppId
+     * @param authorizerAppId
+     * @return
+     */
     public static WeiXinAuthorizerToken obtainWeiXinAuthorizerToken(String componentAppId, String authorizerAppId) {
         String tokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
         return GsonUtils.fromJson(tokenJson, WeiXinAuthorizerToken.class);
     }
 
+    /**
+     * 获取公众号或小程序的授权token
+     *
+     * @param componentAppId
+     * @param authorizerAppId
+     * @return
+     */
     public static String obtainAuthorizerToken(String componentAppId, String authorizerAppId) {
         WeiXinAuthorizerToken weiXinAuthorizerToken = obtainWeiXinAuthorizerToken(componentAppId, authorizerAppId);
         return weiXinAuthorizerToken.getAuthorizerAccessToken();
     }
 
+    /**
+     * 自定义菜单创建接口
+     *
+     * @param accessToken
+     * @param createMenuModel
+     * @return
+     */
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
         createMenuModel.validateAndThrow();
         String url = WEI_XIN_API_URL + "/cgi-bin/menu/create?access_token=" + accessToken;
@@ -442,6 +623,13 @@ public class WeiXinUtils {
         return resultMap;
     }
 
+    /**
+     * 创建门店
+     *
+     * @param accessToken
+     * @param addPoiModel
+     * @return
+     */
     public static Map<String, Object> addPoi(String accessToken, AddPoiModel addPoiModel) {
         addPoiModel.validateAndThrow();
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -455,6 +643,14 @@ public class WeiXinUtils {
         return resultMap;
     }
 
+    /**
+     * 获取授权方的帐号基本信息
+     *
+     * @param componentAccessToken
+     * @param componentAppId
+     * @param authorizerAppId
+     * @return
+     */
     public static WeiXinAuthorizerInfo apiGetAuthorizerInfo(String componentAccessToken, String componentAppId, String authorizerAppId) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_get_authorizer_info?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -500,6 +696,15 @@ public class WeiXinUtils {
         return weiXinAuthorizerInfo;
     }
 
+    /**
+     * 获取（刷新）授权公众号或小程序的接口调用凭据（令牌
+     *
+     * @param componentAccessToken
+     * @param componentAppId
+     * @param authorizerAppId
+     * @param authorizerRefreshToken
+     * @return
+     */
     public static WeiXinAuthorizerToken apiAuthorizerToken(String componentAccessToken, String componentAppId, String authorizerAppId, String authorizerRefreshToken) {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_authorizer_token?component_access_token=" + componentAccessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -521,11 +726,26 @@ public class WeiXinUtils {
         return weiXinAuthorizerToken;
     }
 
+    /**
+     * 客服接口-发消息
+     *
+     * @param appId
+     * @param secret
+     * @param message
+     * @return
+     */
     public static Map<String, Object> sendCustomMessage(String appId, String secret, String message) {
         WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId, secret);
         return sendCustomMessage(weiXinAccessToken.getAccessToken(), message);
     }
 
+    /**
+     * 客服接口-发消息
+     *
+     * @param accessToken
+     * @param message
+     * @return
+     */
     public static Map<String, Object> sendCustomMessage(String accessToken, String message) {
         String url = WEI_XIN_API_URL + "/cgi-bin/message/custom/send?access_token=" + accessToken;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, message);
