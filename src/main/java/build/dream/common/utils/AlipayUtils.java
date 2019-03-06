@@ -629,6 +629,7 @@ public class AlipayUtils {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "mybank.payment.trade.order.create", JacksonUtils.writeValueAsString(myBankPaymentTradeOrderCreateModel, JsonInclude.Include.NON_NULL));
     }
+
     /***************************************************************支付API结束***************************************************************/
 
     private static AlipayAuthorizerInfo saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) {
@@ -2179,4 +2180,104 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.offlinepayment.sign", JacksonUtils.writeValueAsString(alipayOpenAgentOfflinePaymentSignModel, JsonInclude.Include.NON_NULL));
     }
     /***************************************************************第三方API结束***************************************************************/
+
+    /***************************************************************卡劵API开始***************************************************************/
+    /**
+     * 支付宝pass更新卡券实例接口
+     *
+     * @param alipayPassInstanceUpdateModel
+     * @return
+     */
+    public static Map<String, Object> alipayPassInstanceUpdate(AlipayPassInstanceUpdateModel alipayPassInstanceUpdateModel) {
+        alipayPassInstanceUpdateModel.validateAndThrow();
+        String tenantId = alipayPassInstanceUpdateModel.getTenantId();
+        String branchId = alipayPassInstanceUpdateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.instance.update", JacksonUtils.writeValueAsString(alipayPassInstanceUpdateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 更新卡集点
+     *
+     * @param koubeiMarketingToolPointsUpdateModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingToolPointsUpdate(KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel) {
+        koubeiMarketingToolPointsUpdateModel.validateAndThrow();
+        String tenantId = koubeiMarketingToolPointsUpdateModel.getTenantId();
+        String branchId = koubeiMarketingToolPointsUpdateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.points.update", JacksonUtils.writeValueAsString(koubeiMarketingToolPointsUpdateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 卡券模板创建
+     *
+     * @param alipayPassTemplateAddModel
+     * @return
+     */
+    public static Map<String, Object> alipayPassTemplateAdd(AlipayPassTemplateAddModel alipayPassTemplateAddModel) {
+        alipayPassTemplateAddModel.validateAndThrow();
+        String tenantId = alipayPassTemplateAddModel.getTenantId();
+        String branchId = alipayPassTemplateAddModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.template.add", JacksonUtils.writeValueAsString(alipayPassTemplateAddModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 支付宝pass更新模版接口
+     *
+     * @param alipayPassTemplateUpdateModel
+     * @return
+     */
+    public static Map<String, Object> alipayPassTemplateUpdate(AlipayPassTemplateUpdateModel alipayPassTemplateUpdateModel) {
+        alipayPassTemplateUpdateModel.validateAndThrow();
+        String tenantId = alipayPassTemplateUpdateModel.getTenantId();
+        String branchId = alipayPassTemplateUpdateModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.template.update", JacksonUtils.writeValueAsString(alipayPassTemplateUpdateModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 支付宝pass新建卡券实例接口
+     *
+     * @param alipayPassInstanceAddModel
+     * @return
+     */
+    public static Map<String, Object> alipayPassInstanceAdd(AlipayPassInstanceAddModel alipayPassInstanceAddModel) {
+        alipayPassInstanceAddModel.validateAndThrow();
+        String tenantId = alipayPassInstanceAddModel.getTenantId();
+        String branchId = alipayPassInstanceAddModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.instance.add", JacksonUtils.writeValueAsString(alipayPassInstanceAddModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 发券授权
+     *
+     * @param koubeiMarketingToolPrizeSendAuthModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingToolPrizeSendAuth(KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel) {
+        koubeiMarketingToolPrizeSendAuthModel.validateAndThrow();
+        String tenantId = koubeiMarketingToolPrizeSendAuthModel.getTenantId();
+        String branchId = koubeiMarketingToolPrizeSendAuthModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.prizesend.auth", JacksonUtils.writeValueAsString(koubeiMarketingToolPrizeSendAuthModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 集点查询
+     *
+     * @param koubeiMarketingToolPointsQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingToolPointsQuery(KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel) {
+        koubeiMarketingToolPointsQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingToolPointsQueryModel.getTenantId();
+        String branchId = koubeiMarketingToolPointsQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.points.query", JacksonUtils.writeValueAsString(koubeiMarketingToolPointsQueryModel, JsonInclude.Include.NON_NULL));
+    }
+    /***************************************************************卡劵API结束***************************************************************/
 }
