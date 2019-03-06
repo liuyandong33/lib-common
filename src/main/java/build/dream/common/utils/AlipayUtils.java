@@ -1784,7 +1784,6 @@ public class AlipayUtils {
 
     /**
      * 会员卡删卡
-     * TODO: model 未实现
      *
      * @param alipayMarketingCardDeleteModel
      * @return
@@ -2280,4 +2279,47 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.points.query", JacksonUtils.writeValueAsString(koubeiMarketingToolPointsQueryModel, JsonInclude.Include.NON_NULL));
     }
     /***************************************************************卡劵API结束***************************************************************/
+
+    /***************************************************************营销API结束***************************************************************/
+    /**
+     * 招商门店分页查询接口
+     *
+     * @param koubeiMarketingCampaignRecruitShopQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignRecruitShopQuery(KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel) {
+        koubeiMarketingCampaignRecruitShopQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingCampaignRecruitShopQueryModel.getTenantId();
+        String branchId = koubeiMarketingCampaignRecruitShopQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.recruit.shop.query", JacksonUtils.writeValueAsString(koubeiMarketingCampaignRecruitShopQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 口碑营销活动列表查询
+     *
+     * @param koubeiMarketingCampaignActivityBatchQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignActivityBatchQuery(KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel) {
+        koubeiMarketingCampaignActivityBatchQueryModel.validateAndThrow();
+        String tenantId = koubeiMarketingCampaignActivityBatchQueryModel.getTenantId();
+        String branchId = koubeiMarketingCampaignActivityBatchQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityBatchQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 活动修改接口
+     *
+     * @param koubeiMarketingCampaignActivityModifyModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignActivityModify(KoubeiMarketingCampaignActivityModifyModel koubeiMarketingCampaignActivityModifyModel) {
+        koubeiMarketingCampaignActivityModifyModel.validateAndThrow();
+        String tenantId = koubeiMarketingCampaignActivityModifyModel.getTenantId();
+        String branchId = koubeiMarketingCampaignActivityModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.modify", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityModifyModel, JsonInclude.Include.NON_NULL));
+    }
 }
