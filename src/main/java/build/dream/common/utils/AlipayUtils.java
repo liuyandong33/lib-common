@@ -2566,4 +2566,24 @@ public class AlipayUtils {
     public static Map<String, Object> alipayFundCouponOperationQuery(AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel) {
         return callAlipayApi(alipayFundCouponOperationQueryModel, "alipay.fund.coupon.operation.query");
     }
+
+    /**
+     * 一键营销商家中心PUSH消息接口
+     *
+     * @param koubeiMarketingDataMessageDeliverModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataMessageDeliver(KoubeiMarketingDataMessageDeliverModel koubeiMarketingDataMessageDeliverModel) {
+        return callAlipayApi(koubeiMarketingDataMessageDeliverModel, "koubei.marketing.data.message.deliver");
+    }
+
+    /**
+     * 活动下架接口
+     *
+     * @param koubeiMarketingCampaignActivityOfflineModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignActivityOffline(KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel) {
+        return callAlipayApi(koubeiMarketingCampaignActivityOfflineModel, "koubei.marketing.campaign.activity.offline");
+    }
 }
