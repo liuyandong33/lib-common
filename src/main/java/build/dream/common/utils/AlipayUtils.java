@@ -201,6 +201,15 @@ public class AlipayUtils {
         return callAlipayApi(alipayAuthorizerInfo, method, Constants.JSON, null, Constants.CHARSET_NAME_UTF_8, null, null, bizContent);
     }
 
+    public static Map<String, Object> callAlipayApi(AlipayBasicModel alipayBasicModel, String method) {
+        alipayBasicModel.validateAndThrow();
+        String tenantId = alipayBasicModel.getTenantId();
+        String branchId = alipayBasicModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到授权信息！");
+        return callAlipayApi(alipayAuthorizerInfo, method, JacksonUtils.writeValueAsString(alipayBasicModel, JsonInclude.Include.NON_NULL));
+    }
+
 
     /***************************************************************支付API开始***************************************************************/
     /**
@@ -2450,5 +2459,111 @@ public class AlipayUtils {
         String branchId = alipayMarketingCampaignCashTriggerModel.getBranchId();
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.trigger", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashTriggerModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 更改现金活动状态
+     *
+     * @param alipayMarketingCampaignCashStatusModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCampaignCashStatusModify(AlipayMarketingCampaignCashStatusModifyModel alipayMarketingCampaignCashStatusModifyModel) {
+        alipayMarketingCampaignCashStatusModifyModel.validateAndThrow();
+        String tenantId = alipayMarketingCampaignCashStatusModifyModel.getTenantId();
+        String branchId = alipayMarketingCampaignCashStatusModifyModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.status.modify", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashStatusModifyModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 现金活动列表查询
+     *
+     * @param alipayMarketingCampaignCashListQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCampaignCashListQuery(AlipayMarketingCampaignCashListQueryModel alipayMarketingCampaignCashListQueryModel) {
+        alipayMarketingCampaignCashListQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCampaignCashListQueryModel.getTenantId();
+        String branchId = alipayMarketingCampaignCashListQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.list.query", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashListQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 现金活动详情查询
+     *
+     * @param alipayMarketingCampaignCashDetailQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCampaignCashDetailQuery(AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel) {
+        alipayMarketingCampaignCashDetailQueryModel.validateAndThrow();
+        String tenantId = alipayMarketingCampaignCashDetailQueryModel.getTenantId();
+        String branchId = alipayMarketingCampaignCashDetailQueryModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.detail.query", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashDetailQueryModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 红包页面支付接口
+     *
+     * @param alipayFundCouponOrderPagePayModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOrderPagePay(AlipayFundCouponOrderPagePayModel alipayFundCouponOrderPagePayModel) {
+        alipayFundCouponOrderPagePayModel.validateAndThrow();
+        String tenantId = alipayFundCouponOrderPagePayModel.getTenantId();
+        String branchId = alipayFundCouponOrderPagePayModel.getBranchId();
+        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.fund.coupon.order.page.pay", JacksonUtils.writeValueAsString(alipayFundCouponOrderPagePayModel, JsonInclude.Include.NON_NULL));
+    }
+
+    /**
+     * 红包无线支付接口
+     *
+     * @param alipayFundCouponOrderAppPayModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOrderAppPay(AlipayFundCouponOrderAppPayModel alipayFundCouponOrderAppPayModel) {
+        return callAlipayApi(alipayFundCouponOrderAppPayModel, "alipay.fund.coupon.order.app.pay");
+    }
+
+    /**
+     * 红包协议支付接口
+     *
+     * @param alipayFundCouponOrderAgreementPayModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOrderAgreementPay(AlipayFundCouponOrderAgreementPayModel alipayFundCouponOrderAgreementPayModel) {
+        return callAlipayApi(alipayFundCouponOrderAgreementPayModel, "alipay.fund.coupon.order.agreement.pay");
+    }
+
+    /**
+     * 红包打款接口
+     *
+     * @param alipayFundCouponOrderDisburseModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOrderDisburse(AlipayFundCouponOrderDisburseModel alipayFundCouponOrderDisburseModel) {
+        return callAlipayApi(alipayFundCouponOrderDisburseModel, "alipay.fund.coupon.order.disburse");
+    }
+
+    /**
+     * 红包退回接口
+     *
+     * @param alipayFundCouponOrderRefundModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOrderRefund(AlipayFundCouponOrderRefundModel alipayFundCouponOrderRefundModel) {
+        return callAlipayApi(alipayFundCouponOrderRefundModel, "alipay.fund.coupon.order.refund");
+    }
+
+    /**
+     * 红包明细查询接口
+     *
+     * @param alipayFundCouponOperationQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayFundCouponOperationQuery(AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel) {
+        return callAlipayApi(alipayFundCouponOperationQueryModel, "alipay.fund.coupon.operation.query");
     }
 }
