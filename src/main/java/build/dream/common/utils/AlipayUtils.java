@@ -2253,7 +2253,7 @@ public class AlipayUtils {
     }
     /***************************************************************卡劵API结束***************************************************************/
 
-    /***************************************************************营销API结束***************************************************************/
+    /***************************************************************营销API开始***************************************************************/
     /**
      * 招商门店分页查询接口
      *
@@ -2836,4 +2836,5 @@ public class AlipayUtils {
     public static Map<String, Object> alipayPromoRuleCenterRuleAnalyze(AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel) {
         return callAlipayApi(alipayPromoRuleCenterRuleAnalyzeModel, "alipay.promorulecenter.rule.analyze");
     }
+    /***************************************************************营销API结束***************************************************************/
 }
