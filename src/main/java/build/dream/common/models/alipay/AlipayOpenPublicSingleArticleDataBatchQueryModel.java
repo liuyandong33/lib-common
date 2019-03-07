@@ -1,21 +1,11 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayOpenPublicSingleArticleDataBatchQueryModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOpenPublicSingleArticleDataBatchQueryModel extends AlipayBasicModel {
     @NotNull
     @Length(min = 8, max = 8)
     @JsonProperty(value = "begin_date")
@@ -25,22 +15,6 @@ public class AlipayOpenPublicSingleArticleDataBatchQueryModel extends BasicModel
     @Length(min = 8, max = 8)
     @JsonProperty(value = "end_date")
     private String endDate;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getBeginDate() {
         return beginDate;

@@ -1,35 +1,6 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.validation.constraints.NotNull;
-
-public class AlipayMarketingToolFengDieActivityCreateModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
+public class AlipayMarketingToolFengDieActivityCreateModel extends AlipayBasicModel {
     public static class Builder {
         private final AlipayMarketingToolFengDieActivityCreateModel instance = new AlipayMarketingToolFengDieActivityCreateModel();
 

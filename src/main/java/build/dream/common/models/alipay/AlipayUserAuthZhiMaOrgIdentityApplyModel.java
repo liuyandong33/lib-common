@@ -1,22 +1,12 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
     @NotNull
     @InList(value = {"NATIONAL_LEGAL", "NATIONAL_LEGAL_MERGE"})
     @JsonProperty(value = "cert_type")
@@ -30,22 +20,6 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends BasicModel {
     @NotNull
     @Length(max = 64)
     private String name;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getCertType() {
         return certType;

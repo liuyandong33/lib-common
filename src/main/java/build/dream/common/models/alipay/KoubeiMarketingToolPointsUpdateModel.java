@@ -1,22 +1,12 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class KoubeiMarketingToolPointsUpdateModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 32)
     @JsonProperty(value = "req_id")
@@ -54,22 +44,6 @@ public class KoubeiMarketingToolPointsUpdateModel extends BasicModel {
     @Length(max = 2000)
     @JsonProperty(value = "ext_info")
     private String extInfo;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getReqId() {
         return reqId;

@@ -1,22 +1,12 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayMarketingCampaignCashStatusModifyModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayMarketingCampaignCashStatusModifyModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 128)
     @JsonProperty(value = "crowd_no")
@@ -26,22 +16,6 @@ public class AlipayMarketingCampaignCashStatusModifyModel extends BasicModel {
     @InList(value = {"PAUSE", "READY", "CLOSED"})
     @JsonProperty(value = "camp_status")
     private String campStatus;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getCrowdNo() {
         return crowdNo;

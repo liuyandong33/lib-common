@@ -2,7 +2,6 @@ package build.dream.common.models.alipay;
 
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -13,15 +12,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AlipayTradeRefundModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayTradeRefundModel extends AlipayBasicModel {
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
     @Length(max = 64)
     private String outTradeNo;
@@ -63,22 +54,6 @@ public class AlipayTradeRefundModel extends BasicModel {
 
     @SerializedName(value = "refund_royalty_parameters", alternate = "refundRoyaltyParameters")
     private List<OpenApiRoyaltyDetailInfoPojo> refundRoyaltyParameters;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getOutTradeNo() {
         return outTradeNo;

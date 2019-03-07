@@ -1,22 +1,12 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class KoubeiTradeTicketTicketCodeCancelModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class KoubeiTradeTicketTicketCodeCancelModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 32)
     @JsonProperty(value = "request_id")
@@ -42,22 +32,6 @@ public class KoubeiTradeTicketTicketCodeCancelModel extends BasicModel {
     @InList(value = {"INTERNAL_CODE", "EXTERNAL_CODE"})
     @JsonProperty(value = "code_type")
     private String codeType;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getRequestId() {
         return requestId;

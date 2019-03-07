@@ -1,21 +1,11 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayMarketingCampaignCashTriggerModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayMarketingCampaignCashTriggerModel extends AlipayBasicModel {
     @Length(max = 20)
     @JsonProperty(value = "user_id")
     private String userId;
@@ -36,22 +26,6 @@ public class AlipayMarketingCampaignCashTriggerModel extends BasicModel {
     @Length(max = 96)
     @JsonProperty(value = "out_biz_no")
     private String outBizNo;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getUserId() {
         return userId;

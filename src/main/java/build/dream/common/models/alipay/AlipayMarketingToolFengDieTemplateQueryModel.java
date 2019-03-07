@@ -1,21 +1,9 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
-
-public class AlipayMarketingToolFengDieTemplateQueryModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayMarketingToolFengDieTemplateQueryModel extends AlipayBasicModel {
     @Length(max = 10)
     @JsonProperty(value = "page_number")
     private String pageNumber;
@@ -23,22 +11,6 @@ public class AlipayMarketingToolFengDieTemplateQueryModel extends BasicModel {
     @Length(max = 2)
     @JsonProperty(value = "page_size")
     private String pageSize;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getPageNumber() {
         return pageNumber;

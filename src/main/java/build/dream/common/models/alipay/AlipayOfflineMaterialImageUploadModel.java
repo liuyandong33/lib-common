@@ -1,21 +1,11 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayOfflineMaterialImageUploadModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOfflineMaterialImageUploadModel extends AlipayBasicModel {
     @SerializedName(value = "image_type", alternate = "imageType")
     @NotNull
     @Length(max = 8)
@@ -33,22 +23,6 @@ public class AlipayOfflineMaterialImageUploadModel extends BasicModel {
     @SerializedName(value = "image_pid", alternate = "imagePid")
     @Length(max = 16)
     private String imagePid;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getImageType() {
         return imageType;

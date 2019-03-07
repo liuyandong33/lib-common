@@ -1,22 +1,12 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayPassInstanceUpdateModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayPassInstanceUpdateModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 999)
     @JsonProperty(value = "serial_number")
@@ -41,22 +31,6 @@ public class AlipayPassInstanceUpdateModel extends BasicModel {
     @InList(value = {"wave", "qrcode", "barcode", "input", ""})
     @JsonProperty(value = "verify_type")
     private String verifyType;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getSerialNumber() {
         return serialNumber;

@@ -1,38 +1,11 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class AlipayOpenAgentSignStatusQueryModel extends BasicModel {
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
+public class AlipayOpenAgentSignStatusQueryModel extends AlipayBasicModel {
     @NotEmpty
     private List<String> productCodes;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public List<String> getProductCodes() {
         return productCodes;

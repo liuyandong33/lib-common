@@ -1,7 +1,6 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,15 +8,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AlipayTradeOrderSettleModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 64)
     @JsonProperty(value = "out_request_no")
@@ -35,22 +26,6 @@ public class AlipayTradeOrderSettleModel extends BasicModel {
     @Length(max = 64)
     @JsonProperty(value = "operator_id")
     private String operatorId;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getOutRequestNo() {
         return outRequestNo;

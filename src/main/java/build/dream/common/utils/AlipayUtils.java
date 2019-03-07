@@ -219,13 +219,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeFastPayRefundQuery(AlipayTradeFastPayRefundQueryModel alipayTradeFastPayRefundQueryModel) {
-        alipayTradeFastPayRefundQueryModel.validateAndThrow();
-
-        String tenantId = alipayTradeFastPayRefundQueryModel.getTenantId();
-        String branchId = alipayTradeFastPayRefundQueryModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.fastpay.refund.query", JacksonUtils.writeValueAsString(alipayTradeFastPayRefundQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeFastPayRefundQueryModel, "alipay.trade.fastpay.refund.query");
     }
 
     /**
@@ -235,13 +229,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeOrderSettle(AlipayTradeOrderSettleModel alipayTradeOrderSettleModel) {
-        alipayTradeOrderSettleModel.validateAndThrow();
-
-        String tenantId = alipayTradeOrderSettleModel.getTenantId();
-        String branchId = alipayTradeOrderSettleModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.order.settle", JacksonUtils.writeValueAsString(alipayTradeOrderSettleModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeOrderSettleModel, "alipay.trade.order.settle");
     }
 
     /**
@@ -251,13 +239,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeClose(AlipayTradeCloseModel alipayTradeCloseModel) {
-        alipayTradeCloseModel.validateAndThrow();
-
-        String tenantId = alipayTradeCloseModel.getTenantId();
-        String branchId = alipayTradeCloseModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.close", JacksonUtils.writeValueAsString(alipayTradeCloseModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeCloseModel, "alipay.trade.close");
     }
 
     /**
@@ -267,13 +249,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeCancel(AlipayTradeCancelModel alipayTradeCancelModel) {
-        alipayTradeCancelModel.validateAndThrow();
-
-        String tenantId = alipayTradeCancelModel.getTenantId();
-        String branchId = alipayTradeCancelModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.cancel", JacksonUtils.writeValueAsString(alipayTradeCancelModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeCancelModel, "alipay.trade.cancel");
     }
 
     /**
@@ -284,13 +260,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeRefund(AlipayTradeRefundModel alipayTradeRefundModel) {
-        alipayTradeRefundModel.validateAndThrow();
-
-        String tenantId = alipayTradeRefundModel.getTenantId();
-        String branchId = alipayTradeRefundModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.refund", JacksonUtils.writeValueAsString(alipayTradeRefundModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeRefundModel, "alipay.trade.refund");
     }
 
     /**
@@ -300,13 +270,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradePreCreate(AlipayTradePreCreateModel alipayTradePreCreateModel) {
-        alipayTradePreCreateModel.validateAndThrow();
-
-        String tenantId = alipayTradePreCreateModel.getTenantId();
-        String branchId = alipayTradePreCreateModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.precreate", JacksonUtils.writeValueAsString(alipayTradePreCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradePreCreateModel, "alipay.trade.precreate");
     }
 
     /**
@@ -316,13 +280,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeCreate(AlipayTradeCreateModel alipayTradeCreateModel) {
-        alipayTradeCreateModel.validateAndThrow();
-
-        String tenantId = alipayTradeCreateModel.getTenantId();
-        String branchId = alipayTradeCreateModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.create", JacksonUtils.writeValueAsString(alipayTradeCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeCreateModel, "alipay.trade.create");
     }
 
     /**
@@ -355,13 +313,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeQuery(AlipayTradeQueryModel alipayTradeQueryModel) {
-        alipayTradeQueryModel.validateAndThrow();
-
-        String tenantId = alipayTradeQueryModel.getTenantId();
-        String branchId = alipayTradeQueryModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.query", JacksonUtils.writeValueAsString(alipayTradeQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeQueryModel, "alipay.trade.query");
     }
 
     /**
@@ -371,13 +323,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeItemOrderQuery(KoubeiTradeItemOrderQueryModel koubeiTradeItemOrderQueryModel) {
-        koubeiTradeItemOrderQueryModel.validateAndThrow();
-
-        String tenantId = koubeiTradeItemOrderQueryModel.getTenantId();
-        String branchId = koubeiTradeItemOrderQueryModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.query", JacksonUtils.writeValueAsString(koubeiTradeItemOrderQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeItemOrderQueryModel, "koubei.trade.itemorder.query");
     }
 
     /**
@@ -388,13 +334,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeItemOrderBuy(KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel) {
-        koubeiTradeItemOrderBuyModel.validateAndThrow();
-
-        String tenantId = koubeiTradeItemOrderBuyModel.getTenantId();
-        String branchId = koubeiTradeItemOrderBuyModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.buy", JacksonUtils.writeValueAsString(koubeiTradeItemOrderBuyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeItemOrderBuyModel, "koubei.trade.itemorder.buy");
     }
 
     /**
@@ -405,13 +345,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeItemOrderRefund(KoubeiTradeItemOrderRefundModel koubeiTradeItemOrderRefundModel) {
-        koubeiTradeItemOrderRefundModel.validateAndThrow();
-
-        String tenantId = koubeiTradeItemOrderRefundModel.getTenantId();
-        String branchId = koubeiTradeItemOrderRefundModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.itemorder.refund", JacksonUtils.writeValueAsString(koubeiTradeItemOrderRefundModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeItemOrderRefundModel, "koubei.trade.itemorder.refund");
     }
 
     /**
@@ -422,13 +356,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayFundAuthOrderFreeze(AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel) {
-        alipayFundAuthOrderFreezeModel.validateAndThrow();
-
-        String tenantId = alipayFundAuthOrderFreezeModel.getTenantId();
-        String branchId = alipayFundAuthOrderFreezeModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.fund.auth.order.freeze", JacksonUtils.writeValueAsString(alipayFundAuthOrderFreezeModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayFundAuthOrderFreezeModel, "alipay.fund.auth.order.freeze");
     }
 
     /**
@@ -501,13 +429,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeTicketTicketCodeSend(KoubeiTradeTicketTicketCodeSendModel koubeiTradeTicketTicketCodeSendModel) {
-        koubeiTradeTicketTicketCodeSendModel.validateAndThrow();
-
-        String tenantId = koubeiTradeTicketTicketCodeSendModel.getTenantId();
-        String branchId = koubeiTradeTicketTicketCodeSendModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.send", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeSendModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeTicketTicketCodeSendModel, "koubei.trade.ticket.ticketcode.send");
     }
 
     /**
@@ -517,13 +439,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeTicketTicketCodeDelay(KoubeiTradeTicketTicketCodeDelayModel koubeiTradeTicketTicketCodeDelayModel) {
-        koubeiTradeTicketTicketCodeDelayModel.validateAndThrow();
-
-        String tenantId = koubeiTradeTicketTicketCodeDelayModel.getTenantId();
-        String branchId = koubeiTradeTicketTicketCodeDelayModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.delay", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeDelayModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeTicketTicketCodeDelayModel, "koubei.trade.ticket.ticketcode.delay");
     }
 
     /**
@@ -533,13 +449,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeTicketTicketCodeCancel(KoubeiTradeTicketTicketCodeCancelModel koubeiTradeTicketTicketCodeCancelModel) {
-        koubeiTradeTicketTicketCodeCancelModel.validateAndThrow();
-
-        String tenantId = koubeiTradeTicketTicketCodeCancelModel.getTenantId();
-        String branchId = koubeiTradeTicketTicketCodeCancelModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.cancel", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeCancelModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeTicketTicketCodeCancelModel, "koubei.trade.ticket.ticketcode.cancel");
     }
 
     /**
@@ -549,13 +459,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeTicketTicketCodeQuery(KoubeiTradeTicketTicketCodeQueryModel koubeiTradeTicketTicketCodeQueryModel) {
-        koubeiTradeTicketTicketCodeQueryModel.validateAndThrow();
-
-        String tenantId = koubeiTradeTicketTicketCodeQueryModel.getTenantId();
-        String branchId = koubeiTradeTicketTicketCodeQueryModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.ticket.ticketcode.query", JacksonUtils.writeValueAsString(koubeiTradeTicketTicketCodeQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeTicketTicketCodeQueryModel, "koubei.trade.ticket.ticketcode.query");
     }
 
     /**
@@ -565,13 +469,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayTradeOrderInfoSync(AlipayTradeOrderInfoSyncModel alipayTradeOrderInfoSyncModel) {
-        alipayTradeOrderInfoSyncModel.validateAndThrow();
-
-        String tenantId = alipayTradeOrderInfoSyncModel.getTenantId();
-        String branchId = alipayTradeOrderInfoSyncModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.orderinfo.sync", JacksonUtils.writeValueAsString(alipayTradeOrderInfoSyncModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayTradeOrderInfoSyncModel, "alipay.trade.orderinfo.sync");
     }
 
     /**
@@ -613,13 +511,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiTradeOrderPreCreate(KoubeiTradeOrderPreCreateModel koubeiTradeOrderPreCreateModel) {
-        koubeiTradeOrderPreCreateModel.validateAndThrow();
-
-        String tenantId = koubeiTradeOrderPreCreateModel.getTenantId();
-        String branchId = koubeiTradeOrderPreCreateModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.trade.order.precreate", JacksonUtils.writeValueAsString(koubeiTradeOrderPreCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiTradeOrderPreCreateModel, "koubei.trade.order.precreate");
     }
 
     /**
@@ -630,13 +522,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> myBankPaymentTradeOrderCreate(MyBankPaymentTradeOrderCreateModel myBankPaymentTradeOrderCreateModel) {
-        myBankPaymentTradeOrderCreateModel.validateAndThrow();
-
-        String tenantId = myBankPaymentTradeOrderCreateModel.getTenantId();
-        String branchId = myBankPaymentTradeOrderCreateModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "mybank.payment.trade.order.create", JacksonUtils.writeValueAsString(myBankPaymentTradeOrderCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(myBankPaymentTradeOrderCreateModel, "mybank.payment.trade.order.create");
     }
 
     /***************************************************************支付API结束***************************************************************/
@@ -698,11 +584,7 @@ public class AlipayUtils {
     }
 
     public static Map<String, Object> aftAiFinFireEyeOcrImageQuery(AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel) {
-        String tenantId = aftAiFinFireEyeOcrImageQueryModel.getTenantId();
-        String branchId = aftAiFinFireEyeOcrImageQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
-        return callAlipayApi(alipayAuthorizerInfo, "aft.aifin.fireeye.ocr.image.query", JacksonUtils.writeValueAsString(aftAiFinFireEyeOcrImageQueryModel));
+        return callAlipayApi(aftAiFinFireEyeOcrImageQueryModel, "aft.aifin.fireeye.ocr.image.query");
     }
 
     /**
@@ -750,10 +632,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAccountReset(AlipayOpenPublicAccountResetModel alipayOpenPublicAccountResetModel) {
-        String tenantId = alipayOpenPublicAccountResetModel.getTenantId();
-        String branchId = alipayOpenPublicAccountResetModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.account.reset", JacksonUtils.writeValueAsString(alipayOpenPublicAccountResetModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAccountResetModel, "alipay.open.public.account.reset");
     }
 
     /**
@@ -763,10 +642,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicFollowBatchQuery(AlipayOpenPublicFollowBatchQueryModel alipayOpenPublicFollowBatchQueryModel) {
-        String tenantId = alipayOpenPublicFollowBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicFollowBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.follow.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicFollowBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicFollowBatchQueryModel, "alipay.open.public.follow.batchquery");
     }
 
     /**
@@ -776,10 +652,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTemplateMessageGet(AlipayOpenPublicTemplateMessageGetModel alipayOpenPublicTemplateMessageGetModel) {
-        String tenantId = alipayOpenPublicTemplateMessageGetModel.getTenantId();
-        String branchId = alipayOpenPublicTemplateMessageGetModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.template.message.get", JacksonUtils.writeValueAsString(alipayOpenPublicTemplateMessageGetModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTemplateMessageGetModel, "alipay.open.public.template.message.get");
     }
 
     /**
@@ -790,10 +663,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageSingleSend(AlipayOpenPublicMessageSingleSendModel alipayOpenPublicMessageSingleSendModel) {
-        String tenantId = alipayOpenPublicMessageSingleSendModel.getTenantId();
-        String branchId = alipayOpenPublicMessageSingleSendModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.single.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageSingleSendModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMessageSingleSendModel, "alipay.open.public.message.single.send");
     }
 
     /**
@@ -804,10 +674,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicQrCodeCreate(AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel) {
-        String tenantId = alipayOpenPublicQrCodeCreateModel.getTenantId();
-        String branchId = alipayOpenPublicQrCodeCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.qrcode.create", JacksonUtils.writeValueAsString(alipayOpenPublicQrCodeCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicQrCodeCreateModel, "alipay.open.public.qrcode.create");
     }
 
     /**
@@ -817,10 +684,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAccountQuery(AlipayOpenPublicAccountQueryModel alipayOpenPublicAccountQueryModel) {
-        String tenantId = alipayOpenPublicAccountQueryModel.getTenantId();
-        String branchId = alipayOpenPublicAccountQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.account.query", JacksonUtils.writeValueAsString(alipayOpenPublicAccountQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAccountQueryModel, "alipay.open.public.account.query");
     }
 
     /**
@@ -830,10 +694,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAccountDelete(AlipayOpenPublicAccountDeleteModel alipayOpenPublicAccountDeleteModel) {
-        String tenantId = alipayOpenPublicAccountDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicAccountDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.account.delete", JacksonUtils.writeValueAsString(alipayOpenPublicAccountDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAccountDeleteModel, "alipay.open.public.account.delete");
     }
 
     /**
@@ -843,10 +704,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeLabelModify(AlipayOpenPublicLifeLabelModifyModel alipayOpenPublicLifeLabelModifyModel) {
-        String tenantId = alipayOpenPublicLifeLabelModifyModel.getTenantId();
-        String branchId = alipayOpenPublicLifeLabelModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.label.modify", JacksonUtils.writeValueAsString(alipayOpenPublicLifeLabelModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeLabelModifyModel, "alipay.open.public.life.label.modify");
     }
 
     /**
@@ -856,10 +714,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeLabelBatchQuery(AlipayOpenPublicLifeLabelBatchQueryModel alipayOpenPublicLifeLabelBatchQueryModel) {
-        String tenantId = alipayOpenPublicLifeLabelBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicLifeLabelBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.label.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicLifeLabelBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeLabelBatchQueryModel, "alipay.open.public.life.label.batchquery");
     }
 
     /**
@@ -870,10 +725,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMatchUserLabelDelete(AlipayOpenPublicMatchUserLabelDeleteModel alipayOpenPublicMatchUserLabelDeleteModel) {
-        String tenantId = alipayOpenPublicMatchUserLabelDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicMatchUserLabelDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.matchuser.label.delete", JacksonUtils.writeValueAsString(alipayOpenPublicMatchUserLabelDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMatchUserLabelDeleteModel, "alipay.open.public.matchuser.label.delete");
     }
 
     /**
@@ -883,10 +735,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMenuBatchQuery(AlipayOpenPublicMenuBatchQueryModel alipayOpenPublicMenuBatchQueryModel) {
-        String tenantId = alipayOpenPublicMenuBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicMenuBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.menu.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicMenuBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMenuBatchQueryModel, "alipay.open.public.menu.batchquery");
     }
 
     /**
@@ -896,10 +745,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPersonalizedMenuDelete(AlipayOpenPublicPersonalizedMenuDeleteModel alipayOpenPublicPersonalizedMenuDeleteModel) {
-        String tenantId = alipayOpenPublicPersonalizedMenuDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicPersonalizedMenuDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.menu.delete", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedMenuDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicPersonalizedMenuDeleteModel, "alipay.open.public.personalized.menu.delete");
     }
 
     /**
@@ -909,10 +755,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPersonalizedExtensionDelete(AlipayOpenPublicPersonalizedExtensionDeleteModel alipayOpenPublicPersonalizedExtensionDeleteModel) {
-        String tenantId = alipayOpenPublicPersonalizedExtensionDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicPersonalizedExtensionDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.extension.delete", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedExtensionDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicPersonalizedExtensionDeleteModel, "alipay.open.public.personalized.extension.delete");
     }
 
     /**
@@ -922,10 +765,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeLabelCreate(AlipayOpenPublicLifeLabelCreateModel alipayOpenPublicLifeLabelCreateModel) {
-        String tenantId = alipayOpenPublicLifeLabelCreateModel.getTenantId();
-        String branchId = alipayOpenPublicLifeLabelCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.label.create", JacksonUtils.writeValueAsString(alipayOpenPublicLifeLabelCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeLabelCreateModel, "alipay.open.public.life.label.create");
     }
 
     /**
@@ -935,10 +775,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAccountCreate(AlipayOpenPublicAccountCreateModel alipayOpenPublicAccountCreateModel) {
-        String tenantId = alipayOpenPublicAccountCreateModel.getTenantId();
-        String branchId = alipayOpenPublicAccountCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.account.create", JacksonUtils.writeValueAsString(alipayOpenPublicAccountCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAccountCreateModel, "alipay.open.public.account.create");
     }
 
     /**
@@ -948,10 +785,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicShortLinkCreate(AlipayOpenPublicShortLinkCreateModel alipayOpenPublicShortLinkCreateModel) {
-        String tenantId = alipayOpenPublicShortLinkCreateModel.getTenantId();
-        String branchId = alipayOpenPublicShortLinkCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.shortlink.create", JacksonUtils.writeValueAsString(alipayOpenPublicShortLinkCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicShortLinkCreateModel, "alipay.open.public.shortlink.create");
     }
 
     /**
@@ -961,10 +795,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMatchUserLabelCreate(AlipayOpenPublicMatchUserLabelCreateModel alipayOpenPublicMatchUserLabelCreateModel) {
-        String tenantId = alipayOpenPublicMatchUserLabelCreateModel.getTenantId();
-        String branchId = alipayOpenPublicMatchUserLabelCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.matchuser.label.create", JacksonUtils.writeValueAsString(alipayOpenPublicMatchUserLabelCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMatchUserLabelCreateModel, "alipay.open.public.matchuser.label.create");
     }
 
     /**
@@ -974,10 +805,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageTotalSend(AlipayOpenPublicMessageTotalSendModel alipayOpenPublicMessageTotalSendModel) {
-        String tenantId = alipayOpenPublicMessageTotalSendModel.getTenantId();
-        String branchId = alipayOpenPublicMessageTotalSendModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.total.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageTotalSendModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMessageTotalSendModel, "alipay.open.public.message.total.send");
     }
 
     /**
@@ -987,10 +815,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageCustomSend(AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel) {
-        String tenantId = alipayOpenPublicMessageCustomSendModel.getTenantId();
-        String branchId = alipayOpenPublicMessageCustomSendModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.custom.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageCustomSendModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMessageCustomSendModel, "alipay.open.public.message.custom.send");
     }
 
     /**
@@ -1001,10 +826,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMenuModify(AlipayOpenPublicMenuModifyModel alipayOpenPublicMenuModifyModel) {
-        String tenantId = alipayOpenPublicMenuModifyModel.getTenantId();
-        String branchId = alipayOpenPublicMenuModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.custom.send", JacksonUtils.writeValueAsString(alipayOpenPublicMenuModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMenuModifyModel, "alipay.open.public.message.custom.send");
     }
 
     /**
@@ -1015,10 +837,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPersonalizedMenuCreate(AlipayOpenPublicPersonalizedMenuCreateModel alipayOpenPublicPersonalizedMenuCreateModel) {
-        String tenantId = alipayOpenPublicPersonalizedMenuCreateModel.getTenantId();
-        String branchId = alipayOpenPublicPersonalizedMenuCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.menu.create", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedMenuCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicPersonalizedMenuCreateModel, "alipay.open.public.personalized.menu.create");
     }
 
     /**
@@ -1029,10 +848,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMenuCreate(AlipayOpenPublicMenuCreateModel alipayOpenPublicMenuCreateModel) {
-        String tenantId = alipayOpenPublicMenuCreateModel.getTenantId();
-        String branchId = alipayOpenPublicMenuCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.menu.create", JacksonUtils.writeValueAsString(alipayOpenPublicMenuCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMenuCreateModel, "alipay.open.public.menu.create");
     }
 
     /**
@@ -1043,10 +859,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPersonalizedExtensionCreate(AlipayOpenPublicPersonalizedExtensionCreateModel alipayOpenPublicPersonalizedExtensionCreateModel) {
-        String tenantId = alipayOpenPublicPersonalizedExtensionCreateModel.getTenantId();
-        String branchId = alipayOpenPublicPersonalizedExtensionCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.extension.create", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedExtensionCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicPersonalizedExtensionCreateModel, "alipay.open.public.personalized.extension.create");
     }
 
     /**
@@ -1056,10 +869,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupBatchQuery(AlipayOpenPublicGroupBatchQueryModel alipayOpenPublicGroupBatchQueryModel) {
-        String tenantId = alipayOpenPublicGroupBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicGroupBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicGroupBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicGroupBatchQueryModel, "alipay.open.public.group.batchquery");
     }
 
     /**
@@ -1070,10 +880,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupModify(AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel) {
-        String tenantId = alipayOpenPublicGroupModifyModel.getTenantId();
-        String branchId = alipayOpenPublicGroupModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicGroupModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicGroupModifyModel, "alipay.open.public.group.batchquery");
     }
 
     /**
@@ -1083,10 +890,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupDelete(AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel) {
-        String tenantId = alipayOpenPublicGroupDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicGroupDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.delete", JacksonUtils.writeValueAsString(alipayOpenPublicGroupDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicGroupDeleteModel, "alipay.open.public.group.delete");
     }
 
     /**
@@ -1097,10 +901,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageGroupSend(AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel) {
-        String tenantId = alipayOpenPublicMessageGroupSendModel.getTenantId();
-        String branchId = alipayOpenPublicMessageGroupSendModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.group.send", JacksonUtils.writeValueAsString(alipayOpenPublicMessageGroupSendModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMessageGroupSendModel, "alipay.open.public.message.group.send");
     }
 
     /**
@@ -1111,10 +912,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupCreate(AlipayOpenPublicGroupCreateModel alipayOpenPublicGroupCreateModel) {
-        String tenantId = alipayOpenPublicGroupCreateModel.getTenantId();
-        String branchId = alipayOpenPublicGroupCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.create", JacksonUtils.writeValueAsString(alipayOpenPublicGroupCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicGroupCreateModel, "alipay.open.public.group.create");
     }
 
     /**
@@ -1125,10 +923,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupCrowdQuery(AlipayOpenPublicGroupCrowdQueryModel alipayOpenPublicGroupCrowdQueryModel) {
-        String tenantId = alipayOpenPublicGroupCrowdQueryModel.getTenantId();
-        String branchId = alipayOpenPublicGroupCrowdQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.group.crowd.query", JacksonUtils.writeValueAsString(alipayOpenPublicGroupCrowdQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicGroupCrowdQueryModel, "alipay.open.public.group.crowd.query");
     }
 
     /**
@@ -1138,10 +933,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPersonalizedExtensionBatchQuery(AlipayOpenPublicPersonalizedExtensionBatchQueryModel alipayOpenPublicPersonalizedExtensionBatchQueryModel) {
-        String tenantId = alipayOpenPublicPersonalizedExtensionBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicPersonalizedExtensionBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.personalized.extension.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicPersonalizedExtensionBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicPersonalizedExtensionBatchQueryModel, "alipay.open.public.personalized.extension.batchquery");
     }
 
     /**
@@ -1152,10 +944,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicDefaultExtensionCreate(AlipayOpenPublicDefaultExtensionCreateModel alipayOpenPublicDefaultExtensionCreateModel) {
-        String tenantId = alipayOpenPublicDefaultExtensionCreateModel.getTenantId();
-        String branchId = alipayOpenPublicDefaultExtensionCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.default.extension.create", JacksonUtils.writeValueAsString(alipayOpenPublicDefaultExtensionCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicDefaultExtensionCreateModel, "alipay.open.public.default.extension.create");
     }
 
     /**
@@ -1165,10 +954,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeLabelDelete(AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel) {
-        String tenantId = alipayOpenPublicLifeLabelDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicLifeLabelDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.label.delete", JacksonUtils.writeValueAsString(alipayOpenPublicLifeLabelDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeLabelDeleteModel, "alipay.open.public.life.label.delete");
     }
 
     /**
@@ -1178,10 +964,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeAgentCreateQuery(AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel) {
-        String tenantId = alipayOpenPublicLifeAgentCreateQueryModel.getTenantId();
-        String branchId = alipayOpenPublicLifeAgentCreateQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.agentcreate.query", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAgentCreateQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeAgentCreateQueryModel, "alipay.open.public.life.agentcreate.query");
     }
 
     /**
@@ -1191,10 +974,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeDebarkApply(AlipayOpenPublicLifeDebarkApplyModel alipayOpenPublicLifeDebarkApplyModel) {
-        String tenantId = alipayOpenPublicLifeDebarkApplyModel.getTenantId();
-        String branchId = alipayOpenPublicLifeDebarkApplyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.debark.apply", JacksonUtils.writeValueAsString(alipayOpenPublicLifeDebarkApplyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeDebarkApplyModel, "alipay.open.public.life.debark.apply");
     }
 
     /**
@@ -1204,10 +984,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeAboardApply(AlipayOpenPublicLifeAboardApplyModel alipayOpenPublicLifeAboardApplyModel) {
-        String tenantId = alipayOpenPublicLifeAboardApplyModel.getTenantId();
-        String branchId = alipayOpenPublicLifeAboardApplyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.aboard.apply", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAboardApplyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeAboardApplyModel, "alipay.open.public.life.aboard.apply");
     }
 
     /**
@@ -1217,10 +994,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicSettingCategoryQuery(AlipayOpenPublicSettingCategoryQueryModel alipayOpenPublicSettingCategoryQueryModel) {
-        String tenantId = alipayOpenPublicSettingCategoryQueryModel.getTenantId();
-        String branchId = alipayOpenPublicSettingCategoryQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.setting.category.query", JacksonUtils.writeValueAsString(alipayOpenPublicSettingCategoryQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicSettingCategoryQueryModel, "alipay.open.public.setting.category.query");
     }
 
     /**
@@ -1230,10 +1004,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageQuery(AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel) {
-        String tenantId = alipayOpenPublicMessageQueryModel.getTenantId();
-        String branchId = alipayOpenPublicMessageQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.query", JacksonUtils.writeValueAsString(alipayOpenPublicMessageQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMessageQueryModel, "alipay.open.public.message.query");
     }
 
     /**
@@ -1243,10 +1014,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeMsgRecall(AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel) {
-        String tenantId = alipayOpenPublicLifeMsgRecallModel.getTenantId();
-        String branchId = alipayOpenPublicLifeMsgRecallModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.msg.recall", JacksonUtils.writeValueAsString(alipayOpenPublicLifeMsgRecallModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeMsgRecallModel, "alipay.open.public.life.msg.recall");
     }
 
     /**
@@ -1269,10 +1037,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicLifeAgentCreate(AlipayOpenPublicLifeAgentCreateModel alipayOpenPublicLifeAgentCreateModel) {
-        String tenantId = alipayOpenPublicLifeAgentCreateModel.getTenantId();
-        String branchId = alipayOpenPublicLifeAgentCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.life.agent.create", JacksonUtils.writeValueAsString(alipayOpenPublicLifeAgentCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicLifeAgentCreateModel, "alipay.open.public.life.agent.create");
     }
 
     /**
@@ -1282,10 +1047,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTemplateMessageIndustryModify(AlipayOpenPublicTemplateMessageIndustryModifyModel alipayOpenPublicTemplateMessageIndustryModifyModel) {
-        String tenantId = alipayOpenPublicTemplateMessageIndustryModifyModel.getTenantId();
-        String branchId = alipayOpenPublicTemplateMessageIndustryModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.template.message.industry.modify", JacksonUtils.writeValueAsString(alipayOpenPublicTemplateMessageIndustryModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTemplateMessageIndustryModifyModel, "alipay.open.public.template.message.industry.modify");
     }
 
     /**
@@ -1295,10 +1057,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicUserFollowQuery(AlipayOpenPublicUserFollowQueryModel alipayOpenPublicUserFollowQueryModel) {
-        String tenantId = alipayOpenPublicUserFollowQueryModel.getTenantId();
-        String branchId = alipayOpenPublicUserFollowQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.user.follow.query", JacksonUtils.writeValueAsString(alipayOpenPublicUserFollowQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicUserFollowQueryModel, "alipay.open.public.user.follow.query");
     }
 
     /**
@@ -1309,10 +1068,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAdvertModify(AlipayOpenPublicAdvertModifyModel alipayOpenPublicAdvertModifyModel) {
-        String tenantId = alipayOpenPublicAdvertModifyModel.getTenantId();
-        String branchId = alipayOpenPublicAdvertModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.advert.modify", JacksonUtils.writeValueAsString(alipayOpenPublicAdvertModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAdvertModifyModel, "alipay.open.public.advert.modify");
     }
 
     /**
@@ -1323,10 +1079,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAdvertCreate(AlipayOpenPublicAdvertCreateModel alipayOpenPublicAdvertCreateModel) {
-        String tenantId = alipayOpenPublicAdvertCreateModel.getTenantId();
-        String branchId = alipayOpenPublicAdvertCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.advert.create", JacksonUtils.writeValueAsString(alipayOpenPublicAdvertCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAdvertCreateModel, "alipay.open.public.advert.create");
     }
 
     /**
@@ -1336,10 +1089,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAdvertBatchQuery(AlipayOpenPublicAdvertBatchQueryModel alipayOpenPublicAdvertBatchQueryModel) {
-        String tenantId = alipayOpenPublicAdvertBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicAdvertBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.advert.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicAdvertBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAdvertBatchQueryModel, "alipay.open.public.advert.batchquery");
     }
 
     /**
@@ -1349,10 +1099,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicAdvertDelete(AlipayOpenPublicAdvertDeleteModel alipayOpenPublicAdvertDeleteModel) {
-        String tenantId = alipayOpenPublicAdvertDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicAdvertDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.advert.delete", JacksonUtils.writeValueAsString(alipayOpenPublicAdvertDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicAdvertDeleteModel, "alipay.open.public.advert.delete");
     }
 
     /**
@@ -1362,10 +1109,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayFundStudentLoanRepayQuery(AlipayFundStudentLoanRepayQueryModel alipayFundStudentLoanRepayQueryModel) {
-        String tenantId = alipayFundStudentLoanRepayQueryModel.getTenantId();
-        String branchId = alipayFundStudentLoanRepayQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.fund.studentloan.repay.query", JacksonUtils.writeValueAsString(alipayFundStudentLoanRepayQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayFundStudentLoanRepayQueryModel, "alipay.fund.studentloan.repay.query");
     }
 
     /**
@@ -1376,10 +1120,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTopicCreate(AlipayOpenPublicTopicCreateModel alipayOpenPublicTopicCreateModel) {
-        String tenantId = alipayOpenPublicTopicCreateModel.getTenantId();
-        String branchId = alipayOpenPublicTopicCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.topic.create", JacksonUtils.writeValueAsString(alipayOpenPublicTopicCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTopicCreateModel, "alipay.open.public.topic.create");
     }
 
     /**
@@ -1390,10 +1131,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTopicModify(AlipayOpenPublicTopicModifyModel alipayOpenPublicTopicModifyModel) {
-        String tenantId = alipayOpenPublicTopicModifyModel.getTenantId();
-        String branchId = alipayOpenPublicTopicModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.topic.modify", JacksonUtils.writeValueAsString(alipayOpenPublicTopicModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTopicModifyModel, "alipay.open.public.topic.modify");
     }
 
     /**
@@ -1403,10 +1141,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTopicDelete(AlipayOpenPublicTopicDeleteModel alipayOpenPublicTopicDeleteModel) {
-        String tenantId = alipayOpenPublicTopicDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicTopicDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.topic.delete", JacksonUtils.writeValueAsString(alipayOpenPublicTopicDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTopicDeleteModel, "alipay.open.public.topic.delete");
     }
 
     /**
@@ -1416,10 +1151,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicTopicBatchQuery(AlipayOpenPublicTopicBatchQueryModel alipayOpenPublicTopicBatchQueryModel) {
-        String tenantId = alipayOpenPublicTopicBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicTopicBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.topic.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicTopicBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicTopicBatchQueryModel, "alipay.open.public.topic.batchquery");
     }
 
     /**
@@ -1429,10 +1161,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicSingleArticleDataBatchQuery(AlipayOpenPublicSingleArticleDataBatchQueryModel alipayOpenPublicSingleArticleDataBatchQueryModel) {
-        String tenantId = alipayOpenPublicSingleArticleDataBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicSingleArticleDataBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.singlearticle.data.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicSingleArticleDataBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicSingleArticleDataBatchQueryModel, "alipay.open.public.singlearticle.data.batchquery");
     }
 
     /**
@@ -1442,10 +1171,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicUserDataBatchQuery(AlipayOpenPublicUserDataBatchQueryModel alipayOpenPublicUserDataBatchQueryModel) {
-        String tenantId = alipayOpenPublicUserDataBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicUserDataBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.user.data.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicUserDataBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicUserDataBatchQueryModel, "alipay.open.public.user.data.batchquery");
     }
 
     /**
@@ -1455,10 +1181,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicArticleSummaryDataBatchQuery(AlipayOpenPublicArticleSummaryDataBatchQueryModel alipayOpenPublicArticleSummaryDataBatchQueryModel) {
-        String tenantId = alipayOpenPublicArticleSummaryDataBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicArticleSummaryDataBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.articlesummary.data.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicArticleSummaryDataBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicArticleSummaryDataBatchQueryModel, "alipay.open.public.articlesummary.data.batchquery");
     }
 
     /**
@@ -1468,10 +1191,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMenuDataBatchQuery(AlipayOpenPublicMenuDataBatchQueryModel alipayOpenPublicMenuDataBatchQueryModel) {
-        String tenantId = alipayOpenPublicMenuDataBatchQueryModel.getTenantId();
-        String branchId = alipayOpenPublicMenuDataBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.menu.data.batchquery", JacksonUtils.writeValueAsString(alipayOpenPublicMenuDataBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicMenuDataBatchQueryModel, "alipay.open.public.menu.data.batchquery");
     }
 
     /**
@@ -1482,10 +1202,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicInfoModify(AlipayOpenPublicInfoModifyModel alipayOpenPublicInfoModifyModel) {
-        String tenantId = alipayOpenPublicInfoModifyModel.getTenantId();
-        String branchId = alipayOpenPublicInfoModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.info.modify", JacksonUtils.writeValueAsString(alipayOpenPublicInfoModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenPublicInfoModifyModel, "alipay.open.public.info.modify");
     }
 
     /**
@@ -1495,11 +1212,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPayeeBindCreate(AlipayOpenPublicPayeeBindCreateModel alipayOpenPublicPayeeBindCreateModel) {
-        String tenantId = alipayOpenPublicPayeeBindCreateModel.getTenantId();
-        String branchId = alipayOpenPublicPayeeBindCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.payee.bind.create", JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindCreateModel));
+        return callAlipayApi(alipayOpenPublicPayeeBindCreateModel, "alipay.open.public.payee.bind.create");
     }
 
     /**
@@ -1509,10 +1222,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicPayeeBindDelete(AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel) {
-        String tenantId = alipayOpenPublicPayeeBindDeleteModel.getTenantId();
-        String branchId = alipayOpenPublicPayeeBindDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.payee.bind.delete", JacksonUtils.writeValueAsString(alipayOpenPublicPayeeBindDeleteModel));
+        return callAlipayApi(alipayOpenPublicPayeeBindDeleteModel, "alipay.open.public.payee.bind.delete");
     }
 
 
@@ -1524,10 +1234,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageContentCreate(AlipayOpenPublicMessageContentCreateModel alipayOpenPublicMessageContentCreateModel) {
-        String tenantId = alipayOpenPublicMessageContentCreateModel.getTenantId();
-        String branchId = alipayOpenPublicMessageContentCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.content.create", JacksonUtils.writeValueAsString(alipayOpenPublicMessageContentCreateModel));
+        return callAlipayApi(alipayOpenPublicMessageContentCreateModel, "alipay.open.public.message.content.create");
     }
 
     /**
@@ -1538,10 +1245,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMessageContentModify(AlipayOpenPublicMessageContentModifyModel alipayOpenPublicMessageContentModifyModel) {
-        String tenantId = alipayOpenPublicMessageContentModifyModel.getTenantId();
-        String branchId = alipayOpenPublicMessageContentModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.public.message.content.modify", JacksonUtils.writeValueAsString(alipayOpenPublicMessageContentModifyModel));
+        return callAlipayApi(alipayOpenPublicMessageContentModifyModel, "alipay.open.public.message.content.modify");
     }
 
     /**
@@ -1552,10 +1256,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayEbppPdeductSignValidate(AlipayEbppPdeductSignValidateModel alipayEbppPdeductSignValidateModel) {
-        String tenantId = alipayEbppPdeductSignValidateModel.getTenantId();
-        String branchId = alipayEbppPdeductSignValidateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.ebpp.pdeduct.sign.validate", JacksonUtils.writeValueAsString(alipayEbppPdeductSignValidateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayEbppPdeductSignValidateModel, "alipay.ebpp.pdeduct.sign.validate");
     }
 
     /***************************************************************会员API开始***************************************************************/
@@ -1567,10 +1268,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserInfoShare(AlipayUserInfoShareModel alipayUserInfoShareModel) {
-        String tenantId = alipayUserInfoShareModel.getTenantId();
-        String branchId = alipayUserInfoShareModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.info.share", JacksonUtils.writeValueAsString(alipayUserInfoShareModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserInfoShareModel, "alipay.user.info.share");
     }
 
     /**
@@ -1580,10 +1278,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserAuthZhiMaOrgIdentityApply(AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel) {
-        String tenantId = alipayUserAuthZhiMaOrgIdentityApplyModel.getTenantId();
-        String branchId = alipayUserAuthZhiMaOrgIdentityApplyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.auth.zhimaorg.identity.apply", JacksonUtils.writeValueAsString(alipayUserAuthZhiMaOrgIdentityApplyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserAuthZhiMaOrgIdentityApplyModel, "alipay.user.auth.zhimaorg.identity.apply");
     }
 
     /**
@@ -1593,10 +1288,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserCharityRecordExistQuery(AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel) {
-        String tenantId = alipayUserCharityRecordExistQueryModel.getTenantId();
-        String branchId = alipayUserCharityRecordExistQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.charity.recordexist.query", JacksonUtils.writeValueAsString(alipayUserCharityRecordExistQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserCharityRecordExistQueryModel, "alipay.user.charity.recordexist.query");
     }
 
     /**
@@ -1606,10 +1298,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserCertifyOpenQuery(AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel) {
-        String tenantId = alipayUserCertifyOpenQueryModel.getTenantId();
-        String branchId = alipayUserCertifyOpenQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.query", JacksonUtils.writeValueAsString(alipayUserCertifyOpenQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserCertifyOpenQueryModel, "alipay.user.certify.open.query");
     }
 
     /**
@@ -1620,10 +1309,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserCertifyOpenInitialize(AlipayUserCertifyOpenInitializeModel alipayUserCertifyOpenInitializeModel) {
-        String tenantId = alipayUserCertifyOpenInitializeModel.getTenantId();
-        String branchId = alipayUserCertifyOpenInitializeModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.initialize", JacksonUtils.writeValueAsString(alipayUserCertifyOpenInitializeModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserCertifyOpenInitializeModel, "alipay.user.certify.open.initialize");
     }
 
     /**
@@ -1633,10 +1319,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserCertifyOpenCertify(AlipayUserCertifyOpenCertifyModel alipayUserCertifyOpenCertifyModel) {
-        String tenantId = alipayUserCertifyOpenCertifyModel.getTenantId();
-        String branchId = alipayUserCertifyOpenCertifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.certify.open.certify", JacksonUtils.writeValueAsString(alipayUserCertifyOpenCertifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserCertifyOpenCertifyModel, "alipay.user.certify.open.certify");
     }
 
     /**
@@ -1646,13 +1329,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayUserTwoStageCommonUse(AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel) {
-        alipayUserTwoStageCommonUseModel.validateAndThrow();
-
-        String tenantId = alipayUserTwoStageCommonUseModel.getTenantId();
-        String branchId = alipayUserTwoStageCommonUseModel.getBranchId();
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.user.twostage.common.use", JacksonUtils.writeValueAsString(alipayUserTwoStageCommonUseModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayUserTwoStageCommonUseModel, "alipay.user.twostage.common.use");
     }
     /***************************************************************会员API结束***************************************************************/
 
@@ -1664,11 +1341,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMaterialImageUpload(AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel) {
-        alipayOfflineMaterialImageUploadModel.validateAndThrow();
-        String tenantId = alipayOfflineMaterialImageUploadModel.getTenantId();
-        String branchId = alipayOfflineMaterialImageUploadModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.material.image.upload", JacksonUtils.writeValueAsString(alipayOfflineMaterialImageUploadModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMaterialImageUploadModel, "alipay.offline.material.image.upload");
     }
 
     /**
@@ -1760,11 +1433,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardUpdate(AlipayMarketingCardUpdateModel alipayMarketingCardUpdateModel) {
-        alipayMarketingCardUpdateModel.validateAndThrow();
-        String tenantId = alipayMarketingCardUpdateModel.getTenantId();
-        String branchId = alipayMarketingCardUpdateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.update", JacksonUtils.writeValueAsString(alipayMarketingCardUpdateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardUpdateModel, "alipay.marketing.card.update");
     }
 
     /**
@@ -1774,11 +1443,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardDelete(AlipayMarketingCardDeleteModel alipayMarketingCardDeleteModel) {
-        alipayMarketingCardDeleteModel.validateAndThrow();
-        String tenantId = alipayMarketingCardDeleteModel.getTenantId();
-        String branchId = alipayMarketingCardDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.delete", JacksonUtils.writeValueAsString(alipayMarketingCardDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardDeleteModel, "alipay.marketing.card.delete");
     }
 
     /**
@@ -1789,11 +1454,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardQuery(AlipayMarketingCardQueryModel alipayMarketingCardQueryModel) {
-        alipayMarketingCardQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCardQueryModel.getTenantId();
-        String branchId = alipayMarketingCardQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.query", JacksonUtils.writeValueAsString(alipayMarketingCardQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardQueryModel, "alipay.marketing.card.query");
     }
 
     /**
@@ -1804,11 +1465,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardBenefitModify(AlipayMarketingCardBenefitModifyModel alipayMarketingCardBenefitModifyModel) {
-        alipayMarketingCardBenefitModifyModel.validateAndThrow();
-        String tenantId = alipayMarketingCardBenefitModifyModel.getTenantId();
-        String branchId = alipayMarketingCardBenefitModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.modify", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardBenefitModifyModel, "alipay.marketing.card.benefit.modify");
     }
 
     /**
@@ -1819,11 +1476,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardBenefitDelete(AlipayMarketingCardBenefitDeleteModel alipayMarketingCardBenefitDeleteModel) {
-        alipayMarketingCardBenefitDeleteModel.validateAndThrow();
-        String tenantId = alipayMarketingCardBenefitDeleteModel.getTenantId();
-        String branchId = alipayMarketingCardBenefitDeleteModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.delete", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitDeleteModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardBenefitDeleteModel, "alipay.marketing.card.benefit.delete");
     }
 
     /**
@@ -1845,11 +1498,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardBenefitQuery(AlipayMarketingCardBenefitQueryModel alipayMarketingCardBenefitQueryModel) {
-        alipayMarketingCardBenefitQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCardBenefitQueryModel.getTenantId();
-        String branchId = alipayMarketingCardBenefitQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.query", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardBenefitQueryModel, "alipay.marketing.card.benefit.query");
     }
 
     /**
@@ -1905,11 +1554,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketShopCategoryQuery(AlipayOfflineMarketShopCategoryQueryModel alipayOfflineMarketShopCategoryQueryModel) {
-        alipayOfflineMarketShopCategoryQueryModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopCategoryQueryModel.getTenantId();
-        String branchId = alipayOfflineMarketShopCategoryQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.category.query", JacksonUtils.writeValueAsString(alipayOfflineMarketShopCategoryQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketShopCategoryQueryModel, "alipay.offline.market.shop.category.query");
     }
 
     /**
@@ -1920,11 +1565,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketShopModify(AlipayOfflineMarketShopModifyModel alipayOfflineMarketShopModifyModel) {
-        alipayOfflineMarketShopModifyModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopModifyModel.getTenantId();
-        String branchId = alipayOfflineMarketShopModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.modify", JacksonUtils.writeValueAsString(alipayOfflineMarketShopModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketShopModifyModel, "alipay.offline.market.shop.modify");
     }
 
     /**
@@ -1934,11 +1575,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketShopQueryDetail(AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel) {
-        alipayOfflineMarketShopQueryDetailModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopQueryDetailModel.getTenantId();
-        String branchId = alipayOfflineMarketShopQueryDetailModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.querydetail", JacksonUtils.writeValueAsString(alipayOfflineMarketShopQueryDetailModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketShopQueryDetailModel, "alipay.offline.market.shop.querydetail");
     }
 
     /**
@@ -1948,11 +1585,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketShopBatchQuery(AlipayOfflineMarketShopBatchQueryModel alipayOfflineMarketShopBatchQueryModel) {
-        alipayOfflineMarketShopBatchQueryModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopBatchQueryModel.getTenantId();
-        String branchId = alipayOfflineMarketShopBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketShopBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketShopBatchQueryModel, "alipay.offline.market.shop.batchquery");
     }
 
     /**
@@ -1963,11 +1596,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketShopSummaryBatchQuery(AlipayOfflineMarketShopSummaryBatchQueryModel alipayOfflineMarketShopSummaryBatchQueryModel) {
-        alipayOfflineMarketShopSummaryBatchQueryModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketShopSummaryBatchQueryModel.getTenantId();
-        String branchId = alipayOfflineMarketShopSummaryBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.summary.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketShopSummaryBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketShopSummaryBatchQueryModel, "alipay.offline.market.shop.summary.batchquery");
     }
 
     /**
@@ -1978,11 +1607,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOfflineMarketApplyOrderBatchQuery(AlipayOfflineMarketApplyOrderBatchQueryModel alipayOfflineMarketApplyOrderBatchQueryModel) {
-        alipayOfflineMarketApplyOrderBatchQueryModel.validateAndThrow();
-        String tenantId = alipayOfflineMarketApplyOrderBatchQueryModel.getTenantId();
-        String branchId = alipayOfflineMarketApplyOrderBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.applyorder.batchquery", JacksonUtils.writeValueAsString(alipayOfflineMarketApplyOrderBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOfflineMarketApplyOrderBatchQueryModel, "alipay.offline.market.applyorder.batchquery");
     }
 
     /***************************************************************店铺API结束***************************************************************/
@@ -1996,11 +1621,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentMiniCreate(AlipayOpenAgentMiniCreateModel alipayOpenAgentMiniCreateModel) {
-        alipayOpenAgentMiniCreateModel.validateAndThrow();
-        String tenantId = alipayOpenAgentMiniCreateModel.getTenantId();
-        String branchId = alipayOpenAgentMiniCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.mini.create", JacksonUtils.writeValueAsString(alipayOpenAgentMiniCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentMiniCreateModel, "alipay.open.agent.mini.create");
     }
 
     /**
@@ -2011,11 +1632,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentMobilePaySign(AlipayOpenAgentMobilePaySignModel alipayOpenAgentMobilePaySignModel) {
-        alipayOpenAgentMobilePaySignModel.validateAndThrow();
-        String tenantId = alipayOpenAgentMobilePaySignModel.getTenantId();
-        String branchId = alipayOpenAgentMobilePaySignModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.mobilepay.sign", JacksonUtils.writeValueAsString(alipayOpenAgentMobilePaySignModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentMobilePaySignModel, "alipay.open.agent.mobilepay.sign");
     }
 
     /**
@@ -2026,11 +1643,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentFaceToFaceSign(AlipayOpenAgentFaceToFaceSignModel alipayOpenAgentFaceToFaceSignModel) {
-        alipayOpenAgentFaceToFaceSignModel.validateAndThrow();
-        String tenantId = alipayOpenAgentFaceToFaceSignModel.getTenantId();
-        String branchId = alipayOpenAgentFaceToFaceSignModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.facetoface.sign", JacksonUtils.writeValueAsString(alipayOpenAgentFaceToFaceSignModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentFaceToFaceSignModel, "alipay.open.agent.facetoface.sign");
     }
 
     /**
@@ -2041,11 +1654,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentZhiMaBriefSign(AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel) {
-        alipayOpenAgentZhiMaBriefSignModel.validateAndThrow();
-        String tenantId = alipayOpenAgentZhiMaBriefSignModel.getTenantId();
-        String branchId = alipayOpenAgentZhiMaBriefSignModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.zhimabrief.sign", JacksonUtils.writeValueAsString(alipayOpenAgentZhiMaBriefSignModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentZhiMaBriefSignModel, "alipay.open.agent.zhimabrief.sign");
     }
 
     /**
@@ -2081,11 +1690,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentConfirm(AlipayOpenAgentConfirmModel alipayOpenAgentConfirmModel) {
-        alipayOpenAgentConfirmModel.validateAndThrow();
-        String tenantId = alipayOpenAgentConfirmModel.getTenantId();
-        String branchId = alipayOpenAgentConfirmModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.confirm", JacksonUtils.writeValueAsString(alipayOpenAgentConfirmModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentConfirmModel, "alipay.open.agent.confirm");
     }
 
     /**
@@ -2095,11 +1700,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentCancel(AlipayOpenAgentCancelModel alipayOpenAgentCancelModel) {
-        alipayOpenAgentCancelModel.validateAndThrow();
-        String tenantId = alipayOpenAgentCancelModel.getTenantId();
-        String branchId = alipayOpenAgentCancelModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.cancel", JacksonUtils.writeValueAsString(alipayOpenAgentCancelModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentCancelModel, "alipay.open.agent.cancel");
     }
 
     /**
@@ -2109,11 +1710,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentOrderQuery(AlipayOpenAgentOrderQueryModel alipayOpenAgentOrderQueryModel) {
-        alipayOpenAgentOrderQueryModel.validateAndThrow();
-        String tenantId = alipayOpenAgentOrderQueryModel.getTenantId();
-        String branchId = alipayOpenAgentOrderQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.order.query", JacksonUtils.writeValueAsString(alipayOpenAgentOrderQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentOrderQueryModel, "alipay.open.agent.order.query");
     }
 
     /**
@@ -2145,11 +1742,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenAgentOfflinePaymentSign(AlipayOpenAgentOfflinePaymentSignModel alipayOpenAgentOfflinePaymentSignModel) {
-        alipayOpenAgentOfflinePaymentSignModel.validateAndThrow();
-        String tenantId = alipayOpenAgentOfflinePaymentSignModel.getTenantId();
-        String branchId = alipayOpenAgentOfflinePaymentSignModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.open.agent.offlinepayment.sign", JacksonUtils.writeValueAsString(alipayOpenAgentOfflinePaymentSignModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayOpenAgentOfflinePaymentSignModel, "alipay.open.agent.offlinepayment.sign");
     }
     /***************************************************************第三方API结束***************************************************************/
 
@@ -2161,11 +1754,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayPassInstanceUpdate(AlipayPassInstanceUpdateModel alipayPassInstanceUpdateModel) {
-        alipayPassInstanceUpdateModel.validateAndThrow();
-        String tenantId = alipayPassInstanceUpdateModel.getTenantId();
-        String branchId = alipayPassInstanceUpdateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.instance.update", JacksonUtils.writeValueAsString(alipayPassInstanceUpdateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayPassInstanceUpdateModel, "alipay.pass.instance.update");
     }
 
     /**
@@ -2175,11 +1764,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingToolPointsUpdate(KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel) {
-        koubeiMarketingToolPointsUpdateModel.validateAndThrow();
-        String tenantId = koubeiMarketingToolPointsUpdateModel.getTenantId();
-        String branchId = koubeiMarketingToolPointsUpdateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.points.update", JacksonUtils.writeValueAsString(koubeiMarketingToolPointsUpdateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingToolPointsUpdateModel, "koubei.marketing.tool.points.update");
     }
 
     /**
@@ -2189,11 +1774,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayPassTemplateAdd(AlipayPassTemplateAddModel alipayPassTemplateAddModel) {
-        alipayPassTemplateAddModel.validateAndThrow();
-        String tenantId = alipayPassTemplateAddModel.getTenantId();
-        String branchId = alipayPassTemplateAddModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.template.add", JacksonUtils.writeValueAsString(alipayPassTemplateAddModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayPassTemplateAddModel, "alipay.pass.template.add");
     }
 
     /**
@@ -2203,11 +1784,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayPassTemplateUpdate(AlipayPassTemplateUpdateModel alipayPassTemplateUpdateModel) {
-        alipayPassTemplateUpdateModel.validateAndThrow();
-        String tenantId = alipayPassTemplateUpdateModel.getTenantId();
-        String branchId = alipayPassTemplateUpdateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.template.update", JacksonUtils.writeValueAsString(alipayPassTemplateUpdateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayPassTemplateUpdateModel, "alipay.pass.template.update");
     }
 
     /**
@@ -2217,11 +1794,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayPassInstanceAdd(AlipayPassInstanceAddModel alipayPassInstanceAddModel) {
-        alipayPassInstanceAddModel.validateAndThrow();
-        String tenantId = alipayPassInstanceAddModel.getTenantId();
-        String branchId = alipayPassInstanceAddModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.pass.instance.add", JacksonUtils.writeValueAsString(alipayPassInstanceAddModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayPassInstanceAddModel, "alipay.pass.instance.add");
     }
 
     /**
@@ -2231,11 +1804,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingToolPrizeSendAuth(KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel) {
-        koubeiMarketingToolPrizeSendAuthModel.validateAndThrow();
-        String tenantId = koubeiMarketingToolPrizeSendAuthModel.getTenantId();
-        String branchId = koubeiMarketingToolPrizeSendAuthModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.prizesend.auth", JacksonUtils.writeValueAsString(koubeiMarketingToolPrizeSendAuthModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingToolPrizeSendAuthModel, "koubei.marketing.tool.prizesend.auth");
     }
 
     /**
@@ -2245,11 +1814,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingToolPointsQuery(KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel) {
-        koubeiMarketingToolPointsQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingToolPointsQueryModel.getTenantId();
-        String branchId = koubeiMarketingToolPointsQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.tool.points.query", JacksonUtils.writeValueAsString(koubeiMarketingToolPointsQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingToolPointsQueryModel, "koubei.marketing.tool.points.query");
     }
     /***************************************************************卡劵API结束***************************************************************/
 
@@ -2261,11 +1826,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingCampaignRecruitShopQuery(KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel) {
-        koubeiMarketingCampaignRecruitShopQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingCampaignRecruitShopQueryModel.getTenantId();
-        String branchId = koubeiMarketingCampaignRecruitShopQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.recruit.shop.query", JacksonUtils.writeValueAsString(koubeiMarketingCampaignRecruitShopQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingCampaignRecruitShopQueryModel, "koubei.marketing.campaign.recruit.shop.query");
     }
 
     /**
@@ -2275,11 +1836,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingCampaignActivityBatchQuery(KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel) {
-        koubeiMarketingCampaignActivityBatchQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingCampaignActivityBatchQueryModel.getTenantId();
-        String branchId = koubeiMarketingCampaignActivityBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingCampaignActivityBatchQueryModel, "koubei.marketing.campaign.activity.batchquery");
     }
 
     /**
@@ -2290,11 +1847,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingCampaignActivityModify(KoubeiMarketingCampaignActivityModifyModel koubeiMarketingCampaignActivityModifyModel) {
-        koubeiMarketingCampaignActivityModifyModel.validateAndThrow();
-        String tenantId = koubeiMarketingCampaignActivityModifyModel.getTenantId();
-        String branchId = koubeiMarketingCampaignActivityModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.modify", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingCampaignActivityModifyModel, "koubei.marketing.campaign.activity.modify");
     }
 
     /**
@@ -2304,11 +1857,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingCampaignActivityQuery(KoubeiMarketingCampaignActivityQueryModel koubeiMarketingCampaignActivityQueryModel) {
-        koubeiMarketingCampaignActivityQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingCampaignActivityQueryModel.getTenantId();
-        String branchId = koubeiMarketingCampaignActivityQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.query", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingCampaignActivityQueryModel, "koubei.marketing.campaign.activity.query");
     }
 
     /**
@@ -2318,11 +1867,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingToolFengDieTemplateQuery(AlipayMarketingToolFengDieTemplateQueryModel alipayMarketingToolFengDieTemplateQueryModel) {
-        alipayMarketingToolFengDieTemplateQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingToolFengDieTemplateQueryModel.getTenantId();
-        String branchId = alipayMarketingToolFengDieTemplateQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.template.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieTemplateQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingToolFengDieTemplateQueryModel, "alipay.marketing.tool.fengdie.template.query");
     }
 
     /**
@@ -2332,11 +1877,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingToolFengDieActivityQuery(AlipayMarketingToolFengDieActivityQueryModel alipayMarketingToolFengDieActivityQueryModel) {
-        alipayMarketingToolFengDieActivityQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingToolFengDieActivityQueryModel.getTenantId();
-        String branchId = alipayMarketingToolFengDieActivityQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.activity.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieActivityQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingToolFengDieActivityQueryModel, "alipay.marketing.tool.fengdie.activity.query");
     }
 
     /**
@@ -2347,11 +1888,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingToolFengDieActivityCreate(AlipayMarketingToolFengDieActivityCreateModel alipayMarketingToolFengDieActivityCreateModel) {
-        alipayMarketingToolFengDieActivityCreateModel.validateAndThrow();
-        String tenantId = alipayMarketingToolFengDieActivityCreateModel.getTenantId();
-        String branchId = alipayMarketingToolFengDieActivityCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.activity.create", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieActivityCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingToolFengDieActivityCreateModel, "alipay.marketing.tool.fengdie.activity.create");
     }
 
     /**
@@ -2361,11 +1898,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingToolFengDieEditorQuery(AlipayMarketingToolFengDieEditorQueryModel alipayMarketingToolFengDieEditorQueryModel) {
-        alipayMarketingToolFengDieEditorQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingToolFengDieEditorQueryModel.getTenantId();
-        String branchId = alipayMarketingToolFengDieEditorQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.tool.fengdie.editor.query", JacksonUtils.writeValueAsString(alipayMarketingToolFengDieEditorQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingToolFengDieEditorQueryModel, "alipay.marketing.tool.fengdie.editor.query");
     }
 
     /**
@@ -2375,11 +1908,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingDataTradeHabbitQuery(KoubeiMarketingDataTradeHabbitQueryModel koubeiMarketingDataTradeHabbitQueryModel) {
-        koubeiMarketingDataTradeHabbitQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingDataTradeHabbitQueryModel.getTenantId();
-        String branchId = koubeiMarketingDataTradeHabbitQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.trade.habbit.query", JacksonUtils.writeValueAsString(koubeiMarketingDataTradeHabbitQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingDataTradeHabbitQueryModel, "koubei.marketing.data.trade.habbit.query");
     }
 
     /**
@@ -2390,11 +1919,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingDataDishDiagnoseBatchQuery(KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel) {
-        koubeiMarketingDataDishDiagnoseBatchQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingDataDishDiagnoseBatchQueryModel.getTenantId();
-        String branchId = koubeiMarketingDataDishDiagnoseBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.dishdiagnose.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingDataDishDiagnoseBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingDataDishDiagnoseBatchQueryModel, "koubei.marketing.data.dishdiagnose.batchquery");
     }
 
     /**
@@ -2404,11 +1929,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingDataDishDiagnoseTypeBatchQuery(KoubeiMarketingDataDishDiagnoseTypeBatchQueryModel koubeiMarketingDataDishDiagnoseTypeBatchQueryModel) {
-        koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.validateAndThrow();
-        String tenantId = koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.getTenantId();
-        String branchId = koubeiMarketingDataDishDiagnoseTypeBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.data.dishdiagnosetype.batchquery", JacksonUtils.writeValueAsString(koubeiMarketingDataDishDiagnoseTypeBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingDataDishDiagnoseTypeBatchQueryModel, "koubei.marketing.data.dishdiagnosetype.batchquery");
     }
 
     /**
@@ -2418,11 +1939,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCampaignCashTrigger(AlipayMarketingCampaignCashTriggerModel alipayMarketingCampaignCashTriggerModel) {
-        alipayMarketingCampaignCashTriggerModel.validateAndThrow();
-        String tenantId = alipayMarketingCampaignCashTriggerModel.getTenantId();
-        String branchId = alipayMarketingCampaignCashTriggerModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.trigger", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashTriggerModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCampaignCashTriggerModel, "alipay.marketing.campaign.cash.trigger");
     }
 
     /**
@@ -2432,11 +1949,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCampaignCashStatusModify(AlipayMarketingCampaignCashStatusModifyModel alipayMarketingCampaignCashStatusModifyModel) {
-        alipayMarketingCampaignCashStatusModifyModel.validateAndThrow();
-        String tenantId = alipayMarketingCampaignCashStatusModifyModel.getTenantId();
-        String branchId = alipayMarketingCampaignCashStatusModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.status.modify", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashStatusModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCampaignCashStatusModifyModel, "alipay.marketing.campaign.cash.status.modify");
     }
 
     /**
@@ -2446,11 +1959,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCampaignCashListQuery(AlipayMarketingCampaignCashListQueryModel alipayMarketingCampaignCashListQueryModel) {
-        alipayMarketingCampaignCashListQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCampaignCashListQueryModel.getTenantId();
-        String branchId = alipayMarketingCampaignCashListQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.list.query", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashListQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCampaignCashListQueryModel, "alipay.marketing.campaign.cash.list.query");
     }
 
     /**
@@ -2460,11 +1969,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCampaignCashDetailQuery(AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel) {
-        alipayMarketingCampaignCashDetailQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCampaignCashDetailQueryModel.getTenantId();
-        String branchId = alipayMarketingCampaignCashDetailQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.campaign.cash.detail.query", JacksonUtils.writeValueAsString(alipayMarketingCampaignCashDetailQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCampaignCashDetailQueryModel, "alipay.marketing.campaign.cash.detail.query");
     }
 
     /**
@@ -2474,11 +1979,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayFundCouponOrderPagePay(AlipayFundCouponOrderPagePayModel alipayFundCouponOrderPagePayModel) {
-        alipayFundCouponOrderPagePayModel.validateAndThrow();
-        String tenantId = alipayFundCouponOrderPagePayModel.getTenantId();
-        String branchId = alipayFundCouponOrderPagePayModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.fund.coupon.order.page.pay", JacksonUtils.writeValueAsString(alipayFundCouponOrderPagePayModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayFundCouponOrderPagePayModel, "alipay.fund.coupon.order.page.pay");
     }
 
     /**

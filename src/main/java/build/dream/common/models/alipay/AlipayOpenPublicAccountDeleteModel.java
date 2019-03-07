@@ -1,21 +1,9 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
-import javax.validation.constraints.NotNull;
-
-public class AlipayOpenPublicAccountDeleteModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
     @Length(max = 32)
     @JsonProperty(value = "agreement_id")
     private String agreementId;
@@ -23,22 +11,6 @@ public class AlipayOpenPublicAccountDeleteModel extends BasicModel {
     @Length(max = 64)
     @JsonProperty(value = "bind_account_no")
     private String bindAccountNo;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getAgreementId() {
         return agreementId;

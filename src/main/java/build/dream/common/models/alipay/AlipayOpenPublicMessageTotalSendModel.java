@@ -3,22 +3,13 @@ package build.dream.common.models.alipay;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class AlipayOpenPublicMessageTotalSendModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
     @InList(value = {"image-text", "text"})
     @JsonProperty(value = "msg_type")
     private String msgType;
@@ -26,22 +17,6 @@ public class AlipayOpenPublicMessageTotalSendModel extends BasicModel {
     private List<Article> articles;
 
     private Text text;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getMsgType() {
         return msgType;

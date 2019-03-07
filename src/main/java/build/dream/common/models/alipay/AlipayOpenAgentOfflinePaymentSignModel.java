@@ -1,7 +1,5 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -10,15 +8,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AlipayOpenAgentOfflinePaymentSignModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 25)
     @JsonProperty(value = "batch_no")
@@ -44,22 +34,6 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends BasicModel {
     @Length(min = 10, max = 10)
     @JsonProperty(value = "date_limitation")
     private String dateLimitation;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getBatchNo() {
         return batchNo;

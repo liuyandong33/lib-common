@@ -2,7 +2,6 @@ package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -10,15 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-public class KoubeiMarketingCampaignActivityBatchQueryModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicModel {
     @NotEmpty
     @JsonProperty(value = "query_criterias")
     private List<QueryCriteria> queryCriterias;
@@ -38,22 +29,6 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends BasicModel {
     @Length(max = 8)
     @JsonProperty(value = "page_size")
     private String pageSize;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public List<QueryCriteria> getQueryCriterias() {
         return queryCriterias;

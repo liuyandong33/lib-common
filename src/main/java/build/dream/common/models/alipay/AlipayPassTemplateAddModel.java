@@ -1,21 +1,11 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayPassTemplateAddModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayPassTemplateAddModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 999)
     @JsonProperty(value = "unique_id")
@@ -25,22 +15,6 @@ public class AlipayPassTemplateAddModel extends BasicModel {
     @Length(max = 99999)
     @JsonProperty(value = "tpl_content")
     private String tplContent;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
 
     public String getUniqueId() {
         return uniqueId;

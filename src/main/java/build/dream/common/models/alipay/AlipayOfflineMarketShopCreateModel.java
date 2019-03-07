@@ -1,7 +1,6 @@
 package build.dream.common.models.alipay;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
@@ -11,15 +10,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AlipayOfflineMarketShopCreateModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
+public class AlipayOfflineMarketShopCreateModel extends AlipayBasicModel {
     @JsonIgnore
     private String notifyUrl;
 
@@ -185,22 +176,6 @@ public class AlipayOfflineMarketShopCreateModel extends BasicModel {
     @Length(max = 10)
     @JsonProperty(value = "biz_version")
     private String bizVersion;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getNotifyUrl() {
         return notifyUrl;
