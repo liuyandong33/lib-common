@@ -1,33 +1,49 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import build.dream.common.constraints.InList;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class AlipayMarketingCardActivateFormQueryModel extends BasicModel {
+public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel {
     @NotNull
-    @JsonIgnore
-    private String tenantId;
+    @InList(value = {"MEMBER_CARD"})
+    @JsonProperty(value = "biz_type")
+    private String bizType;
 
     @NotNull
-    @JsonIgnore
-    private String branchId;
+    @Length(max = 1024)
+    @JsonProperty(value = "template_id")
+    private String templateId;
 
-    public String getTenantId() {
-        return tenantId;
+    @NotNull
+    @Length(max = 128)
+    @JsonProperty(value = "request_id")
+    private String requestId;
+
+    public String getBizType() {
+        return bizType;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setBizType(String bizType) {
+        this.bizType = bizType;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public String getTemplateId() {
+        return templateId;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public void setTemplateId(String templateId) {
+        this.templateId = templateId;
+    }
+
+    public String getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public static class Builder {
@@ -43,10 +59,28 @@ public class AlipayMarketingCardActivateFormQueryModel extends BasicModel {
             return this;
         }
 
+        public Builder bizType(String bizType) {
+            instance.setBizType(bizType);
+            return this;
+        }
+
+        public Builder templateId(String templateId) {
+            instance.setTemplateId(templateId);
+            return this;
+        }
+
+        public Builder requestId(String requestId) {
+            instance.setRequestId(requestId);
+            return this;
+        }
+
         public AlipayMarketingCardActivateFormQueryModel build() {
             AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel = new AlipayMarketingCardActivateFormQueryModel();
             alipayMarketingCardActivateFormQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCardActivateFormQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardActivateFormQueryModel.setBizType(instance.getBizType());
+            alipayMarketingCardActivateFormQueryModel.setTemplateId(instance.getTemplateId());
+            alipayMarketingCardActivateFormQueryModel.setRequestId(instance.getRequestId());
             return alipayMarketingCardActivateFormQueryModel;
         }
     }

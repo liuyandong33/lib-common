@@ -1678,11 +1678,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardTemplateCreate(AlipayMarketingCardTemplateCreateModel alipayMarketingCardTemplateCreateModel) {
-        alipayMarketingCardTemplateCreateModel.validateAndThrow();
-        String tenantId = alipayMarketingCardTemplateCreateModel.getTenantId();
-        String branchId = alipayMarketingCardTemplateCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.create", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardTemplateCreateModel, "alipay.marketing.card.template.create");
     }
 
     /**
@@ -1693,11 +1689,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardTemplateModify(AlipayMarketingCardTemplateModifyModel alipayMarketingCardTemplateModifyModel) {
-        alipayMarketingCardTemplateModifyModel.validateAndThrow();
-        String tenantId = alipayMarketingCardTemplateModifyModel.getTenantId();
-        String branchId = alipayMarketingCardTemplateModifyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.modify", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateModifyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardTemplateModifyModel, "alipay.marketing.card.template.modify");
     }
 
     /**
@@ -1708,11 +1700,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardTemplateQuery(AlipayMarketingCardTemplateQueryModel alipayMarketingCardTemplateQueryModel) {
-        alipayMarketingCardTemplateQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCardTemplateQueryModel.getTenantId();
-        String branchId = alipayMarketingCardTemplateQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.query", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardTemplateQueryModel, "alipay.marketing.card.template.query");
     }
 
     /**
@@ -1723,11 +1711,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardFormTemplateSet(AlipayMarketingCardFormTemplateSetModel alipayMarketingCardFormTemplateSetModel) {
-        alipayMarketingCardFormTemplateSetModel.validateAndThrow();
-        String tenantId = alipayMarketingCardFormTemplateSetModel.getTenantId();
-        String branchId = alipayMarketingCardFormTemplateSetModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.formtemplate.set", JacksonUtils.writeValueAsString(alipayMarketingCardFormTemplateSetModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardFormTemplateSetModel, "alipay.marketing.card.formtemplate.set");
     }
 
     /**
@@ -1738,11 +1722,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardActivateUrlApply(AlipayMarketingCardActivateUrlApplyModel alipayMarketingCardActivateUrlApplyModel) {
-        alipayMarketingCardActivateUrlApplyModel.validateAndThrow();
-        String tenantId = alipayMarketingCardActivateUrlApplyModel.getTenantId();
-        String branchId = alipayMarketingCardActivateUrlApplyModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.activateurl.apply", JacksonUtils.writeValueAsString(alipayMarketingCardActivateUrlApplyModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardActivateUrlApplyModel, "alipay.marketing.card.activateurl.apply");
     }
 
     /**
@@ -1753,11 +1733,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardActivateFormQuery(AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel) {
-        alipayMarketingCardActivateFormQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCardActivateFormQueryModel.getTenantId();
-        String branchId = alipayMarketingCardActivateFormQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.activateform.query", JacksonUtils.writeValueAsString(alipayMarketingCardActivateFormQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardActivateFormQueryModel, "alipay.marketing.card.activateform.query");
     }
 
     /**
@@ -1858,11 +1834,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardBenefitCreate(AlipayMarketingCardBenefitCreateModel alipayMarketingCardBenefitCreateModel) {
-        alipayMarketingCardBenefitCreateModel.validateAndThrow();
-        String tenantId = alipayMarketingCardBenefitCreateModel.getTenantId();
-        String branchId = alipayMarketingCardBenefitCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.benefit.create", JacksonUtils.writeValueAsString(alipayMarketingCardBenefitCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardBenefitCreateModel, "alipay.marketing.card.benefit.create");
     }
 
     /**
@@ -1888,11 +1860,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayMarketingCardTemplateBatchQuery(AlipayMarketingCardTemplateBatchQueryModel alipayMarketingCardTemplateBatchQueryModel) {
-        alipayMarketingCardTemplateBatchQueryModel.validateAndThrow();
-        String tenantId = alipayMarketingCardTemplateBatchQueryModel.getTenantId();
-        String branchId = alipayMarketingCardTemplateBatchQueryModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.marketing.card.template.batchquery", JacksonUtils.writeValueAsString(alipayMarketingCardTemplateBatchQueryModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayMarketingCardTemplateBatchQueryModel, "alipay.marketing.card.template.batchquery");
     }
 
     /**
@@ -1903,11 +1871,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> koubeiMarketingCampaignActivityCreate(KoubeiMarketingCampaignActivityCreateModel koubeiMarketingCampaignActivityCreateModel) {
-        koubeiMarketingCampaignActivityCreateModel.validateAndThrow();
-        String tenantId = koubeiMarketingCampaignActivityCreateModel.getTenantId();
-        String branchId = koubeiMarketingCampaignActivityCreateModel.getBranchId();
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        return callAlipayApi(alipayAuthorizerInfo, "koubei.marketing.campaign.activity.create", JacksonUtils.writeValueAsString(koubeiMarketingCampaignActivityCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(koubeiMarketingCampaignActivityCreateModel, "koubei.marketing.campaign.activity.create");
     }
     /***************************************************************商户会员卡API结束***************************************************************/
 
@@ -2585,5 +2549,291 @@ public class AlipayUtils {
      */
     public static Map<String, Object> koubeiMarketingCampaignActivityOffline(KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel) {
         return callAlipayApi(koubeiMarketingCampaignActivityOfflineModel, "koubei.marketing.campaign.activity.offline");
+    }
+
+    /**
+     * 无资金券模板修改接口
+     *
+     * @param alipayMarketingCashLessVoucherTemplateModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCashLessVoucherTemplateModify(AlipayMarketingCashLessVoucherTemplateModifyModel alipayMarketingCashLessVoucherTemplateModifyModel) {
+        return callAlipayApi(alipayMarketingCashLessVoucherTemplateModifyModel, "alipay.marketing.cashlessvoucher.template.modify");
+    }
+
+    /**
+     * 券查询
+     *
+     * @param alipayMarketingVoucherQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherQuery(AlipayMarketingVoucherQueryModel alipayMarketingVoucherQueryModel) {
+        return callAlipayApi(alipayMarketingVoucherQueryModel, "alipay.marketing.voucher.query");
+    }
+
+    /**
+     * 发券接口
+     *
+     * @param alipayMarketingVoucherSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherSend(AlipayMarketingVoucherSendModel alipayMarketingVoucherSendModel) {
+        return callAlipayApi(alipayMarketingVoucherSendModel, "alipay.marketing.voucher.send");
+    }
+
+    /**
+     * 查询模板详情
+     *
+     * @param alipayMarketingVoucherTemplateDetailQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherTemplateDetailQuery(AlipayMarketingVoucherTemplateDetailQueryModel alipayMarketingVoucherTemplateDetailQueryModel) {
+        return callAlipayApi(alipayMarketingVoucherTemplateDetailQueryModel, "alipay.marketing.voucher.templatedetail.query");
+    }
+
+    /**
+     * 无资金券模板创建接口
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCashLessVoucherTemplateCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCashLessVoucherTemplateCreate(AlipayMarketingCashLessVoucherTemplateCreateModel alipayMarketingCashLessVoucherTemplateCreateModel) {
+        return callAlipayApi(alipayMarketingCashLessVoucherTemplateCreateModel, "alipay.marketing.cashlessvoucher.template.create");
+    }
+
+    /**
+     * 商户使用场景规则PID查询
+     *
+     * @param alipayMarketingUseRulePidQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingUseRulePidQuery(AlipayMarketingUseRulePidQueryModel alipayMarketingUseRulePidQueryModel) {
+        return callAlipayApi(alipayMarketingUseRulePidQueryModel, "alipay.marketing.userule.pid.query");
+    }
+
+    /**
+     * 兑换券使用接口
+     *
+     * @param alipayMarketingExchangeVoucherUseModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingExchangeVoucherUse(AlipayMarketingExchangeVoucherUseModel alipayMarketingExchangeVoucherUseModel) {
+        return callAlipayApi(alipayMarketingExchangeVoucherUseModel, "alipay.marketing.exchangevoucher.use");
+    }
+
+    /**
+     * 查询券模板列表
+     *
+     * @param alipayMarketingVoucherTemplateListQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherTemplateListQuery(AlipayMarketingVoucherTemplateListQueryModel alipayMarketingVoucherTemplateListQueryModel) {
+        return callAlipayApi(alipayMarketingVoucherTemplateListQueryModel, "alipay.marketing.voucher.templatelist.query");
+    }
+
+    /**
+     * 查询券列表
+     *
+     * @param alipayMarketingVoucherListQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherListQuery(AlipayMarketingVoucherListQueryModel alipayMarketingVoucherListQueryModel) {
+        return callAlipayApi(alipayMarketingVoucherListQueryModel, "alipay.marketing.voucher.list.query");
+    }
+
+    /**
+     * 删除券模板
+     *
+     * @param alipayMarketingVoucherTemplateDeleteModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherTemplateDelete(AlipayMarketingVoucherTemplateDeleteModel alipayMarketingVoucherTemplateDeleteModel) {
+        return callAlipayApi(alipayMarketingVoucherTemplateDeleteModel, "alipay.marketing.voucher.template.delete");
+    }
+
+    /**
+     * 修改券模板
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCashVoucherTemplateModifyModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCashVoucherTemplateModify(AlipayMarketingCashVoucherTemplateModifyModel alipayMarketingCashVoucherTemplateModifyModel) {
+        return callAlipayApi(alipayMarketingCashVoucherTemplateModifyModel, "alipay.marketing.cashvoucher.template.modify");
+    }
+
+    /**
+     * 创建资金券模板
+     *
+     * @param alipayMarketingCashVoucherTemplateCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCashVoucherTemplateCreate(AlipayMarketingCashVoucherTemplateCreateModel alipayMarketingCashVoucherTemplateCreateModel) {
+        return callAlipayApi(alipayMarketingCashVoucherTemplateCreateModel, "alipay.marketing.cashvoucher.template.create");
+    }
+
+    /**
+     * 创建现金活动
+     * TODO: model 未实现
+     *
+     * @param alipayMarketingCampaignCashCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingCampaignCashCreate(AlipayMarketingCampaignCashCreateModel alipayMarketingCampaignCashCreateModel) {
+        return callAlipayApi(alipayMarketingCampaignCashCreateModel, "alipay.marketing.campaign.cash.create");
+    }
+
+    /**
+     * 外部商户券码券核销
+     *
+     * @param alipayMarketingVoucherStockUseModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingVoucherStockUse(AlipayMarketingVoucherStockUseModel alipayMarketingVoucherStockUseModel) {
+        return callAlipayApi(alipayMarketingVoucherStockUseModel, "alipay.marketing.voucher.stock.use");
+    }
+
+    /**
+     * 口碑订单预咨询
+     *
+     * @param koubeiTradeOrderConsultModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeOrderConsult(KoubeiTradeOrderConsultModel koubeiTradeOrderConsultModel) {
+        return callAlipayApi(koubeiTradeOrderConsultModel, "koubei.trade.order.consult");
+    }
+
+    /**
+     * 小程序发送模板消息
+     *
+     * @param alipayOpenAppMiniTemplateMessageSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAppMiniTemplateMessageSend(AlipayOpenAppMiniTemplateMessageSendModel alipayOpenAppMiniTemplateMessageSendModel) {
+        return callAlipayApi(alipayOpenAppMiniTemplateMessageSendModel, "alipay.open.app.mini.templatemessage.send");
+    }
+
+    /**
+     * 用户口碑优惠资产查询接口
+     *
+     * @param koubeiMarketingCampaignUserAssetQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingCampaignUserAssetQuery(KoubeiMarketingCampaignUserAssetQueryModel koubeiMarketingCampaignUserAssetQueryModel) {
+        return callAlipayApi(koubeiMarketingCampaignUserAssetQueryModel, "koubei.marketing.campaign.user.asset.query");
+    }
+
+    /**
+     * 小程序生成推广二维码接口
+     *
+     * @param alipayOpenAppQRCodeCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayOpenAppQRCodeCreate(AlipayOpenAppQRCodeCreateModel alipayOpenAppQRCodeCreateModel) {
+        return callAlipayApi(alipayOpenAppQRCodeCreateModel, "alipay.open.app.qrcode.create");
+    }
+
+    /**
+     * 当面付付款码解码
+     *
+     * @param alipayMarketingFaceToFaceDecodeUseModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingFaceToFaceDecodeUse(AlipayMarketingFaceToFaceDecodeUseModel alipayMarketingFaceToFaceDecodeUseModel) {
+        return callAlipayApi(alipayMarketingFaceToFaceDecodeUseModel, "alipay.marketing.facetoface.decode.use");
+    }
+
+    /**
+     * 商家给用户赠送彩票
+     *
+     * @param alipayCommerceLotteryPresentSendModel
+     * @return
+     */
+    public static Map<String, Object> alipayCommerceLotteryPresentSend(AlipayCommerceLotteryPresentSendModel alipayCommerceLotteryPresentSendModel) {
+        return callAlipayApi(alipayCommerceLotteryPresentSendModel, "alipay.commerce.lottery.present.send");
+    }
+
+    /**
+     * 查询调用者指定时间范围内的彩票赠送列表
+     *
+     * @param alipayCommerceLotteryPresentListQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayCommerceLotteryPresentListQuery(AlipayCommerceLotteryPresentListQueryModel alipayCommerceLotteryPresentListQueryModel) {
+        return callAlipayApi(alipayCommerceLotteryPresentListQueryModel, "alipay.commerce.lottery.presentlist.query");
+    }
+
+    /**
+     * 查询可用彩种列表
+     *
+     * @param alipayCommerceLotteryTypeListQueryModel
+     * @return
+     */
+    public static Map<String, Object> alipayCommerceLotteryTypeListQuery(AlipayCommerceLotteryTypeListQueryModel alipayCommerceLotteryTypeListQueryModel) {
+        return callAlipayApi(alipayCommerceLotteryTypeListQueryModel, "alipay.commerce.lottery.typelist.query");
+    }
+
+    /**
+     * 口碑凭证码核销
+     *
+     * @param koubeiTradeTicketTicketCodeUseModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeUse(KoubeiTradeTicketTicketCodeUseModel koubeiTradeTicketTicketCodeUseModel) {
+        return callAlipayApi(koubeiTradeTicketTicketCodeUseModel, "koubei.trade.ticket.ticketcode.use");
+    }
+
+    /**
+     * 口碑凭证码同步
+     * TODO: model 未实现
+     *
+     * @param koubeiTradeTicketTicketCodeSyncModel
+     * @return
+     */
+    public static Map<String, Object> koubeiTradeTicketTicketCodeSync(KoubeiTradeTicketTicketCodeSyncModel koubeiTradeTicketTicketCodeSyncModel) {
+        return callAlipayApi(koubeiTradeTicketTicketCodeSyncModel, "koubei.trade.ticket.ticketcode.sync");
+    }
+
+    /**
+     * 创建云凤蝶空间
+     *
+     * @param alipayMarketingToolFengDieSpaceCreateModel
+     * @return
+     */
+    public static Map<String, Object> alipayMarketingToolFengDieSpaceCreate(AlipayMarketingToolFengDieSpaceCreateModel alipayMarketingToolFengDieSpaceCreateModel) {
+        return callAlipayApi(alipayMarketingToolFengDieSpaceCreateModel, "alipay.marketing.tool.fengdie.space.create");
+    }
+
+    /**
+     * 商圈门店以及门店下面优惠券商品信息
+     * TODO: model 未实现
+     *
+     * @param koubeiMarketingDataMallShopItemsQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataMallShopItemsQuery(KoubeiMarketingDataMallShopItemsQueryModel koubeiMarketingDataMallShopItemsQueryModel) {
+        return callAlipayApi(koubeiMarketingDataMallShopItemsQueryModel, "koubei.marketing.data.mall.shopitems.query");
+    }
+
+    /**
+     * 周边商圈查询
+     * TODO: model 未实现
+     *
+     * @param koubeiMarketingDataNearMallQueryModel
+     * @return
+     */
+    public static Map<String, Object> koubeiMarketingDataNearMallQuery(KoubeiMarketingDataNearMallQueryModel koubeiMarketingDataNearMallQueryModel) {
+        return callAlipayApi(koubeiMarketingDataNearMallQueryModel, "koubei.marketing.data.nearmall.query");
+    }
+
+    /**
+     * 营销规则分析
+     *
+     * @param alipayPromoRuleCenterRuleAnalyzeModel
+     * @return
+     */
+    public static Map<String, Object> alipayPromoRuleCenterRuleAnalyze(AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel) {
+        return callAlipayApi(alipayPromoRuleCenterRuleAnalyzeModel, "alipay.promorulecenter.rule.analyze");
     }
 }

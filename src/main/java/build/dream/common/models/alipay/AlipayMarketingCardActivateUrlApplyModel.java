@@ -1,35 +1,6 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.validation.constraints.NotNull;
-
-public class AlipayMarketingCardActivateUrlApplyModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
+public class AlipayMarketingCardActivateUrlApplyModel extends AlipayBasicModel {
     public static class Builder {
         private final AlipayMarketingCardActivateUrlApplyModel instance = new AlipayMarketingCardActivateUrlApplyModel();
 
