@@ -37,6 +37,21 @@ public class AlipayOpenPublicGroupDeleteModel extends AlipayBasicModel {
             return this;
         }
 
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
         public AlipayOpenPublicGroupDeleteModel build() {
             AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel = new AlipayOpenPublicGroupDeleteModel();
             alipayOpenPublicGroupDeleteModel.setTenantId(instance.getTenantId());

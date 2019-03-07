@@ -14,6 +14,21 @@ public class AlipayMarketingToolFengDieActivityCreateModel extends AlipayBasicMo
             return this;
         }
 
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
         public AlipayMarketingToolFengDieActivityCreateModel build() {
             AlipayMarketingToolFengDieActivityCreateModel alipayMarketingToolFengDieActivityCreateModel = new AlipayMarketingToolFengDieActivityCreateModel();
             alipayMarketingToolFengDieActivityCreateModel.setTenantId(instance.getTenantId());

@@ -32,6 +32,21 @@ public class AlipayMarketingVoucherTemplateDetailQueryModel extends AlipayBasicM
             return this;
         }
 
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
             return this;

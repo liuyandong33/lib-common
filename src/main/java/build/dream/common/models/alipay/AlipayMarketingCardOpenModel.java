@@ -1,22 +1,6 @@
 package build.dream.common.models.alipay;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.validation.constraints.NotNull;
-
 public class AlipayMarketingCardOpenModel extends AlipayBasicModel {
-    @NotNull
-    @JsonIgnore
-    private String authToken;
-
-    public String getAuthToken() {
-        return authToken;
-    }
-
-    public void setAuthToken(String authToken) {
-        this.authToken = authToken;
-    }
-
     public static class Builder {
         private final AlipayMarketingCardOpenModel instance = new AlipayMarketingCardOpenModel();
 
@@ -27,6 +11,16 @@ public class AlipayMarketingCardOpenModel extends AlipayBasicModel {
 
         public Builder branchId(String branchId) {
             instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
             return this;
         }
 

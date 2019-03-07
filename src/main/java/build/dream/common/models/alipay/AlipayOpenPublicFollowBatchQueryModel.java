@@ -29,6 +29,21 @@ public class AlipayOpenPublicFollowBatchQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
         public Builder nextUserId(String nextUserId) {
             instance.setNextUserId(nextUserId);
             return this;

@@ -205,9 +205,13 @@ public class AlipayUtils {
         alipayBasicModel.validateAndThrow();
         String tenantId = alipayBasicModel.getTenantId();
         String branchId = alipayBasicModel.getBranchId();
+        String returnUrl = alipayBasicModel.getReturnUrl();
+        String notifyUrl = alipayBasicModel.getNotifyUrl();
+        String authToken = alipayBasicModel.getAuthToken();
+
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到授权信息！");
-        return callAlipayApi(alipayAuthorizerInfo, method, JacksonUtils.writeValueAsString(alipayBasicModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayAuthorizerInfo, method, returnUrl, notifyUrl, authToken, JacksonUtils.writeValueAsString(alipayBasicModel, JsonInclude.Include.NON_NULL));
     }
 
 
