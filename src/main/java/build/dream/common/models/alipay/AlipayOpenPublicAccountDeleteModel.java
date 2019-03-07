@@ -70,6 +70,9 @@ public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
             AlipayOpenPublicAccountDeleteModel alipayOpenPublicAccountDeleteModel = new AlipayOpenPublicAccountDeleteModel();
             alipayOpenPublicAccountDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAccountDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAccountDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAccountDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAccountDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicAccountDeleteModel.setAgreementId(instance.getAgreementId());
             alipayOpenPublicAccountDeleteModel.setBindAccountNo(instance.getBindAccountNo());
             return alipayOpenPublicAccountDeleteModel;

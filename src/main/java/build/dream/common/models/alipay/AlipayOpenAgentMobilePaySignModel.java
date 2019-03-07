@@ -33,6 +33,9 @@ public class AlipayOpenAgentMobilePaySignModel extends AlipayBasicModel {
             AlipayOpenAgentMobilePaySignModel alipayOpenAgentMobilePaySignModel = new AlipayOpenAgentMobilePaySignModel();
             alipayOpenAgentMobilePaySignModel.setTenantId(instance.getTenantId());
             alipayOpenAgentMobilePaySignModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentMobilePaySignModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentMobilePaySignModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentMobilePaySignModel.setAuthToken(instance.getAuthToken());
             return alipayOpenAgentMobilePaySignModel;
         }
     }

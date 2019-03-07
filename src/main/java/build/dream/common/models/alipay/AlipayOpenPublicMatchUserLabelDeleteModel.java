@@ -33,6 +33,9 @@ public class AlipayOpenPublicMatchUserLabelDeleteModel extends AlipayBasicModel 
             AlipayOpenPublicMatchUserLabelDeleteModel alipayOpenPublicMatchUserLabelDeleteModel = new AlipayOpenPublicMatchUserLabelDeleteModel();
             alipayOpenPublicMatchUserLabelDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMatchUserLabelDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMatchUserLabelDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMatchUserLabelDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMatchUserLabelDeleteModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicMatchUserLabelDeleteModel;
         }
     }

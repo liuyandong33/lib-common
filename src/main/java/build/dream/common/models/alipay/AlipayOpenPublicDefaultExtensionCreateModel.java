@@ -33,6 +33,9 @@ public class AlipayOpenPublicDefaultExtensionCreateModel extends AlipayBasicMode
             AlipayOpenPublicDefaultExtensionCreateModel alipayOpenPublicDefaultExtensionCreateModel = new AlipayOpenPublicDefaultExtensionCreateModel();
             alipayOpenPublicDefaultExtensionCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicDefaultExtensionCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicDefaultExtensionCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicDefaultExtensionCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicDefaultExtensionCreateModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicDefaultExtensionCreateModel;
         }
     }

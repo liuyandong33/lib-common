@@ -141,6 +141,9 @@ public class AlipayOpenPublicMessageCustomSendModel extends AlipayBasicModel {
             AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel = new AlipayOpenPublicMessageCustomSendModel();
             alipayOpenPublicMessageCustomSendModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMessageCustomSendModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageCustomSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageCustomSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageCustomSendModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicMessageCustomSendModel.setToUserId(instance.getToUserId());
             alipayOpenPublicMessageCustomSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageCustomSendModel.setArticles(instance.getArticles());

@@ -104,6 +104,9 @@ public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
             AlipayOpenPublicMessageTotalSendModel alipayOpenPublicMessageTotalSendModel = new AlipayOpenPublicMessageTotalSendModel();
             alipayOpenPublicMessageTotalSendModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMessageTotalSendModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageTotalSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageTotalSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageTotalSendModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicMessageTotalSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageTotalSendModel.setArticles(instance.getArticles());
             alipayOpenPublicMessageTotalSendModel.setText(instance.getText());

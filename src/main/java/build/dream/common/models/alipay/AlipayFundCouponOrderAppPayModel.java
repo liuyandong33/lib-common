@@ -147,6 +147,9 @@ public class AlipayFundCouponOrderAppPayModel extends AlipayBasicModel {
             AlipayFundCouponOrderAppPayModel alipayFundCouponOrderAppPayModel = new AlipayFundCouponOrderAppPayModel();
             alipayFundCouponOrderAppPayModel.setTenantId(instance.getTenantId());
             alipayFundCouponOrderAppPayModel.setBranchId(instance.getBranchId());
+            alipayFundCouponOrderAppPayModel.setReturnUrl(instance.getReturnUrl());
+            alipayFundCouponOrderAppPayModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayFundCouponOrderAppPayModel.setAuthToken(instance.getAuthToken());
             alipayFundCouponOrderAppPayModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOrderAppPayModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderAppPayModel.setOrderTitle(instance.getOrderTitle());

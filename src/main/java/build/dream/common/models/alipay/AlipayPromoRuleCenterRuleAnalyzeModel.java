@@ -87,6 +87,9 @@ public class AlipayPromoRuleCenterRuleAnalyzeModel extends AlipayBasicModel {
             AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel = new AlipayPromoRuleCenterRuleAnalyzeModel();
             alipayPromoRuleCenterRuleAnalyzeModel.setTenantId(instance.getTenantId());
             alipayPromoRuleCenterRuleAnalyzeModel.setBranchId(instance.getBranchId());
+            alipayPromoRuleCenterRuleAnalyzeModel.setReturnUrl(instance.getReturnUrl());
+            alipayPromoRuleCenterRuleAnalyzeModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayPromoRuleCenterRuleAnalyzeModel.setAuthToken(instance.getAuthToken());
             alipayPromoRuleCenterRuleAnalyzeModel.setUserId(instance.getUserId());
             alipayPromoRuleCenterRuleAnalyzeModel.setRuleUuid(instance.getRuleUuid());
             alipayPromoRuleCenterRuleAnalyzeModel.setBizId(instance.getBizId());

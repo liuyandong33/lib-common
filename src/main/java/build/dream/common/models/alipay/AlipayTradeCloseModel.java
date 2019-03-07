@@ -91,6 +91,9 @@ public class AlipayTradeCloseModel extends AlipayBasicModel {
             AlipayTradeCloseModel alipayTradeCloseModel = new AlipayTradeCloseModel();
             alipayTradeCloseModel.setTenantId(instance.getTenantId());
             alipayTradeCloseModel.setBranchId(instance.getBranchId());
+            alipayTradeCloseModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeCloseModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeCloseModel.setAuthToken(instance.getAuthToken());
             alipayTradeCloseModel.setTradeNo(instance.getTradeNo());
             alipayTradeCloseModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeCloseModel.setOperatorId(instance.getOperatorId());

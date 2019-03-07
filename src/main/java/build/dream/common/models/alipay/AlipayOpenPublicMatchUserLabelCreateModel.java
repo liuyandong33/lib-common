@@ -103,6 +103,9 @@ public class AlipayOpenPublicMatchUserLabelCreateModel extends AlipayBasicModel 
             AlipayOpenPublicMatchUserLabelCreateModel alipayOpenPublicMatchUserLabelCreateModel = new AlipayOpenPublicMatchUserLabelCreateModel();
             alipayOpenPublicMatchUserLabelCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMatchUserLabelCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMatchUserLabelCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMatchUserLabelCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMatchUserLabelCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicMatchUserLabelCreateModel.setMatchers(instance.getMatchers());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelId(instance.getLabelId());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelValue(instance.getLabelValue());

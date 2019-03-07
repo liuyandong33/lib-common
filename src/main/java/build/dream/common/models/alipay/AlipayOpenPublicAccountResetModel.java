@@ -144,6 +144,9 @@ public class AlipayOpenPublicAccountResetModel extends AlipayBasicModel {
             AlipayOpenPublicAccountResetModel alipayOpenPublicAccountResetModel = new AlipayOpenPublicAccountResetModel();
             alipayOpenPublicAccountResetModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAccountResetModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAccountResetModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAccountResetModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAccountResetModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicAccountResetModel.setBindAccountNo(instance.getBindAccountNo());
             alipayOpenPublicAccountResetModel.setDisplayName(instance.getDisplayName());
             alipayOpenPublicAccountResetModel.setAgreementId(instance.getAgreementId());

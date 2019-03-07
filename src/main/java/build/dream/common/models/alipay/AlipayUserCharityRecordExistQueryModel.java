@@ -125,6 +125,9 @@ public class AlipayUserCharityRecordExistQueryModel extends AlipayBasicModel {
             AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel = new AlipayUserCharityRecordExistQueryModel();
             alipayUserCharityRecordExistQueryModel.setTenantId(instance.getTenantId());
             alipayUserCharityRecordExistQueryModel.setBranchId(instance.getBranchId());
+            alipayUserCharityRecordExistQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayUserCharityRecordExistQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayUserCharityRecordExistQueryModel.setAuthToken(instance.getAuthToken());
             alipayUserCharityRecordExistQueryModel.setPartnerId(instance.getPartnerId());
             alipayUserCharityRecordExistQueryModel.setUserId(instance.getUserId());
             alipayUserCharityRecordExistQueryModel.setBizType(instance.getBizType());

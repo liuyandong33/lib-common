@@ -54,6 +54,9 @@ public class AlipayMarketingUseRulePidQueryModel extends AlipayBasicModel {
             AlipayMarketingUseRulePidQueryModel alipayMarketingUseRulePidQueryModel = new AlipayMarketingUseRulePidQueryModel();
             alipayMarketingUseRulePidQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingUseRulePidQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingUseRulePidQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingUseRulePidQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingUseRulePidQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingUseRulePidQueryModel.setPid(instance.getPid());
             return alipayMarketingUseRulePidQueryModel;
         }

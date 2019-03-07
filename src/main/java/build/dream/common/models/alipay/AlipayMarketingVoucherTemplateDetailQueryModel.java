@@ -56,6 +56,9 @@ public class AlipayMarketingVoucherTemplateDetailQueryModel extends AlipayBasicM
             AlipayMarketingVoucherTemplateDetailQueryModel alipayMarketingVoucherTemplateDetailQueryModel = new AlipayMarketingVoucherTemplateDetailQueryModel();
             alipayMarketingVoucherTemplateDetailQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingVoucherTemplateDetailQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingVoucherTemplateDetailQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingVoucherTemplateDetailQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingVoucherTemplateDetailQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingVoucherTemplateDetailQueryModel.setTemplateId(instance.getTemplateId());
             return alipayMarketingVoucherTemplateDetailQueryModel;
         }

@@ -33,6 +33,9 @@ public class AlipayMarketingCashVoucherTemplateCreateModel extends AlipayBasicMo
             AlipayMarketingCashVoucherTemplateCreateModel alipayMarketingCashVoucherTemplateCreateModel = new AlipayMarketingCashVoucherTemplateCreateModel();
             alipayMarketingCashVoucherTemplateCreateModel.setTenantId(instance.getTenantId());
             alipayMarketingCashVoucherTemplateCreateModel.setBranchId(instance.getBranchId());
+            alipayMarketingCashVoucherTemplateCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCashVoucherTemplateCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCashVoucherTemplateCreateModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCashVoucherTemplateCreateModel;
         }
     }

@@ -33,6 +33,9 @@ public class AlipayOpenPublicAdvertBatchQueryModel extends AlipayBasicModel {
             AlipayOpenPublicAdvertBatchQueryModel alipayOpenPublicAdvertBatchQueryModel = new AlipayOpenPublicAdvertBatchQueryModel();
             alipayOpenPublicAdvertBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAdvertBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAdvertBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAdvertBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAdvertBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicAdvertBatchQueryModel;
         }
     }

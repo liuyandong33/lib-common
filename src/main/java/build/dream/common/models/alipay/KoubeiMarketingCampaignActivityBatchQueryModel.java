@@ -127,6 +127,9 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicM
             KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel = new KoubeiMarketingCampaignActivityBatchQueryModel();
             koubeiMarketingCampaignActivityBatchQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingCampaignActivityBatchQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingCampaignActivityBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingCampaignActivityBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingCampaignActivityBatchQueryModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingCampaignActivityBatchQueryModel.setQueryCriterias(instance.getQueryCriterias());
             koubeiMarketingCampaignActivityBatchQueryModel.setPageNumber(instance.getPageNumber());
             koubeiMarketingCampaignActivityBatchQueryModel.setOperatorId(instance.getOperatorId());

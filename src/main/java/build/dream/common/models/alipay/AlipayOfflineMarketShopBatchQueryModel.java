@@ -55,6 +55,9 @@ public class AlipayOfflineMarketShopBatchQueryModel extends AlipayBasicModel {
             AlipayOfflineMarketShopBatchQueryModel alipayOfflineMarketShopBatchQueryModel = new AlipayOfflineMarketShopBatchQueryModel();
             alipayOfflineMarketShopBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOfflineMarketShopBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOfflineMarketShopBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOfflineMarketShopBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOfflineMarketShopBatchQueryModel.setAuthToken(instance.getAuthToken());
             alipayOfflineMarketShopBatchQueryModel.setPageNo(instance.getPageNo());
             return alipayOfflineMarketShopBatchQueryModel;
         }

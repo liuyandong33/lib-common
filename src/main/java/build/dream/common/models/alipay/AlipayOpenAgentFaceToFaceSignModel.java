@@ -33,6 +33,9 @@ public class AlipayOpenAgentFaceToFaceSignModel extends AlipayBasicModel {
             AlipayOpenAgentFaceToFaceSignModel alipayOpenAgentFaceToFaceSignModel = new AlipayOpenAgentFaceToFaceSignModel();
             alipayOpenAgentFaceToFaceSignModel.setTenantId(instance.getTenantId());
             alipayOpenAgentFaceToFaceSignModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentFaceToFaceSignModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentFaceToFaceSignModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentFaceToFaceSignModel.setAuthToken(instance.getAuthToken());
             return alipayOpenAgentFaceToFaceSignModel;
         }
     }

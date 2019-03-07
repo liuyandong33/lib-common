@@ -111,6 +111,9 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
             AlipayTradeOrderSettleModel alipayTradeOrderSettleModel = new AlipayTradeOrderSettleModel();
             alipayTradeOrderSettleModel.setTenantId(instance.getTenantId());
             alipayTradeOrderSettleModel.setBranchId(instance.getBranchId());
+            alipayTradeOrderSettleModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeOrderSettleModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeOrderSettleModel.setAuthToken(instance.getAuthToken());
             alipayTradeOrderSettleModel.setOutRequestNo(instance.getOutRequestNo());
             alipayTradeOrderSettleModel.setTradeNo(instance.getTradeNo());
             alipayTradeOrderSettleModel.setRoyaltyParameters(instance.getRoyaltyParameters());

@@ -56,6 +56,9 @@ public class AlipayOpenPublicUserFollowQueryModel extends AlipayBasicModel {
             AlipayOpenPublicUserFollowQueryModel alipayOpenPublicUserFollowQueryModel = new AlipayOpenPublicUserFollowQueryModel();
             alipayOpenPublicUserFollowQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicUserFollowQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicUserFollowQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicUserFollowQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicUserFollowQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicUserFollowQueryModel.setUserId(instance.getUserId());
             return alipayOpenPublicUserFollowQueryModel;
         }

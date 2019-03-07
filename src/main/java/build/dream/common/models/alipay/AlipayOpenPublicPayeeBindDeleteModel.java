@@ -72,6 +72,9 @@ public class AlipayOpenPublicPayeeBindDeleteModel extends AlipayBasicModel {
             AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel = new AlipayOpenPublicPayeeBindDeleteModel();
             alipayOpenPublicPayeeBindDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicPayeeBindDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicPayeeBindDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicPayeeBindDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicPayeeBindDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicPayeeBindDeleteModel.setLoginId(instance.getLoginId());
             alipayOpenPublicPayeeBindDeleteModel.setPid(instance.getPid());
             return alipayOpenPublicPayeeBindDeleteModel;

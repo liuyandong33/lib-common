@@ -91,6 +91,9 @@ public class KoubeiMarketingDataMessageDeliverModel extends AlipayBasicModel {
             KoubeiMarketingDataMessageDeliverModel koubeiMarketingDataMessageDeliverModel = new KoubeiMarketingDataMessageDeliverModel();
             koubeiMarketingDataMessageDeliverModel.setTenantId(instance.getTenantId());
             koubeiMarketingDataMessageDeliverModel.setBranchId(instance.getBranchId());
+            koubeiMarketingDataMessageDeliverModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingDataMessageDeliverModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingDataMessageDeliverModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingDataMessageDeliverModel.setMsgType(instance.getMsgType());
             koubeiMarketingDataMessageDeliverModel.setContent(instance.getContent());
             koubeiMarketingDataMessageDeliverModel.setExtInfo(instance.getExtInfo());

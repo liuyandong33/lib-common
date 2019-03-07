@@ -33,6 +33,9 @@ public class AlipayOpenPublicGroupCrowdQueryModel extends AlipayBasicModel {
             AlipayOpenPublicGroupCrowdQueryModel alipayOpenPublicGroupCrowdQueryModel = new AlipayOpenPublicGroupCrowdQueryModel();
             alipayOpenPublicGroupCrowdQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicGroupCrowdQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicGroupCrowdQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicGroupCrowdQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicGroupCrowdQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicGroupCrowdQueryModel;
         }
     }

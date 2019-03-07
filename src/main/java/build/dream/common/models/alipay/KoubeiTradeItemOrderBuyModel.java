@@ -33,6 +33,9 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
             KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel = new KoubeiTradeItemOrderBuyModel();
             koubeiTradeItemOrderBuyModel.setTenantId(instance.getTenantId());
             koubeiTradeItemOrderBuyModel.setBranchId(instance.getBranchId());
+            koubeiTradeItemOrderBuyModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeItemOrderBuyModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeItemOrderBuyModel.setAuthToken(instance.getAuthToken());
             return koubeiTradeItemOrderBuyModel;
         }
     }

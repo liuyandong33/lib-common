@@ -128,6 +128,9 @@ public class AlipayMarketingCardDeleteModel extends AlipayBasicModel {
             AlipayMarketingCardDeleteModel alipayMarketingCardDeleteModel = new AlipayMarketingCardDeleteModel();
             alipayMarketingCardDeleteModel.setTenantId(instance.getTenantId());
             alipayMarketingCardDeleteModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardDeleteModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCardDeleteModel.setOutSerialNo(instance.getOutSerialNo());
             alipayMarketingCardDeleteModel.setTargetCardNo(instance.getTargetCardNo());
             alipayMarketingCardDeleteModel.setTargetCardNoType(instance.getTargetCardNoType());

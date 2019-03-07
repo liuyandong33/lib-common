@@ -132,6 +132,9 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
             AlipayOpenAgentOfflinePaymentSignModel alipayOpenAgentOfflinePaymentSignModel = new AlipayOpenAgentOfflinePaymentSignModel();
             alipayOpenAgentOfflinePaymentSignModel.setTenantId(instance.getTenantId());
             alipayOpenAgentOfflinePaymentSignModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentOfflinePaymentSignModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentOfflinePaymentSignModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentOfflinePaymentSignModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentOfflinePaymentSignModel.setBatchNo(instance.getBatchNo());
             alipayOpenAgentOfflinePaymentSignModel.setRate(instance.getRate());
             alipayOpenAgentOfflinePaymentSignModel.setBusinessLicenseNo(instance.getBusinessLicenseNo());

@@ -110,6 +110,9 @@ public class AlipayOpenPublicTemplateMessageIndustryModifyModel extends AlipayBa
             AlipayOpenPublicTemplateMessageIndustryModifyModel alipayOpenPublicTemplateMessageIndustryModifyModel = new AlipayOpenPublicTemplateMessageIndustryModifyModel();
             alipayOpenPublicTemplateMessageIndustryModifyModel.setTenantId(instance.getTenantId());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicTemplateMessageIndustryModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicTemplateMessageIndustryModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicTemplateMessageIndustryModifyModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setPrimaryIndustryName(instance.getPrimaryIndustryName());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setPrimaryIndustryCode(instance.getPrimaryIndustryCode());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setSecondaryIndustryCode(instance.getSecondaryIndustryCode());

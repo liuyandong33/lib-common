@@ -111,6 +111,9 @@ public class AlipayMarketingCampaignCashTriggerModel extends AlipayBasicModel {
             AlipayMarketingCampaignCashTriggerModel alipayMarketingCampaignCashTriggerModel = new AlipayMarketingCampaignCashTriggerModel();
             alipayMarketingCampaignCashTriggerModel.setTenantId(instance.getTenantId());
             alipayMarketingCampaignCashTriggerModel.setBranchId(instance.getBranchId());
+            alipayMarketingCampaignCashTriggerModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCampaignCashTriggerModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCampaignCashTriggerModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCampaignCashTriggerModel.setUserId(instance.getUserId());
             alipayMarketingCampaignCashTriggerModel.setCrowdNo(instance.getCrowdNo());
             alipayMarketingCampaignCashTriggerModel.setOrderPrice(instance.getOrderPrice());

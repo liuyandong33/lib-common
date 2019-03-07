@@ -74,6 +74,9 @@ public class KoubeiMarketingToolPointsQueryModel extends AlipayBasicModel {
             KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel = new KoubeiMarketingToolPointsQueryModel();
             koubeiMarketingToolPointsQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingToolPointsQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingToolPointsQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingToolPointsQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingToolPointsQueryModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingToolPointsQueryModel.setActivityAccount(instance.getActivityAccount());
             koubeiMarketingToolPointsQueryModel.setUserId(instance.getUserId());
             return koubeiMarketingToolPointsQueryModel;

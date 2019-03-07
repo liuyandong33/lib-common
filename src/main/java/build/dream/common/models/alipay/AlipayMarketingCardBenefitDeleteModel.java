@@ -33,6 +33,7 @@ public class AlipayMarketingCardBenefitDeleteModel extends AlipayBasicModel {
             AlipayMarketingCardBenefitDeleteModel alipayMarketingCardBenefitDeleteModel = new AlipayMarketingCardBenefitDeleteModel();
             alipayMarketingCardBenefitDeleteModel.setTenantId(instance.getTenantId());
             alipayMarketingCardBenefitDeleteModel.setBranchId(instance.getBranchId());
+
             return alipayMarketingCardBenefitDeleteModel;
         }
     }

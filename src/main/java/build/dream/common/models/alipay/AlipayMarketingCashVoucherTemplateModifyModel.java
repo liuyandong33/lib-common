@@ -142,6 +142,9 @@ public class AlipayMarketingCashVoucherTemplateModifyModel extends AlipayBasicMo
             AlipayMarketingCashVoucherTemplateModifyModel alipayMarketingCashVoucherTemplateModifyModel = new AlipayMarketingCashVoucherTemplateModifyModel();
             alipayMarketingCashVoucherTemplateModifyModel.setTenantId(instance.getTenantId());
             alipayMarketingCashVoucherTemplateModifyModel.setBranchId(instance.getBranchId());
+            alipayMarketingCashVoucherTemplateModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCashVoucherTemplateModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCashVoucherTemplateModifyModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCashVoucherTemplateModifyModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCashVoucherTemplateModifyModel.setSlogan(instance.getSlogan());
             alipayMarketingCashVoucherTemplateModifyModel.setPublishStartTime(instance.getPublishStartTime());

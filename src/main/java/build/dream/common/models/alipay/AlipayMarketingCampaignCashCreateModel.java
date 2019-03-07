@@ -33,6 +33,9 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
             AlipayMarketingCampaignCashCreateModel alipayMarketingCampaignCashCreateModel = new AlipayMarketingCampaignCashCreateModel();
             alipayMarketingCampaignCashCreateModel.setTenantId(instance.getTenantId());
             alipayMarketingCampaignCashCreateModel.setBranchId(instance.getBranchId());
+            alipayMarketingCampaignCashCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCampaignCashCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCampaignCashCreateModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCampaignCashCreateModel;
         }
     }

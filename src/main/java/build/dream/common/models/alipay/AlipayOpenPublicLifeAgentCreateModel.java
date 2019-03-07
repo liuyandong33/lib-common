@@ -33,6 +33,9 @@ public class AlipayOpenPublicLifeAgentCreateModel extends AlipayBasicModel {
             AlipayOpenPublicLifeAgentCreateModel alipayOpenPublicLifeAgentCreateModel = new AlipayOpenPublicLifeAgentCreateModel();
             alipayOpenPublicLifeAgentCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeAgentCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeAgentCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeAgentCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeAgentCreateModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicLifeAgentCreateModel;
         }
     }

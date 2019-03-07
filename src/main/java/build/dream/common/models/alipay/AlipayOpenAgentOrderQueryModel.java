@@ -56,6 +56,9 @@ public class AlipayOpenAgentOrderQueryModel extends AlipayBasicModel {
             AlipayOpenAgentOrderQueryModel alipayOpenAgentOrderQueryModel = new AlipayOpenAgentOrderQueryModel();
             alipayOpenAgentOrderQueryModel.setTenantId(instance.getTenantId());
             alipayOpenAgentOrderQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentOrderQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentOrderQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentOrderQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentOrderQueryModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentOrderQueryModel;
         }

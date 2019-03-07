@@ -33,6 +33,9 @@ public class AlipayOpenPublicLifeDebarkApplyModel extends AlipayBasicModel {
             AlipayOpenPublicLifeDebarkApplyModel alipayOpenPublicLifeDebarkApplyModel = new AlipayOpenPublicLifeDebarkApplyModel();
             alipayOpenPublicLifeDebarkApplyModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeDebarkApplyModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeDebarkApplyModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeDebarkApplyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeDebarkApplyModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicLifeDebarkApplyModel;
         }
     }

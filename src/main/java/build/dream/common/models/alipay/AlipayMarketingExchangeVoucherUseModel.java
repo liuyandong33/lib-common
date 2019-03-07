@@ -90,6 +90,9 @@ public class AlipayMarketingExchangeVoucherUseModel extends AlipayBasicModel {
             AlipayMarketingExchangeVoucherUseModel alipayMarketingExchangeVoucherUseModel = new AlipayMarketingExchangeVoucherUseModel();
             alipayMarketingExchangeVoucherUseModel.setTenantId(instance.getTenantId());
             alipayMarketingExchangeVoucherUseModel.setBranchId(instance.getBranchId());
+            alipayMarketingExchangeVoucherUseModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingExchangeVoucherUseModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingExchangeVoucherUseModel.setAuthToken(instance.getAuthToken());
             alipayMarketingExchangeVoucherUseModel.setVoucherId(instance.getVoucherId());
             alipayMarketingExchangeVoucherUseModel.setUserId(instance.getUserId());
             alipayMarketingExchangeVoucherUseModel.setOutBizNo(instance.getOutBizNo());

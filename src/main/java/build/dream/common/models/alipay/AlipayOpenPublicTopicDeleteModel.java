@@ -56,6 +56,9 @@ public class AlipayOpenPublicTopicDeleteModel extends AlipayBasicModel {
             AlipayOpenPublicTopicDeleteModel alipayOpenPublicTopicDeleteModel = new AlipayOpenPublicTopicDeleteModel();
             alipayOpenPublicTopicDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicTopicDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicTopicDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicTopicDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicTopicDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicTopicDeleteModel.setTopicId(instance.getTopicId());
             return alipayOpenPublicTopicDeleteModel;
         }

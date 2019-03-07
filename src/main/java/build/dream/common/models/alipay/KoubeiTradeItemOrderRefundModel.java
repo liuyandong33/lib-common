@@ -33,6 +33,9 @@ public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
             KoubeiTradeItemOrderRefundModel koubeiTradeItemOrderRefundModel = new KoubeiTradeItemOrderRefundModel();
             koubeiTradeItemOrderRefundModel.setTenantId(instance.getTenantId());
             koubeiTradeItemOrderRefundModel.setBranchId(instance.getBranchId());
+            koubeiTradeItemOrderRefundModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeItemOrderRefundModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeItemOrderRefundModel.setAuthToken(instance.getAuthToken());
             return koubeiTradeItemOrderRefundModel;
         }
     }

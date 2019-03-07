@@ -33,6 +33,9 @@ public class AlipayOpenPublicPersonalizedExtensionBatchQueryModel extends Alipay
             AlipayOpenPublicPersonalizedExtensionBatchQueryModel alipayOpenPublicPersonalizedExtensionBatchQueryModel = new AlipayOpenPublicPersonalizedExtensionBatchQueryModel();
             alipayOpenPublicPersonalizedExtensionBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicPersonalizedExtensionBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicPersonalizedExtensionBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicPersonalizedExtensionBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicPersonalizedExtensionBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicPersonalizedExtensionBatchQueryModel;
         }
     }

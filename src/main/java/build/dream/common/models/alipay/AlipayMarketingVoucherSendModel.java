@@ -161,6 +161,9 @@ public class AlipayMarketingVoucherSendModel extends AlipayBasicModel {
             AlipayMarketingVoucherSendModel alipayMarketingVoucherSendModel = new AlipayMarketingVoucherSendModel();
             alipayMarketingVoucherSendModel.setTenantId(instance.getTenantId());
             alipayMarketingVoucherSendModel.setBranchId(instance.getBranchId());
+            alipayMarketingVoucherSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingVoucherSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingVoucherSendModel.setAuthToken(instance.getAuthToken());
             alipayMarketingVoucherSendModel.setTemplateId(instance.getTemplateId());
             alipayMarketingVoucherSendModel.setLoginId(instance.getLoginId());
             alipayMarketingVoucherSendModel.setTaobaoNick(instance.getTaobaoNick());

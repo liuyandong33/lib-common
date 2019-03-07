@@ -57,6 +57,9 @@ public class AlipayMarketingVoucherTemplateDeleteModel extends AlipayBasicModel 
             alipayMarketingVoucherTemplateDeleteModel.setTenantId(instance.getTenantId());
             alipayMarketingVoucherTemplateDeleteModel.setBranchId(instance.getBranchId());
             alipayMarketingVoucherTemplateDeleteModel.setTemplateId(instance.getTemplateId());
+            alipayMarketingVoucherTemplateDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingVoucherTemplateDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingVoucherTemplateDeleteModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingVoucherTemplateDeleteModel;
         }
     }

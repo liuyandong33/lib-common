@@ -51,6 +51,9 @@ public class AlipayOpenPublicAdvertDeleteModel extends AlipayBasicModel {
             AlipayOpenPublicAdvertDeleteModel alipayOpenPublicAdvertDeleteModel = new AlipayOpenPublicAdvertDeleteModel();
             alipayOpenPublicAdvertDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAdvertDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAdvertDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAdvertDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAdvertDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicAdvertDeleteModel.setAdvertId(instance.getAdvertId());
             return alipayOpenPublicAdvertDeleteModel;
         }

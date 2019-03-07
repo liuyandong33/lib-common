@@ -91,6 +91,9 @@ public class KoubeiMarketingCampaignActivityQueryModel extends AlipayBasicModel 
             KoubeiMarketingCampaignActivityQueryModel koubeiMarketingCampaignActivityQueryModel = new KoubeiMarketingCampaignActivityQueryModel();
             koubeiMarketingCampaignActivityQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingCampaignActivityQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingCampaignActivityQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingCampaignActivityQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingCampaignActivityQueryModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingCampaignActivityQueryModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignActivityQueryModel.setOperatorId(instance.getOperatorId());
             koubeiMarketingCampaignActivityQueryModel.setOperatorType(instance.getOperatorType());

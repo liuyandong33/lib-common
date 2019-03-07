@@ -94,6 +94,9 @@ public class AlipayMarketingCampaignCashListQueryModel extends AlipayBasicModel 
             AlipayMarketingCampaignCashListQueryModel alipayMarketingCampaignCashListQueryModel = new AlipayMarketingCampaignCashListQueryModel();
             alipayMarketingCampaignCashListQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCampaignCashListQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCampaignCashListQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCampaignCashListQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCampaignCashListQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCampaignCashListQueryModel.setCampStatus(instance.getCampStatus());
             alipayMarketingCampaignCashListQueryModel.setPageSize(instance.getPageSize());
             alipayMarketingCampaignCashListQueryModel.setPageIndex(instance.getPageIndex());

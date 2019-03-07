@@ -62,6 +62,9 @@ public class AlipayOpenPublicShortLinkCreateModel extends AlipayBasicModel {
             AlipayOpenPublicShortLinkCreateModel alipayOpenPublicShortLinkCreateModel = new AlipayOpenPublicShortLinkCreateModel();
             alipayOpenPublicShortLinkCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicShortLinkCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicShortLinkCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicShortLinkCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicShortLinkCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicShortLinkCreateModel.setSceneId(instance.getSceneId());
             alipayOpenPublicShortLinkCreateModel.setRemark(instance.getRemark());
             return alipayOpenPublicShortLinkCreateModel;

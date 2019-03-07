@@ -107,6 +107,9 @@ public class AlipayTradeFastPayRefundQueryModel extends AlipayBasicModel {
             AlipayTradeFastPayRefundQueryModel alipayTradeFastPayRefundQueryModel = new AlipayTradeFastPayRefundQueryModel();
             alipayTradeFastPayRefundQueryModel.setTenantId(instance.getTenantId());
             alipayTradeFastPayRefundQueryModel.setBranchId(instance.getBranchId());
+            alipayTradeFastPayRefundQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeFastPayRefundQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeFastPayRefundQueryModel.setAuthToken(instance.getAuthToken());
             alipayTradeFastPayRefundQueryModel.setTradeNo(instance.getTradeNo());
             alipayTradeFastPayRefundQueryModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeFastPayRefundQueryModel.setOutRequestNo(instance.getOutRequestNo());

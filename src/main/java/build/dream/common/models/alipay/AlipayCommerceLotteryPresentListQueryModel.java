@@ -112,6 +112,9 @@ public class AlipayCommerceLotteryPresentListQueryModel extends AlipayBasicModel
             AlipayCommerceLotteryPresentListQueryModel alipayCommerceLotteryPresentListQueryModel = new AlipayCommerceLotteryPresentListQueryModel();
             alipayCommerceLotteryPresentListQueryModel.setTenantId(instance.getTenantId());
             alipayCommerceLotteryPresentListQueryModel.setBranchId(instance.getBranchId());
+            alipayCommerceLotteryPresentListQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayCommerceLotteryPresentListQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayCommerceLotteryPresentListQueryModel.setAuthToken(instance.getAuthToken());
             alipayCommerceLotteryPresentListQueryModel.setGmtStart(instance.getGmtStart());
             alipayCommerceLotteryPresentListQueryModel.setGmtEnd(instance.getGmtEnd());
             alipayCommerceLotteryPresentListQueryModel.setPageNo(instance.getPageNo());

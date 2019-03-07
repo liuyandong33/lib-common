@@ -33,6 +33,9 @@ public class AlipayOpenPublicMessageContentCreateModel extends AlipayBasicModel 
             AlipayOpenPublicMessageContentCreateModel alipayOpenPublicMessageContentCreateModel = new AlipayOpenPublicMessageContentCreateModel();
             alipayOpenPublicMessageContentCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMessageContentCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageContentCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageContentCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageContentCreateModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicMessageContentCreateModel;
         }
     }

@@ -33,6 +33,9 @@ public class AlipayMarketingCardQueryModel extends AlipayBasicModel {
             AlipayMarketingCardQueryModel alipayMarketingCardQueryModel = new AlipayMarketingCardQueryModel();
             alipayMarketingCardQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCardQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardQueryModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardQueryModel;
         }
     }

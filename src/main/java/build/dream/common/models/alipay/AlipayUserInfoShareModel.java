@@ -33,6 +33,9 @@ public class AlipayUserInfoShareModel extends AlipayBasicModel {
             AlipayUserInfoShareModel alipayUserInfoShareModel = new AlipayUserInfoShareModel();
             alipayUserInfoShareModel.setTenantId(instance.getTenantId());
             alipayUserInfoShareModel.setBranchId(instance.getBranchId());
+            alipayUserInfoShareModel.setReturnUrl(instance.getReturnUrl());
+            alipayUserInfoShareModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayUserInfoShareModel.setAuthToken(instance.getAuthToken());
             return alipayUserInfoShareModel;
         }
     }

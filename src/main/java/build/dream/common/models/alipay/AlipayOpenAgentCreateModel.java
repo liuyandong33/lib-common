@@ -85,6 +85,9 @@ public class AlipayOpenAgentCreateModel extends AlipayBasicModel {
             AlipayOpenAgentCreateModel alipayOpenAgentCreateModel = new AlipayOpenAgentCreateModel();
             alipayOpenAgentCreateModel.setTenantId(instance.getTenantId());
             alipayOpenAgentCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentCreateModel.setContactInfo(instance.getContactInfo());
             alipayOpenAgentCreateModel.setOrderTicket(instance.getOrderTicket());
             return alipayOpenAgentCreateModel;

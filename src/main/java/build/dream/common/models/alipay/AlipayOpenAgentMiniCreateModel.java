@@ -33,6 +33,9 @@ public class AlipayOpenAgentMiniCreateModel extends AlipayBasicModel {
             AlipayOpenAgentMiniCreateModel alipayOpenAgentMiniCreateModel = new AlipayOpenAgentMiniCreateModel();
             alipayOpenAgentMiniCreateModel.setTenantId(instance.getTenantId());
             alipayOpenAgentMiniCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentMiniCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentMiniCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentMiniCreateModel.setAuthToken(instance.getAuthToken());
             return alipayOpenAgentMiniCreateModel;
         }
     }

@@ -30,10 +30,13 @@ public class AlipayOpenPublicMessageSingleSendModel extends AlipayBasicModel {
         }
 
         public AlipayOpenPublicMessageSingleSendModel build() {
-            AlipayOpenPublicMessageSingleSendModel copy = new AlipayOpenPublicMessageSingleSendModel();
-            copy.setTenantId(instance.getTenantId());
-            copy.setBranchId(instance.getBranchId());
-            return copy;
+            AlipayOpenPublicMessageSingleSendModel alipayOpenPublicMessageSingleSendModel = new AlipayOpenPublicMessageSingleSendModel();
+            alipayOpenPublicMessageSingleSendModel.setTenantId(instance.getTenantId());
+            alipayOpenPublicMessageSingleSendModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageSingleSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageSingleSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageSingleSendModel.setAuthToken(instance.getAuthToken());
+            return alipayOpenPublicMessageSingleSendModel;
         }
     }
 

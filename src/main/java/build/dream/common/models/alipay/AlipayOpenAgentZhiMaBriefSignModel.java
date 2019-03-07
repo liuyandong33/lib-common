@@ -33,6 +33,9 @@ public class AlipayOpenAgentZhiMaBriefSignModel extends AlipayBasicModel {
             AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel = new AlipayOpenAgentZhiMaBriefSignModel();
             alipayOpenAgentZhiMaBriefSignModel.setTenantId(instance.getTenantId());
             alipayOpenAgentZhiMaBriefSignModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentZhiMaBriefSignModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentZhiMaBriefSignModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentZhiMaBriefSignModel.setAuthToken(instance.getAuthToken());
             return alipayOpenAgentZhiMaBriefSignModel;
         }
     }

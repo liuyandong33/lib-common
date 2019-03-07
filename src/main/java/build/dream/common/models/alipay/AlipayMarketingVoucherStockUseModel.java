@@ -74,6 +74,9 @@ public class AlipayMarketingVoucherStockUseModel extends AlipayBasicModel {
             AlipayMarketingVoucherStockUseModel alipayMarketingVoucherStockUseModel = new AlipayMarketingVoucherStockUseModel();
             alipayMarketingVoucherStockUseModel.setTenantId(instance.getTenantId());
             alipayMarketingVoucherStockUseModel.setBranchId(instance.getBranchId());
+            alipayMarketingVoucherStockUseModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingVoucherStockUseModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingVoucherStockUseModel.setAuthToken(instance.getAuthToken());
             alipayMarketingVoucherStockUseModel.setEntityNo(instance.getEntityNo());
             alipayMarketingVoucherStockUseModel.setOutBizNo(instance.getOutBizNo());
             return alipayMarketingVoucherStockUseModel;

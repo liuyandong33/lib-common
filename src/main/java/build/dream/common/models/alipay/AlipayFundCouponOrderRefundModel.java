@@ -112,6 +112,9 @@ public class AlipayFundCouponOrderRefundModel extends AlipayBasicModel {
             AlipayFundCouponOrderRefundModel alipayFundCouponOrderRefundModel = new AlipayFundCouponOrderRefundModel();
             alipayFundCouponOrderRefundModel.setTenantId(instance.getTenantId());
             alipayFundCouponOrderRefundModel.setBranchId(instance.getBranchId());
+            alipayFundCouponOrderRefundModel.setReturnUrl(instance.getReturnUrl());
+            alipayFundCouponOrderRefundModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayFundCouponOrderRefundModel.setAuthToken(instance.getAuthToken());
             alipayFundCouponOrderRefundModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOrderRefundModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderRefundModel.setAmount(instance.getAmount());

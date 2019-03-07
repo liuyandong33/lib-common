@@ -33,6 +33,9 @@ public class AlipayMarketingCardActivateUrlApplyModel extends AlipayBasicModel {
             AlipayMarketingCardActivateUrlApplyModel alipayMarketingCardActivateUrlApplyModel = new AlipayMarketingCardActivateUrlApplyModel();
             alipayMarketingCardActivateUrlApplyModel.setTenantId(instance.getTenantId());
             alipayMarketingCardActivateUrlApplyModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardActivateUrlApplyModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardActivateUrlApplyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardActivateUrlApplyModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardActivateUrlApplyModel;
         }
     }

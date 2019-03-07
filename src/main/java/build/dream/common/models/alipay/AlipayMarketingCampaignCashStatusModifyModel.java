@@ -75,6 +75,9 @@ public class AlipayMarketingCampaignCashStatusModifyModel extends AlipayBasicMod
             AlipayMarketingCampaignCashStatusModifyModel alipayMarketingCampaignCashStatusModifyModel = new AlipayMarketingCampaignCashStatusModifyModel();
             alipayMarketingCampaignCashStatusModifyModel.setTenantId(instance.getTenantId());
             alipayMarketingCampaignCashStatusModifyModel.setBranchId(instance.getBranchId());
+            alipayMarketingCampaignCashStatusModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCampaignCashStatusModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCampaignCashStatusModifyModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCampaignCashStatusModifyModel.setCrowdNo(instance.getCrowdNo());
             alipayMarketingCampaignCashStatusModifyModel.setCampStatus(instance.getCampStatus());
             return alipayMarketingCampaignCashStatusModifyModel;

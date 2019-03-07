@@ -33,6 +33,9 @@ public class KoubeiTradeTicketTicketCodeSendModel extends AlipayBasicModel {
             KoubeiTradeTicketTicketCodeSendModel koubeiTradeTicketTicketCodeSendModel = new KoubeiTradeTicketTicketCodeSendModel();
             koubeiTradeTicketTicketCodeSendModel.setTenantId(instance.getTenantId());
             koubeiTradeTicketTicketCodeSendModel.setBranchId(instance.getBranchId());
+            koubeiTradeTicketTicketCodeSendModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeTicketTicketCodeSendModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeTicketTicketCodeSendModel.setAuthToken(instance.getAuthToken());
             return koubeiTradeTicketTicketCodeSendModel;
         }
     }

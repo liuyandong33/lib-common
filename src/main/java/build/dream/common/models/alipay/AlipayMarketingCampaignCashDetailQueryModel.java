@@ -56,6 +56,9 @@ public class AlipayMarketingCampaignCashDetailQueryModel extends AlipayBasicMode
             AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel = new AlipayMarketingCampaignCashDetailQueryModel();
             alipayMarketingCampaignCashDetailQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCampaignCashDetailQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCampaignCashDetailQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCampaignCashDetailQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCampaignCashDetailQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCampaignCashDetailQueryModel.setCrowdNo(instance.getCrowdNo());
             return alipayMarketingCampaignCashDetailQueryModel;
         }

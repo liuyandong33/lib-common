@@ -30,10 +30,13 @@ public class AlipayOpenPublicQrCodeCreateModel extends AlipayBasicModel {
         }
 
         public AlipayOpenPublicQrCodeCreateModel build() {
-            AlipayOpenPublicQrCodeCreateModel copy = new AlipayOpenPublicQrCodeCreateModel();
-            copy.setTenantId(instance.getTenantId());
-            copy.setBranchId(instance.getBranchId());
-            return copy;
+            AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel = new AlipayOpenPublicQrCodeCreateModel();
+            alipayOpenPublicQrCodeCreateModel.setTenantId(instance.getTenantId());
+            alipayOpenPublicQrCodeCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicQrCodeCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicQrCodeCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicQrCodeCreateModel.setAuthToken(instance.getAuthToken());
+            return alipayOpenPublicQrCodeCreateModel;
         }
     }
 

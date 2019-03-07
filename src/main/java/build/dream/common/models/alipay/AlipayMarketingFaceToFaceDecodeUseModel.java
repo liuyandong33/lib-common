@@ -74,6 +74,9 @@ public class AlipayMarketingFaceToFaceDecodeUseModel extends AlipayBasicModel {
             AlipayMarketingFaceToFaceDecodeUseModel alipayMarketingFaceToFaceDecodeUseModel = new AlipayMarketingFaceToFaceDecodeUseModel();
             alipayMarketingFaceToFaceDecodeUseModel.setTenantId(instance.getTenantId());
             alipayMarketingFaceToFaceDecodeUseModel.setBranchId(instance.getBranchId());
+            alipayMarketingFaceToFaceDecodeUseModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingFaceToFaceDecodeUseModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingFaceToFaceDecodeUseModel.setAuthToken(instance.getAuthToken());
             alipayMarketingFaceToFaceDecodeUseModel.setDynamicId(instance.getDynamicId());
             alipayMarketingFaceToFaceDecodeUseModel.setSenceNo(instance.getSenceNo());
             return alipayMarketingFaceToFaceDecodeUseModel;

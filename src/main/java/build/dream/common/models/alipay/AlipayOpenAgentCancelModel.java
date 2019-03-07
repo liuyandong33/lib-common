@@ -56,6 +56,9 @@ public class AlipayOpenAgentCancelModel extends AlipayBasicModel {
             AlipayOpenAgentCancelModel alipayOpenAgentCancelModel = new AlipayOpenAgentCancelModel();
             alipayOpenAgentCancelModel.setTenantId(instance.getTenantId());
             alipayOpenAgentCancelModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentCancelModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentCancelModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentCancelModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentCancelModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentCancelModel;
         }

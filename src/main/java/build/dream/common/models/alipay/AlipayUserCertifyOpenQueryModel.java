@@ -56,6 +56,9 @@ public class AlipayUserCertifyOpenQueryModel extends AlipayBasicModel {
             AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel = new AlipayUserCertifyOpenQueryModel();
             alipayUserCertifyOpenQueryModel.setTenantId(instance.getTenantId());
             alipayUserCertifyOpenQueryModel.setBranchId(instance.getBranchId());
+            alipayUserCertifyOpenQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayUserCertifyOpenQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayUserCertifyOpenQueryModel.setAuthToken(instance.getAuthToken());
             return alipayUserCertifyOpenQueryModel;
         }
     }

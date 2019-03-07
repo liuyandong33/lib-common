@@ -33,6 +33,9 @@ public class KoubeiMarketingDataDishDiagnoseBatchQueryModel extends AlipayBasicM
             KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel = new KoubeiMarketingDataDishDiagnoseBatchQueryModel();
             koubeiMarketingDataDishDiagnoseBatchQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingDataDishDiagnoseBatchQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingDataDishDiagnoseBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingDataDishDiagnoseBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingDataDishDiagnoseBatchQueryModel.setAuthToken(instance.getAuthToken());
             return koubeiMarketingDataDishDiagnoseBatchQueryModel;
         }
     }

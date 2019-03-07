@@ -33,6 +33,9 @@ public class AlipayOpenPublicLifeLabelBatchQueryModel extends AlipayBasicModel {
             AlipayOpenPublicLifeLabelBatchQueryModel alipayOpenPublicLifeLabelBatchQueryModel = new AlipayOpenPublicLifeLabelBatchQueryModel();
             alipayOpenPublicLifeLabelBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeLabelBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeLabelBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeLabelBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeLabelBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicLifeLabelBatchQueryModel;
         }
     }

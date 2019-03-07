@@ -51,6 +51,9 @@ public class AlipayOpenPublicLifeLabelDeleteModel extends AlipayBasicModel {
             AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel = new AlipayOpenPublicLifeLabelDeleteModel();
             alipayOpenPublicLifeLabelDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeLabelDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeLabelDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeLabelDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeLabelDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicLifeLabelDeleteModel.setLabelId(instance.getLabelId());
             return alipayOpenPublicLifeLabelDeleteModel;
         }

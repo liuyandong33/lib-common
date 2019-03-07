@@ -33,6 +33,9 @@ public class AlipayMarketingCardTemplateBatchQueryModel extends AlipayBasicModel
             AlipayMarketingCardTemplateBatchQueryModel alipayMarketingCardTemplateBatchQueryModel = new AlipayMarketingCardTemplateBatchQueryModel();
             alipayMarketingCardTemplateBatchQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCardTemplateBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardTemplateBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardTemplateBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardTemplateBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardTemplateBatchQueryModel;
         }
     }

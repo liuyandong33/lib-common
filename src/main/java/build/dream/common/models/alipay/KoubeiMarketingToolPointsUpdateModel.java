@@ -194,6 +194,9 @@ public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
             KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel = new KoubeiMarketingToolPointsUpdateModel();
             koubeiMarketingToolPointsUpdateModel.setTenantId(instance.getTenantId());
             koubeiMarketingToolPointsUpdateModel.setBranchId(instance.getBranchId());
+            koubeiMarketingToolPointsUpdateModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingToolPointsUpdateModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingToolPointsUpdateModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingToolPointsUpdateModel.setReqId(instance.getReqId());
             koubeiMarketingToolPointsUpdateModel.setUserId(instance.getUserId());
             koubeiMarketingToolPointsUpdateModel.setActivityAccount(instance.getActivityAccount());

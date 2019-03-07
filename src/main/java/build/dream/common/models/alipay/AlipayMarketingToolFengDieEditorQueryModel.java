@@ -74,6 +74,9 @@ public class AlipayMarketingToolFengDieEditorQueryModel extends AlipayBasicModel
             AlipayMarketingToolFengDieEditorQueryModel alipayMarketingToolFengDieEditorQueryModel = new AlipayMarketingToolFengDieEditorQueryModel();
             alipayMarketingToolFengDieEditorQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingToolFengDieEditorQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingToolFengDieEditorQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingToolFengDieEditorQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingToolFengDieEditorQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingToolFengDieEditorQueryModel.setActivityId(instance.getActivityId());
             alipayMarketingToolFengDieEditorQueryModel.setRedirectUrl(instance.getRedirectUrl());
             return alipayMarketingToolFengDieEditorQueryModel;

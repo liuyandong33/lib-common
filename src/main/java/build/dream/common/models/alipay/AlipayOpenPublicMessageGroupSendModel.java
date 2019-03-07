@@ -33,6 +33,9 @@ public class AlipayOpenPublicMessageGroupSendModel extends AlipayBasicModel {
             AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel = new AlipayOpenPublicMessageGroupSendModel();
             alipayOpenPublicMessageGroupSendModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMessageGroupSendModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageGroupSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageGroupSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageGroupSendModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicMessageGroupSendModel;
         }
     }

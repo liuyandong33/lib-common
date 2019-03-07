@@ -97,6 +97,9 @@ public class AftAiFinFireEyeOcrImageQueryModel extends AlipayBasicModel {
             aftAiFinFireEyeOcrImageQueryModel.setReturnUrl(instance.getReturnUrl());
             aftAiFinFireEyeOcrImageQueryModel.setNotifyUrl(instance.getNotifyUrl());
             aftAiFinFireEyeOcrImageQueryModel.setAuthToken(instance.getAuthToken());
+            aftAiFinFireEyeOcrImageQueryModel.setReturnUrl(instance.getReturnUrl());
+            aftAiFinFireEyeOcrImageQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            aftAiFinFireEyeOcrImageQueryModel.setAuthToken(instance.getAuthToken());
             aftAiFinFireEyeOcrImageQueryModel.setProductInstanceId(instance.getProductInstanceId());
             aftAiFinFireEyeOcrImageQueryModel.setImage(instance.getImage());
             aftAiFinFireEyeOcrImageQueryModel.setOcrType(instance.getOcrType());

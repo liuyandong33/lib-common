@@ -56,6 +56,9 @@ public class AlipayOpenPublicLifeMsgRecallModel extends AlipayBasicModel {
             AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel = new AlipayOpenPublicLifeMsgRecallModel();
             alipayOpenPublicLifeMsgRecallModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeMsgRecallModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeMsgRecallModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeMsgRecallModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeMsgRecallModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicLifeMsgRecallModel.setMessageId(instance.getMessageId());
             return alipayOpenPublicLifeMsgRecallModel;
         }

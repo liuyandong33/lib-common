@@ -132,6 +132,9 @@ public class KoubeiTradeOrderPreCreateModel extends AlipayBasicModel {
             KoubeiTradeOrderPreCreateModel koubeiTradeOrderPreCreateModel = new KoubeiTradeOrderPreCreateModel();
             koubeiTradeOrderPreCreateModel.setTenantId(instance.getTenantId());
             koubeiTradeOrderPreCreateModel.setBranchId(instance.getBranchId());
+            koubeiTradeOrderPreCreateModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeOrderPreCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeOrderPreCreateModel.setAuthToken(instance.getAuthToken());
             koubeiTradeOrderPreCreateModel.setRequestId(instance.getRequestId());
             koubeiTradeOrderPreCreateModel.setOutOrderNo(instance.getOutOrderNo());
             koubeiTradeOrderPreCreateModel.setShopId(instance.getShopId());

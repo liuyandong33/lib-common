@@ -92,6 +92,9 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
             AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel = new AlipayUserAuthZhiMaOrgIdentityApplyModel();
             alipayUserAuthZhiMaOrgIdentityApplyModel.setTenantId(instance.getTenantId());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setBranchId(instance.getBranchId());
+            alipayUserAuthZhiMaOrgIdentityApplyModel.setReturnUrl(instance.getReturnUrl());
+            alipayUserAuthZhiMaOrgIdentityApplyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayUserAuthZhiMaOrgIdentityApplyModel.setAuthToken(instance.getAuthToken());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertType(instance.getCertType());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertNo(instance.getCertNo());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setName(instance.getName());

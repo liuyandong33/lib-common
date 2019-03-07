@@ -93,6 +93,9 @@ public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel 
             AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel = new AlipayMarketingCardActivateFormQueryModel();
             alipayMarketingCardActivateFormQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingCardActivateFormQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardActivateFormQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardActivateFormQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardActivateFormQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCardActivateFormQueryModel.setBizType(instance.getBizType());
             alipayMarketingCardActivateFormQueryModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCardActivateFormQueryModel.setRequestId(instance.getRequestId());

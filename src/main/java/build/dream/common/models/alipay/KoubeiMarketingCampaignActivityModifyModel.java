@@ -33,6 +33,9 @@ public class KoubeiMarketingCampaignActivityModifyModel extends AlipayBasicModel
             KoubeiMarketingCampaignActivityModifyModel koubeiMarketingCampaignActivityModifyModel = new KoubeiMarketingCampaignActivityModifyModel();
             koubeiMarketingCampaignActivityModifyModel.setTenantId(instance.getTenantId());
             koubeiMarketingCampaignActivityModifyModel.setBranchId(instance.getBranchId());
+            koubeiMarketingCampaignActivityModifyModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingCampaignActivityModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingCampaignActivityModifyModel.setAuthToken(instance.getAuthToken());
             return koubeiMarketingCampaignActivityModifyModel;
         }
     }

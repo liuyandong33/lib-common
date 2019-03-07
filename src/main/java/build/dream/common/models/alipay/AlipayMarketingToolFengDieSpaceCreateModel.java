@@ -54,6 +54,9 @@ public class AlipayMarketingToolFengDieSpaceCreateModel extends AlipayBasicModel
             AlipayMarketingToolFengDieSpaceCreateModel alipayMarketingToolFengDieSpaceCreateModel = new AlipayMarketingToolFengDieSpaceCreateModel();
             alipayMarketingToolFengDieSpaceCreateModel.setTenantId(instance.getTenantId());
             alipayMarketingToolFengDieSpaceCreateModel.setBranchId(instance.getBranchId());
+            alipayMarketingToolFengDieSpaceCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingToolFengDieSpaceCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingToolFengDieSpaceCreateModel.setAuthToken(instance.getAuthToken());
             alipayMarketingToolFengDieSpaceCreateModel.setTitle(instance.getTitle());
             return alipayMarketingToolFengDieSpaceCreateModel;
         }

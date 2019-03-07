@@ -33,6 +33,9 @@ public class AlipayOpenPublicMenuBatchQueryModel extends AlipayBasicModel {
             AlipayOpenPublicMenuBatchQueryModel alipayOpenPublicMenuBatchQueryModel = new AlipayOpenPublicMenuBatchQueryModel();
             alipayOpenPublicMenuBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMenuBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMenuBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMenuBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMenuBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicMenuBatchQueryModel;
         }
     }

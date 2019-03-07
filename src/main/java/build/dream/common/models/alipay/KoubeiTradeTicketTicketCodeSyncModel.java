@@ -33,6 +33,9 @@ public class KoubeiTradeTicketTicketCodeSyncModel extends AlipayBasicModel {
             KoubeiTradeTicketTicketCodeSyncModel koubeiTradeTicketTicketCodeSyncModel = new KoubeiTradeTicketTicketCodeSyncModel();
             koubeiTradeTicketTicketCodeSyncModel.setTenantId(instance.getTenantId());
             koubeiTradeTicketTicketCodeSyncModel.setBranchId(instance.getBranchId());
+            koubeiTradeTicketTicketCodeSyncModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeTicketTicketCodeSyncModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeTicketTicketCodeSyncModel.setAuthToken(instance.getAuthToken());
             return koubeiTradeTicketTicketCodeSyncModel;
         }
     }

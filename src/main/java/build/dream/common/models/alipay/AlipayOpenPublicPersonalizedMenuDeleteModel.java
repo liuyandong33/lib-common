@@ -56,6 +56,9 @@ public class AlipayOpenPublicPersonalizedMenuDeleteModel extends AlipayBasicMode
             AlipayOpenPublicPersonalizedMenuDeleteModel alipayOpenPublicPersonalizedMenuDeleteModel = new AlipayOpenPublicPersonalizedMenuDeleteModel();
             alipayOpenPublicPersonalizedMenuDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicPersonalizedMenuDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicPersonalizedMenuDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicPersonalizedMenuDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicPersonalizedMenuDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicPersonalizedMenuDeleteModel.setMenuKey(instance.getMenuKey());
             return alipayOpenPublicPersonalizedMenuDeleteModel;
         }

@@ -2,7 +2,7 @@ package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicMessageContentModifyModel extends AlipayBasicModel {
     public static class Builder {
-        private final AlipayOpenPublicLifeAgentCreateModel instance = new AlipayOpenPublicLifeAgentCreateModel();
+        private final AlipayOpenPublicMessageContentModifyModel instance = new AlipayOpenPublicMessageContentModifyModel();
 
         public Builder tenantId(String tenantId) {
             instance.setTenantId(tenantId);
@@ -29,11 +29,14 @@ public class AlipayOpenPublicMessageContentModifyModel extends AlipayBasicModel 
             return this;
         }
 
-        public AlipayOpenPublicLifeAgentCreateModel build() {
-            AlipayOpenPublicLifeAgentCreateModel alipayOpenPublicLifeAgentCreateModel = new AlipayOpenPublicLifeAgentCreateModel();
-            alipayOpenPublicLifeAgentCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeAgentCreateModel.setBranchId(instance.getBranchId());
-            return alipayOpenPublicLifeAgentCreateModel;
+        public AlipayOpenPublicMessageContentModifyModel build() {
+            AlipayOpenPublicMessageContentModifyModel alipayOpenPublicMessageContentModifyModel = new AlipayOpenPublicMessageContentModifyModel();
+            alipayOpenPublicMessageContentModifyModel.setTenantId(instance.getTenantId());
+            alipayOpenPublicMessageContentModifyModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageContentModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageContentModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageContentModifyModel.setAuthToken(instance.getAuthToken());
+            return alipayOpenPublicMessageContentModifyModel;
         }
     }
 

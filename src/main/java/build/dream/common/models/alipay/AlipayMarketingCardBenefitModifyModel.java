@@ -33,6 +33,9 @@ public class AlipayMarketingCardBenefitModifyModel extends AlipayBasicModel {
             AlipayMarketingCardBenefitModifyModel alipayMarketingCardBenefitModifyModel = new AlipayMarketingCardBenefitModifyModel();
             alipayMarketingCardBenefitModifyModel.setTenantId(instance.getTenantId());
             alipayMarketingCardBenefitModifyModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardBenefitModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardBenefitModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardBenefitModifyModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardBenefitModifyModel;
         }
     }

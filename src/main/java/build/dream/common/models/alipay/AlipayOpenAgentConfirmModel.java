@@ -56,6 +56,9 @@ public class AlipayOpenAgentConfirmModel extends AlipayBasicModel {
             AlipayOpenAgentConfirmModel alipayOpenAgentConfirmModel = new AlipayOpenAgentConfirmModel();
             alipayOpenAgentConfirmModel.setTenantId(instance.getTenantId());
             alipayOpenAgentConfirmModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentConfirmModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentConfirmModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentConfirmModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentConfirmModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentConfirmModel;
         }

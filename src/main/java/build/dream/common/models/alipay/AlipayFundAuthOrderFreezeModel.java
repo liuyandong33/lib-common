@@ -33,6 +33,9 @@ public class AlipayFundAuthOrderFreezeModel extends AlipayBasicModel {
             AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel = new AlipayFundAuthOrderFreezeModel();
             alipayFundAuthOrderFreezeModel.setTenantId(instance.getTenantId());
             alipayFundAuthOrderFreezeModel.setBranchId(instance.getBranchId());
+            alipayFundAuthOrderFreezeModel.setReturnUrl(instance.getReturnUrl());
+            alipayFundAuthOrderFreezeModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayFundAuthOrderFreezeModel.setAuthToken(instance.getAuthToken());
             return alipayFundAuthOrderFreezeModel;
         }
     }

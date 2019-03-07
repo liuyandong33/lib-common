@@ -57,6 +57,9 @@ public class AlipayOpenPublicMessageQueryModel extends AlipayBasicModel {
             AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel = new AlipayOpenPublicMessageQueryModel();
             alipayOpenPublicMessageQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicMessageQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicMessageQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicMessageQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicMessageQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicMessageQueryModel.setMessageIds(instance.getMessageIds());
             return alipayOpenPublicMessageQueryModel;
         }

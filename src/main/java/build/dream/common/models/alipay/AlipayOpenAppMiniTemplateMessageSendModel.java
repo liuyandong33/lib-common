@@ -126,6 +126,9 @@ public class AlipayOpenAppMiniTemplateMessageSendModel extends AlipayBasicModel 
             AlipayOpenAppMiniTemplateMessageSendModel alipayOpenAppMiniTemplateMessageSendModel = new AlipayOpenAppMiniTemplateMessageSendModel();
             alipayOpenAppMiniTemplateMessageSendModel.setTenantId(instance.getTenantId());
             alipayOpenAppMiniTemplateMessageSendModel.setBranchId(instance.getBranchId());
+            alipayOpenAppMiniTemplateMessageSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAppMiniTemplateMessageSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAppMiniTemplateMessageSendModel.setAuthToken(instance.getAuthToken());
             alipayOpenAppMiniTemplateMessageSendModel.setToUserId(instance.getToUserId());
             alipayOpenAppMiniTemplateMessageSendModel.setFormId(instance.getFormId());
             alipayOpenAppMiniTemplateMessageSendModel.setUserTemplateId(instance.getUserTemplateId());

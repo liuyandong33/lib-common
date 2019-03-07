@@ -33,6 +33,9 @@ public class AlipayMarketingCardOpenModel extends AlipayBasicModel {
             AlipayMarketingCardOpenModel alipayMarketingCardOpenModel = new AlipayMarketingCardOpenModel();
             alipayMarketingCardOpenModel.setTenantId(instance.getTenantId());
             alipayMarketingCardOpenModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardOpenModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardOpenModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardOpenModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCardOpenModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardOpenModel;
         }

@@ -33,6 +33,9 @@ public class AlipayOpenPublicTopicModifyModel extends AlipayBasicModel {
             AlipayOpenPublicTopicModifyModel alipayOpenPublicTopicModifyModel = new AlipayOpenPublicTopicModifyModel();
             alipayOpenPublicTopicModifyModel.setTenantId(instance.getTenantId());
             alipayOpenPublicTopicModifyModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicTopicModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicTopicModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicTopicModifyModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicTopicModifyModel;
         }
     }

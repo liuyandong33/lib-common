@@ -142,6 +142,9 @@ public class AlipayOpenPublicAccountCreateModel extends AlipayBasicModel {
             AlipayOpenPublicAccountCreateModel alipayOpenPublicAccountCreateModel = new AlipayOpenPublicAccountCreateModel();
             alipayOpenPublicAccountCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAccountCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAccountCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAccountCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAccountCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicAccountCreateModel.setBindAccountNo(instance.getBindAccountNo());
             alipayOpenPublicAccountCreateModel.setDisplayName(instance.getDisplayName());
             alipayOpenPublicAccountCreateModel.setAgreementId(instance.getAgreementId());

@@ -33,6 +33,9 @@ public class AlipayTradeOrderInfoSyncModel extends AlipayBasicModel {
             AlipayTradeOrderInfoSyncModel alipayTradeOrderInfoSyncModel = new AlipayTradeOrderInfoSyncModel();
             alipayTradeOrderInfoSyncModel.setTenantId(instance.getTenantId());
             alipayTradeOrderInfoSyncModel.setBranchId(instance.getBranchId());
+            alipayTradeOrderInfoSyncModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeOrderInfoSyncModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeOrderInfoSyncModel.setAuthToken(instance.getAuthToken());
             return alipayTradeOrderInfoSyncModel;
         }
     }

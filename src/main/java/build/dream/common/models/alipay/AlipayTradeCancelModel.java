@@ -83,6 +83,9 @@ public class AlipayTradeCancelModel extends AlipayBasicModel {
             AlipayTradeCancelModel alipayTradeCancelModel = new AlipayTradeCancelModel();
             alipayTradeCancelModel.setTenantId(instance.getTenantId());
             alipayTradeCancelModel.setBranchId(instance.getBranchId());
+            alipayTradeCancelModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeCancelModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeCancelModel.setAuthToken(instance.getAuthToken());
             alipayTradeCancelModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeCancelModel.setTradeNo(instance.getTradeNo());
             return alipayTradeCancelModel;

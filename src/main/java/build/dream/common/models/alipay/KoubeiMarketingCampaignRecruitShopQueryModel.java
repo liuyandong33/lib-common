@@ -142,6 +142,9 @@ public class KoubeiMarketingCampaignRecruitShopQueryModel extends AlipayBasicMod
             KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel = new KoubeiMarketingCampaignRecruitShopQueryModel();
             koubeiMarketingCampaignRecruitShopQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingCampaignRecruitShopQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingCampaignRecruitShopQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingCampaignRecruitShopQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingCampaignRecruitShopQueryModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingCampaignRecruitShopQueryModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageSize(instance.getPageSize());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageNum(instance.getPageNum());

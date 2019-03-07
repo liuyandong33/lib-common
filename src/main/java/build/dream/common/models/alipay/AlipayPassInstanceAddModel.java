@@ -111,6 +111,9 @@ public class AlipayPassInstanceAddModel extends AlipayBasicModel {
             AlipayPassInstanceAddModel alipayPassInstanceAddModel = new AlipayPassInstanceAddModel();
             alipayPassInstanceAddModel.setTenantId(instance.getTenantId());
             alipayPassInstanceAddModel.setBranchId(instance.getBranchId());
+            alipayPassInstanceAddModel.setReturnUrl(instance.getReturnUrl());
+            alipayPassInstanceAddModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayPassInstanceAddModel.setAuthToken(instance.getAuthToken());
             alipayPassInstanceAddModel.setTplId(instance.getTplId());
             alipayPassInstanceAddModel.setTplParams(instance.getTplParams());
             alipayPassInstanceAddModel.setRecognitionType(instance.getRecognitionType());

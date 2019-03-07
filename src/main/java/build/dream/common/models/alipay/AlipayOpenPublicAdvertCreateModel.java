@@ -33,6 +33,9 @@ public class AlipayOpenPublicAdvertCreateModel extends AlipayBasicModel {
             AlipayOpenPublicAdvertCreateModel alipayOpenPublicAdvertCreateModel = new AlipayOpenPublicAdvertCreateModel();
             alipayOpenPublicAdvertCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAdvertCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAdvertCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAdvertCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAdvertCreateModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicAdvertCreateModel;
         }
     }

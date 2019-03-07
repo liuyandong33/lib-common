@@ -33,6 +33,9 @@ public class AlipayMarketingCardFormTemplateSetModel extends AlipayBasicModel {
             AlipayMarketingCardFormTemplateSetModel alipayMarketingCardFormTemplateSetModel = new AlipayMarketingCardFormTemplateSetModel();
             alipayMarketingCardFormTemplateSetModel.setTenantId(instance.getTenantId());
             alipayMarketingCardFormTemplateSetModel.setBranchId(instance.getBranchId());
+            alipayMarketingCardFormTemplateSetModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCardFormTemplateSetModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCardFormTemplateSetModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingCardFormTemplateSetModel;
         }
     }

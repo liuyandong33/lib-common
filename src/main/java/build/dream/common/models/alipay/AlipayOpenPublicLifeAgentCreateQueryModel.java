@@ -56,6 +56,9 @@ public class AlipayOpenPublicLifeAgentCreateQueryModel extends AlipayBasicModel 
             AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel = new AlipayOpenPublicLifeAgentCreateQueryModel();
             alipayOpenPublicLifeAgentCreateQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeAgentCreateQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeAgentCreateQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeAgentCreateQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeAgentCreateQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicLifeAgentCreateQueryModel.setOutBizNo(instance.getOutBizNo());
             return alipayOpenPublicLifeAgentCreateQueryModel;
         }

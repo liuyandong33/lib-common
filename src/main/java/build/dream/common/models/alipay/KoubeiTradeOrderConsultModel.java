@@ -33,6 +33,9 @@ public class KoubeiTradeOrderConsultModel extends AlipayBasicModel {
             KoubeiTradeOrderConsultModel koubeiTradeOrderConsultModel = new KoubeiTradeOrderConsultModel();
             koubeiTradeOrderConsultModel.setTenantId(instance.getTenantId());
             koubeiTradeOrderConsultModel.setBranchId(instance.getBranchId());
+            koubeiTradeOrderConsultModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeOrderConsultModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeOrderConsultModel.setAuthToken(instance.getAuthToken());
             return koubeiTradeOrderConsultModel;
         }
     }

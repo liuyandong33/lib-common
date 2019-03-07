@@ -129,6 +129,9 @@ public class KoubeiTradeTicketTicketCodeDelayModel extends AlipayBasicModel {
             KoubeiTradeTicketTicketCodeDelayModel koubeiTradeTicketTicketCodeDelayModel = new KoubeiTradeTicketTicketCodeDelayModel();
             koubeiTradeTicketTicketCodeDelayModel.setTenantId(instance.getTenantId());
             koubeiTradeTicketTicketCodeDelayModel.setBranchId(instance.getBranchId());
+            koubeiTradeTicketTicketCodeDelayModel.setReturnUrl(instance.getReturnUrl());
+            koubeiTradeTicketTicketCodeDelayModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiTradeTicketTicketCodeDelayModel.setAuthToken(instance.getAuthToken());
             koubeiTradeTicketTicketCodeDelayModel.setRequestId(instance.getRequestId());
             koubeiTradeTicketTicketCodeDelayModel.setEndDate(instance.getEndDate());
             koubeiTradeTicketTicketCodeDelayModel.setTicketCode(instance.getTicketCode());

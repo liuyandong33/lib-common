@@ -33,6 +33,9 @@ public class AlipayTradePreCreateModel extends AlipayBasicModel {
             AlipayTradePreCreateModel alipayTradePreCreateModel = new AlipayTradePreCreateModel();
             alipayTradePreCreateModel.setTenantId(instance.getTenantId());
             alipayTradePreCreateModel.setBranchId(instance.getBranchId());
+            alipayTradePreCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradePreCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradePreCreateModel.setAuthToken(instance.getAuthToken());
             return alipayTradePreCreateModel;
         }
     }

@@ -92,6 +92,9 @@ public class AlipayUserTwoStageCommonUseModel extends AlipayBasicModel {
             AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel = new AlipayUserTwoStageCommonUseModel();
             alipayUserTwoStageCommonUseModel.setTenantId(instance.getTenantId());
             alipayUserTwoStageCommonUseModel.setBranchId(instance.getBranchId());
+            alipayUserTwoStageCommonUseModel.setReturnUrl(instance.getReturnUrl());
+            alipayUserTwoStageCommonUseModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayUserTwoStageCommonUseModel.setAuthToken(instance.getAuthToken());
             alipayUserTwoStageCommonUseModel.setDynamicId(instance.getDynamicId());
             alipayUserTwoStageCommonUseModel.setSenceNo(instance.getSenceNo());
             alipayUserTwoStageCommonUseModel.setPayPid(instance.getPayPid());

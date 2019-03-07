@@ -74,6 +74,9 @@ public class AlipayPassTemplateAddModel extends AlipayBasicModel {
             AlipayPassTemplateAddModel alipayPassTemplateAddModel = new AlipayPassTemplateAddModel();
             alipayPassTemplateAddModel.setTenantId(instance.getTenantId());
             alipayPassTemplateAddModel.setBranchId(instance.getBranchId());
+            alipayPassTemplateAddModel.setReturnUrl(instance.getReturnUrl());
+            alipayPassTemplateAddModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayPassTemplateAddModel.setAuthToken(instance.getAuthToken());
             alipayPassTemplateAddModel.setUniqueId(instance.getUniqueId());
             alipayPassTemplateAddModel.setTplContent(instance.getTplContent());
             return alipayPassTemplateAddModel;

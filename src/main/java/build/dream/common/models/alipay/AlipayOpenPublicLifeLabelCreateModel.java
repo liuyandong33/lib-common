@@ -74,6 +74,9 @@ public class AlipayOpenPublicLifeLabelCreateModel extends AlipayBasicModel {
             AlipayOpenPublicLifeLabelCreateModel alipayOpenPublicLifeLabelCreateModel = new AlipayOpenPublicLifeLabelCreateModel();
             alipayOpenPublicLifeLabelCreateModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeLabelCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeLabelCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeLabelCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeLabelCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicLifeLabelCreateModel.setLabelName(instance.getLabelName());
             alipayOpenPublicLifeLabelCreateModel.setDataType(instance.getDataType());
             return alipayOpenPublicLifeLabelCreateModel;

@@ -33,6 +33,9 @@ public class KoubeiMarketingDataMallShopItemsQueryModel extends AlipayBasicModel
             KoubeiMarketingDataMallShopItemsQueryModel koubeiMarketingDataMallShopItemsQueryModel = new KoubeiMarketingDataMallShopItemsQueryModel();
             koubeiMarketingDataMallShopItemsQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingDataMallShopItemsQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingDataMallShopItemsQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingDataMallShopItemsQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingDataMallShopItemsQueryModel.setAuthToken(instance.getAuthToken());
             return koubeiMarketingDataMallShopItemsQueryModel;
         }
     }

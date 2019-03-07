@@ -73,6 +73,9 @@ public class AlipayOfflineMarketShopQueryDetailModel extends AlipayBasicModel {
             AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel = new AlipayOfflineMarketShopQueryDetailModel();
             alipayOfflineMarketShopQueryDetailModel.setTenantId(instance.getTenantId());
             alipayOfflineMarketShopQueryDetailModel.setBranchId(instance.getBranchId());
+            alipayOfflineMarketShopQueryDetailModel.setReturnUrl(instance.getReturnUrl());
+            alipayOfflineMarketShopQueryDetailModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOfflineMarketShopQueryDetailModel.setAuthToken(instance.getAuthToken());
             alipayOfflineMarketShopQueryDetailModel.setShopId(instance.getShopId());
             alipayOfflineMarketShopQueryDetailModel.setOpRole(instance.getOpRole());
             return alipayOfflineMarketShopQueryDetailModel;

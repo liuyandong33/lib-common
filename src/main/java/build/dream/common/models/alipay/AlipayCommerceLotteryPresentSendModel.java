@@ -128,6 +128,9 @@ public class AlipayCommerceLotteryPresentSendModel extends AlipayBasicModel {
             AlipayCommerceLotteryPresentSendModel alipayCommerceLotteryPresentSendModel = new AlipayCommerceLotteryPresentSendModel();
             alipayCommerceLotteryPresentSendModel.setTenantId(instance.getTenantId());
             alipayCommerceLotteryPresentSendModel.setBranchId(instance.getBranchId());
+            alipayCommerceLotteryPresentSendModel.setReturnUrl(instance.getReturnUrl());
+            alipayCommerceLotteryPresentSendModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayCommerceLotteryPresentSendModel.setAuthToken(instance.getAuthToken());
             alipayCommerceLotteryPresentSendModel.setOutOrderNo(instance.getOutOrderNo());
             alipayCommerceLotteryPresentSendModel.setAlipayUserId(instance.getAlipayUserId());
             alipayCommerceLotteryPresentSendModel.setLotteryTypeId(instance.getLotteryTypeId());

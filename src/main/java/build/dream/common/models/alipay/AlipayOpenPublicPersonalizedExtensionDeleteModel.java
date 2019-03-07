@@ -56,6 +56,9 @@ public class AlipayOpenPublicPersonalizedExtensionDeleteModel extends AlipayBasi
             AlipayOpenPublicPersonalizedExtensionDeleteModel alipayOpenPublicPersonalizedExtensionDeleteModel = new AlipayOpenPublicPersonalizedExtensionDeleteModel();
             alipayOpenPublicPersonalizedExtensionDeleteModel.setTenantId(instance.getTenantId());
             alipayOpenPublicPersonalizedExtensionDeleteModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicPersonalizedExtensionDeleteModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicPersonalizedExtensionDeleteModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicPersonalizedExtensionDeleteModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicPersonalizedExtensionDeleteModel.setExtensionKey(instance.getExtensionKey());
             return alipayOpenPublicPersonalizedExtensionDeleteModel;
         }

@@ -33,6 +33,9 @@ public class AlipayOpenPublicLifeAboardApplyModel extends AlipayBasicModel {
             AlipayOpenPublicLifeAboardApplyModel alipayOpenPublicLifeAboardApplyModel = new AlipayOpenPublicLifeAboardApplyModel();
             alipayOpenPublicLifeAboardApplyModel.setTenantId(instance.getTenantId());
             alipayOpenPublicLifeAboardApplyModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicLifeAboardApplyModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicLifeAboardApplyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicLifeAboardApplyModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicLifeAboardApplyModel;
         }
     }

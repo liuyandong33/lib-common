@@ -56,6 +56,9 @@ public class AlipayOpenPublicAccountQueryModel extends AlipayBasicModel {
             AlipayOpenPublicAccountQueryModel alipayOpenPublicAccountQueryModel = new AlipayOpenPublicAccountQueryModel();
             alipayOpenPublicAccountQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicAccountQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicAccountQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicAccountQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicAccountQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicAccountQueryModel.setUserId(instance.getUserId());
             return alipayOpenPublicAccountQueryModel;
         }

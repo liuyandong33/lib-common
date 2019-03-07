@@ -109,6 +109,9 @@ public class AlipayMarketingCashLessVoucherTemplateModifyModel extends AlipayBas
             AlipayMarketingCashLessVoucherTemplateModifyModel alipayMarketingCashLessVoucherTemplateModifyModel = new AlipayMarketingCashLessVoucherTemplateModifyModel();
             alipayMarketingCashLessVoucherTemplateModifyModel.setTenantId(instance.getTenantId());
             alipayMarketingCashLessVoucherTemplateModifyModel.setBranchId(instance.getBranchId());
+            alipayMarketingCashLessVoucherTemplateModifyModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingCashLessVoucherTemplateModifyModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingCashLessVoucherTemplateModifyModel.setAuthToken(instance.getAuthToken());
             alipayMarketingCashLessVoucherTemplateModifyModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCashLessVoucherTemplateModifyModel.setOutBizNo(instance.getOutBizNo());
             alipayMarketingCashLessVoucherTemplateModifyModel.setPublishEndTime(instance.getPublishEndTime());

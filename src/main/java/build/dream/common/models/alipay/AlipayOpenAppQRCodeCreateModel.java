@@ -91,6 +91,9 @@ public class AlipayOpenAppQRCodeCreateModel extends AlipayBasicModel {
             AlipayOpenAppQRCodeCreateModel alipayOpenAppQRCodeCreateModel = new AlipayOpenAppQRCodeCreateModel();
             alipayOpenAppQRCodeCreateModel.setTenantId(instance.getTenantId());
             alipayOpenAppQRCodeCreateModel.setBranchId(instance.getBranchId());
+            alipayOpenAppQRCodeCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAppQRCodeCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAppQRCodeCreateModel.setAuthToken(instance.getAuthToken());
             alipayOpenAppQRCodeCreateModel.setUrlParam(instance.getUrlParam());
             alipayOpenAppQRCodeCreateModel.setQueryParam(instance.getQueryParam());
             alipayOpenAppQRCodeCreateModel.setDescribe(instance.getDescribe());

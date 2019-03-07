@@ -87,6 +87,9 @@ public class AlipayTradeQueryModel extends AlipayBasicModel {
             AlipayTradeQueryModel alipayTradeQueryModel = new AlipayTradeQueryModel();
             alipayTradeQueryModel.setTenantId(instance.getTenantId());
             alipayTradeQueryModel.setBranchId(instance.getBranchId());
+            alipayTradeQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeQueryModel.setAuthToken(instance.getAuthToken());
             alipayTradeQueryModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeQueryModel.setTradeNo(instance.getTradeNo());
             alipayTradeQueryModel.setOrgPid(instance.getOrgPid());

@@ -113,6 +113,9 @@ public class AlipayMarketingVoucherTemplateListQueryModel extends AlipayBasicMod
             AlipayMarketingVoucherTemplateListQueryModel alipayMarketingVoucherTemplateListQueryModel = new AlipayMarketingVoucherTemplateListQueryModel();
             alipayMarketingVoucherTemplateListQueryModel.setTenantId(instance.getTenantId());
             alipayMarketingVoucherTemplateListQueryModel.setBranchId(instance.getBranchId());
+            alipayMarketingVoucherTemplateListQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingVoucherTemplateListQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingVoucherTemplateListQueryModel.setAuthToken(instance.getAuthToken());
             alipayMarketingVoucherTemplateListQueryModel.setCreateStartTime(instance.getCreateStartTime());
             alipayMarketingVoucherTemplateListQueryModel.setCreateEndTime(instance.getCreateEndTime());
             alipayMarketingVoucherTemplateListQueryModel.setPageNum(instance.getPageNum());

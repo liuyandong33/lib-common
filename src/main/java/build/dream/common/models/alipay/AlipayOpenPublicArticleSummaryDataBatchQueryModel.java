@@ -74,6 +74,9 @@ public class AlipayOpenPublicArticleSummaryDataBatchQueryModel extends AlipayBas
             AlipayOpenPublicArticleSummaryDataBatchQueryModel alipayOpenPublicArticleSummaryDataBatchQueryModel = new AlipayOpenPublicArticleSummaryDataBatchQueryModel();
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicArticleSummaryDataBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicArticleSummaryDataBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicArticleSummaryDataBatchQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setBeginDate(instance.getBeginDate());
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setEndDate(instance.getEndDate());
             return alipayOpenPublicArticleSummaryDataBatchQueryModel;

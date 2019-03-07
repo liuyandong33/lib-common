@@ -33,6 +33,9 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
             KoubeiMarketingDataNearMallQueryModel koubeiMarketingDataNearMallQueryModel = new KoubeiMarketingDataNearMallQueryModel();
             koubeiMarketingDataNearMallQueryModel.setTenantId(instance.getTenantId());
             koubeiMarketingDataNearMallQueryModel.setBranchId(instance.getBranchId());
+            koubeiMarketingDataNearMallQueryModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingDataNearMallQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingDataNearMallQueryModel.setAuthToken(instance.getAuthToken());
             return koubeiMarketingDataNearMallQueryModel;
         }
     }

@@ -33,6 +33,9 @@ public class AlipayOfflineMarketShopSummaryBatchQueryModel extends AlipayBasicMo
             AlipayOfflineMarketShopSummaryBatchQueryModel alipayOfflineMarketShopSummaryBatchQueryModel = new AlipayOfflineMarketShopSummaryBatchQueryModel();
             alipayOfflineMarketShopSummaryBatchQueryModel.setTenantId(instance.getTenantId());
             alipayOfflineMarketShopSummaryBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOfflineMarketShopSummaryBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOfflineMarketShopSummaryBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOfflineMarketShopSummaryBatchQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOfflineMarketShopSummaryBatchQueryModel;
         }
     }

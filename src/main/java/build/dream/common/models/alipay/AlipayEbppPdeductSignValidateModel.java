@@ -33,6 +33,9 @@ public class AlipayEbppPdeductSignValidateModel extends AlipayBasicModel {
             AlipayEbppPdeductSignValidateModel alipayEbppPdeductSignValidateModel = new AlipayEbppPdeductSignValidateModel();
             alipayEbppPdeductSignValidateModel.setTenantId(instance.getTenantId());
             alipayEbppPdeductSignValidateModel.setBranchId(instance.getBranchId());
+            alipayEbppPdeductSignValidateModel.setReturnUrl(instance.getReturnUrl());
+            alipayEbppPdeductSignValidateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayEbppPdeductSignValidateModel.setAuthToken(instance.getAuthToken());
             return alipayEbppPdeductSignValidateModel;
         }
     }

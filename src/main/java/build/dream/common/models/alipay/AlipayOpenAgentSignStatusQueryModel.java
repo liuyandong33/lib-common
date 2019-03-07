@@ -52,6 +52,9 @@ public class AlipayOpenAgentSignStatusQueryModel extends AlipayBasicModel {
             AlipayOpenAgentSignStatusQueryModel alipayOpenAgentSignStatusQueryModel = new AlipayOpenAgentSignStatusQueryModel();
             alipayOpenAgentSignStatusQueryModel.setTenantId(instance.getTenantId());
             alipayOpenAgentSignStatusQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenAgentSignStatusQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenAgentSignStatusQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenAgentSignStatusQueryModel.setAuthToken(instance.getAuthToken());
             alipayOpenAgentSignStatusQueryModel.setProductCodes(instance.getProductCodes());
             return alipayOpenAgentSignStatusQueryModel;
         }

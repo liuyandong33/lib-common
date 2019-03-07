@@ -104,6 +104,9 @@ public class AlipayFundCouponOperationQueryModel extends AlipayBasicModel {
             AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel = new AlipayFundCouponOperationQueryModel();
             alipayFundCouponOperationQueryModel.setTenantId(instance.getTenantId());
             alipayFundCouponOperationQueryModel.setBranchId(instance.getBranchId());
+            alipayFundCouponOperationQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayFundCouponOperationQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayFundCouponOperationQueryModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOperationQueryModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOperationQueryModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOperationQueryModel.setOperationId(instance.getOperationId());

@@ -92,6 +92,9 @@ public class KoubeiMarketingToolPrizeSendAuthModel extends AlipayBasicModel {
             KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel = new KoubeiMarketingToolPrizeSendAuthModel();
             koubeiMarketingToolPrizeSendAuthModel.setTenantId(instance.getTenantId());
             koubeiMarketingToolPrizeSendAuthModel.setBranchId(instance.getBranchId());
+            koubeiMarketingToolPrizeSendAuthModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingToolPrizeSendAuthModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingToolPrizeSendAuthModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingToolPrizeSendAuthModel.setReqId(instance.getReqId());
             koubeiMarketingToolPrizeSendAuthModel.setPrizeId(instance.getPrizeId());
             koubeiMarketingToolPrizeSendAuthModel.setUserId(instance.getUserId());

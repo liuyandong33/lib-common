@@ -50,11 +50,14 @@ public class AlipayOpenPublicFollowBatchQueryModel extends AlipayBasicModel {
         }
 
         public AlipayOpenPublicFollowBatchQueryModel build() {
-            AlipayOpenPublicFollowBatchQueryModel copy = new AlipayOpenPublicFollowBatchQueryModel();
-            copy.setTenantId(instance.getTenantId());
-            copy.setBranchId(instance.getBranchId());
-            copy.setNextUserId(instance.getNextUserId());
-            return copy;
+            AlipayOpenPublicFollowBatchQueryModel alipayOpenPublicFollowBatchQueryModel = new AlipayOpenPublicFollowBatchQueryModel();
+            alipayOpenPublicFollowBatchQueryModel.setTenantId(instance.getTenantId());
+            alipayOpenPublicFollowBatchQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicFollowBatchQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicFollowBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicFollowBatchQueryModel.setAuthToken(instance.getAuthToken());
+            alipayOpenPublicFollowBatchQueryModel.setNextUserId(instance.getNextUserId());
+            return alipayOpenPublicFollowBatchQueryModel;
         }
     }
 

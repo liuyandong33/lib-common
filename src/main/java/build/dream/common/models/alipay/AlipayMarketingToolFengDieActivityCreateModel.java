@@ -33,6 +33,9 @@ public class AlipayMarketingToolFengDieActivityCreateModel extends AlipayBasicMo
             AlipayMarketingToolFengDieActivityCreateModel alipayMarketingToolFengDieActivityCreateModel = new AlipayMarketingToolFengDieActivityCreateModel();
             alipayMarketingToolFengDieActivityCreateModel.setTenantId(instance.getTenantId());
             alipayMarketingToolFengDieActivityCreateModel.setBranchId(instance.getBranchId());
+            alipayMarketingToolFengDieActivityCreateModel.setReturnUrl(instance.getReturnUrl());
+            alipayMarketingToolFengDieActivityCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayMarketingToolFengDieActivityCreateModel.setAuthToken(instance.getAuthToken());
             return alipayMarketingToolFengDieActivityCreateModel;
         }
     }

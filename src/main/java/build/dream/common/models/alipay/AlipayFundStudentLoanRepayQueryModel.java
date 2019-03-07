@@ -74,6 +74,9 @@ public class AlipayFundStudentLoanRepayQueryModel extends AlipayBasicModel {
             AlipayFundStudentLoanRepayQueryModel alipayFundStudentLoanRepayQueryModel = new AlipayFundStudentLoanRepayQueryModel();
             alipayFundStudentLoanRepayQueryModel.setTenantId(instance.getTenantId());
             alipayFundStudentLoanRepayQueryModel.setBranchId(instance.getBranchId());
+            alipayFundStudentLoanRepayQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayFundStudentLoanRepayQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayFundStudentLoanRepayQueryModel.setAuthToken(instance.getAuthToken());
             alipayFundStudentLoanRepayQueryModel.setLogonId(instance.getLogonId());
             alipayFundStudentLoanRepayQueryModel.setCertNo(instance.getCertNo());
             return alipayFundStudentLoanRepayQueryModel;

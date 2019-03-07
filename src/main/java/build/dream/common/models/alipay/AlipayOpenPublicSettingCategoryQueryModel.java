@@ -33,6 +33,9 @@ public class AlipayOpenPublicSettingCategoryQueryModel extends AlipayBasicModel 
             AlipayOpenPublicSettingCategoryQueryModel alipayOpenPublicSettingCategoryQueryModel = new AlipayOpenPublicSettingCategoryQueryModel();
             alipayOpenPublicSettingCategoryQueryModel.setTenantId(instance.getTenantId());
             alipayOpenPublicSettingCategoryQueryModel.setBranchId(instance.getBranchId());
+            alipayOpenPublicSettingCategoryQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayOpenPublicSettingCategoryQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayOpenPublicSettingCategoryQueryModel.setAuthToken(instance.getAuthToken());
             return alipayOpenPublicSettingCategoryQueryModel;
         }
     }

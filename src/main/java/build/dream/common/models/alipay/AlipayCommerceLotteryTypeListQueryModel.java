@@ -33,6 +33,9 @@ public class AlipayCommerceLotteryTypeListQueryModel extends AlipayBasicModel {
             AlipayCommerceLotteryTypeListQueryModel alipayCommerceLotteryTypeListQueryModel = new AlipayCommerceLotteryTypeListQueryModel();
             alipayCommerceLotteryTypeListQueryModel.setTenantId(instance.getTenantId());
             alipayCommerceLotteryTypeListQueryModel.setBranchId(instance.getBranchId());
+            alipayCommerceLotteryTypeListQueryModel.setReturnUrl(instance.getReturnUrl());
+            alipayCommerceLotteryTypeListQueryModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayCommerceLotteryTypeListQueryModel.setAuthToken(instance.getAuthToken());
             return alipayCommerceLotteryTypeListQueryModel;
         }
     }

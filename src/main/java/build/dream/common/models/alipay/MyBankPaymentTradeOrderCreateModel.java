@@ -33,6 +33,9 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
             MyBankPaymentTradeOrderCreateModel myBankPaymentTradeOrderCreateModel = new MyBankPaymentTradeOrderCreateModel();
             myBankPaymentTradeOrderCreateModel.setTenantId(instance.getTenantId());
             myBankPaymentTradeOrderCreateModel.setBranchId(instance.getBranchId());
+            myBankPaymentTradeOrderCreateModel.setReturnUrl(instance.getReturnUrl());
+            myBankPaymentTradeOrderCreateModel.setNotifyUrl(instance.getNotifyUrl());
+            myBankPaymentTradeOrderCreateModel.setAuthToken(instance.getAuthToken());
             return myBankPaymentTradeOrderCreateModel;
         }
     }

@@ -142,6 +142,9 @@ public class KoubeiMarketingCampaignActivityOfflineModel extends AlipayBasicMode
             KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel = new KoubeiMarketingCampaignActivityOfflineModel();
             koubeiMarketingCampaignActivityOfflineModel.setTenantId(instance.getTenantId());
             koubeiMarketingCampaignActivityOfflineModel.setBranchId(instance.getBranchId());
+            koubeiMarketingCampaignActivityOfflineModel.setReturnUrl(instance.getReturnUrl());
+            koubeiMarketingCampaignActivityOfflineModel.setNotifyUrl(instance.getNotifyUrl());
+            koubeiMarketingCampaignActivityOfflineModel.setAuthToken(instance.getAuthToken());
             koubeiMarketingCampaignActivityOfflineModel.setOutBizNo(instance.getOutBizNo());
             koubeiMarketingCampaignActivityOfflineModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignActivityOfflineModel.setReason(instance.getReason());
