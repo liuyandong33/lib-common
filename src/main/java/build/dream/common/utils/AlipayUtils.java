@@ -816,7 +816,6 @@ public class AlipayUtils {
 
     /**
      * 默认菜单更新接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicMenuModifyModel
      * @return
