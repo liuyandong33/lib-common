@@ -2167,7 +2167,6 @@ public class AlipayUtils {
 
     /**
      * 创建现金活动
-     * TODO: model 未实现
      *
      * @param alipayMarketingCampaignCashCreateModel
      * @return
