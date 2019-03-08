@@ -2278,7 +2278,6 @@ public class AlipayUtils {
 
     /**
      * 口碑凭证码同步
-     * TODO: model 未实现
      *
      * @param koubeiTradeTicketTicketCodeSyncModel
      * @return
