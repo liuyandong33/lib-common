@@ -1675,6 +1675,7 @@ public class AlipayUtils {
         String orderTicket = alipayOpenAgentCreateModel.getOrderTicket();
 
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到支付宝授权信息！");
 
         AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
         Map<String, Object> bizContentMap = new HashMap<String, Object>();
