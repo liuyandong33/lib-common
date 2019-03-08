@@ -886,7 +886,6 @@ public class AlipayUtils {
 
     /**
      * 分组消息发送接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicMessageGroupSendModel
      * @return
