@@ -826,7 +826,6 @@ public class AlipayUtils {
 
     /**
      * 个性化菜单创建
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicPersonalizedMenuCreateModel
      * @return
@@ -837,7 +836,6 @@ public class AlipayUtils {
 
     /**
      * 默认菜单创建接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicMenuCreateModel
      * @return
@@ -848,7 +846,6 @@ public class AlipayUtils {
 
     /**
      * 个性化扩展区创建接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicPersonalizedExtensionCreateModel
      * @return
@@ -869,13 +866,12 @@ public class AlipayUtils {
 
     /**
      * 用户分组修改接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicGroupModifyModel
      * @return
      */
     public static Map<String, Object> alipayOpenPublicGroupModify(AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel) {
-        return callAlipayApi(alipayOpenPublicGroupModifyModel, "alipay.open.public.group.batchquery");
+        return callAlipayApi(alipayOpenPublicGroupModifyModel, "alipay.open.public.group.modify");
     }
 
     /**
