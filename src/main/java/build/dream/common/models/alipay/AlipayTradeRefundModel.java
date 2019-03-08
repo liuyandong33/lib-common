@@ -1,11 +1,10 @@
 package build.dream.common.models.alipay;
 
+import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
@@ -13,47 +12,52 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class AlipayTradeRefundModel extends AlipayBasicModel {
-    @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
     @Length(max = 64)
+    @JsonProperty(value = "out_trade_no")
     private String outTradeNo;
 
-    @SerializedName(value = "trade_no", alternate = "tradeNo")
     @Length(max = 64)
+    @JsonProperty(value = "trade_no")
     private String tradeNo;
 
-    @SerializedName(value = "refund_amount", alternate = "refundAmount")
+    @NotNull
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
+    @JsonProperty(value = "refund_amount")
     private BigDecimal refundAmount;
 
-    @SerializedName(value = "refund_currency", alternate = "refundCurrency")
+    @JsonProperty(value = "refund_currency")
     private String refundCurrency;
 
-    @SerializedName(value = "refund_reason", alternate = "refundReason")
     @Length(max = 256)
+    @JsonProperty(value = "refund_reason")
     private String refundReason;
 
-    @SerializedName(value = "out_request_no", alternate = "outRequestNo")
     @Length(max = 64)
+    @JsonProperty(value = "out_request_no")
     private String outRequestNo;
 
-    @SerializedName(value = "operator_id", alternate = "operatorId")
     @Length(max = 30)
+    @JsonProperty(value = "operator_id")
     private String operatorId;
 
-    @SerializedName(value = "store_id", alternate = "storeId")
     @Length(max = 32)
+    @JsonProperty(value = "store_id")
     private String storeId;
 
-    @SerializedName(value = "terminal_id", alternate = "terminalId")
     @Length(max = 32)
+    @JsonProperty(value = "terminal_id")
     private String terminalId;
 
-    @SerializedName(value = "goods_detail", alternate = "goodsDetail")
+    @JsonProperty(value = "goods_detail")
     private List<GoodsDetail> goodsDetails;
 
-    @SerializedName(value = "refund_royalty_parameters", alternate = "refundRoyaltyParameters")
+    @JsonProperty(value = "refund_royalty_parameters")
     private List<OpenApiRoyaltyDetailInfoPojo> refundRoyaltyParameters;
+
+    @Length(max = 16)
+    @JsonProperty(value = "org_pid")
+    private String orgPid;
 
     public String getOutTradeNo() {
         return outTradeNo;
@@ -143,6 +147,124 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         this.refundRoyaltyParameters = refundRoyaltyParameters;
     }
 
+    public String getOrgPid() {
+        return orgPid;
+    }
+
+    public void setOrgPid(String orgPid) {
+        this.orgPid = orgPid;
+    }
+
+    public static class Builder {
+        private final AlipayTradeRefundModel instance = new AlipayTradeRefundModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return this;
+        }
+
+        public Builder outTradeNo(String outTradeNo) {
+            instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder tradeNo(String tradeNo) {
+            instance.setTradeNo(tradeNo);
+            return this;
+        }
+
+        public Builder refundAmount(BigDecimal refundAmount) {
+            instance.setRefundAmount(refundAmount);
+            return this;
+        }
+
+        public Builder refundCurrency(String refundCurrency) {
+            instance.setRefundCurrency(refundCurrency);
+            return this;
+        }
+
+        public Builder refundReason(String refundReason) {
+            instance.setRefundReason(refundReason);
+            return this;
+        }
+
+        public Builder outRequestNo(String outRequestNo) {
+            instance.setOutRequestNo(outRequestNo);
+            return this;
+        }
+
+        public Builder operatorId(String operatorId) {
+            instance.setOperatorId(operatorId);
+            return this;
+        }
+
+        public Builder storeId(String storeId) {
+            instance.setStoreId(storeId);
+            return this;
+        }
+
+        public Builder terminalId(String terminalId) {
+            instance.setTerminalId(terminalId);
+            return this;
+        }
+
+        public Builder goodsDetails(List<GoodsDetail> goodsDetails) {
+            instance.setGoodsDetails(goodsDetails);
+            return this;
+        }
+
+        public Builder refundRoyaltyParameters(List<OpenApiRoyaltyDetailInfoPojo> refundRoyaltyParameters) {
+            instance.setRefundRoyaltyParameters(refundRoyaltyParameters);
+            return this;
+        }
+
+        public AlipayTradeRefundModel build() {
+            AlipayTradeRefundModel alipayTradeRefundModel = new AlipayTradeRefundModel();
+            alipayTradeRefundModel.setTenantId(instance.getTenantId());
+            alipayTradeRefundModel.setBranchId(instance.getBranchId());
+            alipayTradeRefundModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeRefundModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeRefundModel.setAuthToken(instance.getAuthToken());
+            alipayTradeRefundModel.setOutTradeNo(instance.getOutTradeNo());
+            alipayTradeRefundModel.setTradeNo(instance.getTradeNo());
+            alipayTradeRefundModel.setRefundAmount(instance.getRefundAmount());
+            alipayTradeRefundModel.setRefundCurrency(instance.getRefundCurrency());
+            alipayTradeRefundModel.setRefundReason(instance.getRefundReason());
+            alipayTradeRefundModel.setOutRequestNo(instance.getOutRequestNo());
+            alipayTradeRefundModel.setOperatorId(instance.getOperatorId());
+            alipayTradeRefundModel.setStoreId(instance.getStoreId());
+            alipayTradeRefundModel.setTerminalId(instance.getTerminalId());
+            alipayTradeRefundModel.setGoodsDetails(instance.getGoodsDetails());
+            alipayTradeRefundModel.setRefundRoyaltyParameters(instance.getRefundRoyaltyParameters());
+            alipayTradeRefundModel.setOrgPid(instance.getOrgPid());
+            return alipayTradeRefundModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
@@ -159,18 +281,18 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
     }
 
     public static class GoodsDetail extends BasicModel {
-        @SerializedName(value = "goods_id", alternate = "goodsId")
         @NotNull
         @Length(max = 32)
+        @JsonProperty(value = "goods_id")
         private String goodsId;
 
-        @SerializedName(value = "alipay_goods_id", alternate = "alipayGoodsId")
         @Length(max = 32)
+        @JsonProperty(value = "alipay_goods_id")
         private String alipayGoodsId;
 
-        @SerializedName(value = "goods_name", alternate = "goodsName")
         @NotNull
         @Length(max = 256)
+        @JsonProperty(value = "goods_name")
         private String goodsName;
 
         @NotNull
@@ -179,15 +301,19 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         @NotNull
         private BigDecimal price;
 
-        @SerializedName(value = "goods_category", alternate = "goodsCategory")
         @Length(max = 24)
+        @JsonProperty(value = "goods_category")
         private String goodsCategory;
+
+        @Length(max = 128)
+        @JsonProperty(value = "categories_tree")
+        private String categoriesTree;
 
         @Length(max = 1000)
         private String body;
 
-        @SerializedName(value = "show_url", alternate = "showUrl")
         @Length(max = 400)
+        @JsonProperty(value = "show_url")
         private String showUrl;
 
         public String getGoodsId() {
@@ -238,6 +364,14 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
             this.goodsCategory = goodsCategory;
         }
 
+        public String getCategoriesTree() {
+            return categoriesTree;
+        }
+
+        public void setCategoriesTree(String categoriesTree) {
+            this.categoriesTree = categoriesTree;
+        }
+
         public String getBody() {
             return body;
         }
@@ -256,32 +390,31 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
     }
 
     private static class OpenApiRoyaltyDetailInfoPojo extends BasicModel {
-        private static final String[] ROYALTY_TYPES = {"transfer", "replenish"};
-        private static final String[] TRANS_OUT_TYPES = {"userId", "loginName"};
-        private static final String[] TRANS_IN_TYPES = {"userId", "cardSerialNo", "loginName"};
-
-        @SerializedName(value = "royalty_type", alternate = "royaltyType")
+        @InList(value = {"transfer", "replenish"})
+        @JsonProperty(value = "royalty_type")
         private String royaltyType;
 
-        @SerializedName(value = "trans_out", alternate = "transOut")
         @Length(max = 16)
+        @JsonProperty(value = "trans_out")
         private String transOut;
 
-        @SerializedName(value = "trans_out_type", alternate = "transOutType")
+        @InList(value = {"userId", "loginName"})
+        @JsonProperty(value = "trans_out_type")
         private String transOutType;
 
-        @SerializedName(value = "trans_in_type", alternate = "transInType")
+        @InList(value = {"userId", "cardSerialNo", "loginName"})
+        @JsonProperty(value = "trans_in_type")
         private String transInType;
 
-        @SerializedName(value = "trans_in", alternate = "transIn")
         @Length(max = 16)
+        @JsonProperty(value = "trans_in")
         private String transIn;
 
         private BigDecimal amount;
 
-        @SerializedName(value = "amount_percentage", alternate = "amountPercentage")
         @Min(value = 1)
         @Max(value = 100)
+        @JsonProperty(value = "amount_percentage")
         private Integer amountPercentage;
 
         @Length(max = 1000)
@@ -349,33 +482,6 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
 
         public void setDesc(String desc) {
             this.desc = desc;
-        }
-
-        @Override
-        public boolean validate() {
-            boolean isOk = super.validate();
-            if (!isOk) {
-                return false;
-            }
-            if (StringUtils.isNotBlank(royaltyType)) {
-                isOk = ArrayUtils.contains(ROYALTY_TYPES, royaltyType);
-                if (!isOk) {
-                    return false;
-                }
-            }
-            if (StringUtils.isNotBlank(transOutType)) {
-                isOk = ArrayUtils.contains(TRANS_OUT_TYPES, transOutType);
-                if (!isOk) {
-                    return false;
-                }
-            }
-            if (StringUtils.isNotBlank(transInType)) {
-                isOk = ArrayUtils.contains(TRANS_IN_TYPES, transInType);
-                if (!isOk) {
-                    return false;
-                }
-            }
-            return true;
         }
     }
 }

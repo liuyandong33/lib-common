@@ -258,7 +258,6 @@ public class AlipayUtils {
 
     /**
      * 统一收单交易退款接口
-     * TODO: model 未实现
      *
      * @param alipayTradeRefundModel
      * @return
@@ -332,7 +331,6 @@ public class AlipayUtils {
 
     /**
      * 口碑商品交易购买接口
-     * TODO: model 未实现
      *
      * @param koubeiTradeItemOrderBuyModel
      * @return
@@ -343,7 +341,6 @@ public class AlipayUtils {
 
     /**
      * 口碑商品交易退货接口
-     * TODO: model 未实现
      *
      * @param koubeiTradeItemOrderRefundModel
      * @return
@@ -354,7 +351,6 @@ public class AlipayUtils {
 
     /**
      * 资金授权冻结接口
-     * TODO: model 未实现
      *
      * @param alipayFundAuthOrderFreezeModel
      * @return
@@ -520,7 +516,6 @@ public class AlipayUtils {
 
     /**
      * 网商银行全渠道收单业务订单创建
-     * TODO: model 未实现
      *
      * @param myBankPaymentTradeOrderCreateModel
      * @return
@@ -661,7 +656,6 @@ public class AlipayUtils {
 
     /**
      * 单发模板消息
-     * TODO: model未实现
      *
      * @param alipayOpenPublicMessageSingleSendModel
      * @return
@@ -672,7 +666,6 @@ public class AlipayUtils {
 
     /**
      * 带参推广二维码接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicQrCodeCreateModel
      * @return
@@ -723,7 +716,6 @@ public class AlipayUtils {
 
     /**
      * 用户取消标签接口
-     * TODO: model 未实现
      *
      * @param alipayOpenPublicMatchUserLabelDeleteModel
      * @return
@@ -830,7 +822,7 @@ public class AlipayUtils {
      * @return
      */
     public static Map<String, Object> alipayOpenPublicMenuModify(AlipayOpenPublicMenuModifyModel alipayOpenPublicMenuModifyModel) {
-        return callAlipayApi(alipayOpenPublicMenuModifyModel, "alipay.open.public.message.custom.send");
+        return callAlipayApi(alipayOpenPublicMenuModifyModel, "alipay.open.public.menu.modify");
     }
 
     /**
