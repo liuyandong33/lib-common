@@ -1873,7 +1873,6 @@ public class AlipayUtils {
 
     /**
      * 创建H5应用
-     * TODO: model 未实现
      *
      * @param alipayMarketingToolFengDieActivityCreateModel
      * @return
@@ -1904,7 +1903,6 @@ public class AlipayUtils {
 
     /**
      * 根据菜品类型查询菜品数据
-     * TODO: model 未实现
      *
      * @param koubeiMarketingDataDishDiagnoseBatchQueryModel
      * @return
@@ -2085,7 +2083,6 @@ public class AlipayUtils {
 
     /**
      * 无资金券模板创建接口
-     * TODO: model 未实现
      *
      * @param alipayMarketingCashLessVoucherTemplateCreateModel
      * @return
@@ -2146,7 +2143,6 @@ public class AlipayUtils {
 
     /**
      * 修改券模板
-     * TODO: model 未实现
      *
      * @param alipayMarketingCashVoucherTemplateModifyModel
      * @return
