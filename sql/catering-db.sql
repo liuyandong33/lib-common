@@ -1394,6 +1394,7 @@ CREATE TABLE menu
     end_time DATETIME NOT NULL COMMENT '结束时间',
     status TINYINT NOT NULL COMMENT '菜牌状态，1-正常，2-停用',
     effective_scope TINYINT NOT NULL COMMENT '生效范围，1-线上，2-线下，3-线上线下',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
     updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
