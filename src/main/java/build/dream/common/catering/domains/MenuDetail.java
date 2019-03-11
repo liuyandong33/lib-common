@@ -163,4 +163,20 @@ public class MenuDetail extends BasicDomain {
     public static Builder builder() {
         return new Builder();
     }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TENANT_ID = "tenant_id";
+        public static final String TENANT_CODE = "tenant_code";
+        public static final String GOODS_ID = "goods_id";
+        public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
+        public static final String GOODS_UNIT_ID = "goods_unit_id";
+    }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TENANT_ID = "tenantId";
+        public static final String TENANT_CODE = "tenantCode";
+        public static final String GOODS_ID = "goodsId";
+        public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
+        public static final String GOODS_UNIT_ID = "goodsUnitId";
+    }
 }
