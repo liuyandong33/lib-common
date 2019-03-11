@@ -1388,11 +1388,11 @@ CREATE TABLE menu
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
-    code VARCHAR(50) NOT NULL COMMENT '菜牌编号',
-    name VARCHAR(50) NOT NULL COMMENT '菜牌名称',
+    `code` VARCHAR(50) NOT NULL COMMENT '菜牌编号',
+    `name` VARCHAR(50) NOT NULL COMMENT '菜牌名称',
     start_time DATETIME NOT NULL COMMENT '开始时间',
     end_time DATETIME NOT NULL COMMENT '结束时间',
-    status TINYINT NOT NULL COMMENT '菜牌状态，1-正常，2-停用',
+    `status` TINYINT NOT NULL COMMENT '菜牌状态，1-正常，2-停用',
     effective_scope TINYINT NOT NULL COMMENT '生效范围，1-线上，2-线下，3-线上线下',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -1403,15 +1403,23 @@ CREATE TABLE menu
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '菜牌';
 
-DROP TABLE IF EXISTS menu_goods_r;
-CREATE TABLE menu_goods_r
+DROP TABLE IF EXISTS menu_detail;
+CREATE TABLE menu_detail
 (
-    menu_id BIGINT NOT NULL COMMENT '活动ID',
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     goods_id BIGINT NOT NULL COMMENT '商品ID',
-    PRIMARY KEY(menu_id, tenant_id, tenant_code, goods_id)
-) COMMENT '餐厅分组表';
+    goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
+    goods_unit_id BIGINT NOT NULL COMMENT '商品单位ID',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '菜牌明细';
 
 DROP TABLE IF EXISTS menu_branch_r;
 CREATE TABLE menu_branch_r
