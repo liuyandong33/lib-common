@@ -105,7 +105,19 @@ public class VipGroup extends BasicDomain {
         }
 
         public VipGroup build() {
-            return instance;
+            VipGroup vipGroup = new VipGroup();
+            vipGroup.setTenantId(instance.getTenantId());
+            vipGroup.setTenantCode(instance.getTenantCode());
+            vipGroup.setName(instance.getName());
+            vipGroup.setId(instance.getId());
+            vipGroup.setCreatedTime(instance.getCreatedTime());
+            vipGroup.setCreatedUserId(instance.getCreatedUserId());
+            vipGroup.setUpdatedTime(instance.getUpdatedTime());
+            vipGroup.setUpdatedUserId(instance.getUpdatedUserId());
+            vipGroup.setUpdatedRemark(instance.getUpdatedRemark());
+            vipGroup.setDeletedTime(instance.getDeletedTime());
+            vipGroup.setDeleted(instance.isDeleted());
+            return vipGroup;
         }
     }
 

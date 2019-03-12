@@ -191,7 +191,24 @@ public class PackageGroupDetail extends BasicDomain {
         }
 
         public PackageGroupDetail build() {
-            return instance;
+            PackageGroupDetail packageGroupDetail = new PackageGroupDetail();
+            packageGroupDetail.setTenantId(instance.getTenantId());
+            packageGroupDetail.setTenantCode(instance.getTenantCode());
+            packageGroupDetail.setBranchId(instance.getBranchId());
+            packageGroupDetail.setPackageId(instance.getPackageId());
+            packageGroupDetail.setPackageGroupId(instance.getPackageGroupId());
+            packageGroupDetail.setGoodsId(instance.getGoodsId());
+            packageGroupDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            packageGroupDetail.setQuantity(instance.getQuantity());
+            packageGroupDetail.setId(instance.getId());
+            packageGroupDetail.setCreatedTime(instance.getCreatedTime());
+            packageGroupDetail.setCreatedUserId(instance.getCreatedUserId());
+            packageGroupDetail.setUpdatedTime(instance.getUpdatedTime());
+            packageGroupDetail.setUpdatedUserId(instance.getUpdatedUserId());
+            packageGroupDetail.setUpdatedRemark(instance.getUpdatedRemark());
+            packageGroupDetail.setDeletedTime(instance.getDeletedTime());
+            packageGroupDetail.setDeleted(instance.isDeleted());
+            return packageGroupDetail;
         }
     }
 

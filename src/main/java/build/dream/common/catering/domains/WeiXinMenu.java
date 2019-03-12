@@ -224,7 +224,26 @@ public class WeiXinMenu extends BasicDomain {
         }
 
         public WeiXinMenu build() {
-            return instance;
+            WeiXinMenu weiXinMenu = new WeiXinMenu();
+            weiXinMenu.setTenantId(instance.getTenantId());
+            weiXinMenu.setTenantCode(instance.getTenantCode());
+            weiXinMenu.setParentId(instance.getParentId());
+            weiXinMenu.setName(instance.getName());
+            weiXinMenu.setType(instance.getType());
+            weiXinMenu.setMessageContent(instance.getMessageContent());
+            weiXinMenu.setMediaId(instance.getMediaId());
+            weiXinMenu.setUrl(instance.getUrl());
+            weiXinMenu.setPagePath(instance.getPagePath());
+            weiXinMenu.setMiniProgramAppId(instance.getMiniProgramAppId());
+            weiXinMenu.setId(instance.getId());
+            weiXinMenu.setCreatedTime(instance.getCreatedTime());
+            weiXinMenu.setCreatedUserId(instance.getCreatedUserId());
+            weiXinMenu.setUpdatedTime(instance.getUpdatedTime());
+            weiXinMenu.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinMenu.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinMenu.setDeletedTime(instance.getDeletedTime());
+            weiXinMenu.setDeleted(instance.isDeleted());
+            return weiXinMenu;
         }
     }
 

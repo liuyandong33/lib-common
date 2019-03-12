@@ -513,7 +513,43 @@ public class DietOrderDetail extends BasicDomain {
         }
 
         public DietOrderDetail build() {
-            return instance;
+            DietOrderDetail dietOrderDetail = new DietOrderDetail();
+            dietOrderDetail.setTenantId(instance.getTenantId());
+            dietOrderDetail.setTenantCode(instance.getTenantCode());
+            dietOrderDetail.setBranchId(instance.getBranchId());
+            dietOrderDetail.setDietOrderId(instance.getDietOrderId());
+            dietOrderDetail.setDietOrderGroupId(instance.getDietOrderGroupId());
+            dietOrderDetail.setGoodsType(instance.getGoodsType());
+            dietOrderDetail.setGoodsId(instance.getGoodsId());
+            dietOrderDetail.setGoodsName(instance.getGoodsName());
+            dietOrderDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            dietOrderDetail.setGoodsSpecificationName(instance.getGoodsSpecificationName());
+            dietOrderDetail.setPackageId(instance.getPackageId());
+            dietOrderDetail.setPackageGroupId(instance.getPackageGroupId());
+            dietOrderDetail.setPackageGroupName(instance.getPackageGroupName());
+            dietOrderDetail.setCategoryId(instance.getCategoryId());
+            dietOrderDetail.setCategoryName(instance.getCategoryName());
+            dietOrderDetail.setPrice(instance.getPrice());
+            dietOrderDetail.setAttributeIncrease(instance.getAttributeIncrease());
+            dietOrderDetail.setQuantity(instance.getQuantity());
+            dietOrderDetail.setTotalAmount(instance.getTotalAmount());
+            dietOrderDetail.setDiscountAmount(instance.getDiscountAmount());
+            dietOrderDetail.setPayableAmount(instance.getPayableAmount());
+            dietOrderDetail.setLocalId(instance.getLocalId());
+            dietOrderDetail.setLocalDietOrderId(instance.getLocalDietOrderId());
+            dietOrderDetail.setLocalDietOrderGroupId(instance.getLocalDietOrderGroupId());
+            dietOrderDetail.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrderDetail.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrderDetail.setDiscountShare(instance.getDiscountShare());
+            dietOrderDetail.setId(instance.getId());
+            dietOrderDetail.setCreatedTime(instance.getCreatedTime());
+            dietOrderDetail.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderDetail.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderDetail.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderDetail.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderDetail.setDeletedTime(instance.getDeletedTime());
+            dietOrderDetail.setDeleted(instance.isDeleted());
+            return dietOrderDetail;
         }
     }
 
@@ -548,7 +584,6 @@ public class DietOrderDetail extends BasicDomain {
         public static final String LOCAL_DIET_ORDER_GROUP_ID = "local_diet_order_group_id";
         public static final String LOCAL_CREATED_TIME = "local_created_time";
         public static final String LOCAL_UPDATED_TIME = "local_updated_time";
-        public static final String DISCOUNT_SHARE = "discount_share";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -578,5 +613,6 @@ public class DietOrderDetail extends BasicDomain {
         public static final String LOCAL_DIET_ORDER_GROUP_ID = "localDietOrderGroupId";
         public static final String LOCAL_CREATED_TIME = "localCreatedTime";
         public static final String LOCAL_UPDATED_TIME = "localUpdatedTime";
+        public static final String DISCOUNT_SHARE = "discountShare";
     }
 }

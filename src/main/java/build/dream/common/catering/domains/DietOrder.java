@@ -16,13 +16,13 @@ public class DietOrder extends BasicDomain {
      */
     private BigInteger tenantId;
     /**
-     * 门店ID
-     */
-    private BigInteger branchId;
-    /**
      * 商户编码
      */
     private String tenantCode;
+    /**
+     * 门店ID
+     */
+    private BigInteger branchId;
     /**
      * 订单号
      */
@@ -140,20 +140,20 @@ public class DietOrder extends BasicDomain {
         this.tenantId = tenantId;
     }
 
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
-
     public String getTenantCode() {
         return tenantCode;
     }
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
     }
 
     public String getOrderNumber() {
@@ -380,13 +380,13 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
-            instance.setBranchId(branchId);
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
             return this;
         }
 
-        public Builder tenantCode(String tenantCode) {
-            instance.setTenantCode(tenantCode);
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
             return this;
         }
 
@@ -566,7 +566,46 @@ public class DietOrder extends BasicDomain {
         }
 
         public DietOrder build() {
-            return instance;
+            DietOrder dietOrder = new DietOrder();
+            dietOrder.setTenantId(instance.getTenantId());
+            dietOrder.setTenantCode(instance.getTenantCode());
+            dietOrder.setBranchId(instance.getBranchId());
+            dietOrder.setOrderNumber(instance.getOrderNumber());
+            dietOrder.setOrderType(instance.getOrderType());
+            dietOrder.setOrderStatus(instance.getOrderStatus());
+            dietOrder.setPayStatus(instance.getPayStatus());
+            dietOrder.setRefundStatus(instance.getRefundStatus());
+            dietOrder.setTotalAmount(instance.getTotalAmount());
+            dietOrder.setDiscountAmount(instance.getDiscountAmount());
+            dietOrder.setPayableAmount(instance.getPayableAmount());
+            dietOrder.setPaidAmount(instance.getPaidAmount());
+            dietOrder.setPaidType(instance.getPaidType());
+            dietOrder.setRemark(instance.getRemark());
+            dietOrder.setDeliveryAddress(instance.getDeliveryAddress());
+            dietOrder.setDeliveryLongitude(instance.getDeliveryLongitude());
+            dietOrder.setDeliveryLatitude(instance.getDeliveryLatitude());
+            dietOrder.setDeliverTime(instance.getDeliverTime());
+            dietOrder.setActiveTime(instance.getActiveTime());
+            dietOrder.setDeliverFee(instance.getDeliverFee());
+            dietOrder.setTelephoneNumber(instance.getTelephoneNumber());
+            dietOrder.setDaySerialNumber(instance.getDaySerialNumber());
+            dietOrder.setConsignee(instance.getConsignee());
+            dietOrder.setInvoiced(instance.isInvoiced());
+            dietOrder.setInvoiceType(instance.getInvoiceType());
+            dietOrder.setInvoice(instance.getInvoice());
+            dietOrder.setVipId(instance.getVipId());
+            dietOrder.setLocalId(instance.getLocalId());
+            dietOrder.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrder.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrder.setId(instance.getId());
+            dietOrder.setCreatedTime(instance.getCreatedTime());
+            dietOrder.setCreatedUserId(instance.getCreatedUserId());
+            dietOrder.setUpdatedTime(instance.getUpdatedTime());
+            dietOrder.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrder.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrder.setDeletedTime(instance.getDeletedTime());
+            dietOrder.setDeleted(instance.isDeleted());
+            return dietOrder;
         }
     }
 
@@ -576,8 +615,8 @@ public class DietOrder extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
-        public static final String BRANCH_ID = "branch_id";
         public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
         public static final String ORDER_NUMBER = "order_number";
         public static final String ORDER_TYPE = "order_type";
         public static final String ORDER_STATUS = "order_status";
@@ -609,8 +648,8 @@ public class DietOrder extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
-        public static final String BRANCH_ID = "branchId";
         public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
         public static final String ORDER_NUMBER = "orderNumber";
         public static final String ORDER_TYPE = "orderType";
         public static final String ORDER_STATUS = "orderStatus";

@@ -224,7 +224,26 @@ public class OfflinePayRecord extends BasicDomain {
         }
 
         public OfflinePayRecord build() {
-            return instance;
+            OfflinePayRecord offlinePayRecord = new OfflinePayRecord();
+            offlinePayRecord.setTenantId(instance.getTenantId());
+            offlinePayRecord.setTenantCode(instance.getTenantCode());
+            offlinePayRecord.setBranchId(instance.getBranchId());
+            offlinePayRecord.setUserId(instance.getUserId());
+            offlinePayRecord.setOrderNumber(instance.getOrderNumber());
+            offlinePayRecord.setChannelType(instance.getChannelType());
+            offlinePayRecord.setOutTradeNo(instance.getOutTradeNo());
+            offlinePayRecord.setTotalAmount(instance.getTotalAmount());
+            offlinePayRecord.setAuthCode(instance.getAuthCode());
+            offlinePayRecord.setStatus(instance.getStatus());
+            offlinePayRecord.setId(instance.getId());
+            offlinePayRecord.setCreatedTime(instance.getCreatedTime());
+            offlinePayRecord.setCreatedUserId(instance.getCreatedUserId());
+            offlinePayRecord.setUpdatedTime(instance.getUpdatedTime());
+            offlinePayRecord.setUpdatedUserId(instance.getUpdatedUserId());
+            offlinePayRecord.setUpdatedRemark(instance.getUpdatedRemark());
+            offlinePayRecord.setDeletedTime(instance.getDeletedTime());
+            offlinePayRecord.setDeleted(instance.isDeleted());
+            return offlinePayRecord;
         }
     }
 

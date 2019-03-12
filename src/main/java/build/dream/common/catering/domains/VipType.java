@@ -209,7 +209,25 @@ public class VipType extends BasicDomain {
         }
 
         public VipType build() {
-            return instance;
+            VipType vipType = new VipType();
+            vipType.setTenantId(instance.getTenantId());
+            vipType.setTenantCode(instance.getTenantCode());
+            vipType.setBranchId(instance.getBranchId());
+            vipType.setVipGroupId(instance.getVipGroupId());
+            vipType.setName(instance.getName());
+            vipType.setDiscountPolicy(instance.getDiscountPolicy());
+            vipType.setDiscountRate(instance.getDiscountRate());
+            vipType.setEnableBonus(instance.isEnableBonus());
+            vipType.setBonusCoefficient(instance.getBonusCoefficient());
+            vipType.setId(instance.getId());
+            vipType.setCreatedTime(instance.getCreatedTime());
+            vipType.setCreatedUserId(instance.getCreatedUserId());
+            vipType.setUpdatedTime(instance.getUpdatedTime());
+            vipType.setUpdatedUserId(instance.getUpdatedUserId());
+            vipType.setUpdatedRemark(instance.getUpdatedRemark());
+            vipType.setDeletedTime(instance.getDeletedTime());
+            vipType.setDeleted(instance.isDeleted());
+            return vipType;
         }
     }
 

@@ -206,7 +206,25 @@ public class Sale extends BasicDomain {
         }
 
         public Sale build() {
-            return instance;
+            Sale sale = new Sale();
+            sale.setTenantId(instance.getTenantId());
+            sale.setTenantCode(instance.getTenantCode());
+            sale.setBranchId(instance.getBranchId());
+            sale.setSaleCode(instance.getSaleCode());
+            sale.setSaleTime(instance.getSaleTime());
+            sale.setTotalAmount(instance.getTotalAmount());
+            sale.setDiscountAmount(instance.getDiscountAmount());
+            sale.setPayableAmount(instance.getPayableAmount());
+            sale.setPaidAmount(instance.getPaidAmount());
+            sale.setId(instance.getId());
+            sale.setCreatedTime(instance.getCreatedTime());
+            sale.setCreatedUserId(instance.getCreatedUserId());
+            sale.setUpdatedTime(instance.getUpdatedTime());
+            sale.setUpdatedUserId(instance.getUpdatedUserId());
+            sale.setUpdatedRemark(instance.getUpdatedRemark());
+            sale.setDeletedTime(instance.getDeletedTime());
+            sale.setDeleted(instance.isDeleted());
+            return sale;
         }
     }
 

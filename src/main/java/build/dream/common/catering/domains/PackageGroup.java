@@ -174,7 +174,23 @@ public class PackageGroup extends BasicDomain {
         }
 
         public PackageGroup build() {
-            return instance;
+            PackageGroup packageGroup = new PackageGroup();
+            packageGroup.setTenantId(instance.getTenantId());
+            packageGroup.setTenantCode(instance.getTenantCode());
+            packageGroup.setBranchId(instance.getBranchId());
+            packageGroup.setPackageId(instance.getPackageId());
+            packageGroup.setGroupName(instance.getGroupName());
+            packageGroup.setGroupType(instance.getGroupType());
+            packageGroup.setOptionalQuantity(instance.getOptionalQuantity());
+            packageGroup.setId(instance.getId());
+            packageGroup.setCreatedTime(instance.getCreatedTime());
+            packageGroup.setCreatedUserId(instance.getCreatedUserId());
+            packageGroup.setUpdatedTime(instance.getUpdatedTime());
+            packageGroup.setUpdatedUserId(instance.getUpdatedUserId());
+            packageGroup.setUpdatedRemark(instance.getUpdatedRemark());
+            packageGroup.setDeletedTime(instance.getDeletedTime());
+            packageGroup.setDeleted(instance.isDeleted());
+            return packageGroup;
         }
     }
 

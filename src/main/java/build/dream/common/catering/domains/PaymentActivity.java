@@ -192,7 +192,24 @@ public class PaymentActivity extends BasicDomain {
         }
 
         public PaymentActivity build() {
-            return instance;
+            PaymentActivity paymentActivity = new PaymentActivity();
+            paymentActivity.setTenantId(instance.getTenantId());
+            paymentActivity.setTenantCode(instance.getTenantCode());
+            paymentActivity.setActivityId(instance.getActivityId());
+            paymentActivity.setPaidType(instance.getPaidType());
+            paymentActivity.setTotalAmount(instance.getTotalAmount());
+            paymentActivity.setDiscountType(instance.getDiscountType());
+            paymentActivity.setDiscountRate(instance.getDiscountRate());
+            paymentActivity.setDiscountAmount(instance.getDiscountAmount());
+            paymentActivity.setId(instance.getId());
+            paymentActivity.setCreatedTime(instance.getCreatedTime());
+            paymentActivity.setCreatedUserId(instance.getCreatedUserId());
+            paymentActivity.setUpdatedTime(instance.getUpdatedTime());
+            paymentActivity.setUpdatedUserId(instance.getUpdatedUserId());
+            paymentActivity.setUpdatedRemark(instance.getUpdatedRemark());
+            paymentActivity.setDeletedTime(instance.getDeletedTime());
+            paymentActivity.setDeleted(instance.isDeleted());
+            return paymentActivity;
         }
     }
 

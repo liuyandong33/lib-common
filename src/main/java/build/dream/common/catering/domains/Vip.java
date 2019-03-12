@@ -259,7 +259,28 @@ public class Vip extends BasicDomain {
         }
 
         public Vip build() {
-            return instance;
+            Vip vip = new Vip();
+            vip.setTenantId(instance.getTenantId());
+            vip.setTenantCode(instance.getTenantCode());
+            vip.setBranchId(instance.getBranchId());
+            vip.setVipCode(instance.getVipCode());
+            vip.setVipName(instance.getVipName());
+            vip.setBirthday(instance.getBirthday());
+            vip.setPhoneNumber(instance.getPhoneNumber());
+            vip.setOpenId(instance.getOpenId());
+            vip.setMainOpenId(instance.getMainOpenId());
+            vip.setAlipayUserId(instance.getAlipayUserId());
+            vip.setCardId(instance.getCardId());
+            vip.setUserCardCode(instance.getUserCardCode());
+            vip.setId(instance.getId());
+            vip.setCreatedTime(instance.getCreatedTime());
+            vip.setCreatedUserId(instance.getCreatedUserId());
+            vip.setUpdatedTime(instance.getUpdatedTime());
+            vip.setUpdatedUserId(instance.getUpdatedUserId());
+            vip.setUpdatedRemark(instance.getUpdatedRemark());
+            vip.setDeletedTime(instance.getDeletedTime());
+            vip.setDeleted(instance.isDeleted());
+            return vip;
         }
     }
 

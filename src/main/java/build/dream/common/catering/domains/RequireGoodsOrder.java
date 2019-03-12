@@ -230,7 +230,26 @@ public class RequireGoodsOrder extends BasicDomain {
         }
 
         public RequireGoodsOrder build() {
-            return instance;
+            RequireGoodsOrder requireGoodsOrder = new RequireGoodsOrder();
+            requireGoodsOrder.setTenantId(instance.getTenantId());
+            requireGoodsOrder.setTenantCode(instance.getTenantCode());
+            requireGoodsOrder.setBranchId(instance.getBranchId());
+            requireGoodsOrder.setDistributionCenterId(instance.getDistributionCenterId());
+            requireGoodsOrder.setOrderNumber(instance.getOrderNumber());
+            requireGoodsOrder.setOriginatorUserId(instance.getOriginatorUserId());
+            requireGoodsOrder.setAuditorUserId(instance.getAuditorUserId());
+            requireGoodsOrder.setAuditTime(instance.getAuditTime());
+            requireGoodsOrder.setRemark(instance.getRemark());
+            requireGoodsOrder.setStatus(instance.getStatus());
+            requireGoodsOrder.setId(instance.getId());
+            requireGoodsOrder.setCreatedTime(instance.getCreatedTime());
+            requireGoodsOrder.setCreatedUserId(instance.getCreatedUserId());
+            requireGoodsOrder.setUpdatedTime(instance.getUpdatedTime());
+            requireGoodsOrder.setUpdatedUserId(instance.getUpdatedUserId());
+            requireGoodsOrder.setUpdatedRemark(instance.getUpdatedRemark());
+            requireGoodsOrder.setDeletedTime(instance.getDeletedTime());
+            requireGoodsOrder.setDeleted(instance.isDeleted());
+            return requireGoodsOrder;
         }
     }
 

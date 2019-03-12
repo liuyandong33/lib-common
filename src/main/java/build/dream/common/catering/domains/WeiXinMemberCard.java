@@ -139,7 +139,21 @@ public class WeiXinMemberCard extends BasicDomain {
         }
 
         public WeiXinMemberCard build() {
-            return instance;
+            WeiXinMemberCard weiXinMemberCard = new WeiXinMemberCard();
+            weiXinMemberCard.setTenantId(instance.getTenantId());
+            weiXinMemberCard.setAppId(instance.getAppId());
+            weiXinMemberCard.setCardId(instance.getCardId());
+            weiXinMemberCard.setUrl(instance.getUrl());
+            weiXinMemberCard.setShowQrCodeUrl(instance.getShowQrCodeUrl());
+            weiXinMemberCard.setId(instance.getId());
+            weiXinMemberCard.setCreatedTime(instance.getCreatedTime());
+            weiXinMemberCard.setCreatedUserId(instance.getCreatedUserId());
+            weiXinMemberCard.setUpdatedTime(instance.getUpdatedTime());
+            weiXinMemberCard.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinMemberCard.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinMemberCard.setDeletedTime(instance.getDeletedTime());
+            weiXinMemberCard.setDeleted(instance.isDeleted());
+            return weiXinMemberCard;
         }
     }
 

@@ -175,7 +175,23 @@ public class GoodsAttribute extends BasicDomain {
         }
 
         public GoodsAttribute build() {
-            return instance;
+            GoodsAttribute goodsAttribute = new GoodsAttribute();
+            goodsAttribute.setTenantId(instance.getTenantId());
+            goodsAttribute.setTenantCode(instance.getTenantCode());
+            goodsAttribute.setBranchId(instance.getBranchId());
+            goodsAttribute.setGoodsId(instance.getGoodsId());
+            goodsAttribute.setGoodsAttributeGroupId(instance.getGoodsAttributeGroupId());
+            goodsAttribute.setName(instance.getName());
+            goodsAttribute.setPrice(instance.getPrice());
+            goodsAttribute.setId(instance.getId());
+            goodsAttribute.setCreatedTime(instance.getCreatedTime());
+            goodsAttribute.setCreatedUserId(instance.getCreatedUserId());
+            goodsAttribute.setUpdatedTime(instance.getUpdatedTime());
+            goodsAttribute.setUpdatedUserId(instance.getUpdatedUserId());
+            goodsAttribute.setUpdatedRemark(instance.getUpdatedRemark());
+            goodsAttribute.setDeletedTime(instance.getDeletedTime());
+            goodsAttribute.setDeleted(instance.isDeleted());
+            return goodsAttribute;
         }
     }
 

@@ -207,7 +207,25 @@ public class Pos extends BasicDomain {
         }
 
         public Pos build() {
-            return instance;
+            Pos pos = new Pos();
+            pos.setTenantId(instance.getTenantId());
+            pos.setTenantCode(instance.getTenantCode());
+            pos.setBranchId(instance.getBranchId());
+            pos.setBranchCode(instance.getBranchCode());
+            pos.setUserId(instance.getUserId());
+            pos.setDeviceId(instance.getDeviceId());
+            pos.setType(instance.getType());
+            pos.setVersion(instance.getVersion());
+            pos.setOnline(instance.isOnline());
+            pos.setId(instance.getId());
+            pos.setCreatedTime(instance.getCreatedTime());
+            pos.setCreatedUserId(instance.getCreatedUserId());
+            pos.setUpdatedTime(instance.getUpdatedTime());
+            pos.setUpdatedUserId(instance.getUpdatedUserId());
+            pos.setUpdatedRemark(instance.getUpdatedRemark());
+            pos.setDeletedTime(instance.getDeletedTime());
+            pos.setDeleted(instance.isDeleted());
+            return pos;
         }
     }
 

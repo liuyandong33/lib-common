@@ -156,7 +156,22 @@ public class Payment extends BasicDomain {
         }
 
         public Payment build() {
-            return instance;
+            Payment payment = new Payment();
+            payment.setTenantId(instance.getTenantId());
+            payment.setTenantCode(instance.getTenantCode());
+            payment.setBranchId(instance.getBranchId());
+            payment.setCode(instance.getCode());
+            payment.setName(instance.getName());
+            payment.setStatus(instance.getStatus());
+            payment.setId(instance.getId());
+            payment.setCreatedTime(instance.getCreatedTime());
+            payment.setCreatedUserId(instance.getCreatedUserId());
+            payment.setUpdatedTime(instance.getUpdatedTime());
+            payment.setUpdatedUserId(instance.getUpdatedUserId());
+            payment.setUpdatedRemark(instance.getUpdatedRemark());
+            payment.setDeletedTime(instance.getDeletedTime());
+            payment.setDeleted(instance.isDeleted());
+            return payment;
         }
     }
 

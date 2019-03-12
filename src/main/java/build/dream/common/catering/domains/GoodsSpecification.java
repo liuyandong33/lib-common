@@ -176,7 +176,23 @@ public class GoodsSpecification extends BasicDomain {
         }
 
         public GoodsSpecification build() {
-            return instance;
+            GoodsSpecification goodsSpecification = new GoodsSpecification();
+            goodsSpecification.setTenantId(instance.getTenantId());
+            goodsSpecification.setTenantCode(instance.getTenantCode());
+            goodsSpecification.setBranchId(instance.getBranchId());
+            goodsSpecification.setGoodsId(instance.getGoodsId());
+            goodsSpecification.setName(instance.getName());
+            goodsSpecification.setPrice(instance.getPrice());
+            goodsSpecification.setStock(instance.getStock());
+            goodsSpecification.setId(instance.getId());
+            goodsSpecification.setCreatedTime(instance.getCreatedTime());
+            goodsSpecification.setCreatedUserId(instance.getCreatedUserId());
+            goodsSpecification.setUpdatedTime(instance.getUpdatedTime());
+            goodsSpecification.setUpdatedUserId(instance.getUpdatedUserId());
+            goodsSpecification.setUpdatedRemark(instance.getUpdatedRemark());
+            goodsSpecification.setDeletedTime(instance.getDeletedTime());
+            goodsSpecification.setDeleted(instance.isDeleted());
+            return goodsSpecification;
         }
     }
 

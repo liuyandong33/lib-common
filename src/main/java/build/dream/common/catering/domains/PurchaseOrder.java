@@ -215,7 +215,25 @@ public class PurchaseOrder extends BasicDomain {
         }
 
         public PurchaseOrder build() {
-            return instance;
+            PurchaseOrder purchaseOrder = new PurchaseOrder();
+            purchaseOrder.setTenantId(instance.getTenantId());
+            purchaseOrder.setTenantCode(instance.getTenantCode());
+            purchaseOrder.setBranchId(instance.getBranchId());
+            purchaseOrder.setOrderNumber(instance.getOrderNumber());
+            purchaseOrder.setOriginatorUserId(instance.getOriginatorUserId());
+            purchaseOrder.setAuditorUserId(instance.getAuditorUserId());
+            purchaseOrder.setAuditTime(instance.getAuditTime());
+            purchaseOrder.setRemark(instance.getRemark());
+            purchaseOrder.setStatus(instance.getStatus());
+            purchaseOrder.setId(instance.getId());
+            purchaseOrder.setCreatedTime(instance.getCreatedTime());
+            purchaseOrder.setCreatedUserId(instance.getCreatedUserId());
+            purchaseOrder.setUpdatedTime(instance.getUpdatedTime());
+            purchaseOrder.setUpdatedUserId(instance.getUpdatedUserId());
+            purchaseOrder.setUpdatedRemark(instance.getUpdatedRemark());
+            purchaseOrder.setDeletedTime(instance.getDeletedTime());
+            purchaseOrder.setDeleted(instance.isDeleted());
+            return purchaseOrder;
         }
     }
 

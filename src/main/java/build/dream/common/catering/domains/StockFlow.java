@@ -216,7 +216,25 @@ public class StockFlow extends BasicDomain {
         }
 
         public StockFlow build() {
-            return instance;
+            StockFlow stockFlow = new StockFlow();
+            stockFlow.setTenantId(instance.getTenantId());
+            stockFlow.setTenantCode(instance.getTenantCode());
+            stockFlow.setBranchId(instance.getBranchId());
+            stockFlow.setGoodsId(instance.getGoodsId());
+            stockFlow.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            stockFlow.setUnitId(instance.getUnitId());
+            stockFlow.setType(instance.getType());
+            stockFlow.setOccurrenceTime(instance.getOccurrenceTime());
+            stockFlow.setQuantity(instance.getQuantity());
+            stockFlow.setId(instance.getId());
+            stockFlow.setCreatedTime(instance.getCreatedTime());
+            stockFlow.setCreatedUserId(instance.getCreatedUserId());
+            stockFlow.setUpdatedTime(instance.getUpdatedTime());
+            stockFlow.setUpdatedUserId(instance.getUpdatedUserId());
+            stockFlow.setUpdatedRemark(instance.getUpdatedRemark());
+            stockFlow.setDeletedTime(instance.getDeletedTime());
+            stockFlow.setDeleted(instance.isDeleted());
+            return stockFlow;
         }
     }
 

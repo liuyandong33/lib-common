@@ -208,7 +208,25 @@ public class SalePayment extends BasicDomain {
         }
 
         public SalePayment build() {
-            return instance;
+            SalePayment salePayment = new SalePayment();
+            salePayment.setSaleId(instance.getSaleId());
+            salePayment.setSaleTime(instance.getSaleTime());
+            salePayment.setTenantId(instance.getTenantId());
+            salePayment.setTenantCode(instance.getTenantCode());
+            salePayment.setBranchId(instance.getBranchId());
+            salePayment.setPaymentId(instance.getPaymentId());
+            salePayment.setPaymentCode(instance.getPaymentCode());
+            salePayment.setPaymentName(instance.getPaymentName());
+            salePayment.setPaidAmount(instance.getPaidAmount());
+            salePayment.setId(instance.getId());
+            salePayment.setCreatedTime(instance.getCreatedTime());
+            salePayment.setCreatedUserId(instance.getCreatedUserId());
+            salePayment.setUpdatedTime(instance.getUpdatedTime());
+            salePayment.setUpdatedUserId(instance.getUpdatedUserId());
+            salePayment.setUpdatedRemark(instance.getUpdatedRemark());
+            salePayment.setDeletedTime(instance.getDeletedTime());
+            salePayment.setDeleted(instance.isDeleted());
+            return salePayment;
         }
     }
 

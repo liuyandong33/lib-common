@@ -260,7 +260,28 @@ public class DietOrderActivity extends BasicDomain {
         }
 
         public DietOrderActivity build() {
-            return instance;
+            DietOrderActivity dietOrderActivity = new DietOrderActivity();
+            dietOrderActivity.setTenantId(instance.getTenantId());
+            dietOrderActivity.setTenantCode(instance.getTenantCode());
+            dietOrderActivity.setBranchId(instance.getBranchId());
+            dietOrderActivity.setDietOrderId(instance.getDietOrderId());
+            dietOrderActivity.setActivityId(instance.getActivityId());
+            dietOrderActivity.setActivityName(instance.getActivityName());
+            dietOrderActivity.setActivityType(instance.getActivityType());
+            dietOrderActivity.setAmount(instance.getAmount());
+            dietOrderActivity.setLocalId(instance.getLocalId());
+            dietOrderActivity.setLocalDietOrderId(instance.getLocalDietOrderId());
+            dietOrderActivity.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrderActivity.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrderActivity.setId(instance.getId());
+            dietOrderActivity.setCreatedTime(instance.getCreatedTime());
+            dietOrderActivity.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderActivity.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderActivity.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderActivity.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderActivity.setDeletedTime(instance.getDeletedTime());
+            dietOrderActivity.setDeleted(instance.isDeleted());
+            return dietOrderActivity;
         }
 
     }

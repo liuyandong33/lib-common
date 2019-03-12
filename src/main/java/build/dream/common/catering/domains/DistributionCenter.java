@@ -326,7 +326,32 @@ public class DistributionCenter extends BasicDomain {
         }
 
         public DistributionCenter build() {
-            return instance;
+            DistributionCenter distributionCenter = new DistributionCenter();
+            distributionCenter.setTenantId(instance.getTenantId());
+            distributionCenter.setTenantCode(instance.getTenantCode());
+            distributionCenter.setCode(instance.getCode());
+            distributionCenter.setName(instance.getName());
+            distributionCenter.setStatus(instance.getStatus());
+            distributionCenter.setProvinceCode(instance.getProvinceCode());
+            distributionCenter.setProvinceName(instance.getProvinceName());
+            distributionCenter.setCityCode(instance.getCityCode());
+            distributionCenter.setCityName(instance.getCityName());
+            distributionCenter.setDistrictCode(instance.getDistrictCode());
+            distributionCenter.setDistrictName(instance.getDistrictName());
+            distributionCenter.setAddress(instance.getAddress());
+            distributionCenter.setLongitude(instance.getLongitude());
+            distributionCenter.setLatitude(instance.getLatitude());
+            distributionCenter.setLinkman(instance.getLinkman());
+            distributionCenter.setContactPhone(instance.getContactPhone());
+            distributionCenter.setId(instance.getId());
+            distributionCenter.setCreatedTime(instance.getCreatedTime());
+            distributionCenter.setCreatedUserId(instance.getCreatedUserId());
+            distributionCenter.setUpdatedTime(instance.getUpdatedTime());
+            distributionCenter.setUpdatedUserId(instance.getUpdatedUserId());
+            distributionCenter.setUpdatedRemark(instance.getUpdatedRemark());
+            distributionCenter.setDeletedTime(instance.getDeletedTime());
+            distributionCenter.setDeleted(instance.isDeleted());
+            return distributionCenter;
         }
     }
 

@@ -156,7 +156,22 @@ public class GoodsCategory extends BasicDomain {
         }
 
         public GoodsCategory build() {
-            return instance;
+            GoodsCategory goodsCategory = new GoodsCategory();
+            goodsCategory.setTenantId(instance.getTenantId());
+            goodsCategory.setTenantCode(instance.getTenantCode());
+            goodsCategory.setBranchId(instance.getBranchId());
+            goodsCategory.setName(instance.getName());
+            goodsCategory.setDescription(instance.getDescription());
+            goodsCategory.setParentId(instance.getParentId());
+            goodsCategory.setId(instance.getId());
+            goodsCategory.setCreatedTime(instance.getCreatedTime());
+            goodsCategory.setCreatedUserId(instance.getCreatedUserId());
+            goodsCategory.setUpdatedTime(instance.getUpdatedTime());
+            goodsCategory.setUpdatedUserId(instance.getUpdatedUserId());
+            goodsCategory.setUpdatedRemark(instance.getUpdatedRemark());
+            goodsCategory.setDeletedTime(instance.getDeletedTime());
+            goodsCategory.setDeleted(instance.isDeleted());
+            return goodsCategory;
         }
     }
 

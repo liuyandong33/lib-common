@@ -207,7 +207,26 @@ public class BuyGiveActivity extends BasicDomain {
         }
 
         public BuyGiveActivity build() {
-            return instance;
+            BuyGiveActivity buyGiveActivity = new BuyGiveActivity();
+            buyGiveActivity.setTenantId(instance.getTenantId());
+            buyGiveActivity.setTenantCode(instance.getTenantCode());
+            buyGiveActivity.setActivityId(instance.getActivityId());
+            buyGiveActivity.setBuyGoodsId(instance.getBuyGoodsId());
+            buyGiveActivity.setBuyGoodsSpecificationId(instance.getBuyGoodsSpecificationId());
+            buyGiveActivity.setBuyQuantity(instance.getBuyQuantity());
+            buyGiveActivity.setGiveGoodsId(instance.getGiveGoodsId());
+            buyGiveActivity.setGiveGoodsSpecificationId(instance.getGiveGoodsSpecificationId());
+            buyGiveActivity.setGiveQuantity(instance.getGiveQuantity());
+            buyGiveActivity.setId(instance.getId());
+            buyGiveActivity.setCreatedTime(instance.getCreatedTime());
+            buyGiveActivity.setCreatedUserId(instance.getCreatedUserId());
+            buyGiveActivity.setUpdatedTime(instance.getUpdatedTime());
+            buyGiveActivity.setUpdatedUserId(instance.getUpdatedUserId());
+            buyGiveActivity.setUpdatedRemark(instance.getUpdatedRemark());
+            buyGiveActivity.setDeletedTime(instance.getDeletedTime());
+            buyGiveActivity.setDeleted(instance.isDeleted());
+            buyGiveActivity.setId(instance.getId());
+            return buyGiveActivity;
         }
     }
 

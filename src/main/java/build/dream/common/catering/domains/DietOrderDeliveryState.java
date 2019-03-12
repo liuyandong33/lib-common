@@ -344,7 +344,33 @@ public class DietOrderDeliveryState extends BasicDomain {
         }
 
         public DietOrderDeliveryState build() {
-            return instance;
+            DietOrderDeliveryState dietOrderDeliveryState = new DietOrderDeliveryState();
+            dietOrderDeliveryState.setTenantId(instance.getTenantId());
+            dietOrderDeliveryState.setTenantCode(instance.getTenantCode());
+            dietOrderDeliveryState.setBranchId(instance.getBranchId());
+            dietOrderDeliveryState.setDietOrderId(instance.getDietOrderId());
+            dietOrderDeliveryState.setDietOrderNumber(instance.getDietOrderNumber());
+            dietOrderDeliveryState.setStatus(instance.getStatus());
+            dietOrderDeliveryState.setCarrierDriverName(instance.getCarrierDriverName());
+            dietOrderDeliveryState.setCarrierDriverPhone(instance.getCarrierDriverPhone());
+            dietOrderDeliveryState.setDescription(instance.getDescription());
+            dietOrderDeliveryState.setStationName(instance.getStationName());
+            dietOrderDeliveryState.setStationTel(instance.getStationTel());
+            dietOrderDeliveryState.setCancelReason(instance.getCancelReason());
+            dietOrderDeliveryState.setErrorCode(instance.getErrorCode());
+            dietOrderDeliveryState.setAddress(instance.getAddress());
+            dietOrderDeliveryState.setLongitude(instance.getLongitude());
+            dietOrderDeliveryState.setLatitude(instance.getLatitude());
+            dietOrderDeliveryState.setPushTime(instance.getPushTime());
+            dietOrderDeliveryState.setId(instance.getId());
+            dietOrderDeliveryState.setCreatedTime(instance.getCreatedTime());
+            dietOrderDeliveryState.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderDeliveryState.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderDeliveryState.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderDeliveryState.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderDeliveryState.setDeletedTime(instance.getDeletedTime());
+            dietOrderDeliveryState.setDeleted(instance.isDeleted());
+            return dietOrderDeliveryState;
         }
     }
 

@@ -294,7 +294,30 @@ public class DietOrderPayment extends BasicDomain {
         }
 
         public DietOrderPayment build() {
-            return instance;
+            DietOrderPayment dietOrderPayment = new DietOrderPayment();
+            dietOrderPayment.setTenantId(instance.getTenantId());
+            dietOrderPayment.setTenantCode(instance.getTenantCode());
+            dietOrderPayment.setBranchId(instance.getBranchId());
+            dietOrderPayment.setDietOrderId(instance.getDietOrderId());
+            dietOrderPayment.setPaymentId(instance.getPaymentId());
+            dietOrderPayment.setPaymentCode(instance.getPaymentCode());
+            dietOrderPayment.setPaymentName(instance.getPaymentName());
+            dietOrderPayment.setPaidAmount(instance.getPaidAmount());
+            dietOrderPayment.setOccurrenceTime(instance.getOccurrenceTime());
+            dietOrderPayment.setExtraInfo(instance.getExtraInfo());
+            dietOrderPayment.setLocalId(instance.getLocalId());
+            dietOrderPayment.setLocalDietOrderId(instance.getLocalDietOrderId());
+            dietOrderPayment.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrderPayment.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrderPayment.setId(instance.getId());
+            dietOrderPayment.setCreatedTime(instance.getCreatedTime());
+            dietOrderPayment.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderPayment.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderPayment.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderPayment.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderPayment.setDeletedTime(instance.getDeletedTime());
+            dietOrderPayment.setDeleted(instance.isDeleted());
+            return dietOrderPayment;
         }
     }
 

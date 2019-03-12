@@ -157,6 +157,21 @@ public class Coupon extends BasicDomain {
         }
 
         public Coupon build() {
+            Coupon coupon = new Coupon();
+            coupon.setTenantId(instance.getTenantId());
+            coupon.setTenantCode(instance.getTenantCode());
+            coupon.setBranchId(instance.getBranchId());
+            coupon.setName(instance.getName());
+            coupon.setType(instance.getType());
+            coupon.setFaceValue(instance.getFaceValue());
+            coupon.setId(instance.getId());
+            coupon.setCreatedTime(instance.getCreatedTime());
+            coupon.setCreatedUserId(instance.getCreatedUserId());
+            coupon.setUpdatedTime(instance.getUpdatedTime());
+            coupon.setUpdatedUserId(instance.getUpdatedUserId());
+            coupon.setUpdatedRemark(instance.getUpdatedRemark());
+            coupon.setDeletedTime(instance.getDeletedTime());
+            coupon.setDeleted(instance.isDeleted());
             return instance;
         }
     }

@@ -480,7 +480,41 @@ public class Branch extends BasicDomain {
         }
 
         public Branch build() {
-            return instance;
+            Branch branch = new Branch();
+            branch.setTenantId(instance.getTenantId());
+            branch.setTenantCode(instance.getTenantCode());
+            branch.setCode(instance.getCode());
+            branch.setName(instance.getName());
+            branch.setType(instance.getType());
+            branch.setStatus(instance.getStatus());
+            branch.setProvinceCode(instance.getProvinceCode());
+            branch.setProvinceName(instance.getProvinceName());
+            branch.setCityCode(instance.getCityCode());
+            branch.setCityName(instance.getCityName());
+            branch.setDistrictCode(instance.getDistrictCode());
+            branch.setDistrictName(instance.getDistrictName());
+            branch.setAddress(instance.getAddress());
+            branch.setLongitude(instance.getLongitude());
+            branch.setLatitude(instance.getLatitude());
+            branch.setLinkman(instance.getLinkman());
+            branch.setContactPhone(instance.getContactPhone());
+            branch.setElemeAccountType(instance.getElemeAccountType());
+            branch.setShopId(instance.getShopId());
+            branch.setSmartRestaurantStatus(instance.getSmartRestaurantStatus());
+            branch.setAppAuthToken(instance.getAppAuthToken());
+            branch.setPoiId(instance.getPoiId());
+            branch.setPoiName(instance.getPoiName());
+            branch.setVipGroupId(instance.getVipGroupId());
+            branch.setBusinessTimes(instance.getBusinessTimes());
+            branch.setId(instance.getId());
+            branch.setCreatedTime(instance.getCreatedTime());
+            branch.setCreatedUserId(instance.getCreatedUserId());
+            branch.setUpdatedTime(instance.getUpdatedTime());
+            branch.setUpdatedUserId(instance.getUpdatedUserId());
+            branch.setUpdatedRemark(instance.getUpdatedRemark());
+            branch.setDeletedTime(instance.getDeletedTime());
+            branch.setDeleted(instance.isDeleted());
+            return branch;
         }
     }
 

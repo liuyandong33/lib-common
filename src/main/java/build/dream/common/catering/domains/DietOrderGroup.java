@@ -223,7 +223,26 @@ public class DietOrderGroup extends BasicDomain {
         }
 
         public DietOrderGroup build() {
-            return instance;
+            DietOrderGroup dietOrderGroup = new DietOrderGroup();
+            dietOrderGroup.setTenantId(instance.getTenantId());
+            dietOrderGroup.setTenantCode(instance.getTenantCode());
+            dietOrderGroup.setBranchId(instance.getBranchId());
+            dietOrderGroup.setDietOrderId(instance.getDietOrderId());
+            dietOrderGroup.setName(instance.getName());
+            dietOrderGroup.setType(instance.getType());
+            dietOrderGroup.setLocalId(instance.getLocalId());
+            dietOrderGroup.setLocalDietOrderId(instance.getLocalDietOrderId());
+            dietOrderGroup.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrderGroup.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrderGroup.setId(instance.getId());
+            dietOrderGroup.setCreatedTime(instance.getCreatedTime());
+            dietOrderGroup.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderGroup.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderGroup.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderGroup.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderGroup.setDeletedTime(instance.getDeletedTime());
+            dietOrderGroup.setDeleted(instance.isDeleted());
+            return dietOrderGroup;
         }
     }
 

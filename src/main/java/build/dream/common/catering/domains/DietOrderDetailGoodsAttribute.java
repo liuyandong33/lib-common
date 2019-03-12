@@ -345,7 +345,33 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         }
 
         public DietOrderDetailGoodsAttribute build() {
-            return instance;
+            DietOrderDetailGoodsAttribute dietOrderDetailGoodsAttribute = new DietOrderDetailGoodsAttribute();
+            dietOrderDetailGoodsAttribute.setTenantId(instance.getTenantId());
+            dietOrderDetailGoodsAttribute.setTenantCode(instance.getTenantCode());
+            dietOrderDetailGoodsAttribute.setBranchId(instance.getBranchId());
+            dietOrderDetailGoodsAttribute.setDietOrderId(instance.getDietOrderId());
+            dietOrderDetailGoodsAttribute.setDietOrderGroupId(instance.getDietOrderGroupId());
+            dietOrderDetailGoodsAttribute.setDietOrderDetailId(instance.getDietOrderDetailId());
+            dietOrderDetailGoodsAttribute.setGoodsAttributeGroupId(instance.getGoodsAttributeGroupId());
+            dietOrderDetailGoodsAttribute.setGoodsAttributeGroupName(instance.getGoodsAttributeGroupName());
+            dietOrderDetailGoodsAttribute.setGoodsAttributeId(instance.getGoodsAttributeId());
+            dietOrderDetailGoodsAttribute.setGoodsAttributeName(instance.getGoodsAttributeName());
+            dietOrderDetailGoodsAttribute.setPrice(instance.getPrice());
+            dietOrderDetailGoodsAttribute.setLocalId(instance.getLocalId());
+            dietOrderDetailGoodsAttribute.setLocalDietOrderId(instance.getLocalDietOrderId());
+            dietOrderDetailGoodsAttribute.setLocalDietOrderGroupId(instance.getLocalDietOrderGroupId());
+            dietOrderDetailGoodsAttribute.setLocalDietOrderDetailId(instance.getLocalDietOrderDetailId());
+            dietOrderDetailGoodsAttribute.setLocalCreatedTime(instance.getLocalCreatedTime());
+            dietOrderDetailGoodsAttribute.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrderDetailGoodsAttribute.setId(instance.getId());
+            dietOrderDetailGoodsAttribute.setCreatedTime(instance.getCreatedTime());
+            dietOrderDetailGoodsAttribute.setCreatedUserId(instance.getCreatedUserId());
+            dietOrderDetailGoodsAttribute.setUpdatedTime(instance.getUpdatedTime());
+            dietOrderDetailGoodsAttribute.setUpdatedUserId(instance.getUpdatedUserId());
+            dietOrderDetailGoodsAttribute.setUpdatedRemark(instance.getUpdatedRemark());
+            dietOrderDetailGoodsAttribute.setDeletedTime(instance.getDeletedTime());
+            dietOrderDetailGoodsAttribute.setDeleted(instance.isDeleted());
+            return dietOrderDetailGoodsAttribute;
         }
     }
 

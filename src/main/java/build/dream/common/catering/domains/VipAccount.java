@@ -226,7 +226,26 @@ public class VipAccount extends BasicDomain {
         }
 
         public VipAccount build() {
-            return instance;
+            VipAccount vipAccount = new VipAccount();
+            vipAccount.setTenantId(instance.getTenantId());
+            vipAccount.setTenantCode(instance.getTenantCode());
+            vipAccount.setBranchId(instance.getBranchId());
+            vipAccount.setVipTypeId(instance.getVipTypeId());
+            vipAccount.setVipGroupId(instance.getVipGroupId());
+            vipAccount.setVipId(instance.getVipId());
+            vipAccount.setPoint(instance.getPoint());
+            vipAccount.setAccumulativePoint(instance.getAccumulativePoint());
+            vipAccount.setBalance(instance.getBalance());
+            vipAccount.setAccumulativeRecharge(instance.getAccumulativeRecharge());
+            vipAccount.setId(instance.getId());
+            vipAccount.setCreatedTime(instance.getCreatedTime());
+            vipAccount.setCreatedUserId(instance.getCreatedUserId());
+            vipAccount.setUpdatedTime(instance.getUpdatedTime());
+            vipAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            vipAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            vipAccount.setDeletedTime(instance.getDeletedTime());
+            vipAccount.setDeleted(instance.isDeleted());
+            return vipAccount;
         }
     }
 

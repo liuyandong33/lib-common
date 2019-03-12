@@ -157,7 +157,22 @@ public class GoodsUnit extends BasicDomain {
         }
 
         public GoodsUnit build() {
-            return instance;
+            GoodsUnit goodsUnit = new GoodsUnit();
+            goodsUnit.setTenantId(instance.getTenantId());
+            goodsUnit.setTenantCode(instance.getTenantCode());
+            goodsUnit.setBranchId(instance.getBranchId());
+            goodsUnit.setGoodsId(instance.getGoodsId());
+            goodsUnit.setName(instance.getName());
+            goodsUnit.setProportion(instance.getProportion());
+            goodsUnit.setId(instance.getId());
+            goodsUnit.setCreatedTime(instance.getCreatedTime());
+            goodsUnit.setCreatedUserId(instance.getCreatedUserId());
+            goodsUnit.setUpdatedTime(instance.getUpdatedTime());
+            goodsUnit.setUpdatedUserId(instance.getUpdatedUserId());
+            goodsUnit.setUpdatedRemark(instance.getUpdatedRemark());
+            goodsUnit.setDeletedTime(instance.getDeletedTime());
+            goodsUnit.setDeleted(instance.isDeleted());
+            return goodsUnit;
         }
     }
 

@@ -344,7 +344,33 @@ public class SaleDetail extends BasicDomain {
         }
 
         public SaleDetail build() {
-            return instance;
+            SaleDetail saleDetail = new SaleDetail();
+            saleDetail.setSaleId(instance.getSaleId());
+            saleDetail.setSaleTime(instance.getSaleTime());
+            saleDetail.setTenantId(instance.getTenantId());
+            saleDetail.setTenantCode(instance.getTenantCode());
+            saleDetail.setBranchId(instance.getBranchId());
+            saleDetail.setGoodsId(instance.getGoodsId());
+            saleDetail.setGoodsName(instance.getGoodsName());
+            saleDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            saleDetail.setGoodsSpecificationName(instance.getGoodsSpecificationName());
+            saleDetail.setCategoryId(instance.getCategoryId());
+            saleDetail.setCategoryName(instance.getCategoryName());
+            saleDetail.setPrice(instance.getPrice());
+            saleDetail.setQuantity(instance.getQuantity());
+            saleDetail.setTotalAmount(instance.getTotalAmount());
+            saleDetail.setDiscountAmount(instance.getDiscountAmount());
+            saleDetail.setPayableAmount(instance.getPayableAmount());
+            saleDetail.setDiscountShare(instance.getDiscountShare());
+            saleDetail.setId(instance.getId());
+            saleDetail.setCreatedTime(instance.getCreatedTime());
+            saleDetail.setCreatedUserId(instance.getCreatedUserId());
+            saleDetail.setUpdatedTime(instance.getUpdatedTime());
+            saleDetail.setUpdatedUserId(instance.getUpdatedUserId());
+            saleDetail.setUpdatedRemark(instance.getUpdatedRemark());
+            saleDetail.setDeletedTime(instance.getDeletedTime());
+            saleDetail.setDeleted(instance.isDeleted());
+            return saleDetail;
         }
     }
 

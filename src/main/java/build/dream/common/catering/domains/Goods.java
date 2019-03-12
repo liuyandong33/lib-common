@@ -205,9 +205,26 @@ public class Goods extends BasicDomain {
             return this;
         }
 
-
         public Goods build() {
-            return instance;
+            Goods goods = new Goods();
+            goods.setTenantId(instance.getTenantId());
+            goods.setTenantCode(instance.getTenantCode());
+            goods.setBranchId(instance.getBranchId());
+            goods.setName(instance.getTenantCode());
+            goods.setType(instance.getType());
+            goods.setCategoryId(instance.getCategoryId());
+            goods.setCategoryName(instance.getCategoryName());
+            goods.setImageUrl(instance.getImageUrl());
+            goods.setStocked(instance.isStocked());
+            goods.setId(instance.getId());
+            goods.setCreatedTime(instance.getCreatedTime());
+            goods.setCreatedUserId(instance.getCreatedUserId());
+            goods.setUpdatedTime(instance.getUpdatedTime());
+            goods.setUpdatedUserId(instance.getUpdatedUserId());
+            goods.setUpdatedRemark(instance.getUpdatedRemark());
+            goods.setDeletedTime(instance.getDeletedTime());
+            goods.setDeleted(instance.isDeleted());
+            return goods;
         }
     }
 
@@ -222,7 +239,6 @@ public class Goods extends BasicDomain {
         public static final String NAME = "name";
         public static final String TYPE = "type";
         public static final String CATEGORY_ID = "category_id";
-        public static final String CATEGORY_NAME = "category_name";
         public static final String IMAGE_URL = "image_url";
         public static final String STOCKED = "stocked";
     }
@@ -234,8 +250,8 @@ public class Goods extends BasicDomain {
         public static final String NAME = "name";
         public static final String TYPE = "type";
         public static final String CATEGORY_ID = "categoryId";
+        public static final String CATEGORY_NAME = "categoryName";
         public static final String IMAGE_URL = "imageUrl";
         public static final String STOCKED = "stocked";
-        public static final String CATEGORY_NAME = "categoryName";
     }
 }

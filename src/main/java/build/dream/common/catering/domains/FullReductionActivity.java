@@ -175,7 +175,23 @@ public class FullReductionActivity extends BasicDomain {
         }
 
         public FullReductionActivity build() {
-            return instance;
+            FullReductionActivity fullReductionActivity = new FullReductionActivity();
+            fullReductionActivity.setTenantId(instance.getTenantId());
+            fullReductionActivity.setTenantCode(instance.getTenantCode());
+            fullReductionActivity.setActivityId(instance.getActivityId());
+            fullReductionActivity.setTotalAmount(instance.getTotalAmount());
+            fullReductionActivity.setDiscountType(instance.getDiscountType());
+            fullReductionActivity.setDiscountRate(instance.getDiscountRate());
+            fullReductionActivity.setDiscountAmount(instance.getDiscountAmount());
+            fullReductionActivity.setId(instance.getId());
+            fullReductionActivity.setCreatedTime(instance.getCreatedTime());
+            fullReductionActivity.setCreatedUserId(instance.getCreatedUserId());
+            fullReductionActivity.setUpdatedTime(instance.getUpdatedTime());
+            fullReductionActivity.setUpdatedUserId(instance.getUpdatedUserId());
+            fullReductionActivity.setUpdatedRemark(instance.getUpdatedRemark());
+            fullReductionActivity.setDeletedTime(instance.getDeletedTime());
+            fullReductionActivity.setDeleted(instance.isDeleted());
+            return fullReductionActivity;
         }
     }
 
