@@ -223,7 +223,26 @@ public class ActivationCodeInfo extends BasicDomain {
         }
 
         public ActivationCodeInfo build() {
-            return instance;
+            ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo();
+            activationCodeInfo.setAgentId(instance.getAgentId());
+            activationCodeInfo.setOrderId(instance.getOrderId());
+            activationCodeInfo.setUseOrderId(instance.getUseOrderId());
+            activationCodeInfo.setUseTime(instance.getUseTime());
+            activationCodeInfo.setExpireTime(instance.getExpireTime());
+            activationCodeInfo.setStatus(instance.getStatus());
+            activationCodeInfo.setRemark(instance.getRemark());
+            activationCodeInfo.setActivationCode(instance.getActivationCode());
+            activationCodeInfo.setGoodsId(instance.getGoodsId());
+            activationCodeInfo.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            activationCodeInfo.setId(instance.getId());
+            activationCodeInfo.setCreatedTime(instance.getCreatedTime());
+            activationCodeInfo.setCreatedUserId(instance.getCreatedUserId());
+            activationCodeInfo.setUpdatedTime(instance.getUpdatedTime());
+            activationCodeInfo.setUpdatedUserId(instance.getUpdatedUserId());
+            activationCodeInfo.setUpdatedRemark(instance.getUpdatedRemark());
+            activationCodeInfo.setDeletedTime(instance.getDeletedTime());
+            activationCodeInfo.setDeleted(instance.isDeleted());
+            return activationCodeInfo;
         }
     }
 

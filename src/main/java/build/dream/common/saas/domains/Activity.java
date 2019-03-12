@@ -137,7 +137,21 @@ public class Activity extends BasicDomain {
         }
 
         public Activity build() {
-            return instance;
+            Activity activity = new Activity();
+            activity.setName(instance.getName());
+            activity.setStartTime(instance.getStartTime());
+            activity.setEndTime(instance.getEndTime());
+            activity.setType(instance.getType());
+            activity.setStatus(instance.getStatus());
+            activity.setId(instance.getId());
+            activity.setCreatedTime(instance.getCreatedTime());
+            activity.setCreatedUserId(instance.getCreatedUserId());
+            activity.setUpdatedTime(instance.getUpdatedTime());
+            activity.setUpdatedUserId(instance.getUpdatedUserId());
+            activity.setUpdatedRemark(instance.getUpdatedRemark());
+            activity.setDeletedTime(instance.getDeletedTime());
+            activity.setDeleted(instance.isDeleted());
+            return activity;
         }
     }
 

@@ -121,7 +121,20 @@ public class AgentContractPriceInfo extends BasicDomain {
         }
 
         public AgentContractPriceInfo build() {
-            return instance;
+            AgentContractPriceInfo agentContractPriceInfo = new AgentContractPriceInfo();
+            agentContractPriceInfo.setAgentContractId(instance.getAgentContractId());
+            agentContractPriceInfo.setGoodsId(instance.getGoodsId());
+            agentContractPriceInfo.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            agentContractPriceInfo.setContractPrice(instance.getContractPrice());
+            agentContractPriceInfo.setId(instance.getId());
+            agentContractPriceInfo.setCreatedTime(instance.getCreatedTime());
+            agentContractPriceInfo.setCreatedUserId(instance.getCreatedUserId());
+            agentContractPriceInfo.setUpdatedTime(instance.getUpdatedTime());
+            agentContractPriceInfo.setUpdatedUserId(instance.getUpdatedUserId());
+            agentContractPriceInfo.setUpdatedRemark(instance.getUpdatedRemark());
+            agentContractPriceInfo.setDeletedTime(instance.getDeletedTime());
+            agentContractPriceInfo.setDeleted(instance.isDeleted());
+            return agentContractPriceInfo;
         }
     }
 

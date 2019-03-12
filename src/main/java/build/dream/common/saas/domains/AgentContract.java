@@ -137,7 +137,21 @@ public class AgentContract extends BasicDomain {
         }
 
         public AgentContract build() {
-            return instance;
+            AgentContract agentContract = new AgentContract();
+            agentContract.setContractNumber(instance.getContractNumber());
+            agentContract.setAgentId(instance.getAgentId());
+            agentContract.setStartTime(instance.getStartTime());
+            agentContract.setEndTime(instance.getEndTime());
+            agentContract.setStatus(instance.getStatus());
+            agentContract.setId(instance.getId());
+            agentContract.setCreatedTime(instance.getCreatedTime());
+            agentContract.setCreatedUserId(instance.getCreatedUserId());
+            agentContract.setUpdatedTime(instance.getUpdatedTime());
+            agentContract.setUpdatedUserId(instance.getUpdatedUserId());
+            agentContract.setUpdatedRemark(instance.getUpdatedRemark());
+            agentContract.setDeletedTime(instance.getDeletedTime());
+            agentContract.setDeleted(instance.isDeleted());
+            return agentContract;
         }
     }
 

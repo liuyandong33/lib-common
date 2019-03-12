@@ -223,7 +223,25 @@ public class AlipayAccount extends BasicDomain {
         }
 
         public AlipayAccount build() {
-            return instance;
+            AlipayAccount alipayAccount = new AlipayAccount();
+            alipayAccount.setTenantId(instance.getTenantId());
+            alipayAccount.setBranchId(instance.getBranchId());
+            alipayAccount.setAccount(instance.getAccount());
+            alipayAccount.setAppId(instance.getAppId());
+            alipayAccount.setPartnerId(instance.getPartnerId());
+            alipayAccount.setAlipayPublicKey(instance.getAlipayPublicKey());
+            alipayAccount.setApplicationPublicKey(instance.getApplicationPublicKey());
+            alipayAccount.setApplicationPrivateKey(instance.getApplicationPrivateKey());
+            alipayAccount.setSignType(instance.getSignType());
+            alipayAccount.setId(instance.getId());
+            alipayAccount.setCreatedTime(instance.getCreatedTime());
+            alipayAccount.setCreatedUserId(instance.getCreatedUserId());
+            alipayAccount.setUpdatedTime(instance.getUpdatedTime());
+            alipayAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            alipayAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            alipayAccount.setDeletedTime(instance.getDeletedTime());
+            alipayAccount.setDeleted(instance.isDeleted());
+            return alipayAccount;
         }
     }
 

@@ -86,7 +86,18 @@ public class Agent extends BasicDomain {
         }
 
         public Agent build() {
-            return instance;
+            Agent agent = new Agent();
+            agent.setCode(instance.getCode());
+            agent.setName(instance.getName());
+            agent.setId(instance.getId());
+            agent.setCreatedTime(instance.getCreatedTime());
+            agent.setCreatedUserId(instance.getCreatedUserId());
+            agent.setUpdatedTime(instance.getUpdatedTime());
+            agent.setUpdatedUserId(instance.getUpdatedUserId());
+            agent.setUpdatedRemark(instance.getUpdatedRemark());
+            agent.setDeletedTime(instance.getDeletedTime());
+            agent.setDeleted(instance.isDeleted());
+            return agent;
         }
     }
 

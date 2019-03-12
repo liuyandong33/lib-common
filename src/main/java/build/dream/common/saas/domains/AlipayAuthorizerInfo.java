@@ -211,7 +211,25 @@ public class AlipayAuthorizerInfo extends BasicDomain {
         }
 
         public AlipayAuthorizerInfo build() {
-            return instance;
+            AlipayAuthorizerInfo alipayAuthorizerInfo = new AlipayAuthorizerInfo();
+            alipayAuthorizerInfo.setTenantId(instance.getTenantId());
+            alipayAuthorizerInfo.setBranchId(instance.getBranchId());
+            alipayAuthorizerInfo.setAppId(instance.getAppId());
+            alipayAuthorizerInfo.setAppAuthToken(instance.getAppAuthToken());
+            alipayAuthorizerInfo.setUserId(instance.getUserId());
+            alipayAuthorizerInfo.setAuthAppId(instance.getAuthAppId());
+            alipayAuthorizerInfo.setExpiresIn(instance.getExpiresIn());
+            alipayAuthorizerInfo.setReExpiresIn(instance.getReExpiresIn());
+            alipayAuthorizerInfo.setAppRefreshToken(instance.getAppRefreshToken());
+            alipayAuthorizerInfo.setId(instance.getId());
+            alipayAuthorizerInfo.setCreatedTime(instance.getCreatedTime());
+            alipayAuthorizerInfo.setCreatedUserId(instance.getCreatedUserId());
+            alipayAuthorizerInfo.setUpdatedTime(instance.getUpdatedTime());
+            alipayAuthorizerInfo.setUpdatedUserId(instance.getUpdatedUserId());
+            alipayAuthorizerInfo.setUpdatedRemark(instance.getUpdatedRemark());
+            alipayAuthorizerInfo.setDeletedTime(instance.getDeletedTime());
+            alipayAuthorizerInfo.setDeleted(instance.isDeleted());
+            return alipayAuthorizerInfo;
         }
     }
 
