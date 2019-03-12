@@ -289,7 +289,18 @@ public class ApiRest {
         }
 
         public ApiRest build() {
-            return instance;
+            ApiRest apiRest = new ApiRest();
+            apiRest.setSuccessful(instance.isSuccessful());
+            apiRest.setData(instance.getData());
+            apiRest.setClassName(instance.getClassName());
+            apiRest.setMessage(instance.getMessage());
+            apiRest.setError(instance.getError());
+            apiRest.setId(instance.getId());
+            apiRest.setTimestamp(instance.getTimestamp());
+            apiRest.setSignature(instance.getSignature());
+            apiRest.setZipped(instance.isZipped());
+            apiRest.setEncrypted(instance.isEncrypted());
+            return apiRest;
         }
     }
 
