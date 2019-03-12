@@ -981,7 +981,31 @@ public class AlipayTradeAppPayModel extends BasicModel {
         }
 
         public AlipayTradeAppPayModel build() {
-            return instance;
+            AlipayTradeAppPayModel alipayTradeAppPayModel = new AlipayTradeAppPayModel();
+            alipayTradeAppPayModel.setTenantId(instance.getTenantId());
+            alipayTradeAppPayModel.setBranchId(instance.goodsType);
+            alipayTradeAppPayModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeAppPayModel.setTimeoutExpress(instance.getTimeoutExpress());
+            alipayTradeAppPayModel.setTotalAmount(instance.getTotalAmount());
+            alipayTradeAppPayModel.setSellerId(instance.getSellerId());
+            alipayTradeAppPayModel.setProductCode(instance.getProductCode());
+            alipayTradeAppPayModel.setBody(instance.getBody());
+            alipayTradeAppPayModel.setSubject(instance.getSubject());
+            alipayTradeAppPayModel.setOutTradeNo(instance.getOutTradeNo());
+            alipayTradeAppPayModel.setTimeExpire(instance.getTimeExpire());
+            alipayTradeAppPayModel.setGoodsType(instance.getGoodsType());
+            alipayTradeAppPayModel.setPromoParams(instance.getPromoParams());
+            alipayTradeAppPayModel.setPassbackParams(instance.getPassbackParams());
+            alipayTradeAppPayModel.setRoyaltyInfo(instance.getRoyaltyInfo());
+            alipayTradeAppPayModel.setExtendParams(instance.getExtendParams());
+            alipayTradeAppPayModel.setSubMerchant(instance.getSubMerchant());
+            alipayTradeAppPayModel.setEnablePayChannels(instance.getEnablePayChannels());
+            alipayTradeAppPayModel.setDisablePayChannels(instance.getDisablePayChannels());
+            alipayTradeAppPayModel.setSettleInfo(instance.getSettleInfo());
+            alipayTradeAppPayModel.setInvoiceInfo(instance.getInvoiceInfo());
+            alipayTradeAppPayModel.setExtUserInfo(instance.getExtUserInfo());
+            alipayTradeAppPayModel.setBusinessParams(instance.getBusinessParams());
+            return alipayTradeAppPayModel;
         }
     }
 

@@ -156,7 +156,16 @@ public class AddRecommendConfModel extends BasicModel {
         }
 
         public AddRecommendConfModel build() {
-            return instance;
+            AddRecommendConfModel addRecommendConfModel = new AddRecommendConfModel();
+            addRecommendConfModel.setTenantId(instance.getTenantId());
+            addRecommendConfModel.setBranchId(instance.getBranchId());
+            addRecommendConfModel.setMchId(instance.getMchId());
+            addRecommendConfModel.setSubMchId(instance.getSubMchId());
+            addRecommendConfModel.setSubAppId(instance.getSubAppId());
+            addRecommendConfModel.setSubscribeAppId(instance.getSubscribeAppId());
+            addRecommendConfModel.setReceiptAppId(instance.getReceiptAppId());
+            addRecommendConfModel.setSignType(instance.getSignType());
+            return addRecommendConfModel;
         }
     }
 

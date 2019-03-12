@@ -101,7 +101,14 @@ public class SaveNotifyRecordModel extends BasicModel {
         }
 
         public SaveNotifyRecordModel build() {
-            return instance;
+            SaveNotifyRecordModel saveNotifyRecordModel = new SaveNotifyRecordModel();
+            saveNotifyRecordModel.setUuid(instance.getUuid());
+            saveNotifyRecordModel.setNotifyUrl(instance.getNotifyUrl());
+            saveNotifyRecordModel.setAlipayPublicKey(instance.getAlipayPublicKey());
+            saveNotifyRecordModel.setAlipaySignType(instance.getAlipaySignType());
+            saveNotifyRecordModel.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
+            saveNotifyRecordModel.setWeiXinPaySignType(instance.getWeiXinPaySignType());
+            return saveNotifyRecordModel;
         }
     }
 

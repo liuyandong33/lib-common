@@ -447,7 +447,27 @@ public class AlipayTradePayModel extends BasicModel {
         }
 
         public AlipayTradePayModel build() {
-            return instance;
+            AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
+            alipayTradePayModel.setTenantId(instance.getTenantId());
+            alipayTradePayModel.setBranchId(instance.getBranchId());
+            alipayTradePayModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradePayModel.setOutTradeNo(instance.getOutTradeNo());
+            alipayTradePayModel.setScene(instance.getScene());
+            alipayTradePayModel.setAuthCode(instance.getAuthCode());
+            alipayTradePayModel.setProductCode(instance.getProductCode());
+            alipayTradePayModel.setSubject(instance.getSubject());
+            alipayTradePayModel.setBuyerId(instance.getBuyerId());
+            alipayTradePayModel.setSellerId(instance.getSellerId());
+            alipayTradePayModel.setTotalAmount(instance.getTotalAmount());
+            alipayTradePayModel.setDiscountableAmount(instance.getDiscountableAmount());
+            alipayTradePayModel.setBody(instance.getBody());
+            alipayTradePayModel.setGoodsDetails(instance.getGoodsDetails());
+            alipayTradePayModel.setOperatorId(instance.getOperatorId());
+            alipayTradePayModel.setStoreId(instance.getStoreId());
+            alipayTradePayModel.setTerminalId(instance.getTerminalId());
+            alipayTradePayModel.setExtendParams(instance.getExtendParams());
+            alipayTradePayModel.setTimeoutExpress(instance.getTimeoutExpress());
+            return alipayTradePayModel;
         }
 
     }

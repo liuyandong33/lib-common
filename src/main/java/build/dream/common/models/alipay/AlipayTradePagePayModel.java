@@ -368,7 +368,27 @@ public class AlipayTradePagePayModel extends BasicModel {
         }
 
         public AlipayTradePagePayModel build() {
-            return instance;
+            AlipayTradePagePayModel alipayTradePagePayModel = new AlipayTradePagePayModel();
+            alipayTradePagePayModel.setTenantId(instance.getTenantId());
+            alipayTradePagePayModel.setBranchId(instance.getBranchId());
+            alipayTradePagePayModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradePagePayModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradePagePayModel.setAppAuthToken(instance.getAppAuthToken());
+            alipayTradePagePayModel.setOutTradeNo(instance.getOutTradeNo());
+            alipayTradePagePayModel.setProductCode(instance.getProductCode());
+            alipayTradePagePayModel.setTotalAmount(instance.getTotalAmount());
+            alipayTradePagePayModel.setSubject(instance.getSubject());
+            alipayTradePagePayModel.setBody(instance.getBody());
+            alipayTradePagePayModel.setGoodsDetail(instance.getGoodsDetail());
+            alipayTradePagePayModel.setPassbackParams(instance.getPassbackParams());
+            alipayTradePagePayModel.setGoodsType(instance.getGoodsType());
+            alipayTradePagePayModel.setTimeoutExpress(instance.getTimeoutExpress());
+            alipayTradePagePayModel.setEnablePayChannels(instance.getEnablePayChannels());
+            alipayTradePagePayModel.setDisablePayChannels(instance.getDisablePayChannels());
+            alipayTradePagePayModel.setAuthToken(instance.getAuthToken());
+            alipayTradePagePayModel.setQrPayMode(instance.getQrPayMode());
+            alipayTradePagePayModel.setQrcodeWidth(instance.getQrcodeWidth());
+            return alipayTradePagePayModel;
         }
     }
 

@@ -109,7 +109,15 @@ public class DoDeleteWithRequestParametersModel {
         }
 
         public DoDeleteWithRequestParametersModel build() {
-            return instance;
+            DoDeleteWithRequestParametersModel doDeleteWithRequestParametersModel = new DoDeleteWithRequestParametersModel();
+            doDeleteWithRequestParametersModel.setRequestUrl(instance.getRequestUrl());
+            doDeleteWithRequestParametersModel.setReadTimeout(instance.getReadTimeout());
+            doDeleteWithRequestParametersModel.setConnectTimeout(instance.getConnectTimeout());
+            doDeleteWithRequestParametersModel.setHeaders(instance.getHeaders());
+            doDeleteWithRequestParametersModel.setRequestParameters(instance.getRequestParameters());
+            doDeleteWithRequestParametersModel.setCharsetName(instance.getCharsetName());
+            doDeleteWithRequestParametersModel.setProxy(instance.getProxy());
+            return doDeleteWithRequestParametersModel;
         }
     }
 

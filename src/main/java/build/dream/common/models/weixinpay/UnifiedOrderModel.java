@@ -491,7 +491,29 @@ public class UnifiedOrderModel extends BasicModel {
         }
 
         public UnifiedOrderModel build() {
-            return instance;
+            UnifiedOrderModel unifiedOrderModel = new UnifiedOrderModel();
+            unifiedOrderModel.setTenantId(instance.getTenantId());
+            unifiedOrderModel.setBranchId(instance.getBranchId());
+            unifiedOrderModel.setDeviceInfo(instance.getDeviceInfo());
+            unifiedOrderModel.setSignType(instance.getSignType());
+            unifiedOrderModel.setBody(instance.getBody());
+            unifiedOrderModel.setDetail(instance.getDetail());
+            unifiedOrderModel.setAttach(instance.getAttach());
+            unifiedOrderModel.setOutTradeNo(instance.getOutTradeNo());
+            unifiedOrderModel.setFeeType(instance.getFeeType());
+            unifiedOrderModel.setTotalFee(instance.getTotalFee());
+            unifiedOrderModel.setSpbillCreateIp(instance.getSpbillCreateIp());
+            unifiedOrderModel.setTimeStart(instance.getTimeStart());
+            unifiedOrderModel.setTimeExpire(instance.getTimeExpire());
+            unifiedOrderModel.setGoodsTag(instance.getGoodsTag());
+            unifiedOrderModel.setNotifyUrl(instance.getNotifyUrl());
+            unifiedOrderModel.setTradeType(instance.getTradeType());
+            unifiedOrderModel.setProductId(instance.getProductId());
+            unifiedOrderModel.setLimitPay(instance.getLimitPay());
+            unifiedOrderModel.setOpenId(instance.getOpenId());
+            unifiedOrderModel.setSubOpenId(instance.getSubOpenId());
+            unifiedOrderModel.setSceneInfoModel(instance.getSceneInfoModel());
+            return unifiedOrderModel;
         }
     }
 

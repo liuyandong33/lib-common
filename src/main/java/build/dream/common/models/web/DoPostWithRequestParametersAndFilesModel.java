@@ -124,7 +124,16 @@ public class DoPostWithRequestParametersAndFilesModel {
         }
 
         public DoPostWithRequestParametersAndFilesModel build() {
-            return instance;
+            DoPostWithRequestParametersAndFilesModel doPostWithRequestParametersAndFilesModel = new DoPostWithRequestParametersAndFilesModel();
+            doPostWithRequestParametersAndFilesModel.setRequestUrl(instance.getRequestUrl());
+            doPostWithRequestParametersAndFilesModel.setReadTimeout(instance.getReadTimeout());
+            doPostWithRequestParametersAndFilesModel.setConnectTimeout(instance.getConnectTimeout());
+            doPostWithRequestParametersAndFilesModel.setHeaders(instance.getHeaders());
+            doPostWithRequestParametersAndFilesModel.setRequestParameters(instance.getRequestParameters());
+            doPostWithRequestParametersAndFilesModel.setCharsetName(instance.getCharsetName());
+            doPostWithRequestParametersAndFilesModel.setSslSocketFactory(instance.getSslSocketFactory());
+            doPostWithRequestParametersAndFilesModel.setProxy(instance.getProxy());
+            return doPostWithRequestParametersAndFilesModel;
         }
     }
 

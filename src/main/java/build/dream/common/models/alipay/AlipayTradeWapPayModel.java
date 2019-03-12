@@ -570,7 +570,29 @@ public class AlipayTradeWapPayModel extends BasicModel {
         }
 
         public AlipayTradeWapPayModel build() {
-            return instance;
+            AlipayTradeWapPayModel alipayTradeWapPayModel = new AlipayTradeWapPayModel();
+            alipayTradeWapPayModel.setTenantId(instance.getTenantId());
+            alipayTradeWapPayModel.setBranchId(instance.getBranchId());
+            alipayTradeWapPayModel.setReturnUrl(instance.getReturnUrl());
+            alipayTradeWapPayModel.setNotifyUrl(instance.getNotifyUrl());
+            alipayTradeWapPayModel.setBody(instance.getBody());
+            alipayTradeWapPayModel.setSubject(instance.getSubject());
+            alipayTradeWapPayModel.setOutTradeNo(instance.getOutTradeNo());
+            alipayTradeWapPayModel.setTimeoutExpress(instance.getTimeoutExpress());
+            alipayTradeWapPayModel.setTimeExpire(instance.getTimeExpire());
+            alipayTradeWapPayModel.setTotalAmount(instance.getTotalAmount());
+            alipayTradeWapPayModel.setAuthToken(instance.getAuthToken());
+            alipayTradeWapPayModel.setProductCode(instance.getProductCode());
+            alipayTradeWapPayModel.setGoodsType(instance.getGoodsType());
+            alipayTradeWapPayModel.setPassbackParams(instance.getPassbackParams());
+            alipayTradeWapPayModel.setPromoParams(instance.getPromoParams());
+            alipayTradeWapPayModel.setExtendParamsModel(instance.getExtendParamsModel());
+            alipayTradeWapPayModel.setEnablePayChannels(instance.getEnablePayChannels());
+            alipayTradeWapPayModel.setDisablePayChannels(instance.getDisablePayChannels());
+            alipayTradeWapPayModel.setStoreId(instance.getStoreId());
+            alipayTradeWapPayModel.setQuitUrl(instance.getQuitUrl());
+            alipayTradeWapPayModel.setExtUserInfoModel(instance.getExtUserInfoModel());
+            return alipayTradeWapPayModel;
         }
     }
 

@@ -107,7 +107,13 @@ public class ShopAnnouncementSetModel extends BasicModel {
         }
 
         public ShopAnnouncementSetModel build() {
-            return instance;
+            ShopAnnouncementSetModel shopAnnouncementSetModel = new ShopAnnouncementSetModel();
+            shopAnnouncementSetModel.setSource(instance.getSource());
+            shopAnnouncementSetModel.setBaiduShopId(instance.getBaiduShopId());
+            shopAnnouncementSetModel.setShopId(instance.getShopId());
+            shopAnnouncementSetModel.setDescritption(instance.getDescritption());
+            shopAnnouncementSetModel.setContent(instance.getContent());
+            return shopAnnouncementSetModel;
         }
     }
 

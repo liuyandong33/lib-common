@@ -205,7 +205,19 @@ public class RefundModel extends BasicModel {
         }
 
         public RefundModel build() {
-            return instance;
+            RefundModel refundModel = new RefundModel();
+            refundModel.setTenantId(instance.getTenantId());
+            refundModel.setBranchId(instance.getBranchId());
+            refundModel.setTransactionId(instance.getTransactionId());
+            refundModel.setOutTradeNo(instance.getOutTradeNo());
+            refundModel.setOutRefundNo(instance.getOutRefundNo());
+            refundModel.setTotalFee(instance.getTotalFee());
+            refundModel.setRefundFee(instance.getRefundFee());
+            refundModel.setRefundFeeType(instance.getRefundFeeType());
+            refundModel.setRefundDesc(instance.getRefundDesc());
+            refundModel.setRefundAccount(instance.getRefundAccount());
+            refundModel.setTradeType(instance.getTradeType());
+            return refundModel;
         }
     }
 
