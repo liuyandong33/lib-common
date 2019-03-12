@@ -160,7 +160,19 @@ public class BuildRequestBodyModel {
         }
 
         public BuildRequestBodyModel build() {
-            return instance;
+            BuildRequestBodyModel buildRequestBodyModel = new BuildRequestBodyModel();
+            buildRequestBodyModel.setAppId(instance.getAppId());
+            buildRequestBodyModel.setMethod(instance.getMethod());
+            buildRequestBodyModel.setFormat(instance.getFormat());
+            buildRequestBodyModel.setReturnUrl(instance.getReturnUrl());
+            buildRequestBodyModel.setCharset(instance.getCharset());
+            buildRequestBodyModel.setSignType(instance.getSignType());
+            buildRequestBodyModel.setNotifyUrl(instance.getNotifyUrl());
+            buildRequestBodyModel.setAuthToken(instance.getAuthToken());
+            buildRequestBodyModel.setAppAuthToken(instance.getAppAuthToken());
+            buildRequestBodyModel.setBizContent(instance.getBizContent());
+            buildRequestBodyModel.setPrivateKey(instance.getPrivateKey());
+            return buildRequestBodyModel;
         }
     }
 

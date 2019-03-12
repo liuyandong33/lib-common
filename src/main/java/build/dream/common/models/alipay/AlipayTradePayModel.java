@@ -27,30 +27,6 @@ public class AlipayTradePayModel extends BasicModel {
     @JsonIgnore
     private String notifyUrl;
 
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
-
     @NotNull
     @Length(max = 64)
     @JsonProperty(value = "out_trade_no")
@@ -113,6 +89,30 @@ public class AlipayTradePayModel extends BasicModel {
     @Length(max = 6)
     @JsonProperty(value = "timeout_express")
     private String timeoutExpress;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getNotifyUrl() {
+        return notifyUrl;
+    }
+
+    public void setNotifyUrl(String notifyUrl) {
+        this.notifyUrl = notifyUrl;
+    }
 
     public String getOutTradeNo() {
         return outTradeNo;

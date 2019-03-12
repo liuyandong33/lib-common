@@ -291,7 +291,30 @@ public class SystemUser extends BasicDomain {
         }
 
         public SystemUser build() {
-            return instance;
+            SystemUser systemUser = new SystemUser();
+            systemUser.setName(instance.getName());
+            systemUser.setMobile(instance.getMobile());
+            systemUser.setEmail(instance.getEmail());
+            systemUser.setLoginName(instance.getLoginName());
+            systemUser.setUserType(instance.getUserType());
+            systemUser.setPassword(instance.getPassword());
+            systemUser.setWeiXinPublicPlatformOpenId(instance.getWeiXinPublicPlatformOpenId());
+            systemUser.setWeiXinOpenPlatformOpenId(instance.getWeiXinOpenPlatformOpenId());
+            systemUser.setTenantId(instance.getTenantId());
+            systemUser.setAgentId(instance.getAgentId());
+            systemUser.setAccountNonExpired(instance.isAccountNonExpired());
+            systemUser.setAccountNonLocked(instance.isAccountNonLocked());
+            systemUser.setCredentialsNonExpired(instance.isCredentialsNonExpired());
+            systemUser.setEnabled(instance.isEnabled());
+            systemUser.setId(instance.getId());
+            systemUser.setCreatedTime(instance.getCreatedTime());
+            systemUser.setCreatedUserId(instance.getCreatedUserId());
+            systemUser.setUpdatedTime(instance.getUpdatedTime());
+            systemUser.setUpdatedUserId(instance.getUpdatedUserId());
+            systemUser.setUpdatedRemark(instance.getUpdatedRemark());
+            systemUser.setDeletedTime(instance.getDeletedTime());
+            systemUser.setDeleted(instance.isDeleted());
+            return systemUser;
         }
     }
 

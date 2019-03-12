@@ -154,7 +154,22 @@ public class Goods extends BasicDomain {
         }
 
         public Goods build() {
-            return instance;
+            Goods goods = new Goods();
+            goods.setName(instance.getName());
+            goods.setGoodsTypeId(instance.getGoodsTypeId());
+            goods.setStatus(instance.getStatus());
+            goods.setPhotoUrl(instance.getPhotoUrl());
+            goods.setMeteringMode(instance.getMeteringMode());
+            goods.setBusiness(instance.getBusiness());
+            goods.setId(instance.getId());
+            goods.setCreatedTime(instance.getCreatedTime());
+            goods.setCreatedUserId(instance.getCreatedUserId());
+            goods.setUpdatedTime(instance.getUpdatedTime());
+            goods.setUpdatedUserId(instance.getUpdatedUserId());
+            goods.setUpdatedRemark(instance.getUpdatedRemark());
+            goods.setDeletedTime(instance.getDeletedTime());
+            goods.setDeleted(instance.isDeleted());
+            return goods;
         }
     }
 

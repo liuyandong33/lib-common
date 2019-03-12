@@ -62,7 +62,19 @@ public class BackgroundRole extends BasicDomain {
         }
 
         public BackgroundRole build() {
-            return instance;
+            BackgroundRole backgroundRole = new BackgroundRole();
+            backgroundRole.setTenantId(instance.getTenantId());
+            backgroundRole.setRoleCode(instance.getRoleCode());
+            backgroundRole.setRoleName(instance.getRoleName());
+            backgroundRole.setId(instance.getId());
+            backgroundRole.setCreatedTime(instance.getCreatedTime());
+            backgroundRole.setCreatedUserId(instance.getCreatedUserId());
+            backgroundRole.setUpdatedTime(instance.getUpdatedTime());
+            backgroundRole.setUpdatedUserId(instance.getUpdatedUserId());
+            backgroundRole.setUpdatedRemark(instance.getUpdatedRemark());
+            backgroundRole.setDeletedTime(instance.getDeletedTime());
+            backgroundRole.setDeleted(instance.isDeleted());
+            return backgroundRole;
         }
     }
 

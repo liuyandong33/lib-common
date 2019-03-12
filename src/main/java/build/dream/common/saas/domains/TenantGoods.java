@@ -120,7 +120,20 @@ public class TenantGoods extends BasicDomain {
         }
 
         public TenantGoods build() {
-            return instance;
+            TenantGoods tenantGoods = new TenantGoods();
+            tenantGoods.setTenantId(instance.getTenantId());
+            tenantGoods.setBranchId(instance.getBranchId());
+            tenantGoods.setGoodsId(instance.getGoodsId());
+            tenantGoods.setExpireTime(instance.getExpireTime());
+            tenantGoods.setId(instance.getId());
+            tenantGoods.setCreatedTime(instance.getCreatedTime());
+            tenantGoods.setCreatedUserId(instance.getCreatedUserId());
+            tenantGoods.setUpdatedTime(instance.getUpdatedTime());
+            tenantGoods.setUpdatedUserId(instance.getUpdatedUserId());
+            tenantGoods.setUpdatedRemark(instance.getUpdatedRemark());
+            tenantGoods.setDeletedTime(instance.getDeletedTime());
+            tenantGoods.setDeleted(instance.isDeleted());
+            return tenantGoods;
         }
     }
 

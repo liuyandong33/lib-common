@@ -120,7 +120,20 @@ public class ResponseLog extends BasicDomain {
         }
 
         public ResponseLog build() {
-            return instance;
+            ResponseLog responseLog = new ResponseLog();
+            responseLog.setUuid(instance.getUuid());
+            responseLog.setResponseTime(instance.getResponseTime());
+            responseLog.setResponseContent(instance.getResponseContent());
+            responseLog.setHeaders(instance.getHeaders());
+            responseLog.setId(instance.getId());
+            responseLog.setCreatedTime(instance.getCreatedTime());
+            responseLog.setCreatedUserId(instance.getCreatedUserId());
+            responseLog.setUpdatedTime(instance.getUpdatedTime());
+            responseLog.setUpdatedUserId(instance.getUpdatedUserId());
+            responseLog.setUpdatedRemark(instance.getUpdatedRemark());
+            responseLog.setDeletedTime(instance.getDeletedTime());
+            responseLog.setDeleted(instance.isDeleted());
+            return responseLog;
         }
     }
 

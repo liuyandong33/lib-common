@@ -325,7 +325,32 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         }
 
         public WeiXinAuthorizerInfo build() {
-            return instance;
+            WeiXinAuthorizerInfo weiXinAuthorizerInfo = new WeiXinAuthorizerInfo();
+            weiXinAuthorizerInfo.setTenantId(instance.getTenantId());
+            weiXinAuthorizerInfo.setAuthorizerType(instance.getAuthorizerType());
+            weiXinAuthorizerInfo.setNickName(instance.getNickName());
+            weiXinAuthorizerInfo.setHeadImg(instance.getHeadImg());
+            weiXinAuthorizerInfo.setServiceTypeInfo(instance.getServiceTypeInfo());
+            weiXinAuthorizerInfo.setVerifyTypeInfo(instance.getVerifyTypeInfo());
+            weiXinAuthorizerInfo.setOriginalId(instance.getOriginalId());
+            weiXinAuthorizerInfo.setPrincipalName(instance.getPrincipalName());
+            weiXinAuthorizerInfo.setAlias(instance.getAlias());
+            weiXinAuthorizerInfo.setBusinessInfo(instance.getBusinessInfo());
+            weiXinAuthorizerInfo.setQrcodeUrl(instance.getQrcodeUrl());
+            weiXinAuthorizerInfo.setSignature(instance.getSignature());
+            weiXinAuthorizerInfo.setMiniProgramInfo(instance.getMiniProgramInfo());
+            weiXinAuthorizerInfo.setAuthorizerAppId(instance.getAuthorizerAppId());
+            weiXinAuthorizerInfo.setFuncInfo(instance.getFuncInfo());
+            weiXinAuthorizerInfo.setComponentAppId(instance.getComponentAppId());
+            weiXinAuthorizerInfo.setId(instance.getId());
+            weiXinAuthorizerInfo.setCreatedTime(instance.getCreatedTime());
+            weiXinAuthorizerInfo.setCreatedUserId(instance.getCreatedUserId());
+            weiXinAuthorizerInfo.setUpdatedTime(instance.getUpdatedTime());
+            weiXinAuthorizerInfo.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinAuthorizerInfo.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinAuthorizerInfo.setDeletedTime(instance.getDeletedTime());
+            weiXinAuthorizerInfo.setDeleted(instance.isDeleted());
+            return weiXinAuthorizerInfo;
         }
     }
 

@@ -154,7 +154,22 @@ public class WeiXinAuthorizerToken extends BasicDomain {
         }
 
         public WeiXinAuthorizerToken build() {
-            return instance;
+            WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
+            weiXinAuthorizerToken.setComponentAppId(instance.getComponentAppId());
+            weiXinAuthorizerToken.setAuthorizerAppId(instance.getAuthorizerAppId());
+            weiXinAuthorizerToken.setAuthorizerAccessToken(instance.getAuthorizerAccessToken());
+            weiXinAuthorizerToken.setExpiresIn(instance.getExpiresIn());
+            weiXinAuthorizerToken.setAuthorizerAccessToken(instance.getAuthorizerAccessToken());
+            weiXinAuthorizerToken.setFetchTime(instance.getFetchTime());
+            weiXinAuthorizerToken.setId(instance.getId());
+            weiXinAuthorizerToken.setCreatedTime(instance.getCreatedTime());
+            weiXinAuthorizerToken.setCreatedUserId(instance.getCreatedUserId());
+            weiXinAuthorizerToken.setUpdatedTime(instance.getUpdatedTime());
+            weiXinAuthorizerToken.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinAuthorizerToken.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinAuthorizerToken.setDeletedTime(instance.getDeletedTime());
+            weiXinAuthorizerToken.setDeleted(instance.isDeleted());
+            return weiXinAuthorizerToken;
         }
     }
 

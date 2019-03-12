@@ -136,7 +136,21 @@ public class Server extends BasicDomain {
         }
 
         public Server build() {
-            return instance;
+            Server server = new Server();
+            server.setHostName(instance.getHostName());
+            server.setIpAddress(instance.getIpAddress());
+            server.setSshPort(instance.getSshPort());
+            server.setUserName(instance.getUserName());
+            server.setPassword(instance.getPassword());
+            server.setId(instance.getId());
+            server.setCreatedTime(instance.getCreatedTime());
+            server.setCreatedUserId(instance.getCreatedUserId());
+            server.setUpdatedTime(instance.getUpdatedTime());
+            server.setUpdatedUserId(instance.getUpdatedUserId());
+            server.setUpdatedRemark(instance.getUpdatedRemark());
+            server.setDeletedTime(instance.getDeletedTime());
+            server.setDeleted(instance.isDeleted());
+            return server;
         }
     }
 

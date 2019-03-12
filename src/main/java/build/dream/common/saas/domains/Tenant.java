@@ -171,7 +171,23 @@ public class Tenant extends BasicDomain {
         }
 
         public Tenant build() {
-            return instance;
+            Tenant tenant = new Tenant();
+            tenant.setCode(instance.getCode());
+            tenant.setName(instance.getName());
+            tenant.setBusiness(instance.getBusiness());
+            tenant.setPartitionCode(instance.getPartitionCode());
+            tenant.setTenantType(instance.getTenantType());
+            tenant.setVipSharedType(instance.getVipSharedType());
+            tenant.setAgentId(instance.getAgentId());
+            tenant.setId(instance.getId());
+            tenant.setCreatedTime(instance.getCreatedTime());
+            tenant.setCreatedUserId(instance.getCreatedUserId());
+            tenant.setUpdatedTime(instance.getUpdatedTime());
+            tenant.setUpdatedUserId(instance.getUpdatedUserId());
+            tenant.setUpdatedRemark(instance.getUpdatedRemark());
+            tenant.setDeletedTime(instance.getDeletedTime());
+            tenant.setDeleted(instance.isDeleted());
+            return tenant;
         }
     }
 

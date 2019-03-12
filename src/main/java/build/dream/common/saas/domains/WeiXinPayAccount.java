@@ -277,7 +277,29 @@ public class WeiXinPayAccount extends BasicDomain {
         }
 
         public WeiXinPayAccount build() {
-            return instance;
+            WeiXinPayAccount weiXinPayAccount = new WeiXinPayAccount();
+            weiXinPayAccount.setTenantId(instance.getTenantId());
+            weiXinPayAccount.setBranchId(instance.getBranchId());
+            weiXinPayAccount.setAppId(instance.getAppId());
+            weiXinPayAccount.setMchId(instance.getMchId());
+            weiXinPayAccount.setApiSecretKey(instance.getApiSecretKey());
+            weiXinPayAccount.setSubPublicAccountAppId(instance.getSubPublicAccountAppId());
+            weiXinPayAccount.setSubOpenPlatformAppId(instance.getSubOpenPlatformAppId());
+            weiXinPayAccount.setSubMiniProgramAppId(instance.getSubMiniProgramAppId());
+            weiXinPayAccount.setSubMchId(instance.getSubMchId());
+            weiXinPayAccount.setOperationCertificate(instance.getOperationCertificate());
+            weiXinPayAccount.setOperationCertificatePassword(instance.getOperationCertificatePassword());
+            weiXinPayAccount.setRsaPublicKey(instance.getRsaPublicKey());
+            weiXinPayAccount.setAcceptanceModel(instance.isAcceptanceModel());
+            weiXinPayAccount.setId(instance.getId());
+            weiXinPayAccount.setCreatedTime(instance.getCreatedTime());
+            weiXinPayAccount.setCreatedUserId(instance.getCreatedUserId());
+            weiXinPayAccount.setUpdatedTime(instance.getUpdatedTime());
+            weiXinPayAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinPayAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinPayAccount.setDeletedTime(instance.getDeletedTime());
+            weiXinPayAccount.setDeleted(instance.isDeleted());
+            return weiXinPayAccount;
         }
     }
 

@@ -274,7 +274,29 @@ public class PaymentRecord extends BasicDomain {
         }
 
         public PaymentRecord build() {
-            return instance;
+            PaymentRecord paymentRecord = new PaymentRecord();
+            paymentRecord.setOrderType(instance.getOrderType());
+            paymentRecord.setOrderNumber(instance.getOrderNumber());
+            paymentRecord.setTotalAmount(instance.getTotalAmount());
+            paymentRecord.setPayableAmount(instance.getPayableAmount());
+            paymentRecord.setPaidAmount(instance.getPaidAmount());
+            paymentRecord.setPaidType(instance.getPaidType());
+            paymentRecord.setSubmitTime(instance.getSubmitTime());
+            paymentRecord.setSubmitUserId(instance.getSubmitUserId());
+            paymentRecord.setPayStatus(instance.getPayStatus());
+            paymentRecord.setTransactionId(instance.getTransactionId());
+            paymentRecord.setPaidTime(instance.getPaidTime());
+            paymentRecord.setNotifyResult(instance.getNotifyResult());
+            paymentRecord.setNotifyUrl(instance.getNotifyUrl());
+            paymentRecord.setId(instance.getId());
+            paymentRecord.setCreatedTime(instance.getCreatedTime());
+            paymentRecord.setCreatedUserId(instance.getCreatedUserId());
+            paymentRecord.setUpdatedTime(instance.getUpdatedTime());
+            paymentRecord.setUpdatedUserId(instance.getUpdatedUserId());
+            paymentRecord.setUpdatedRemark(instance.getUpdatedRemark());
+            paymentRecord.setDeletedTime(instance.getDeletedTime());
+            paymentRecord.setDeleted(instance.isDeleted());
+            return paymentRecord;
         }
     }
 

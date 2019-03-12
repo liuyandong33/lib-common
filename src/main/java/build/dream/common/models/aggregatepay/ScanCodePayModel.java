@@ -153,7 +153,17 @@ public class ScanCodePayModel extends BasicModel {
         }
 
         public ScanCodePayModel build() {
-            return instance;
+            ScanCodePayModel scanCodePayModel = new ScanCodePayModel();
+            scanCodePayModel.setTenantId(instance.getTenantId());
+            scanCodePayModel.setBranchId(instance.getBranchId());
+            scanCodePayModel.setChannelType(instance.getChannelType());
+            scanCodePayModel.setOutTradeNo(instance.getOutTradeNo());
+            scanCodePayModel.setAuthCode(instance.getAuthCode());
+            scanCodePayModel.setSubject(instance.getSubject());
+            scanCodePayModel.setTotalAmount(instance.getTotalAmount());
+            scanCodePayModel.setNotifyUrl(instance.getNotifyUrl());
+            scanCodePayModel.setIpAddress(instance.getIpAddress());
+            return scanCodePayModel;
         }
     }
 

@@ -103,7 +103,19 @@ public class ElemeBranchMapping extends BasicDomain {
         }
 
         public ElemeBranchMapping build() {
-            return instance;
+            ElemeBranchMapping elemeBranchMapping = new ElemeBranchMapping();
+            elemeBranchMapping.setTenantId(instance.getTenantId());
+            elemeBranchMapping.setBranchId(instance.getBranchId());
+            elemeBranchMapping.setShopId(instance.getShopId());
+            elemeBranchMapping.setId(instance.getId());
+            elemeBranchMapping.setCreatedTime(instance.getCreatedTime());
+            elemeBranchMapping.setCreatedUserId(instance.getCreatedUserId());
+            elemeBranchMapping.setUpdatedTime(instance.getUpdatedTime());
+            elemeBranchMapping.setUpdatedUserId(instance.getUpdatedUserId());
+            elemeBranchMapping.setUpdatedRemark(instance.getUpdatedRemark());
+            elemeBranchMapping.setDeletedTime(instance.getDeletedTime());
+            elemeBranchMapping.setDeleted(instance.isDeleted());
+            return elemeBranchMapping;
         }
     }
 

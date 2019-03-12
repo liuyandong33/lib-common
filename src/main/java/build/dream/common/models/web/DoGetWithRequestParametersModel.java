@@ -107,7 +107,15 @@ public class DoGetWithRequestParametersModel {
         }
 
         public DoGetWithRequestParametersModel build() {
-            return instance;
+            DoGetWithRequestParametersModel doGetWithRequestParametersModel = new DoGetWithRequestParametersModel();
+            doGetWithRequestParametersModel.setRequestUrl(instance.getRequestUrl());
+            doGetWithRequestParametersModel.setReadTimeout(instance.getReadTimeout());
+            doGetWithRequestParametersModel.setConnectTimeout(instance.getConnectTimeout());
+            doGetWithRequestParametersModel.setHeaders(instance.getHeaders());
+            doGetWithRequestParametersModel.setRequestParameters(instance.getRequestParameters());
+            doGetWithRequestParametersModel.setCharsetName(instance.getCharsetName());
+            doGetWithRequestParametersModel.setProxy(instance.getProxy());
+            return doGetWithRequestParametersModel;
         }
     }
 

@@ -120,7 +120,20 @@ public class UmPayAccount extends BasicDomain {
         }
 
         public UmPayAccount build() {
-            return instance;
+            UmPayAccount umPayAccount = new UmPayAccount();
+            umPayAccount.setTenantId(instance.getTenantId());
+            umPayAccount.setBranchId(instance.getBranchId());
+            umPayAccount.setUmPayId(instance.getUmPayId());
+            umPayAccount.setMerchantPrivateKey(instance.getMerchantPrivateKey());
+            umPayAccount.setId(instance.getId());
+            umPayAccount.setCreatedTime(instance.getCreatedTime());
+            umPayAccount.setCreatedUserId(instance.getCreatedUserId());
+            umPayAccount.setUpdatedTime(instance.getUpdatedTime());
+            umPayAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            umPayAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            umPayAccount.setDeletedTime(instance.getDeletedTime());
+            umPayAccount.setDeleted(instance.isDeleted());
+            return umPayAccount;
         }
     }
 

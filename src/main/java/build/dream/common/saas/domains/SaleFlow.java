@@ -259,7 +259,28 @@ public class SaleFlow extends BasicDomain {
         }
 
         public SaleFlow build() {
-            return instance;
+            SaleFlow saleFlow = new SaleFlow();
+            saleFlow.setOrderId(instance.getOrderId());
+            saleFlow.setType(instance.getType());
+            saleFlow.setTenantId(instance.getTenantId());
+            saleFlow.setBranchId(instance.getBranchId());
+            saleFlow.setAgentId(instance.getAgentId());
+            saleFlow.setOccurrenceTime(instance.getOccurrenceTime());
+            saleFlow.setGoodsId(instance.getGoodsId());
+            saleFlow.setGoodsName(instance.getGoodsName());
+            saleFlow.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            saleFlow.setGoodsSpecificationName(instance.getGoodsSpecificationName());
+            saleFlow.setQuantity(instance.getQuantity());
+            saleFlow.setPaidType(instance.getPaidType());
+            saleFlow.setId(instance.getId());
+            saleFlow.setCreatedTime(instance.getCreatedTime());
+            saleFlow.setCreatedUserId(instance.getCreatedUserId());
+            saleFlow.setUpdatedTime(instance.getUpdatedTime());
+            saleFlow.setUpdatedUserId(instance.getUpdatedUserId());
+            saleFlow.setUpdatedRemark(instance.getUpdatedRemark());
+            saleFlow.setDeletedTime(instance.getDeletedTime());
+            saleFlow.setDeleted(instance.isDeleted());
+            return saleFlow;
         }
     }
 

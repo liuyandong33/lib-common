@@ -138,7 +138,21 @@ public class GoodsType extends BasicDomain {
         }
 
         public GoodsType build() {
-            return instance;
+            GoodsType goodsType = new GoodsType();
+            goodsType.setName(instance.getName());
+            goodsType.setDescription(instance.getDescription());
+            goodsType.setSingle(instance.isSingle());
+            goodsType.setRenewSql(instance.getRenewSql());
+            goodsType.setDisableSql(instance.getDisableSql());
+            goodsType.setId(instance.getId());
+            goodsType.setCreatedTime(instance.getCreatedTime());
+            goodsType.setCreatedUserId(instance.getCreatedUserId());
+            goodsType.setUpdatedTime(instance.getUpdatedTime());
+            goodsType.setUpdatedUserId(instance.getUpdatedUserId());
+            goodsType.setUpdatedRemark(instance.getUpdatedRemark());
+            goodsType.setDeletedTime(instance.getDeletedTime());
+            goodsType.setDeleted(instance.isDeleted());
+            return goodsType;
         }
     }
 

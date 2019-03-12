@@ -137,7 +137,21 @@ public class WeiXinOpenPlatformApplication extends BasicDomain {
         }
 
         public WeiXinOpenPlatformApplication build() {
-            return instance;
+            WeiXinOpenPlatformApplication weiXinOpenPlatformApplication = new WeiXinOpenPlatformApplication();
+            weiXinOpenPlatformApplication.setAppId(instance.getAppId());
+            weiXinOpenPlatformApplication.setAppSecret(instance.getAppSecret());
+            weiXinOpenPlatformApplication.setEncodingAesKey(instance.getEncodingAesKey());
+            weiXinOpenPlatformApplication.setToken(instance.getToken());
+            weiXinOpenPlatformApplication.setType(instance.getType());
+            weiXinOpenPlatformApplication.setId(instance.getId());
+            weiXinOpenPlatformApplication.setCreatedTime(instance.getCreatedTime());
+            weiXinOpenPlatformApplication.setCreatedUserId(instance.getCreatedUserId());
+            weiXinOpenPlatformApplication.setUpdatedTime(instance.getUpdatedTime());
+            weiXinOpenPlatformApplication.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinOpenPlatformApplication.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinOpenPlatformApplication.setDeletedTime(instance.getDeletedTime());
+            weiXinOpenPlatformApplication.setDeleted(instance.isDeleted());
+            return weiXinOpenPlatformApplication;
         }
     }
 

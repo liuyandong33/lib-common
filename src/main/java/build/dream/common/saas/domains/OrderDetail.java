@@ -241,7 +241,27 @@ public class OrderDetail extends BasicDomain {
         }
 
         public OrderDetail build() {
-            return instance;
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setOrderInfoId(instance.getOrderInfoId());
+            orderDetail.setGoodsId(instance.getGoodsId());
+            orderDetail.setGoodsName(instance.getGoodsName());
+            orderDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            orderDetail.setGoodsSpecificationName(instance.getGoodsSpecificationName());
+            orderDetail.setBranchId(instance.getBranchId());
+            orderDetail.setPrice(instance.getPrice());
+            orderDetail.setTotalAmount(instance.getTotalAmount());
+            orderDetail.setDiscountAmount(instance.getDiscountAmount());
+            orderDetail.setPayableAmount(instance.getPayableAmount());
+            orderDetail.setQuantity(instance.getQuantity());
+            orderDetail.setId(instance.getId());
+            orderDetail.setCreatedTime(instance.getCreatedTime());
+            orderDetail.setCreatedUserId(instance.getCreatedUserId());
+            orderDetail.setUpdatedTime(instance.getUpdatedTime());
+            orderDetail.setUpdatedUserId(instance.getUpdatedUserId());
+            orderDetail.setUpdatedRemark(instance.getUpdatedRemark());
+            orderDetail.setDeletedTime(instance.getDeletedTime());
+            orderDetail.setDeleted(instance.isDeleted());
+            return orderDetail;
         }
     }
 

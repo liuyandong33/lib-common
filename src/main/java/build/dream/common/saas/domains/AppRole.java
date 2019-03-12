@@ -103,7 +103,19 @@ public class AppRole extends BasicDomain {
         }
 
         public AppRole build() {
-            return instance;
+            AppRole appRole = new AppRole();
+            appRole.setTenantId(instance.getTenantId());
+            appRole.setRoleCode(instance.getRoleCode());
+            appRole.setRoleName(instance.getRoleName());
+            appRole.setId(instance.getId());
+            appRole.setCreatedTime(instance.getCreatedTime());
+            appRole.setCreatedUserId(instance.getCreatedUserId());
+            appRole.setUpdatedTime(instance.getUpdatedTime());
+            appRole.setUpdatedUserId(instance.getUpdatedUserId());
+            appRole.setUpdatedRemark(instance.getUpdatedRemark());
+            appRole.setDeletedTime(instance.getDeletedTime());
+            appRole.setDeleted(instance.isDeleted());
+            return appRole;
         }
     }
 

@@ -192,7 +192,26 @@ public class ElemeCallbackMessage extends BasicDomain {
         }
 
         public ElemeCallbackMessage build() {
-            return instance;
+            ElemeCallbackMessage elemeCallbackMessage = new ElemeCallbackMessage();
+            elemeCallbackMessage.setRequestId(instance.getRequestId());
+            elemeCallbackMessage.setType(instance.getType());
+            elemeCallbackMessage.setAppId(instance.getAppId());
+            elemeCallbackMessage.setMessage(instance.getMessage());
+            elemeCallbackMessage.setShopId(instance.getShopId());
+            elemeCallbackMessage.setTimestamp(instance.getTimestamp());
+            elemeCallbackMessage.setSignature(instance.getSignature());
+            elemeCallbackMessage.setUserId(instance.getUserId());
+            elemeCallbackMessage.setUuid(instance.getUuid());
+            elemeCallbackMessage.setHandleResult(instance.getHandleResult());
+            elemeCallbackMessage.setId(instance.getId());
+            elemeCallbackMessage.setCreatedTime(instance.getCreatedTime());
+            elemeCallbackMessage.setCreatedUserId(instance.getCreatedUserId());
+            elemeCallbackMessage.setUpdatedTime(instance.getUpdatedTime());
+            elemeCallbackMessage.setUpdatedUserId(instance.getUpdatedUserId());
+            elemeCallbackMessage.setUpdatedRemark(instance.getUpdatedRemark());
+            elemeCallbackMessage.setDeletedTime(instance.getDeletedTime());
+            elemeCallbackMessage.setDeleted(instance.isDeleted());
+            return elemeCallbackMessage;
         }
     }
 

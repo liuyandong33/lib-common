@@ -170,7 +170,23 @@ public class KafkaNode extends BasicDomain {
         }
 
         public KafkaNode build() {
-            return instance;
+            KafkaNode kafkaNode = new KafkaNode();
+            kafkaNode.setClusterId(instance.getClusterId());
+            kafkaNode.setHostName(instance.getHostName());
+            kafkaNode.setIpAddress(instance.getIpAddress());
+            kafkaNode.setSshPort(instance.getSshPort());
+            kafkaNode.setUserName(instance.getUserName());
+            kafkaNode.setPassword(instance.getPassword());
+            kafkaNode.setKafkaHome(instance.getKafkaHome());
+            kafkaNode.setId(instance.getId());
+            kafkaNode.setCreatedTime(instance.getCreatedTime());
+            kafkaNode.setCreatedUserId(instance.getCreatedUserId());
+            kafkaNode.setUpdatedTime(instance.getUpdatedTime());
+            kafkaNode.setUpdatedUserId(instance.getUpdatedUserId());
+            kafkaNode.setUpdatedRemark(instance.getUpdatedRemark());
+            kafkaNode.setDeletedTime(instance.getDeletedTime());
+            kafkaNode.setDeleted(instance.isDeleted());
+            return kafkaNode;
         }
     }
 

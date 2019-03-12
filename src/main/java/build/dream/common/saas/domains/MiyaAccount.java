@@ -137,7 +137,21 @@ public class MiyaAccount extends BasicDomain {
         }
 
         public MiyaAccount build() {
-            return instance;
+            MiyaAccount miyaAccount = new MiyaAccount();
+            miyaAccount.setTenantId(instance.getTenantId());
+            miyaAccount.setBranchId(instance.getBranchId());
+            miyaAccount.setMiyaMerchantCode(instance.getMiyaMerchantCode());
+            miyaAccount.setMiyaKey(instance.getMiyaKey());
+            miyaAccount.setMiyaBranchCode(instance.getMiyaBranchCode());
+            miyaAccount.setId(instance.getId());
+            miyaAccount.setCreatedTime(instance.getCreatedTime());
+            miyaAccount.setCreatedUserId(instance.getCreatedUserId());
+            miyaAccount.setUpdatedTime(instance.getUpdatedTime());
+            miyaAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            miyaAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            miyaAccount.setDeletedTime(instance.getDeletedTime());
+            miyaAccount.setDeleted(instance.isDeleted());
+            return miyaAccount;
         }
     }
 

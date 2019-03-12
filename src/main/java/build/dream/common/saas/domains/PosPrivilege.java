@@ -189,7 +189,24 @@ public class PosPrivilege extends BasicDomain {
         }
 
         public PosPrivilege build() {
-            return instance;
+            PosPrivilege posPrivilege = new PosPrivilege();
+            posPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
+            posPrivilege.setPrivilegeName(instance.getPrivilegeName());
+            posPrivilege.setAccessMode(instance.getAccessMode());
+            posPrivilege.setServiceName(instance.getServiceName());
+            posPrivilege.setControllerName(instance.getControllerName());
+            posPrivilege.setActionName(instance.getActionName());
+            posPrivilege.setParentId(instance.getParentId());
+            posPrivilege.setRemark(instance.getRemark());
+            posPrivilege.setId(instance.getId());
+            posPrivilege.setCreatedTime(instance.getCreatedTime());
+            posPrivilege.setCreatedUserId(instance.getCreatedUserId());
+            posPrivilege.setUpdatedTime(instance.getUpdatedTime());
+            posPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
+            posPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
+            posPrivilege.setDeletedTime(instance.getDeletedTime());
+            posPrivilege.setDeleted(instance.isDeleted());
+            return posPrivilege;
         }
     }
 

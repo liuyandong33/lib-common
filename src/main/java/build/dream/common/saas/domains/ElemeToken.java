@@ -171,7 +171,23 @@ public class ElemeToken extends BasicDomain {
         }
 
         public ElemeToken build() {
-            return instance;
+            ElemeToken elemeToken = new ElemeToken();
+            elemeToken.setTenantId(instance.getTenantId());
+            elemeToken.setBranchId(instance.getBranchId());
+            elemeToken.setAccessToken(instance.getAccessToken());
+            elemeToken.setRefreshToken(instance.getRefreshToken());
+            elemeToken.setExpiresIn(instance.getExpiresIn());
+            elemeToken.setTokenType(instance.getTokenType());
+            elemeToken.setFetchTime(instance.getFetchTime());
+            elemeToken.setId(instance.getId());
+            elemeToken.setCreatedTime(instance.getCreatedTime());
+            elemeToken.setCreatedUserId(instance.getCreatedUserId());
+            elemeToken.setUpdatedTime(instance.getUpdatedTime());
+            elemeToken.setUpdatedUserId(instance.getUpdatedUserId());
+            elemeToken.setUpdatedRemark(instance.getUpdatedRemark());
+            elemeToken.setDeletedTime(instance.getDeletedTime());
+            elemeToken.setDeleted(instance.isDeleted());
+            return elemeToken;
         }
     }
 

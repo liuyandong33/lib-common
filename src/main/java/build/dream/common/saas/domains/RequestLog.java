@@ -222,7 +222,26 @@ public class RequestLog extends BasicDomain {
         }
 
         public RequestLog build() {
-            return instance;
+            RequestLog requestLog = new RequestLog();
+            requestLog.setUuid(instance.getUuid());
+            requestLog.setDeploymentEnvironment(instance.getDeploymentEnvironment());
+            requestLog.setPartitionCode(instance.getPartitionCode());
+            requestLog.setServiceName(instance.getServiceName());
+            requestLog.setClassName(instance.getClassName());
+            requestLog.setMethodName(instance.getMethodName());
+            requestLog.setRequestTime(instance.getRequestTime());
+            requestLog.setRequestParameters(instance.getRequestParameters());
+            requestLog.setHeaders(instance.getHeaders());
+            requestLog.setCookies(instance.getCookies());
+            requestLog.setId(instance.getId());
+            requestLog.setCreatedTime(instance.getCreatedTime());
+            requestLog.setCreatedUserId(instance.getCreatedUserId());
+            requestLog.setUpdatedTime(instance.getUpdatedTime());
+            requestLog.setUpdatedUserId(instance.getUpdatedUserId());
+            requestLog.setUpdatedRemark(instance.getUpdatedRemark());
+            requestLog.setDeletedTime(instance.getDeletedTime());
+            requestLog.setDeleted(instance.isDeleted());
+            return requestLog;
         }
     }
 

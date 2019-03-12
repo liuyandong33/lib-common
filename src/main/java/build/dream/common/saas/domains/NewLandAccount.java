@@ -154,7 +154,22 @@ public class NewLandAccount extends BasicDomain {
         }
 
         public NewLandAccount build() {
-            return instance;
+            NewLandAccount newLandAccount = new NewLandAccount();
+            newLandAccount.setTenantId(instance.getTenantId());
+            newLandAccount.setBranchId(instance.getBranchId());
+            newLandAccount.setMchId(instance.getMchId());
+            newLandAccount.setTrmNo(instance.getTrmNo());
+            newLandAccount.setOrgNo(instance.getOrgNo());
+            newLandAccount.setSecretKey(instance.getSecretKey());
+            newLandAccount.setId(instance.getId());
+            newLandAccount.setCreatedTime(instance.getCreatedTime());
+            newLandAccount.setCreatedUserId(instance.getCreatedUserId());
+            newLandAccount.setUpdatedTime(instance.getUpdatedTime());
+            newLandAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            newLandAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            newLandAccount.setDeletedTime(instance.getDeletedTime());
+            newLandAccount.setDeleted(instance.isDeleted());
+            return newLandAccount;
         }
     }
 

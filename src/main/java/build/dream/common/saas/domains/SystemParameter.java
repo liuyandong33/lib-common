@@ -86,7 +86,18 @@ public class SystemParameter extends BasicDomain {
         }
 
         public SystemParameter build() {
-            return instance;
+            SystemParameter systemParameter = new SystemParameter();
+            systemParameter.setParameterName(instance.getParameterName());
+            systemParameter.setParameterValue(instance.getParameterValue());
+            systemParameter.setId(instance.getId());
+            systemParameter.setCreatedTime(instance.getCreatedTime());
+            systemParameter.setCreatedUserId(instance.getCreatedUserId());
+            systemParameter.setUpdatedTime(instance.getUpdatedTime());
+            systemParameter.setUpdatedUserId(instance.getUpdatedUserId());
+            systemParameter.setUpdatedRemark(instance.getUpdatedRemark());
+            systemParameter.setDeletedTime(instance.getDeletedTime());
+            systemParameter.setDeleted(instance.isDeleted());
+            return systemParameter;
         }
     }
 

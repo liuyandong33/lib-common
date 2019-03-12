@@ -189,7 +189,24 @@ public class SpecialGoodsActivity extends BasicDomain {
         }
 
         public SpecialGoodsActivity build() {
-            return instance;
+            SpecialGoodsActivity specialGoodsActivity = new SpecialGoodsActivity();
+            specialGoodsActivity.setActivityId(instance.getActivityId());
+            specialGoodsActivity.setGoodsId(instance.getGoodsId());
+            specialGoodsActivity.setGoodsSpecificationId(instance.getGoodsSpecificationId());
+            specialGoodsActivity.setDiscountType(instance.getDiscountType());
+            specialGoodsActivity.setTenantSpecialPrice(instance.getTenantSpecialPrice());
+            specialGoodsActivity.setAgentSpecialPrice(instance.getAgentSpecialPrice());
+            specialGoodsActivity.setTenantDiscountRate(instance.getTenantDiscountRate());
+            specialGoodsActivity.setAgentDiscountRate(instance.getAgentDiscountRate());
+            specialGoodsActivity.setId(instance.getId());
+            specialGoodsActivity.setCreatedTime(instance.getCreatedTime());
+            specialGoodsActivity.setCreatedUserId(instance.getCreatedUserId());
+            specialGoodsActivity.setUpdatedTime(instance.getUpdatedTime());
+            specialGoodsActivity.setUpdatedUserId(instance.getUpdatedUserId());
+            specialGoodsActivity.setUpdatedRemark(instance.getUpdatedRemark());
+            specialGoodsActivity.setDeletedTime(instance.getDeletedTime());
+            specialGoodsActivity.setDeleted(instance.isDeleted());
+            return specialGoodsActivity;
         }
     }
 

@@ -137,7 +137,21 @@ public class WeiXinPublicAccount extends BasicDomain {
         }
 
         public WeiXinPublicAccount build() {
-            return instance;
+            WeiXinPublicAccount weiXinPublicAccount = new WeiXinPublicAccount();
+            weiXinPublicAccount.setTenantId(instance.getTenantId());
+            weiXinPublicAccount.setName(instance.getName());
+            weiXinPublicAccount.setAppId(instance.getAppId());
+            weiXinPublicAccount.setAppSecret(instance.getAppSecret());
+            weiXinPublicAccount.setOriginalId(instance.getOriginalId());
+            weiXinPublicAccount.setId(instance.getId());
+            weiXinPublicAccount.setCreatedTime(instance.getCreatedTime());
+            weiXinPublicAccount.setCreatedUserId(instance.getCreatedUserId());
+            weiXinPublicAccount.setUpdatedTime(instance.getUpdatedTime());
+            weiXinPublicAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinPublicAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinPublicAccount.setDeletedTime(instance.getDeletedTime());
+            weiXinPublicAccount.setDeleted(instance.isDeleted());
+            return weiXinPublicAccount;
         }
     }
 

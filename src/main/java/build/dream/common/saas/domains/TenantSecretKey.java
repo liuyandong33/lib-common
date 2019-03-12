@@ -137,7 +137,21 @@ public class TenantSecretKey extends BasicDomain {
         }
 
         public TenantSecretKey build() {
-            return instance;
+            TenantSecretKey tenantSecretKey = new TenantSecretKey();
+            tenantSecretKey.setTenantId(instance.getTenantId());
+            tenantSecretKey.setTenantCode(instance.getTenantCode());
+            tenantSecretKey.setPublicKey(instance.getPublicKey());
+            tenantSecretKey.setPrivateKey(instance.getPrivateKey());
+            tenantSecretKey.setPlatformPublicKey(instance.getPlatformPublicKey());
+            tenantSecretKey.setId(instance.getId());
+            tenantSecretKey.setCreatedTime(instance.getCreatedTime());
+            tenantSecretKey.setCreatedUserId(instance.getCreatedUserId());
+            tenantSecretKey.setUpdatedTime(instance.getUpdatedTime());
+            tenantSecretKey.setUpdatedUserId(instance.getUpdatedUserId());
+            tenantSecretKey.setUpdatedRemark(instance.getUpdatedRemark());
+            tenantSecretKey.setDeletedTime(instance.getDeletedTime());
+            tenantSecretKey.setDeleted(instance.isDeleted());
+            return tenantSecretKey;
         }
     }
 

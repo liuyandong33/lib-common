@@ -154,7 +154,22 @@ public class BankAccount extends BasicDomain {
         }
 
         public BankAccount build() {
-            return instance;
+            BankAccount bankAccount = new BankAccount();
+            bankAccount.setTenantId(instance.getTenantId());
+            bankAccount.setBranchId(instance.getBranchId());
+            bankAccount.setBankCardNumber(instance.getBankCardNumber());
+            bankAccount.setCardholder(instance.getCardholder());
+            bankAccount.setBankName(instance.getBankName());
+            bankAccount.setBankCode(instance.getBankCode());
+            bankAccount.setId(instance.getId());
+            bankAccount.setCreatedTime(instance.getCreatedTime());
+            bankAccount.setCreatedUserId(instance.getCreatedUserId());
+            bankAccount.setUpdatedTime(instance.getUpdatedTime());
+            bankAccount.setUpdatedUserId(instance.getUpdatedUserId());
+            bankAccount.setUpdatedRemark(instance.getUpdatedRemark());
+            bankAccount.setDeletedTime(instance.getDeletedTime());
+            bankAccount.setDeleted(instance.isDeleted());
+            return bankAccount;
         }
     }
 

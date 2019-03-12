@@ -189,7 +189,24 @@ public class NotifyRecord extends BasicDomain {
         }
 
         public NotifyRecord build() {
-            return instance;
+            NotifyRecord notifyRecord = new NotifyRecord();
+            notifyRecord.setUuid(instance.getUuid());
+            notifyRecord.setNotifyUrl(instance.getNotifyUrl());
+            notifyRecord.setAlipayPublicKey(instance.getAlipayPublicKey());
+            notifyRecord.setAlipaySignType(instance.getAlipaySignType());
+            notifyRecord.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
+            notifyRecord.setWeiXinPaySignType(instance.getWeiXinPaySignType());
+            notifyRecord.setNotifyResult(instance.getNotifyResult());
+            notifyRecord.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
+            notifyRecord.setId(instance.getId());
+            notifyRecord.setCreatedTime(instance.getCreatedTime());
+            notifyRecord.setCreatedUserId(instance.getCreatedUserId());
+            notifyRecord.setUpdatedTime(instance.getUpdatedTime());
+            notifyRecord.setUpdatedUserId(instance.getUpdatedUserId());
+            notifyRecord.setUpdatedRemark(instance.getUpdatedRemark());
+            notifyRecord.setDeletedTime(instance.getDeletedTime());
+            notifyRecord.setDeleted(instance.isDeleted());
+            return notifyRecord;
         }
     }
 

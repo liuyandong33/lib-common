@@ -368,7 +368,25 @@ public class MicroPayModel extends BasicModel {
         }
 
         public MicroPayModel build() {
-            return instance;
+            MicroPayModel microPayModel = new MicroPayModel();
+            microPayModel.setTenantId(instance.getTenantId());
+            microPayModel.setBranchId(instance.getBranchId());
+            microPayModel.setDeviceInfo(instance.getDeviceInfo());
+            microPayModel.setSignType(instance.getSignType());
+            microPayModel.setBody(instance.getBody());
+            microPayModel.setDetail(instance.getDetail());
+            microPayModel.setAttach(instance.getAttach());
+            microPayModel.setOutTradeNo(instance.getOutTradeNo());
+            microPayModel.setTotalFee(instance.getTotalFee());
+            microPayModel.setFeeType(instance.getFeeType());
+            microPayModel.setSpbillCreateIp(instance.getSpbillCreateIp());
+            microPayModel.setGoodsTag(instance.getGoodsTag());
+            microPayModel.setLimitPay(instance.getLimitPay());
+            microPayModel.setTimeStart(instance.getTimeStart());
+            microPayModel.setTimeExpire(instance.getTimeExpire());
+            microPayModel.setAuthCode(instance.getAuthCode());
+            microPayModel.setSceneInfoModel(instance.getSceneInfoModel());
+            return microPayModel;
         }
     }
 

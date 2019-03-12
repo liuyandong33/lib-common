@@ -171,7 +171,23 @@ public class AlipayOpenAuthToken extends BasicDomain {
         }
 
         public AlipayOpenAuthToken build() {
-            return instance;
+            AlipayOpenAuthToken alipayOpenAuthToken = new AlipayOpenAuthToken();
+            alipayOpenAuthToken.setAppId(instance.getAppId());
+            alipayOpenAuthToken.setAppAuthToken(instance.getAppAuthToken());
+            alipayOpenAuthToken.setUserId(instance.getUserId());
+            alipayOpenAuthToken.setAuthAppId(instance.getAuthAppId());
+            alipayOpenAuthToken.setExpiresIn(instance.getExpiresIn());
+            alipayOpenAuthToken.setReExpiresIn(instance.getReExpiresIn());
+            alipayOpenAuthToken.setAppRefreshToken(instance.getAppRefreshToken());
+            alipayOpenAuthToken.setId(instance.getId());
+            alipayOpenAuthToken.setCreatedTime(instance.getCreatedTime());
+            alipayOpenAuthToken.setCreatedUserId(instance.getCreatedUserId());
+            alipayOpenAuthToken.setUpdatedTime(instance.getUpdatedTime());
+            alipayOpenAuthToken.setUpdatedUserId(instance.getUpdatedUserId());
+            alipayOpenAuthToken.setUpdatedRemark(instance.getUpdatedRemark());
+            alipayOpenAuthToken.setDeletedTime(instance.getDeletedTime());
+            alipayOpenAuthToken.setDeleted(instance.isDeleted());
+            return alipayOpenAuthToken;
         }
     }
 

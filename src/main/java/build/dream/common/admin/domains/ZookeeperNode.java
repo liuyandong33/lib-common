@@ -170,7 +170,23 @@ public class ZookeeperNode extends BasicDomain {
         }
 
         public ZookeeperNode build() {
-            return instance;
+            ZookeeperNode zookeeperNode = new ZookeeperNode();
+            zookeeperNode.setClusterId(instance.getClusterId());
+            zookeeperNode.setHostName(instance.getHostName());
+            zookeeperNode.setIpAddress(instance.getIpAddress());
+            zookeeperNode.setSshPort(instance.getSshPort());
+            zookeeperNode.setUserName(instance.getUserName());
+            zookeeperNode.setPassword(instance.getPassword());
+            zookeeperNode.setZookeeperHome(instance.getZookeeperHome());
+            zookeeperNode.setId(instance.getId());
+            zookeeperNode.setCreatedTime(instance.getCreatedTime());
+            zookeeperNode.setCreatedUserId(instance.getCreatedUserId());
+            zookeeperNode.setUpdatedTime(instance.getUpdatedTime());
+            zookeeperNode.setUpdatedUserId(instance.getUpdatedUserId());
+            zookeeperNode.setUpdatedRemark(instance.getUpdatedRemark());
+            zookeeperNode.setDeletedTime(instance.getDeletedTime());
+            zookeeperNode.setDeleted(instance.isDeleted());
+            return zookeeperNode;
         }
     }
 

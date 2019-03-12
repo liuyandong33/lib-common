@@ -224,7 +224,26 @@ public class OrderInfo extends BasicDomain {
         }
 
         public OrderInfo build() {
-            return instance;
+            OrderInfo orderInfo = new OrderInfo();
+            orderInfo.setOrderNumber(instance.getOrderNumber());
+            orderInfo.setOrderType(instance.getOrderType());
+            orderInfo.setOrderStatus(instance.getOrderStatus());
+            orderInfo.setTenantId(instance.getTenantId());
+            orderInfo.setAgentId(instance.getAgentId());
+            orderInfo.setTotalAmount(instance.getTotalAmount());
+            orderInfo.setDiscountAmount(instance.getDiscountAmount());
+            orderInfo.setPayableAmount(instance.getPayableAmount());
+            orderInfo.setPaidAmount(instance.getPaidAmount());
+            orderInfo.setPaidType(instance.getPaidType());
+            orderInfo.setId(instance.getId());
+            orderInfo.setCreatedTime(instance.getCreatedTime());
+            orderInfo.setCreatedUserId(instance.getCreatedUserId());
+            orderInfo.setUpdatedTime(instance.getUpdatedTime());
+            orderInfo.setUpdatedUserId(instance.getUpdatedUserId());
+            orderInfo.setUpdatedRemark(instance.getUpdatedRemark());
+            orderInfo.setDeletedTime(instance.getDeletedTime());
+            orderInfo.setDeleted(instance.isDeleted());
+            return orderInfo;
         }
     }
 

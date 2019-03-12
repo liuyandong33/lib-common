@@ -187,7 +187,24 @@ public class Application extends BasicDomain {
         }
 
         public Application build() {
-            return instance;
+            Application application = new Application();
+            application.setPartitionCode(instance.getPartitionCode());
+            application.setDeploymentEnvironment(instance.getDeploymentEnvironment());
+            application.setServiceName(instance.getServiceName());
+            application.setType(instance.getType());
+            application.setVersion(instance.getVersion());
+            application.setDeployedTime(instance.getDeployedTime());
+            application.setDeployedUserId(instance.getDeployedUserId());
+            application.setServerId(instance.getServerId());
+            application.setId(instance.getId());
+            application.setCreatedTime(instance.getCreatedTime());
+            application.setCreatedUserId(instance.getCreatedUserId());
+            application.setUpdatedTime(instance.getUpdatedTime());
+            application.setUpdatedUserId(instance.getUpdatedUserId());
+            application.setUpdatedRemark(instance.getUpdatedRemark());
+            application.setDeletedTime(instance.getDeletedTime());
+            application.setDeleted(instance.isDeleted());
+            return application;
         }
     }
 

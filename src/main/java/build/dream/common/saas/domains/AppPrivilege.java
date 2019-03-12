@@ -189,7 +189,24 @@ public class AppPrivilege extends BasicDomain {
         }
 
         public AppPrivilege build() {
-            return instance;
+            AppPrivilege appPrivilege = new AppPrivilege();
+            appPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
+            appPrivilege.setPrivilegeName(instance.getPrivilegeName());
+            appPrivilege.setAccessMode(instance.getAccessMode());
+            appPrivilege.setServiceName(instance.getServiceName());
+            appPrivilege.setControllerName(instance.getControllerName());
+            appPrivilege.setActionName(instance.getActionName());
+            appPrivilege.setParentId(instance.getParentId());
+            appPrivilege.setRemark(instance.getRemark());
+            appPrivilege.setId(instance.getId());
+            appPrivilege.setCreatedTime(instance.getCreatedTime());
+            appPrivilege.setCreatedUserId(instance.getCreatedUserId());
+            appPrivilege.setUpdatedTime(instance.getUpdatedTime());
+            appPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
+            appPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
+            appPrivilege.setDeletedTime(instance.getDeletedTime());
+            appPrivilege.setDeleted(instance.isDeleted());
+            return appPrivilege;
         }
     }
 

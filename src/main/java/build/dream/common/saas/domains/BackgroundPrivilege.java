@@ -206,7 +206,25 @@ public class BackgroundPrivilege extends BasicDomain {
         }
 
         public BackgroundPrivilege build() {
-            return instance;
+            BackgroundPrivilege backgroundPrivilege = new BackgroundPrivilege();
+            backgroundPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
+            backgroundPrivilege.setPrivilegeName(instance.getPrivilegeName());
+            backgroundPrivilege.setAccessMode(instance.getAccessMode());
+            backgroundPrivilege.setServiceName(instance.getServiceName());
+            backgroundPrivilege.setControllerName(instance.getControllerName());
+            backgroundPrivilege.setActionName(instance.getActionName());
+            backgroundPrivilege.setParentId(instance.getParentId());
+            backgroundPrivilege.setHidden(instance.isHidden());
+            backgroundPrivilege.setRemark(instance.getRemark());
+            backgroundPrivilege.setId(instance.getId());
+            backgroundPrivilege.setCreatedTime(instance.getCreatedTime());
+            backgroundPrivilege.setCreatedUserId(instance.getCreatedUserId());
+            backgroundPrivilege.setUpdatedTime(instance.getUpdatedTime());
+            backgroundPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
+            backgroundPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
+            backgroundPrivilege.setDeletedTime(instance.getDeletedTime());
+            backgroundPrivilege.setDeleted(instance.isDeleted());
+            return backgroundPrivilege;
         }
     }
 

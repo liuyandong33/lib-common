@@ -172,7 +172,7 @@ public class Coupon extends BasicDomain {
             coupon.setUpdatedRemark(instance.getUpdatedRemark());
             coupon.setDeletedTime(instance.getDeletedTime());
             coupon.setDeleted(instance.isDeleted());
-            return instance;
+            return coupon;
         }
     }
 

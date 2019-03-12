@@ -107,7 +107,15 @@ public class DoGetOrdinaryWithRequestParametersModel {
         }
 
         public DoGetOrdinaryWithRequestParametersModel build() {
-            return instance;
+            DoGetOrdinaryWithRequestParametersModel doGetOrdinaryWithRequestParametersModel = new DoGetOrdinaryWithRequestParametersModel();
+            doGetOrdinaryWithRequestParametersModel.setRequestUrl(instance.getRequestUrl());
+            doGetOrdinaryWithRequestParametersModel.setReadTimeout(instance.getReadTimeout());
+            doGetOrdinaryWithRequestParametersModel.setConnectTimeout(instance.getConnectTimeout());
+            doGetOrdinaryWithRequestParametersModel.setHeaders(instance.getHeaders());
+            doGetOrdinaryWithRequestParametersModel.setRequestParameters(instance.getRequestParameters());
+            doGetOrdinaryWithRequestParametersModel.setCharsetName(instance.getCharsetName());
+            doGetOrdinaryWithRequestParametersModel.setProxy(instance.getProxy());
+            return doGetOrdinaryWithRequestParametersModel;
         }
     }
 

@@ -102,7 +102,19 @@ public class Cluster extends BasicDomain {
         }
 
         public Cluster build() {
-            return instance;
+            Cluster cluster = new Cluster();
+            cluster.setTenantId(instance.getTenantId());
+            cluster.setName(instance.getName());
+            cluster.setType(instance.getType());
+            cluster.setId(instance.getId());
+            cluster.setCreatedTime(instance.getCreatedTime());
+            cluster.setCreatedUserId(instance.getCreatedUserId());
+            cluster.setUpdatedTime(instance.getUpdatedTime());
+            cluster.setUpdatedUserId(instance.getUpdatedUserId());
+            cluster.setUpdatedRemark(instance.getUpdatedRemark());
+            cluster.setDeletedTime(instance.getDeletedTime());
+            cluster.setDeleted(instance.isDeleted());
+            return cluster;
         }
     }
 

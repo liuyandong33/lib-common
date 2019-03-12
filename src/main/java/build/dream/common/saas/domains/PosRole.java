@@ -103,7 +103,19 @@ public class PosRole extends BasicDomain {
         }
 
         public PosRole build() {
-            return instance;
+            PosRole posRole = new PosRole();
+            posRole.setTenantId(instance.getTenantId());
+            posRole.setRoleCode(instance.getRoleCode());
+            posRole.setRoleName(instance.getRoleName());
+            posRole.setId(instance.getId());
+            posRole.setCreatedTime(instance.getCreatedTime());
+            posRole.setCreatedUserId(instance.getCreatedUserId());
+            posRole.setUpdatedTime(instance.getUpdatedTime());
+            posRole.setUpdatedUserId(instance.getUpdatedUserId());
+            posRole.setUpdatedRemark(instance.getUpdatedRemark());
+            posRole.setDeletedTime(instance.getDeletedTime());
+            posRole.setDeleted(instance.isDeleted());
+            return posRole;
         }
     }
 

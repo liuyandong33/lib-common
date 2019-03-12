@@ -64,7 +64,20 @@ public class MySqlConfiguration extends BasicDomain {
         }
 
         public MySqlConfiguration build() {
-            return instance;
+            MySqlConfiguration mySqlConfiguration = new MySqlConfiguration();
+            mySqlConfiguration.setName(instance.getName());
+            mySqlConfiguration.setValue(instance.getValue());
+            mySqlConfiguration.setType(instance.getType());
+            mySqlConfiguration.setRemark(instance.getRemark());
+            mySqlConfiguration.setId(instance.getId());
+            mySqlConfiguration.setCreatedTime(instance.getCreatedTime());
+            mySqlConfiguration.setCreatedUserId(instance.getCreatedUserId());
+            mySqlConfiguration.setUpdatedTime(instance.getUpdatedTime());
+            mySqlConfiguration.setUpdatedUserId(instance.getUpdatedUserId());
+            mySqlConfiguration.setUpdatedRemark(instance.getUpdatedRemark());
+            mySqlConfiguration.setDeletedTime(instance.getDeletedTime());
+            mySqlConfiguration.setDeleted(instance.isDeleted());
+            return mySqlConfiguration;
         }
     }
 

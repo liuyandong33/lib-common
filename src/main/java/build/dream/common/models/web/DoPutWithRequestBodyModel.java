@@ -124,7 +124,16 @@ public class DoPutWithRequestBodyModel {
         }
 
         public DoPutWithRequestBodyModel build() {
-            return instance;
+            DoPutWithRequestBodyModel doPutWithRequestBodyModel = new DoPutWithRequestBodyModel();
+            doPutWithRequestBodyModel.setRequestUrl(instance.getRequestUrl());
+            doPutWithRequestBodyModel.setReadTimeout(instance.getReadTimeout());
+            doPutWithRequestBodyModel.setConnectTimeout(instance.getConnectTimeout());
+            doPutWithRequestBodyModel.setHeaders(instance.getHeaders());
+            doPutWithRequestBodyModel.setRequestBody(instance.getRequestBody());
+            doPutWithRequestBodyModel.setCharsetName(instance.getCharsetName());
+            doPutWithRequestBodyModel.setSslSocketFactory(instance.getSslSocketFactory());
+            doPutWithRequestBodyModel.setProxy(instance.getProxy());
+            return doPutWithRequestBodyModel;
         }
     }
 

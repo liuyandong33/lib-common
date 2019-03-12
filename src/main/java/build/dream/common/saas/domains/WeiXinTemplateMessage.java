@@ -154,7 +154,22 @@ public class WeiXinTemplateMessage extends BasicDomain {
         }
 
         public WeiXinTemplateMessage build() {
-            return instance;
+            WeiXinTemplateMessage weiXinTemplateMessage = new WeiXinTemplateMessage();
+            weiXinTemplateMessage.setAppId(instance.getAppId());
+            weiXinTemplateMessage.setAppSecret(instance.getAppSecret());
+            weiXinTemplateMessage.setOriginalId(instance.getOriginalId());
+            weiXinTemplateMessage.setTemplateMessageId(instance.getTemplateMessageId());
+            weiXinTemplateMessage.setWeiXinTemplateMessageCode(instance.getWeiXinTemplateMessageCode());
+            weiXinTemplateMessage.setWeiXinTemplateMessageKeys(instance.getWeiXinTemplateMessageKeys());
+            weiXinTemplateMessage.setId(instance.getId());
+            weiXinTemplateMessage.setCreatedTime(instance.getCreatedTime());
+            weiXinTemplateMessage.setCreatedUserId(instance.getCreatedUserId());
+            weiXinTemplateMessage.setUpdatedTime(instance.getUpdatedTime());
+            weiXinTemplateMessage.setUpdatedUserId(instance.getUpdatedUserId());
+            weiXinTemplateMessage.setUpdatedRemark(instance.getUpdatedRemark());
+            weiXinTemplateMessage.setDeletedTime(instance.getDeletedTime());
+            weiXinTemplateMessage.setDeleted(instance.isDeleted());
+            return weiXinTemplateMessage;
         }
     }
 

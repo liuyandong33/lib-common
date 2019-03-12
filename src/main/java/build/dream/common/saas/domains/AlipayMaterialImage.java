@@ -103,7 +103,19 @@ public class AlipayMaterialImage extends BasicDomain {
         }
 
         public AlipayMaterialImage build() {
-            return instance;
+            AlipayMaterialImage alipayMaterialImage = new AlipayMaterialImage();
+            alipayMaterialImage.setAlipayUserId(instance.getAlipayUserId());
+            alipayMaterialImage.setImageId(instance.getImageId());
+            alipayMaterialImage.setImageUrl(instance.getImageUrl());
+            alipayMaterialImage.setId(instance.getId());
+            alipayMaterialImage.setCreatedTime(instance.getCreatedTime());
+            alipayMaterialImage.setCreatedUserId(instance.getCreatedUserId());
+            alipayMaterialImage.setUpdatedTime(instance.getUpdatedTime());
+            alipayMaterialImage.setUpdatedUserId(instance.getUpdatedUserId());
+            alipayMaterialImage.setUpdatedRemark(instance.getUpdatedRemark());
+            alipayMaterialImage.setDeletedTime(instance.getDeletedTime());
+            alipayMaterialImage.setDeleted(instance.isDeleted());
+            return alipayMaterialImage;
         }
     }
 
