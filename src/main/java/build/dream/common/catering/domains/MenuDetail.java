@@ -157,7 +157,6 @@ public class MenuDetail extends BasicDomain {
             menuDetail.setDeleted(instance.isDeleted());
             return menuDetail;
         }
-
     }
 
     public static Builder builder() {
