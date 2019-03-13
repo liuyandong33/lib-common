@@ -3,6 +3,7 @@ package build.dream.common.catering.domains;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -32,6 +33,11 @@ public class MenuDetail extends BasicDomain {
      * 商品单位ID
      */
     private BigInteger goodsUnitId;
+
+    /**
+     * 售价
+     */
+    private BigDecimal price;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -73,6 +79,13 @@ public class MenuDetail extends BasicDomain {
         this.goodsUnitId = goodsUnitId;
     }
 
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
 
     public static class Builder {
         private final MenuDetail instance = new MenuDetail();
@@ -99,6 +112,11 @@ public class MenuDetail extends BasicDomain {
 
         public Builder goodsUnitId(BigInteger goodsUnitId) {
             instance.setGoodsUnitId(goodsUnitId);
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            instance.setPrice(price);
             return this;
         }
 
@@ -149,6 +167,7 @@ public class MenuDetail extends BasicDomain {
             menuDetail.setGoodsId(instance.getGoodsId());
             menuDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             menuDetail.setGoodsUnitId(instance.getGoodsUnitId());
+            menuDetail.setPrice(instance.getPrice());
             menuDetail.setId(instance.getId());
             menuDetail.setCreatedTime(instance.getCreatedTime());
             menuDetail.setCreatedUserId(instance.getCreatedUserId());
@@ -171,6 +190,7 @@ public class MenuDetail extends BasicDomain {
         public static final String GOODS_ID = "goods_id";
         public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
         public static final String GOODS_UNIT_ID = "goods_unit_id";
+        public static final String PRICE = "price";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -179,5 +199,6 @@ public class MenuDetail extends BasicDomain {
         public static final String GOODS_ID = "goodsId";
         public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
         public static final String GOODS_UNIT_ID = "goodsUnitId";
+        public static final String PRICE = "price";
     }
 }
