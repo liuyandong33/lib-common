@@ -1412,6 +1412,7 @@ CREATE TABLE menu_detail
     goods_id BIGINT NOT NULL COMMENT '商品ID',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
     goods_unit_id BIGINT NOT NULL COMMENT '商品单位ID',
+    price DECIMAL(11, 3) NOT NULL COMMENT '售价',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
