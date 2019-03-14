@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -26,6 +27,10 @@ public class CacheUtils {
 
     public static HashOperations<String, String, String> obtainHashOperations() {
         return obtainStringRedisTemplate().opsForHash();
+    }
+
+    public static ListOperations<String, String> obtainListOperations() {
+        return obtainStringRedisTemplate().opsForList();
     }
 
     /**
@@ -377,5 +382,241 @@ public class CacheUtils {
 
     public static Long ttl(String key, TimeUnit timeUnit) {
         return obtainStringRedisTemplate().getExpire(key, timeUnit);
+    }
+
+    /**
+     * LRANGE
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public static List<String> lrange(String key, long start, long end) {
+        return obtainListOperations().range(key, start, end);
+    }
+
+    /**
+     * LTRIM
+     *
+     * @param key
+     * @param start
+     * @param end
+     */
+    public static void ltrim(String key, long start, long end) {
+        obtainListOperations().trim(key, start, end);
+    }
+
+    /**
+     * LLEN
+     *
+     * @param key
+     * @return
+     */
+    public static Long llen(String key) {
+        return obtainListOperations().size(key);
+    }
+
+    /**
+     * LPUSH
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long lpush(String key, String value) {
+        return obtainListOperations().leftPush(key, value);
+    }
+
+    /**
+     * LPUSH
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long leftPushAll(String key, String... values) {
+        return obtainListOperations().leftPushAll(key, values);
+    }
+
+    /**
+     * LPUSHX
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long lpushx(String key, String value) {
+        return obtainListOperations().leftPushIfPresent(key, value);
+    }
+
+    /**
+     * LPUSH
+     *
+     * @param key
+     * @param pivot
+     * @param value
+     * @return
+     */
+    public static Long lpush(String key, String pivot, String value) {
+        return obtainListOperations().leftPush(key, pivot, value);
+    }
+
+    /**
+     * RPUSH
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long rpush(String key, String value) {
+        return obtainListOperations().rightPush(key, value);
+    }
+
+    /**
+     * RPUSH
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long rpush(String key, String... values) {
+        return obtainListOperations().rightPushAll(key, values);
+    }
+
+    /**
+     * RPUSH
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long rpush(String key, Collection<String> values) {
+        return obtainListOperations().rightPushAll(key, values);
+    }
+
+    /**
+     * RPUSHX
+     *
+     * @param key
+     * @param value
+     * @return
+     */
+    public static Long rpushx(String key, String value) {
+        return obtainListOperations().rightPushIfPresent(key, value);
+    }
+
+    /**
+     * RPUSH
+     *
+     * @param key
+     * @param pivot
+     * @param value
+     * @return
+     */
+    public static Long rightPush(String key, String pivot, String value) {
+        return obtainListOperations().rightPush(key, pivot, value);
+    }
+
+    /**
+     * LSET
+     *
+     * @param key
+     * @param index
+     * @param value
+     */
+    public static void lset(String key, long index, String value) {
+        obtainListOperations().set(key, index, value);
+    }
+
+    /**
+     * LREM
+     *
+     * @param key
+     * @param count
+     * @param value
+     * @return
+     */
+    public static Long lrem(String key, long count, Object value) {
+        return obtainListOperations().remove(key, count, value);
+    }
+
+    /**
+     * LINDEX
+     *
+     * @param key
+     * @param index
+     * @return
+     */
+    public static String lindex(String key, long index) {
+        return obtainListOperations().index(key, index);
+    }
+
+    /**
+     * LPOP
+     *
+     * @param key
+     * @return
+     */
+    public static String lpop(String key) {
+        return obtainListOperations().leftPop(key);
+    }
+
+    /**
+     * BLPOP
+     *
+     * @param key
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public static String blpop(String key, long timeout, TimeUnit unit) {
+        return obtainListOperations().leftPop(key, timeout, unit);
+    }
+
+    /**
+     * RPOP
+     *
+     * @param key
+     * @return
+     */
+    public static String rpop(String key) {
+        return obtainListOperations().rightPop(key);
+    }
+
+    /**
+     * BRPOP
+     *
+     * @param key
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public static String brpop(String key, long timeout, TimeUnit unit) {
+        return obtainListOperations().rightPop(key, timeout, unit);
+    }
+
+    /**
+     * RPOPLPUSH
+     *
+     * @param sourceKey
+     * @param destinationKey
+     * @return
+     */
+    public static String rpoplpush(String sourceKey, String destinationKey) {
+        return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey);
+    }
+
+    /**
+     * BRPOPLPUSH
+     *
+     * @param sourceKey
+     * @param destinationKey
+     * @param timeout
+     * @param unit
+     * @return
+     */
+    public static String brpoplpush(String sourceKey, String destinationKey, long timeout, TimeUnit unit) {
+        return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey, timeout, unit);
     }
 }
