@@ -5,11 +5,7 @@ import org.springframework.data.redis.core.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by liuyandong on 2017/6/16.
- */
-@Deprecated
-public class CacheUtils {
+public class RedisUtils {
     private static StringRedisTemplate stringRedisTemplate = null;
 
     public static StringRedisTemplate obtainStringRedisTemplate() {
