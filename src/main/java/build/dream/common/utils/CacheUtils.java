@@ -285,7 +285,7 @@ public class CacheUtils {
      * @param increment
      * @return
      */
-    public static Double hincrByFloat(String key, String field, double increment) {
+    public static Double hincrbyfloat(String key, String field, double increment) {
         return obtainHashOperations().increment(key, field, increment);
     }
 
@@ -436,7 +436,7 @@ public class CacheUtils {
      * @param values
      * @return
      */
-    public static Long leftPushAll(String key, String... values) {
+    public static Long lpush(String key, String... values) {
         return obtainListOperations().leftPushAll(key, values);
     }
 
@@ -515,7 +515,7 @@ public class CacheUtils {
      * @param value
      * @return
      */
-    public static Long rightPush(String key, String pivot, String value) {
+    public static Long rpush(String key, String pivot, String value) {
         return obtainListOperations().rightPush(key, pivot, value);
     }
 
