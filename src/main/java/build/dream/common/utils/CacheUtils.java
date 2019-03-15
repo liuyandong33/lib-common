@@ -807,7 +807,7 @@ public class CacheUtils {
      * @param otherKeys
      * @return
      */
-    public static Set<String> SDIFF(String key, Collection<String> otherKeys) {
+    public static Set<String> sdiff(String key, Collection<String> otherKeys) {
         return obtainSetOperations().difference(key, otherKeys);
     }
 
