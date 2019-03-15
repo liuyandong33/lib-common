@@ -1,9 +1,6 @@
 package build.dream.common.utils;
 
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -31,6 +28,10 @@ public class CacheUtils {
 
     public static ListOperations<String, String> obtainListOperations() {
         return obtainStringRedisTemplate().opsForList();
+    }
+
+    public static SetOperations<String, String> obtainSetOperations() {
+        return obtainStringRedisTemplate().opsForSet();
     }
 
     /**
@@ -618,5 +619,250 @@ public class CacheUtils {
      */
     public static String brpoplpush(String sourceKey, String destinationKey, long timeout, TimeUnit unit) {
         return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey, timeout, unit);
+    }
+
+    /**
+     * SADD
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long sadd(String key, String... values) {
+        return obtainSetOperations().add(key, values);
+    }
+
+    /**
+     * SREM
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long srem(String key, Object... values) {
+        return obtainSetOperations().remove(key, values);
+    }
+
+    /**
+     * SPOP
+     *
+     * @param key
+     * @return
+     */
+    public static String spop(String key) {
+        return obtainSetOperations().pop(key);
+    }
+
+    /**
+     * SPOP
+     *
+     * @param key
+     * @param count
+     * @return
+     */
+    public static List<String> spop(String key, long count) {
+        return obtainSetOperations().pop(key, count);
+    }
+
+    /**
+     * SMOVE
+     *
+     * @param key
+     * @param value
+     * @param destKey
+     * @return
+     */
+    public static Boolean smove(String key, String value, String destKey) {
+        return obtainSetOperations().move(key, value, destKey);
+    }
+
+    /**
+     * SCARD
+     *
+     * @param key
+     * @return
+     */
+    public static Long scard(String key) {
+        return obtainSetOperations().size(key);
+    }
+
+    /**
+     * SISMEMBER
+     *
+     * @param key
+     * @param object
+     * @return
+     */
+    public static Boolean sismember(String key, Object object) {
+        return obtainSetOperations().isMember(key, object);
+    }
+
+    /**
+     * SINTER
+     *
+     * @param key
+     * @param otherKey
+     * @return
+     */
+    public static Set<String> sinter(String key, String otherKey) {
+        return obtainSetOperations().intersect(key, otherKey);
+    }
+
+    /**
+     * SINTER
+     *
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public static Set<String> sinter(String key, Collection<String> otherKeys) {
+        return obtainSetOperations().intersect(key, otherKeys);
+    }
+
+    /**
+     * SINTERSTORE
+     *
+     * @param key
+     * @param otherKey
+     * @param destKey
+     * @return
+     */
+    public static Long sinterstore(String key, String otherKey, String destKey) {
+        return obtainSetOperations().intersectAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * SINTERSTORE
+     *
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public static Long sinterstore(String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations().intersectAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * SUNION
+     *
+     * @param key
+     * @param otherKey
+     * @return
+     */
+    public static Set<String> sunion(String key, String otherKey) {
+        return obtainSetOperations().union(key, otherKey);
+    }
+
+    /**
+     * SUNION
+     *
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public static Set<String> sunion(String key, Collection<String> otherKeys) {
+        return obtainSetOperations().union(key, otherKeys);
+    }
+
+    /**
+     * SUNIONSTORE
+     *
+     * @param key
+     * @param otherKey
+     * @param destKey
+     * @return
+     */
+    public static Long sunionstore(String key, String otherKey, String destKey) {
+        return obtainSetOperations().unionAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * SUNIONSTORE
+     *
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public static Long sunionstore(String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations().unionAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * SDIFF
+     *
+     * @param key
+     * @param otherKey
+     * @return
+     */
+    public static Set<String> sdiff(String key, String otherKey) {
+        return obtainSetOperations().difference(key, otherKey);
+    }
+
+    /**
+     * SDIFF
+     *
+     * @param key
+     * @param otherKeys
+     * @return
+     */
+    public static Set<String> SDIFF(String key, Collection<String> otherKeys) {
+        return obtainSetOperations().difference(key, otherKeys);
+    }
+
+    /**
+     * SDIFFSTORE
+     *
+     * @param key
+     * @param otherKey
+     * @param destKey
+     * @return
+     */
+    public static Long sdiffstore(String key, String otherKey, String destKey) {
+        return obtainSetOperations().differenceAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * SDIFFSTORE
+     *
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public static Long sdiffstore(String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations().differenceAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * SMEMBERS
+     *
+     * @param key
+     * @return
+     */
+    public static Set<String> smembers(String key) {
+        return obtainSetOperations().members(key);
+    }
+
+    /**
+     * SRANDMEMBER
+     *
+     * @param key
+     * @return
+     */
+    public static String srandmember(String key) {
+        return obtainSetOperations().randomMember(key);
+    }
+
+    /**
+     * SRANDMEMBER
+     *
+     * @param key
+     * @param count
+     * @return
+     */
+    public static List<String> srandmember(String key, long count) {
+        return obtainSetOperations().randomMembers(key, count);
     }
 }
