@@ -20,6 +20,11 @@ public class MenuDetail extends BasicDomain {
     private String tenantCode;
 
     /**
+     * 菜牌ID
+     */
+    private BigInteger menuId;
+
+    /**
      * 商品ID
      */
     private BigInteger goodsId;
@@ -53,6 +58,14 @@ public class MenuDetail extends BasicDomain {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(BigInteger menuId) {
+        this.menuId = menuId;
     }
 
     public BigInteger getGoodsId() {
@@ -97,6 +110,11 @@ public class MenuDetail extends BasicDomain {
 
         public Builder tenantCode(String tenantCode) {
             instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder menuId(BigInteger menuId) {
+            instance.setMenuId(menuId);
             return this;
         }
 
@@ -164,6 +182,7 @@ public class MenuDetail extends BasicDomain {
             MenuDetail menuDetail = new MenuDetail();
             menuDetail.setTenantId(instance.getTenantId());
             menuDetail.setTenantCode(instance.getTenantCode());
+            menuDetail.setMenuId(instance.getMenuId());
             menuDetail.setGoodsId(instance.getGoodsId());
             menuDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             menuDetail.setGoodsUnitId(instance.getGoodsUnitId());
@@ -187,6 +206,7 @@ public class MenuDetail extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
+        public static final String MENU_ID = "menu_id";
         public static final String GOODS_ID = "goods_id";
         public static final String GOODS_SPECIFICATION_ID = "goods_specification_id";
         public static final String GOODS_UNIT_ID = "goods_unit_id";
@@ -196,6 +216,7 @@ public class MenuDetail extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
+        public static final String MENU_ID = "menuId";
         public static final String GOODS_ID = "goodsId";
         public static final String GOODS_SPECIFICATION_ID = "goodsSpecificationId";
         public static final String GOODS_UNIT_ID = "goodsUnitId";

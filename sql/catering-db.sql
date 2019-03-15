@@ -1409,6 +1409,7 @@ CREATE TABLE menu_detail
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    menu_id BIGINT NOT NULL COMMENT '菜牌ID',
     goods_id BIGINT NOT NULL COMMENT '商品ID',
     goods_specification_id BIGINT NOT NULL COMMENT '商品规格ID',
     goods_unit_id BIGINT NOT NULL COMMENT '商品单位ID',
