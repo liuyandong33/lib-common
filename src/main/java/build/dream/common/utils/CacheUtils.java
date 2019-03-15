@@ -34,6 +34,10 @@ public class CacheUtils {
         return obtainStringRedisTemplate().opsForSet();
     }
 
+    public static ZSetOperations<String, String> obtainZSetOperations() {
+        return obtainStringRedisTemplate().opsForZSet();
+    }
+
     /**
      * KEYS
      *
@@ -864,5 +868,254 @@ public class CacheUtils {
      */
     public static List<String> srandmember(String key, long count) {
         return obtainSetOperations().randomMembers(key, count);
+    }
+
+    /**
+     * ZADD
+     *
+     * @param key
+     * @param value
+     * @param score
+     * @return
+     */
+    public static Boolean zadd(String key, String value, double score) {
+        return obtainZSetOperations().add(key, value, score);
+    }
+
+    /**
+     * ZADD
+     *
+     * @param key
+     * @param tuples
+     * @return
+     */
+    public static Long zadd(String key, Set<ZSetOperations.TypedTuple<String>> tuples) {
+        return obtainZSetOperations().add(key, tuples);
+    }
+
+    /**
+     * ZREM
+     *
+     * @param key
+     * @param values
+     * @return
+     */
+    public static Long zrem(String key, Object... values) {
+        return obtainZSetOperations().remove(key, values);
+    }
+
+    /**
+     * ZINCRBY
+     *
+     * @param key
+     * @param value
+     * @param delta
+     * @return
+     */
+    public static Double zincrby(String key, String value, double delta) {
+        return obtainZSetOperations().incrementScore(key, value, delta);
+    }
+
+    /**
+     * ZRANK
+     *
+     * @param key
+     * @param object
+     * @return
+     */
+    public static Long zrank(String key, Object object) {
+        return obtainZSetOperations().rank(key, object);
+    }
+
+    /**
+     * ZREVRANK
+     *
+     * @param key
+     * @param object
+     * @return
+     */
+    public static Long zrevrank(String key, Object object) {
+        return obtainZSetOperations().reverseRank(key, object);
+    }
+
+    /**
+     * ZRANGE
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public static Set<String> zrange(String key, long start, long end) {
+        return obtainZSetOperations().range(key, start, end);
+    }
+
+    /**
+     * ZRANGEBYSCORE
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public static Set<String> zrangebyscore(String key, double min, double max) {
+        return obtainZSetOperations().rangeByScore(key, min, max);
+    }
+
+    /**
+     * ZRANGEBYSCORE
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @param offset
+     * @param count
+     * @return
+     */
+    public static Set<String> zrangebyscore(String key, double min, double max, long offset, long count) {
+        return obtainZSetOperations().rangeByScore(key, min, max, offset, count);
+    }
+
+    /**
+     * ZREVRANGE
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public static Set<String> zrevrange(String key, long start, long end) {
+        return obtainZSetOperations().reverseRange(key, start, end);
+    }
+
+    /**
+     * ZREVRANGE
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public static Set<String> zrevrange(String key, double min, double max) {
+        return obtainZSetOperations().reverseRangeByScore(key, min, max);
+    }
+
+    /**
+     * ZREVRANGEBYSCORE
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @param offset
+     * @param count
+     * @return
+     */
+    public static Set<String> zrevrangebyscore(String key, double min, double max, long offset, long count) {
+        return obtainZSetOperations().reverseRangeByScore(key, min, max, offset, count);
+    }
+
+    /**
+     * ZCOUNT
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public static Long zcount(String key, double min, double max) {
+        return obtainZSetOperations().count(key, min, max);
+    }
+
+    /**
+     * ZCARD
+     *
+     * @param key
+     * @return
+     */
+    public static Long zcard(String key) {
+        return obtainZSetOperations().zCard(key);
+    }
+
+    /**
+     * ZSCORE
+     *
+     * @param key
+     * @param object
+     * @return
+     */
+    public static Double zscore(String key, Object object) {
+        return obtainZSetOperations().score(key, object);
+    }
+
+    /**
+     * ZREMRANGEBYRANK
+     *
+     * @param key
+     * @param start
+     * @param end
+     * @return
+     */
+    public static Long zremrangebyrank(String key, long start, long end) {
+        return obtainZSetOperations().removeRange(key, start, end);
+    }
+
+    /**
+     * ZREMRANGEBYSCORE
+     *
+     * @param key
+     * @param min
+     * @param max
+     * @return
+     */
+    public static Long zremrangebyscore(String key, double min, double max) {
+        return obtainZSetOperations().removeRangeByScore(key, min, max);
+    }
+
+    /**
+     * ZUNIONSTORE
+     *
+     * @param key
+     * @param otherKey
+     * @param destKey
+     * @return
+     */
+    public static Long zunionstore(String key, String otherKey, String destKey) {
+        return obtainZSetOperations().unionAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * ZUNIONSTORE
+     *
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public static Long zunionstore(String key, Collection<String> otherKeys, String destKey) {
+        return obtainZSetOperations().unionAndStore(key, otherKeys, destKey);
+    }
+
+    /**
+     * ZINTERSTORE
+     *
+     * @param key
+     * @param otherKey
+     * @param destKey
+     * @return
+     */
+    public static Long zinterstore(String key, String otherKey, String destKey) {
+        return obtainZSetOperations().intersectAndStore(key, otherKey, destKey);
+    }
+
+    /**
+     * ZINTERSTORE
+     *
+     * @param key
+     * @param otherKeys
+     * @param destKey
+     * @return
+     */
+    public static Long zinterstore(String key, Collection<String> otherKeys, String destKey) {
+        return obtainZSetOperations().intersectAndStore(key, otherKeys, destKey);
     }
 }
