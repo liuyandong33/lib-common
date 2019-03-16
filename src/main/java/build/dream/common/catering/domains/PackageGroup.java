@@ -31,7 +31,7 @@ public class PackageGroup extends BasicDomain {
      */
     private String groupName;
     /**
-     * 套餐组类型
+     * 套餐组类型，1-可选组，2-必选组
      */
     private Integer groupType;
     /**
