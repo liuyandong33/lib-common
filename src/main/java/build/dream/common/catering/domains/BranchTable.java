@@ -1,14 +1,13 @@
 package build.dream.common.catering.domains;
 
-import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
 import java.util.Date;
 
-@ShardingColumn(fieldName = Menu.FieldName.TENANT_ID, columnName = Menu.ColumnName.TENANT_ID)
-public class Menu extends BasicDomain {
-    public static final String TABLE_NAME = "menu";
+public class BranchTable extends BasicDomain {
+    public static final String TABLE_NAME = "branch_table";
+
     /**
      * 商户ID
      */
@@ -20,34 +19,34 @@ public class Menu extends BasicDomain {
     private String tenantCode;
 
     /**
-     * 菜牌编号
+     * 门店ID
+     */
+    private BigInteger branchId;
+
+    /**
+     * 桌台区域ID
+     */
+    private BigInteger tableAreaId;
+
+    /**
+     * 桌台编号
      */
     private String code;
 
     /**
-     * 菜牌名称
+     * 桌台名称
      */
     private String name;
 
     /**
-     * 开始时间
-     */
-    private Date startTime;
-
-    /**
-     * 结束时间
-     */
-    private Date endTime;
-
-    /**
-     * 菜牌状态，1-正常，2-停用
+     * 状态，1-启用，2-禁用
      */
     private Integer status;
 
     /**
-     * 生效范围，1-线上，2-线下，3-线上线下
+     * 就餐人数
      */
-    private Integer effectiveScope;
+    private Integer dinnersNumber;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -63,6 +62,22 @@ public class Menu extends BasicDomain {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public BigInteger getTableAreaId() {
+        return tableAreaId;
+    }
+
+    public void setTableAreaId(BigInteger tableAreaId) {
+        this.tableAreaId = tableAreaId;
     }
 
     public String getCode() {
@@ -81,22 +96,6 @@ public class Menu extends BasicDomain {
         this.name = name;
     }
 
-    public Date getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -105,16 +104,16 @@ public class Menu extends BasicDomain {
         this.status = status;
     }
 
-    public Integer getEffectiveScope() {
-        return effectiveScope;
+    public Integer getDinnersNumber() {
+        return dinnersNumber;
     }
 
-    public void setEffectiveScope(Integer effectiveScope) {
-        this.effectiveScope = effectiveScope;
+    public void setDinnersNumber(Integer dinnersNumber) {
+        this.dinnersNumber = dinnersNumber;
     }
 
     public static class Builder {
-        private final Menu instance = new Menu();
+        private final BranchTable instance = new BranchTable();
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -123,6 +122,16 @@ public class Menu extends BasicDomain {
 
         public Builder tenantCode(String tenantCode) {
             instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder tableAreaId(BigInteger tableAreaId) {
+            instance.setTableAreaId(tableAreaId);
             return this;
         }
 
@@ -136,23 +145,13 @@ public class Menu extends BasicDomain {
             return this;
         }
 
-        public Builder startTime(Date startTime) {
-            instance.setStartTime(startTime);
-            return this;
-        }
-
-        public Builder endTime(Date endTime) {
-            instance.setEndTime(endTime);
-            return this;
-        }
-
         public Builder status(Integer status) {
             instance.setStatus(status);
             return this;
         }
 
-        public Builder effectiveScope(Integer effectiveScope) {
-            instance.setEffectiveScope(effectiveScope);
+        public Builder dinnersNumber(Integer dinnersNumber) {
+            instance.setDinnersNumber(dinnersNumber);
             return this;
         }
 
@@ -196,25 +195,24 @@ public class Menu extends BasicDomain {
             return this;
         }
 
-        public Menu build() {
-            Menu menu = new Menu();
-            menu.setTenantId(instance.getTenantId());
-            menu.setTenantCode(instance.getTenantCode());
-            menu.setCode(instance.getCode());
-            menu.setName(instance.getName());
-            menu.setStartTime(instance.getStartTime());
-            menu.setEndTime(instance.getEndTime());
-            menu.setStatus(instance.getStatus());
-            menu.setEffectiveScope(instance.getEffectiveScope());
-            menu.setId(instance.tenantId);
-            menu.setCreatedTime(instance.getCreatedTime());
-            menu.setCreatedUserId(instance.getCreatedUserId());
-            menu.setUpdatedTime(instance.getUpdatedTime());
-            menu.setUpdatedUserId(instance.getUpdatedUserId());
-            menu.setUpdatedRemark(instance.getUpdatedRemark());
-            menu.setDeletedTime(instance.getDeletedTime());
-            menu.setDeleted(instance.isDeleted());
-            return menu;
+        public BranchTable build() {
+            BranchTable branchTable = new BranchTable();
+            branchTable.setTenantId(instance.getTenantId());
+            branchTable.setTenantCode(instance.getTenantCode());
+            branchTable.setBranchId(instance.getBranchId());
+            branchTable.setCode(instance.getCode());
+            branchTable.setName(instance.getName());
+            branchTable.setStatus(instance.getStatus());
+            branchTable.setDinnersNumber(instance.getDinnersNumber());
+            branchTable.setId(instance.getId());
+            branchTable.setCreatedTime(instance.getCreatedTime());
+            branchTable.setCreatedUserId(instance.getCreatedUserId());
+            branchTable.setUpdatedTime(instance.getUpdatedTime());
+            branchTable.setUpdatedUserId(instance.getUpdatedUserId());
+            branchTable.setUpdatedRemark(instance.getUpdatedRemark());
+            branchTable.setDeletedTime(instance.getDeletedTime());
+            branchTable.setDeleted(instance.isDeleted());
+            return branchTable;
         }
     }
 
@@ -225,22 +223,20 @@ public class Menu extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
+        public static final String BRANCH_ID = "branch_id";
         public static final String CODE = "code";
         public static final String NAME = "name";
-        public static final String START_TIME = "start_time";
-        public static final String END_TIME = "end_time";
         public static final String STATUS = "status";
-        public static final String EFFECTIVE_SCOPE = "effective_scope";
+        public static final String DINNERS_NUMBER = "dinners_number";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
+        public static final String BRANCH_ID = "branchId";
         public static final String CODE = "code";
         public static final String NAME = "name";
-        public static final String START_TIME = "startTime";
-        public static final String END_TIME = "endTime";
         public static final String STATUS = "status";
-        public static final String EFFECTIVE_SCOPE = "effectiveScope";
+        public static final String DINNERS_NUMBER = "dinnersNumber";
     }
 }
