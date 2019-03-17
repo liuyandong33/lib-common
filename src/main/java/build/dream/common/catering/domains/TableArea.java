@@ -128,6 +128,7 @@ public class TableArea extends BasicDomain {
             TableArea tableArea = new TableArea();
             tableArea.setTenantId(instance.getTenantId());
             tableArea.setTenantCode(instance.getTenantCode());
+            tableArea.setBranchId(instance.getBranchId());
             tableArea.setName(instance.getName());
             tableArea.setId(instance.getId());
             tableArea.setCreatedTime(instance.getCreatedTime());
