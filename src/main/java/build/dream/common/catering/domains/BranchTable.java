@@ -202,6 +202,7 @@ public class BranchTable extends BasicDomain {
             branchTable.setTenantId(instance.getTenantId());
             branchTable.setTenantCode(instance.getTenantCode());
             branchTable.setBranchId(instance.getBranchId());
+            branchTable.setTableAreaId(instance.getTableAreaId());
             branchTable.setCode(instance.getCode());
             branchTable.setName(instance.getName());
             branchTable.setStatus(instance.getStatus());
@@ -226,6 +227,7 @@ public class BranchTable extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
+        public static final String TABLE_AREA_ID = "table_area_id";
         public static final String CODE = "code";
         public static final String NAME = "name";
         public static final String STATUS = "status";
@@ -236,6 +238,7 @@ public class BranchTable extends BasicDomain {
         public static final String TENANT_ID = "tenantId";
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
+        public static final String TABLE_AREA_ID = "tableAreaId";
         public static final String CODE = "code";
         public static final String NAME = "name";
         public static final String STATUS = "status";
