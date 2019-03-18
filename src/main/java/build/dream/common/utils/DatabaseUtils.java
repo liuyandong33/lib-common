@@ -89,7 +89,7 @@ public class DatabaseUtils {
 
                 if ("id".equals(fieldName)) {
                     if (Constants.DATABASE_PROVIDER_MYSQL.equals(DATABASE_PROVIDER)) {
-                        continue;
+
                     } else if (Constants.DATABASE_PROVIDER_ORACLE.equals(DATABASE_PROVIDER)) {
 
                     } else if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
