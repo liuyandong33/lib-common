@@ -42,6 +42,10 @@ public class AgentForm extends BasicDomain {
      * 门店详细地址
      */
     private String address;
+    /**
+     * 审核用户ID
+     */
+    private BigInteger verifyUserId;
 
     public String getName() {
         return name;
@@ -115,6 +119,14 @@ public class AgentForm extends BasicDomain {
         this.address = address;
     }
 
+    public BigInteger getVerifyUserId() {
+        return verifyUserId;
+    }
+
+    public void setVerifyUserId(BigInteger verifyUserId) {
+        this.verifyUserId = verifyUserId;
+    }
+
     public static class Builder {
         private final AgentForm instance = new AgentForm();
 
@@ -160,6 +172,11 @@ public class AgentForm extends BasicDomain {
 
         public Builder address(String address) {
             instance.setAddress(address);
+            return this;
+        }
+
+        public Builder verifyUserId(BigInteger verifyUserId) {
+            instance.setVerifyUserId(verifyUserId);
             return this;
         }
 
@@ -214,6 +231,7 @@ public class AgentForm extends BasicDomain {
             agentForm.setDistrictCode(instance.getDistrictCode());
             agentForm.setDistrictName(instance.getDistrictName());
             agentForm.setAddress(instance.getAddress());
+            agentForm.setVerifyUserId(instance.getVerifyUserId());
             agentForm.setId(instance.getId());
             agentForm.setCreatedTime(instance.getCreatedTime());
             agentForm.setCreatedUserId(instance.getCreatedUserId());
@@ -240,6 +258,7 @@ public class AgentForm extends BasicDomain {
         public static final String DISTRICT_CODE = "district_code";
         public static final String DISTRICT_NAME = "district_name";
         public static final String ADDRESS = "address";
+        public static final String VERIFY_USER_ID = "verify_user_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -252,5 +271,6 @@ public class AgentForm extends BasicDomain {
         public static final String DISTRICT_CODE = "districtCode";
         public static final String DISTRICT_NAME = "districtName";
         public static final String ADDRESS = "address";
+        public static final String VERIFY_USER_ID = "verifyUserId";
     }
 }
