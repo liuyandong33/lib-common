@@ -46,6 +46,10 @@ public class AgentForm extends BasicDomain {
      * 审核用户ID
      */
     private BigInteger verifyUserId;
+    /**
+     * 驳回原因
+     */
+    private String rejectReason;
 
     public String getName() {
         return name;
@@ -127,6 +131,14 @@ public class AgentForm extends BasicDomain {
         this.verifyUserId = verifyUserId;
     }
 
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
+
     public static class Builder {
         private final AgentForm instance = new AgentForm();
 
@@ -177,6 +189,11 @@ public class AgentForm extends BasicDomain {
 
         public Builder verifyUserId(BigInteger verifyUserId) {
             instance.setVerifyUserId(verifyUserId);
+            return this;
+        }
+
+        public Builder rejectReason(String rejectReason) {
+            instance.setRejectReason(rejectReason);
             return this;
         }
 
@@ -232,6 +249,7 @@ public class AgentForm extends BasicDomain {
             agentForm.setDistrictName(instance.getDistrictName());
             agentForm.setAddress(instance.getAddress());
             agentForm.setVerifyUserId(instance.getVerifyUserId());
+            agentForm.setRejectReason(instance.getRejectReason());
             agentForm.setId(instance.getId());
             agentForm.setCreatedTime(instance.getCreatedTime());
             agentForm.setCreatedUserId(instance.getCreatedUserId());
@@ -259,6 +277,7 @@ public class AgentForm extends BasicDomain {
         public static final String DISTRICT_NAME = "district_name";
         public static final String ADDRESS = "address";
         public static final String VERIFY_USER_ID = "verify_user_id";
+        public static final String REJECT_REASON = "reject_reason";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -272,5 +291,6 @@ public class AgentForm extends BasicDomain {
         public static final String DISTRICT_NAME = "districtName";
         public static final String ADDRESS = "address";
         public static final String VERIFY_USER_ID = "verifyUserId";
+        public static final String REJECT_REASON = "rejectReason";
     }
 }

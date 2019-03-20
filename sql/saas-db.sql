@@ -948,7 +948,7 @@ CREATE TABLE agent_form
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
-    status TINYINT NOT NULL COMMENT '状态，1-未审核，2-已审核，3-已驳回',
+    `status` TINYINT NOT NULL COMMENT '状态，1-未审核，2-已审核，3-已驳回',
     province_code VARCHAR(10) NOT NULL COMMENT '省编码',
     province_name VARCHAR(10) NOT NULL COMMENT '省名称',
     city_code VARCHAR(10) NOT NULL COMMENT '市编码',
@@ -956,6 +956,8 @@ CREATE TABLE agent_form
     district_code VARCHAR(10) NOT NULL COMMENT '区编码',
     district_name VARCHAR(10) NOT NULL COMMENT '区名称',
     address VARCHAR(255) NOT NULL COMMENT '门店详细地址',
+    verify_user_id BIGINT NOT NULL COMMENT '审核人ID',
+    reject_reason VARCHAR(255) NOT NULL COMMENT '驳回原因',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
