@@ -45,6 +45,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-redis")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
     compile("com.google.code.gson:gson:2.8.0")
     compile("com.google.zxing:javase:3.3.3")
@@ -75,7 +76,7 @@ task makeJar(type: Jar) {
 task sourceJar(type: Jar) {
     classifier = "sources"
     from sourceSets.main.allSource
-    exclude("build/dream/common/Application.java", "application.properties", "logback.xml", "production.properties")
+    exclude("build/dream/common/Application.java", "application.properties", "logback.xml", "development.properties")
 }
 
 makeJar.dependsOn(classes)
