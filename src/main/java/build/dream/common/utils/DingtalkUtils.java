@@ -22,7 +22,7 @@ public class DingtalkUtils {
     }
 
     private static String obtainAccessToken(String corpId) {
-        String tokenJson = CacheUtils.hget(Constants.KEY_DINGTALK_TOKENS, corpId);
+        String tokenJson = RedisUtils.hget(Constants.KEY_DINGTALK_TOKENS, corpId);
         if (StringUtils.isBlank(tokenJson)) {
             return null;
         }
@@ -50,7 +50,7 @@ public class DingtalkUtils {
         tokenMap.put("access_token", accessToken);
         tokenMap.put("expires_in", resultJsonObject.getLong("expires_in"));
         tokenMap.put("fetch_time", System.currentTimeMillis());
-        CacheUtils.hset(Constants.KEY_DINGTALK_TOKENS, corpId, GsonUtils.toJson(tokenMap));
+        RedisUtils.hset(Constants.KEY_DINGTALK_TOKENS, corpId, GsonUtils.toJson(tokenMap));
         return accessToken;
     }
 

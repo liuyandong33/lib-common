@@ -240,7 +240,7 @@ public class WeiXinUtils {
      * @return
      */
     private static WeiXinAccessToken obtainAccessToken(String appId) {
-        String weiXinAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
+        String weiXinAccessTokenJson = RedisUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
         if (StringUtils.isNotBlank(weiXinAccessTokenJson)) {
             WeiXinAccessToken weiXinAccessToken = GsonUtils.fromJson(weiXinAccessTokenJson, WeiXinAccessToken.class);
             if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 < weiXinAccessToken.getExpiresIn()) {
@@ -287,7 +287,7 @@ public class WeiXinUtils {
      * @return
      */
     private static WeiXinJsapiTicket obtainJsapiTicket(String appId, String type) {
-        String weiXinJsapiTicketJson = CacheUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
+        String weiXinJsapiTicketJson = RedisUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
         if (StringUtils.isBlank(weiXinJsapiTicketJson)) {
             return null;
         }
@@ -321,7 +321,7 @@ public class WeiXinUtils {
         weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
         weiXinJsapiTicket.setExpiresIn(resultJsonObject.optInt("expires_in"));
         weiXinJsapiTicket.setFetchTime(new Date());
-        CacheUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
+        RedisUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, GsonUtils.toJson(weiXinJsapiTicket));
         return weiXinJsapiTicket;
     }
 
@@ -464,7 +464,7 @@ public class WeiXinUtils {
      * @return
      */
     private static ComponentAccessToken obtainComponentAccessToken(String componentAppId) {
-        String componentAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
+        String componentAccessTokenJson = RedisUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
         if (StringUtils.isNotBlank(componentAccessTokenJson)) {
             ComponentAccessToken componentAccessToken = GsonUtils.fromJson(componentAccessTokenJson, ComponentAccessToken.class);
             if ((System.currentTimeMillis() - componentAccessToken.getFetchTime().getTime()) / 1000 < componentAccessToken.getExpiresIn()) {
@@ -482,7 +482,7 @@ public class WeiXinUtils {
      * @return
      */
     private static ComponentAccessToken apiComponentToken(String componentAppId, String componentAppSecret) {
-        String componentVerifyTicket = CacheUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
+        String componentVerifyTicket = RedisUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
         ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_component_token";
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -497,7 +497,7 @@ public class WeiXinUtils {
         componentAccessToken.setComponentAccessToken(MapUtils.getString(resultMap, "component_access_token"));
         componentAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
         componentAccessToken.setFetchTime(new Date());
-        CacheUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, GsonUtils.toJson(componentAccessToken));
+        RedisUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, GsonUtils.toJson(componentAccessToken));
         return componentAccessToken;
     }
 
@@ -577,7 +577,7 @@ public class WeiXinUtils {
         saveWeiXinAuthorizerTokenRequestParameters.put("userId", CommonUtils.getServiceSystemUserId().toString());
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "saveWeiXinAuthorizerToken", saveWeiXinAuthorizerTokenRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        CacheUtils.hset(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
+        RedisUtils.hset(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, GsonUtils.toJson(weiXinAuthorizerToken));
         return weiXinAuthorizerToken;
     }
 
@@ -589,7 +589,7 @@ public class WeiXinUtils {
      * @return
      */
     public static WeiXinAuthorizerToken obtainWeiXinAuthorizerToken(String componentAppId, String authorizerAppId) {
-        String tokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
+        String tokenJson = RedisUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
         return GsonUtils.fromJson(tokenJson, WeiXinAuthorizerToken.class);
     }
@@ -825,7 +825,7 @@ public class WeiXinUtils {
      * @return
      */
     public static Map<String, Object> getAccountBasicInfo(String componentAppId, String authorizerAppId) {
-        String authorizerAccessTokenJson = CacheUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
+        String authorizerAccessTokenJson = RedisUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(authorizerAccessTokenJson, "未查询到 authorizer_access_token！");
 
         Map<String, Object> authorizerAccessToken = JacksonUtils.readValueAsMap(authorizerAccessTokenJson, String.class, Object.class);

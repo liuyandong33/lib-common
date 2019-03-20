@@ -72,9 +72,9 @@ public class CommonUtils {
     public static Tenant obtainTenantInfo(String tenantId, String tenantCode) {
         String tenantInfo = null;
         if (StringUtils.isNotBlank(tenantId)) {
-            tenantInfo = CacheUtils.hget(Constants.KEY_TENANT_INFOS, tenantId);
+            tenantInfo = RedisUtils.hget(Constants.KEY_TENANT_INFOS, tenantId);
         } else if (StringUtils.isNotBlank(tenantCode)) {
-            tenantInfo = CacheUtils.hget(Constants.KEY_TENANT_INFOS, tenantCode);
+            tenantInfo = RedisUtils.hget(Constants.KEY_TENANT_INFOS, tenantCode);
         }
 
         if (StringUtils.isNotBlank(tenantInfo)) {

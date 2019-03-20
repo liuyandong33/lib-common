@@ -36,7 +36,7 @@ public class AnubisUtils {
     }
 
     public static String obtainAccessToken(String appId, String appSecret) throws IOException {
-        String tokenJson = CacheUtils.hget(Constants.KEY_ANUBIS_TOKENS, appId);
+        String tokenJson = RedisUtils.hget(Constants.KEY_ANUBIS_TOKENS, appId);
         boolean isRetrieveAccessToken = false;
         String accessToken = null;
         if (StringUtils.isNotBlank(tokenJson)) {
@@ -71,7 +71,7 @@ public class AnubisUtils {
             ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
 
             Map<String, Object> tokenMap = MapUtils.getMap(resultMap, "data");
-            CacheUtils.hset(Constants.KEY_ANUBIS_TOKENS, appId, GsonUtils.toJson(tokenMap));
+            RedisUtils.hset(Constants.KEY_ANUBIS_TOKENS, appId, GsonUtils.toJson(tokenMap));
             accessToken = MapUtils.getString(tokenMap, "access_token");
         }
         return accessToken;

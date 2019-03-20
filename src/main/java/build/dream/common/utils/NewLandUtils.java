@@ -13,7 +13,7 @@ import java.util.TreeMap;
 
 public class NewLandUtils {
     private static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
-        String newLandAccountJson = CacheUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
+        String newLandAccountJson = RedisUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
         NewLandAccount newLandAccount = null;
         if (StringUtils.isNotBlank(newLandAccountJson)) {
             newLandAccount = GsonUtils.fromJson(newLandAccountJson, NewLandAccount.class);
