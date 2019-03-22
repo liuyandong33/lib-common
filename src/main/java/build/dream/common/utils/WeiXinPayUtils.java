@@ -863,10 +863,10 @@ public class WeiXinPayUtils {
         getWxPayFaceAuthInfoRequestParameters.put("raw_data", rawData);
         getWxPayFaceAuthInfoRequestParameters.put("sign", generateSign(getWxPayFaceAuthInfoRequestParameters, apiSecretKey, Constants.MD5));
 
-        String modifyMchInfoFinalData = generateFinalData(getWxPayFaceAuthInfoRequestParameters);
+        String getWxPayFaceAuthInfoFinalData = generateFinalData(getWxPayFaceAuthInfoRequestParameters);
 
         String url = "https://payapp.weixin.qq.com/face/get_wxpayface_authinfo";
-        Map<String, String> getWxPayFaceAuthInfoResult = callWeiXinPaySystem(url, modifyMchInfoFinalData);
+        Map<String, String> getWxPayFaceAuthInfoResult = callWeiXinPaySystem(url, getWxPayFaceAuthInfoFinalData);
 
         String returnCode = getWxPayFaceAuthInfoResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), getWxPayFaceAuthInfoResult.get("return_msg"));
