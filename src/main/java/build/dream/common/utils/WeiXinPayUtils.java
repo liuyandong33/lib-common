@@ -110,7 +110,7 @@ public class WeiXinPayUtils {
     }
 
     /**
-     * 调用维系系统
+     * 调用微信系统
      *
      * @param url
      * @param finalData
@@ -810,7 +810,66 @@ public class WeiXinPayUtils {
         return modifyMchInfoResult;
     }
 
-    public Map<String, String> querySubMch(QuerySubMchModel querySubMchModel) {
+    public static Map<String, String> querySubMch(QuerySubMchModel querySubMchModel) {
         return null;
+    }
+
+    /**
+     * 获取sdk调用凭证
+     *
+     * @param getWxPayFaceAuthInfoModel
+     * @return
+     * @throws DocumentException
+     */
+    public static Map<String, String> getWxPayFaceAuthInfo(GetWxPayFaceAuthInfoModel getWxPayFaceAuthInfoModel) throws DocumentException {
+        getWxPayFaceAuthInfoModel.validateAndThrow();
+
+        String tenantId = getWxPayFaceAuthInfoModel.getTenantId();
+        String branchId = getWxPayFaceAuthInfoModel.getBranchId();
+        String storeId = getWxPayFaceAuthInfoModel.getStoreId();
+        String storeName = getWxPayFaceAuthInfoModel.getStoreName();
+        String deviceId = getWxPayFaceAuthInfoModel.getDeviceId();
+        String attach = getWxPayFaceAuthInfoModel.getAttach();
+        String rawData = getWxPayFaceAuthInfoModel.getRawData();
+
+        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
+        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
+
+        String appId = weiXinPayAccount.getAppId();
+        String mchId = weiXinPayAccount.getMchId();
+        boolean acceptanceModel = weiXinPayAccount.isAcceptanceModel();
+        String subPublicAccountAppId = weiXinPayAccount.getSubPublicAccountAppId();
+        String subMchId = weiXinPayAccount.getSubMchId();
+        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
+
+        Map<String, String> getWxPayFaceAuthInfoRequestParameters = new HashMap<String, String>();
+        getWxPayFaceAuthInfoRequestParameters.put("appid", appId);
+        getWxPayFaceAuthInfoRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(getWxPayFaceAuthInfoRequestParameters, "sub_appid", subPublicAccountAppId);
+            getWxPayFaceAuthInfoRequestParameters.put("sub_mch_id", subMchId);
+        }
+        getWxPayFaceAuthInfoRequestParameters.put("now", String.valueOf(System.currentTimeMillis()));
+        getWxPayFaceAuthInfoRequestParameters.put("version", "1");
+        getWxPayFaceAuthInfoRequestParameters.put("sign_type", Constants.MD5);
+        getWxPayFaceAuthInfoRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+        getWxPayFaceAuthInfoRequestParameters.put("store_id", storeId);
+        getWxPayFaceAuthInfoRequestParameters.put("store_name", storeName);
+        getWxPayFaceAuthInfoRequestParameters.put("device_id", deviceId);
+        if (StringUtils.isNotBlank(attach)) {
+            getWxPayFaceAuthInfoRequestParameters.put("attach", attach);
+        }
+        getWxPayFaceAuthInfoRequestParameters.put("raw_data", rawData);
+        getWxPayFaceAuthInfoRequestParameters.put("sign", generateSign(getWxPayFaceAuthInfoRequestParameters, apiSecretKey, Constants.MD5));
+
+        String modifyMchInfoFinalData = generateFinalData(getWxPayFaceAuthInfoRequestParameters);
+
+        String url = "https://payapp.weixin.qq.com/face/get_wxpayface_authinfo";
+        Map<String, String> getWxPayFaceAuthInfoResult = callWeiXinPaySystem(url, modifyMchInfoFinalData);
+
+        String returnCode = getWxPayFaceAuthInfoResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), getWxPayFaceAuthInfoResult.get("return_msg"));
+        return getWxPayFaceAuthInfoResult;
     }
 }
