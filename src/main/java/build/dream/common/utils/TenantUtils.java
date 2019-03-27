@@ -11,20 +11,15 @@ import java.util.Map;
 
 public class TenantUtils {
     public static Tenant obtainTenantInfo(BigInteger tenantId) {
-        Map<String, String> obtainTenantInfoRequestParameters = new HashMap<String, String>();
-        obtainTenantInfoRequestParameters.put("tenantId", tenantId.toString());
-
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "obtainTenantInfo", obtainTenantInfoRequestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        return (Tenant) apiRest.getData();
+        String tenantInfoJson = RedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
+        ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
+        return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
     public static Tenant obtainTenantInfo(String tenantCode) {
-        Map<String, String> obtainTenantInfoRequestParameters = new HashMap<String, String>();
-        obtainTenantInfoRequestParameters.put("tenantCode", tenantCode);
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "obtainTenantInfo", obtainTenantInfoRequestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        return (Tenant) apiRest.getData();
+        String tenantInfoJson = RedisUtils.hget(Constants.KEY_TENANT_INFOS, "_code_" + tenantCode);
+        ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
+        return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
     public static void updateTenantInfo(BigInteger tenantId, Tuple2<String, String>... fields) {
