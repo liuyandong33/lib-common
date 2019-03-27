@@ -19,7 +19,7 @@ public class IOUtils {
 
     public static String toString(InputStream inputStream, String charsetName, boolean closed) {
         try {
-            StringBuffer result = new StringBuffer();
+            StringBuilder result = new StringBuilder();
             Reader reader = new InputStreamReader(inputStream, charsetName);
             int length = -1;
             char[] buffer = new char[1024];
