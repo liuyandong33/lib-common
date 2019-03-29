@@ -49,6 +49,24 @@ public class FrontTransReqModel extends BasicModel {
 
     private String orderDesc;
 
+    private String subMerId;
+
+    private String subMerAbbr;
+
+    private String subMerName;
+
+    private String issInsCode;
+
+    private String instalTransInfo;
+
+    private String encryptCertId;
+
+    private String frontUrl;
+
+    private String customerInfo;
+
+
+
     public String getVersion() {
         return version;
     }
