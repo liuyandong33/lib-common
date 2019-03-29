@@ -38,6 +38,17 @@ public class FrontTransReqModel extends BasicModel {
     @InList(value = {"0", "1", "2"})
     private String accessType;
 
+    @NotNull
+    private String channelType;
+
+    @NotNull
+    private String merId;
+
+    @NotNull
+    private String orderId;
+
+    private String orderDesc;
+
     public String getVersion() {
         return version;
     }
@@ -118,6 +129,38 @@ public class FrontTransReqModel extends BasicModel {
         this.accessType = accessType;
     }
 
+    public String getChannelType() {
+        return channelType;
+    }
+
+    public void setChannelType(String channelType) {
+        this.channelType = channelType;
+    }
+
+    public String getMerId() {
+        return merId;
+    }
+
+    public void setMerId(String merId) {
+        this.merId = merId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getOrderDesc() {
+        return orderDesc;
+    }
+
+    public void setOrderDesc(String orderDesc) {
+        this.orderDesc = orderDesc;
+    }
+
     public static class Builder {
         private final FrontTransReqModel instance = new FrontTransReqModel();
 
@@ -171,6 +214,26 @@ public class FrontTransReqModel extends BasicModel {
             return this;
         }
 
+        public Builder channelType(String channelType) {
+            instance.setChannelType(channelType);
+            return this;
+        }
+
+        public Builder merId(String merId) {
+            instance.setMerId(merId);
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder orderDesc(String orderDesc) {
+            instance.setOrderDesc(orderDesc);
+            return this;
+        }
+
         public FrontTransReqModel build() {
             FrontTransReqModel frontTransReqModel = new FrontTransReqModel();
             frontTransReqModel.setVersion(instance.getVersion());
@@ -183,6 +246,10 @@ public class FrontTransReqModel extends BasicModel {
             frontTransReqModel.setTxnType(instance.getTxnType());
             frontTransReqModel.setTxnSubType(instance.getTxnSubType());
             frontTransReqModel.setAccessType(instance.getAccessType());
+            frontTransReqModel.setChannelType(instance.getChannelType());
+            frontTransReqModel.setMerId(instance.getMerId());
+            frontTransReqModel.setOrderId(instance.getOrderId());
+            frontTransReqModel.setOrderDesc(instance.getOrderDesc());
             return frontTransReqModel;
         }
     }

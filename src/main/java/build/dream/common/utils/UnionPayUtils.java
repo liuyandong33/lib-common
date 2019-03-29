@@ -17,6 +17,10 @@ public class UnionPayUtils {
         String txnType = frontTransReqModel.getTxnType();
         String txnSubType = frontTransReqModel.getTxnSubType();
         String accessType = frontTransReqModel.getAccessType();
+        String channelType = frontTransReqModel.getChannelType();
+        String merId = frontTransReqModel.getMerId();
+        String orderId = frontTransReqModel.getOrderId();
+        String orderDesc = frontTransReqModel.getOrderDesc();
 
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("version", version);
@@ -29,6 +33,10 @@ public class UnionPayUtils {
         requestParameters.put("txnType", txnType);
         requestParameters.put("txnSubType", txnSubType);
         requestParameters.put("accessType", accessType);
+        requestParameters.put("channelType", channelType);
+        requestParameters.put("merId", merId);
+        requestParameters.put("orderId", orderId);
+        requestParameters.put("orderDesc", orderDesc);
         return null;
     }
 }
