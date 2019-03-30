@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.WebResponse;
 import build.dream.common.models.unionpay.FrontTransReqModel;
 
 import java.util.HashMap;
@@ -37,6 +38,10 @@ public class UnionPayUtils {
         requestParameters.put("merId", merId);
         requestParameters.put("orderId", orderId);
         requestParameters.put("orderDesc", orderDesc);
-        return null;
+
+        String url = "";
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        return resultMap;
     }
 }
