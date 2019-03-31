@@ -65,7 +65,41 @@ public class FrontTransReqModel extends BasicModel {
 
     private String customerInfo;
 
+    private String cardTransData;
 
+    private String accountPayChannel;
+
+    private String accNo;
+
+    private String accType;
+
+    private String certId;
+
+    private String reserved;
+
+    private String customerIp;
+
+    private String orderTimeout;
+
+    private String accSplitData;
+
+    private String riskRateInfo;
+
+    private String ctrlRule;
+
+    private String defaultPayType;
+
+    private String reqReserved;
+
+    private String frontFailUrl;
+
+    private String supPayType;
+
+    private String payTimeout;
+
+    private String termId;
+
+    private String userMac;
 
     public String getVersion() {
         return version;
@@ -179,100 +213,211 @@ public class FrontTransReqModel extends BasicModel {
         this.orderDesc = orderDesc;
     }
 
-    public static class Builder {
-        private final FrontTransReqModel instance = new FrontTransReqModel();
-
-        public Builder version(String version) {
-            instance.setVersion(version);
-            return this;
-        }
-
-        public Builder encoding(String encoding) {
-            instance.setEncoding(encoding);
-            return this;
-        }
-
-        public Builder bizType(String bizType) {
-            instance.setBizType(bizType);
-            return this;
-        }
-
-        public Builder txnTime(String txnTime) {
-            instance.setTxnTime(txnTime);
-            return this;
-        }
-
-        public Builder backUrl(String backUrl) {
-            instance.setBackUrl(backUrl);
-            return this;
-        }
-
-        public Builder currencyCode(String currencyCode) {
-            instance.setCurrencyCode(currencyCode);
-            return this;
-        }
-
-        public Builder txnAmt(Integer txnAmt) {
-            instance.setTxnAmt(txnAmt);
-            return this;
-        }
-
-        public Builder txnType(String txnType) {
-            instance.setTxnType(txnType);
-            return this;
-        }
-
-        public Builder txnSubType(String txnSubType) {
-            instance.setTxnSubType(txnSubType);
-            return this;
-        }
-
-        public Builder accessType(String accessType) {
-            instance.setAccessType(accessType);
-            return this;
-        }
-
-        public Builder channelType(String channelType) {
-            instance.setChannelType(channelType);
-            return this;
-        }
-
-        public Builder merId(String merId) {
-            instance.setMerId(merId);
-            return this;
-        }
-
-        public Builder orderId(String orderId) {
-            instance.setOrderId(orderId);
-            return this;
-        }
-
-        public Builder orderDesc(String orderDesc) {
-            instance.setOrderDesc(orderDesc);
-            return this;
-        }
-
-        public FrontTransReqModel build() {
-            FrontTransReqModel frontTransReqModel = new FrontTransReqModel();
-            frontTransReqModel.setVersion(instance.getVersion());
-            frontTransReqModel.setEncoding(instance.getEncoding());
-            frontTransReqModel.setBizType(instance.getBizType());
-            frontTransReqModel.setTxnTime(instance.getTxnTime());
-            frontTransReqModel.setBackUrl(instance.getBackUrl());
-            frontTransReqModel.setCurrencyCode(instance.getCurrencyCode());
-            frontTransReqModel.setTxnAmt(instance.getTxnAmt());
-            frontTransReqModel.setTxnType(instance.getTxnType());
-            frontTransReqModel.setTxnSubType(instance.getTxnSubType());
-            frontTransReqModel.setAccessType(instance.getAccessType());
-            frontTransReqModel.setChannelType(instance.getChannelType());
-            frontTransReqModel.setMerId(instance.getMerId());
-            frontTransReqModel.setOrderId(instance.getOrderId());
-            frontTransReqModel.setOrderDesc(instance.getOrderDesc());
-            return frontTransReqModel;
-        }
+    public String getSubMerId() {
+        return subMerId;
     }
 
-    public static Builder builder() {
-        return new Builder();
+    public void setSubMerId(String subMerId) {
+        this.subMerId = subMerId;
+    }
+
+    public String getSubMerAbbr() {
+        return subMerAbbr;
+    }
+
+    public void setSubMerAbbr(String subMerAbbr) {
+        this.subMerAbbr = subMerAbbr;
+    }
+
+    public String getSubMerName() {
+        return subMerName;
+    }
+
+    public void setSubMerName(String subMerName) {
+        this.subMerName = subMerName;
+    }
+
+    public String getIssInsCode() {
+        return issInsCode;
+    }
+
+    public void setIssInsCode(String issInsCode) {
+        this.issInsCode = issInsCode;
+    }
+
+    public String getInstalTransInfo() {
+        return instalTransInfo;
+    }
+
+    public void setInstalTransInfo(String instalTransInfo) {
+        this.instalTransInfo = instalTransInfo;
+    }
+
+    public String getEncryptCertId() {
+        return encryptCertId;
+    }
+
+    public void setEncryptCertId(String encryptCertId) {
+        this.encryptCertId = encryptCertId;
+    }
+
+    public String getFrontUrl() {
+        return frontUrl;
+    }
+
+    public void setFrontUrl(String frontUrl) {
+        this.frontUrl = frontUrl;
+    }
+
+    public String getCustomerInfo() {
+        return customerInfo;
+    }
+
+    public void setCustomerInfo(String customerInfo) {
+        this.customerInfo = customerInfo;
+    }
+
+    public String getCardTransData() {
+        return cardTransData;
+    }
+
+    public void setCardTransData(String cardTransData) {
+        this.cardTransData = cardTransData;
+    }
+
+    public String getAccountPayChannel() {
+        return accountPayChannel;
+    }
+
+    public void setAccountPayChannel(String accountPayChannel) {
+        this.accountPayChannel = accountPayChannel;
+    }
+
+    public String getAccNo() {
+        return accNo;
+    }
+
+    public void setAccNo(String accNo) {
+        this.accNo = accNo;
+    }
+
+    public String getAccType() {
+        return accType;
+    }
+
+    public void setAccType(String accType) {
+        this.accType = accType;
+    }
+
+    public String getCertId() {
+        return certId;
+    }
+
+    public void setCertId(String certId) {
+        this.certId = certId;
+    }
+
+    public String getReserved() {
+        return reserved;
+    }
+
+    public void setReserved(String reserved) {
+        this.reserved = reserved;
+    }
+
+    public String getCustomerIp() {
+        return customerIp;
+    }
+
+    public void setCustomerIp(String customerIp) {
+        this.customerIp = customerIp;
+    }
+
+    public String getOrderTimeout() {
+        return orderTimeout;
+    }
+
+    public void setOrderTimeout(String orderTimeout) {
+        this.orderTimeout = orderTimeout;
+    }
+
+    public String getAccSplitData() {
+        return accSplitData;
+    }
+
+    public void setAccSplitData(String accSplitData) {
+        this.accSplitData = accSplitData;
+    }
+
+    public String getRiskRateInfo() {
+        return riskRateInfo;
+    }
+
+    public void setRiskRateInfo(String riskRateInfo) {
+        this.riskRateInfo = riskRateInfo;
+    }
+
+    public String getCtrlRule() {
+        return ctrlRule;
+    }
+
+    public void setCtrlRule(String ctrlRule) {
+        this.ctrlRule = ctrlRule;
+    }
+
+    public String getDefaultPayType() {
+        return defaultPayType;
+    }
+
+    public void setDefaultPayType(String defaultPayType) {
+        this.defaultPayType = defaultPayType;
+    }
+
+    public String getReqReserved() {
+        return reqReserved;
+    }
+
+    public void setReqReserved(String reqReserved) {
+        this.reqReserved = reqReserved;
+    }
+
+    public String getFrontFailUrl() {
+        return frontFailUrl;
+    }
+
+    public void setFrontFailUrl(String frontFailUrl) {
+        this.frontFailUrl = frontFailUrl;
+    }
+
+    public String getSupPayType() {
+        return supPayType;
+    }
+
+    public void setSupPayType(String supPayType) {
+        this.supPayType = supPayType;
+    }
+
+    public String getPayTimeout() {
+        return payTimeout;
+    }
+
+    public void setPayTimeout(String payTimeout) {
+        this.payTimeout = payTimeout;
+    }
+
+    public String getTermId() {
+        return termId;
+    }
+
+    public void setTermId(String termId) {
+        this.termId = termId;
+    }
+
+    public String getUserMac() {
+        return userMac;
+    }
+
+    public void setUserMac(String userMac) {
+        this.userMac = userMac;
     }
 }
