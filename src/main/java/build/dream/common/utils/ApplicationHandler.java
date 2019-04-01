@@ -7,8 +7,6 @@ import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.CustomUserDetails;
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.SystemUser;
-import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -1141,32 +1139,27 @@ public class ApplicationHandler {
 
     public static BigInteger obtainUserId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        SystemUser systemUser = customUserDetails.getSystemUser();
-        return systemUser.getId();
+        return customUserDetails.getUserId();
     }
 
     public static BigInteger obtainTenantId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        Tenant tenant = customUserDetails.getTenant();
-        return tenant.getId();
+        return customUserDetails.getTenantId();
     }
 
     public static String obtainTenantCode() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        Tenant tenant = customUserDetails.getTenant();
-        return tenant.getCode();
+        return customUserDetails.getTenantCode();
     }
 
     public static BigInteger obtainBranchId() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
-        return BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
+        return customUserDetails.getBranchId();
     }
 
     public static String obtainBranchCode() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
-        return MapUtils.getString(branchInfo, "code");
+        return customUserDetails.getBranchCode();
     }
 
     public static String obtainPublicKey() {
