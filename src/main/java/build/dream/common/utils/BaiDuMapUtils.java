@@ -35,7 +35,7 @@ public class BaiDuMapUtils {
         }
 
         String url = "http://api.map.baidu.com/geoconv/v1/";
-        WebResponse webResponse = WebUtils.doGetWithRequestParameters(url, requestParameters);
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
 
         int status = MapUtils.getIntValue(resultMap, "status");
