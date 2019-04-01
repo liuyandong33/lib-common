@@ -9,11 +9,6 @@ public class VipUserDetails extends AbstractUserDetails {
     private String publicKey;
     private String privateKey;
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     public Tenant getTenant() {
         return tenant;
     }
