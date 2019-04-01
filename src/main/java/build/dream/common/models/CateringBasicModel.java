@@ -2,13 +2,11 @@ package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.CustomUserDetails;
-import build.dream.common.saas.domains.SystemUser;
 import build.dream.common.saas.domains.Tenant;
+import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
-import org.apache.commons.collections.MapUtils;
 
 import java.math.BigInteger;
-import java.util.Map;
 
 public class CateringBasicModel extends BasicModel {
     @InstantiateObjectIgnore
@@ -43,20 +41,17 @@ public class CateringBasicModel extends BasicModel {
 
     public CateringBasicModel() {
         CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        SystemUser systemUser = customUserDetails.getSystemUser();
-        Tenant tenant = customUserDetails.getTenant();
-        Map<String, Object> branchInfo = customUserDetails.getBranchInfo();
-        String publicKey = customUserDetails.getPublicKey();
-        String privateKey = customUserDetails.getPrivateKey();
+        BigInteger tenantId = customUserDetails.getTenantId();
+        Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
-        this._userId = systemUser.getId();
-        this._tenantId = tenant.getId();
-        this._tenantCode = tenant.getCode();
-        this._branchId = BigInteger.valueOf(MapUtils.getLongValue(branchInfo, "id"));
-        this._branchCode = MapUtils.getString(branchInfo, "code");
-        this._publicKey = publicKey;
-        this._privateKey = privateKey;
-        this._partitionCode = tenant.getPartitionCode();
+        this._userId = customUserDetails.getUserId();
+        this._tenantId = tenantId;
+        this._tenantCode = customUserDetails.getTenantCode();
+        this._branchId = customUserDetails.getBranchId();
+        this._branchCode = customUserDetails.getBranchCode();
+        this._publicKey = customUserDetails.getPublicKey();
+        this._privateKey = customUserDetails.getPrivateKey();
+        this._partitionCode = customUserDetails.getPartitionCode();
         this._clientType = customUserDetails.getClientType();
         this._vipSharedType = tenant.getVipSharedType();
     }

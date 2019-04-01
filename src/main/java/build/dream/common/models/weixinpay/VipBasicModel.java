@@ -2,9 +2,9 @@ package build.dream.common.models.weixinpay;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.VipUserDetails;
-import build.dream.common.catering.domains.Vip;
 import build.dream.common.models.BasicModel;
 import build.dream.common.saas.domains.Tenant;
+import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
 
 import java.math.BigInteger;
@@ -36,17 +36,17 @@ public class VipBasicModel extends BasicModel {
 
     public VipBasicModel() {
         VipUserDetails vipUserDetails = WebSecurityUtils.obtainVipUserDetails();
-        Tenant tenant = vipUserDetails.getTenant();
-        Vip vip = vipUserDetails.getVip();
+        BigInteger tenantId = vipUserDetails.getTenantId();
+        Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
-        this._tenantId = tenant.getId();
-        this._tenantCode = tenant.getCode();
+        this._tenantId = tenantId;
+        this._tenantCode = vipUserDetails.getTenantCode();
         this._publicKey = vipUserDetails.getPublicKey();
         this._privateKey = vipUserDetails.getPrivateKey();
-        this._partitionCode = tenant.getPartitionCode();
+        this._partitionCode = vipUserDetails.getPartitionCode();
         this._clientType = vipUserDetails.getClientType();
         this._vipSharedType = tenant.getVipSharedType();
-        this._vipId = vip.getId();
+        this._vipId = vipUserDetails.getVipId();
     }
 
     public BigInteger obtainTenantId() {

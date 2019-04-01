@@ -1,28 +1,45 @@
 package build.dream.common.auth;
 
-import build.dream.common.catering.domains.Vip;
-import build.dream.common.saas.domains.Tenant;
+import java.math.BigInteger;
 
 public class VipUserDetails extends AbstractUserDetails {
-    private Tenant tenant;
-    private Vip vip;
+    private BigInteger tenantId;
+    private String tenantCode;
+    private String partitionCode;
+    private BigInteger vipId;
     private String publicKey;
     private String privateKey;
 
-    public Tenant getTenant() {
-        return tenant;
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
     }
 
-    public Vip getVip() {
-        return vip;
+    public String getTenantCode() {
+        return tenantCode;
     }
 
-    public void setVip(Vip vip) {
-        this.vip = vip;
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public String getPartitionCode() {
+        return partitionCode;
+    }
+
+    public void setPartitionCode(String partitionCode) {
+        this.partitionCode = partitionCode;
+    }
+
+    public BigInteger getVipId() {
+        return vipId;
+    }
+
+    public void setVipId(BigInteger vipId) {
+        this.vipId = vipId;
     }
 
     public String getPublicKey() {

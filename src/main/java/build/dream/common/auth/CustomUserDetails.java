@@ -1,39 +1,63 @@
 package build.dream.common.auth;
 
-import build.dream.common.saas.domains.SystemUser;
-import build.dream.common.saas.domains.Tenant;
-
-import java.util.Map;
+import java.math.BigInteger;
 
 public class CustomUserDetails extends AbstractUserDetails {
-    private SystemUser systemUser;
-    private Tenant tenant;
-    private Map<String, Object> branchInfo;
+    private BigInteger userId;
+    private BigInteger tenantId;
+    private String tenantCode;
+    private String partitionCode;
+    private BigInteger branchId;
+    private String branchCode;
     private String publicKey;
     private String privateKey;
 
-    public SystemUser getSystemUser() {
-        return systemUser;
+    public BigInteger getUserId() {
+        return userId;
     }
 
-    public void setSystemUser(SystemUser systemUser) {
-        this.systemUser = systemUser;
+    public void setUserId(BigInteger userId) {
+        this.userId = userId;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public BigInteger getTenantId() {
+        return tenantId;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setTenantId(BigInteger tenantId) {
+        this.tenantId = tenantId;
     }
 
-    public Map<String, Object> getBranchInfo() {
-        return branchInfo;
+    public String getTenantCode() {
+        return tenantCode;
     }
 
-    public void setBranchInfo(Map<String, Object> branchInfo) {
-        this.branchInfo = branchInfo;
+    public void setTenantCode(String tenantCode) {
+        this.tenantCode = tenantCode;
+    }
+
+    public String getPartitionCode() {
+        return partitionCode;
+    }
+
+    public void setPartitionCode(String partitionCode) {
+        this.partitionCode = partitionCode;
+    }
+
+    public BigInteger getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(BigInteger branchId) {
+        this.branchId = branchId;
+    }
+
+    public String getBranchCode() {
+        return branchCode;
+    }
+
+    public void setBranchCode(String branchCode) {
+        this.branchCode = branchCode;
     }
 
     public String getPublicKey() {
