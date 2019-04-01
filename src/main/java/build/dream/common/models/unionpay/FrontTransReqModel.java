@@ -420,4 +420,257 @@ public class FrontTransReqModel extends BasicModel {
     public void setUserMac(String userMac) {
         this.userMac = userMac;
     }
+
+    public static class Builder {
+        private final FrontTransReqModel instance = new FrontTransReqModel();
+
+        public Builder version(String version) {
+            instance.setVersion(version);
+            return this;
+        }
+
+        public Builder encoding(String encoding) {
+            instance.setEncoding(encoding);
+            return this;
+        }
+
+        public Builder bizType(String bizType) {
+            instance.setBizType(bizType);
+            return this;
+        }
+
+        public Builder txnTime(String txnTime) {
+            instance.setTxnTime(txnTime);
+            return this;
+        }
+
+        public Builder backUrl(String backUrl) {
+            instance.setBackUrl(backUrl);
+            return this;
+        }
+
+        public Builder currencyCode(String currencyCode) {
+            instance.setCurrencyCode(currencyCode);
+            return this;
+        }
+
+        public Builder txnAmt(Integer txnAmt) {
+            instance.setTxnAmt(txnAmt);
+            return this;
+        }
+
+        public Builder txnType(String txnType) {
+            instance.setTxnType(txnType);
+            return this;
+        }
+
+        public Builder txnSubType(String txnSubType) {
+            instance.setTxnSubType(txnSubType);
+            return this;
+        }
+
+        public Builder accessType(String accessType) {
+            instance.setAccessType(accessType);
+            return this;
+        }
+
+        public Builder channelType(String channelType) {
+            instance.setChannelType(channelType);
+            return this;
+        }
+
+        public Builder merId(String merId) {
+            instance.setMerId(merId);
+            return this;
+        }
+
+        public Builder orderId(String orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder orderDesc(String orderDesc) {
+            instance.setOrderDesc(orderDesc);
+            return this;
+        }
+
+        public Builder subMerId(String subMerId) {
+            instance.setSubMerId(subMerId);
+            return this;
+        }
+
+        public Builder subMerAbbr(String subMerAbbr) {
+            instance.setSubMerAbbr(subMerAbbr);
+            return this;
+        }
+
+        public Builder subMerName(String subMerName) {
+            instance.setSubMerName(subMerName);
+            return this;
+        }
+
+        public Builder issInsCode(String issInsCode) {
+            instance.setIssInsCode(issInsCode);
+            return this;
+        }
+
+        public Builder instalTransInfo(String instalTransInfo) {
+            instance.setInstalTransInfo(instalTransInfo);
+            return this;
+        }
+
+        public Builder encryptCertId(String encryptCertId) {
+            instance.setEncryptCertId(encryptCertId);
+            return this;
+        }
+
+        public Builder frontUrl(String frontUrl) {
+            instance.setFrontUrl(frontUrl);
+            return this;
+        }
+
+        public Builder customerInfo(String customerInfo) {
+            instance.setCustomerInfo(customerInfo);
+            return this;
+        }
+
+        public Builder cardTransData(String cardTransData) {
+            instance.setCardTransData(cardTransData);
+            return this;
+        }
+
+        public Builder accountPayChannel(String accountPayChannel) {
+            instance.setAccountPayChannel(accountPayChannel);
+            return this;
+        }
+
+        public Builder accNo(String accNo) {
+            instance.setAccNo(accNo);
+            return this;
+        }
+
+        public Builder accType(String accType) {
+            instance.setAccType(accType);
+            return this;
+        }
+
+        public Builder certId(String certId) {
+            instance.setCertId(certId);
+            return this;
+        }
+
+        public Builder reserved(String reserved) {
+            instance.setReserved(reserved);
+            return this;
+        }
+
+        public Builder customerIp(String customerIp) {
+            instance.setCustomerIp(customerIp);
+            return this;
+        }
+
+        public Builder orderTimeout(String orderTimeout) {
+            instance.setOrderTimeout(orderTimeout);
+            return this;
+        }
+
+        public Builder accSplitData(String accSplitData) {
+            instance.setAccSplitData(accSplitData);
+            return this;
+        }
+
+        public Builder riskRateInfo(String riskRateInfo) {
+            instance.setRiskRateInfo(riskRateInfo);
+            return this;
+        }
+
+        public Builder ctrlRule(String ctrlRule) {
+            instance.setCtrlRule(ctrlRule);
+            return this;
+        }
+
+        public Builder defaultPayType(String defaultPayType) {
+            instance.setDefaultPayType(defaultPayType);
+            return this;
+        }
+
+        public Builder reqReserved(String reqReserved) {
+            instance.setReqReserved(reqReserved);
+            return this;
+        }
+
+        public Builder frontFailUrl(String frontFailUrl) {
+            instance.setFrontFailUrl(frontFailUrl);
+            return this;
+        }
+
+        public Builder supPayType(String supPayType) {
+            instance.setSupPayType(supPayType);
+            return this;
+        }
+
+        public Builder payTimeout(String payTimeout) {
+            instance.setPayTimeout(payTimeout);
+            return this;
+        }
+
+        public Builder termId(String termId) {
+            instance.setTermId(termId);
+            return this;
+        }
+
+        public Builder userMac(String userMac) {
+            instance.setUserMac(userMac);
+            return this;
+        }
+
+        public FrontTransReqModel build() {
+            FrontTransReqModel frontTransReqModel = new FrontTransReqModel();
+            frontTransReqModel.setVersion(instance.getVersion());
+            frontTransReqModel.setEncoding(instance.getEncoding());
+            frontTransReqModel.setBizType(instance.getBizType());
+            frontTransReqModel.setTxnTime(instance.getTxnTime());
+            frontTransReqModel.setBackUrl(instance.getBackUrl());
+            frontTransReqModel.setCurrencyCode(instance.getCurrencyCode());
+            frontTransReqModel.setTxnAmt(instance.getTxnAmt());
+            frontTransReqModel.setTxnType(instance.getTxnType());
+            frontTransReqModel.setTxnSubType(instance.getTxnSubType());
+            frontTransReqModel.setAccessType(instance.getAccessType());
+            frontTransReqModel.setChannelType(instance.getChannelType());
+            frontTransReqModel.setMerId(instance.getMerId());
+            frontTransReqModel.setOrderId(instance.getOrderId());
+            frontTransReqModel.setOrderDesc(instance.getOrderDesc());
+            frontTransReqModel.setSubMerId(instance.getSubMerId());
+            frontTransReqModel.setSubMerAbbr(instance.getSubMerAbbr());
+            frontTransReqModel.setSubMerName(instance.getSubMerName());
+            frontTransReqModel.setIssInsCode(instance.getIssInsCode());
+            frontTransReqModel.setInstalTransInfo(instance.getInstalTransInfo());
+            frontTransReqModel.setEncryptCertId(instance.getEncryptCertId());
+            frontTransReqModel.setFrontUrl(instance.getFrontUrl());
+            frontTransReqModel.setCustomerInfo(instance.getCustomerInfo());
+            frontTransReqModel.setCardTransData(instance.getCardTransData());
+            frontTransReqModel.setAccountPayChannel(instance.getAccountPayChannel());
+            frontTransReqModel.setAccNo(instance.getAccNo());
+            frontTransReqModel.setAccType(instance.getAccType());
+            frontTransReqModel.setCertId(instance.getCertId());
+            frontTransReqModel.setReserved(instance.getReserved());
+            frontTransReqModel.setCustomerIp(instance.getCustomerIp());
+            frontTransReqModel.setOrderTimeout(instance.getOrderTimeout());
+            frontTransReqModel.setAccSplitData(instance.getAccSplitData());
+            frontTransReqModel.setRiskRateInfo(instance.getRiskRateInfo());
+            frontTransReqModel.setCtrlRule(instance.getCtrlRule());
+            frontTransReqModel.setDefaultPayType(instance.getDefaultPayType());
+            frontTransReqModel.setReqReserved(instance.getReqReserved());
+            frontTransReqModel.setFrontFailUrl(instance.getFrontFailUrl());
+            frontTransReqModel.setSupPayType(instance.getSupPayType());
+            frontTransReqModel.setPayTimeout(instance.getPayTimeout());
+            frontTransReqModel.setTermId(instance.getTermId());
+            frontTransReqModel.setUserMac(instance.getUserMac());
+            return frontTransReqModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
