@@ -5,7 +5,7 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.InstantiateObjectKey;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
-import build.dream.common.auth.CustomUserDetails;
+import build.dream.common.auth.SystemUserUserDetails;
 import build.dream.common.constants.Constants;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
@@ -1138,37 +1138,37 @@ public class ApplicationHandler {
     }
 
     public static BigInteger obtainUserId() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getUserId();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getUserId();
     }
 
     public static BigInteger obtainTenantId() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getTenantId();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getTenantId();
     }
 
     public static String obtainTenantCode() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getTenantCode();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getTenantCode();
     }
 
     public static BigInteger obtainBranchId() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getBranchId();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getBranchId();
     }
 
     public static String obtainBranchCode() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getBranchCode();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getBranchCode();
     }
 
     public static String obtainPublicKey() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getPublicKey();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getPublicKey();
     }
 
     public static String obtainPrivateKey() {
-        CustomUserDetails customUserDetails = WebSecurityUtils.obtainCustomUserDetails();
-        return customUserDetails.getPrivateKey();
+        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
+        return systemUserUserDetails.getPrivateKey();
     }
 }

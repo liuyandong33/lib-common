@@ -40,10 +40,10 @@ public class TenantUtils {
     }
 
     public static String obtainPublicKey() {
-        return WebSecurityUtils.obtainCustomUserDetails().getPublicKey();
+        return WebSecurityUtils.obtainSystemUserUserDetails().getPublicKey();
     }
 
     public static String obtainPrivateKey() {
-        return WebSecurityUtils.obtainCustomUserDetails().getPrivateKey();
+        return WebSecurityUtils.obtainSystemUserUserDetails().getPrivateKey();
     }
 }

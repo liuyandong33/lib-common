@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.auth.AbstractUserDetails;
-import build.dream.common.auth.CustomUserDetails;
+import build.dream.common.auth.SystemUserUserDetails;
 import build.dream.common.auth.VipUserDetails;
 import build.dream.common.constants.Constants;
 import org.springframework.expression.ExpressionParser;
@@ -41,10 +41,10 @@ public class WebSecurityUtils {
         return (LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>) expressionBasedFilterInvocationSecurityMetadataSourceClassProcessMapMethod.invoke(null, requestMap, expressionParser);
     }
 
-    public static CustomUserDetails obtainCustomUserDetails() {
+    public static SystemUserUserDetails obtainSystemUserUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        return customUserDetails;
+        SystemUserUserDetails systemUserUserDetails = (SystemUserUserDetails) authentication.getPrincipal();
+        return systemUserUserDetails;
     }
 
     public static VipUserDetails obtainVipUserDetails() {
