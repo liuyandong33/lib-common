@@ -2321,4 +2321,77 @@ public class AlipayUtils {
         return callAlipayApi(alipayPromoRuleCenterRuleAnalyzeModel, "alipay.promorulecenter.rule.analyze");
     }
     /***************************************************************营销API结束***************************************************************/
+
+    /***************************************************************实人认证API***************************************************************/
+    /**
+     * H5刷脸认证初始化
+     *
+     * @param zolozIdentificationUserWebInitializeModel
+     * @return
+     */
+    public static Map<String, Object> zolozIdentificationUserWebInitialize(ZolozIdentificationUserWebInitializeModel zolozIdentificationUserWebInitializeModel) {
+        return callAlipayApi(zolozIdentificationUserWebInitializeModel, "zoloz.identification.user.web.initialize");
+    }
+
+    /**
+     * H5刷脸认证查询
+     *
+     * @param zolozIdentificationUserWebQueryModel
+     * @return
+     */
+    public static Map<String, Object> zolozIdentificationUserWebQuery(ZolozIdentificationUserWebQueryModel zolozIdentificationUserWebQueryModel) {
+        return callAlipayApi(zolozIdentificationUserWebQueryModel, "zoloz.identification.user.web.query");
+    }
+
+    /**
+     * 热脸入库
+     *
+     * @param zolozAuthenticationCustomerFaceManageCreateModel
+     * @return
+     */
+    public static Map<String, Object> zolozAuthenticationCustomerFaceManageCreate(ZolozAuthenticationCustomerFaceManageCreateModel zolozAuthenticationCustomerFaceManageCreateModel) {
+        return callAlipayApi(zolozAuthenticationCustomerFaceManageCreateModel, "zoloz.authentication.customer.facemanage.create");
+    }
+
+    /**
+     * 热脸出库
+     *
+     * @param zolozAuthenticationCustomerFaceManageDeleteModel
+     * @return
+     */
+    public static Map<String, Object> zolozAuthenticationCustomerFaceManageDelete(ZolozAuthenticationCustomerFaceManageDeleteModel zolozAuthenticationCustomerFaceManageDeleteModel) {
+        return callAlipayApi(zolozAuthenticationCustomerFaceManageDeleteModel, "zoloz.authentication.customer.facemanage.delete");
+    }
+
+    /**
+     * 人脸ftoken查询消费接口
+     *
+     * @param zolozAuthenticationCustomerFtokenQueryModel
+     * @return
+     */
+    public static Map<String, Object> zolozAuthenticationCustomerFtokenQuery(ZolozAuthenticationCustomerFtokenQueryModel zolozAuthenticationCustomerFtokenQueryModel) {
+        return callAlipayApi(zolozAuthenticationCustomerFtokenQueryModel, "zoloz.authentication.customer.ftoken.query");
+    }
+
+    /**
+     * 刷脸支付初始化
+     * TODO: model 未实现
+     *
+     * @param zolozAuthenticationSmilePayInitializeModel
+     * @return
+     */
+    public static Map<String, Object> zolozAuthenticationSmilePayInitialize(ZolozAuthenticationSmilePayInitializeModel zolozAuthenticationSmilePayInitializeModel) {
+        return callAlipayApi(zolozAuthenticationSmilePayInitializeModel, "zoloz.authentication.smilepay.initialize");
+    }
+
+    /**
+     * 人脸初始化唤起zim
+     * TODO: model 未实现
+     *
+     * @param zolozAuthenticationCustomerSmilePayInitializeModel
+     * @return
+     */
+    public static Map<String, Object> zolozAuthenticationCustomerSmilePayInitialize(ZolozAuthenticationCustomerSmilePayInitializeModel zolozAuthenticationCustomerSmilePayInitializeModel) {
+        return callAlipayApi(zolozAuthenticationCustomerSmilePayInitializeModel, "zoloz.authentication.customer.smilepay.initialize");
+    }
 }
