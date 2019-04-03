@@ -1470,3 +1470,34 @@ CREATE TABLE table_area
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '桌台区域';
+
+DROP TABLE IF EXISTS flash_sale_activity;
+CREATE TABLE flash_sale_activity
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    name VARCHAR(20) NOT NULL COMMENT '秒杀活动名称',
+    status TINYINT NOT NULL COMMENT '活动状态，1-未终止，2-已终止',
+    start_time DATETIME NOT NULL COMMENT '开始时间',
+    end_time DATETIME NOT NULL COMMENT '结束时间',
+    limited tinyint(4) NOT NULL COMMENT '是否限购，1-限购，0-不限购',
+    limit_quantity DECIMAL(11,3) NOT NULL COMMENT '限购数量',
+    before_show_time INT(11) NOT NULL COMMENT '生效前显示时间',
+    time_unit TINYINT(4) NOT NULL COMMENT '时间单位，1-天，2-小时，3-分钟',
+    goods_id BIGINT(20) NOT NULL COMMENT '商品ID',
+    goods_name VARCHAR(50) NOT NULL COMMENT '商品名称',
+    image_url VARCHAR(255) NOT NULL COMMENT '商品图片地址',
+    original_price DECIMAL(11,3) NOT NULL COMMENT '原价',
+    flash_sale_price DECIMAL(11,3) NOT NULL COMMENT '秒杀价',
+    flash_sale_stock DECIMAL(11,3) NOT NULL COMMENT '秒杀库存',
+    description VARCHAR(255) NOT NULL COMMENT '活动说明',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '秒杀活动';
