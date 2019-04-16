@@ -1,10 +1,15 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
+import build.dream.common.constants.Constants;
 import org.apache.commons.collections.MapUtils;
 import org.quartz.*;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
+import java.math.BigInteger;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JobUtils {
     private static SchedulerFactoryBean schedulerFactoryBean;
@@ -83,5 +88,26 @@ public class JobUtils {
 
     public static void deleteJob(JobKey jobKey) throws SchedulerException {
         obtainSchedulerFactoryBean().getScheduler().deleteJob(jobKey);
+    }
+
+    public static void startOrderInvalidJob(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Date startTime) {
+        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("tenantId", tenantId.toString());
+        requestParameters.put("branchId", branchId.toString());
+        requestParameters.put("orderId", orderId.toString());
+        requestParameters.put("startTime", CustomDateUtils.format(startTime, Constants.DEFAULT_DATE_PATTERN));
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "order", "startOrderInvalidJob", requestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+    }
+
+    public static void stopOrderInvalidJob(BigInteger tenantId, BigInteger branchId, BigInteger orderId) {
+        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("tenantId", tenantId.toString());
+        requestParameters.put("branchId", branchId.toString());
+        requestParameters.put("orderId", orderId.toString());
+        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "order", "stopOrderInvalidJob", requestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
 }
