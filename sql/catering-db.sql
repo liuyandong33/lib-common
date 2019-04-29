@@ -1521,3 +1521,24 @@ CREATE TABLE eleme_goods_mapping
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '饿了么商品映射';
+
+DROP TABLE IF EXISTS vip_point_book;
+CREATE TABLE vip_point_book
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    vip_group_id BIGINT NOT NULL COMMENT '会员分组ID',
+    vip_id BIGINT NOT NULL COMMENT '会员ID',
+    type TINYINT NOT NULL COMMENT '1-消费赠送积分，2-积分扣减，3-注册赠送积分，4-会员生日赠送积分',
+    change_amount DECIMAL(11, 3) NOT NULL COMMENT '变动数量',
+    point_balance DECIMAL(11, 5) NOT NULL COMMENT '积分余额',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '会员积分记录';
