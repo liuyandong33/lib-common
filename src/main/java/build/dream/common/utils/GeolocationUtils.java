@@ -66,16 +66,12 @@ public class GeolocationUtils {
         return longitude;
     }
 
-    public static void main(String[] args) {
-        double longitude = 114.21892734521;
-        double latitude = 29.575429778924;
-
-        Coords gcj02Coords = wgs84ToGcj02(longitude, latitude);
-        System.out.println(gcj02Coords.getLongitude());
-        System.out.println(gcj02Coords.getLatitude());
-
-        Coords bd09llCoords = gcj02ToBd09ll(longitude, latitude);
-        System.out.println(bd09llCoords.getLongitude());
-        System.out.println(bd09llCoords.getLatitude());
+    public static double computeDistance(double longitude1, double latitude1, double longitude2, double latitude2) {
+        double dx = longitude1 - longitude2;
+        double dy = latitude1 - latitude2;
+        double b = (latitude1 + latitude2) / 2.0;
+        double lx = Math.toRadians(dx) * EARTH_RADIUS * Math.cos(Math.toRadians(b));
+        double ly = 6367000.0 * Math.toRadians(dy);
+        return Math.sqrt(lx * lx + ly * ly);
     }
 }

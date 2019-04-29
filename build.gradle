@@ -65,6 +65,11 @@ dependencies {
     compile("org.jsoup:jsoup:1.11.2")
 //    compile("com.squareup.okhttp3:okhttp:3.12.1")
     compile("org.elasticsearch.client:transport:6.5.4")
+
+    compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    compile group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
 }
 
 task makeJar(type: Jar) {
