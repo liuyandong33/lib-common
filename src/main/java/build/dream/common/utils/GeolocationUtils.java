@@ -5,7 +5,7 @@ import build.dream.common.beans.Coords;
 public class GeolocationUtils {
     private static final double EE = 0.00669342162296594323;
     private static final double EARTH_RADIUS = 6378245.0;
-    private static final double X_PI = 3.14159265358979324 * 3000.0 / 180.0;
+    private static final double X_PI = Math.PI * 3000.0 / 180.0;
 
     public static Coords wgs84ToGcj02(double longitude, double latitude) {
         return transform(longitude, latitude);
