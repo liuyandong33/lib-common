@@ -596,6 +596,10 @@ public class Constants {
     public static final String PAYMENT_CODE_WX = "WX";
     // 支付方式编码，支付宝支付
     public static final String PAYMENT_CODE_ALIPAY = "ALIPAY";
+    // 支付方式编码，现金
+    public static final String PAYMENT_CODE_CASH = "CASH";
+    // 支付方式
+    public static final String[] PAYMENT_CODES = new String[]{PAYMENT_CODE_HYJF, PAYMENT_CODE_HYQB, PAYMENT_CODE_WX, PAYMENT_CODE_ALIPAY, PAYMENT_CODE_CASH};
 
     // 代理服务器主机名
     public static final String PROXY_SERVER_HOST_NAME = "proxy.server.host.name";
