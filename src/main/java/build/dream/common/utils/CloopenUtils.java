@@ -5,11 +5,10 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.RandomStringUtils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class CloopenUtils {
     private static final String BASE_URL = "https://app.cloopen.com:8883";
@@ -40,5 +39,51 @@ public class CloopenUtils {
         String statusCode = MapUtils.getString(resultMap, "statusCode");
         ValidateUtils.isTrue("000000".equals(statusCode), "短信发送失败！");
         return resultMap;
+    }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param phoneNumber
+     * @return
+     */
+    public static String sendAuthCode(String phoneNumber, long timeout) {
+        String accountSid = "";
+        String authToken = "";
+        String appId = "";
+        String to = "";
+        String templateId = "";
+        List<String> datas = new ArrayList<String>();
+
+        String authCode = RandomStringUtils.randomNumeric(6);
+        datas.add(authCode);
+        datas.add(String.valueOf(timeout));
+
+        RedisUtils.setex(phoneNumber, authCode, timeout, TimeUnit.MINUTES);
+
+        sendSms(accountSid, authToken, appId, to, templateId, datas);
+        return authCode;
+    }
+
+    /**
+     * 发送短信验证码
+     *
+     * @param phoneNumber
+     * @return
+     */
+    public static String sendAuthCode(String phoneNumber) {
+        return sendAuthCode(phoneNumber, 15);
+    }
+
+    /**
+     * 验证验证码
+     *
+     * @param phoneNumber
+     * @param authCode
+     * @return
+     */
+    public static boolean verifyAuthCode(String phoneNumber, String authCode) {
+        String cachedAuthCode = RedisUtils.get(phoneNumber);
+        return authCode.equals(cachedAuthCode);
     }
 }
