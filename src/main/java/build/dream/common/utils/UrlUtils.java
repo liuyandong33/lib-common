@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 public class UrlUtils {
     public static String decode(String encryptedString) {
@@ -25,6 +26,14 @@ public class UrlUtils {
     public static String encode(String originalString, String charsetName) {
         try {
             return URLEncoder.encode(originalString, charsetName);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String encode(String originalString, Charset charset) {
+        try {
+            return URLEncoder.encode(originalString, charset.name());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
