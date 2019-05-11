@@ -17,10 +17,6 @@ public class BackgroundPrivilege extends BasicDomain {
      */
     private String privilegeName;
     /**
-     * 访问方式，1-GET，2-POST，3-签名GET，4-签名POST
-     */
-    private Integer accessMode;
-    /**
      * 服务名称
      */
     private String serviceName;
@@ -36,10 +32,6 @@ public class BackgroundPrivilege extends BasicDomain {
      * 父级权限ID
      */
     private BigInteger parentId;
-    /**
-     * 是否在权限设置页面隐藏，1-隐藏，2-不隐藏
-     */
-    private boolean hidden;
     /**
      * 备注
      */
@@ -59,14 +51,6 @@ public class BackgroundPrivilege extends BasicDomain {
 
     public void setPrivilegeName(String privilegeName) {
         this.privilegeName = privilegeName;
-    }
-
-    public Integer getAccessMode() {
-        return accessMode;
-    }
-
-    public void setAccessMode(Integer accessMode) {
-        this.accessMode = accessMode;
     }
 
     public String getServiceName() {
@@ -101,14 +85,6 @@ public class BackgroundPrivilege extends BasicDomain {
         this.parentId = parentId;
     }
 
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public String getRemark() {
         return remark;
     }
@@ -130,11 +106,6 @@ public class BackgroundPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder accessMode(Integer accessMode) {
-            instance.setAccessMode(accessMode);
-            return this;
-        }
-
         public Builder serviceName(String serviceName) {
             instance.setServiceName(serviceName);
             return this;
@@ -152,11 +123,6 @@ public class BackgroundPrivilege extends BasicDomain {
 
         public Builder parentId(BigInteger parentId) {
             instance.setParentId(parentId);
-            return this;
-        }
-
-        public Builder hidden(boolean hidden) {
-            instance.setHidden(hidden);
             return this;
         }
 
@@ -209,12 +175,10 @@ public class BackgroundPrivilege extends BasicDomain {
             BackgroundPrivilege backgroundPrivilege = new BackgroundPrivilege();
             backgroundPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
             backgroundPrivilege.setPrivilegeName(instance.getPrivilegeName());
-            backgroundPrivilege.setAccessMode(instance.getAccessMode());
             backgroundPrivilege.setServiceName(instance.getServiceName());
             backgroundPrivilege.setControllerName(instance.getControllerName());
             backgroundPrivilege.setActionName(instance.getActionName());
             backgroundPrivilege.setParentId(instance.getParentId());
-            backgroundPrivilege.setHidden(instance.isHidden());
             backgroundPrivilege.setRemark(instance.getRemark());
             backgroundPrivilege.setId(instance.getId());
             backgroundPrivilege.setCreatedTime(instance.getCreatedTime());
@@ -235,24 +199,20 @@ public class BackgroundPrivilege extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String PRIVILEGE_CODE = "privilege_code";
         public static final String PRIVILEGE_NAME = "privilege_name";
-        public static final String ACCESS_MODE = "access_mode";
         public static final String SERVICE_NAME = "service_name";
         public static final String CONTROLLER_NAME = "controller_name";
         public static final String ACTION_NAME = "action_name";
         public static final String PARENT_ID = "parent_id";
-        public static final String HIDDEN = "hidden";
         public static final String REMARK = "remark";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String PRIVILEGE_CODE = "privilegeCode";
         public static final String PRIVILEGE_NAME = "privilegeName";
-        public static final String ACCESS_MODE = "accessMode";
         public static final String SERVICE_NAME = "serviceName";
         public static final String CONTROLLER_NAME = "controllerName";
         public static final String ACTION_NAME = "actionName";
         public static final String PARENT_ID = "parentId";
-        public static final String HIDDEN = "hidden";
         public static final String REMARK = "remark";
     }
 }
