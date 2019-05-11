@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import org.springframework.data.redis.connection.RedisListCommands;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.connection.RedisZSetCommands;
+import org.springframework.data.redis.connection.SortParameters;
 import org.springframework.data.redis.core.*;
 
 import java.util.*;
@@ -2240,5 +2241,226 @@ public class RedisUtils {
      */
     public static Set<byte[]> zrangebylex(byte[] key) {
         return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByLex(key));
+    }
+
+    /**
+     * EXISTS
+     *
+     * @param key
+     * @return
+     */
+    public static Boolean exists(byte[] key) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.exists(key));
+    }
+
+    /**
+     * DEL
+     *
+     * @param keys
+     * @return
+     */
+    public static Long del(byte[]... keys) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.del(keys));
+    }
+
+    /**
+     * TYPE
+     *
+     * @param key
+     * @return
+     */
+    public static String type(byte[] key) {
+        return obtainStringRedisTemplate().execute((RedisCallback<String>) connection -> connection.type(key).name());
+    }
+
+    /**
+     * KEYS
+     *
+     * @param pattern
+     * @return
+     */
+    public static Set<byte[]> keys(byte[] pattern) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.keys(pattern));
+    }
+
+    /**
+     * SCAN
+     *
+     * @param options
+     * @return
+     */
+    public static Cursor<byte[]> scan(ScanOptions options) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Cursor<byte[]>>) connection -> connection.scan(options));
+    }
+
+    /**
+     * RANDOMKEY
+     *
+     * @return
+     */
+    public static byte[] randomkey() {
+        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.randomKey());
+    }
+
+    /**
+     * RENAME
+     * @param sourceKey
+     * @param targetKey
+     */
+    public static void rename(byte[] sourceKey, byte[] targetKey) {
+        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+            connection.rename(sourceKey, targetKey);
+            return null;
+        });
+    }
+
+    /**
+     * RENAMENX
+     * @param sourceKey
+     * @param targetKey
+     * @return
+     */
+    public static Boolean renamenx(byte[] sourceKey, byte[] targetKey) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.renameNX(sourceKey, targetKey));
+    }
+
+    /**
+     * EXPIRE
+     * @param key
+     * @param seconds
+     * @return
+     */
+    public static Boolean expire(byte[] key, long seconds) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.expire(key, seconds));
+    }
+
+    /**
+     * PEXPIRE
+     * @param key
+     * @param millis
+     * @return
+     */
+    public static Boolean pexpire(byte[] key, long millis) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.pExpire(key, millis));
+    }
+
+    /**
+     * EXPIREAT
+     * @param key
+     * @param unixTime
+     * @return
+     */
+    public static Boolean expireAt(byte[] key, long unixTime) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.expireAt(key, unixTime));
+    }
+
+    /**
+     * PEXPIREAT
+     * @param key
+     * @param unixTimeInMillis
+     * @return
+     */
+    public static Boolean pexpireat(byte[] key, long unixTimeInMillis) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.pExpireAt(key, unixTimeInMillis));
+    }
+
+    /**
+     * PERSIST
+     * @param key
+     * @return
+     */
+    public static Boolean persist(byte[] key) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.persist(key));
+    }
+
+    /**
+     * MOVE
+     * @param key
+     * @param dbIndex
+     * @return
+     */
+    public static Boolean move(byte[] key, int dbIndex) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.move(key, dbIndex));
+    }
+
+    /**
+     * TTL
+     * @param key
+     * @return
+     */
+    public static Long ttl(byte[] key) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.ttl(key));
+    }
+
+    /**
+     * TTL
+     * @param key
+     * @param timeUnit
+     * @return
+     */
+    public static Long ttl(byte[] key, TimeUnit timeUnit) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.ttl(key, timeUnit));
+    }
+
+    /**
+     * PTTL
+     * @param key
+     * @return
+     */
+    public static Long pttl(byte[] key){
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.pTtl(key));
+    }
+
+    /**
+     * PTTL
+     * @param key
+     * @param timeUnit
+     * @return
+     */
+    public static Long pttl(byte[] key, TimeUnit timeUnit) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.pTtl(key, timeUnit));
+    }
+
+    /**
+     * SORT
+     * @param key
+     * @param params
+     * @return
+     */
+    public static List<byte[]> sort(byte[] key, SortParameters params) {
+        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.sort(key, params));
+    }
+
+    /**
+     * SORT
+     * @param key
+     * @param params
+     * @param storeKey
+     * @return
+     */
+    public static Long sort(byte[] key, SortParameters params, byte[] storeKey) {
+        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sort(key, params, storeKey));
+    }
+
+    /**
+     * DUMP
+     * @param key
+     * @return
+     */
+    public static byte[] dump(byte[] key) {
+        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.dump(key));
+    }
+
+    /**
+     * RESTORE
+     * @param key
+     * @param ttlInMillis
+     * @param serializedValue
+     */
+    public static void restore(byte[] key, long ttlInMillis, byte[] serializedValue) {
+        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+            connection.restore(key, ttlInMillis, serializedValue);
+            return null;
+        });
     }
 }
