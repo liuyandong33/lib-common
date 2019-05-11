@@ -16,6 +16,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class AlipayUtils {
             signatureType = SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA;
         }
 
-        byte[] data = org.apache.commons.codec.binary.StringUtils.getBytesUnchecked(originalString, charset);
+        byte[] data = originalString.getBytes(Charset.forName(charset));
         return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signatureType);
     }
 
@@ -123,7 +124,7 @@ public class AlipayUtils {
             signatureType = SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA;
         }
 
-        byte[] data = org.apache.commons.codec.binary.StringUtils.getBytesUnchecked(WebUtils.concat(sortedRequestParameters), charset);
+        byte[] data = WebUtils.concat(sortedRequestParameters).getBytes(Charset.forName(charset));
         String sign = Base64.encodeBase64String(SignatureUtils.sign(data, Base64.decodeBase64(privateKey), signatureType));
         sortedRequestParameters.put("sign", sign);
         return sortedRequestParameters;

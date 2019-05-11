@@ -10,13 +10,11 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentException;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -117,9 +115,8 @@ public class WeiXinPayUtils {
      * @param certificate
      * @param password
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) throws DocumentException {
+    public static Map<String, String> callWeiXinPaySystem(String url, String finalData, String certificate, String password) {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null, finalData, certificate, password, Constants.PKCS12, Constants.TRUST_MANAGERS);
         return XmlUtils.xmlStringToMap(webResponse.getResult());
     }
@@ -130,9 +127,8 @@ public class WeiXinPayUtils {
      * @param url
      * @param finalData
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> callWeiXinPaySystem(String url, String finalData) throws DocumentException {
+    public static Map<String, String> callWeiXinPaySystem(String url, String finalData) {
         return callWeiXinPaySystem(url, finalData, null, null);
     }
 
@@ -143,7 +139,6 @@ public class WeiXinPayUtils {
      * @param notifyUrl
      * @param weiXinPayApiSecretKey
      * @param weiXinPaySignType
-     * @throws IOException
      */
     private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) {
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
@@ -182,10 +177,8 @@ public class WeiXinPayUtils {
      *
      * @param microPayModel
      * @return
-     * @throws IOException
-     * @throws DocumentException
      */
-    public static Map<String, String> microPay(MicroPayModel microPayModel) throws DocumentException {
+    public static Map<String, String> microPay(MicroPayModel microPayModel) {
         microPayModel.validateAndThrow();
         String tenantId = microPayModel.getTenantId();
         String branchId = microPayModel.getBranchId();
@@ -268,10 +261,8 @@ public class WeiXinPayUtils {
      *
      * @param unifiedOrderModel
      * @return
-     * @throws IOException
-     * @throws DocumentException
      */
-    public static Map<String, String> unifiedOrder(UnifiedOrderModel unifiedOrderModel) throws DocumentException {
+    public static Map<String, String> unifiedOrder(UnifiedOrderModel unifiedOrderModel) {
         unifiedOrderModel.validateAndThrow();
 
         String tenantId = unifiedOrderModel.getTenantId();
@@ -466,9 +457,8 @@ public class WeiXinPayUtils {
      *
      * @param refundModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> refund(RefundModel refundModel) throws DocumentException {
+    public static Map<String, String> refund(RefundModel refundModel) {
         refundModel.validateAndThrow();
 
         String tenantId = refundModel.getTenantId();
@@ -555,9 +545,8 @@ public class WeiXinPayUtils {
      *
      * @param addRecommendConfModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> addRecommendConf(AddRecommendConfModel addRecommendConfModel) throws DocumentException {
+    public static Map<String, String> addRecommendConf(AddRecommendConfModel addRecommendConfModel) {
         addRecommendConfModel.validateAndThrow();
         String tenantId = addRecommendConfModel.getTenantId();
         String branchId = addRecommendConfModel.getBranchId();
@@ -609,9 +598,8 @@ public class WeiXinPayUtils {
      *
      * @param addSubDevConfigModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> addSubDevConfig(AddSubDevConfigModel addSubDevConfigModel) throws DocumentException {
+    public static Map<String, String> addSubDevConfig(AddSubDevConfigModel addSubDevConfigModel) {
         addSubDevConfigModel.validateAndThrow();
         String tenantId = addSubDevConfigModel.getTenantId();
         String branchId = addSubDevConfigModel.getBranchId();
@@ -655,9 +643,8 @@ public class WeiXinPayUtils {
      *
      * @param querySubDevConfigModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> querySubDevConfig(QuerySubDevConfigModel querySubDevConfigModel) throws DocumentException {
+    public static Map<String, String> querySubDevConfig(QuerySubDevConfigModel querySubDevConfigModel) {
         querySubDevConfigModel.validateAndThrow();
         String tenantId = querySubDevConfigModel.getTenantId();
         String branchId = querySubDevConfigModel.getBranchId();
@@ -691,9 +678,8 @@ public class WeiXinPayUtils {
      *
      * @param addSubMchModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> addSubMch(AddSubMchModel addSubMchModel) throws DocumentException {
+    public static Map<String, String> addSubMch(AddSubMchModel addSubMchModel) {
         addSubMchModel.validateAndThrow();
 
         String tenantId = addSubMchModel.getTenantId();
@@ -768,9 +754,8 @@ public class WeiXinPayUtils {
      *
      * @param modifyMchInfoModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> modifyMchInfo(ModifyMchInfoModel modifyMchInfoModel) throws DocumentException {
+    public static Map<String, String> modifyMchInfo(ModifyMchInfoModel modifyMchInfoModel) {
         modifyMchInfoModel.validateAndThrow();
 
         String tenantId = modifyMchInfoModel.getTenantId();
@@ -819,9 +804,8 @@ public class WeiXinPayUtils {
      *
      * @param getWxPayFaceAuthInfoModel
      * @return
-     * @throws DocumentException
      */
-    public static Map<String, String> getWxPayFaceAuthInfo(GetWxPayFaceAuthInfoModel getWxPayFaceAuthInfoModel) throws DocumentException {
+    public static Map<String, String> getWxPayFaceAuthInfo(GetWxPayFaceAuthInfoModel getWxPayFaceAuthInfoModel) {
         getWxPayFaceAuthInfoModel.validateAndThrow();
 
         String tenantId = getWxPayFaceAuthInfoModel.getTenantId();

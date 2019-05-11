@@ -291,8 +291,9 @@ public class DatabaseHelper {
             Class<?>[] parameterTypes = new Class<?>[size];
             Object[] parameters = new Object[size];
             for (int index = 0; index < size; index++) {
-                parameterTypes[index] = parameterAndTypes.get(index)._1();
-                parameters[index] = parameterAndTypes.get(index)._2();
+                Tuple2<Class<?>, Object> tuple2 = parameterAndTypes.get(index);
+                parameterTypes[index] = tuple2._1();
+                parameters[index] = tuple2._2();
             }
             Object mapper = obtainMapper(mapperClass);
             ValidateUtils.notNull(mapper, "程序装载错误！");

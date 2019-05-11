@@ -39,7 +39,6 @@ public class PropertyUtils {
 
     public static void loadProperties() throws IOException {
         properties = new Properties();
-        String fileName = null;
         InputStream inputStream = PropertyUtils.class.getClassLoader().getResourceAsStream(Constants.DEVELOPMENT_PROPERTIES);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Constants.CHARSET_UTF_8);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
