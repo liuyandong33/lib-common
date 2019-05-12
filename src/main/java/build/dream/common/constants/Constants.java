@@ -1,7 +1,9 @@
 package build.dream.common.constants;
 
+import build.dream.common.api.ApiRest;
 import build.dream.common.exceptions.Error;
 import build.dream.common.utils.CustomDateUtils;
+import build.dream.common.utils.GsonUtils;
 
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -775,6 +777,11 @@ public class Constants {
     public static final String ERROR_CODE_ACCESS_DENIED = "0014";
     public static final Error UNKNOWN_ERROR = new Error(ERROR_CODE_UNKNOWN_ERROR, "未知错误！");
     public static final Error INVALID_PARAMETER_ERROR = new Error(ERROR_CODE_INVALID_PARAMETER, "参数错误！");
+    public static final Error ACCESS_DENIED_ERROR = new Error(ERROR_CODE_ACCESS_DENIED, "不允许访问！");
+
+    public static final String UNKNOWN_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNKNOWN_ERROR).successful(false).build());
+    public static final String INVALID_PARAMETER_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_PARAMETER_ERROR).successful(false).build());
+    public static final String ACCESS_DENIED_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(ACCESS_DENIED_ERROR).successful(false).build());
 
     /**
      * 进货单状态
