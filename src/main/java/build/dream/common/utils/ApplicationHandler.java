@@ -1172,6 +1172,10 @@ public class ApplicationHandler {
         return systemUserUserDetails.getPrivateKey();
     }
 
+    public static boolean isAjax() {
+        return isAjax(getHttpServletRequest());
+    }
+
     public static boolean isAjax(HttpServletRequest httpServletRequest) {
         String headerValue = getRequestHeader(httpServletRequest, HttpHeaders.X_REQUESTED_WITH);
         if (StringUtils.isNotBlank(headerValue)) {
