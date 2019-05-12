@@ -7,6 +7,7 @@ import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.SystemUserUserDetails;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.HttpHeaders;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -15,7 +16,6 @@ import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.http.HttpHeaders;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -1170,5 +1170,13 @@ public class ApplicationHandler {
     public static String obtainPrivateKey() {
         SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
         return systemUserUserDetails.getPrivateKey();
+    }
+
+    public static boolean isAjax(HttpServletRequest httpServletRequest) {
+        String headerValue = getRequestHeader(httpServletRequest, HttpHeaders.X_REQUESTED_WITH);
+        if (StringUtils.isNotBlank(headerValue)) {
+            return headerValue.equalsIgnoreCase(Constants.XML_HTTP_REQUEST);
+        }
+        return false;
     }
 }
