@@ -10,33 +10,24 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class RedisUtils {
-    private static StringRedisTemplate stringRedisTemplate = null;
-
-    public static StringRedisTemplate obtainStringRedisTemplate() {
-        if (stringRedisTemplate == null) {
-            stringRedisTemplate = ApplicationHandler.getBean(StringRedisTemplate.class);
-        }
-        return stringRedisTemplate;
+    public static ValueOperations<String, String> obtainValueOperations(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.opsForValue();
     }
 
-    public static ValueOperations<String, String> obtainValueOperations() {
-        return obtainStringRedisTemplate().opsForValue();
+    public static HashOperations<String, String, String> obtainHashOperations(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.opsForHash();
     }
 
-    public static HashOperations<String, String, String> obtainHashOperations() {
-        return obtainStringRedisTemplate().opsForHash();
+    public static ListOperations<String, String> obtainListOperations(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.opsForList();
     }
 
-    public static ListOperations<String, String> obtainListOperations() {
-        return obtainStringRedisTemplate().opsForList();
+    public static SetOperations<String, String> obtainSetOperations(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.opsForSet();
     }
 
-    public static SetOperations<String, String> obtainSetOperations() {
-        return obtainStringRedisTemplate().opsForSet();
-    }
-
-    public static ZSetOperations<String, String> obtainZSetOperations() {
-        return obtainStringRedisTemplate().opsForZSet();
+    public static ZSetOperations<String, String> obtainZSetOperations(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.opsForZSet();
     }
 
     /**
@@ -45,8 +36,8 @@ public class RedisUtils {
      * @param pattern
      * @return
      */
-    public static Set<String> keys(String pattern) {
-        return obtainStringRedisTemplate().keys(pattern);
+    public static Set<String> keys(RedisTemplate<String, String> redisTemplate, String pattern) {
+        return redisTemplate.keys(pattern);
     }
 
     /**
@@ -55,8 +46,8 @@ public class RedisUtils {
      * @param key
      * @param value
      */
-    public static void set(String key, String value) {
-        obtainValueOperations().set(key, value);
+    public static void set(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        obtainValueOperations(redisTemplate).set(key, value);
     }
 
     /**
@@ -67,8 +58,8 @@ public class RedisUtils {
      * @param timeout
      * @param unit
      */
-    public static void setex(String key, String value, long timeout, TimeUnit unit) {
-        obtainValueOperations().set(key, value, timeout, unit);
+    public static void setex(RedisTemplate<String, String> redisTemplate, String key, String value, long timeout, TimeUnit unit) {
+        obtainValueOperations(redisTemplate).set(key, value, timeout, unit);
     }
 
     /**
@@ -78,8 +69,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean setnx(String key, String value) {
-        return obtainValueOperations().setIfAbsent(key, value);
+    public static Boolean setnx(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainValueOperations(redisTemplate).setIfAbsent(key, value);
     }
 
     /**
@@ -87,8 +78,8 @@ public class RedisUtils {
      *
      * @param map
      */
-    public static void mset(Map<String, String> map) {
-        obtainValueOperations().multiSet(map);
+    public static void mset(RedisTemplate<String, String> redisTemplate, Map<String, String> map) {
+        obtainValueOperations(redisTemplate).multiSet(map);
     }
 
     /**
@@ -97,8 +88,8 @@ public class RedisUtils {
      * @param map
      * @return
      */
-    public static Boolean msetnx(Map<String, String> map) {
-        return obtainValueOperations().multiSetIfAbsent(map);
+    public static Boolean msetnx(RedisTemplate<String, String> redisTemplate, Map<String, String> map) {
+        return obtainValueOperations(redisTemplate).multiSetIfAbsent(map);
     }
 
     /**
@@ -107,8 +98,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String get(String key) {
-        return obtainValueOperations().get(key);
+    public static String get(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainValueOperations(redisTemplate).get(key);
     }
 
     /**
@@ -118,8 +109,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static String getset(String key, String value) {
-        return obtainValueOperations().getAndSet(key, value);
+    public static String getset(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainValueOperations(redisTemplate).getAndSet(key, value);
     }
 
     /**
@@ -128,8 +119,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Boolean exists(String key) {
-        return obtainStringRedisTemplate().hasKey(key);
+    public static Boolean exists(RedisTemplate<String, String> redisTemplate, String key) {
+        return redisTemplate.hasKey(key);
     }
 
     /**
@@ -138,8 +129,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static List<String> mget(Collection<String> keys) {
-        return obtainValueOperations().multiGet(keys);
+    public static List<String> mget(RedisTemplate<String, String> redisTemplate, Collection<String> keys) {
+        return obtainValueOperations(redisTemplate).multiGet(keys);
     }
 
     /**
@@ -148,8 +139,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long incr(String key) {
-        return obtainValueOperations().increment(key, 1);
+    public static Long incr(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainValueOperations(redisTemplate).increment(key, 1);
     }
 
     /**
@@ -159,8 +150,8 @@ public class RedisUtils {
      * @param delta
      * @return
      */
-    public static Long incrby(String key, long delta) {
-        return obtainValueOperations().increment(key, delta);
+    public static Long incrby(RedisTemplate<String, String> redisTemplate, String key, long delta) {
+        return obtainValueOperations(redisTemplate).increment(key, delta);
     }
 
     /**
@@ -170,8 +161,8 @@ public class RedisUtils {
      * @param delta
      * @return
      */
-    public static Double incrbyfloat(String key, double delta) {
-        return obtainValueOperations().increment(key, delta);
+    public static Double incrbyfloat(RedisTemplate<String, String> redisTemplate, String key, double delta) {
+        return obtainValueOperations(redisTemplate).increment(key, delta);
     }
 
     /**
@@ -181,8 +172,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Integer append(String key, String value) {
-        return obtainValueOperations().append(key, value);
+    public static Integer append(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainValueOperations(redisTemplate).append(key, value);
     }
 
     /**
@@ -193,8 +184,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static String getrange(String key, long start, long end) {
-        return obtainValueOperations().get(key, start, end);
+    public static String getrange(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        return obtainValueOperations(redisTemplate).get(key, start, end);
     }
 
     /**
@@ -202,8 +193,8 @@ public class RedisUtils {
      *
      * @return
      */
-    public static void setrange(String key, String value, long offset) {
-        obtainValueOperations().set(key, value, offset);
+    public static void setrange(RedisTemplate<String, String> redisTemplate, String key, String value, long offset) {
+        obtainValueOperations(redisTemplate).set(key, value, offset);
     }
 
     /**
@@ -212,8 +203,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long strlen(String key) {
-        return obtainValueOperations().size(key);
+    public static Long strlen(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainValueOperations(redisTemplate).size(key);
     }
 
     /**
@@ -224,8 +215,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean setbit(String key, long offset, boolean value) {
-        return obtainValueOperations().setBit(key, offset, value);
+    public static Boolean setbit(RedisTemplate<String, String> redisTemplate, String key, long offset, boolean value) {
+        return obtainValueOperations(redisTemplate).setBit(key, offset, value);
     }
 
     /**
@@ -235,17 +226,18 @@ public class RedisUtils {
      * @param offset
      * @return
      */
-    public static Boolean getbit(String key, long offset) {
-        return obtainValueOperations().getBit(key, offset);
+    public static Boolean getbit(RedisTemplate<String, String> redisTemplate, String key, long offset) {
+        return obtainValueOperations(redisTemplate).getBit(key, offset);
     }
 
     /**
      * DEL
      *
+     * @param redisTemplate
      * @param keys
      */
-    public static void del(String... keys) {
-        obtainStringRedisTemplate().delete(Arrays.asList(keys));
+    public static void del(RedisTemplate<String, String> redisTemplate, String... keys) {
+        redisTemplate.delete(Arrays.asList(keys));
     }
 
     /**
@@ -255,8 +247,8 @@ public class RedisUtils {
      * @param field
      * @return
      */
-    public static Boolean hexists(String key, String field) {
-        return obtainHashOperations().hasKey(key, field);
+    public static Boolean hexists(RedisTemplate<String, String> redisTemplate, String key, String field) {
+        return obtainHashOperations(redisTemplate).hasKey(key, field);
     }
 
     /**
@@ -266,8 +258,8 @@ public class RedisUtils {
      * @param field
      * @return
      */
-    public static String hget(String key, String field) {
-        return obtainHashOperations().get(key, field);
+    public static String hget(RedisTemplate<String, String> redisTemplate, String key, String field) {
+        return obtainHashOperations(redisTemplate).get(key, field);
     }
 
     /**
@@ -275,8 +267,8 @@ public class RedisUtils {
      *
      * @return
      */
-    public static Map<String, String> hgetAll(String key) {
-        return obtainHashOperations().entries(key);
+    public static Map<String, String> hgetAll(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainHashOperations(redisTemplate).entries(key);
     }
 
     /**
@@ -287,8 +279,8 @@ public class RedisUtils {
      * @param increment
      * @return
      */
-    public static Long hincrBy(String key, String field, long increment) {
-        return obtainHashOperations().increment(key, field, increment);
+    public static Long hincrBy(RedisTemplate<String, String> redisTemplate, String key, String field, long increment) {
+        return obtainHashOperations(redisTemplate).increment(key, field, increment);
     }
 
     /**
@@ -299,8 +291,8 @@ public class RedisUtils {
      * @param increment
      * @return
      */
-    public static Double hincrbyfloat(String key, String field, double increment) {
-        return obtainHashOperations().increment(key, field, increment);
+    public static Double hincrbyfloat(RedisTemplate<String, String> redisTemplate, String key, String field, double increment) {
+        return obtainHashOperations(redisTemplate).increment(key, field, increment);
     }
 
     /**
@@ -309,8 +301,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Set<String> hkeys(String key) {
-        return obtainHashOperations().keys(key);
+    public static Set<String> hkeys(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainHashOperations(redisTemplate).keys(key);
     }
 
     /**
@@ -319,8 +311,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long hlen(String key) {
-        return obtainHashOperations().size(key);
+    public static Long hlen(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainHashOperations(redisTemplate).size(key);
     }
 
     /**
@@ -329,12 +321,8 @@ public class RedisUtils {
      * @param key
      * @param fields
      */
-    public static void hmget(String key, String... fields) {
-        List<String> hashKeys = new ArrayList<>();
-        for (String field : fields) {
-            hashKeys.add(field);
-        }
-        obtainHashOperations().multiGet(key, hashKeys);
+    public static void hmget(RedisTemplate<String, String> redisTemplate, String key, String... fields) {
+        obtainHashOperations(redisTemplate).multiGet(key, Arrays.asList(fields));
     }
 
     /**
@@ -343,8 +331,8 @@ public class RedisUtils {
      * @param key
      * @param map
      */
-    public static void hmset(String key, Map<String, String> map) {
-        obtainHashOperations().putAll(key, map);
+    public static void hmset(RedisTemplate<String, String> redisTemplate, String key, Map<String, String> map) {
+        obtainHashOperations(redisTemplate).putAll(key, map);
     }
 
     /**
@@ -354,8 +342,8 @@ public class RedisUtils {
      * @param field
      * @param value
      */
-    public static void hset(String key, String field, String value) {
-        obtainHashOperations().put(key, field, value);
+    public static void hset(RedisTemplate<String, String> redisTemplate, String key, String field, String value) {
+        obtainHashOperations(redisTemplate).put(key, field, value);
     }
 
     /**
@@ -365,8 +353,8 @@ public class RedisUtils {
      * @param field
      * @param value
      */
-    public static void hsetnx(String key, String field, String value) {
-        obtainHashOperations().putIfAbsent(key, field, value);
+    public static void hsetnx(RedisTemplate<String, String> redisTemplate, String key, String field, String value) {
+        obtainHashOperations(redisTemplate).putIfAbsent(key, field, value);
     }
 
     /**
@@ -375,8 +363,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static List<String> hvals(String key) {
-        return obtainHashOperations().values(key);
+    public static List<String> hvals(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainHashOperations(redisTemplate).values(key);
     }
 
     /**
@@ -387,8 +375,8 @@ public class RedisUtils {
      * @param unit
      * @return
      */
-    public static Boolean expire(String key, long timeout, TimeUnit unit) {
-        return obtainStringRedisTemplate().expire(key, timeout, unit);
+    public static Boolean expire(RedisTemplate<String, String> redisTemplate, String key, long timeout, TimeUnit unit) {
+        return redisTemplate.expire(key, timeout, unit);
     }
 
     /**
@@ -398,8 +386,8 @@ public class RedisUtils {
      * @param date
      * @return
      */
-    public static Boolean expireAt(String key, Date date) {
-        return obtainStringRedisTemplate().expireAt(key, date);
+    public static Boolean expireAt(RedisTemplate<String, String> redisTemplate, String key, Date date) {
+        return redisTemplate.expireAt(key, date);
     }
 
     /**
@@ -409,8 +397,8 @@ public class RedisUtils {
      * @param fields
      * @return
      */
-    public static Long hdel(String key, String... fields) {
-        return obtainHashOperations().delete(key, fields);
+    public static Long hdel(RedisTemplate<String, String> redisTemplate, String key, String... fields) {
+        return obtainHashOperations(redisTemplate).delete(key, fields);
     }
 
     /**
@@ -419,8 +407,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long ttl(String key) {
-        return obtainStringRedisTemplate().getExpire(key);
+    public static Long ttl(RedisTemplate<String, String> redisTemplate, String key) {
+        return redisTemplate.getExpire(key);
     }
 
     /**
@@ -430,8 +418,8 @@ public class RedisUtils {
      * @param timeUnit
      * @return
      */
-    public static Long ttl(String key, TimeUnit timeUnit) {
-        return obtainStringRedisTemplate().getExpire(key, timeUnit);
+    public static Long ttl(RedisTemplate<String, String> redisTemplate, String key, TimeUnit timeUnit) {
+        return redisTemplate.getExpire(key, timeUnit);
     }
 
     /**
@@ -442,8 +430,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static List<String> lrange(String key, long start, long end) {
-        return obtainListOperations().range(key, start, end);
+    public static List<String> lrange(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        return obtainListOperations(redisTemplate).range(key, start, end);
     }
 
     /**
@@ -453,8 +441,8 @@ public class RedisUtils {
      * @param start
      * @param end
      */
-    public static void ltrim(String key, long start, long end) {
-        obtainListOperations().trim(key, start, end);
+    public static void ltrim(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        obtainListOperations(redisTemplate).trim(key, start, end);
     }
 
     /**
@@ -463,8 +451,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long llen(String key) {
-        return obtainListOperations().size(key);
+    public static Long llen(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainListOperations(redisTemplate).size(key);
     }
 
     /**
@@ -474,8 +462,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lpush(String key, String value) {
-        return obtainListOperations().leftPush(key, value);
+    public static Long lpush(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainListOperations(redisTemplate).leftPush(key, value);
     }
 
     /**
@@ -485,8 +473,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long lpush(String key, String... values) {
-        return obtainListOperations().leftPushAll(key, values);
+    public static Long lpush(RedisTemplate<String, String> redisTemplate, String key, String... values) {
+        return obtainListOperations(redisTemplate).leftPushAll(key, values);
     }
 
     /**
@@ -496,8 +484,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lpushx(String key, String value) {
-        return obtainListOperations().leftPushIfPresent(key, value);
+    public static Long lpushx(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainListOperations(redisTemplate).leftPushIfPresent(key, value);
     }
 
     /**
@@ -508,8 +496,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lpush(String key, String pivot, String value) {
-        return obtainListOperations().leftPush(key, pivot, value);
+    public static Long lpush(RedisTemplate<String, String> redisTemplate, String key, String pivot, String value) {
+        return obtainListOperations(redisTemplate).leftPush(key, pivot, value);
     }
 
     /**
@@ -519,8 +507,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long rpush(String key, String value) {
-        return obtainListOperations().rightPush(key, value);
+    public static Long rpush(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainListOperations(redisTemplate).rightPush(key, value);
     }
 
     /**
@@ -530,8 +518,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long rpush(String key, String... values) {
-        return obtainListOperations().rightPushAll(key, values);
+    public static Long rpush(RedisTemplate<String, String> redisTemplate, String key, String... values) {
+        return obtainListOperations(redisTemplate).rightPushAll(key, values);
     }
 
     /**
@@ -541,8 +529,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long rpush(String key, Collection<String> values) {
-        return obtainListOperations().rightPushAll(key, values);
+    public static Long rpush(RedisTemplate<String, String> redisTemplate, String key, Collection<String> values) {
+        return obtainListOperations(redisTemplate).rightPushAll(key, values);
     }
 
     /**
@@ -552,8 +540,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long rpushx(String key, String value) {
-        return obtainListOperations().rightPushIfPresent(key, value);
+    public static Long rpushx(RedisTemplate<String, String> redisTemplate, String key, String value) {
+        return obtainListOperations(redisTemplate).rightPushIfPresent(key, value);
     }
 
     /**
@@ -564,8 +552,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long rpush(String key, String pivot, String value) {
-        return obtainListOperations().rightPush(key, pivot, value);
+    public static Long rpush(RedisTemplate<String, String> redisTemplate, String key, String pivot, String value) {
+        return obtainListOperations(redisTemplate).rightPush(key, pivot, value);
     }
 
     /**
@@ -575,8 +563,8 @@ public class RedisUtils {
      * @param index
      * @param value
      */
-    public static void lset(String key, long index, String value) {
-        obtainListOperations().set(key, index, value);
+    public static void lset(RedisTemplate<String, String> redisTemplate, String key, long index, String value) {
+        obtainListOperations(redisTemplate).set(key, index, value);
     }
 
     /**
@@ -587,8 +575,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lrem(String key, long count, Object value) {
-        return obtainListOperations().remove(key, count, value);
+    public static Long lrem(RedisTemplate<String, String> redisTemplate, String key, long count, Object value) {
+        return obtainListOperations(redisTemplate).remove(key, count, value);
     }
 
     /**
@@ -598,8 +586,8 @@ public class RedisUtils {
      * @param index
      * @return
      */
-    public static String lindex(String key, long index) {
-        return obtainListOperations().index(key, index);
+    public static String lindex(RedisTemplate<String, String> redisTemplate, String key, long index) {
+        return obtainListOperations(redisTemplate).index(key, index);
     }
 
     /**
@@ -608,8 +596,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String lpop(String key) {
-        return obtainListOperations().leftPop(key);
+    public static String lpop(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainListOperations(redisTemplate).leftPop(key);
     }
 
     /**
@@ -620,8 +608,8 @@ public class RedisUtils {
      * @param unit
      * @return
      */
-    public static String blpop(String key, long timeout, TimeUnit unit) {
-        return obtainListOperations().leftPop(key, timeout, unit);
+    public static String blpop(RedisTemplate<String, String> redisTemplate, String key, long timeout, TimeUnit unit) {
+        return obtainListOperations(redisTemplate).leftPop(key, timeout, unit);
     }
 
     /**
@@ -630,8 +618,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String rpop(String key) {
-        return obtainListOperations().rightPop(key);
+    public static String rpop(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainListOperations(redisTemplate).rightPop(key);
     }
 
     /**
@@ -642,8 +630,8 @@ public class RedisUtils {
      * @param unit
      * @return
      */
-    public static String brpop(String key, long timeout, TimeUnit unit) {
-        return obtainListOperations().rightPop(key, timeout, unit);
+    public static String brpop(RedisTemplate<String, String> redisTemplate, String key, long timeout, TimeUnit unit) {
+        return obtainListOperations(redisTemplate).rightPop(key, timeout, unit);
     }
 
     /**
@@ -653,8 +641,8 @@ public class RedisUtils {
      * @param destinationKey
      * @return
      */
-    public static String rpoplpush(String sourceKey, String destinationKey) {
-        return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey);
+    public static String rpoplpush(RedisTemplate<String, String> redisTemplate, String sourceKey, String destinationKey) {
+        return obtainListOperations(redisTemplate).rightPopAndLeftPush(sourceKey, destinationKey);
     }
 
     /**
@@ -666,8 +654,8 @@ public class RedisUtils {
      * @param unit
      * @return
      */
-    public static String brpoplpush(String sourceKey, String destinationKey, long timeout, TimeUnit unit) {
-        return obtainListOperations().rightPopAndLeftPush(sourceKey, destinationKey, timeout, unit);
+    public static String brpoplpush(RedisTemplate<String, String> redisTemplate, String sourceKey, String destinationKey, long timeout, TimeUnit unit) {
+        return obtainListOperations(redisTemplate).rightPopAndLeftPush(sourceKey, destinationKey, timeout, unit);
     }
 
     /**
@@ -677,8 +665,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long sadd(String key, String... values) {
-        return obtainSetOperations().add(key, values);
+    public static Long sadd(RedisTemplate<String, String> redisTemplate, String key, String... values) {
+        return obtainSetOperations(redisTemplate).add(key, values);
     }
 
     /**
@@ -688,8 +676,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long srem(String key, Object... values) {
-        return obtainSetOperations().remove(key, values);
+    public static Long srem(RedisTemplate<String, String> redisTemplate, String key, Object... values) {
+        return obtainSetOperations(redisTemplate).remove(key, values);
     }
 
     /**
@@ -698,8 +686,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String spop(String key) {
-        return obtainSetOperations().pop(key);
+    public static String spop(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainSetOperations(redisTemplate).pop(key);
     }
 
     /**
@@ -709,8 +697,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static List<String> spop(String key, long count) {
-        return obtainSetOperations().pop(key, count);
+    public static List<String> spop(RedisTemplate<String, String> redisTemplate, String key, long count) {
+        return obtainSetOperations(redisTemplate).pop(key, count);
     }
 
     /**
@@ -721,8 +709,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Boolean smove(String key, String value, String destKey) {
-        return obtainSetOperations().move(key, value, destKey);
+    public static Boolean smove(RedisTemplate<String, String> redisTemplate, String key, String value, String destKey) {
+        return obtainSetOperations(redisTemplate).move(key, value, destKey);
     }
 
     /**
@@ -731,8 +719,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long scard(String key) {
-        return obtainSetOperations().size(key);
+    public static Long scard(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainSetOperations(redisTemplate).size(key);
     }
 
     /**
@@ -742,8 +730,8 @@ public class RedisUtils {
      * @param object
      * @return
      */
-    public static Boolean sismember(String key, Object object) {
-        return obtainSetOperations().isMember(key, object);
+    public static Boolean sismember(RedisTemplate<String, String> redisTemplate, String key, Object object) {
+        return obtainSetOperations(redisTemplate).isMember(key, object);
     }
 
     /**
@@ -753,8 +741,8 @@ public class RedisUtils {
      * @param otherKey
      * @return
      */
-    public static Set<String> sinter(String key, String otherKey) {
-        return obtainSetOperations().intersect(key, otherKey);
+    public static Set<String> sinter(RedisTemplate<String, String> redisTemplate, String key, String otherKey) {
+        return obtainSetOperations(redisTemplate).intersect(key, otherKey);
     }
 
     /**
@@ -764,8 +752,8 @@ public class RedisUtils {
      * @param otherKeys
      * @return
      */
-    public static Set<String> sinter(String key, Collection<String> otherKeys) {
-        return obtainSetOperations().intersect(key, otherKeys);
+    public static Set<String> sinter(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys) {
+        return obtainSetOperations(redisTemplate).intersect(key, otherKeys);
     }
 
     /**
@@ -776,8 +764,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sinterstore(String key, String otherKey, String destKey) {
-        return obtainSetOperations().intersectAndStore(key, otherKey, destKey);
+    public static Long sinterstore(RedisTemplate<String, String> redisTemplate, String key, String otherKey, String destKey) {
+        return obtainSetOperations(redisTemplate).intersectAndStore(key, otherKey, destKey);
     }
 
     /**
@@ -788,8 +776,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sinterstore(String key, Collection<String> otherKeys, String destKey) {
-        return obtainSetOperations().intersectAndStore(key, otherKeys, destKey);
+    public static Long sinterstore(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations(redisTemplate).intersectAndStore(key, otherKeys, destKey);
     }
 
     /**
@@ -799,8 +787,8 @@ public class RedisUtils {
      * @param otherKey
      * @return
      */
-    public static Set<String> sunion(String key, String otherKey) {
-        return obtainSetOperations().union(key, otherKey);
+    public static Set<String> sunion(RedisTemplate<String, String> redisTemplate, String key, String otherKey) {
+        return obtainSetOperations(redisTemplate).union(key, otherKey);
     }
 
     /**
@@ -810,8 +798,8 @@ public class RedisUtils {
      * @param otherKeys
      * @return
      */
-    public static Set<String> sunion(String key, Collection<String> otherKeys) {
-        return obtainSetOperations().union(key, otherKeys);
+    public static Set<String> sunion(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys) {
+        return obtainSetOperations(redisTemplate).union(key, otherKeys);
     }
 
     /**
@@ -822,8 +810,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sunionstore(String key, String otherKey, String destKey) {
-        return obtainSetOperations().unionAndStore(key, otherKey, destKey);
+    public static Long sunionstore(RedisTemplate<String, String> redisTemplate, String key, String otherKey, String destKey) {
+        return obtainSetOperations(redisTemplate).unionAndStore(key, otherKey, destKey);
     }
 
     /**
@@ -834,8 +822,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sunionstore(String key, Collection<String> otherKeys, String destKey) {
-        return obtainSetOperations().unionAndStore(key, otherKeys, destKey);
+    public static Long sunionstore(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations(redisTemplate).unionAndStore(key, otherKeys, destKey);
     }
 
     /**
@@ -845,8 +833,8 @@ public class RedisUtils {
      * @param otherKey
      * @return
      */
-    public static Set<String> sdiff(String key, String otherKey) {
-        return obtainSetOperations().difference(key, otherKey);
+    public static Set<String> sdiff(RedisTemplate<String, String> redisTemplate, String key, String otherKey) {
+        return obtainSetOperations(redisTemplate).difference(key, otherKey);
     }
 
     /**
@@ -856,8 +844,8 @@ public class RedisUtils {
      * @param otherKeys
      * @return
      */
-    public static Set<String> sdiff(String key, Collection<String> otherKeys) {
-        return obtainSetOperations().difference(key, otherKeys);
+    public static Set<String> sdiff(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys) {
+        return obtainSetOperations(redisTemplate).difference(key, otherKeys);
     }
 
     /**
@@ -868,8 +856,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sdiffstore(String key, String otherKey, String destKey) {
-        return obtainSetOperations().differenceAndStore(key, otherKey, destKey);
+    public static Long sdiffstore(RedisTemplate<String, String> redisTemplate, String key, String otherKey, String destKey) {
+        return obtainSetOperations(redisTemplate).differenceAndStore(key, otherKey, destKey);
     }
 
     /**
@@ -880,8 +868,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long sdiffstore(String key, Collection<String> otherKeys, String destKey) {
-        return obtainSetOperations().differenceAndStore(key, otherKeys, destKey);
+    public static Long sdiffstore(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys, String destKey) {
+        return obtainSetOperations(redisTemplate).differenceAndStore(key, otherKeys, destKey);
     }
 
     /**
@@ -890,8 +878,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Set<String> smembers(String key) {
-        return obtainSetOperations().members(key);
+    public static Set<String> smembers(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainSetOperations(redisTemplate).members(key);
     }
 
     /**
@@ -900,8 +888,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String srandmember(String key) {
-        return obtainSetOperations().randomMember(key);
+    public static String srandmember(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainSetOperations(redisTemplate).randomMember(key);
     }
 
     /**
@@ -911,8 +899,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static List<String> srandmember(String key, long count) {
-        return obtainSetOperations().randomMembers(key, count);
+    public static List<String> srandmember(RedisTemplate<String, String> redisTemplate, String key, long count) {
+        return obtainSetOperations(redisTemplate).randomMembers(key, count);
     }
 
     /**
@@ -923,8 +911,8 @@ public class RedisUtils {
      * @param score
      * @return
      */
-    public static Boolean zadd(String key, String value, double score) {
-        return obtainZSetOperations().add(key, value, score);
+    public static Boolean zadd(RedisTemplate<String, String> redisTemplate, String key, String value, double score) {
+        return obtainZSetOperations(redisTemplate).add(key, value, score);
     }
 
     /**
@@ -934,8 +922,8 @@ public class RedisUtils {
      * @param tuples
      * @return
      */
-    public static Long zadd(String key, Set<ZSetOperations.TypedTuple<String>> tuples) {
-        return obtainZSetOperations().add(key, tuples);
+    public static Long zadd(RedisTemplate<String, String> redisTemplate, String key, Set<ZSetOperations.TypedTuple<String>> tuples) {
+        return obtainZSetOperations(redisTemplate).add(key, tuples);
     }
 
     /**
@@ -945,8 +933,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long zrem(String key, Object... values) {
-        return obtainZSetOperations().remove(key, values);
+    public static Long zrem(RedisTemplate<String, String> redisTemplate, String key, Object... values) {
+        return obtainZSetOperations(redisTemplate).remove(key, values);
     }
 
     /**
@@ -957,8 +945,8 @@ public class RedisUtils {
      * @param delta
      * @return
      */
-    public static Double zincrby(String key, String value, double delta) {
-        return obtainZSetOperations().incrementScore(key, value, delta);
+    public static Double zincrby(RedisTemplate<String, String> redisTemplate, String key, String value, double delta) {
+        return obtainZSetOperations(redisTemplate).incrementScore(key, value, delta);
     }
 
     /**
@@ -968,8 +956,8 @@ public class RedisUtils {
      * @param object
      * @return
      */
-    public static Long zrank(String key, Object object) {
-        return obtainZSetOperations().rank(key, object);
+    public static Long zrank(RedisTemplate<String, String> redisTemplate, String key, Object object) {
+        return obtainZSetOperations(redisTemplate).rank(key, object);
     }
 
     /**
@@ -979,8 +967,8 @@ public class RedisUtils {
      * @param object
      * @return
      */
-    public static Long zrevrank(String key, Object object) {
-        return obtainZSetOperations().reverseRank(key, object);
+    public static Long zrevrank(RedisTemplate<String, String> redisTemplate, String key, Object object) {
+        return obtainZSetOperations(redisTemplate).reverseRank(key, object);
     }
 
     /**
@@ -991,8 +979,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Set<String> zrange(String key, long start, long end) {
-        return obtainZSetOperations().range(key, start, end);
+    public static Set<String> zrange(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        return obtainZSetOperations(redisTemplate).range(key, start, end);
     }
 
     /**
@@ -1003,8 +991,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Set<String> zrangebyscore(String key, double min, double max) {
-        return obtainZSetOperations().rangeByScore(key, min, max);
+    public static Set<String> zrangebyscore(RedisTemplate<String, String> redisTemplate, String key, double min, double max) {
+        return obtainZSetOperations(redisTemplate).rangeByScore(key, min, max);
     }
 
     /**
@@ -1017,8 +1005,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static Set<String> zrangebyscore(String key, double min, double max, long offset, long count) {
-        return obtainZSetOperations().rangeByScore(key, min, max, offset, count);
+    public static Set<String> zrangebyscore(RedisTemplate<String, String> redisTemplate, String key, double min, double max, long offset, long count) {
+        return obtainZSetOperations(redisTemplate).rangeByScore(key, min, max, offset, count);
     }
 
     /**
@@ -1029,8 +1017,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Set<String> zrevrange(String key, long start, long end) {
-        return obtainZSetOperations().reverseRange(key, start, end);
+    public static Set<String> zrevrange(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        return obtainZSetOperations(redisTemplate).reverseRange(key, start, end);
     }
 
     /**
@@ -1041,8 +1029,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Set<String> zrevrange(String key, double min, double max) {
-        return obtainZSetOperations().reverseRangeByScore(key, min, max);
+    public static Set<String> zrevrange(RedisTemplate<String, String> redisTemplate, String key, double min, double max) {
+        return obtainZSetOperations(redisTemplate).reverseRangeByScore(key, min, max);
     }
 
     /**
@@ -1055,8 +1043,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static Set<String> zrevrangebyscore(String key, double min, double max, long offset, long count) {
-        return obtainZSetOperations().reverseRangeByScore(key, min, max, offset, count);
+    public static Set<String> zrevrangebyscore(RedisTemplate<String, String> redisTemplate, String key, double min, double max, long offset, long count) {
+        return obtainZSetOperations(redisTemplate).reverseRangeByScore(key, min, max, offset, count);
     }
 
     /**
@@ -1067,8 +1055,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Long zcount(String key, double min, double max) {
-        return obtainZSetOperations().count(key, min, max);
+    public static Long zcount(RedisTemplate<String, String> redisTemplate, String key, double min, double max) {
+        return obtainZSetOperations(redisTemplate).count(key, min, max);
     }
 
     /**
@@ -1077,8 +1065,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long zcard(String key) {
-        return obtainZSetOperations().zCard(key);
+    public static Long zcard(RedisTemplate<String, String> redisTemplate, String key) {
+        return obtainZSetOperations(redisTemplate).zCard(key);
     }
 
     /**
@@ -1088,8 +1076,8 @@ public class RedisUtils {
      * @param object
      * @return
      */
-    public static Double zscore(String key, Object object) {
-        return obtainZSetOperations().score(key, object);
+    public static Double zscore(RedisTemplate<String, String> redisTemplate, String key, Object object) {
+        return obtainZSetOperations(redisTemplate).score(key, object);
     }
 
     /**
@@ -1100,8 +1088,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Long zremrangebyrank(String key, long start, long end) {
-        return obtainZSetOperations().removeRange(key, start, end);
+    public static Long zremrangebyrank(RedisTemplate<String, String> redisTemplate, String key, long start, long end) {
+        return obtainZSetOperations(redisTemplate).removeRange(key, start, end);
     }
 
     /**
@@ -1112,8 +1100,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Long zremrangebyscore(String key, double min, double max) {
-        return obtainZSetOperations().removeRangeByScore(key, min, max);
+    public static Long zremrangebyscore(RedisTemplate<String, String> redisTemplate, String key, double min, double max) {
+        return obtainZSetOperations(redisTemplate).removeRangeByScore(key, min, max);
     }
 
     /**
@@ -1124,8 +1112,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long zunionstore(String key, String otherKey, String destKey) {
-        return obtainZSetOperations().unionAndStore(key, otherKey, destKey);
+    public static Long zunionstore(RedisTemplate<String, String> redisTemplate, String key, String otherKey, String destKey) {
+        return obtainZSetOperations(redisTemplate).unionAndStore(key, otherKey, destKey);
     }
 
     /**
@@ -1136,8 +1124,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long zunionstore(String key, Collection<String> otherKeys, String destKey) {
-        return obtainZSetOperations().unionAndStore(key, otherKeys, destKey);
+    public static Long zunionstore(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys, String destKey) {
+        return obtainZSetOperations(redisTemplate).unionAndStore(key, otherKeys, destKey);
     }
 
     /**
@@ -1148,8 +1136,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long zinterstore(String key, String otherKey, String destKey) {
-        return obtainZSetOperations().intersectAndStore(key, otherKey, destKey);
+    public static Long zinterstore(RedisTemplate<String, String> redisTemplate, String key, String otherKey, String destKey) {
+        return obtainZSetOperations(redisTemplate).intersectAndStore(key, otherKey, destKey);
     }
 
     /**
@@ -1160,8 +1148,8 @@ public class RedisUtils {
      * @param destKey
      * @return
      */
-    public static Long zinterstore(String key, Collection<String> otherKeys, String destKey) {
-        return obtainZSetOperations().intersectAndStore(key, otherKeys, destKey);
+    public static Long zinterstore(RedisTemplate<String, String> redisTemplate, String key, Collection<String> otherKeys, String destKey) {
+        return obtainZSetOperations(redisTemplate).intersectAndStore(key, otherKeys, destKey);
     }
 
     /**
@@ -1170,8 +1158,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static byte[] get(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.get(key));
+    public static byte[] get(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.get(key));
     }
 
     /**
@@ -1181,8 +1169,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static byte[] getset(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.getSet(key, value));
+    public static byte[] getset(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.getSet(key, value));
     }
 
     /**
@@ -1191,8 +1179,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static List<byte[]> mget(byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.mGet(keys));
+    public static List<byte[]> mget(RedisTemplate<String, String> redisTemplate, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.mGet(keys));
     }
 
     /**
@@ -1202,8 +1190,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean set(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.set(key, value));
+    public static Boolean set(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.set(key, value));
     }
 
     /**
@@ -1213,8 +1201,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean setnx(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.setNX(key, value));
+    public static Boolean setnx(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.setNX(key, value));
     }
 
     /**
@@ -1225,8 +1213,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean setex(byte[] key, long seconds, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.setEx(key, seconds, value));
+    public static Boolean setex(RedisTemplate<String, String> redisTemplate, byte[] key, long seconds, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.setEx(key, seconds, value));
     }
 
     /**
@@ -1237,8 +1225,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean psetex(byte[] key, long milliseconds, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.pSetEx(key, milliseconds, value));
+    public static Boolean psetex(RedisTemplate<String, String> redisTemplate, byte[] key, long milliseconds, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.pSetEx(key, milliseconds, value));
     }
 
     /**
@@ -1247,8 +1235,8 @@ public class RedisUtils {
      * @param tuple
      * @return
      */
-    public static Boolean _mset(Map<byte[], byte[]> tuple) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.mSet(tuple));
+    public static Boolean _mset(RedisTemplate<String, String> redisTemplate, Map<byte[], byte[]> tuple) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.mSet(tuple));
     }
 
     /**
@@ -1257,8 +1245,8 @@ public class RedisUtils {
      * @param tuple
      * @return
      */
-    public static Boolean _msetnx(Map<byte[], byte[]> tuple) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.mSetNX(tuple));
+    public static Boolean _msetnx(RedisTemplate<String, String> redisTemplate, Map<byte[], byte[]> tuple) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.mSetNX(tuple));
     }
 
     /**
@@ -1267,8 +1255,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long incr(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.incr(key));
+    public static Long incr(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.incr(key));
     }
 
     /**
@@ -1278,8 +1266,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long incrby(byte[] key, long value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.incrBy(key, value));
+    public static Long incrby(RedisTemplate<String, String> redisTemplate, byte[] key, long value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.incrBy(key, value));
     }
 
     /**
@@ -1289,8 +1277,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Double incrby(byte[] key, double value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Double>) connection -> connection.incrBy(key, value));
+    public static Double incrby(RedisTemplate<String, String> redisTemplate, byte[] key, double value) {
+        return redisTemplate.execute((RedisCallback<Double>) connection -> connection.incrBy(key, value));
     }
 
     /**
@@ -1299,8 +1287,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long decr(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.decr(key));
+    public static Long decr(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.decr(key));
     }
 
     /**
@@ -1310,8 +1298,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long decrBy(byte[] key, long value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.decrBy(key, value));
+    public static Long decrBy(RedisTemplate<String, String> redisTemplate, byte[] key, long value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.decrBy(key, value));
     }
 
     /**
@@ -1321,8 +1309,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long append(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.append(key, value));
+    public static Long append(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.append(key, value));
     }
 
     /**
@@ -1333,8 +1321,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static byte[] getrange(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.getRange(key, start, end));
+    public static byte[] getrange(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.getRange(key, start, end));
     }
 
     /**
@@ -1344,8 +1332,8 @@ public class RedisUtils {
      * @param value
      * @param offset
      */
-    public static void setrange(byte[] key, byte[] value, long offset) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void setrange(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value, long offset) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.setRange(key, value, offset);
             return null;
         });
@@ -1358,8 +1346,8 @@ public class RedisUtils {
      * @param offset
      * @return
      */
-    public static Boolean getbit(byte[] key, long offset) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.getBit(key, offset));
+    public static Boolean getbit(RedisTemplate<String, String> redisTemplate, byte[] key, long offset) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.getBit(key, offset));
     }
 
     /**
@@ -1370,8 +1358,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean setbit(byte[] key, long offset, boolean value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.setBit(key, offset, value));
+    public static Boolean setbit(RedisTemplate<String, String> redisTemplate, byte[] key, long offset, boolean value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.setBit(key, offset, value));
     }
 
     /**
@@ -1380,8 +1368,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long bitcount(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.bitCount(key));
+    public static Long bitcount(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key));
     }
 
     /**
@@ -1392,8 +1380,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Long bitcount(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.bitCount(key, start, end));
+    public static Long bitcount(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitCount(key, start, end));
     }
 
     /**
@@ -1404,8 +1392,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Long bitop(RedisStringCommands.BitOperation op, byte[] destination, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.bitOp(op, destination, keys));
+    public static Long bitop(RedisTemplate<String, String> redisTemplate, RedisStringCommands.BitOperation op, byte[] destination, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.bitOp(op, destination, keys));
     }
 
     /**
@@ -1414,8 +1402,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long strlen(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.strLen(key));
+    public static Long strlen(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.strLen(key));
     }
 
     /**
@@ -1426,8 +1414,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean hset(byte[] key, byte[] field, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.hSet(key, field, value));
+    public static Boolean hset(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.hSet(key, field, value));
     }
 
     /**
@@ -1438,8 +1426,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean hsetnx(byte[] key, byte[] field, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.hSetNX(key, field, value));
+    public static Boolean hsetnx(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.hSetNX(key, field, value));
     }
 
     /**
@@ -1449,8 +1437,8 @@ public class RedisUtils {
      * @param field
      * @return
      */
-    public static byte[] hget(byte[] key, byte[] field) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.hGet(key, field));
+    public static byte[] hget(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.hGet(key, field));
     }
 
     /**
@@ -1460,8 +1448,8 @@ public class RedisUtils {
      * @param fields
      * @return
      */
-    public static List<byte[]> hmget(byte[] key, byte[]... fields) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.hMGet(key, fields));
+    public static List<byte[]> hmget(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... fields) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.hMGet(key, fields));
     }
 
     /**
@@ -1470,8 +1458,8 @@ public class RedisUtils {
      * @param key
      * @param hashes
      */
-    public static void hmset(byte[] key, Map<byte[], byte[]> hashes) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void hmset(RedisTemplate<String, String> redisTemplate, byte[] key, Map<byte[], byte[]> hashes) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.hMSet(key, hashes);
             return null;
         });
@@ -1485,8 +1473,8 @@ public class RedisUtils {
      * @param delta
      * @return
      */
-    public static Long hincrby(byte[] key, byte[] field, long delta) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.hIncrBy(key, field, delta));
+    public static Long hincrby(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field, long delta) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.hIncrBy(key, field, delta));
     }
 
     /**
@@ -1497,8 +1485,8 @@ public class RedisUtils {
      * @param delta
      * @return
      */
-    public static Double hincrbyfloat(byte[] key, byte[] field, double delta) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Double>) connection -> connection.hIncrBy(key, field, delta));
+    public static Double hincrbyfloat(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field, double delta) {
+        return redisTemplate.execute((RedisCallback<Double>) connection -> connection.hIncrBy(key, field, delta));
     }
 
     /**
@@ -1508,8 +1496,8 @@ public class RedisUtils {
      * @param field
      * @return
      */
-    public static Boolean hexists(byte[] key, byte[] field) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.hExists(key, field));
+    public static Boolean hexists(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] field) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.hExists(key, field));
     }
 
     /**
@@ -1519,8 +1507,8 @@ public class RedisUtils {
      * @param fields
      * @return
      */
-    public static Long hdel(byte[] key, byte[]... fields) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.hDel(key, fields));
+    public static Long hdel(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... fields) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.hDel(key, fields));
     }
 
     /**
@@ -1529,8 +1517,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long hlen(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.hLen(key));
+    public static Long hlen(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.hLen(key));
     }
 
     /**
@@ -1539,8 +1527,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Set<byte[]> hkeys(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.hKeys(key));
+    public static Set<byte[]> hkeys(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.hKeys(key));
     }
 
     /**
@@ -1549,8 +1537,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static List<byte[]> hvals(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.hVals(key));
+    public static List<byte[]> hvals(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.hVals(key));
     }
 
     /**
@@ -1559,8 +1547,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Map<byte[], byte[]> hgetall(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Map<byte[], byte[]>>) connection -> connection.hGetAll(key));
+    public static Map<byte[], byte[]> hgetall(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Map<byte[], byte[]>>) connection -> connection.hGetAll(key));
     }
 
     /**
@@ -1570,8 +1558,8 @@ public class RedisUtils {
      * @param options
      * @return
      */
-    public static Cursor<Map.Entry<byte[], byte[]>> hscan(byte[] key, ScanOptions options) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Cursor<Map.Entry<byte[], byte[]>>>) connection -> connection.hScan(key, options));
+    public static Cursor<Map.Entry<byte[], byte[]>> hscan(RedisTemplate<String, String> redisTemplate, byte[] key, ScanOptions options) {
+        return redisTemplate.execute((RedisCallback<Cursor<Map.Entry<byte[], byte[]>>>) connection -> connection.hScan(key, options));
     }
 
     /**
@@ -1581,8 +1569,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long rpush(byte[] key, byte[]... values) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.rPush(key, values));
+    public static Long rpush(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... values) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.rPush(key, values));
     }
 
     /**
@@ -1592,8 +1580,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long lpush(byte[] key, byte[]... values) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.lPush(key, values));
+    public static Long lpush(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... values) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.lPush(key, values));
     }
 
     /**
@@ -1603,8 +1591,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long rpushx(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.rPushX(key, value));
+    public static Long rpushx(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.rPushX(key, value));
     }
 
     /**
@@ -1614,8 +1602,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lpushx(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.lPushX(key, value));
+    public static Long lpushx(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.lPushX(key, value));
     }
 
     /**
@@ -1624,8 +1612,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long llen(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.hLen(key));
+    public static Long llen(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.hLen(key));
     }
 
     /**
@@ -1636,8 +1624,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static List<byte[]> lrange(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.lRange(key, start, end));
+    public static List<byte[]> lrange(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.lRange(key, start, end));
     }
 
     /**
@@ -1647,8 +1635,8 @@ public class RedisUtils {
      * @param start
      * @param end
      */
-    public static void ltrim(byte[] key, long start, long end) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void ltrim(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.lTrim(key, start, end);
             return null;
         });
@@ -1661,8 +1649,8 @@ public class RedisUtils {
      * @param index
      * @return
      */
-    public static byte[] lindex(byte[] key, long index) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.lIndex(key, index));
+    public static byte[] lindex(RedisTemplate<String, String> redisTemplate, byte[] key, long index) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.lIndex(key, index));
     }
 
     /**
@@ -1674,8 +1662,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long linsert(byte[] key, RedisListCommands.Position where, byte[] pivot, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.lInsert(key, where, pivot, value));
+    public static Long linsert(RedisTemplate<String, String> redisTemplate, byte[] key, RedisListCommands.Position where, byte[] pivot, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.lInsert(key, where, pivot, value));
     }
 
     /**
@@ -1685,8 +1673,8 @@ public class RedisUtils {
      * @param index
      * @param value
      */
-    public static void lset(byte[] key, long index, byte[] value) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void lset(RedisTemplate<String, String> redisTemplate, byte[] key, long index, byte[] value) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.lSet(key, index, value);
             return null;
         });
@@ -1700,8 +1688,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long lrem(byte[] key, long count, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.lRem(key, count, value));
+    public static Long lrem(RedisTemplate<String, String> redisTemplate, byte[] key, long count, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.lRem(key, count, value));
     }
 
     /**
@@ -1710,8 +1698,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static byte[] lpop(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.lPop(connection.lPop(key)));
+    public static byte[] lpop(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.lPop(connection.lPop(key)));
     }
 
     /**
@@ -1720,8 +1708,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static byte[] rpop(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.rPop(key));
+    public static byte[] rpop(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.rPop(key));
     }
 
     /**
@@ -1731,8 +1719,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static List<byte[]> blpop(int timeout, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.bLPop(timeout, keys));
+    public static List<byte[]> blpop(RedisTemplate<String, String> redisTemplate, int timeout, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.bLPop(timeout, keys));
     }
 
     /**
@@ -1742,8 +1730,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static List<byte[]> brpop(int timeout, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.bRPop(timeout, keys));
+    public static List<byte[]> brpop(RedisTemplate<String, String> redisTemplate, int timeout, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.bRPop(timeout, keys));
     }
 
     /**
@@ -1753,8 +1741,8 @@ public class RedisUtils {
      * @param dstKey
      * @return
      */
-    public static byte[] rpoplpush(byte[] srcKey, byte[] dstKey) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.rPopLPush(srcKey, dstKey));
+    public static byte[] rpoplpush(RedisTemplate<String, String> redisTemplate, byte[] srcKey, byte[] dstKey) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.rPopLPush(srcKey, dstKey));
     }
 
     /**
@@ -1765,8 +1753,8 @@ public class RedisUtils {
      * @param dstKey
      * @return
      */
-    public static byte[] brpoplpush(int timeout, byte[] srcKey, byte[] dstKey) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.bRPopLPush(timeout, srcKey, dstKey));
+    public static byte[] brpoplpush(RedisTemplate<String, String> redisTemplate, int timeout, byte[] srcKey, byte[] dstKey) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.bRPopLPush(timeout, srcKey, dstKey));
     }
 
     /**
@@ -1776,8 +1764,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long sadd(byte[] key, byte[]... values) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sAdd(key, values));
+    public static Long sadd(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... values) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sAdd(key, values));
     }
 
     /**
@@ -1787,8 +1775,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long srem(byte[] key, byte[]... values) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sRem(key, values));
+    public static Long srem(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... values) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sRem(key, values));
     }
 
     /**
@@ -1797,8 +1785,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static byte[] spop(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.sPop(key));
+    public static byte[] spop(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.sPop(key));
     }
 
     /**
@@ -1808,8 +1796,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static List<byte[]> spop(byte[] key, long count) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.sPop(key, count));
+    public static List<byte[]> spop(RedisTemplate<String, String> redisTemplate, byte[] key, long count) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.sPop(key, count));
     }
 
     /**
@@ -1820,8 +1808,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean smove(byte[] srcKey, byte[] destKey, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.sMove(srcKey, destKey, value));
+    public static Boolean smove(RedisTemplate<String, String> redisTemplate, byte[] srcKey, byte[] destKey, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.sMove(srcKey, destKey, value));
     }
 
     /**
@@ -1830,8 +1818,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long scard(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sCard(key));
+    public static Long scard(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sCard(key));
     }
 
     /**
@@ -1841,8 +1829,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean sismember(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.sIsMember(key, value));
+    public static Boolean sismember(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.sIsMember(key, value));
     }
 
     /**
@@ -1851,8 +1839,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Set<byte[]> sinter(byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.sInter(keys));
+    public static Set<byte[]> sinter(RedisTemplate<String, String> redisTemplate, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.sInter(keys));
     }
 
     /**
@@ -1862,8 +1850,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Long sinterstore(byte[] destKey, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sInterStore(destKey, keys));
+    public static Long sinterstore(RedisTemplate<String, String> redisTemplate, byte[] destKey, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sInterStore(destKey, keys));
     }
 
     /**
@@ -1872,8 +1860,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Set<byte[]> sunion(byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.sUnion(keys));
+    public static Set<byte[]> sunion(RedisTemplate<String, String> redisTemplate, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.sUnion(keys));
     }
 
     /**
@@ -1883,8 +1871,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Long sunionstore(byte[] destKey, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sUnionStore(destKey, keys));
+    public static Long sunionstore(RedisTemplate<String, String> redisTemplate, byte[] destKey, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sUnionStore(destKey, keys));
     }
 
     /**
@@ -1893,8 +1881,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Set<byte[]> sdiff(byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.sDiff(keys));
+    public static Set<byte[]> sdiff(RedisTemplate<String, String> redisTemplate, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.sDiff(keys));
     }
 
     /**
@@ -1904,8 +1892,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Long sdiffstore(byte[] destKey, byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sDiffStore(destKey, keys));
+    public static Long sdiffstore(RedisTemplate<String, String> redisTemplate, byte[] destKey, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sDiffStore(destKey, keys));
     }
 
     /**
@@ -1914,8 +1902,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Set<byte[]> smembers(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.sMembers(key));
+    public static Set<byte[]> smembers(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.sMembers(key));
     }
 
     /**
@@ -1924,8 +1912,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static byte[] srandmember(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.sRandMember(key));
+    public static byte[] srandmember(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.sRandMember(key));
     }
 
     /**
@@ -1935,8 +1923,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static List<byte[]> srandmember(byte[] key, long count) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.sRandMember(key, count));
+    public static List<byte[]> srandmember(RedisTemplate<String, String> redisTemplate, byte[] key, long count) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.sRandMember(key, count));
     }
 
     /**
@@ -1946,8 +1934,8 @@ public class RedisUtils {
      * @param options
      * @return
      */
-    public static Cursor<byte[]> sscan(byte[] key, ScanOptions options) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Cursor<byte[]>>) connection -> connection.sScan(key, options));
+    public static Cursor<byte[]> sscan(RedisTemplate<String, String> redisTemplate, byte[] key, ScanOptions options) {
+        return redisTemplate.execute((RedisCallback<Cursor<byte[]>>) connection -> connection.sScan(key, options));
     }
 
     /**
@@ -1958,8 +1946,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Boolean zadd(byte[] key, double score, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.zAdd(key, score, value));
+    public static Boolean zadd(RedisTemplate<String, String> redisTemplate, byte[] key, double score, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.zAdd(key, score, value));
     }
 
     /**
@@ -1969,8 +1957,8 @@ public class RedisUtils {
      * @param tuples
      * @return
      */
-    public static Long zadd(byte[] key, Set<RedisZSetCommands.Tuple> tuples) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zAdd(key, tuples));
+    public static Long zadd(RedisTemplate<String, String> redisTemplate, byte[] key, Set<RedisZSetCommands.Tuple> tuples) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zAdd(key, tuples));
     }
 
     /**
@@ -1980,8 +1968,8 @@ public class RedisUtils {
      * @param values
      * @return
      */
-    public static Long zrem(byte[] key, byte[]... values) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zRem(key, values));
+    public static Long zrem(RedisTemplate<String, String> redisTemplate, byte[] key, byte[]... values) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zRem(key, values));
     }
 
     /**
@@ -1992,8 +1980,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Double zincrby(byte[] key, double increment, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Double>) connection -> connection.zIncrBy(key, increment, value));
+    public static Double zincrby(RedisTemplate<String, String> redisTemplate, byte[] key, double increment, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Double>) connection -> connection.zIncrBy(key, increment, value));
     }
 
     /**
@@ -2003,8 +1991,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long zrank(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zRank(key, value));
+    public static Long zrank(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zRank(key, value));
     }
 
     /**
@@ -2014,8 +2002,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Long zrevrank(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zRevRank(key, value));
+    public static Long zrevrank(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zRevRank(key, value));
     }
 
     /**
@@ -2026,8 +2014,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Set<byte[]> zrange(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRange(key, start, end));
+    public static Set<byte[]> zrange(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRange(key, start, end));
     }
 
     /**
@@ -2038,8 +2026,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Set<byte[]> zrangebyscore(byte[] key, double min, double max) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max));
+    public static Set<byte[]> zrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max));
     }
 
     /**
@@ -2052,8 +2040,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static Set<byte[]> zrangebyscore(byte[] key, double min, double max, long offset, long count) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max, offset, count));
+    public static Set<byte[]> zrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max, long offset, long count) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max, offset, count));
     }
 
     /**
@@ -2064,8 +2052,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Set<byte[]> zrevrange(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRange(key, start, end));
+    public static Set<byte[]> zrevrange(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRange(key, start, end));
     }
 
     /**
@@ -2076,8 +2064,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Set<byte[]> zrevrangebyscore(byte[] key, double min, double max) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, min, max));
+    public static Set<byte[]> zrevrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, min, max));
     }
 
     /**
@@ -2087,8 +2075,8 @@ public class RedisUtils {
      * @param range
      * @return
      */
-    public static Set<byte[]> zrevrangebyscore(byte[] key, RedisZSetCommands.Range range) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, range));
+    public static Set<byte[]> zrevrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, RedisZSetCommands.Range range) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, range));
     }
 
     /**
@@ -2101,8 +2089,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static Set<byte[]> zrevrangebyscore(byte[] key, double min, double max, long offset, long count) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, min, max, offset, count));
+    public static Set<byte[]> zrevrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max, long offset, long count) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, min, max, offset, count));
     }
 
     /**
@@ -2113,8 +2101,8 @@ public class RedisUtils {
      * @param limit
      * @return
      */
-    public static Set<byte[]> zrevrangebyscore(byte[] key, RedisZSetCommands.Range range, RedisZSetCommands.Limit limit) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, range, limit));
+    public static Set<byte[]> zrevrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, RedisZSetCommands.Range range, RedisZSetCommands.Limit limit) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRevRangeByScore(key, range, limit));
     }
 
     /**
@@ -2125,8 +2113,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Long zcount(byte[] key, double min, double max) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zCount(key, min, max));
+    public static Long zcount(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zCount(key, min, max));
     }
 
     /**
@@ -2135,8 +2123,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Long zcard(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zCard(key));
+    public static Long zcard(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zCard(key));
     }
 
     /**
@@ -2146,8 +2134,8 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public static Double zscore(byte[] key, byte[] value) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Double>) connection -> connection.zScore(key, value));
+    public static Double zscore(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value) {
+        return redisTemplate.execute((RedisCallback<Double>) connection -> connection.zScore(key, value));
     }
 
     /**
@@ -2158,8 +2146,8 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public static Long zremrangebyrank(byte[] key, long start, long end) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zRemRange(key, start, end));
+    public static Long zremrangebyrank(RedisTemplate<String, String> redisTemplate, byte[] key, long start, long end) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zRemRange(key, start, end));
     }
 
     /**
@@ -2170,8 +2158,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Long zremrangebyscore(byte[] key, double min, double max) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zRemRangeByScore(key, min, max));
+    public static Long zremrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, double min, double max) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zRemRangeByScore(key, min, max));
     }
 
     /**
@@ -2181,8 +2169,8 @@ public class RedisUtils {
      * @param sets
      * @return
      */
-    public static Long zunionstore(byte[] destKey, byte[]... sets) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zUnionStore(destKey, sets));
+    public static Long zunionstore(RedisTemplate<String, String> redisTemplate, byte[] destKey, byte[]... sets) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zUnionStore(destKey, sets));
     }
 
     /**
@@ -2192,8 +2180,8 @@ public class RedisUtils {
      * @param sets
      * @return
      */
-    public static Long zinterstore(byte[] destKey, byte[]... sets) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.zInterStore(destKey, sets));
+    public static Long zinterstore(RedisTemplate<String, String> redisTemplate, byte[] destKey, byte[]... sets) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.zInterStore(destKey, sets));
     }
 
     /**
@@ -2203,8 +2191,8 @@ public class RedisUtils {
      * @param options
      * @return
      */
-    public static Cursor<RedisZSetCommands.Tuple> zscan(byte[] key, ScanOptions options) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Cursor<RedisZSetCommands.Tuple>>) connection -> connection.zScan(key, options));
+    public static Cursor<RedisZSetCommands.Tuple> zscan(RedisTemplate<String, String> redisTemplate, byte[] key, ScanOptions options) {
+        return redisTemplate.execute((RedisCallback<Cursor<RedisZSetCommands.Tuple>>) connection -> connection.zScan(key, options));
     }
 
     /**
@@ -2215,8 +2203,8 @@ public class RedisUtils {
      * @param max
      * @return
      */
-    public static Set<byte[]> zrangebyscore(byte[] key, String min, String max) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max));
+    public static Set<byte[]> zrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, String min, String max) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max));
     }
 
     /**
@@ -2229,8 +2217,8 @@ public class RedisUtils {
      * @param count
      * @return
      */
-    public static Set<byte[]> zrangebyscore(byte[] key, String min, String max, long offset, long count) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max, offset, count));
+    public static Set<byte[]> zrangebyscore(RedisTemplate<String, String> redisTemplate, byte[] key, String min, String max, long offset, long count) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByScore(key, min, max, offset, count));
     }
 
     /**
@@ -2239,8 +2227,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Set<byte[]> zrangebylex(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByLex(key));
+    public static Set<byte[]> zrangebylex(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.zRangeByLex(key));
     }
 
     /**
@@ -2249,8 +2237,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static Boolean exists(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.exists(key));
+    public static Boolean exists(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.exists(key));
     }
 
     /**
@@ -2259,8 +2247,8 @@ public class RedisUtils {
      * @param keys
      * @return
      */
-    public static Long del(byte[]... keys) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.del(keys));
+    public static Long del(RedisTemplate<String, String> redisTemplate, byte[]... keys) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.del(keys));
     }
 
     /**
@@ -2269,8 +2257,8 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public static String type(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<String>) connection -> connection.type(key).name());
+    public static String type(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<String>) connection -> connection.type(key).name());
     }
 
     /**
@@ -2279,8 +2267,8 @@ public class RedisUtils {
      * @param pattern
      * @return
      */
-    public static Set<byte[]> keys(byte[] pattern) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Set<byte[]>>) connection -> connection.keys(pattern));
+    public static Set<byte[]> keys(RedisTemplate<String, String> redisTemplate, byte[] pattern) {
+        return redisTemplate.execute((RedisCallback<Set<byte[]>>) connection -> connection.keys(pattern));
     }
 
     /**
@@ -2289,8 +2277,8 @@ public class RedisUtils {
      * @param options
      * @return
      */
-    public static Cursor<byte[]> scan(ScanOptions options) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Cursor<byte[]>>) connection -> connection.scan(options));
+    public static Cursor<byte[]> scan(RedisTemplate<String, String> redisTemplate, ScanOptions options) {
+        return redisTemplate.execute((RedisCallback<Cursor<byte[]>>) connection -> connection.scan(options));
     }
 
     /**
@@ -2298,17 +2286,18 @@ public class RedisUtils {
      *
      * @return
      */
-    public static byte[] randomkey() {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.randomKey());
+    public static byte[] randomkey(RedisTemplate<String, String> redisTemplate) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.randomKey());
     }
 
     /**
      * RENAME
+     *
      * @param sourceKey
      * @param targetKey
      */
-    public static void rename(byte[] sourceKey, byte[] targetKey) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void rename(RedisTemplate<String, String> redisTemplate, byte[] sourceKey, byte[] targetKey) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.rename(sourceKey, targetKey);
             return null;
         });
@@ -2316,149 +2305,164 @@ public class RedisUtils {
 
     /**
      * RENAMENX
+     *
      * @param sourceKey
      * @param targetKey
      * @return
      */
-    public static Boolean renamenx(byte[] sourceKey, byte[] targetKey) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.renameNX(sourceKey, targetKey));
+    public static Boolean renamenx(RedisTemplate<String, String> redisTemplate, byte[] sourceKey, byte[] targetKey) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.renameNX(sourceKey, targetKey));
     }
 
     /**
      * EXPIRE
+     *
      * @param key
      * @param seconds
      * @return
      */
-    public static Boolean expire(byte[] key, long seconds) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.expire(key, seconds));
+    public static Boolean expire(RedisTemplate<String, String> redisTemplate, byte[] key, long seconds) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.expire(key, seconds));
     }
 
     /**
      * PEXPIRE
+     *
      * @param key
      * @param millis
      * @return
      */
-    public static Boolean pexpire(byte[] key, long millis) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.pExpire(key, millis));
+    public static Boolean pexpire(RedisTemplate<String, String> redisTemplate, byte[] key, long millis) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.pExpire(key, millis));
     }
 
     /**
      * EXPIREAT
+     *
      * @param key
      * @param unixTime
      * @return
      */
-    public static Boolean expireAt(byte[] key, long unixTime) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.expireAt(key, unixTime));
+    public static Boolean expireAt(RedisTemplate<String, String> redisTemplate, byte[] key, long unixTime) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.expireAt(key, unixTime));
     }
 
     /**
      * PEXPIREAT
+     *
      * @param key
      * @param unixTimeInMillis
      * @return
      */
-    public static Boolean pexpireat(byte[] key, long unixTimeInMillis) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.pExpireAt(key, unixTimeInMillis));
+    public static Boolean pexpireat(RedisTemplate<String, String> redisTemplate, byte[] key, long unixTimeInMillis) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.pExpireAt(key, unixTimeInMillis));
     }
 
     /**
      * PERSIST
+     *
      * @param key
      * @return
      */
-    public static Boolean persist(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.persist(key));
+    public static Boolean persist(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.persist(key));
     }
 
     /**
      * MOVE
+     *
      * @param key
      * @param dbIndex
      * @return
      */
-    public static Boolean move(byte[] key, int dbIndex) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Boolean>) connection -> connection.move(key, dbIndex));
+    public static Boolean move(RedisTemplate<String, String> redisTemplate, byte[] key, int dbIndex) {
+        return redisTemplate.execute((RedisCallback<Boolean>) connection -> connection.move(key, dbIndex));
     }
 
     /**
      * TTL
+     *
      * @param key
      * @return
      */
-    public static Long ttl(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.ttl(key));
+    public static Long ttl(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.ttl(key));
     }
 
     /**
      * TTL
+     *
      * @param key
      * @param timeUnit
      * @return
      */
-    public static Long ttl(byte[] key, TimeUnit timeUnit) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.ttl(key, timeUnit));
+    public static Long ttl(RedisTemplate<String, String> redisTemplate, byte[] key, TimeUnit timeUnit) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.ttl(key, timeUnit));
     }
 
     /**
      * PTTL
+     *
      * @param key
      * @return
      */
-    public static Long pttl(byte[] key){
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.pTtl(key));
+    public static Long pttl(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.pTtl(key));
     }
 
     /**
      * PTTL
+     *
      * @param key
      * @param timeUnit
      * @return
      */
-    public static Long pttl(byte[] key, TimeUnit timeUnit) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.pTtl(key, timeUnit));
+    public static Long pttl(RedisTemplate<String, String> redisTemplate, byte[] key, TimeUnit timeUnit) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.pTtl(key, timeUnit));
     }
 
     /**
      * SORT
+     *
      * @param key
      * @param params
      * @return
      */
-    public static List<byte[]> sort(byte[] key, SortParameters params) {
-        return obtainStringRedisTemplate().execute((RedisCallback<List<byte[]>>) connection -> connection.sort(key, params));
+    public static List<byte[]> sort(RedisTemplate<String, String> redisTemplate, byte[] key, SortParameters params) {
+        return redisTemplate.execute((RedisCallback<List<byte[]>>) connection -> connection.sort(key, params));
     }
 
     /**
      * SORT
+     *
      * @param key
      * @param params
      * @param storeKey
      * @return
      */
-    public static Long sort(byte[] key, SortParameters params, byte[] storeKey) {
-        return obtainStringRedisTemplate().execute((RedisCallback<Long>) connection -> connection.sort(key, params, storeKey));
+    public static Long sort(RedisTemplate<String, String> redisTemplate, byte[] key, SortParameters params, byte[] storeKey) {
+        return redisTemplate.execute((RedisCallback<Long>) connection -> connection.sort(key, params, storeKey));
     }
 
     /**
      * DUMP
+     *
      * @param key
      * @return
      */
-    public static byte[] dump(byte[] key) {
-        return obtainStringRedisTemplate().execute((RedisCallback<byte[]>) connection -> connection.dump(key));
+    public static byte[] dump(RedisTemplate<String, String> redisTemplate, byte[] key) {
+        return redisTemplate.execute((RedisCallback<byte[]>) connection -> connection.dump(key));
     }
 
     /**
      * RESTORE
+     *
      * @param key
      * @param ttlInMillis
      * @param serializedValue
      */
-    public static void restore(byte[] key, long ttlInMillis, byte[] serializedValue) {
-        obtainStringRedisTemplate().execute((RedisCallback<Object>) connection -> {
+    public static void restore(RedisTemplate<String, String> redisTemplate, byte[] key, long ttlInMillis, byte[] serializedValue) {
+        redisTemplate.execute((RedisCallback<Object>) connection -> {
             connection.restore(key, ttlInMillis, serializedValue);
             return null;
         });

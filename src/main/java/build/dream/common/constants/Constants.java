@@ -859,4 +859,10 @@ public class Constants {
     public static final String ALIPAY_SIGN_TYPE = "alipay.sign.type";
 
     public static final String XML_HTTP_REQUEST = "XMLHttpRequest";
+
+    public static final String REDIS_TEMPLATE = "redisTemplate";
+    public static final String COMMON_STRING_REDIS_TEMPLATE = "commonStringRedisTemplate";
+    public static final String PARTITION_STRING_REDIS_TEMPLATE = "partitionStringRedisTemplate";
+    public static final String COMMON_REDIS_CONNECTION_FACTORY = "commonRedisConnectionFactory";
+    public static final String PARTITION_REDIS_CONNECTION_FACTORY = "partitionRedisConnectionFactory";
 }
