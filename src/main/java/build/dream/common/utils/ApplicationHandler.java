@@ -693,6 +693,10 @@ public class ApplicationHandler {
         return applicationContext.getBean(beanClass);
     }
 
+    public static <T> T getBean(String name, Class<T> beanClass) {
+        return applicationContext.getBean(name, beanClass);
+    }
+
     public static Validator obtainValidator() {
         Validator validator = null;
         if (applicationContext.containsBean("validator")) {
