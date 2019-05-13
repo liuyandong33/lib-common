@@ -10,9 +10,9 @@ public class IdentificationGenerator {
         String partitionCode = PropertyUtils.getProperty(Constants.PARTITION_CODE);
         String serviceName = PropertyUtils.getProperty(Constants.SERVICE_NAME);
         String key = String.format("_%s_%s_%s_%s", deploymentEnvironment, partitionCode, serviceName, sequenceName);
-        Boolean exists = RedisUtils.exists(key);
+        Boolean exists = CommonRedisUtils.exists(key);
         if (exists) {
-            return RedisUtils.incrby(key, 1);
+            return CommonRedisUtils.incrby(key, 1);
         }
         return null;
     }

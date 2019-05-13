@@ -1,23 +1,32 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.beans.WebResponse;
+import build.dream.common.constants.Constants;
+import build.dream.common.constants.HttpHeaders;
 import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.NamingStrategyUtils;
+import build.dream.common.utils.WebUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, KeyStoreException, CertificateException, NoSuchAlgorithmException, UnrecoverableKeyException, InvalidKeyException, SignatureException, KeyManagementException {
         /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
@@ -32,6 +41,40 @@ public class Application {
 
         String sourcePath = Tenant.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         System.out.println(sourcePath);
+
+//        KeyStore keyStore = KeyStore.getInstance("PKCS12");
+        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\liuyandong\\Desktop\\机构收单私钥.pfx");
+
+        /*char[] password = "111111".toCharArray();
+        keyStore.load(fileInputStream, password);
+//        fileInputStream.close();
+
+        Enumeration<String> enumeration = keyStore.aliases();
+        String keyAlias = null;
+        if (enumeration.hasMoreElements())// we are readin just one certificate.
+        {
+            keyAlias = enumeration.nextElement();
+            System.out.println("alias=[" + keyAlias + "]");
+        }
+
+        PrivateKey privateKey = (PrivateKey) keyStore.getKey(keyAlias, password);
+        Certificate certificate = keyStore.getCertificate(keyAlias);
+
+        Signature signature = Signature.getInstance("SHA256withRSA");
+        signature.initSign(privateKey);
+        signature.update(UUID.randomUUID().toString().getBytes(Constants.CHARSET_UTF_8));
+        System.out.println(signature.sign());*/
+
+
+        String requestBody = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Message><head><BizTrackNo>40AA1806222018062202265874694457</BizTrackNo><ChannelNbr>03</ChannelNbr><ChnlId>40</ChnlId><ClientIp>127.0.0.1</ClientIp><MerNbr>010020170801000001</MerNbr><ReqSeqNo>180622AA00000033</ReqSeqNo><ReqTime>20180622022658746</ReqTime><Summery/><TrsCode>qr0001</TrsCode></head><body><AuthCode>081lXf3u0zRVcc15cv4u0W1f3u0lXf3M</AuthCode><CurrencyCd>CNY</CurrencyCd><MerSeqNbr>2018062255555210</MerSeqNbr><MerTransDateTime>20180622022658</MerTransDateTime><MerUrl>http://web.clearing.com/notify/union</MerUrl><OrderTitle>测试商户2-商品购买</OrderTitle><PayTypCd>C</PayTypCd><SubMerchantId>AA2010010100002</SubMerchantId><SubMerchantName>测试商户2</SubMerchantName><TransAmt>0.01</TransAmt><Signature>Z3i1XPB8LrY59H/g/MoJIVjsVT8q9fGnG/0ICF/P0M2Xu0NUyTC9vmUs/31EfvS9ir9Ri9LNSJcU8HwICvFPywrmPBKVG7uesnoDIjedBGp0sfKCmJkG5Q417TPcXQnV4/8EbTpQ0+KFm2c0sfbtkS30RdTzcL568uGxkrPRVcY=</Signature></body></Message>";
+
+        SSLSocketFactory sslSocketFactory = WebUtils.initSSLSocketFactory(fileInputStream, "111111", Constants.PKCS12, Constants.TRUST_MANAGERS);
+
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put(HttpHeaders.CONTENT_TYPE, "application/xml;charset=UTF-8");
+
+        WebResponse webResponse = WebUtils.doPostWithRequestBody("http://221.176.112.3:8033/qrcode/QrCodeGateWay.do", headers, requestBody, null);
+        System.out.println(webResponse.getResult());
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {

@@ -19,7 +19,7 @@ public class MiyaUtils {
     }
 
     private static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
-        String miyaAccountJson = RedisUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
+        String miyaAccountJson = CommonRedisUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
         MiyaAccount miyaAccount = null;
         if (StringUtils.isNotBlank(miyaAccountJson)) {
             miyaAccount = GsonUtils.fromJson(miyaAccountJson, MiyaAccount.class);

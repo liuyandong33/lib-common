@@ -31,7 +31,7 @@ public class WeiXinPayUtils {
      * @return
      */
     private static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
-        String weiXinPayAccountJson = RedisUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        String weiXinPayAccountJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
         WeiXinPayAccount weiXinPayAccount = null;
         if (StringUtils.isNotBlank(weiXinPayAccountJson)) {
             weiXinPayAccount = GsonUtils.fromJson(weiXinPayAccountJson, WeiXinPayAccount.class);

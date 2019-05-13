@@ -37,7 +37,7 @@ public class AlipayUtils {
     }
 
     public static AlipayAccount obtainAlipayAccount(String appId) {
-        String alipayAccountJson = RedisUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
+        String alipayAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
         AlipayAccount alipayAccount = null;
         if (StringUtils.isNotBlank(alipayAccountJson)) {
             alipayAccount = GsonUtils.fromJson(alipayAccountJson, AlipayAccount.class);
@@ -618,7 +618,7 @@ public class AlipayUtils {
      * @return
      */
     public static AlipayAuthorizerInfo obtainAlipayAuthorizerInfo(String tenantId, String branchId) {
-        String alipayAuthorizerInfoJson = RedisUtils.hget(Constants.KEY_ALIPAY_AUTHORIZER_INFOS, tenantId + "_" + branchId);
+        String alipayAuthorizerInfoJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_AUTHORIZER_INFOS, tenantId + "_" + branchId);
         if (StringUtils.isNotBlank(alipayAuthorizerInfoJson)) {
             return JacksonUtils.readValue(alipayAuthorizerInfoJson, AlipayAuthorizerInfo.class);
         }

@@ -11,13 +11,13 @@ import java.util.Map;
 
 public class TenantUtils {
     public static Tenant obtainTenantInfo(BigInteger tenantId) {
-        String tenantInfoJson = RedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
+        String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
         ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
     public static Tenant obtainTenantInfo(String tenantCode) {
-        String tenantInfoJson = RedisUtils.hget(Constants.KEY_TENANT_INFOS, "_code_" + tenantCode);
+        String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_code_" + tenantCode);
         ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }

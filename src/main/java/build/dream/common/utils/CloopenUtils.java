@@ -59,7 +59,7 @@ public class CloopenUtils {
         datas.add(authCode);
         datas.add(String.valueOf(timeout));
 
-        RedisUtils.setex(phoneNumber, authCode, timeout, TimeUnit.MINUTES);
+        CommonRedisUtils.setex(phoneNumber, authCode, timeout, TimeUnit.MINUTES);
 
         sendSms(accountSid, authToken, appId, to, templateId, datas);
         return authCode;
@@ -83,7 +83,7 @@ public class CloopenUtils {
      * @return
      */
     public static boolean verifyAuthCode(String phoneNumber, String authCode) {
-        String cachedAuthCode = RedisUtils.get(phoneNumber);
+        String cachedAuthCode = CommonRedisUtils.get(phoneNumber);
         return authCode.equals(cachedAuthCode);
     }
 }

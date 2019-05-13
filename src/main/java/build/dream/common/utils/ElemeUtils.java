@@ -68,9 +68,9 @@ public class ElemeUtils {
     public static String obtainAccessToken(String tenantId, String branchId, Integer elemeAccountType) {
         String tokenJson = null;
         if (elemeAccountType == Constants.ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT) {
-            tokenJson = RedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId);
+            tokenJson = CommonRedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId);
         } else if (elemeAccountType == Constants.ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT) {
-            tokenJson = RedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
+            tokenJson = CommonRedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
         }
         ValidateUtils.notNull(tokenJson, "未检索到访问令牌！");
         ElemeToken elemeToken = JacksonUtils.readValue(tokenJson, ElemeToken.class);
