@@ -5,7 +5,7 @@ public class ThreadUtils {
         try {
             Thread.sleep(millis);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
