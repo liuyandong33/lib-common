@@ -10,27 +10,27 @@ import java.util.Date;
 public class ScheduleCronJobModel extends BasicModel {
     @NotNull
     private String jobName;
-
     @NotNull
     private String jobGroup;
+    @NotNull
+    private Class<? extends Job> jobClass;
+    private String jobDescription;
+    private Boolean durability;
+    private Boolean shouldRecover;
+    private JobDataMap jobDataMap;
 
     @NotNull
     private String triggerName;
-
     @NotNull
     private String triggerGroup;
-
     @NotNull
     private String cronExpression;
-
+    private Integer misfireInstruction;
+    private String triggerDescription;
     private Date startTime;
     private Date endTime;
-    private String description;
-
-    @NotNull
-    private Class<? extends Job> jobClass;
-
-    private JobDataMap jobDataMap;
+    private Integer priority;
+    private String calendarName;
 
     public String getJobName() {
         return jobName;
@@ -46,6 +46,46 @@ public class ScheduleCronJobModel extends BasicModel {
 
     public void setJobGroup(String jobGroup) {
         this.jobGroup = jobGroup;
+    }
+
+    public Class<? extends Job> getJobClass() {
+        return jobClass;
+    }
+
+    public void setJobClass(Class<? extends Job> jobClass) {
+        this.jobClass = jobClass;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public Boolean getDurability() {
+        return durability;
+    }
+
+    public void setDurability(Boolean durability) {
+        this.durability = durability;
+    }
+
+    public Boolean getShouldRecover() {
+        return shouldRecover;
+    }
+
+    public void setShouldRecover(Boolean shouldRecover) {
+        this.shouldRecover = shouldRecover;
+    }
+
+    public JobDataMap getJobDataMap() {
+        return jobDataMap;
+    }
+
+    public void setJobDataMap(JobDataMap jobDataMap) {
+        this.jobDataMap = jobDataMap;
     }
 
     public String getTriggerName() {
@@ -72,6 +112,22 @@ public class ScheduleCronJobModel extends BasicModel {
         this.cronExpression = cronExpression;
     }
 
+    public Integer getMisfireInstruction() {
+        return misfireInstruction;
+    }
+
+    public void setMisfireInstruction(Integer misfireInstruction) {
+        this.misfireInstruction = misfireInstruction;
+    }
+
+    public String getTriggerDescription() {
+        return triggerDescription;
+    }
+
+    public void setTriggerDescription(String triggerDescription) {
+        this.triggerDescription = triggerDescription;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -88,28 +144,20 @@ public class ScheduleCronJobModel extends BasicModel {
         this.endTime = endTime;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getPriority() {
+        return priority;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
-    public Class<? extends Job> getJobClass() {
-        return jobClass;
+    public String getCalendarName() {
+        return calendarName;
     }
 
-    public void setJobClass(Class<? extends Job> jobClass) {
-        this.jobClass = jobClass;
-    }
-
-    public JobDataMap getJobDataMap() {
-        return jobDataMap;
-    }
-
-    public void setJobDataMap(JobDataMap jobDataMap) {
-        this.jobDataMap = jobDataMap;
+    public void setCalendarName(String calendarName) {
+        this.calendarName = calendarName;
     }
 
     public static class Builder {
@@ -122,6 +170,31 @@ public class ScheduleCronJobModel extends BasicModel {
 
         public Builder jobGroup(String jobGroup) {
             instance.setJobGroup(jobGroup);
+            return this;
+        }
+
+        public Builder jobClass(Class<? extends Job> jobClass) {
+            instance.setJobClass(jobClass);
+            return this;
+        }
+
+        public Builder jobDescription(String jobDescription) {
+            instance.setJobDescription(jobDescription);
+            return this;
+        }
+
+        public Builder durability(Boolean durability) {
+            instance.setDurability(durability);
+            return this;
+        }
+
+        public Builder shouldRecover(Boolean shouldRecover) {
+            instance.setShouldRecover(shouldRecover);
+            return this;
+        }
+
+        public Builder jobDataMap(JobDataMap jobDataMap) {
+            instance.setJobDataMap(jobDataMap);
             return this;
         }
 
@@ -140,6 +213,16 @@ public class ScheduleCronJobModel extends BasicModel {
             return this;
         }
 
+        public Builder misfireInstruction(Integer misfireInstruction) {
+            instance.setMisfireInstruction(misfireInstruction);
+            return this;
+        }
+
+        public Builder triggerDescription(String triggerDescription) {
+            instance.setTriggerDescription(triggerDescription);
+            return this;
+        }
+
         public Builder startTime(Date startTime) {
             instance.setStartTime(startTime);
             return this;
@@ -150,18 +233,13 @@ public class ScheduleCronJobModel extends BasicModel {
             return this;
         }
 
-        public Builder description(String description) {
-            instance.setDescription(description);
+        public Builder priority(Integer priority) {
+            instance.setPriority(priority);
             return this;
         }
 
-        public Builder jobClass(Class<? extends Job> jobClass) {
-            instance.setJobClass(jobClass);
-            return this;
-        }
-
-        public Builder jobDataMap(JobDataMap jobDataMap) {
-            instance.setJobDataMap(jobDataMap);
+        public Builder calendarName(String calendarName) {
+            instance.setCalendarName(calendarName);
             return this;
         }
 
@@ -169,14 +247,20 @@ public class ScheduleCronJobModel extends BasicModel {
             ScheduleCronJobModel scheduleCronJobModel = new ScheduleCronJobModel();
             scheduleCronJobModel.setJobName(instance.getJobName());
             scheduleCronJobModel.setJobGroup(instance.getJobGroup());
+            scheduleCronJobModel.setJobClass(instance.getJobClass());
+            scheduleCronJobModel.setJobDescription(instance.getJobDescription());
+            scheduleCronJobModel.setDurability(instance.getDurability());
+            scheduleCronJobModel.setShouldRecover(instance.getShouldRecover());
+            scheduleCronJobModel.setJobDataMap(instance.getJobDataMap());
             scheduleCronJobModel.setTriggerName(instance.getTriggerName());
             scheduleCronJobModel.setTriggerGroup(instance.getTriggerGroup());
             scheduleCronJobModel.setCronExpression(instance.getCronExpression());
+            scheduleCronJobModel.setMisfireInstruction(instance.getMisfireInstruction());
+            scheduleCronJobModel.setTriggerDescription(instance.getTriggerDescription());
             scheduleCronJobModel.setStartTime(instance.getStartTime());
             scheduleCronJobModel.setEndTime(instance.getEndTime());
-            scheduleCronJobModel.setDescription(instance.getDescription());
-            scheduleCronJobModel.setJobClass(instance.getJobClass());
-            scheduleCronJobModel.setJobDataMap(instance.getJobDataMap());
+            scheduleCronJobModel.setPriority(instance.getPriority());
+            scheduleCronJobModel.setCalendarName(instance.getCalendarName());
             return scheduleCronJobModel;
         }
     }

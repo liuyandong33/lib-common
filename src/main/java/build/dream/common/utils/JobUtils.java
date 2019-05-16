@@ -13,7 +13,7 @@ public class JobUtils {
     private static SchedulerFactoryBean schedulerFactoryBean;
 
     public static SchedulerFactoryBean obtainSchedulerFactoryBean() {
-        if (schedulerFactoryBean == null) {
+        if (ObjectUtils.isNull(schedulerFactoryBean)) {
             schedulerFactoryBean = ApplicationHandler.getBean(SchedulerFactoryBean.class);
         }
         return schedulerFactoryBean;
@@ -32,22 +32,40 @@ public class JobUtils {
     public static void scheduleSimpleJob(ScheduleSimpleJobModel scheduleSimpleJobModel) throws SchedulerException {
         String jobName = scheduleSimpleJobModel.getJobName();
         String jobGroup = scheduleSimpleJobModel.getJobGroup();
+        Class<? extends Job> jobClass = scheduleSimpleJobModel.getJobClass();
+        String jobDescription = scheduleSimpleJobModel.getJobDescription();
+        Boolean durability = scheduleSimpleJobModel.getDurability();
+        Boolean shouldRecover = scheduleSimpleJobModel.getShouldRecover();
+        JobDataMap jobDataMap = scheduleSimpleJobModel.getJobDataMap();
+
         String triggerName = scheduleSimpleJobModel.getTriggerName();
         String triggerGroup = scheduleSimpleJobModel.getTriggerGroup();
         Integer interval = scheduleSimpleJobModel.getInterval();
         Integer repeatCount = scheduleSimpleJobModel.getRepeatCount();
+        Integer misfireInstruction = scheduleSimpleJobModel.getMisfireInstruction();
+        String triggerDescription = scheduleSimpleJobModel.getTriggerDescription();
         Date startTime = scheduleSimpleJobModel.getStartTime();
         Date endTime = scheduleSimpleJobModel.getEndTime();
-        String description = scheduleSimpleJobModel.getDescription();
-        Class<? extends Job> jobClass = scheduleSimpleJobModel.getJobClass();
-        JobDataMap jobDataMap = scheduleSimpleJobModel.getJobDataMap();
+        Integer priority = scheduleSimpleJobModel.getPriority();
+        String calendarName = scheduleSimpleJobModel.getCalendarName();
 
-        JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
+        JobBuilder jobBuilder = JobBuilder.newJob();
         jobBuilder.withIdentity(jobName, jobGroup);
-        JobDetail jobDetail = jobBuilder.build();
-        if (MapUtils.isNotEmpty(jobDataMap)) {
-            jobDetail.getJobDataMap().putAll(jobDataMap);
+        jobBuilder.ofType(jobClass);
+        if (ObjectUtils.isNotNull(jobDescription)) {
+            jobBuilder.withDescription(jobDescription);
         }
+        if (ObjectUtils.isNotNull(durability)) {
+            jobBuilder.storeDurably(durability);
+        }
+        if (ObjectUtils.isNotNull(shouldRecover)) {
+            jobBuilder.requestRecovery(shouldRecover);
+        }
+        if (MapUtils.isNotEmpty(jobDataMap)) {
+            jobBuilder.setJobData(jobDataMap);
+        }
+
+        JobDetail jobDetail = jobBuilder.build();
 
         SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
         if (interval != null) {
@@ -58,21 +76,46 @@ public class JobUtils {
             simpleScheduleBuilder.withRepeatCount(repeatCount);
         }
 
+        if (ObjectUtils.isNotNull(misfireInstruction)) {
+            switch (misfireInstruction) {
+                case SimpleTrigger.MISFIRE_INSTRUCTION_SMART_POLICY:
+                    break;
+                case SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW:
+                    simpleScheduleBuilder.withMisfireHandlingInstructionFireNow();
+                    break;
+                case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_EXISTING_REPEAT_COUNT:
+                    simpleScheduleBuilder.withMisfireHandlingInstructionNowWithExistingCount();
+                    break;
+                case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT:
+                    simpleScheduleBuilder.withMisfireHandlingInstructionNowWithRemainingCount();
+                    break;
+                case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_REMAINING_COUNT:
+                    simpleScheduleBuilder.withMisfireHandlingInstructionNextWithRemainingCount();
+                    break;
+                case SimpleTrigger.MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT:
+                    simpleScheduleBuilder.withMisfireHandlingInstructionNextWithExistingCount();
+                    break;
+            }
+        }
+
         TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
         triggerBuilder.withIdentity(triggerName, triggerGroup);
         triggerBuilder.withSchedule(simpleScheduleBuilder);
+        if (StringUtils.isNotBlank(triggerDescription)) {
+            triggerBuilder.withDescription(triggerDescription);
+        }
         if (startTime != null) {
             triggerBuilder.startAt(startTime);
         }
-
         if (endTime != null) {
             triggerBuilder.endAt(endTime);
         }
-
-        if (StringUtils.isNotBlank(description)) {
-            triggerBuilder.withDescription(description);
+        if (ObjectUtils.isNotNull(priority)) {
+            triggerBuilder.withPriority(priority);
         }
-
+        if (ObjectUtils.isNotNull(calendarName)) {
+            triggerBuilder.modifiedByCalendar(calendarName);
+        }
         Trigger trigger = triggerBuilder.build();
         obtainScheduler().scheduleJob(jobDetail, trigger);
     }
@@ -86,38 +129,73 @@ public class JobUtils {
     public static void scheduleCronJob(ScheduleCronJobModel scheduleCronJobModel) throws SchedulerException {
         String jobName = scheduleCronJobModel.getJobName();
         String jobGroup = scheduleCronJobModel.getJobGroup();
+        Class<? extends Job> jobClass = scheduleCronJobModel.getJobClass();
+        String jobDescription = scheduleCronJobModel.getJobDescription();
+        Boolean durability = scheduleCronJobModel.getDurability();
+        Boolean shouldRecover = scheduleCronJobModel.getShouldRecover();
+        JobDataMap jobDataMap = scheduleCronJobModel.getJobDataMap();
+
         String triggerName = scheduleCronJobModel.getTriggerName();
         String triggerGroup = scheduleCronJobModel.getTriggerGroup();
         String cronExpression = scheduleCronJobModel.getCronExpression();
+        Integer misfireInstruction = scheduleCronJobModel.getMisfireInstruction();
+        String triggerDescription = scheduleCronJobModel.getTriggerDescription();
         Date startTime = scheduleCronJobModel.getStartTime();
         Date endTime = scheduleCronJobModel.getEndTime();
-        String description = scheduleCronJobModel.getDescription();
-        Class<? extends Job> jobClass = scheduleCronJobModel.getJobClass();
-        JobDataMap jobDataMap = scheduleCronJobModel.getJobDataMap();
+        Integer priority = scheduleCronJobModel.getPriority();
+        String calendarName = scheduleCronJobModel.getCalendarName();
 
-        JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
+        JobBuilder jobBuilder = JobBuilder.newJob();
+        jobBuilder.ofType(jobClass);
         jobBuilder.withIdentity(jobName, jobGroup);
-        JobDetail jobDetail = jobBuilder.build();
         if (MapUtils.isNotEmpty(jobDataMap)) {
-            jobDetail.getJobDataMap().putAll(jobDataMap);
+            jobBuilder.setJobData(jobDataMap);
         }
+        if (ObjectUtils.isNotNull(jobDescription)) {
+            jobBuilder.withDescription(jobDescription);
+        }
+        if (ObjectUtils.isNotNull(durability)) {
+            jobBuilder.storeDurably(durability);
+        }
+        if (ObjectUtils.isNotNull(shouldRecover)) {
+            jobBuilder.requestRecovery(shouldRecover);
+        }
+        JobDetail jobDetail = jobBuilder.build();
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
+        if (ObjectUtils.isNotNull(misfireInstruction)) {
+            switch (misfireInstruction) {
+                case CronTrigger.MISFIRE_INSTRUCTION_SMART_POLICY:
+                    break;
+                case CronTrigger.MISFIRE_INSTRUCTION_IGNORE_MISFIRE_POLICY:
+                    cronScheduleBuilder.withMisfireHandlingInstructionIgnoreMisfires();
+                    break;
+                case CronTrigger.MISFIRE_INSTRUCTION_FIRE_ONCE_NOW:
+                    cronScheduleBuilder.withMisfireHandlingInstructionFireAndProceed();
+                    break;
+                case CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING:
+                    cronScheduleBuilder.withMisfireHandlingInstructionDoNothing();
+                    break;
+            }
+        }
 
         TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
         triggerBuilder.withIdentity(triggerName, triggerGroup);
         triggerBuilder.withSchedule(cronScheduleBuilder);
+        if (StringUtils.isNotBlank(triggerDescription)) {
+            triggerBuilder.withDescription(triggerDescription);
+        }
         if (ObjectUtils.isNotNull(startTime)) {
             triggerBuilder.startAt(startTime);
         }
-
         if (ObjectUtils.isNotNull(endTime)) {
             triggerBuilder.endAt(endTime);
         }
-
-        if (StringUtils.isNotBlank(description)) {
-            triggerBuilder.withDescription(description);
+        if (ObjectUtils.isNotNull(priority)) {
+            triggerBuilder.withPriority(priority);
         }
-
+        if (ObjectUtils.isNotNull(calendarName)) {
+            triggerBuilder.modifiedByCalendar(calendarName);
+        }
         Trigger trigger = triggerBuilder.build();
         obtainScheduler().scheduleJob(jobDetail, trigger);
     }

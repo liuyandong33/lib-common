@@ -10,26 +10,27 @@ import java.util.Date;
 public class ScheduleSimpleJobModel extends BasicModel {
     @NotNull
     private String jobName;
-
     @NotNull
     private String jobGroup;
+    @NotNull
+    private Class<? extends Job> jobClass;
+    private String jobDescription;
+    private Boolean durability;
+    private Boolean shouldRecover;
+    private JobDataMap jobDataMap;
 
     @NotNull
     private String triggerName;
-
     @NotNull
     private String triggerGroup;
-
     private Integer interval;
     private Integer repeatCount;
+    private Integer misfireInstruction;
+    private String triggerDescription;
     private Date startTime;
     private Date endTime;
-    private String description;
-
-    @NotNull
-    private Class<? extends Job> jobClass;
-    
-    private JobDataMap jobDataMap;
+    private Integer priority;
+    private String calendarName;
 
     public String getJobName() {
         return jobName;
@@ -45,6 +46,46 @@ public class ScheduleSimpleJobModel extends BasicModel {
 
     public void setJobGroup(String jobGroup) {
         this.jobGroup = jobGroup;
+    }
+
+    public Class<? extends Job> getJobClass() {
+        return jobClass;
+    }
+
+    public void setJobClass(Class<? extends Job> jobClass) {
+        this.jobClass = jobClass;
+    }
+
+    public String getJobDescription() {
+        return jobDescription;
+    }
+
+    public void setJobDescription(String jobDescription) {
+        this.jobDescription = jobDescription;
+    }
+
+    public Boolean getDurability() {
+        return durability;
+    }
+
+    public void setDurability(Boolean durability) {
+        this.durability = durability;
+    }
+
+    public Boolean getShouldRecover() {
+        return shouldRecover;
+    }
+
+    public void setShouldRecover(Boolean shouldRecover) {
+        this.shouldRecover = shouldRecover;
+    }
+
+    public JobDataMap getJobDataMap() {
+        return jobDataMap;
+    }
+
+    public void setJobDataMap(JobDataMap jobDataMap) {
+        this.jobDataMap = jobDataMap;
     }
 
     public String getTriggerName() {
@@ -79,6 +120,22 @@ public class ScheduleSimpleJobModel extends BasicModel {
         this.repeatCount = repeatCount;
     }
 
+    public Integer getMisfireInstruction() {
+        return misfireInstruction;
+    }
+
+    public void setMisfireInstruction(Integer misfireInstruction) {
+        this.misfireInstruction = misfireInstruction;
+    }
+
+    public String getTriggerDescription() {
+        return triggerDescription;
+    }
+
+    public void setTriggerDescription(String triggerDescription) {
+        this.triggerDescription = triggerDescription;
+    }
+
     public Date getStartTime() {
         return startTime;
     }
@@ -95,28 +152,20 @@ public class ScheduleSimpleJobModel extends BasicModel {
         this.endTime = endTime;
     }
 
-    public String getDescription() {
-        return description;
+    public Integer getPriority() {
+        return priority;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 
-    public Class<? extends Job> getJobClass() {
-        return jobClass;
+    public String getCalendarName() {
+        return calendarName;
     }
 
-    public void setJobClass(Class<? extends Job> jobClass) {
-        this.jobClass = jobClass;
-    }
-
-    public JobDataMap getJobDataMap() {
-        return jobDataMap;
-    }
-
-    public void setJobDataMap(JobDataMap jobDataMap) {
-        this.jobDataMap = jobDataMap;
+    public void setCalendarName(String calendarName) {
+        this.calendarName = calendarName;
     }
 
     public static class Builder {
@@ -129,6 +178,31 @@ public class ScheduleSimpleJobModel extends BasicModel {
 
         public Builder jobGroup(String jobGroup) {
             instance.setJobGroup(jobGroup);
+            return this;
+        }
+
+        public Builder jobClass(Class<? extends Job> jobClass) {
+            instance.setJobClass(jobClass);
+            return this;
+        }
+
+        public Builder jobDescription(String jobDescription) {
+            instance.setJobDescription(jobDescription);
+            return this;
+        }
+
+        public Builder durability(Boolean durability) {
+            instance.setDurability(durability);
+            return this;
+        }
+
+        public Builder shouldRecover(Boolean shouldRecover) {
+            instance.setShouldRecover(shouldRecover);
+            return this;
+        }
+
+        public Builder jobDataMap(JobDataMap jobDataMap) {
+            instance.setJobDataMap(jobDataMap);
             return this;
         }
 
@@ -152,6 +226,16 @@ public class ScheduleSimpleJobModel extends BasicModel {
             return this;
         }
 
+        public Builder misfireInstruction(Integer misfireInstruction) {
+            instance.setMisfireInstruction(misfireInstruction);
+            return this;
+        }
+
+        public Builder triggerDescription(String triggerDescription) {
+            instance.setTriggerDescription(triggerDescription);
+            return this;
+        }
+
         public Builder startTime(Date startTime) {
             instance.setStartTime(startTime);
             return this;
@@ -162,18 +246,13 @@ public class ScheduleSimpleJobModel extends BasicModel {
             return this;
         }
 
-        public Builder description(String description) {
-            instance.setDescription(description);
+        public Builder priority(Integer priority) {
+            instance.setPriority(priority);
             return this;
         }
 
-        public Builder jobClass(Class<? extends Job> jobClass) {
-            instance.setJobClass(jobClass);
-            return this;
-        }
-
-        public Builder jobDataMap(JobDataMap jobDataMap) {
-            instance.setJobDataMap(jobDataMap);
+        public Builder calendarName(String calendarName) {
+            instance.setCalendarName(calendarName);
             return this;
         }
 
@@ -181,15 +260,21 @@ public class ScheduleSimpleJobModel extends BasicModel {
             ScheduleSimpleJobModel scheduleSimpleJobModel = new ScheduleSimpleJobModel();
             scheduleSimpleJobModel.setJobName(instance.getJobName());
             scheduleSimpleJobModel.setJobGroup(instance.getJobGroup());
+            scheduleSimpleJobModel.setJobClass(instance.getJobClass());
+            scheduleSimpleJobModel.setJobDescription(instance.getJobDescription());
+            scheduleSimpleJobModel.setDurability(instance.getDurability());
+            scheduleSimpleJobModel.setShouldRecover(instance.getShouldRecover());
+            scheduleSimpleJobModel.setJobDataMap(instance.getJobDataMap());
             scheduleSimpleJobModel.setTriggerName(instance.getTriggerName());
             scheduleSimpleJobModel.setTriggerGroup(instance.getTriggerGroup());
             scheduleSimpleJobModel.setInterval(instance.getInterval());
             scheduleSimpleJobModel.setRepeatCount(instance.getRepeatCount());
+            scheduleSimpleJobModel.setMisfireInstruction(instance.getMisfireInstruction());
+            scheduleSimpleJobModel.setTriggerDescription(instance.getTriggerDescription());
             scheduleSimpleJobModel.setStartTime(instance.getStartTime());
             scheduleSimpleJobModel.setEndTime(instance.getEndTime());
-            scheduleSimpleJobModel.setDescription(instance.getDescription());
-            scheduleSimpleJobModel.setJobClass(instance.getJobClass());
-            scheduleSimpleJobModel.setJobDataMap(instance.getJobDataMap());
+            scheduleSimpleJobModel.setPriority(instance.getPriority());
+            scheduleSimpleJobModel.setCalendarName(instance.getCalendarName());
             return scheduleSimpleJobModel;
         }
     }
