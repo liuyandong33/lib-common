@@ -1,15 +1,13 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
-import build.dream.common.constants.Constants;
+import build.dream.common.models.job.ScheduleCronJobModel;
+import build.dream.common.models.job.ScheduleSimpleJobModel;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
-import java.math.BigInteger;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JobUtils {
     private static SchedulerFactoryBean schedulerFactoryBean;
@@ -25,30 +23,80 @@ public class JobUtils {
         return obtainSchedulerFactoryBean().getScheduler();
     }
 
-    public static void scheduleSimpleJob(Class<? extends Job> jobClass, JobKey jobKey, TriggerKey triggerKey, Date startTime, JobDataMap jobDataMap) throws SchedulerException {
-        Scheduler scheduler = obtainSchedulerFactoryBean().getScheduler();
+    /**
+     * 安排简单定时任务
+     *
+     * @param scheduleSimpleJobModel
+     * @throws SchedulerException
+     */
+    public static void scheduleSimpleJob(ScheduleSimpleJobModel scheduleSimpleJobModel) throws SchedulerException {
+        String jobName = scheduleSimpleJobModel.getJobName();
+        String jobGroup = scheduleSimpleJobModel.getJobGroup();
+        String triggerName = scheduleSimpleJobModel.getTriggerName();
+        String triggerGroup = scheduleSimpleJobModel.getTriggerGroup();
+        Integer interval = scheduleSimpleJobModel.getInterval();
+        Integer repeatCount = scheduleSimpleJobModel.getRepeatCount();
+        Date startTime = scheduleSimpleJobModel.getStartTime();
+        Date endTime = scheduleSimpleJobModel.getEndTime();
+        String description = scheduleSimpleJobModel.getDescription();
+        Class<? extends Job> jobClass = scheduleSimpleJobModel.getJobClass();
+        JobDataMap jobDataMap = scheduleSimpleJobModel.getJobDataMap();
 
         JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
-        jobBuilder.withIdentity(jobKey);
+        jobBuilder.withIdentity(jobName, jobGroup);
         JobDetail jobDetail = jobBuilder.build();
         if (MapUtils.isNotEmpty(jobDataMap)) {
             jobDetail.getJobDataMap().putAll(jobDataMap);
         }
 
         SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
+        if (interval != null) {
+            simpleScheduleBuilder.withIntervalInSeconds(interval);
+        }
+
+        if (repeatCount != null) {
+            simpleScheduleBuilder.withRepeatCount(repeatCount);
+        }
 
         TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
-        triggerBuilder.withIdentity(triggerKey);
+        triggerBuilder.withIdentity(triggerName, triggerGroup);
         triggerBuilder.withSchedule(simpleScheduleBuilder);
-        triggerBuilder.startAt(startTime);
+        if (startTime != null) {
+            triggerBuilder.startAt(startTime);
+        }
+
+        if (endTime != null) {
+            triggerBuilder.endAt(endTime);
+        }
+
+        if (StringUtils.isNotBlank(description)) {
+            triggerBuilder.withDescription(description);
+        }
 
         Trigger trigger = triggerBuilder.build();
-        scheduler.scheduleJob(jobDetail, trigger);
+        obtainScheduler().scheduleJob(jobDetail, trigger);
     }
 
-    public static void scheduleCronJob(Class<? extends Job> jobClass, JobKey jobKey, TriggerKey triggerKey, String cronExpression, JobDataMap jobDataMap) throws SchedulerException {
+    /**
+     * 安排cron表达式任务
+     *
+     * @param scheduleCronJobModel
+     * @throws SchedulerException
+     */
+    public static void scheduleCronJob(ScheduleCronJobModel scheduleCronJobModel) throws SchedulerException {
+        String jobName = scheduleCronJobModel.getJobName();
+        String jobGroup = scheduleCronJobModel.getJobGroup();
+        String triggerName = scheduleCronJobModel.getTriggerName();
+        String triggerGroup = scheduleCronJobModel.getTriggerGroup();
+        String cronExpression = scheduleCronJobModel.getCronExpression();
+        Date startTime = scheduleCronJobModel.getStartTime();
+        Date endTime = scheduleCronJobModel.getEndTime();
+        String description = scheduleCronJobModel.getDescription();
+        Class<? extends Job> jobClass = scheduleCronJobModel.getJobClass();
+        JobDataMap jobDataMap = scheduleCronJobModel.getJobDataMap();
+
         JobBuilder jobBuilder = JobBuilder.newJob(jobClass);
-        jobBuilder.withIdentity(jobKey);
+        jobBuilder.withIdentity(jobName, jobGroup);
         JobDetail jobDetail = jobBuilder.build();
         if (MapUtils.isNotEmpty(jobDataMap)) {
             jobDetail.getJobDataMap().putAll(jobDataMap);
@@ -56,58 +104,45 @@ public class JobUtils {
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
 
         TriggerBuilder<Trigger> triggerBuilder = TriggerBuilder.newTrigger();
-        triggerBuilder.withIdentity(triggerKey);
+        triggerBuilder.withIdentity(triggerName, triggerGroup);
         triggerBuilder.withSchedule(cronScheduleBuilder);
-        Trigger trigger = triggerBuilder.build();
+        if (ObjectUtils.isNotNull(startTime)) {
+            triggerBuilder.startAt(startTime);
+        }
 
-        Scheduler scheduler = obtainSchedulerFactoryBean().getScheduler();
-        scheduler.scheduleJob(jobDetail, trigger);
+        if (ObjectUtils.isNotNull(endTime)) {
+            triggerBuilder.endAt(endTime);
+        }
+
+        if (StringUtils.isNotBlank(description)) {
+            triggerBuilder.withDescription(description);
+        }
+
+        Trigger trigger = triggerBuilder.build();
+        obtainScheduler().scheduleJob(jobDetail, trigger);
     }
 
     public static boolean checkExists(JobKey jobKey) throws SchedulerException {
-        Scheduler scheduler = obtainSchedulerFactoryBean().getScheduler();
-        return scheduler.checkExists(jobKey);
+        return obtainScheduler().checkExists(jobKey);
     }
 
     public static boolean checkExists(TriggerKey triggerKey) throws SchedulerException {
-        Scheduler scheduler = obtainSchedulerFactoryBean().getScheduler();
-        return scheduler.checkExists(triggerKey);
+        return obtainScheduler().checkExists(triggerKey);
     }
 
     public static void pauseTrigger(TriggerKey triggerKey) throws SchedulerException {
-        obtainSchedulerFactoryBean().getScheduler().pauseTrigger(triggerKey);
+        obtainScheduler().pauseTrigger(triggerKey);
     }
 
     public static void pauseJob(JobKey jobKey) throws SchedulerException {
-        obtainSchedulerFactoryBean().getScheduler().pauseJob(jobKey);
+        obtainScheduler().pauseJob(jobKey);
     }
 
     public static void unscheduleJob(TriggerKey triggerKey) throws SchedulerException {
-        obtainSchedulerFactoryBean().getScheduler().unscheduleJob(triggerKey);
+        obtainScheduler().unscheduleJob(triggerKey);
     }
 
     public static void deleteJob(JobKey jobKey) throws SchedulerException {
-        obtainSchedulerFactoryBean().getScheduler().deleteJob(jobKey);
-    }
-
-    public static void startOrderInvalidJob(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Date startTime) {
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("tenantId", tenantId.toString());
-        requestParameters.put("branchId", branchId.toString());
-        requestParameters.put("orderId", orderId.toString());
-        requestParameters.put("startTime", CustomDateUtils.format(startTime, Constants.DEFAULT_DATE_PATTERN));
-        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "order", "startOrderInvalidJob", requestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-    }
-
-    public static void stopOrderInvalidJob(BigInteger tenantId, BigInteger branchId, BigInteger orderId) {
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("tenantId", tenantId.toString());
-        requestParameters.put("branchId", branchId.toString());
-        requestParameters.put("orderId", orderId.toString());
-        ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "order", "stopOrderInvalidJob", requestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+        obtainScheduler().deleteJob(jobKey);
     }
 }
