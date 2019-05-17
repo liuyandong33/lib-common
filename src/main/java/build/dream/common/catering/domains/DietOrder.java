@@ -135,12 +135,12 @@ public class DietOrder extends BasicDomain {
     /**
      * 失效订单任务ID
      */
-    private String jobId;
+    private String jobId = Constants.VARCHAR_DEFAULT_VALUE;
 
     /**
      * 失效订单任务触发器ID
      */
-    private String triggerId;
+    private String triggerId = Constants.VARCHAR_DEFAULT_VALUE;
 
     public BigInteger getTenantId() {
         return tenantId;
