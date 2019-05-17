@@ -40,7 +40,7 @@ public class DietOrder extends BasicDomain {
      */
     private Integer payStatus;
     /**
-     * 订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-退款失败，5-退款成功
+     * 订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-客服仲裁中，5-退款失败，6-退款成功
      */
     private Integer refundStatus;
     /**
@@ -131,6 +131,16 @@ public class DietOrder extends BasicDomain {
      * 本地最后更新时间
      */
     private Date localUpdatedTime = Constants.DATETIME_DEFAULT_VALUE;
+
+    /**
+     * 失效订单任务ID
+     */
+    private String jobId;
+
+    /**
+     * 失效订单任务触发器ID
+     */
+    private String triggerId;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -372,6 +382,22 @@ public class DietOrder extends BasicDomain {
         this.localUpdatedTime = localUpdatedTime;
     }
 
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    public String getTriggerId() {
+        return triggerId;
+    }
+
+    public void setTriggerId(String triggerId) {
+        this.triggerId = triggerId;
+    }
+
     public static class Builder {
         private final DietOrder instance = new DietOrder();
 
@@ -525,6 +551,16 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
+        public Builder jobId(String jobId) {
+            instance.setJobId(jobId);
+            return this;
+        }
+
+        public Builder triggerId(String triggerId) {
+            instance.setTriggerId(triggerId);
+            return this;
+        }
+
         public Builder id(BigInteger id) {
             instance.setId(id);
             return this;
@@ -597,6 +633,8 @@ public class DietOrder extends BasicDomain {
             dietOrder.setLocalId(instance.getLocalId());
             dietOrder.setLocalCreatedTime(instance.getLocalCreatedTime());
             dietOrder.setLocalUpdatedTime(instance.getLocalUpdatedTime());
+            dietOrder.setJobId(instance.getJobId());
+            dietOrder.setTriggerId(instance.getTriggerId());
             dietOrder.setId(instance.getId());
             dietOrder.setCreatedTime(instance.getCreatedTime());
             dietOrder.setCreatedUserId(instance.getCreatedUserId());
@@ -644,6 +682,8 @@ public class DietOrder extends BasicDomain {
         public static final String LOCAL_ID = "local_id";
         public static final String LOCAL_CREATED_TIME = "local_created_time";
         public static final String LOCAL_UPDATED_TIME = "local_updated_time";
+        public static final String JOB_ID = "job_id";
+        public static final String TRIGGER_ID = "trigger_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -677,5 +717,7 @@ public class DietOrder extends BasicDomain {
         public static final String LOCAL_ID = "localId";
         public static final String LOCAL_CREATED_TIME = "localCreatedTime";
         public static final String LOCAL_UPDATED_TIME = "localUpdatedTime";
+        public static final String JOB_ID = "jobId";
+        public static final String TRIGGER_ID = "triggerId";
     }
 }
