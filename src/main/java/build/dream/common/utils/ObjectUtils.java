@@ -1,5 +1,11 @@
 package build.dream.common.utils;
 
+import org.apache.commons.lang3.SerializationUtils;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+
 public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
     public static boolean isNotNull(Object object) {
         return !isNull(object);
@@ -7,5 +13,21 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
 
     public static boolean isNull(Object object) {
         return object == null;
+    }
+
+    public static byte[] serialize(Serializable object) {
+        return SerializationUtils.serialize(object);
+    }
+
+    public static void serialize(Serializable object, OutputStream outputStream) {
+        SerializationUtils.serialize(object, outputStream);
+    }
+
+    public static <T> T deserialize(byte[] objectData) {
+        return SerializationUtils.deserialize(objectData);
+    }
+
+    public static <T> T deserialize(InputStream inputStream) {
+        return SerializationUtils.deserialize(inputStream);
     }
 }
