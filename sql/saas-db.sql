@@ -979,7 +979,7 @@ CREATE TABLE oauth_client_detail
     access_token_validity INT NOT NULL COMMENT '设定客户端的access_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 12, 12小时).在服务端获取的access_token JSON数据中的expires_in字段的值即为当前access_token的有效时间值.在项目中, 可具体参考DefaultTokenServices.java中属性accessTokenValiditySeconds.在实际应用中, 该值一般是由服务端处理的, 不需要客户端自定义.',
     refresh_token_validity INT NOT NULL COMMENT '设定客户端的refresh_token的有效时间值(单位:秒),可选, 若不设定值则使用默认的有效时间值(60 * 60 * 24 * 30, 30天). 若客户端的grant_type不包括refresh_token,则不用关心该字段 在项目中, 可具体参考DefaultTokenServices.java中属性refreshTokenValiditySeconds. 在实际应用中, 该值一般是由服务端处理的, 不需要客户端自定义.',
     additional_information VARCHAR(255) NOT NULL COMMENT '这是一个预留的字段,在Oauth的流程中没有实际的使用,可选,但若设置值,必须是JSON格式的数据,如:{"country":"CN","country_code":"086"}按照spring-security-oauth项目中对该字段的描述 Additional information for this client, not need by the vanilla OAuth protocol but might be useful, for example,for storing descriptive information. (详见ClientDetails.java的getAdditionalInformation()方法的注释)在实际应用中, 可以用该字段来存储关于客户端的一些其他信息,如客户端的国家,地区,注册时的IP地址等等.',
-    auto_approve_scope TINYINT NOT NULL COMMENT '用户自动Approval的scope, 该字段只适用于grant_type="authorization_code"的情况,当用户登录成功后,则会跳过用户Approve的页面, 直接授权。',
+    auto_approve_scope VARCHAR(255) NOT NULL COMMENT '用户自动Approval的scope, 该字段只适用于grant_type="authorization_code"的情况,当用户登录成功后,则会跳过用户Approve的页面, 直接授权。',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
