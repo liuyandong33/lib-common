@@ -1107,10 +1107,10 @@ DELIMITER ;
 #扣减会员积分存储过程
 DROP PROCEDURE IF EXISTS procedure_deducting_vip_point;
 DELIMITER $$
-CREATE PROCEDURE procedure_deducting_vip_point(IN _tenant_id BIGINT, IN _branch_id BIGINT, IN _vip_id BIGINT, IN _point DECIMAL(11, 3))
+CREATE PROCEDURE procedure_deducting_vip_point(IN _tenant_id BIGINT, IN _vip_id BIGINT, IN _vip_account_id BIGINT, IN _point DECIMAL(11, 3))
     BEGIN
-        UPDATE vip_account SET point = point - _point WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
-        SELECT point FROM vip_account WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
+        UPDATE vip_account SET point = point - _point WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
+        SELECT point FROM vip_account WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
     END$$
 
 DELIMITER ;
@@ -1118,10 +1118,10 @@ DELIMITER ;
 #扣减会员余额存储过程
 DROP PROCEDURE IF EXISTS procedure_deducting_vip_balance;
 DELIMITER $$
-CREATE PROCEDURE procedure_deducting_vip_balance(IN _tenant_id BIGINT, IN _branch_id BIGINT, IN _vip_id BIGINT, IN _balance DECIMAL(11, 3))
+CREATE PROCEDURE procedure_deducting_vip_balance(IN _tenant_id BIGINT, IN _vip_id BIGINT, IN _vip_account_id BIGINT, IN _point DECIMAL(11, 3))
     BEGIN
-        UPDATE vip_account SET balance = balance - _balance WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
-        SELECT balance FROM vip_account WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
+        UPDATE vip_account SET balance = balance - _balance WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
+        SELECT balance FROM vip_account WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
     END$$
 
 DELIMITER ;
@@ -1138,24 +1138,24 @@ CREATE PROCEDURE procedure_add_goods_stock(IN _goods_id BIGINT, IN _goods_specif
 
 DELIMITER ;
 
-#恢复会员积分存储过程
+#增加会员积分存储过程
 DROP PROCEDURE IF EXISTS procedure_add_vip_point;
 DELIMITER $$
-CREATE PROCEDURE procedure_add_vip_point(IN _tenant_id BIGINT, IN _branch_id BIGINT, IN _vip_id BIGINT, IN _point DECIMAL(11, 3))
+CREATE PROCEDURE procedure_add_vip_point(IN _tenant_id BIGINT, IN _vip_id BIGINT, IN _vip_account_id BIGINT, IN _point DECIMAL(11, 3))
     BEGIN
-        UPDATE vip_account SET point = point + _point WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
-        SELECT point FROM vip_account WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
+        UPDATE vip_account SET point = point + _point WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
+        SELECT point FROM vip_account WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
     END$$
 
 DELIMITER ;
 
-#恢复会员余额存储过程
+#增加会员余额存储过程
 DROP PROCEDURE IF EXISTS procedure_add_vip_balance;
 DELIMITER $$
-CREATE PROCEDURE procedure_add_vip_balance(IN _tenant_id BIGINT, IN _branch_id BIGINT, IN _vip_id BIGINT, IN _balance DECIMAL(11, 3))
+CREATE PROCEDURE procedure_add_vip_balance(IN _tenant_id BIGINT, IN _vip_id BIGINT, IN _vip_account_id BIGINT, IN _point DECIMAL(11, 3))
     BEGIN
-        UPDATE vip_account SET balance = balance + _balance WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
-        SELECT balance FROM vip_account WHERE tenant_id = _tenant_id AND branch_id = _branch_id AND vip_id = _vip_id AND deleted = 0;
+        UPDATE vip_account SET balance = balance + _balance WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
+        SELECT balance FROM vip_account WHERE tenant_id = _tenant_id AND vip_id = _vip_id AND id = _vip_account_id AND deleted = 0;
     END$$
 
 DELIMITER ;

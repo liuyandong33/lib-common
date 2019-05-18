@@ -48,7 +48,7 @@ public class DietOrderPayment extends BasicDomain {
      */
     private Date occurrenceTime;
     /**
-     * 扩展信息，用于保存储值支付的兑换比例，微信支付、支付宝支付的支付场景
+     * 扩展信息，用于保存积分支付的兑换比例，微信支付、支付宝支付的支付场景
      */
     private String extraInfo = Constants.VARCHAR_DEFAULT_VALUE;
     /**
