@@ -87,7 +87,7 @@ public class OauthClientDetail extends BasicDomain {
      * 设置用户是否自动Approval操作, 默认值为 false, 可选值包括 true,false.
      * 该字段只适用于grant_type="authorization_code"的情况,当用户登录成功后,若该值为true或支持的scope值,则会跳过用户Approve的页面, 直接授权.
      */
-    private boolean autoApprove;
+    private String autoApproveScope;
 
     public String getClientId() {
         return clientId;
@@ -169,12 +169,12 @@ public class OauthClientDetail extends BasicDomain {
         this.additionalInformation = additionalInformation;
     }
 
-    public boolean isAutoApprove() {
-        return autoApprove;
+    public String getAutoApproveScope() {
+        return autoApproveScope;
     }
 
-    public void setAutoApprove(boolean autoApprove) {
-        this.autoApprove = autoApprove;
+    public void setAutoApproveScope(String autoApproveScope) {
+        this.autoApproveScope = autoApproveScope;
     }
 
     public static class Builder {
@@ -230,8 +230,8 @@ public class OauthClientDetail extends BasicDomain {
             return this;
         }
 
-        public Builder autoApprove(boolean autoApprove) {
-            instance.setAutoApprove(autoApprove);
+        public Builder autoApproveScope(String autoApproveScope) {
+            instance.setAutoApproveScope(autoApproveScope);
             return this;
         }
 
@@ -287,7 +287,7 @@ public class OauthClientDetail extends BasicDomain {
             oauthClientDetail.setAccessTokenValidity(instance.getAccessTokenValidity());
             oauthClientDetail.setRefreshTokenValidity(instance.getRefreshTokenValidity());
             oauthClientDetail.setAdditionalInformation(instance.getAdditionalInformation());
-            oauthClientDetail.setAutoApprove(instance.isAutoApprove());
+            oauthClientDetail.setAutoApproveScope(instance.getAutoApproveScope());
             oauthClientDetail.setId(instance.getId());
             oauthClientDetail.setCreatedTime(instance.getCreatedTime());
             oauthClientDetail.setCreatedUserId(instance.getCreatedUserId());
@@ -315,7 +315,7 @@ public class OauthClientDetail extends BasicDomain {
         public static final String ACCESS_TOKEN_VALIDITY = "access_token_validity";
         public static final String REFRESH_TOKEN_VALIDITY = "refresh_token_validity";
         public static final String ADDITIONAL_INFORMATION = "additional_information";
-        public static final String AUTO_APPROVE = "auto_approve";
+        public static final String AUTO_APPROVE_SCOPE = "auto_approve_scope";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -329,6 +329,6 @@ public class OauthClientDetail extends BasicDomain {
         public static final String ACCESS_TOKEN_VALIDITY = "accessTokenValidity";
         public static final String REFRESH_TOKEN_VALIDITY = "refreshTokenValidity";
         public static final String ADDITIONAL_INFORMATION = "additionalInformation";
-        public static final String AUTO_APPROVE = "autoApprove";
+        public static final String AUTO_APPROVE_SCOPE = "autoApproveScope";
     }
 }
