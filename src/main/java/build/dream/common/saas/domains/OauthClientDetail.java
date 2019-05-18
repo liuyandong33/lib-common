@@ -305,20 +305,6 @@ public class OauthClientDetail extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String CLIENT_ID = "clientId";
-        public static final String CLIENT_SECRET = "clientSecret";
-        public static final String RESOURCE_IDS = "resourceIds";
-        public static final String SCOPE = "scope";
-        public static final String AUTHORIZED_GRANT_TYPES = "authorizedGrantTypes";
-        public static final String WEB_SERVER_REDIRECT_URI = "web_serverRedirectUri";
-        public static final String AUTHORITIES = "authorities";
-        public static final String ACCESS_TOKEN_VALIDITY = "accessTokenValidity";
-        public static final String REFRESH_TOKEN_VALIDITY = "refreshTokenValidity";
-        public static final String ADDITIONAL_INFORMATION = "additionalInformation";
-        public static final String AUTO_APPROVE = "autoApprove";
-    }
-
-    public static final class FieldName extends BasicDomain.FieldName {
         public static final String CLIENT_ID = "client_id";
         public static final String CLIENT_SECRET = "client_secret";
         public static final String RESOURCE_IDS = "resource_ids";
@@ -330,5 +316,19 @@ public class OauthClientDetail extends BasicDomain {
         public static final String REFRESH_TOKEN_VALIDITY = "refresh_token_validity";
         public static final String ADDITIONAL_INFORMATION = "additional_information";
         public static final String AUTO_APPROVE = "auto_approve";
+    }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String CLIENT_ID = "clientId";
+        public static final String CLIENT_SECRET = "clientSecret";
+        public static final String RESOURCE_IDS = "resourceIds";
+        public static final String SCOPE = "scope";
+        public static final String AUTHORIZED_GRANT_TYPES = "authorizedGrantTypes";
+        public static final String WEB_SERVER_REDIRECT_URI = "web_serverRedirectUri";
+        public static final String AUTHORITIES = "authorities";
+        public static final String ACCESS_TOKEN_VALIDITY = "accessTokenValidity";
+        public static final String REFRESH_TOKEN_VALIDITY = "refreshTokenValidity";
+        public static final String ADDITIONAL_INFORMATION = "additionalInformation";
+        public static final String AUTO_APPROVE = "autoApprove";
     }
 }
