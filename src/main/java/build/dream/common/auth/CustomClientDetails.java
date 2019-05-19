@@ -5,10 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
-import java.math.BigInteger;
 import java.util.*;
 
-public class SystemUserClientDetails implements ClientDetails {
+public class CustomClientDetails implements ClientDetails {
     private String clientId;
     private String clientSecret;
     private Set<String> scope = Collections.emptySet();
@@ -20,15 +19,6 @@ public class SystemUserClientDetails implements ClientDetails {
     private Integer accessTokenValiditySeconds;
     private Integer refreshTokenValiditySeconds;
     private Map<String, Object> additionalInformation = new LinkedHashMap<String, Object>();
-
-    private BigInteger userId;
-    private BigInteger tenantId;
-    private String tenantCode;
-    private String partitionCode;
-    private BigInteger branchId;
-    private String branchCode;
-    private String publicKey;
-    private String privateKey;
 
     @Override
     public String getClientId() {
@@ -127,70 +117,6 @@ public class SystemUserClientDetails implements ClientDetails {
         this.additionalInformation = additionalInformation;
     }
 
-    public BigInteger getUserId() {
-        return userId;
-    }
-
-    public void setUserId(BigInteger userId) {
-        this.userId = userId;
-    }
-
-    public BigInteger getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getTenantCode() {
-        return tenantCode;
-    }
-
-    public void setTenantCode(String tenantCode) {
-        this.tenantCode = tenantCode;
-    }
-
-    public String getPartitionCode() {
-        return partitionCode;
-    }
-
-    public void setPartitionCode(String partitionCode) {
-        this.partitionCode = partitionCode;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getBranchCode() {
-        return branchCode;
-    }
-
-    public void setBranchCode(String branchCode) {
-        this.branchCode = branchCode;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
-    }
-
     @Override
     public boolean isAutoApprove(String scope) {
         if (CollectionUtils.isEmpty(autoApproveScopes)) {
@@ -242,7 +168,7 @@ public class SystemUserClientDetails implements ClientDetails {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        SystemUserClientDetails other = (SystemUserClientDetails) obj;
+        CustomClientDetails other = (CustomClientDetails) obj;
         if (accessTokenValiditySeconds == null) {
             if (other.accessTokenValiditySeconds != null) {
                 return false;
