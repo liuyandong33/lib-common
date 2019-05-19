@@ -5,7 +5,7 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.InstantiateObjectKey;
 import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
-import build.dream.common.auth.SystemUserUserDetails;
+import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.HttpHeaders;
 import org.apache.commons.beanutils.BeanUtils;
@@ -1142,38 +1142,38 @@ public class ApplicationHandler {
     }
 
     public static BigInteger obtainUserId() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getUserId();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getUserId();
     }
 
     public static BigInteger obtainTenantId() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getTenantId();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getTenantId();
     }
 
     public static String obtainTenantCode() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getTenantCode();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getTenantCode();
     }
 
     public static BigInteger obtainBranchId() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getBranchId();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getBranchId();
     }
 
     public static String obtainBranchCode() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getBranchCode();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getBranchCode();
     }
 
     public static String obtainPublicKey() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getPublicKey();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getPublicKey();
     }
 
     public static String obtainPrivateKey() {
-        SystemUserUserDetails systemUserUserDetails = WebSecurityUtils.obtainSystemUserUserDetails();
-        return systemUserUserDetails.getPrivateKey();
+        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
+        return tenantUserDetails.getPrivateKey();
     }
 
     public static boolean isAjax() {
