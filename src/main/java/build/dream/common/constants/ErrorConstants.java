@@ -1,9 +1,7 @@
 package build.dream.common.constants;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.exceptions.Error;
 import build.dream.common.utils.ConfigurationUtils;
-import build.dream.common.utils.GsonUtils;
 
 public class ErrorConstants {
     private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
@@ -72,44 +70,4 @@ public class ErrorConstants {
     public static final Error ACCESS_DENIED_ERROR = new Error(ERROR_CODE_ACCESS_DENIED, "不允许访问！");
     public static final Error INVALID_SIGNATURE_ERROR = new Error(ERROR_CODE_INVALID_SIGNATURE, "签名错误！");
     public static final Error UNAUTHORIZED_ERROR = new Error(ERROR_CODE_INVALID_SIGNATURE, "Full authentication is required to access this resource！");
-
-    public static final String UNKNOWN_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNKNOWN_ERROR).successful(false).build());
-    public static final String INVALID_PARAMETER_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_PARAMETER_ERROR).successful(false).build());
-    public static final String HANDLING_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(HANDLING_ERROR).successful(false).build());
-    public static final String INVALID_CLIENT_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_CLIENT_ERROR).successful(false).build());
-    public static final String UNAUTHORIZED_CLIENT_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNAUTHORIZED_CLIENT_ERROR).successful(false).build());
-    public static final String INVALID_GRANT_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_GRANT_ERROR).successful(false).build());
-    public static final String INVALID_SCOPE_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_SCOPE_ERROR).successful(false).build());
-    public static final String INVALID_TOKEN_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_TOKEN_ERROR).successful(false).build());
-    public static final String INVALID_REQUEST_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_REQUEST_ERROR).successful(false).build());
-    public static final String REDIRECT_URI_MISMATCH_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(REDIRECT_URI_MISMATCH_ERROR).successful(false).build());
-    public static final String UNSUPPORTED_GRANT_TYPE_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNSUPPORTED_GRANT_TYPE_ERROR).successful(false).build());
-    public static final String UNSUPPORTED_RESPONSE_TYPE_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNSUPPORTED_RESPONSE_TYPE_ERROR).successful(false).build());
-    public static final String INSUFFICIENT_SCOPE_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INSUFFICIENT_SCOPE_ERROR).successful(false).build());
-    public static final String ACCESS_DENIED_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(ACCESS_DENIED_ERROR).successful(false).build());
-    public static final String INVALID_SIGNATURE_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(INVALID_SIGNATURE_ERROR).successful(false).build());
-    public static final String UNAUTHORIZED_ERROR_API_REST = GsonUtils.toJson(ApiRest.builder().error(UNAUTHORIZED_ERROR).successful(false).build());
-
-    private static String obtainSignedApiRest(Error error) {
-        ApiRest apiRest = ApiRest.builder().error(error).successful(false).build();
-        apiRest.sign(PLATFORM_PRIVATE_KEY);
-        return GsonUtils.toJson(apiRest);
-    }
-
-    public static final String UNKNOWN_ERROR_SIGNED_API_REST = obtainSignedApiRest(UNKNOWN_ERROR);
-    public static final String INVALID_PARAMETER_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_PARAMETER_ERROR);
-    public static final String HANDLING_ERROR_SIGNED_API_REST = obtainSignedApiRest(HANDLING_ERROR);
-    public static final String INVALID_CLIENT_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_CLIENT_ERROR);
-    public static final String UNAUTHORIZED_CLIENT_ERROR_SIGNED_API_REST = obtainSignedApiRest(UNAUTHORIZED_CLIENT_ERROR);
-    public static final String INVALID_GRANT_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_GRANT_ERROR);
-    public static final String INVALID_SCOPE_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_SCOPE_ERROR);
-    public static final String INVALID_TOKEN_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_TOKEN_ERROR);
-    public static final String INVALID_REQUEST_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_REQUEST_ERROR);
-    public static final String REDIRECT_URI_MISMATCH_SIGNED_ERROR_API_REST = obtainSignedApiRest(REDIRECT_URI_MISMATCH_ERROR);
-    public static final String UNSUPPORTED_GRANT_TYPE_ERROR_SIGNED_API_REST = obtainSignedApiRest(UNSUPPORTED_GRANT_TYPE_ERROR);
-    public static final String UNSUPPORTED_RESPONSE_TYPE_ERROR_SIGNED_API_REST = obtainSignedApiRest(UNSUPPORTED_RESPONSE_TYPE_ERROR);
-    public static final String INSUFFICIENT_SCOPE_ERROR_SIGNED_API_REST = obtainSignedApiRest(INSUFFICIENT_SCOPE_ERROR);
-    public static final String ACCESS_DENIED_ERROR_API_SIGNED_REST = obtainSignedApiRest(ACCESS_DENIED_ERROR);
-    public static final String INVALID_SIGNATURE_ERROR_SIGNED_API_REST = obtainSignedApiRest(INVALID_SIGNATURE_ERROR);
-    public static final String UNAUTHORIZED_ERROR_SIGNED_API_REST = obtainSignedApiRest(UNAUTHORIZED_ERROR);
 }
