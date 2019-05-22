@@ -777,7 +777,7 @@ public class Constants {
      * @see #ERROR_CODE_UNSUPPORTED_GRANT_TYPE：grant_type错误
      * @see #ERROR_CODE_UNSUPPORTED_RESPONSE_TYPE：response_type错误
      * @see #ERROR_CODE_INSUFFICIENT_SCOPE：scope错误
-     * @see #ERROR_CODE_ACCESS_DENIED：不允许访问！
+     * @see #ERROR_CODE_ACCESS_DENIED：不允许访问
      */
     public static final String ERROR_CODE_UNKNOWN_ERROR = "0000";
     public static final String ERROR_CODE_INVALID_PARAMETER = "0001";
