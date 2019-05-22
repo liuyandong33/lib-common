@@ -761,20 +761,38 @@ public class Constants {
     public static final Integer ACCESS_MODE_GET_SIGNATURE = 3;
     public static final Integer ACCESS_MODE_POST_SIGNATURE = 4;
 
+    /**
+     * 错误代码
+     *
+     * @see #ERROR_CODE_UNKNOWN_ERROR：未知错误
+     * @see #ERROR_CODE_INVALID_PARAMETER：参数错误
+     * @see #ERROR_CODE_HANDLING_ERROR：处理错误
+     * @see #ERROR_CODE_INVALID_CLIENT：无效客户端
+     * @see #ERROR_CODE_UNAUTHORIZED_CLIENT：未授权的客户端
+     * @see #ERROR_CODE_INVALID_GRANT：grant无效
+     * @see #ERROR_CODE_INVALID_SCOPE：scope无效
+     * @see #ERROR_CODE_INVALID_TOKEN：token无效
+     * @see #ERROR_CODE_INVALID_REQUEST：无效请求
+     * @see #ERROR_CODE_REDIRECT_URI_MISMATCH：redirect_uri不匹配
+     * @see #ERROR_CODE_UNSUPPORTED_GRANT_TYPE：grant_type错误
+     * @see #ERROR_CODE_UNSUPPORTED_RESPONSE_TYPE：response_type错误
+     * @see #ERROR_CODE_INSUFFICIENT_SCOPE：scope错误
+     * @see #ERROR_CODE_ACCESS_DENIED：不允许访问！
+     */
     public static final String ERROR_CODE_UNKNOWN_ERROR = "0000";
     public static final String ERROR_CODE_INVALID_PARAMETER = "0001";
     public static final String ERROR_CODE_HANDLING_ERROR = "0002";
-    public static final String ERROR_CODE_INVALID_CLIENT = "0004";
-    public static final String ERROR_CODE_UNAUTHORIZED_CLIENT = "0005";
-    public static final String ERROR_CODE_INVALID_GRANT = "0006";
-    public static final String ERROR_CODE_INVALID_SCOPE = "0007";
-    public static final String ERROR_CODE_INVALID_TOKEN = "0008";
-    public static final String ERROR_CODE_INVALID_REQUEST = "0009";
-    public static final String ERROR_CODE_REDIRECT_URI_MISMATCH = "0010";
-    public static final String ERROR_CODE_UNSUPPORTED_GRANT_TYPE = "0011";
-    public static final String ERROR_CODE_UNSUPPORTED_RESPONSE_TYPE = "0012";
-    public static final String ERROR_CODE_INSUFFICIENT_SCOPE = "0013";
-    public static final String ERROR_CODE_ACCESS_DENIED = "0014";
+    public static final String ERROR_CODE_INVALID_CLIENT = "0003";
+    public static final String ERROR_CODE_UNAUTHORIZED_CLIENT = "0004";
+    public static final String ERROR_CODE_INVALID_GRANT = "0005";
+    public static final String ERROR_CODE_INVALID_SCOPE = "0006";
+    public static final String ERROR_CODE_INVALID_TOKEN = "0007";
+    public static final String ERROR_CODE_INVALID_REQUEST = "0008";
+    public static final String ERROR_CODE_REDIRECT_URI_MISMATCH = "0009";
+    public static final String ERROR_CODE_UNSUPPORTED_GRANT_TYPE = "0010";
+    public static final String ERROR_CODE_UNSUPPORTED_RESPONSE_TYPE = "0011";
+    public static final String ERROR_CODE_INSUFFICIENT_SCOPE = "0012";
+    public static final String ERROR_CODE_ACCESS_DENIED = "0013";
     public static final Error UNKNOWN_ERROR = new Error(ERROR_CODE_UNKNOWN_ERROR, "未知错误！");
     public static final Error INVALID_PARAMETER_ERROR = new Error(ERROR_CODE_INVALID_PARAMETER, "参数错误！");
     public static final Error ACCESS_DENIED_ERROR = new Error(ERROR_CODE_ACCESS_DENIED, "不允许访问！");
