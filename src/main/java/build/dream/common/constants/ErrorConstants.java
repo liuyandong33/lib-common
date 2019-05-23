@@ -3,7 +3,7 @@ package build.dream.common.constants;
 import build.dream.common.exceptions.Error;
 import build.dream.common.utils.ConfigurationUtils;
 
-public class ErrorCodeConstants {
+public class ErrorConstants {
     private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
     public static final String INVALID_REQUEST = "invalid_request";
     public static final String INVALID_CLIENT = "invalid_client";

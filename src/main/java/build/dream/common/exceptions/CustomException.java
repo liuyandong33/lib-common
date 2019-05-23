@@ -1,18 +1,17 @@
 package build.dream.common.exceptions;
 
-import build.dream.common.constants.Constants;
-import build.dream.common.constants.ErrorCodeConstants;
+import build.dream.common.constants.ErrorConstants;
 
 public class CustomException extends RuntimeException {
     private String code;
 
     public CustomException() {
-        this("未知错误！");
+        this(ErrorConstants.UNKNOWN_ERROR);
     }
 
     public CustomException(String message) {
         super(message);
-        this.code = Constants.ERROR_CODE_UNKNOWN_ERROR;
+        this.code = ErrorConstants.ERROR_CODE_UNKNOWN_ERROR;
     }
 
     public CustomException(String message, String code) {
@@ -22,12 +21,12 @@ public class CustomException extends RuntimeException {
 
     public CustomException(String message, Throwable cause) {
         super(message, cause);
-        this.code = ErrorCodeConstants.ERROR_CODE_UNKNOWN_ERROR;
+        this.code = ErrorConstants.ERROR_CODE_UNKNOWN_ERROR;
     }
 
     public CustomException(Throwable cause) {
         super(cause);
-        this.code = ErrorCodeConstants.ERROR_CODE_UNKNOWN_ERROR;
+        this.code = ErrorConstants.ERROR_CODE_UNKNOWN_ERROR;
     }
 
     public CustomException(Error error) {
