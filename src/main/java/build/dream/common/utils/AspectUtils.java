@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AspectUtils {
     private static ConcurrentHashMap<Class<?>, Object> serviceMap = new ConcurrentHashMap<Class<?>, Object>();
     private static final String APPLICATION_FORM_URLENCODED_UTF8_VALUE = "application/x-www-form-urlencoded;charset=UTF-8";
-    private static final MediaType APPLICATION_FORM_URLENCODED_UTF8 = MediaType.valueOf(APPLICATION_FORM_URLENCODED_UTF8_VALUE);
+    private final static String APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
 
     private static Object obtainService(Class<?> serviceClass) {
         if (!serviceMap.contains(serviceClass)) {
@@ -39,9 +39,9 @@ public class AspectUtils {
         try {
             String contentType = httpServletRequest.getContentType();
             MediaType mediaType = MediaType.valueOf(contentType);
-            if (MediaType.APPLICATION_JSON_UTF8.compareTo(mediaType) == 0) {
+            if (APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
                 requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-            } else if (APPLICATION_FORM_URLENCODED_UTF8.compareTo(mediaType) == 0) {
+            } else if (APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(mediaType)) {
                 requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
             } else {
                 throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
