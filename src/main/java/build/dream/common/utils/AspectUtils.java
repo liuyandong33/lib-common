@@ -19,7 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AspectUtils {
     private static ConcurrentHashMap<Class<?>, Object> serviceMap = new ConcurrentHashMap<Class<?>, Object>();
     private static final String APPLICATION_FORM_URLENCODED_UTF8_VALUE = "application/x-www-form-urlencoded;charset=UTF-8";
-    private final static String APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
+    private static final String APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
+    private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
 
     private static Object obtainService(Class<?> serviceClass) {
         if (!serviceMap.contains(serviceClass)) {
@@ -31,20 +32,31 @@ public class AspectUtils {
     public static String callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) {
         HttpServletRequest httpServletRequest = ApplicationHandler.getHttpServletRequest();
 
-        Map<String, String> requestParameters = null;
-        String requestBody = null;
         ApiRest apiRest = null;
         Throwable throwable = null;
+        String datePattern = apiRestAction.datePattern();
         try {
             String contentType = httpServletRequest.getContentType();
+
+            Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
+            Class<?> serviceClass = apiRestAction.serviceClass();
+            String serviceMethodName = apiRestAction.serviceMethodName();
+
             if (APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
-                requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
+                if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+                    apiRest = callApiRestAction(ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8), modelClass, serviceClass, serviceMethodName, datePattern);
+                } else {
+                    apiRest = callApiRestAction(proceedingJoinPoint);
+                }
             } else if (APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType)) {
-                requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
+                if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+                    apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
+                } else {
+                    apiRest = callApiRestAction(proceedingJoinPoint);
+                }
             } else {
                 throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
-            apiRest = callApiRestAction(proceedingJoinPoint, requestParameters, requestBody, apiRestAction);
         } catch (InvocationTargetException e) {
             throwable = e.getTargetException();
         } catch (Throwable t) {
@@ -52,8 +64,7 @@ public class AspectUtils {
         }
 
         if (throwable != null) {
-            String body = requestBody != null ? requestBody : String.valueOf(requestParameters);
-            LogUtils.error(apiRestAction.error(), proceedingJoinPoint.getTarget().getClass().getName(), proceedingJoinPoint.getSignature().getName(), throwable, body);
+            LogUtils.error(apiRestAction.error(), proceedingJoinPoint.getTarget().getClass().getName(), proceedingJoinPoint.getSignature().getName(), throwable);
             if (throwable instanceof CustomException) {
                 CustomException customException = (CustomException) throwable;
                 apiRest = ApiRest.builder().error(new Error(customException.getCode(), customException.getMessage())).build();
@@ -62,49 +73,119 @@ public class AspectUtils {
             }
         }
 
-        String datePattern = apiRestAction.datePattern();
-
+        // 处理压缩
         if (apiRestAction.zipped()) {
             apiRest.zipData(datePattern);
         }
 
+        // 处理加密
         if (apiRestAction.encrypted()) {
-            String publicKey = requestParameters.get(Constants.PUBLIC_KEY);
+            String publicKey = ApplicationHandler.obtainPublicKey();
             apiRest.encryptData(publicKey, datePattern);
         }
 
+        // 处理签名
         if (apiRestAction.signed()) {
-            String platformPrivateKey = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
-            apiRest.sign(platformPrivateKey, datePattern);
+            apiRest.sign(PLATFORM_PRIVATE_KEY, datePattern);
         }
         return GsonUtils.toJson(apiRest, datePattern);
     }
 
-    private static BasicModel buildModel(Class<? extends BasicModel> modelClass, Map<String, String> requestParameters, String requestBody, String datePattern) throws Exception {
-        if (requestBody != null) {
-            return ApplicationHandler.instantiateObject(modelClass, requestBody, datePattern);
-        } else {
-            return ApplicationHandler.instantiateObject(modelClass, requestParameters, datePattern);
-        }
+    /**
+     * 处理 Content-Type=application/x-www-form-urlencoded;charset=UTF-8 的请求
+     *
+     * @param requestParameters
+     * @param modelClass
+     * @param serviceClass
+     * @param serviceMethodName
+     * @param datePattern
+     * @return
+     * @throws Throwable
+     */
+    private static ApiRest callApiRestAction(Map<String, String> requestParameters, Class<? extends BasicModel> modelClass, Class<?> serviceClass, String serviceMethodName, String datePattern) throws Throwable {
+        BasicModel model = buildModel(modelClass, requestParameters, datePattern);
+        return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
     }
 
-    private static ApiRest callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, Map<String, String> requestParameters, String requestBody, ApiRestAction apiRestAction) throws Throwable {
-        Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
-        Class<?> serviceClass = apiRestAction.serviceClass();
-        String serviceMethodName = apiRestAction.serviceMethodName();
+    /**
+     * 处理 Content-Type=application/json;charset=UTF-8 的请求
+     *
+     * @param requestBody
+     * @param modelClass
+     * @param serviceClass
+     * @param serviceMethodName
+     * @param datePattern
+     * @return
+     * @throws Throwable
+     */
+    private static ApiRest callApiRestAction(String requestBody, Class<? extends BasicModel> modelClass, Class<?> serviceClass, String serviceMethodName, String datePattern) throws Throwable {
+        BasicModel model = buildModel(modelClass, requestBody, datePattern);
+        model.validateAndThrow();
+        return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
+    }
 
-        Object result = null;
-        if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-            BasicModel model = buildModel(modelClass, requestParameters, requestBody, apiRestAction.datePattern());
-            model.validateAndThrow();
+    /**
+     * 调用 Service 的方法
+     *
+     * @param modelClass
+     * @param serviceClass
+     * @param serviceMethodName
+     * @param model
+     * @return
+     * @throws Throwable
+     */
+    private static ApiRest callApiRestAction(Class<? extends BasicModel> modelClass, Class<?> serviceClass, String serviceMethodName, BasicModel model) throws Throwable {
+        Method method = serviceClass.getDeclaredMethod(serviceMethodName, modelClass);
+        method.setAccessible(true);
 
-            Method method = serviceClass.getDeclaredMethod(serviceMethodName, modelClass);
-            method.setAccessible(true);
+        Object result = method.invoke(obtainService(serviceClass), model);
+        return transformResult(result);
+    }
 
-            result = method.invoke(obtainService(serviceClass), model);
-        } else {
-            result = proceedingJoinPoint.proceed();
-        }
+    /**
+     * 构建 Model 对象 Content-Type=application/x-www-form-urlencoded;charset=UTF-8
+     *
+     * @param modelClass
+     * @param requestParameters
+     * @param datePattern
+     * @return
+     * @throws Exception
+     */
+    private static BasicModel buildModel(Class<? extends BasicModel> modelClass, Map<String, String> requestParameters, String datePattern) throws Exception {
+        return ApplicationHandler.instantiateObject(modelClass, requestParameters, datePattern);
+    }
+
+    /**
+     * 构建 Model 对象，Content-Type=application/json;charset=UTF-8
+     *
+     * @param modelClass
+     * @param requestBody
+     * @param datePattern
+     * @return
+     * @throws Exception
+     */
+    private static BasicModel buildModel(Class<? extends BasicModel> modelClass, String requestBody, String datePattern) throws Exception {
+        return ApplicationHandler.instantiateObject(modelClass, requestBody, datePattern);
+    }
+
+    /**
+     * 调用 Controller 方法
+     *
+     * @param proceedingJoinPoint
+     * @return
+     * @throws Throwable
+     */
+    private static ApiRest callApiRestAction(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        return transformResult(proceedingJoinPoint.proceed());
+    }
+
+    /**
+     * 转换返回结果
+     *
+     * @param result
+     * @return
+     */
+    private static ApiRest transformResult(Object result) {
         if (result instanceof String) {
             return ApiRest.fromJson(result.toString());
         } else {
