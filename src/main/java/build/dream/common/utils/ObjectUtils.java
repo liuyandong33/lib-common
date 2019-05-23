@@ -30,4 +30,12 @@ public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
     public static <T> T deserialize(InputStream inputStream) {
         return SerializationUtils.deserialize(inputStream);
     }
+
+    public static <T> T newInstance(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

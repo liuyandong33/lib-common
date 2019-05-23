@@ -292,7 +292,7 @@ public class ApplicationHandler {
         if (ValidateUtils.isJson(json)) {
             return JacksonUtils.readValue(json, objectClass, datePattern);
         }
-        return null;
+        return ObjectUtils.newInstance(objectClass);
     }
 
     /**
