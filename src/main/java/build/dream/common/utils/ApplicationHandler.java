@@ -3,7 +3,6 @@ package build.dream.common.utils;
 import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.InstantiateObjectKey;
-import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
@@ -17,7 +16,6 @@ import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -291,11 +289,10 @@ public class ApplicationHandler {
      * @return
      */
     public static <T> T instantiateObject(Class<T> objectClass, String json, String datePattern) {
-        JsonSchema jsonSchema = AnnotationUtils.findAnnotation(objectClass, JsonSchema.class);
-        if (jsonSchema != null) {
-            ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
+        if (ValidateUtils.isJson(json)) {
+            return JacksonUtils.readValue(json, objectClass, datePattern);
         }
-        return JacksonUtils.readValue(json, objectClass, datePattern);
+        return null;
     }
 
     /**
@@ -393,12 +390,7 @@ public class ApplicationHandler {
                     field.set(object, JacksonUtils.readValueAsMap(fieldValue, keyClass, valueClass));
                 }
             } else {
-                boolean isJson = isJson(fieldValue);
-                if (isJson) {
-                    JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
-                    if (jsonSchema != null) {
-                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
-                    }
+                if (ValidateUtils.isJson(fieldValue)) {
                     field.set(object, JacksonUtils.readValue(fieldValue, field.getType()));
                 }
             }
@@ -679,12 +671,7 @@ public class ApplicationHandler {
         } else if (type == String.class) {
             list = buildStringArrayList(fieldValue, separator);
         } else {
-            boolean isJson = isJson(fieldValue);
-            if (isJson) {
-                JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
-                if (jsonSchema != null) {
-                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
-                }
+            if (ValidateUtils.isJson(fieldValue)) {
                 list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
             }
         }
@@ -911,24 +898,11 @@ public class ApplicationHandler {
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
         isJson(jsonString, parameterName);
-        isTrue(isRightJson(jsonString, schemaFilePath), parameterName);
-    }
-
-    public static boolean isRightJson(String jsonString, String schemaFilePath) {
-        return JsonSchemaValidateUtils.validate(jsonString, schemaFilePath);
+        isTrue(ValidateUtils.isRightJson(jsonString, schemaFilePath), parameterName);
     }
 
     public static void isJson(String jsonString, String parameterName) {
-        notBlank(jsonString, parameterName);
-        boolean isValidate = (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
-        isTrue(isValidate, parameterName);
-    }
-
-    public static boolean isJson(String jsonString) {
-        if (StringUtils.isBlank(jsonString)) {
-            return false;
-        }
-        return (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
+        isTrue(ValidateUtils.isJson(jsonString), parameterName);
     }
 
     public static void notBlank(String string, String parameterName) {

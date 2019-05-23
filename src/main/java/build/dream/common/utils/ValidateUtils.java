@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.JsonSchema;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
@@ -9,6 +10,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -53,6 +55,10 @@ public class ValidateUtils {
 
     public static boolean validate(Object model) {
         Class<?> modelClass = model.getClass();
+        JsonSchema jsonSchema = AnnotationUtils.findAnnotation(modelClass, JsonSchema.class);
+        if (jsonSchema != null) {
+            return ValidateUtils.isRightJson(JacksonUtils.writeValueAsString(model), jsonSchema.value());
+        }
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(modelClass);
         for (Field field : allFields) {
@@ -65,6 +71,11 @@ public class ValidateUtils {
     }
 
     public static void validateAndThrow(Object model) {
+        Class<?> modelClass = model.getClass();
+        JsonSchema jsonSchema = AnnotationUtils.findAnnotation(modelClass, JsonSchema.class);
+        if (jsonSchema != null) {
+            JsonSchemaValidateUtils.validateAndThrow(JacksonUtils.writeValueAsString(model), jsonSchema.value());
+        }
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(model.getClass());
         String modelClassName = model.getClass().getName();
@@ -401,5 +412,16 @@ public class ValidateUtils {
                 throw new CustomException(error);
             }
         }
+    }
+
+    public static boolean isRightJson(String jsonString, String schemaFilePath) {
+        return JsonSchemaValidateUtils.validate(jsonString, schemaFilePath);
+    }
+
+    public static boolean isJson(String jsonString) {
+        if (StringUtils.isBlank(jsonString)) {
+            return false;
+        }
+        return (jsonString.startsWith("{") && jsonString.endsWith("}")) || (jsonString.startsWith("[") && jsonString.endsWith("]"));
     }
 }

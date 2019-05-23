@@ -1,13 +1,14 @@
 package build.dream.common.constraints;
 
-import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.JacksonUtils;
 import build.dream.common.utils.JsonSchemaValidateUtils;
-import org.apache.commons.lang.StringUtils;
+import build.dream.common.utils.ObjectUtils;
+import build.dream.common.utils.ValidateUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJsonSchema, String> {
+public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJsonSchema, Object> {
     private String schemaFilePath = null;
 
     @Override
@@ -16,18 +17,16 @@ public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJson
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
-        boolean valid = true;
-        if (StringUtils.isNotBlank(value)) {
-            valid = ApplicationHandler.isJson(value);
-            if (!valid) {
-                return valid;
+    public boolean isValid(Object object, ConstraintValidatorContext context) {
+        if (ObjectUtils.isNotNull(object)) {
+            String json = JacksonUtils.writeValueAsString(object);
+            if (!ValidateUtils.isJson(json)) {
+                return false;
             }
-            valid = JsonSchemaValidateUtils.validate(value, schemaFilePath);
-            if (!valid) {
-                return valid;
+            if (!JsonSchemaValidateUtils.validate(json, schemaFilePath)) {
+                return false;
             }
         }
-        return valid;
+        return true;
     }
 }

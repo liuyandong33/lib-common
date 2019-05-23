@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ErrorConstants;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;
@@ -67,7 +68,7 @@ public class JsonSchemaValidateUtils {
             }
             for (JsonValidator validator : validators.values()) {
                 Set<ValidationMessage> errors = validator.validate(jsonNode);
-                ValidateUtils.isTrue(CollectionUtils.isEmpty(errors), "验证未通过！");
+                ValidateUtils.isTrue(CollectionUtils.isEmpty(errors), ErrorConstants.INVALID_PARAMETER_ERROR);
             }
         }
     }
