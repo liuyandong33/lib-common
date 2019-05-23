@@ -11,6 +11,7 @@ import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.HibernateValidator;

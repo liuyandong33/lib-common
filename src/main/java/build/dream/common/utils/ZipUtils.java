@@ -1,6 +1,8 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.io.ByteArrayInputStream;
@@ -16,20 +18,15 @@ public class ZipUtils {
         if (StringUtils.isBlank(text)) {
             zippedText = text;
         } else {
-            ByteArrayOutputStream byteArrayOutputStream = null;
-            ZipOutputStream zipOutputStream = null;
-            try {
-                byteArrayOutputStream = new ByteArrayOutputStream();
-                zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
+            try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                 ZipOutputStream zipOutputStream = new ZipOutputStream(byteArrayOutputStream);
+            ) {
                 zipOutputStream.putNextEntry(new ZipEntry("0"));
                 zipOutputStream.write(text.getBytes());
                 zipOutputStream.closeEntry();
                 zippedText = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-                IOUtils.close(zipOutputStream);
-                IOUtils.close(byteArrayOutputStream);
             }
         }
         return zippedText;
@@ -40,19 +37,13 @@ public class ZipUtils {
         if (StringUtils.isBlank(zippedText)) {
             text = zippedText;
         } else {
-            ByteArrayInputStream byteArrayInputStream = null;
-            ZipInputStream zipInputStream = null;
-            try {
-                byte[] data = Base64.decodeBase64(zippedText);
-                byteArrayInputStream = new ByteArrayInputStream(data);
-                zipInputStream = new ZipInputStream(byteArrayInputStream);
+            byte[] data = Base64.decodeBase64(zippedText);
+            try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
+                 ZipInputStream zipInputStream = new ZipInputStream(byteArrayInputStream)) {
                 zipInputStream.getNextEntry();
-                text = IOUtils.toString(zipInputStream);
+                text = IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8);
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-                IOUtils.close(zipInputStream);
-                IOUtils.close(byteArrayInputStream);
             }
         }
         return text;

@@ -7,19 +7,16 @@ import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
 public class TarUtils {
     public static String zipText(String text) {
         String zippedText = null;
-        ByteArrayOutputStream byteArrayOutputStream = null;
-        GzipCompressorOutputStream gzipCompressorOutputStream = null;
-        TarArchiveOutputStream tarArchiveOutputStream = null;
-        try {
-            byteArrayOutputStream = new ByteArrayOutputStream();
-            gzipCompressorOutputStream = new GzipCompressorOutputStream(byteArrayOutputStream);
-            tarArchiveOutputStream = new TarArchiveOutputStream(gzipCompressorOutputStream);
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+             GzipCompressorOutputStream gzipCompressorOutputStream = new GzipCompressorOutputStream(byteArrayOutputStream);
+             TarArchiveOutputStream tarArchiveOutputStream = new TarArchiveOutputStream(gzipCompressorOutputStream)) {
 
             byte[] data = text.getBytes(Constants.CHARSET_NAME_UTF_8);
             TarArchiveEntry tarArchiveEntry = new TarArchiveEntry("0");
@@ -31,32 +28,19 @@ public class TarUtils {
             zippedText = Base64.encodeBase64String(byteArrayOutputStream.toByteArray());
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            IOUtils.close(tarArchiveOutputStream);
-            IOUtils.close(byteArrayOutputStream);
-            IOUtils.close(gzipCompressorOutputStream);
         }
         return zippedText;
     }
 
     public static String unzipText(String zippedText) {
         String text = null;
-        ByteArrayInputStream byteArrayInputStream = null;
-        GzipCompressorInputStream gzipCompressorInputStream = null;
-        TarArchiveInputStream tarArchiveInputStream = null;
-        try {
-            byte[] data = Base64.decodeBase64(zippedText);
-            byteArrayInputStream = new ByteArrayInputStream(data);
-            gzipCompressorInputStream = new GzipCompressorInputStream(byteArrayInputStream);
-            tarArchiveInputStream = new TarArchiveInputStream(gzipCompressorInputStream);
-            tarArchiveInputStream.getNextTarEntry();
-            text = IOUtils.toString(tarArchiveInputStream);
+        byte[] data = Base64.decodeBase64(zippedText);
+        try (ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(data);
+             GzipCompressorInputStream gzipCompressorInputStream = new GzipCompressorInputStream(byteArrayInputStream);
+             TarArchiveInputStream tarArchiveInputStream = new TarArchiveInputStream(gzipCompressorInputStream);) {
+            text = IOUtils.toString(tarArchiveInputStream, Constants.CHARSET_UTF_8);
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            IOUtils.close(byteArrayInputStream);
-            IOUtils.close(gzipCompressorInputStream);
-            IOUtils.close(tarArchiveInputStream);
         }
         return text;
     }
@@ -86,15 +70,11 @@ public class TarUtils {
                 } else {
                     File fileEntry = new File(destDir + File.separator + tarArchiveEntry.getName());
                     FileUtils.createDirectoryIfNotExists(fileEntry.getParentFile());
-                    IOUtils.copy(tarArchiveInputStream, new FileOutputStream(file), true);
+                    IOUtils.copy(tarArchiveInputStream, new FileOutputStream(file));
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-        } finally {
-            IOUtils.close(tarArchiveInputStream);
-            IOUtils.close(gzipCompressorInputStream);
-            IOUtils.close(inputStream);
         }
     }
 }

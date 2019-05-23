@@ -1,29 +1,23 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
-import build.dream.common.beans.WebResponse;
-import build.dream.common.constants.Constants;
-import build.dream.common.constants.HttpHeaders;
 import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.NamingStrategyUtils;
-import build.dream.common.utils.WebUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import javax.net.ssl.SSLSocketFactory;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
-import java.security.*;
-import java.security.cert.CertificateException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) throws IOException, ClassNotFoundException, KeyStoreException, CertificateException, NoSuchAlgorithmException, UnrecoverableKeyException, InvalidKeyException, SignatureException, KeyManagementException {
+    public static void main(String[] args) {
         /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {

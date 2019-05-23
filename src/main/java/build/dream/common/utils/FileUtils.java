@@ -58,11 +58,9 @@ public class FileUtils {
                 end = fileLength - 1;
             }
         }
-        InputStream inputStream = null;
-        OutputStream outputStream = null;
-        try {
-            inputStream = new FileInputStream(file);
-            outputStream = httpServletResponse.getOutputStream();
+        try (InputStream inputStream = new FileInputStream(file);
+             OutputStream outputStream = httpServletResponse.getOutputStream();
+        ) {
             inputStream.skip(start);
             long count = (end - start + 1) / 1024;
             int remainder = (int) ((end - start + 1) % 1024);
@@ -81,9 +79,6 @@ public class FileUtils {
             }
         } catch (Exception e) {
 
-        } finally {
-            IOUtils.close(outputStream);
-            IOUtils.close(inputStream);
         }
     }
 }
