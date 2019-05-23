@@ -40,7 +40,7 @@ public class AspectUtils {
         try {
             String contentType = httpServletRequest.getContentType();
             MediaType mediaType = MediaType.valueOf(contentType);
-            if (MediaType.APPLICATION_JSON.compareTo(mediaType) == 0) {
+            if (MediaType.APPLICATION_JSON_UTF8.compareTo(mediaType) == 0) {
                 requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
             } else if (APPLICATION_FORM_URLENCODED_UTF8.compareTo(mediaType) == 0) {
                 requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
