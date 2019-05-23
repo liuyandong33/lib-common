@@ -9,6 +9,11 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.BigDecimalConverter;
+import org.apache.commons.beanutils.converters.BigIntegerConverter;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -1181,5 +1186,12 @@ public class ApplicationHandler {
             return headerValue.equalsIgnoreCase(Constants.XML_HTTP_REQUEST);
         }
         return false;
+    }
+
+    public static void registerConverters() {
+        ConvertUtils.register(new IntegerConverter(null), Integer.class);
+        ConvertUtils.register(new BigIntegerConverter(null), BigInteger.class);
+        ConvertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
+        ConvertUtils.register(new DateConverter(null), Date.class);
     }
 }
