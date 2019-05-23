@@ -268,14 +268,33 @@ public class ApplicationHandler {
         return obtainRequestUrl(getHttpServletRequest());
     }
 
+    /**
+     * 实例化json对象并校验
+     *
+     * @param objectClass
+     * @param json
+     * @param <T>
+     * @return
+     */
     public static <T> T instantiateObject(Class<T> objectClass, String json) {
+        return instantiateObject(objectClass, json, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    /**
+     * 实例化json对象并校验
+     *
+     * @param objectClass
+     * @param json
+     * @param datePattern
+     * @param <T>
+     * @return
+     */
+    public static <T> T instantiateObject(Class<T> objectClass, String json, String datePattern) {
         JsonSchema jsonSchema = AnnotationUtils.findAnnotation(objectClass, JsonSchema.class);
         if (jsonSchema != null) {
-            if (jsonSchema != null) {
-                ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
-            }
+            ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
         }
-        return JacksonUtils.readValue(json, objectClass);
+        return JacksonUtils.readValue(json, objectClass, datePattern);
     }
 
     /**
@@ -288,7 +307,7 @@ public class ApplicationHandler {
      * @throws Exception
      */
     public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters) throws Exception {
-        return instantiateObject(objectClass, parameters, "");
+        return instantiateObject(objectClass, parameters, Constants.DEFAULT_DATE_PATTERN);
     }
 
     /**
@@ -296,12 +315,12 @@ public class ApplicationHandler {
      *
      * @param objectClass
      * @param parameters
-     * @param prefix
+     * @param datePattern
      * @param <T>
      * @return
      * @throws Exception
      */
-    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String prefix) throws Exception {
+    public static <T> T instantiateObject(Class<T> objectClass, Map<String, String> parameters, String datePattern) throws Exception {
         T object = objectClass.newInstance();
         Map<String, SimpleDateFormat> simpleDateFormatMap = new HashMap<String, SimpleDateFormat>();
 
@@ -323,7 +342,7 @@ public class ApplicationHandler {
             } else {
                 parameterName = instantiateObjectKey.name();
             }
-            String fieldValue = parameters.get(prefix + parameterName);
+            String fieldValue = parameters.get(parameterName);
             if (StringUtils.isBlank(fieldValue)) {
                 continue;
             }
@@ -348,7 +367,7 @@ public class ApplicationHandler {
             } else if (fieldClass == Boolean.class || fieldClass == boolean.class) {
                 field.set(object, Boolean.valueOf(fieldValue));
             } else if (fieldClass == Date.class) {
-                SimpleDateFormat simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
+                SimpleDateFormat simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field, datePattern);
                 field.set(object, simpleDateFormat.parse(fieldValue));
             } else if (fieldClass == BigInteger.class) {
                 field.set(object, BigInteger.valueOf(Long.valueOf(fieldValue)));
@@ -360,7 +379,7 @@ public class ApplicationHandler {
                     Type itemType = ((ParameterizedType) type).getActualTypeArguments()[0];
                     SimpleDateFormat simpleDateFormat = null;
                     if (itemType instanceof Date) {
-                        simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field);
+                        simpleDateFormat = obtainSimpleDateFormat(simpleDateFormatMap, field, datePattern);
                     }
                     field.set(object, buildArrayList(field, itemType, parameterName, fieldValue, ",", simpleDateFormat));
                 }
@@ -408,14 +427,14 @@ public class ApplicationHandler {
      * @param field
      * @return
      */
-    public static SimpleDateFormat obtainSimpleDateFormat(Map<String, SimpleDateFormat> simpleDateFormatMap, Field field) {
+    public static SimpleDateFormat obtainSimpleDateFormat(Map<String, SimpleDateFormat> simpleDateFormatMap, Field field, String defaultDatePattern) {
         DateFormat dateFormat = field.getAnnotation(DateFormat.class);
         String datePattern = null;
 
         if (dateFormat != null) {
             datePattern = dateFormat.pattern();
         } else {
-            datePattern = Constants.DEFAULT_DATE_PATTERN;
+            datePattern = defaultDatePattern;
         }
 
         if (!simpleDateFormatMap.containsKey(datePattern)) {
