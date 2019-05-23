@@ -20,6 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AspectUtils {
     private static ConcurrentHashMap<Class<?>, Object> serviceMap = new ConcurrentHashMap<Class<?>, Object>();
+    private static final String APPLICATION_FORM_URLENCODED_UTF8_VALUE = "application/x-www-form-urlencoded;charset=UTF-8";
+    private static final MediaType APPLICATION_FORM_URLENCODED_UTF8 = MediaType.valueOf(APPLICATION_FORM_URLENCODED_UTF8_VALUE);
 
     private static Object obtainService(Class<?> serviceClass) {
         if (!serviceMap.contains(serviceClass)) {
@@ -33,17 +35,18 @@ public class AspectUtils {
 
         Map<String, String> requestParameters = null;
         String requestBody = null;
-        String contentType = httpServletRequest.getContentType();
-        MediaType mediaType = MediaType.valueOf(contentType);
-        if (MediaType.APPLICATION_JSON.compareTo(mediaType) == 0) {
-            requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-        } else if (MediaType.APPLICATION_FORM_URLENCODED.compareTo(mediaType) == 0) {
-            requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
-        }
-
         ApiRest apiRest = null;
         Throwable throwable = null;
         try {
+            String contentType = httpServletRequest.getContentType();
+            MediaType mediaType = MediaType.valueOf(contentType);
+            if (MediaType.APPLICATION_JSON.compareTo(mediaType) == 0) {
+                requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
+            } else if (APPLICATION_FORM_URLENCODED_UTF8.compareTo(mediaType) == 0) {
+                requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
+            } else {
+                throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+            }
             apiRest = callApiRestAction(proceedingJoinPoint, requestParameters, requestBody, apiRestAction);
         } catch (InvocationTargetException e) {
             throwable = e.getTargetException();
@@ -52,7 +55,8 @@ public class AspectUtils {
         }
 
         if (throwable != null) {
-            LogUtils.error(apiRestAction.error(), proceedingJoinPoint.getTarget().getClass().getName(), proceedingJoinPoint.getSignature().getName(), throwable, requestParameters);
+            String body = requestBody != null ? requestBody : String.valueOf(requestParameters);
+            LogUtils.error(apiRestAction.error(), proceedingJoinPoint.getTarget().getClass().getName(), proceedingJoinPoint.getSignature().getName(), throwable, body);
             if (throwable instanceof CustomException) {
                 CustomException customException = (CustomException) throwable;
                 apiRest = ApiRest.builder().error(new Error(customException.getCode(), customException.getMessage())).build();
