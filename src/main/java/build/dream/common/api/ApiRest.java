@@ -1,6 +1,7 @@
 package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.ApiException;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
@@ -38,7 +39,7 @@ public class ApiRest {
             CustomException customException = (CustomException) throwable;
             this.error = new Error(customException.getCode(), customException.getMessage());
         } else {
-            this.error = Constants.UNKNOWN_ERROR;
+            this.error = ErrorConstants.UNKNOWN_ERROR;
         }
         this.successful = false;
         this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());

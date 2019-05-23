@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
 import org.apache.commons.collections.CollectionUtils;
@@ -80,7 +80,7 @@ public class ValidateUtils {
                     String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
                     message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
                 }
-                throw new CustomException(message, Constants.ERROR_CODE_INVALID_PARAMETER);
+                throw new CustomException(message, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
             }
         }
     }

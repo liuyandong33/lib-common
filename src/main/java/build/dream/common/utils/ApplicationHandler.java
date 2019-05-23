@@ -7,6 +7,7 @@ import build.dream.common.annotations.JsonSchema;
 import build.dream.common.api.ApiRest;
 import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
@@ -271,7 +272,7 @@ public class ApplicationHandler {
         JsonSchema jsonSchema = AnnotationUtils.findAnnotation(objectClass, JsonSchema.class);
         if (jsonSchema != null) {
             if (jsonSchema != null) {
-                ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, Constants.ERROR_CODE_INVALID_PARAMETER);
+                ValidateUtils.isTrue(isRightJson(json, jsonSchema.value()), Constants.API_PARAMETER_ERROR_MESSAGE, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
             }
         }
         return JacksonUtils.readValue(json, objectClass);
@@ -376,7 +377,7 @@ public class ApplicationHandler {
                 if (isJson) {
                     JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
                     if (jsonSchema != null) {
-                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+                        ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
                     }
                     field.set(object, JacksonUtils.readValue(fieldValue, field.getType()));
                 }
@@ -662,7 +663,7 @@ public class ApplicationHandler {
             if (isJson) {
                 JsonSchema jsonSchema = field.getAnnotation(JsonSchema.class);
                 if (jsonSchema != null) {
-                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+                    ValidateUtils.isTrue(isRightJson(fieldValue, jsonSchema.value()), obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
                 }
                 list = JacksonUtils.readValueAsList(fieldValue, (Class<? extends Object>) type);
             }
@@ -713,12 +714,12 @@ public class ApplicationHandler {
     }
 
     public static void notNullAndPut(Map<String, Object> targetMap, String key, Object value, String message) {
-        ValidateUtils.notNull(value, message, Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notNull(value, message, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
         targetMap.put(key, value);
     }
 
     public static void notBlankAndPut(Map<String, String> targetMap, String key, String value, String message) {
-        ValidateUtils.isTrue(StringUtils.isNotBlank(value), message, Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.isTrue(StringUtils.isNotBlank(value), message, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
         targetMap.put(key, value);
     }
 
@@ -829,63 +830,63 @@ public class ApplicationHandler {
     }
 
     public static void notNull(Object object, String parameterName) {
-        ValidateUtils.notNull(object, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notNull(object, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void isTrue(boolean expression, String parameterName) {
-        ValidateUtils.isTrue(expression, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.isTrue(expression, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void notEmpty(Object[] array, String parameterName) {
-        ValidateUtils.notEmpty(array, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notEmpty(array, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void notEmpty(Collection collection, String parameterName) {
-        ValidateUtils.notEmpty(collection, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notEmpty(collection, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void notEmpty(Map map, String parameterName) {
-        ValidateUtils.notEmpty(map, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notEmpty(map, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void notEmpty(String string, String parameterName) {
-        ValidateUtils.notEmpty(string, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notEmpty(string, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Object[] array, Object value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Long[] array, Long value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Integer[] array, Integer value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Short[] array, Short value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Character[] array, Character value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Byte[] array, Byte value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Double[] array, Double value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Float[] array, Float value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void inArray(Boolean[] array, Boolean value, String name) {
-        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.inArray(array, value, "参数(" + name + ")只能为【" + StringUtils.join(array, "，") + "】中的一个！", ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void validateJson(String jsonString, String schemaFilePath, String parameterName) {
@@ -911,7 +912,7 @@ public class ApplicationHandler {
     }
 
     public static void notBlank(String string, String parameterName) {
-        ValidateUtils.notBlank(string, obtainParameterErrorMessage(parameterName), Constants.ERROR_CODE_INVALID_PARAMETER);
+        ValidateUtils.notBlank(string, obtainParameterErrorMessage(parameterName), ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
     }
 
     public static void invalidateHttpSession() {
