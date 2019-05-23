@@ -1,10 +1,13 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
+
 import java.util.List;
 
 public class PagedSearchModel extends SearchModel {
     private Integer page;
     private Integer rows;
+    private String databaseProvider = Constants.DATABASE_PROVIDER_MYSQL;
 
     public PagedSearchModel() {
 
@@ -36,6 +39,14 @@ public class PagedSearchModel extends SearchModel {
         this.rows = rows;
     }
 
+    public String getDatabaseProvider() {
+        return databaseProvider;
+    }
+
+    public void setDatabaseProvider(String databaseProvider) {
+        this.databaseProvider = databaseProvider;
+    }
+
     public Integer getOffset() {
         return (page - 1) * rows;
     }
@@ -46,6 +57,7 @@ public class PagedSearchModel extends SearchModel {
 
     /**
      * 获取开始行号，oracle数据库专用
+     *
      * @return
      */
     public Integer getStartRowNumber() {
@@ -54,6 +66,7 @@ public class PagedSearchModel extends SearchModel {
 
     /**
      * 获取结束行号，oracle数据库专用
+     *
      * @return
      */
     public Integer getEndRowNumber() {
