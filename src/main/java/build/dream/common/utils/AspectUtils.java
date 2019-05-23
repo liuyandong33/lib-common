@@ -12,7 +12,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class AspectUtils {
         return serviceMap.get(serviceClass);
     }
 
-    public static String callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) throws IOException {
+    public static String callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) {
         HttpServletRequest httpServletRequest = ApplicationHandler.getHttpServletRequest();
 
         Map<String, String> requestParameters = null;
