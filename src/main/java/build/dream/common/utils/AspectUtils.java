@@ -9,7 +9,6 @@ import build.dream.common.exceptions.Error;
 import build.dream.common.models.BasicModel;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.http.MediaType;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -38,10 +37,9 @@ public class AspectUtils {
         Throwable throwable = null;
         try {
             String contentType = httpServletRequest.getContentType();
-            MediaType mediaType = MediaType.valueOf(contentType);
             if (APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
                 requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-            } else if (APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(mediaType)) {
+            } else if (APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType)) {
                 requestParameters = ApplicationHandler.getRequestParameters(httpServletRequest);
             } else {
                 throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
