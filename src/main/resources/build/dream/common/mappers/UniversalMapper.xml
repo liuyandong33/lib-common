@@ -36,8 +36,8 @@
     <select id="find" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
         <bind name="searchConditions" value="searchModel.searchConditions"></bind>
         <bind name="whereClause" value="searchModel.whereClause"></bind>
-        <foreach collection="searchModel.namedParameters" index="index" item="namedParameter" separator=",">
-            <bind name="namedParameter.key" value="namedParameter.value"></bind>
+        <foreach collection="searchModel.namedParameters" index="key" item="value" separator=",">
+            <bind name="key" value="value"></bind>
         </foreach>
         <bind name="groupBy" value="searchModel.groupBy"></bind>
         <bind name="orderBy" value="searchModel.orderBy"></bind>
