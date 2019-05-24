@@ -164,7 +164,7 @@ public class AspectUtils {
      * @return
      * @throws Exception
      */
-    private static BasicModel buildModel(Class<? extends BasicModel> modelClass, String requestBody, String datePattern) throws Exception {
+    private static BasicModel buildModel(Class<? extends BasicModel> modelClass, String requestBody, String datePattern) {
         return ApplicationHandler.instantiateObject(modelClass, requestBody, datePattern);
     }
 
