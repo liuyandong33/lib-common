@@ -17,6 +17,7 @@ public class SearchModel {
     private String tableName;
     private String groupBy;
     private String orderBy;
+    private boolean forUpdate;
 
     public SearchModel() {
 
@@ -108,5 +109,13 @@ public class SearchModel {
 
     public void setOrderBy(String orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public boolean isForUpdate() {
+        return forUpdate;
+    }
+
+    public void setForUpdate(boolean forUpdate) {
+        this.forUpdate = forUpdate;
     }
 }
