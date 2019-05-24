@@ -1,6 +1,7 @@
 package build.dream.common.mappers;
 
 import build.dream.common.utils.DeleteModel;
+import build.dream.common.utils.PagedSearchModel;
 import build.dream.common.utils.SearchModel;
 import build.dream.common.utils.UpdateModel;
 
@@ -28,7 +29,9 @@ public interface UniversalMapper {
 
     long universalCount(Map<String, Object> parameters);
 
-    List<Map<String, Object>> findAllPaged(SearchModel searchModel);
+    long pagedCount(PagedSearchModel pagedSearchModel);
+
+    List<Map<String, Object>> findAllPaged(PagedSearchModel pagedSearchModel);
 
     List<Map<String, Object>> executeQuery(Map<String, Object> parameters);
 

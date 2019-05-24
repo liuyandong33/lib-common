@@ -135,12 +135,29 @@ public class DatabaseHelper {
         return UniversalDatabaseHelper.count(obtainUniversalMapper(), tableName, searchModel);
     }
 
-    public static <T> List<T> findAllPaged(Class<T> domainClass, SearchModel searchModel) {
-        return UniversalDatabaseHelper.findAllPaged(obtainUniversalMapper(), domainClass, searchModel);
+
+    public static long pagedCount(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), domainClass, searchConditions);
     }
 
-    public static <T> List<T> findAllPaged(Class<T> domainClass, String tableName, SearchModel searchModel) {
-        return UniversalDatabaseHelper.findAllPaged(obtainUniversalMapper(), domainClass, tableName, searchModel);
+    public static long pagedCount(Class<?> domainClass, PagedSearchModel pagedSearchModel) {
+        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), domainClass, pagedSearchModel);
+    }
+
+    public static long pagedCount(String tableName, Tuple3<String, String, Object>... searchConditions) {
+        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), tableName, searchConditions);
+    }
+
+    public static long pagedCount(String tableName, PagedSearchModel pagedSearchModel) {
+        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), tableName, pagedSearchModel);
+    }
+
+    public static <T> List<T> findAllPaged(Class<T> domainClass, PagedSearchModel pagedSearchModel) {
+        return UniversalDatabaseHelper.findAllPaged(obtainUniversalMapper(), domainClass, pagedSearchModel);
+    }
+
+    public static <T> List<T> findAllPaged(Class<T> domainClass, String tableName, PagedSearchModel pagedSearchModel) {
+        return UniversalDatabaseHelper.findAllPaged(obtainUniversalMapper(), domainClass, tableName, pagedSearchModel);
     }
 
     public static List<Map<String, Object>> executeQuery(Map<String, Object> parameters) {

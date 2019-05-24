@@ -207,18 +207,43 @@ public class UniversalDatabaseHelper {
         return universalMapper.count(searchModel);
     }
 
-    public static <T> List<T> findAllPaged(UniversalMapper universalMapper, Class<T> domainClass, SearchModel searchModel) {
-        return findAllPaged(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
+    public static long pagedCount(UniversalMapper universalMapper, Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
+        PagedSearchModel pagedSearchModel = new PagedSearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            pagedSearchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return pagedCount(universalMapper, DatabaseUtils.obtainTableName(domainClass), pagedSearchModel);
     }
 
-    public static <T> List<T> findAllPaged(UniversalMapper universalMapper, Class<T> domainClass, String tableName, SearchModel searchModel) {
+    public static long pagedCount(UniversalMapper universalMapper, Class<?> domainClass, PagedSearchModel pagedSearchModel) {
+        return pagedCount(universalMapper, DatabaseUtils.obtainTableName(domainClass), pagedSearchModel);
+    }
+
+    public static long pagedCount(UniversalMapper universalMapper, String tableName, Tuple3<String, String, Object>... searchConditions) {
+        PagedSearchModel pagedSearchModel = new PagedSearchModel(true);
+        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
+            pagedSearchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
+        }
+        return pagedCount(universalMapper, tableName, pagedSearchModel);
+    }
+
+    public static long pagedCount(UniversalMapper universalMapper, String tableName, PagedSearchModel pagedSearchModel) {
+        pagedSearchModel.setTableName(tableName);
+        return universalMapper.pagedCount(pagedSearchModel);
+    }
+
+    public static <T> List<T> findAllPaged(UniversalMapper universalMapper, Class<T> domainClass, PagedSearchModel pagedSearchModel) {
+        return findAllPaged(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass), pagedSearchModel);
+    }
+
+    public static <T> List<T> findAllPaged(UniversalMapper universalMapper, Class<T> domainClass, String tableName, PagedSearchModel pagedSearchModel) {
         try {
-            searchModel.setTableName(tableName);
-            List<String> columns = searchModel.getColumns();
+            pagedSearchModel.setTableName(tableName);
+            List<String> columns = pagedSearchModel.getColumns();
             if (CollectionUtils.isEmpty(columns)) {
-                searchModel.setColumns(DatabaseUtils.obtainAllAlias(domainClass));
+                pagedSearchModel.setColumns(DatabaseUtils.obtainAllAlias(domainClass));
             }
-            List<Map<String, Object>> result = universalMapper.findAllPaged(searchModel);
+            List<Map<String, Object>> result = universalMapper.findAllPaged(pagedSearchModel);
             List<T> list = new ArrayList<T>();
             for (Map<String, Object> map : result) {
                 T t = domainClass.newInstance();

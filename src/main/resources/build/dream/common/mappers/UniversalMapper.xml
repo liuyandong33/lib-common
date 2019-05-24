@@ -49,6 +49,10 @@
         ${sql}
     </select>
 
+    <select id="pagedCount" parameterType="build.dream.common.utils.PagedSearchModel" resultType="long">
+        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.pagedCountSearchConditionSql"></include>
+    </select>
+
     <select id="findAllPaged" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
         <choose>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
