@@ -42,7 +42,7 @@
         <bind name="groupBy" value="searchModel.groupBy"></bind>
         <bind name="orderBy" value="searchModel.orderBy"></bind>
         <bind name="forUpdate" value="searchModel.forUpdate"></bind>
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
     </select>
 
     <select id="findAll" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
