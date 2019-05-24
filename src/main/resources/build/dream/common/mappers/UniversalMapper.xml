@@ -14,7 +14,7 @@
     </insert>
 
     <delete id="delete" parameterType="build.dream.common.utils.DeleteModel">
-        DELETE FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        DELETE FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.deleteSearchConditionSql"></include>
     </delete>
 
     <update id="update" parameterType="java.lang.Object">
@@ -26,7 +26,7 @@
         <foreach collection="contentValues" index="index" item="contentValue" separator=",">
             ${contentValue.columnName} = #{contentValue.value}
         </foreach>
-        <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <include refid="build.dream.common.mappers.CommonMapper.universalUpdateSearchConditionSql"></include>
     </update>
 
     <update id="executeUpdate" parameterType="java.util.Map">
@@ -34,15 +34,15 @@
     </update>
 
     <select id="find" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findOrFindAllSearchConditionSql"></include>
     </select>
 
     <select id="findAll" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findOrFindAllSearchConditionSql"></include>
     </select>
 
     <select id="count" parameterType="build.dream.common.utils.SearchModel" resultType="long">
-        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.countSearchConditionSql"></include>
     </select>
 
     <select id="universalCount" parameterType="java.util.Map" resultType="long">
@@ -52,16 +52,16 @@
     <select id="findAllPaged" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
         <choose>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> LIMIT #{offset}, #{maxResults}
+                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mysqlPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYCAT')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> LIMIT #{offset}, #{maxResults}
+                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mycatPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'ORACLE')">
                 SELECT ${selectColumns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.oraclePagedSearchConditionSql"></include>) AS t WHERE t.rowno &gt; #{startRowNumber}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'SQLSERVER')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
+                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.sqlServerPagedSearchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
             </when>
         </choose>
     </select>

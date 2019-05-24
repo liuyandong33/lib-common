@@ -59,8 +59,8 @@ public class SearchModel {
         this.columns = columns;
     }
 
-    public void addColumns(String... elements) {
-        CollectionUtils.addAll(this.columns, elements);
+    public void addColumns(String... columns) {
+        CollectionUtils.addAll(this.columns, columns);
     }
 
     public String getWhereClause() {
@@ -117,5 +117,86 @@ public class SearchModel {
 
     public void setForUpdate(boolean forUpdate) {
         this.forUpdate = forUpdate;
+    }
+
+    public static class Builder {
+        private final SearchModel instance = new SearchModel();
+
+        public Builder autoSetDeletedFalse() {
+            instance.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
+            return this;
+        }
+
+        public Builder searchConditions(List<SearchCondition> searchConditions) {
+            instance.setSearchConditions(searchConditions);
+            return this;
+        }
+
+        public Builder addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
+            instance.searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+            return this;
+        }
+
+        public Builder columns(List<String> columns) {
+            instance.setColumns(columns);
+            return this;
+        }
+
+        public Builder addColumns(String... columns) {
+            CollectionUtils.addAll(instance.columns, columns);
+            return this;
+        }
+
+        public Builder whereClause(String whereClause) {
+            instance.setWhereClause(whereClause);
+            return this;
+        }
+
+        public Builder namedParameters(Map<String, Object> namedParameters) {
+            instance.setNamedParameters(namedParameters);
+            return this;
+        }
+
+        public Builder addNamedParameter(String name, Object value) {
+            instance.namedParameters.put(name, value);
+            return this;
+        }
+
+        public Builder tableName(String tableName) {
+            instance.setTableName(tableName);
+            return this;
+        }
+
+        public Builder groupBy(String groupBy) {
+            instance.setGroupBy(groupBy);
+            return this;
+        }
+
+        public Builder orderBy(String orderBy) {
+            instance.setOrderBy(orderBy);
+            return this;
+        }
+
+        public Builder forUpdate(boolean forUpdate) {
+            instance.setForUpdate(forUpdate);
+            return this;
+        }
+
+        public SearchModel build() {
+            SearchModel searchModel = new SearchModel();
+            searchModel.setSearchConditions(instance.getSearchConditions());
+            searchModel.setColumns(instance.getColumns());
+            searchModel.setWhereClause(instance.getWhereClause());
+            searchModel.setNamedParameters(instance.getNamedParameters());
+            searchModel.setTableName(instance.getTableName());
+            searchModel.setGroupBy(instance.getGroupBy());
+            searchModel.setOrderBy(instance.getOrderBy());
+            searchModel.setForUpdate(instance.isForUpdate());
+            return searchModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

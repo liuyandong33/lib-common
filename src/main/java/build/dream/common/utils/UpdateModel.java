@@ -87,4 +87,67 @@ public class UpdateModel {
     public boolean isForUpdate() {
         return false;
     }
+
+    public static class Builder {
+        private final UpdateModel instance = new UpdateModel();
+
+        public Builder autoSetDeletedFalse(boolean autoSetDeletedFalse) {
+            instance.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
+            return this;
+        }
+
+        public Builder tableName(String tableName) {
+            instance.setTableName(tableName);
+            return this;
+        }
+
+        public Builder searchConditions(List<SearchCondition> searchConditions) {
+            instance.setSearchConditions(searchConditions);
+            return this;
+        }
+
+        public Builder addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
+            instance.searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+            return this;
+        }
+
+        public Builder whereClause(String whereClause) {
+            instance.setWhereClause(whereClause);
+            return this;
+        }
+
+        public Builder namedParameters(Map<String, Object> namedParameters) {
+            instance.setNamedParameters(namedParameters);
+            return this;
+        }
+
+        public Builder addNamedParameter(String name, Object value) {
+            instance.namedParameters.put(name, value);
+            return this;
+        }
+
+        public Builder contentValues(List<ContentValue> contentValues) {
+            instance.setContentValues(contentValues);
+            return this;
+        }
+
+        public Builder addContentValue(String columnName, Object value) {
+            instance.contentValues.add(new ContentValue(columnName, value));
+            return this;
+        }
+
+        public UpdateModel build() {
+            UpdateModel updateModel = new UpdateModel();
+            updateModel.setTableName(instance.getTableName());
+            updateModel.setSearchConditions(instance.getSearchConditions());
+            updateModel.setWhereClause(instance.getWhereClause());
+            updateModel.setNamedParameters(instance.getNamedParameters());
+            updateModel.setContentValues(instance.getContentValues());
+            return updateModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

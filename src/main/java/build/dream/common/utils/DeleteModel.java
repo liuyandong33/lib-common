@@ -1,5 +1,7 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.Constants;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,11 +53,55 @@ public class DeleteModel {
         searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
     }
 
-    public String getGroupBy() {
-        return null;
+    public static class Builder {
+        private final DeleteModel instance = new DeleteModel();
+
+        public Builder autoSetDeletedFalse(boolean autoSetDeletedFalse) {
+            instance.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
+            return this;
+        }
+
+        public Builder tableName(String tableName) {
+            instance.setTableName(tableName);
+            return this;
+        }
+
+        public Builder searchConditions(List<SearchCondition> searchConditions) {
+            instance.setSearchConditions(searchConditions);
+            return this;
+        }
+
+        public Builder addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
+            instance.searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+            return this;
+        }
+
+        public Builder whereClause(String whereClause) {
+            instance.setWhereClause(whereClause);
+            return this;
+        }
+
+        public Builder namedParameters(Map<String, Object> namedParameters) {
+            instance.setNamedParameters(namedParameters);
+            return this;
+        }
+
+        public Builder addNamedParameter(String name, Object value) {
+            instance.namedParameters.put(name, value);
+            return this;
+        }
+
+        public DeleteModel build() {
+            DeleteModel deleteModel = new DeleteModel();
+            deleteModel.setTableName(instance.getTableName());
+            deleteModel.setSearchConditions(instance.getSearchConditions());
+            deleteModel.setWhereClause(instance.getWhereClause());
+            deleteModel.setNamedParameters(instance.getNamedParameters());
+            return deleteModel;
+        }
     }
 
-    public String getOrderBy() {
-        return null;
+    public static Builder builder() {
+        return new Builder();
     }
 }
