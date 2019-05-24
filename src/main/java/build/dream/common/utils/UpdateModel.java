@@ -83,4 +83,8 @@ public class UpdateModel {
     public String getOrderBy() {
         return null;
     }
+
+    public boolean isForUpdate() {
+        return false;
+    }
 }
