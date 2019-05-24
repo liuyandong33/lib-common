@@ -34,11 +34,11 @@
     </update>
 
     <select id="find" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findOrFindAllSearchConditionSql"></include>
+        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
     </select>
 
     <select id="findAll" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findOrFindAllSearchConditionSql"></include>
+        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findAllSearchConditionSql"></include>
     </select>
 
     <select id="count" parameterType="build.dream.common.utils.SearchModel" resultType="long">
