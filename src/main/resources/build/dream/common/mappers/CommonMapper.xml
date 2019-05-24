@@ -41,14 +41,49 @@
         </if>
     </sql>
 
-    <sql id="paginationSql">
-        <choose>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
-                LIMIT #{offset}, #{maxResults}
-            </when>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'SQLSERVER')">
-                OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
-            </when>
-        </choose>
+    <sql id="oraclePagedSearchConditionSql">
+        <if test="@org.apache.commons.collections.CollectionUtils@isNotEmpty(searchConditions)">
+            WHERE
+            <foreach collection="searchConditions" index="index" item="searchCondition" separator=" AND ">
+                <choose>
+                    <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(searchCondition.operationSymbol, 'IN')">
+                        ${searchCondition.columnName} ${searchCondition.operationSymbol}
+                        <foreach collection="searchCondition.searchParameter" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </when>
+                    <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(searchCondition.operationSymbol, 'NOT IN')">
+                        ${searchCondition.columnName} ${searchCondition.operationSymbol}
+                        <foreach collection="searchCondition.searchParameter" index="index" item="item" open="(" separator="," close=")">
+                            #{item}
+                        </foreach>
+                    </when>
+                    <otherwise>
+                        ${searchCondition.columnName} ${searchCondition.operationSymbol} #{searchCondition.searchParameter}
+                    </otherwise>
+                </choose>
+            </foreach>
+            <if test="@org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
+                AND ${@build.dream.common.utils.DatabaseUtils@obtainWhereClause(whereClause)}
+            </if>
+        </if>
+        <if test="@org.apache.commons.collections.CollectionUtils@isEmpty(searchConditions) and @org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
+            WHERE ${@build.dream.common.utils.DatabaseUtils@obtainWhereClause(whereClause)}
+        </if>
+        <if test="@org.apache.commons.collections.CollectionUtils@isEmpty(searchConditions) and @org.apache.commons.lang.StringUtils@isBlank(whereClause)">
+            WHERE ROWNUM &lt; #{endRowNumber}
+        </if>
+        <if test="@org.apache.commons.collections.CollectionUtils@isNotEmpty(searchConditions) or @org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
+            AND ROWNUM &lt; #{endRowNumber}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="forUpdate">
+            FOR UPDATE
+        </if>
     </sql>
 </mapper>
