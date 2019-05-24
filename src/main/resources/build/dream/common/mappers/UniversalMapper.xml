@@ -33,7 +33,15 @@
         ${sql}
     </update>
 
-    <select id="find" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+    <select id="find" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+        <bind name="searchConditions" value="searchModel.searchConditions"></bind>
+        <bind name="whereClause" value="searchModel.whereClause"></bind>
+        <foreach collection="namedParameters" index="index" item="namedParameter" separator=",">
+            <bind name="namedParameter.key" value="namedParameter.value"></bind>
+        </foreach>
+        <bind name="groupBy" value="searchModel.groupBy"></bind>
+        <bind name="orderBy" value="searchModel.orderBy"></bind>
+        <bind name="forUpdate" value="searchModel.forUpdate"></bind>
         SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
     </select>
 

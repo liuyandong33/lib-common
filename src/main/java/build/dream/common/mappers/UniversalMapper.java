@@ -4,6 +4,7 @@ import build.dream.common.utils.DeleteModel;
 import build.dream.common.utils.PagedSearchModel;
 import build.dream.common.utils.SearchModel;
 import build.dream.common.utils.UpdateModel;
+import io.lettuce.core.dynamic.annotation.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public interface UniversalMapper {
 
     long executeUpdate(Map<String, Object> parameters);
 
-    Map<String, Object> find(SearchModel searchModel);
+    Map<String, Object> find(@Param("tableName") String tableName, @Param("searchModel") SearchModel searchModel);
 
     List<Map<String, Object>> findAll(SearchModel searchModel);
 

@@ -116,12 +116,12 @@ public class UniversalDatabaseHelper {
 
     public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, String tableName, SearchModel searchModel) {
         try {
-            searchModel.setTableName(tableName);
+//            searchModel.setTableName(tableName);
             List<String> columns = searchModel.getColumns();
             if (CollectionUtils.isEmpty(columns)) {
                 searchModel.setColumns(DatabaseUtils.obtainAllAlias(domainClass));
             }
-            Map<String, Object> map = universalMapper.find(searchModel);
+            Map<String, Object> map = universalMapper.find(tableName, searchModel);
             T t = null;
             if (MapUtils.isNotEmpty(map)) {
                 t = domainClass.newInstance();
