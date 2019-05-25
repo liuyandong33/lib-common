@@ -71,7 +71,7 @@
         SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.pagedCountSearchConditionSql"></include>
     </select>
 
-    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap" databaseId="MYSQL">
         <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
         <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
