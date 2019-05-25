@@ -1,8 +1,6 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +9,8 @@ import java.util.Map;
 
 public class SearchModel {
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
-    private List<String> columns = new ArrayList<String>();
     private String whereClause;
     private Map<String, Object> namedParameters = new HashMap<String, Object>();
-    private String tableName;
     private String groupBy;
     private String orderBy;
     private boolean forUpdate;
@@ -41,28 +37,6 @@ public class SearchModel {
         this.searchConditions = searchConditions;
     }
 
-    public String getSelectColumns() {
-        String selectColumns = null;
-        if (CollectionUtils.isEmpty(columns)) {
-            selectColumns = "*";
-        } else {
-            selectColumns = StringUtils.join(columns, ", ");
-        }
-        return selectColumns;
-    }
-
-    public List<String> getColumns() {
-        return columns;
-    }
-
-    public void setColumns(List<String> columns) {
-        this.columns = columns;
-    }
-
-    public void addColumns(String... columns) {
-        CollectionUtils.addAll(this.columns, columns);
-    }
-
     public String getWhereClause() {
         return whereClause;
     }
@@ -81,14 +55,6 @@ public class SearchModel {
 
     public void addNamedParameter(String name, Object value) {
         this.namedParameters.put(name, value);
-    }
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
     }
 
     public void addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
@@ -137,16 +103,6 @@ public class SearchModel {
             return this;
         }
 
-        public Builder columns(List<String> columns) {
-            instance.setColumns(columns);
-            return this;
-        }
-
-        public Builder addColumns(String... columns) {
-            CollectionUtils.addAll(instance.columns, columns);
-            return this;
-        }
-
         public Builder whereClause(String whereClause) {
             instance.setWhereClause(whereClause);
             return this;
@@ -159,11 +115,6 @@ public class SearchModel {
 
         public Builder addNamedParameter(String name, Object value) {
             instance.namedParameters.put(name, value);
-            return this;
-        }
-
-        public Builder tableName(String tableName) {
-            instance.setTableName(tableName);
             return this;
         }
 
@@ -185,10 +136,8 @@ public class SearchModel {
         public SearchModel build() {
             SearchModel searchModel = new SearchModel();
             searchModel.setSearchConditions(instance.getSearchConditions());
-            searchModel.setColumns(instance.getColumns());
             searchModel.setWhereClause(instance.getWhereClause());
             searchModel.setNamedParameters(instance.getNamedParameters());
-            searchModel.setTableName(instance.getTableName());
             searchModel.setGroupBy(instance.getGroupBy());
             searchModel.setOrderBy(instance.getOrderBy());
             searchModel.setForUpdate(instance.isForUpdate());

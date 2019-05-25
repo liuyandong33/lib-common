@@ -40,14 +40,23 @@
         <bind name="groupBy" value="searchModel.groupBy"></bind>
         <bind name="orderBy" value="searchModel.orderBy"></bind>
         <bind name="forUpdate" value="searchModel.forUpdate"></bind>
-        SELECT ${searchModel.selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
     </select>
 
-    <select id="findAll" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
-        SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findAllSearchConditionSql"></include>
+    <select id="findAll" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+        <bind name="searchConditions" value="searchModel.searchConditions"></bind>
+        <bind name="whereClause" value="searchModel.whereClause"></bind>
+        <bind name="namedParameters" value="searchModel.namedParameters"></bind>
+        <bind name="groupBy" value="searchModel.groupBy"></bind>
+        <bind name="orderBy" value="searchModel.orderBy"></bind>
+        <bind name="forUpdate" value="searchModel.forUpdate"></bind>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findAllSearchConditionSql"></include>
     </select>
 
-    <select id="count" parameterType="build.dream.common.utils.SearchModel" resultType="long">
+    <select id="count" resultType="long">
+        <bind name="searchConditions" value="searchModel.searchConditions"></bind>
+        <bind name="whereClause" value="searchModel.whereClause"></bind>
+        <bind name="namedParameters" value="searchModel.namedParameters"></bind>
         SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.countSearchConditionSql"></include>
     </select>
 
@@ -55,23 +64,39 @@
         ${sql}
     </select>
 
-    <select id="pagedCount" parameterType="build.dream.common.utils.PagedSearchModel" resultType="long">
+    <select id="pagedCount" resultType="long">
+        <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
+        <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
+        <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.pagedCountSearchConditionSql"></include>
     </select>
 
-    <select id="findAllPaged" parameterType="build.dream.common.utils.SearchModel" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+        <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
+        <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
+        <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
+        <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
+        <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
         <choose>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mysqlPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
+                <bind name="offset" value="pagedSearchModel.offset"></bind>
+                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
+                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mysqlPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYCAT')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mycatPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
+                <bind name="offset" value="pagedSearchModel.offset"></bind>
+                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
+                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mycatPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'ORACLE')">
-                SELECT ${selectColumns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.oraclePagedSearchConditionSql"></include>) AS t WHERE t.rowno &gt; #{startRowNumber}
+                <bind name="startRowNumber" value="pagedSearchModel.startRowNumber"></bind>
+                <bind name="endRowNumber" value="pagedSearchModel.endRowNumber"></bind>
+                SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.oraclePagedSearchConditionSql"></include>) AS t WHERE t.rowno &gt; #{startRowNumber}
             </when>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'SQLSERVER')">
-                SELECT ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.sqlServerPagedSearchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
+                <bind name="offset" value="pagedSearchModel.offset"></bind>
+                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
+                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.sqlServerPagedSearchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
             </when>
         </choose>
     </select>

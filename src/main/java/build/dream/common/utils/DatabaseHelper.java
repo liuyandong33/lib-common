@@ -135,17 +135,8 @@ public class DatabaseHelper {
         return UniversalDatabaseHelper.count(obtainUniversalMapper(), tableName, searchModel);
     }
 
-
-    public static long pagedCount(Class<?> domainClass, Tuple3<String, String, Object>... searchConditions) {
-        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), domainClass, searchConditions);
-    }
-
     public static long pagedCount(Class<?> domainClass, PagedSearchModel pagedSearchModel) {
         return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), domainClass, pagedSearchModel);
-    }
-
-    public static long pagedCount(String tableName, Tuple3<String, String, Object>... searchConditions) {
-        return UniversalDatabaseHelper.pagedCount(obtainUniversalMapper(), tableName, searchConditions);
     }
 
     public static long pagedCount(String tableName, PagedSearchModel pagedSearchModel) {

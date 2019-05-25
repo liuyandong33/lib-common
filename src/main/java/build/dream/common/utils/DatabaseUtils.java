@@ -28,6 +28,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
+    private static final Map<Class<?>, String> DOMAIN_CLASS_COLUMNS_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final String DATABASE_PROVIDER = ConfigurationUtils.getConfiguration(Constants.DATABASE_PROVIDER);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
 
@@ -392,6 +393,15 @@ public class DatabaseUtils {
             domainClass = domainClass.getSuperclass();
         }
         return alias;
+    }
+
+    public static String obtainColumns(Class<?> domainClass) {
+        String columns = DOMAIN_CLASS_COLUMNS_MAP.get(domainClass);
+        if (StringUtils.isBlank(columns)) {
+            columns = StringUtils.join(obtainAllAlias(domainClass), ", ");
+            DOMAIN_CLASS_COLUMNS_MAP.put(domainClass, columns);
+        }
+        return columns;
     }
 
     public static String obtainTableName(String tableName, Class<?> domainClass) {

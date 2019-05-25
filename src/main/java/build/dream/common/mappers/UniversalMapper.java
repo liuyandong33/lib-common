@@ -22,17 +22,17 @@ public interface UniversalMapper {
 
     long executeUpdate(Map<String, Object> parameters);
 
-    Map<String, Object> find(@Param("tableName") String tableName, @Param("searchModel") SearchModel searchModel);
+    Map<String, Object> find(@Param("columns") String columns, @Param("tableName") String tableName, @Param("searchModel") SearchModel searchModel);
 
-    List<Map<String, Object>> findAll(SearchModel searchModel);
+    List<Map<String, Object>> findAll(@Param("columns") String columns, @Param("tableName") String tableName, @Param("searchModel") SearchModel searchModel);
 
-    long count(SearchModel searchModel);
+    long count(@Param("tableName") String tableName, @Param("searchModel") SearchModel searchModel);
 
     long universalCount(Map<String, Object> parameters);
 
-    long pagedCount(PagedSearchModel pagedSearchModel);
+    long pagedCount(@Param("tableName") String tableName, @Param("pagedSearchModel") PagedSearchModel pagedSearchModel);
 
-    List<Map<String, Object>> findAllPaged(PagedSearchModel pagedSearchModel);
+    List<Map<String, Object>> findAllPaged(@Param("columns") String columns, @Param("tableName") String tableName, @Param("pagedSearchModel") PagedSearchModel pagedSearchModel);
 
     List<Map<String, Object>> executeQuery(Map<String, Object> parameters);
 
