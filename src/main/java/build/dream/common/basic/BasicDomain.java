@@ -2,12 +2,10 @@ package build.dream.common.basic;
 
 import build.dream.common.constants.Constants;
 
-import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class BasicDomain implements Serializable {
-    private BigInteger id;
+public class BasicDomain extends IdDomain {
     private Date createdTime;
     private BigInteger createdUserId;
     private Date updatedTime;
@@ -15,14 +13,6 @@ public class BasicDomain implements Serializable {
     private String updatedRemark = Constants.VARCHAR_DEFAULT_VALUE;
     private Date deletedTime = Constants.DATETIME_DEFAULT_VALUE;
     private boolean deleted;
-
-    public BigInteger getId() {
-        return id;
-    }
-
-    public void setId(BigInteger id) {
-        this.id = id;
-    }
 
     public Date getCreatedTime() {
         return createdTime;
@@ -80,8 +70,7 @@ public class BasicDomain implements Serializable {
         this.deleted = deleted;
     }
 
-    public static class ColumnName {
-        public static final String ID = "id";
+    public static class ColumnName extends IdDomain.ColumnName {
         public static final String CREATED_TIME = "created_time";
         public static final String CREATED_USER_ID = "created_user_id";
         public static final String UPDATED_TIME = "updated_time";
@@ -91,8 +80,7 @@ public class BasicDomain implements Serializable {
         public static final String DELETED = "deleted";
     }
 
-    public static class FieldName {
-        public static final String ID = "id";
+    public static class FieldName extends IdDomain.FieldName {
         public static final String CREATED_TIME = "createdTime";
         public static final String CREATED_USER_ID = "createdUserId";
         public static final String UPDATED_TIME = "updatedTime";

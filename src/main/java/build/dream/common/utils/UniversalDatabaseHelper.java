@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.basic.IdDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
@@ -16,15 +17,26 @@ import java.util.List;
 import java.util.Map;
 
 public class UniversalDatabaseHelper {
+    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
+    private static final boolean IS_SNOWFLAKE_STRATEGY = Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY);
+
     static {
         ApplicationHandler.registerConverters();
     }
 
-    public static long insert(UniversalMapper universalMapper, BasicDomain domain) {
+    public static long insert(UniversalMapper universalMapper, IdDomain domain) {
+        if (IS_SNOWFLAKE_STRATEGY) {
+            domain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
+        }
         return universalMapper.insert(domain);
     }
 
-    public static long insertAll(UniversalMapper universalMapper, List<? extends BasicDomain> domains) {
+    public static long insertAll(UniversalMapper universalMapper, List<? extends IdDomain> domains) {
+        if (IS_SNOWFLAKE_STRATEGY) {
+            for (IdDomain idDomain : domains) {
+                idDomain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
+            }
+        }
         return universalMapper.insertAll(domains);
     }
 
