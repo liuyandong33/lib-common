@@ -31,7 +31,15 @@
         <bind name="contentValues" value="updateModel.contentValues"></bind>
         UPDATE ${tableName} SET
         <foreach collection="contentValues" index="index" item="contentValue" separator=",">
-            ${contentValue.columnName} = #{contentValue.value}
+            <if test="symbolType == 1">
+                ${contentValue.columnName} = #{contentValue.value}
+            </if>
+            <if test="symbolType == 2">
+                ${contentValue.columnName} = ${contentValue.value}
+            </if>
+            <if test="symbolType == 3">
+                ${contentValue.columnName} = '${contentValue.value}'
+            </if>
         </foreach>
         <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
     </update>
