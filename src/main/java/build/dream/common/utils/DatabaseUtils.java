@@ -29,7 +29,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_COLUMNS_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final String DATABASE_PROVIDER = ConfigurationUtils.getConfiguration(Constants.DATABASE_PROVIDER);
+    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
 
     public static String generateInsertSql(String domainClassName) {
@@ -89,11 +89,9 @@ public class DatabaseUtils {
                 }
 
                 if ("id".equals(fieldName)) {
-                    if (Constants.DATABASE_PROVIDER_MYSQL.equals(DATABASE_PROVIDER)) {
+                    if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_NATIVE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
 
-                    } else if (Constants.DATABASE_PROVIDER_ORACLE.equals(DATABASE_PROVIDER)) {
-
-                    } else if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
+                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
@@ -190,11 +188,9 @@ public class DatabaseUtils {
                 }
 
                 if ("id".equals(fieldName)) {
-                    if (Constants.DATABASE_PROVIDER_MYSQL.equals(DATABASE_PROVIDER)) {
+                    if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_NATIVE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
 
-                    } else if (Constants.DATABASE_PROVIDER_ORACLE.equals(DATABASE_PROVIDER)) {
-
-                    } else if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
+                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
@@ -301,16 +297,14 @@ public class DatabaseUtils {
 
         updateSql.append(" WHERE id = #{id}");
 
-        if (Constants.DATABASE_PROVIDER_MYCAT.equals(DATABASE_PROVIDER)) {
-            ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
-            if (shardingColumn != null) {
-                updateSql.append(" AND ");
-                updateSql.append(shardingColumn.columnName());
-                updateSql.append(" = ");
-                updateSql.append("#{");
-                updateSql.append(shardingColumn.fieldName());
-                updateSql.append("}");
-            }
+        ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
+        if (shardingColumn != null) {
+            updateSql.append(" AND ");
+            updateSql.append(shardingColumn.columnName());
+            updateSql.append(" = ");
+            updateSql.append("#{");
+            updateSql.append(shardingColumn.fieldName());
+            updateSql.append("}");
         }
         return updateSql.toString();
     }

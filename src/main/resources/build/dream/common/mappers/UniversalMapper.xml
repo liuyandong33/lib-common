@@ -40,7 +40,16 @@
         <bind name="groupBy" value="searchModel.groupBy"></bind>
         <bind name="orderBy" value="searchModel.orderBy"></bind>
         <bind name="forUpdate" value="searchModel.forUpdate"></bind>
-        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findSearchConditionSql"></include>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="forUpdate">
+            FOR UPDATE
+        </if>
     </select>
 
     <select id="findAll" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
@@ -50,14 +59,23 @@
         <bind name="groupBy" value="searchModel.groupBy"></bind>
         <bind name="orderBy" value="searchModel.orderBy"></bind>
         <bind name="forUpdate" value="searchModel.forUpdate"></bind>
-        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.findAllSearchConditionSql"></include>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>
+        <if test="forUpdate">
+            FOR UPDATE
+        </if>
     </select>
 
     <select id="count" resultType="long">
         <bind name="searchConditions" value="searchModel.searchConditions"></bind>
         <bind name="whereClause" value="searchModel.whereClause"></bind>
         <bind name="namedParameters" value="searchModel.namedParameters"></bind>
-        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.countSearchConditionSql"></include>
+        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
     </select>
 
     <select id="universalCount" parameterType="java.util.Map" resultType="long">
@@ -68,38 +86,63 @@
         <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
         <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
-        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.pagedCountSearchConditionSql"></include>
+        SELECT COUNT(1) FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
     </select>
 
-    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
+    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap" databaseId="mysql">
         <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
         <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
         <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
-        <choose>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
-                <bind name="offset" value="pagedSearchModel.offset"></bind>
-                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
-                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mysqlPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
-            </when>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYCAT')">
-                <bind name="offset" value="pagedSearchModel.offset"></bind>
-                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
-                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.mycatPagedSearchConditionSql"></include> LIMIT #{offset}, #{maxResults}
-            </when>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'ORACLE')">
-                <bind name="startRowNumber" value="pagedSearchModel.startRowNumber"></bind>
-                <bind name="endRowNumber" value="pagedSearchModel.endRowNumber"></bind>
-                SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.oraclePagedSearchConditionSql"></include>) AS t WHERE t.rowno &gt; #{startRowNumber}
-            </when>
-            <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'SQLSERVER')">
-                <bind name="offset" value="pagedSearchModel.offset"></bind>
-                <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
-                SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.sqlServerPagedSearchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
-            </when>
-        </choose>
+        <bind name="offset" value="pagedSearchModel.offset"></bind>
+        <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>
+        LIMIT #{offset}, #{maxResults}
+    </select>
+
+    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap" databaseId="oracle">
+        <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
+        <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
+        <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
+        <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
+        <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
+        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
+        <bind name="startRowNumber" value="pagedSearchModel.startRowNumber"></bind>
+        <bind name="endRowNumber" value="pagedSearchModel.endRowNumber"></bind>
+        SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName}
+        <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <if test="@org.apache.commons.collections.CollectionUtils@isEmpty(searchConditions) and @org.apache.commons.lang.StringUtils@isBlank(whereClause)">
+            WHERE ROWNUM &lt; #{endRowNumber}
+        </if>
+        <if test="@org.apache.commons.collections.CollectionUtils@isNotEmpty(searchConditions) or @org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
+            AND ROWNUM &lt; #{endRowNumber}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>) AS t WHERE t.rowno &gt; #{startRowNumber}
+    </select>
+
+    <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap" databaseId="sql_server">
+        <bind name="searchConditions" value="pagedSearchModel.searchConditions"></bind>
+        <bind name="whereClause" value="pagedSearchModel.whereClause"></bind>
+        <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
+        <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
+        <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
+        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
+        <bind name="offset" value="pagedSearchModel.offset"></bind>
+        <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
     </select>
 
     <select id="executeQuery" parameterType="java.util.Map" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
