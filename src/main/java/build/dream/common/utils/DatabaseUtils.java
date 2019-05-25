@@ -201,7 +201,7 @@ public class DatabaseUtils {
                     } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
                         insertSql.append("id");
                         insertSql.append(", ");
-                        valuesSql.append("#{id}, ");
+                        valuesSql.append("#{item.id}, ");
                     }
                 } else {
                     String columnName = null;
