@@ -129,3 +129,23 @@ publishing {
         }
     }
 }
+
+sourceSets {
+    main {
+        scala {
+            srcDirs = ["src/main/java", "src/main/scala"]
+        }
+        java {
+            srcDirs = []
+        }
+    }
+
+    test {
+        scala {
+            srcDirs = ["src/test/java", "src/test/scala"]
+        }
+        java {
+            srcDirs = []
+        }
+    }
+}
