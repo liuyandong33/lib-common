@@ -110,7 +110,6 @@
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
-        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
         <bind name="offset" value="pagedSearchModel.offset"></bind>
         <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
         SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
@@ -129,7 +128,6 @@
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
-        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
         <bind name="startRowNumber" value="pagedSearchModel.startRowNumber"></bind>
         <bind name="endRowNumber" value="pagedSearchModel.endRowNumber"></bind>
         SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName}
@@ -154,7 +152,6 @@
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
-        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
         <bind name="offset" value="pagedSearchModel.offset"></bind>
         <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
         SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
