@@ -8,18 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 public class DeleteModel {
-    private String tableName;
     private List<SearchCondition> searchConditions = new ArrayList<SearchCondition>();
     private String whereClause;
     private Map<String, Object> namedParameters = new HashMap<String, Object>();
-
-    public String getTableName() {
-        return tableName;
-    }
-
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
 
     public List<SearchCondition> getSearchConditions() {
         return searchConditions;
@@ -56,13 +47,8 @@ public class DeleteModel {
     public static class Builder {
         private final DeleteModel instance = new DeleteModel();
 
-        public Builder autoSetDeletedFalse(boolean autoSetDeletedFalse) {
+        public Builder autoSetDeletedFalse() {
             instance.addSearchCondition("deleted", Constants.SQL_OPERATION_SYMBOL_EQUAL, 0);
-            return this;
-        }
-
-        public Builder tableName(String tableName) {
-            instance.setTableName(tableName);
             return this;
         }
 
@@ -93,7 +79,6 @@ public class DeleteModel {
 
         public DeleteModel build() {
             DeleteModel deleteModel = new DeleteModel();
-            deleteModel.setTableName(instance.getTableName());
             deleteModel.setSearchConditions(instance.getSearchConditions());
             deleteModel.setWhereClause(instance.getWhereClause());
             deleteModel.setNamedParameters(instance.getNamedParameters());

@@ -14,11 +14,11 @@ public interface UniversalMapper {
 
     long insertAll(List<?> domains);
 
-    long delete(DeleteModel deleteModel);
+    long delete(@Param("tableName") String tableName, @Param("deleteModel") DeleteModel deleteModel);
 
     long update(Object domain);
 
-    long universalUpdate(UpdateModel updateModel);
+    long universalUpdate(@Param("tableName") String tableName, @Param("updateModel") UpdateModel updateModel);
 
     long executeUpdate(Map<String, Object> parameters);
 
