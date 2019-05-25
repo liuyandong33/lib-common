@@ -77,6 +77,7 @@
         <bind name="namedParameters" value="pagedSearchModel.namedParameters"></bind>
         <bind name="groupBy" value="pagedSearchModel.groupBy"></bind>
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
+        <bind name="databaseProvider" value="pagedSearchModel.databaseProvider"></bind>
         <choose>
             <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(databaseProvider, 'MYSQL')">
                 <bind name="offset" value="pagedSearchModel.offset"></bind>
