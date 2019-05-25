@@ -83,7 +83,7 @@ dependencies {
 
 task makeJar(type: Jar) {
     baseName "${projectName}"
-    from("build/classes/java/main", "build/resources/main")
+    from("build/classes/java/main", "build/classes/scala/main", "build/resources/main")
     exclude("build/dream/common/Application.class", "application.properties", "logback.xml", "development.properties")
 }
 
