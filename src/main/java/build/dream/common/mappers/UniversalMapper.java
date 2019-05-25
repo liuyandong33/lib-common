@@ -4,7 +4,7 @@ import build.dream.common.utils.DeleteModel;
 import build.dream.common.utils.PagedSearchModel;
 import build.dream.common.utils.SearchModel;
 import build.dream.common.utils.UpdateModel;
-import io.lettuce.core.dynamic.annotation.Param;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
