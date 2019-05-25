@@ -24,7 +24,7 @@
                 </choose>
             </foreach>
             <if test="@org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
-                AND ${whereClause}
+                AND ${@build.dream.common.utils.DatabaseUtils@obtainWhereClause(whereClause)}
             </if>
         </if>
         <if test="@org.apache.commons.collections.CollectionUtils@isEmpty(searchConditions) and @org.apache.commons.lang.StringUtils@isNotBlank(whereClause)">
