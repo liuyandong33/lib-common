@@ -63,8 +63,8 @@ public class DatabaseHelper {
         return UniversalDatabaseHelper.update(obtainUniversalMapper(), domain);
     }
 
-    public static long universalUpdate(UpdateModel updateModel) {
-        return UniversalDatabaseHelper.universalUpdate(obtainUniversalMapper(), updateModel);
+    public static long universalUpdate(UpdateModel updateModel, String tableName) {
+        return UniversalDatabaseHelper.universalUpdate(obtainUniversalMapper(), tableName, updateModel);
     }
 
     public static long executeUpdate(Map<String, Object> parameters) {

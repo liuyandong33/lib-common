@@ -80,7 +80,7 @@ public class BasicDomain implements Serializable {
         this.deleted = deleted;
     }
 
-    protected static class ColumnName {
+    public static class ColumnName {
         public static final String ID = "id";
         public static final String CREATED_TIME = "created_time";
         public static final String CREATED_USER_ID = "created_user_id";
@@ -91,7 +91,7 @@ public class BasicDomain implements Serializable {
         public static final String DELETED = "deleted";
     }
 
-    protected static class FieldName {
+    public static class FieldName {
         public static final String ID = "id";
         public static final String CREATED_TIME = "createdTime";
         public static final String CREATED_USER_ID = "createdUserId";

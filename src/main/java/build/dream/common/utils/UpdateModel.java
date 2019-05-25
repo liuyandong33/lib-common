@@ -63,8 +63,8 @@ public class UpdateModel {
         searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
     }
 
-    public void addContentValue(String columnName, Object value) {
-        contentValues.add(new ContentValue(columnName, value));
+    public void addContentValue(String columnName, Object value, int symbolType) {
+        contentValues.add(new ContentValue(columnName, value, symbolType));
     }
 
     public static class Builder {
@@ -105,8 +105,8 @@ public class UpdateModel {
             return this;
         }
 
-        public Builder addContentValue(String columnName, Object value) {
-            instance.contentValues.add(new ContentValue(columnName, value));
+        public Builder addContentValue(String columnName, Object value, int symbolType) {
+            instance.contentValues.add(new ContentValue(columnName, value, symbolType));
             return this;
         }
 

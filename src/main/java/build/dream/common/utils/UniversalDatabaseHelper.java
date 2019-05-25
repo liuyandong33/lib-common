@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
@@ -28,15 +29,14 @@ public class UniversalDatabaseHelper {
     }
 
     public static long delete(UniversalMapper universalMapper, Class<?> domainClass, DeleteModel deleteModel) {
-        deleteModel.setTableName(DatabaseUtils.obtainTableName(domainClass));
-        return universalMapper.delete(deleteModel);
+        return universalMapper.delete(DatabaseUtils.obtainTableName(domainClass), deleteModel);
     }
 
     public static long delete(UniversalMapper universalMapper, String tableName, BigInteger id) {
-        DeleteModel deleteModel = new DeleteModel();
-        deleteModel.addSearchCondition("id", Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
-        deleteModel.setTableName(tableName);
-        return universalMapper.delete(deleteModel);
+        DeleteModel deleteModel = DeleteModel.builder()
+                .addSearchCondition(BasicDomain.ColumnName.ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, id)
+                .build();
+        return universalMapper.delete(tableName, deleteModel);
     }
 
     public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, BigInteger id, BigInteger userId, String updatedRemark) {
@@ -44,14 +44,15 @@ public class UniversalDatabaseHelper {
     }
 
     public static long markedDelete(UniversalMapper universalMapper, String tableName, BigInteger id, BigInteger userId, String updatedRemark) {
-        UpdateModel updateModel = new UpdateModel(true);
-        updateModel.setTableName(tableName);
-        updateModel.addSearchCondition("id", Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
-        updateModel.addContentValue("deleted_time", new Date());
-        updateModel.addContentValue("deleted", 1);
-        updateModel.addContentValue("updated_user_id", userId);
-        updateModel.addContentValue("updated_remark", updatedRemark);
-        return universalMapper.universalUpdate(updateModel);
+        UpdateModel updateModel = UpdateModel.builder()
+                .autoSetDeletedFalse()
+                .addSearchCondition(BasicDomain.ColumnName.ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, id)
+                .addContentValue(BasicDomain.ColumnName.DELETED_TIME, new Date(), 1)
+                .addContentValue(BasicDomain.ColumnName.DELETED, 1, 1)
+                .addContentValue(BasicDomain.ColumnName.UPDATED_USER_ID, userId, 1)
+                .addContentValue(BasicDomain.ColumnName.UPDATED_REMARK, updatedRemark, 1)
+                .build();
+        return universalMapper.universalUpdate(tableName, updateModel);
     }
 
     public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, BigInteger userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
@@ -60,23 +61,22 @@ public class UniversalDatabaseHelper {
 
     public static long markedDelete(UniversalMapper universalMapper, String tableName, BigInteger userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
         UpdateModel updateModel = new UpdateModel(true);
-        updateModel.setTableName(tableName);
         for (Tuple3<String, String, Object> searchCondition : searchConditions) {
             updateModel.addSearchCondition(searchCondition._1(), searchCondition._2(), searchCondition._3());
         }
-        updateModel.addContentValue("deleted_time", new Date());
-        updateModel.addContentValue("deleted", 1);
-        updateModel.addContentValue("updated_user_id", userId);
-        updateModel.addContentValue("updated_remark", updatedRemark);
-        return universalMapper.universalUpdate(updateModel);
+        updateModel.addContentValue(BasicDomain.ColumnName.DELETED_TIME, new Date(), 1);
+        updateModel.addContentValue(BasicDomain.ColumnName.DELETED, 1, 1);
+        updateModel.addContentValue(BasicDomain.ColumnName.UPDATED_USER_ID, userId, 1);
+        updateModel.addContentValue(BasicDomain.ColumnName.UPDATED_REMARK, updatedRemark, 1);
+        return universalMapper.universalUpdate(tableName, updateModel);
     }
 
     public static long update(UniversalMapper universalMapper, Object domain) {
         return universalMapper.update(domain);
     }
 
-    public static long universalUpdate(UniversalMapper universalMapper, UpdateModel updateModel) {
-        return universalMapper.universalUpdate(updateModel);
+    public static long universalUpdate(UniversalMapper universalMapper, String tableName, UpdateModel updateModel) {
+        return universalMapper.universalUpdate(tableName, updateModel);
     }
 
     public static long executeUpdate(UniversalMapper universalMapper, Map<String, Object> parameters) {
@@ -89,7 +89,7 @@ public class UniversalDatabaseHelper {
 
     public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, BigInteger id) {
         SearchModel searchModel = new SearchModel(true);
-        searchModel.addSearchCondition("id", Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
+        searchModel.addSearchCondition(BasicDomain.ColumnName.ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, id);
         return find(universalMapper, domainClass, searchModel);
     }
 
