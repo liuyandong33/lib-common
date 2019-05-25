@@ -792,6 +792,7 @@ public class Constants {
     public static final String PRIMARY_KEY_GENERATION_STRATEGY = "primary.key.generation.strategy";
     public static final String PRIMARY_KEY_GENERATION_STRATEGY_NATIVE = "NATIVE";
     public static final String PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL = "MYCATSEQ_GLOBAL";
+    public static final String PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE = "SNOWFLAKE";
     public static final String DATABASE_ID_MYSQL = "mysql";
     public static final String DATABASE_ID_ORACLE = "oracle";
     public static final String DATABASE_ID_SQL_SERVER = "sql_server";
@@ -850,4 +851,7 @@ public class Constants {
     public static final String PARTITION_STRING_REDIS_TEMPLATE = "partitionStringRedisTemplate";
     public static final String COMMON_REDIS_CONNECTION_FACTORY = "commonRedisConnectionFactory";
     public static final String PARTITION_REDIS_CONNECTION_FACTORY = "partitionRedisConnectionFactory";
+
+    public static final String SNOWFLAKE_WORKER_ID = "snowflake.worker.id";
+    public static final String SNOWFLAKE_DATA_CENTER_ID = "snowflake.data.center.id";
 }

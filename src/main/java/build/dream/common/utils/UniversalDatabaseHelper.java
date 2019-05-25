@@ -20,11 +20,11 @@ public class UniversalDatabaseHelper {
         ApplicationHandler.registerConverters();
     }
 
-    public static long insert(UniversalMapper universalMapper, Object domain) {
+    public static long insert(UniversalMapper universalMapper, BasicDomain domain) {
         return universalMapper.insert(domain);
     }
 
-    public static long insertAll(UniversalMapper universalMapper, List<?> domains) {
+    public static long insertAll(UniversalMapper universalMapper, List<? extends BasicDomain> domains) {
         return universalMapper.insertAll(domains);
     }
 

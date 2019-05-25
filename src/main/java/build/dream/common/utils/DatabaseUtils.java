@@ -95,6 +95,10 @@ public class DatabaseUtils {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
+                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
+                        insertSql.append("id");
+                        insertSql.append(", ");
+                        valuesSql.append("#{id}, ");
                     }
                 } else {
                     String columnName = null;
@@ -194,6 +198,10 @@ public class DatabaseUtils {
                         insertSql.append("id");
                         insertSql.append(", ");
                         valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
+                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
+                        insertSql.append("id");
+                        insertSql.append(", ");
+                        valuesSql.append("#{id}, ");
                     }
                 } else {
                     String columnName = null;

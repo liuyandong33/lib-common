@@ -1,5 +1,7 @@
 package build.dream.common.utils;
 
+import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import scala.Tuple2;
 import scala.Tuple3;
@@ -10,6 +12,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseHelper {
+    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
+    private static final boolean IS_SNOWFLAKE_STRATEGY = Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY);
     private static UniversalMapper universalMapper;
     private static ConcurrentHashMap<Class<?>, Object> mapperMap = new ConcurrentHashMap<Class<?>, Object>();
 
@@ -27,11 +31,19 @@ public class DatabaseHelper {
         return universalMapper;
     }
 
-    public static long insert(Object domain) {
+    public static long insert(BasicDomain domain) {
+        if (IS_SNOWFLAKE_STRATEGY) {
+            domain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
+        }
         return UniversalDatabaseHelper.insert(obtainUniversalMapper(), domain);
     }
 
-    public static long insertAll(List<?> domains) {
+    public static long insertAll(List<? extends BasicDomain> domains) {
+        if (IS_SNOWFLAKE_STRATEGY) {
+            for (BasicDomain basicDomain : domains) {
+                basicDomain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
+            }
+        }
         return UniversalDatabaseHelper.insertAll(obtainUniversalMapper(), domains);
     }
 

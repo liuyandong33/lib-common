@@ -1,6 +1,6 @@
 package build.dream.common.snowflake
 
-class IdWorker(val workerId: Long, val dataCenterId: Long, var sequence: Long = 0L) {
+class SnowflakeIdWorker(val workerId: Long, val dataCenterId: Long, var sequence: Long = 0L) {
     val twepoch = 1288834974657L
 
     private[this] val workerIdBits = 5L
