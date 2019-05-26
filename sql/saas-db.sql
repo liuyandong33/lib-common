@@ -988,3 +988,13 @@ CREATE TABLE oauth_client_detail
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '客户端信息';
+
+DROP TABLE IF EXISTS snowflake_id_config;
+CREATE TABLE snowflake_id_config
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    worker_id INT NOT NULL COMMENT 'work id',
+    data_center_id INT NOT NULL COMMENT 'data center id',
+    ip_address VARCHAR(50) NOT NULL COMMENT 'IP地址',
+    description VARCHAR(50) NOT NULL COMMENT '描述'
+) COMMENT '雪花ID配置';
