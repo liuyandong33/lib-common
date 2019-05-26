@@ -114,9 +114,6 @@ public class ElemeUtils {
 
     private static Map<String, Object> doCallElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String requestBody = constructRequestBody(tenantId, branchId, elemeAccountType, action, params);
-        Map<String, String> callElemeSystemRequestParameters = new HashMap<String, String>();
-        callElemeSystemRequestParameters.put("requestBody", requestBody);
-
         String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         String result = webResponse.getResult();
