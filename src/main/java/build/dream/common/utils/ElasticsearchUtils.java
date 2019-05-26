@@ -4,6 +4,7 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.index.IndexResponse;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
@@ -53,5 +54,15 @@ public class ElasticsearchUtils {
 
     public static DeleteResponse delete(String index, String type, String id) {
         return obtainTransportClient().prepareDelete(index, type, id).get();
+    }
+
+    public static UpdateResponse update(String index, String type, String id, BasicDomain domain) {
+        return update(index, type, id, domain, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public static UpdateResponse update(String index, String type, String id, BasicDomain domain, String datePattern) {
+        Map<String, Object> map = JacksonUtils.readValueAsMap(JacksonUtils.writeValueAsString(domain, datePattern), String.class, Object.class);
+        XContentBuilder contentBuilder = buildXContentBuilder(map);
+        return obtainTransportClient().prepareUpdate(index, type, id).setDoc(contentBuilder).get();
     }
 }
