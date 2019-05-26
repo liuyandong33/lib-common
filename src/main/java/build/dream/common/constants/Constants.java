@@ -852,6 +852,8 @@ public class Constants {
     public static final String COMMON_REDIS_CONNECTION_FACTORY = "commonRedisConnectionFactory";
     public static final String PARTITION_REDIS_CONNECTION_FACTORY = "partitionRedisConnectionFactory";
 
-    public static final String SNOWFLAKE_WORKER_ID = "snowflake.worker.id";
-    public static final String SNOWFLAKE_DATA_CENTER_ID = "snowflake.data.center.id";
+    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_URL = "snowflake.id.config.database.url";
+    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME = "snowflake.id.config.database.username";
+    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD = "snowflake.id.config.database.password";
+    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME = "snowflake.id.config.database.driver-class-name";
 }

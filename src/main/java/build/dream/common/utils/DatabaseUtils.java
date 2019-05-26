@@ -12,6 +12,10 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -430,5 +434,32 @@ public class DatabaseUtils {
 
     public static String obtainWhereClause(String sqlFragment) {
         return sqlFragment.replaceAll("#\\{", "#{namedParameters.");
+    }
+
+    public static void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
+
+    public static void closeStatement(Statement statement) {
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
+
+    public static void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+            }
+        }
     }
 }
