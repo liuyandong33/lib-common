@@ -54,7 +54,7 @@ public class ElemeUtils {
         return webResponse.getResult();
     }
 
-    public static boolean checkSignature(Map<String, Object> callbackMap, String appSecret) {
+    public static boolean verifySignature(Map<String, Object> callbackMap, String appSecret) {
         Map<String, Object> sortedMap = new TreeMap<String, Object>(callbackMap);
         String signature = sortedMap.remove("signature").toString();
         StringBuilder stringBuilder = new StringBuilder();
@@ -88,7 +88,7 @@ public class ElemeUtils {
         return DigestUtils.md5Hex(String.format("%s%s%s%s", action, accessToken, stringBuilder, appSecret)).toUpperCase();
     }
 
-    public static String constructRequestBody(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
+    public static String buildRequestBody(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String appKey = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_KEY);
         String appSecret = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_SECRET);
         Map<String, Object> metas = new HashMap<String, Object>();
@@ -113,7 +113,7 @@ public class ElemeUtils {
     }
 
     private static Map<String, Object> doCallElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
-        String requestBody = constructRequestBody(tenantId, branchId, elemeAccountType, action, params);
+        String requestBody = buildRequestBody(tenantId, branchId, elemeAccountType, action, params);
         String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         String result = webResponse.getResult();
