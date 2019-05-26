@@ -132,7 +132,7 @@ public class ProxyUtils {
      * @return
      */
     public static HttpEntity<String> buildApplicationFormUrlEncodedHttpEntity(String requestBody) {
-        return new HttpEntity<String>(UrlUtils.encode(requestBody, Constants.CHARSET_UTF_8), obtainApplicationFormUrlEncodedHttpHeaders());
+        return new HttpEntity<String>(requestBody, obtainApplicationFormUrlEncodedHttpHeaders());
     }
 
     /**
@@ -142,7 +142,7 @@ public class ProxyUtils {
      * @return
      */
     public static HttpEntity<String> buildApplicationJsonUtf8HttpEntity(String requestBody) {
-        return new HttpEntity<String>(UrlUtils.encode(requestBody, Constants.CHARSET_UTF_8), obtainApplicationJsonUtf8HttpHeaders());
+        return new HttpEntity<String>(requestBody, obtainApplicationJsonUtf8HttpHeaders());
     }
 
     /**
