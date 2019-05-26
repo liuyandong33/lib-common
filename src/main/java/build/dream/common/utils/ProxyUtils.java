@@ -298,6 +298,35 @@ public class ProxyUtils {
     }
 
     /**
+     * POST 请求调用分区服务
+     *
+     * @param partitionCode
+     * @param serviceName
+     * @param controllerName
+     * @param actionName
+     * @param queryParams
+     * @param requestBody
+     * @return
+     */
+    public static String doPostOriginalWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
+        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, queryParams), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+    }
+
+    /**
+     * POST 请求调用公共服务
+     *
+     * @param serviceName
+     * @param controllerName
+     * @param actionName
+     * @param queryParams
+     * @param requestBody
+     * @return
+     */
+    public static String doPostOriginalWithJsonRequestBody(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
+        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName, queryParams), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+    }
+
+    /**
      * GET 请求调用分区服务
      *
      * @param partitionCode
@@ -432,6 +461,35 @@ public class ProxyUtils {
      */
     public static ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
         return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+    }
+
+    /**
+     * POST 请求调用分区服务
+     *
+     * @param partitionCode
+     * @param serviceName
+     * @param controllerName
+     * @param actionName
+     * @param queryParams
+     * @param requestBody
+     * @return
+     */
+    public static ApiRest doPostWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
+        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, queryParams, requestBody));
+    }
+
+    /**
+     * POST 请求调用公共服务
+     *
+     * @param serviceName
+     * @param controllerName
+     * @param actionName
+     * @param queryParams
+     * @param requestBody
+     * @return
+     */
+    public static ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
+        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, queryParams, requestBody));
     }
 
     /**
