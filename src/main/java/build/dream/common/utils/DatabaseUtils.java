@@ -100,7 +100,8 @@ public class DatabaseUtils {
                 }
                 insertSql.append(obtainColumnName(field));
                 insertSql.append(", ");
-                valuesSql.append("#{item.").append(fieldName);
+                valuesSql.append("#{");
+                valuesSql.append(fieldName);
                 valuesSql.append("}, ");
             }
             clazz = clazz.getSuperclass();
