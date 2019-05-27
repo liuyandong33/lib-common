@@ -130,7 +130,7 @@
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
         <bind name="startRowNumber" value="pagedSearchModel.startRowNumber"></bind>
         <bind name="endRowNumber" value="pagedSearchModel.endRowNumber"></bind>
-        SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${selectColumns} FROM ${tableName}
+        SELECT ${columns} FROM (SELECT ROWNUM AS rowno, ${columns} FROM ${tableName}
         <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
         <if test="@org.apache.commons.collections.CollectionUtils@isEmpty(searchConditions) and @org.apache.commons.lang.StringUtils@isBlank(whereClause)">
             WHERE ROWNUM &lt; #{endRowNumber}
