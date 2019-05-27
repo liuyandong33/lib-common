@@ -12,10 +12,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -461,5 +458,31 @@ public class DatabaseUtils {
             } catch (SQLException e) {
             }
         }
+    }
+
+    public String obtainDatabaseId(Connection connection, boolean closeConnection) {
+        String databaseId = null;
+        try {
+            DatabaseMetaData databaseMetaData = connection.getMetaData();
+            String databaseProductName = databaseMetaData.getDatabaseProductName();
+            switch (databaseProductName) {
+                case Constants.DATABASE_PRODUCT_NAME_MYSQL:
+                    databaseId = Constants.DATABASE_ID_MYSQL;
+                    break;
+                case Constants.DATABASE_PRODUCT_NAME_ORACLE:
+                    databaseId = Constants.DATABASE_ID_ORACLE;
+                    break;
+                case Constants.DATABASE_PRODUCT_NAME_MICROSOFT_SQL_SERVER:
+                    databaseId = Constants.DATABASE_ID_SQL_SERVER;
+                    break;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (closeConnection) {
+                closeConnection(connection);
+            }
+        }
+        return databaseId;
     }
 }

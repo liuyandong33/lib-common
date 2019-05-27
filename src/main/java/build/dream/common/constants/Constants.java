@@ -856,4 +856,8 @@ public class Constants {
     public static final String SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME = "snowflake.id.config.database.username";
     public static final String SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD = "snowflake.id.config.database.password";
     public static final String SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME = "snowflake.id.config.database.driver-class-name";
+
+    public static final String DATABASE_PRODUCT_NAME_MYSQL = "MySQL";
+    public static final String DATABASE_PRODUCT_NAME_ORACLE = "Oracle";
+    public static final String DATABASE_PRODUCT_NAME_MICROSOFT_SQL_SERVER = "Microsoft SQL Server";
 }
