@@ -3,7 +3,8 @@ package build.dream.common.orm;
 import java.math.BigInteger;
 
 public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
-    private long twepoch = 1288834974657L;
+    // 开始时间2019-01-01 00:00:00
+    private long twepoch = 1546272000000L;
 
     private long workerIdBits = 5L;
     private long dataCenterIdBits = 5L;
