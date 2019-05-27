@@ -2,10 +2,10 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.*;
 import build.dream.common.constants.Constants;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.data.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -16,55 +16,28 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseUtils {
-    private static final Map<String, String> DOMAIN_CLASS_NAME_INSERT_SQL_MAP = new ConcurrentHashMap<String, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_INSERT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final Map<String, String[]> DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP = new ConcurrentHashMap<String, String[]>();
     private static final Map<Class<?>, String[]> DOMAIN_CLASS_INSERT_ALL_SQL_MAP = new ConcurrentHashMap<Class<?>, String[]>();
-    private static final Map<String, String> DOMAIN_CLASS_NAME_UPDATE_SQL_MAP = new ConcurrentHashMap<String, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_UPDATE_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final Map<String, String> DOMAIN_CLASS_NAME_SELECT_SQL_MAP = new ConcurrentHashMap<String, String>();
-    private static final Map<Class<?>, String> DOMAIN_CLASS_SELECT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final Map<Class<?>, List<String>> DOMAIN_CLASS_ALIAS_MAP = new ConcurrentHashMap<Class<?>, List<String>>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_COLUMNS_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
+    private static final Map<Class<?>, GeneratedValue> DOMAIN_CLASS_GENERATED_VALUE_MAP = new ConcurrentHashMap<Class<?>, GeneratedValue>();
+    private static final Map<Class<?>, Field> DOMAIN_CLASS_ID_FIELD_MAP = new ConcurrentHashMap<Class<?>, Field>();
+    //    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
 
-    public static String generateInsertSql(String domainClassName) {
-        return generateInsertSql(domainClassName, null);
-    }
-
-    public static String generateInsertSql(String domainClassName, String tableName) {
-        String insertSql = DOMAIN_CLASS_NAME_INSERT_SQL_MAP.get(domainClassName);
-        if (StringUtils.isBlank(insertSql)) {
-            Class<?> domainClass = null;
-            try {
-                domainClass = Class.forName(domainClassName);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            insertSql = doGenerateInsertSql(domainClass, tableName);
-            DOMAIN_CLASS_NAME_INSERT_SQL_MAP.put(domainClassName, insertSql);
-        }
-        return insertSql;
-    }
-
     public static String generateInsertSql(Class<?> domainClass) {
-        return generateInsertSql(domainClass, null);
-    }
-
-    public static String generateInsertSql(Class<?> domainClass, String tableName) {
         String insertSql = DOMAIN_CLASS_INSERT_SQL_MAP.get(domainClass);
         if (StringUtils.isBlank(insertSql)) {
-            insertSql = doGenerateInsertSql(domainClass, tableName);
+            insertSql = doGenerateInsertSql(domainClass);
             DOMAIN_CLASS_INSERT_SQL_MAP.put(domainClass, insertSql);
         }
         return insertSql;
     }
 
-    private static String doGenerateInsertSql(Class<?> domainClass, String tableName) {
+    private static String doGenerateInsertSql(Class<?> domainClass) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        insertSql.append(obtainTableName(tableName, domainClass));
+        insertSql.append(obtainTableName(domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder(" VALUES (");
 
@@ -81,37 +54,52 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                String fieldName = field.getName();
-                if ("createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if (field.getAnnotation(InsertIgnore.class) != null) {
                     continue;
                 }
 
-                if ("id".equals(fieldName)) {
-                    if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_NATIVE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-
-                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-                        insertSql.append("id");
-                        insertSql.append(", ");
-                        valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
-                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-                        insertSql.append("id");
-                        insertSql.append(", ");
-                        valuesSql.append("#{id}, ");
-                    }
-                } else {
-                    String columnName = null;
-                    Column column = field.getAnnotation(Column.class);
-                    if (column != null) {
-                        columnName = column.name();
-                    } else {
-                        columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                String fieldName = field.getName();
+                Id id = field.getAnnotation(Id.class);
+                if (id != null) {
+                    GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
+                    if (generatedValue != null) {
+                        DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
                     }
 
-                    insertSql.append(columnName);
-                    insertSql.append(", ");
-                    valuesSql.append("#{").append(fieldName);
-                    valuesSql.append("}, ");
+                    GenerationType generationType = generatedValue.strategy();
+                    switch (generationType) {
+                        case AUTO_INCREMENT:
+                            break;
+                        case SQL:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case GENERATOR:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case UUID:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case MYCATSEQ_GLOBAL:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
+                            break;
+                    }
+                    continue;
                 }
+                insertSql.append(obtainColumnName(field));
+                insertSql.append(", ");
+                valuesSql.append("#{item.").append(fieldName);
+                valuesSql.append("}, ");
             }
             clazz = clazz.getSuperclass();
         }
@@ -125,49 +113,22 @@ public class DatabaseUtils {
         return insertSql.toString();
     }
 
-    public static String[] generateInsertAllSql(String domainClassName) {
-        return generateInsertAllSql(domainClassName, null);
-    }
-
-    public static String[] generateInsertAllSql(String domainClassName, String tableName) {
-        String[] insertAllSql = DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP.get(domainClassName);
-        if (ArrayUtils.isEmpty(insertAllSql)) {
-            Class<?> domainClass = null;
-            try {
-                domainClass = Class.forName(domainClassName);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            insertAllSql = doGenerateInsertAllSql(domainClass, tableName);
-            DOMAIN_CLASS_NAME_INSERT_ALL_SQL_MAP.put(domainClassName, insertAllSql);
-        }
-        return insertAllSql;
-    }
-
     public static String[] generateInsertAllSql(List<?> domains) {
-        return generateInsertAllSql(domains.get(0).getClass(), null);
+        return generateInsertAllSql(domains.get(0).getClass());
     }
 
     public static String[] generateInsertAllSql(Class<?> domainClass) {
-        return generateInsertAllSql(domainClass, null);
-    }
-
-    public static String[] generateInsertAllSql(List<?> domains, String tableName) {
-        return generateInsertAllSql(domains.get(0).getClass(), tableName);
-    }
-
-    public static String[] generateInsertAllSql(Class<?> domainClass, String tableName) {
         String[] insertAllSql = DOMAIN_CLASS_INSERT_ALL_SQL_MAP.get(domainClass);
         if (ArrayUtils.isEmpty(insertAllSql)) {
-            insertAllSql = doGenerateInsertAllSql(domainClass, tableName);
+            insertAllSql = doGenerateInsertAllSql(domainClass);
             DOMAIN_CLASS_INSERT_ALL_SQL_MAP.put(domainClass, insertAllSql);
         }
         return insertAllSql;
     }
 
-    private static String[] doGenerateInsertAllSql(Class<?> domainClass, String tableName) {
+    private static String[] doGenerateInsertAllSql(Class<?> domainClass) {
         StringBuilder insertSql = new StringBuilder("INSERT INTO ");
-        insertSql.append(obtainTableName(tableName, domainClass));
+        insertSql.append(obtainTableName(domainClass));
         insertSql.append("(");
         StringBuilder valuesSql = new StringBuilder("(");
 
@@ -189,32 +150,49 @@ public class DatabaseUtils {
                 }
 
                 String fieldName = field.getName();
-                if ("id".equals(fieldName)) {
-                    if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_NATIVE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-
-                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-                        insertSql.append("id");
-                        insertSql.append(", ");
-                        valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
-                    } else if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
-                        insertSql.append("id");
-                        insertSql.append(", ");
-                        valuesSql.append("#{item.id}, ");
-                    }
-                } else {
-                    String columnName = null;
-                    Column column = field.getAnnotation(Column.class);
-                    if (column != null) {
-                        columnName = column.name();
-                    } else {
-                        columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                Id id = field.getAnnotation(Id.class);
+                if (id != null) {
+                    GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
+                    if (generatedValue != null) {
+                        DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
+                        DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     }
 
-                    insertSql.append(columnName);
-                    insertSql.append(", ");
-                    valuesSql.append("#{item.").append(fieldName);
-                    valuesSql.append("}, ");
+                    GenerationType generationType = generatedValue.strategy();
+                    switch (generationType) {
+                        case AUTO_INCREMENT:
+                            break;
+                        case SQL:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{item.").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case GENERATOR:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{item.").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case UUID:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append("#{item.").append(fieldName);
+                            valuesSql.append("}, ");
+                            break;
+                        case MYCATSEQ_GLOBAL:
+                            insertSql.append(obtainColumnName(field));
+                            insertSql.append(", ");
+                            valuesSql.append(NEXT_VALUE_FOR_MYCATSEQ_GLOBAL).append(", ");
+                            break;
+
+                    }
+                    continue;
                 }
+                insertSql.append(obtainColumnName(field));
+                insertSql.append(", ");
+                valuesSql.append("#{item.").append(fieldName);
+                valuesSql.append("}, ");
             }
             clazz = clazz.getSuperclass();
         }
@@ -227,41 +205,26 @@ public class DatabaseUtils {
         return new String[]{insertSql.toString(), valuesSql.toString()};
     }
 
-    public static String generateUpdateSql(String domainClassName) {
-        return generateUpdateSql(domainClassName, null);
-    }
-
-    public static String generateUpdateSql(String domainClassName, String tableName) {
-        String updateSql = DOMAIN_CLASS_NAME_UPDATE_SQL_MAP.get(domainClassName);
-        if (StringUtils.isBlank(updateSql)) {
-            Class<?> domainClass = null;
-            try {
-                domainClass = Class.forName(domainClassName);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            updateSql = doGenerateUpdateSql(domainClass, tableName);
-            DOMAIN_CLASS_NAME_UPDATE_SQL_MAP.put(domainClassName, updateSql);
+    public static String obtainColumnName(Field field) {
+        Column column = field.getAnnotation(Column.class);
+        if (column != null) {
+            return column.name();
         }
-        return updateSql;
+        return NamingStrategyUtils.camelCaseToUnderscore(field.getName());
     }
 
     public static String generateUpdateSql(Class<?> domainClass) {
-        return generateUpdateSql(domainClass, null);
-    }
-
-    public static String generateUpdateSql(Class<?> domainClass, String tableName) {
         String updateSql = DOMAIN_CLASS_UPDATE_SQL_MAP.get(domainClass);
         if (StringUtils.isBlank(updateSql)) {
-            updateSql = doGenerateUpdateSql(domainClass, tableName);
+            updateSql = doGenerateUpdateSql(domainClass);
             DOMAIN_CLASS_UPDATE_SQL_MAP.put(domainClass, updateSql);
         }
         return updateSql;
     }
 
-    private static String doGenerateUpdateSql(Class<?> domainClass, String tableName) {
+    private static String doGenerateUpdateSql(Class<?> domainClass) {
         StringBuilder updateSql = new StringBuilder("UPDATE ");
-        updateSql.append(obtainTableName(tableName, domainClass));
+        updateSql.append(obtainTableName(domainClass));
         updateSql.append(" SET ");
 
         Class<?> clazz = domainClass;
@@ -281,19 +244,16 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                String fieldName = field.getName();
-                String columnName = null;
-                Column column = field.getAnnotation(Column.class);
-                if (column != null) {
-                    columnName = column.name();
-                } else {
-                    columnName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                Id id = field.getAnnotation(Id.class);
+                if (id != null) {
+                    DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
+                    continue;
                 }
 
-                updateSql.append(columnName);
+                updateSql.append(obtainColumnName(field));
                 updateSql.append(" = ");
                 updateSql.append("#{");
-                updateSql.append(fieldName);
+                updateSql.append(field.getName());
                 updateSql.append("}, ");
             }
             clazz = clazz.getSuperclass();
@@ -301,7 +261,12 @@ public class DatabaseUtils {
         updateSql.deleteCharAt(updateSql.length() - 1);
         updateSql.deleteCharAt(updateSql.length() - 1);
 
-        updateSql.append(" WHERE id = #{id}");
+        Field idField = DOMAIN_CLASS_ID_FIELD_MAP.get(domainClass);
+        updateSql.append(" WHERE ");
+        updateSql.append(obtainColumnName(idField));
+        updateSql.append(" = #{");
+        updateSql.append(idField.getName());
+        updateSql.append("}");
 
         ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
         if (shardingColumn != null) {
@@ -315,58 +280,7 @@ public class DatabaseUtils {
         return updateSql.toString();
     }
 
-    public static String generateSelectSql(String domainClassName) {
-        return generateSelectSql(domainClassName, null);
-    }
-
-    public static String generateSelectSql(String domainClassName, String tableName) {
-        String selectSql = DOMAIN_CLASS_NAME_SELECT_SQL_MAP.get(domainClassName);
-        if (StringUtils.isBlank(selectSql)) {
-            Class<?> domainClass = null;
-            try {
-                domainClass = Class.forName(domainClassName);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            selectSql = doGenerateSelectSql(domainClass, tableName);
-            DOMAIN_CLASS_NAME_SELECT_SQL_MAP.put(domainClassName, selectSql);
-        }
-        return selectSql;
-    }
-
-    public static String generateSelectSql(Class<?> domainClass) {
-        return generateSelectSql(domainClass, null);
-    }
-
-    public static String generateSelectSql(Class<?> domainClass, String tableName) {
-        String selectSql = DOMAIN_CLASS_SELECT_SQL_MAP.get(domainClass);
-        if (StringUtils.isBlank(selectSql)) {
-            selectSql = doGenerateSelectSql(domainClass, tableName);
-            DOMAIN_CLASS_SELECT_SQL_MAP.put(domainClass, selectSql);
-        }
-        return selectSql;
-    }
-
-    private static String doGenerateSelectSql(Class<?> domainClass, String tableName) {
-        List<String> alias = obtainAllAlias(domainClass);
-
-        StringBuilder selectSql = new StringBuilder("SELECT ");
-        selectSql.append(StringUtils.join(alias, ", "));
-        selectSql.append(" FROM ");
-        selectSql.append(obtainTableName(tableName, domainClass));
-        return selectSql.toString();
-    }
-
-    public static List<String> obtainAllAlias(Class<?> domainClass) {
-        List<String> alias = DOMAIN_CLASS_ALIAS_MAP.get(domainClass);
-        if (CollectionUtils.isEmpty(alias)) {
-            alias = doObtainAllAlias(domainClass);
-            DOMAIN_CLASS_ALIAS_MAP.put(domainClass, alias);
-        }
-        return alias;
-    }
-
-    private static List<String> doObtainAllAlias(Class<?> domainClass) {
+    private static List<String> obtainAllAlias(Class<?> domainClass) {
         List<String> alias = new ArrayList<String>();
         while (domainClass != Object.class) {
             Field[] fields = domainClass.getDeclaredFields();
@@ -402,13 +316,6 @@ public class DatabaseUtils {
             DOMAIN_CLASS_COLUMNS_MAP.put(domainClass, columns);
         }
         return columns;
-    }
-
-    public static String obtainTableName(String tableName, Class<?> domainClass) {
-        if (StringUtils.isNotBlank(tableName)) {
-            return tableName;
-        }
-        return obtainTableName(domainClass);
     }
 
     public static String obtainTableName(Class<?> domainClass) {
@@ -481,5 +388,34 @@ public class DatabaseUtils {
             }
         }
         return databaseId;
+    }
+
+    public static Field obtainIdField(Class<?> domainClass) {
+        Field idField = DOMAIN_CLASS_ID_FIELD_MAP.get(domainClass);
+        if (idField == null) {
+            idField = ReflectionUtils.findField(domainClass, field -> field.getAnnotation(Id.class) != null);
+            if (idField != null) {
+                DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, idField);
+            }
+        }
+        return idField;
+    }
+
+    public static Field obtainIdField(Object object) {
+        return obtainIdField(object.getClass());
+    }
+
+    public static GeneratedValue obtainGeneratedValue(Object object) {
+        Class<?> domainClass = object.getClass();
+        GeneratedValue generatedValue = DOMAIN_CLASS_GENERATED_VALUE_MAP.get(domainClass);
+        if (generatedValue == null) {
+            Field idField = obtainIdField(domainClass);
+            generatedValue = idField.getAnnotation(GeneratedValue.class);
+            if (generatedValue != null) {
+                DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
+                return generatedValue;
+            }
+        }
+        return null;
     }
 }

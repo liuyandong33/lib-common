@@ -1,20 +1,20 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.GeneratedValue;
+import build.dream.common.annotations.GenerationType;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.basic.IdDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
+import org.springframework.util.ReflectionUtils;
 import scala.Tuple2;
 import scala.Tuple3;
 
 import java.lang.reflect.Method;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UniversalDatabaseHelper {
     private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
@@ -25,10 +25,28 @@ public class UniversalDatabaseHelper {
     }
 
     public static long insert(UniversalMapper universalMapper, IdDomain domain) {
-        if (IS_SNOWFLAKE_STRATEGY) {
-            domain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
+        GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domain);
+        if (generatedValue == null) {
+            return universalMapper.insertAutoIncrement(domain);
         }
-        return universalMapper.insert(domain);
+
+        GenerationType generationType = generatedValue.strategy();
+        switch (generationType) {
+            case AUTO_INCREMENT:
+                return universalMapper.insertAutoIncrement(domain);
+            case SQL:
+                return universalMapper.insertSelectKey(domain);
+            case GENERATOR:
+                build.dream.common.orm.IdGenerator idGenerator = ApplicationHandler.getBean(build.dream.common.orm.IdGenerator.class);
+                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
+                break;
+            case UUID:
+                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, UUID.randomUUID().toString());
+                break;
+            case MYCATSEQ_GLOBAL:
+                break;
+        }
+        throw new RuntimeException();
     }
 
     public static long insertAll(UniversalMapper universalMapper, List<? extends IdDomain> domains) {

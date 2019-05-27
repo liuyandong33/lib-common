@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 public interface UniversalMapper {
+    long insertSelectKey(Object domain);
+
+    long insertAutoIncrement(Object domain);
+
+    long insertAllAutoIncrement(List<?> domains);
+
     long insert(Object domain);
 
     long insertAll(List<?> domains);
