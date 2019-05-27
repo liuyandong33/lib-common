@@ -419,7 +419,7 @@ public class DatabaseUtils {
                 return generatedValue;
             }
         }
-        return null;
+        return generatedValue;
     }
 
     public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {
