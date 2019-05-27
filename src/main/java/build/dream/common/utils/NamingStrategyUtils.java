@@ -20,6 +20,10 @@ public class NamingStrategyUtils {
         return camelCase.toString();
     }
 
+    public static String underscoreToCamelCaseIgnoreCase(String underscore) {
+        return underscoreToCamelCase(underscore.toLowerCase());
+    }
+
     private static Pattern camelCasePattern = Pattern.compile("[A-Z]");
 
     public static String camelCaseToUnderscore(String camelCase) {
