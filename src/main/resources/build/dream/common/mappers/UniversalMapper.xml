@@ -154,7 +154,14 @@
         <bind name="orderBy" value="pagedSearchModel.orderBy"></bind>
         <bind name="offset" value="pagedSearchModel.offset"></bind>
         <bind name="maxResults" value="pagedSearchModel.maxResults"></bind>
-        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include> OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
+        SELECT ${columns} FROM ${tableName} <include refid="build.dream.common.mappers.CommonMapper.searchConditionSql"></include>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(groupBy)">
+            GROUP BY ${groupBy}
+        </if>
+        <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
+            ORDER BY ${orderBy}
+        </if>
+        OFFSET #{offset} ROWS FETCH NEXT #{maxResults} ROWS ONLY
     </select>
 
     <select id="executeQuery" parameterType="java.util.Map" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
