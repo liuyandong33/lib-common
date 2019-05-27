@@ -5,6 +5,7 @@ import build.dream.common.annotations.GenerationType;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
+import build.dream.common.orm.IdGenerator;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.data.util.ReflectionUtils;
@@ -37,7 +38,8 @@ public class UniversalDatabaseHelper {
             case SQL:
                 return universalMapper.insertSelectKey(domain);
             case GENERATOR:
-                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator()));
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
+                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
                 return universalMapper.insert(domain);
             case UUID:
                 ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, UUID.randomUUID().toString());
@@ -63,8 +65,9 @@ public class UniversalDatabaseHelper {
                 return universalMapper.insertAllSelectKey(domains);
             case GENERATOR:
                 Field idField = DatabaseUtils.obtainIdField(domainClass);
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
                 for (Object domain : domains) {
-                    ReflectionUtils.setField(idField, domain, DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator()).nextId());
+                    ReflectionUtils.setField(idField, domain, idGenerator.nextId());
                 }
                 return universalMapper.insertAll(domains);
             case UUID:
