@@ -7,7 +7,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
-import org.springframework.util.ReflectionUtils;
+import org.springframework.data.util.ReflectionUtils;
 import scala.Tuple2;
 import scala.Tuple3;
 
