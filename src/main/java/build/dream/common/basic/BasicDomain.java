@@ -1,17 +1,28 @@
 package build.dream.common.basic;
 
+import build.dream.common.annotations.InsertIgnore;
+import build.dream.common.annotations.UpdateIgnore;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
 public class BasicDomain extends IdDomain {
+    @InsertIgnore
+    @UpdateIgnore
     private Date createdTime;
     private BigInteger createdUserId;
+
+    @InsertIgnore
+    @UpdateIgnore
     private Date updatedTime;
     private BigInteger updatedUserId;
     private String updatedRemark = Constants.VARCHAR_DEFAULT_VALUE;
+
+    @InsertIgnore
     private Date deletedTime = Constants.DATETIME_DEFAULT_VALUE;
+
+    @InsertIgnore
     private boolean deleted;
 
     public Date getCreatedTime() {

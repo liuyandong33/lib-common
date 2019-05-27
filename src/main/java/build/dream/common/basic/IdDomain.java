@@ -1,9 +1,12 @@
 package build.dream.common.basic;
 
+import build.dream.common.annotations.UpdateIgnore;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 
 public class IdDomain implements Serializable {
+    @UpdateIgnore
     private BigInteger id;
 
     public BigInteger getId() {

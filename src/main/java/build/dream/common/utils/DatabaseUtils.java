@@ -1,9 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.annotations.Column;
-import build.dream.common.annotations.ShardingColumn;
-import build.dream.common.annotations.Table;
-import build.dream.common.annotations.Transient;
+import build.dream.common.annotations.*;
 import build.dream.common.constants.Constants;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -187,11 +184,11 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                String fieldName = field.getName();
-                if ("createdTime".equals(fieldName) || "updatedTime".equals(fieldName) || "deletedTime".equals(fieldName) || "deleted".equals(fieldName)) {
+                if (field.getAnnotation(InsertIgnore.class) != null) {
                     continue;
                 }
 
+                String fieldName = field.getName();
                 if ("id".equals(fieldName)) {
                     if (Constants.PRIMARY_KEY_GENERATION_STRATEGY_NATIVE.equals(PRIMARY_KEY_GENERATION_STRATEGY)) {
 
@@ -280,11 +277,11 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                String fieldName = field.getName();
-                if ("id".equals(fieldName) || "createdTime".equals(fieldName) || "updatedTime".equals(fieldName)) {
+                if (field.getAnnotation(UpdateIgnore.class) != null) {
                     continue;
                 }
 
+                String fieldName = field.getName();
                 String columnName = null;
                 Column column = field.getAnnotation(Column.class);
                 if (column != null) {
