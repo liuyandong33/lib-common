@@ -12,6 +12,7 @@ import org.springframework.util.ReflectionUtils;
 import scala.Tuple2;
 import scala.Tuple3;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.util.*;
@@ -37,25 +38,46 @@ public class UniversalDatabaseHelper {
             case SQL:
                 return universalMapper.insertSelectKey(domain);
             case GENERATOR:
-                build.dream.common.orm.IdGenerator idGenerator = ApplicationHandler.getBean(build.dream.common.orm.IdGenerator.class);
-                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
-                break;
+                ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator()));
+                return universalMapper.insert(domain);
             case UUID:
                 ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, UUID.randomUUID().toString());
-                break;
+                return universalMapper.insert(domain);
             case MYCATSEQ_GLOBAL:
-                break;
+                return universalMapper.insert(domain);
         }
         throw new RuntimeException();
     }
 
     public static long insertAll(UniversalMapper universalMapper, List<? extends IdDomain> domains) {
-        if (IS_SNOWFLAKE_STRATEGY) {
-            for (IdDomain idDomain : domains) {
-                idDomain.setId(BigInteger.valueOf(IdGenerator.nextSnowflakeId()));
-            }
+        Class<?> domainClass = domains.get(0).getClass();
+        GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domainClass);
+        if (generatedValue == null) {
+            return universalMapper.insertAllAutoIncrement(domains);
         }
-        return universalMapper.insertAll(domains);
+
+        GenerationType generationType = generatedValue.strategy();
+        switch (generationType) {
+            case AUTO_INCREMENT:
+                return universalMapper.insertAllAutoIncrement(domains);
+            case SQL:
+                return universalMapper.insertAllSelectKey(domains);
+            case GENERATOR:
+                Field idField = DatabaseUtils.obtainIdField(domainClass);
+                for (Object domain : domains) {
+                    ReflectionUtils.setField(idField, domain, DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator()).nextId());
+                }
+                return universalMapper.insertAll(domains);
+            case UUID:
+                Field field = DatabaseUtils.obtainIdField(domainClass);
+                for (Object domain : domains) {
+                    ReflectionUtils.setField(field, domain, UUID.randomUUID().toString());
+                }
+                return universalMapper.insertAll(domains);
+            case MYCATSEQ_GLOBAL:
+                return universalMapper.insertAll(domains);
+        }
+        throw new RuntimeException();
     }
 
     public static long delete(UniversalMapper universalMapper, Class<?> domainClass, DeleteModel deleteModel) {

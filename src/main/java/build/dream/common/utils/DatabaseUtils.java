@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.*;
 import build.dream.common.constants.Constants;
+import build.dream.common.orm.IdGenerator;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -23,6 +24,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_COLUMNS_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, GeneratedValue> DOMAIN_CLASS_GENERATED_VALUE_MAP = new ConcurrentHashMap<Class<?>, GeneratedValue>();
     private static final Map<Class<?>, Field> DOMAIN_CLASS_ID_FIELD_MAP = new ConcurrentHashMap<Class<?>, Field>();
+    private static final Map<Class<?>, IdGenerator> ID_GENERATOR_CLASS_ID_GENERATOR_MAP = new ConcurrentHashMap<Class<?>, IdGenerator>();
     //    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
 
@@ -417,5 +419,18 @@ public class DatabaseUtils {
             }
         }
         return null;
+    }
+
+    public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {
+        try {
+            IdGenerator idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
+            if (idGenerator == null) {
+                idGenerator = idGeneratorClass.newInstance();
+                ID_GENERATOR_CLASS_ID_GENERATOR_MAP.put(idGeneratorClass, idGenerator);
+            }
+            return idGenerator;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

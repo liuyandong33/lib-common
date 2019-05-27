@@ -12,6 +12,8 @@ import java.util.Map;
 public interface UniversalMapper {
     long insertSelectKey(Object domain);
 
+    long insertAllSelectKey(List<?> domains);
+
     long insertAutoIncrement(Object domain);
 
     long insertAllAutoIncrement(List<?> domains);
