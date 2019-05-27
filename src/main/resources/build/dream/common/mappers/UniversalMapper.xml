@@ -143,7 +143,7 @@
         </if>
         <if test="@org.apache.commons.lang.StringUtils@isNotBlank(orderBy)">
             ORDER BY ${orderBy}
-        </if>) AS t WHERE t.rowno &gt; #{startRowNumber}
+        </if>) t WHERE t.rowno &gt; #{startRowNumber}
     </select>
 
     <select id="findAllPaged" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap" databaseId="sql_server">
