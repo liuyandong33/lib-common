@@ -3,7 +3,6 @@ package build.dream.common.utils;
 import build.dream.common.annotations.GeneratedValue;
 import build.dream.common.annotations.GenerationType;
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.basic.IdDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
 import org.apache.commons.beanutils.BeanUtils;
@@ -25,7 +24,7 @@ public class UniversalDatabaseHelper {
         ApplicationHandler.registerConverters();
     }
 
-    public static long insert(UniversalMapper universalMapper, IdDomain domain) {
+    public static long insert(UniversalMapper universalMapper, Object domain) {
         GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domain);
         if (generatedValue == null) {
             return universalMapper.insertAutoIncrement(domain);
@@ -49,7 +48,7 @@ public class UniversalDatabaseHelper {
         throw new RuntimeException();
     }
 
-    public static long insertAll(UniversalMapper universalMapper, List<? extends IdDomain> domains) {
+    public static long insertAll(UniversalMapper universalMapper, List<? extends Object> domains) {
         Class<?> domainClass = domains.get(0).getClass();
         GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domainClass);
         if (generatedValue == null) {

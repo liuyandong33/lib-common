@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.basic.IdDomain;
 import build.dream.common.mappers.UniversalMapper;
 import scala.Tuple2;
 import scala.Tuple3;
@@ -28,11 +27,11 @@ public class DatabaseHelper {
         return universalMapper;
     }
 
-    public static long insert(IdDomain domain) {
+    public static long insert(Object domain) {
         return UniversalDatabaseHelper.insert(obtainUniversalMapper(), domain);
     }
 
-    public static long insertAll(List<? extends IdDomain> domains) {
+    public static long insertAll(List<? extends Object> domains) {
         return UniversalDatabaseHelper.insertAll(obtainUniversalMapper(), domains);
     }
 
