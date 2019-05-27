@@ -460,7 +460,7 @@ public class DatabaseUtils {
         }
     }
 
-    public String obtainDatabaseId(Connection connection, boolean closeConnection) {
+    public static String obtainDatabaseId(Connection connection, boolean closeConnection) {
         String databaseId = null;
         try {
             DatabaseMetaData databaseMetaData = connection.getMetaData();
