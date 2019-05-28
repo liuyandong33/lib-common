@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
-import build.dream.common.annotations.GeneratedValue;
 import build.dream.common.annotations.GenerationStrategy;
+import build.dream.common.annotations.Id;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
@@ -26,17 +26,17 @@ public class UniversalDatabaseHelper {
     }
 
     public static long insert(UniversalMapper universalMapper, Object domain) {
-        GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domain);
-        if (generatedValue == null) {
-            return universalMapper.insertAutoIncrement(domain);
+        Id idAnnotation = DatabaseUtils.obtainIdAnnotation(domain);
+        if (idAnnotation == null) {
+            return universalMapper.insert(domain);
         }
 
-        GenerationStrategy generationStrategy = generatedValue.strategy();
+        GenerationStrategy generationStrategy = idAnnotation.strategy();
         switch (generationStrategy) {
             case AUTO_INCREMENT:
                 return universalMapper.insertAutoIncrement(domain);
             case GENERATOR:
-                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGeneratorClass());
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(idAnnotation.idGeneratorClass());
                 ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
                 return universalMapper.insert(domain);
             case MYCATSEQ_GLOBAL:
@@ -47,18 +47,18 @@ public class UniversalDatabaseHelper {
 
     public static long insertAll(UniversalMapper universalMapper, List<? extends Object> domains) {
         Class<?> domainClass = domains.get(0).getClass();
-        GeneratedValue generatedValue = DatabaseUtils.obtainGeneratedValue(domainClass);
-        if (generatedValue == null) {
-            return universalMapper.insertAllAutoIncrement(domains);
+        Id idAnnotation = DatabaseUtils.obtainIdAnnotation(domainClass);
+        if (idAnnotation == null) {
+            return universalMapper.insertAll(domains);
         }
 
-        GenerationStrategy generationStrategy = generatedValue.strategy();
+        GenerationStrategy generationStrategy = idAnnotation.strategy();
         switch (generationStrategy) {
             case AUTO_INCREMENT:
                 return universalMapper.insertAllAutoIncrement(domains);
             case GENERATOR:
                 Field idField = DatabaseUtils.obtainIdField(domainClass);
-                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGeneratorClass());
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(idAnnotation.idGeneratorClass());
                 int size = domains.size();
                 List<?> ids = idGenerator.nextManyIds(size);
                 for (int index = 0; index < size; index++) {

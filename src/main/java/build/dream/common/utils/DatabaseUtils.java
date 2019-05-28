@@ -23,7 +23,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_UPDATE_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_TABLE_NAME_MAP = new ConcurrentHashMap<Class<?>, String>();
     private static final Map<Class<?>, String> DOMAIN_CLASS_COLUMNS_MAP = new ConcurrentHashMap<Class<?>, String>();
-    private static final Map<Class<?>, GeneratedValue> DOMAIN_CLASS_GENERATED_VALUE_MAP = new ConcurrentHashMap<Class<?>, GeneratedValue>();
+    private static final Map<Class<?>, Id> DOMAIN_CLASS_ID_ANNOTATION_MAP = new ConcurrentHashMap<Class<?>, Id>();
     private static final Map<Class<?>, Field> DOMAIN_CLASS_ID_FIELD_MAP = new ConcurrentHashMap<Class<?>, Field>();
     private static final Map<Class<?>, IdGenerator> ID_GENERATOR_CLASS_ID_GENERATOR_MAP = new ConcurrentHashMap<Class<?>, IdGenerator>();
     //    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
@@ -65,12 +65,9 @@ public class DatabaseUtils {
                 String fieldName = field.getName();
                 Id id = field.getAnnotation(Id.class);
                 if (id != null) {
-                    GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
-                    if (generatedValue != null) {
-                        DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
-                    }
-
-                    GenerationStrategy generationStrategy = generatedValue.strategy();
+                    DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
+                    DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, id);
+                    GenerationStrategy generationStrategy = id.strategy();
                     switch (generationStrategy) {
                         case AUTO_INCREMENT:
                             break;
@@ -145,13 +142,14 @@ public class DatabaseUtils {
                 String fieldName = field.getName();
                 Id id = field.getAnnotation(Id.class);
                 if (id != null) {
-                    DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
-                    GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
-                    if (generatedValue != null) {
-                        DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
+                    if (!DOMAIN_CLASS_ID_FIELD_MAP.containsKey(domainClass)) {
+                        DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     }
 
-                    GenerationStrategy generationStrategy = generatedValue.strategy();
+                    if (!DOMAIN_CLASS_ID_ANNOTATION_MAP.containsKey(domainClass)) {
+                        DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, id);
+                    }
+                    GenerationStrategy generationStrategy = id.strategy();
                     switch (generationStrategy) {
                         case AUTO_INCREMENT:
                             break;
@@ -221,13 +219,14 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                if (field.getAnnotation(UpdateIgnore.class) != null) {
-                    continue;
-                }
-
                 Id id = field.getAnnotation(Id.class);
                 if (id != null) {
                     DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
+                    DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, id);
+                    continue;
+                }
+
+                if (field.getAnnotation(UpdateIgnore.class) != null) {
                     continue;
                 }
 
@@ -373,11 +372,12 @@ public class DatabaseUtils {
 
     public static Field obtainIdField(Class<?> domainClass) {
         Field idField = DOMAIN_CLASS_ID_FIELD_MAP.get(domainClass);
-        if (idField == null) {
-            idField = ReflectionUtils.findField(domainClass, field -> field.getAnnotation(Id.class) != null);
-            if (idField != null) {
-                DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, idField);
-            }
+        if (idField != null) {
+            return idField;
+        }
+        idField = ReflectionUtils.findField(domainClass, field -> field.getAnnotation(Id.class) != null);
+        if (idField != null) {
+            DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, idField);
         }
         return idField;
     }
@@ -386,21 +386,19 @@ public class DatabaseUtils {
         return obtainIdField(domain.getClass());
     }
 
-    public static GeneratedValue obtainGeneratedValue(Class<?> domainClass) {
-        GeneratedValue generatedValue = DOMAIN_CLASS_GENERATED_VALUE_MAP.get(domainClass);
-        if (generatedValue == null) {
-            Field idField = obtainIdField(domainClass);
-            generatedValue = idField.getAnnotation(GeneratedValue.class);
-            if (generatedValue != null) {
-                DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
-                return generatedValue;
-            }
+    public static Id obtainIdAnnotation(Class<?> domainClass) {
+        Id idAnnotation = DOMAIN_CLASS_ID_ANNOTATION_MAP.get(domainClass);
+        if (idAnnotation != null) {
+            return idAnnotation;
         }
-        return generatedValue;
+        Field idField = obtainIdField(domainClass);
+        idAnnotation = idField.getAnnotation(Id.class);
+        DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, idAnnotation);
+        return idAnnotation;
     }
 
-    public static GeneratedValue obtainGeneratedValue(Object domain) {
-        return obtainGeneratedValue(domain.getClass());
+    public static Id obtainIdAnnotation(Object domain) {
+        return obtainIdAnnotation(domain.getClass());
     }
 
     public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {

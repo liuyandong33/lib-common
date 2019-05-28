@@ -1,14 +1,16 @@
 package build.dream.common.basic;
 
-import build.dream.common.annotations.*;
+import build.dream.common.annotations.GenerationStrategy;
+import build.dream.common.annotations.Id;
+import build.dream.common.annotations.InsertIgnore;
+import build.dream.common.annotations.UpdateIgnore;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
 public class BasicDomain implements IdDomain<BigInteger> {
-    @Id
-    @GeneratedValue(strategy = GenerationStrategy.GENERATOR)
+    @Id(strategy = GenerationStrategy.AUTO_INCREMENT)
     @UpdateIgnore
     private BigInteger id;
 
