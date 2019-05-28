@@ -155,10 +155,10 @@ public class DatabaseUtils {
                 String fieldName = field.getName();
                 Id id = field.getAnnotation(Id.class);
                 if (id != null) {
+                    DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     GeneratedValue generatedValue = field.getAnnotation(GeneratedValue.class);
                     if (generatedValue != null) {
                         DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
-                        DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     }
 
                     GenerationType generationType = generatedValue.strategy();

@@ -1,13 +1,17 @@
 package build.dream.common.basic;
 
-import build.dream.common.annotations.InsertIgnore;
-import build.dream.common.annotations.UpdateIgnore;
+import build.dream.common.annotations.*;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 import java.util.Date;
 
-public class BasicDomain extends IdDomain {
+public class BasicDomain implements IdDomain<BigInteger> {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO_INCREMENT)
+    @UpdateIgnore
+    private BigInteger id;
+
     @InsertIgnore
     @UpdateIgnore
     private Date createdTime;
@@ -81,7 +85,18 @@ public class BasicDomain extends IdDomain {
         this.deleted = deleted;
     }
 
-    public static class ColumnName extends IdDomain.ColumnName {
+    @Override
+    public BigInteger getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
+    public static class ColumnName {
+        public static final String ID = "id";
         public static final String CREATED_TIME = "created_time";
         public static final String CREATED_USER_ID = "created_user_id";
         public static final String UPDATED_TIME = "updated_time";
@@ -91,7 +106,8 @@ public class BasicDomain extends IdDomain {
         public static final String DELETED = "deleted";
     }
 
-    public static class FieldName extends IdDomain.FieldName {
+    public static class FieldName {
+        public static final String ID = "id";
         public static final String CREATED_TIME = "createdTime";
         public static final String CREATED_USER_ID = "createdUserId";
         public static final String UPDATED_TIME = "updatedTime";

@@ -19,7 +19,6 @@ import java.util.*;
 
 public class UniversalDatabaseHelper {
     private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
-    private static final boolean IS_SNOWFLAKE_STRATEGY = Constants.PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE.equals(PRIMARY_KEY_GENERATION_STRATEGY);
 
     static {
         ApplicationHandler.registerConverters();
