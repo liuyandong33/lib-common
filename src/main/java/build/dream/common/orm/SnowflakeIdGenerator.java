@@ -124,7 +124,7 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
 
     @Override
     public List<BigInteger> nextManyIds(int number) {
-        List<BigInteger> ids = new ArrayList<BigInteger>();
+        List<BigInteger> ids = new ArrayList<BigInteger>(number);
         for (int index = 0; index < number; index++) {
             ids.add(nextId());
         }

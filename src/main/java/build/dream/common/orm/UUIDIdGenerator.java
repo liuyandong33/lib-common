@@ -12,7 +12,7 @@ public class UUIDIdGenerator implements IdGenerator<String> {
 
     @Override
     public List<String> nextManyIds(int number) {
-        List<String> ids = new ArrayList<String>();
+        List<String> ids = new ArrayList<String>(number);
         for (int index = 0; index < number; index++) {
             ids.add(nextId());
         }
