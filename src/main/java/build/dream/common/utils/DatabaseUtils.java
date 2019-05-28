@@ -70,8 +70,8 @@ public class DatabaseUtils {
                         DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
                     }
 
-                    GenerationType generationType = generatedValue.strategy();
-                    switch (generationType) {
+                    GenerationStrategy generationStrategy = generatedValue.strategy();
+                    switch (generationStrategy) {
                         case AUTO_INCREMENT:
                             break;
                         case GENERATOR:
@@ -151,8 +151,8 @@ public class DatabaseUtils {
                         DOMAIN_CLASS_GENERATED_VALUE_MAP.put(domainClass, generatedValue);
                     }
 
-                    GenerationType generationType = generatedValue.strategy();
-                    switch (generationType) {
+                    GenerationStrategy generationStrategy = generatedValue.strategy();
+                    switch (generationStrategy) {
                         case AUTO_INCREMENT:
                             break;
                         case GENERATOR:

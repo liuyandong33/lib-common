@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.GeneratedValue;
-import build.dream.common.annotations.GenerationType;
+import build.dream.common.annotations.GenerationStrategy;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
@@ -31,8 +31,8 @@ public class UniversalDatabaseHelper {
             return universalMapper.insertAutoIncrement(domain);
         }
 
-        GenerationType generationType = generatedValue.strategy();
-        switch (generationType) {
+        GenerationStrategy generationStrategy = generatedValue.strategy();
+        switch (generationStrategy) {
             case AUTO_INCREMENT:
                 return universalMapper.insertAutoIncrement(domain);
             case GENERATOR:
@@ -52,8 +52,8 @@ public class UniversalDatabaseHelper {
             return universalMapper.insertAllAutoIncrement(domains);
         }
 
-        GenerationType generationType = generatedValue.strategy();
-        switch (generationType) {
+        GenerationStrategy generationStrategy = generatedValue.strategy();
+        switch (generationStrategy) {
             case AUTO_INCREMENT:
                 return universalMapper.insertAllAutoIncrement(domains);
             case GENERATOR:

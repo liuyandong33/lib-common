@@ -1,6 +1,6 @@
 package build.dream.common.annotations;
 
-public enum GenerationType {
+public enum GenerationStrategy {
     AUTO_INCREMENT,
     GENERATOR,
     MYCATSEQ_GLOBAL

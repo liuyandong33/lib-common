@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class BasicDomain implements IdDomain<BigInteger> {
     @Id
-    @GeneratedValue(strategy = GenerationType.GENERATOR)
+    @GeneratedValue(strategy = GenerationStrategy.GENERATOR)
     @UpdateIgnore
     private BigInteger id;
 

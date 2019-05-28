@@ -13,9 +13,12 @@ public @interface GeneratedValue {
      *
      * @return
      */
-    GenerationType strategy();
+    GenerationStrategy strategy();
 
-    String sql() default "";
-
+    /**
+     * ID 生成器 Class
+     *
+     * @return
+     */
     Class<? extends IdGenerator> idGeneratorClass() default IdGenerator.class;
 }
