@@ -33,6 +33,8 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
+            DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeStatement(preparedStatement);
             DatabaseUtils.closeConnection(connection);
         }
     }
