@@ -35,7 +35,7 @@ public class UniversalDatabaseHelper {
             case AUTO_INCREMENT:
                 return universalMapper.insertAutoIncrement(domain);
             case SQL:
-                return universalMapper.insertSelectKey(domain);
+                return universalMapper.insertSelectKey(generatedValue.sql(), domain);
             case GENERATOR:
                 IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
                 ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
@@ -61,7 +61,7 @@ public class UniversalDatabaseHelper {
             case AUTO_INCREMENT:
                 return universalMapper.insertAllAutoIncrement(domains);
             case SQL:
-                return universalMapper.insertAllSelectKey(domains);
+                return universalMapper.insertAllSelectKey(generatedValue.sql(), domains);
             case GENERATOR:
                 Field idField = DatabaseUtils.obtainIdField(domainClass);
                 IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
