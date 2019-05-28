@@ -1,9 +1,9 @@
 package build.dream.common.constants;
 
-public class SQLConstants {
+public class MySqlConstants {
     public static final String SQL_TYPE_BIGINT = "BIGINT";
     public static final String SQL_TYPE_INT = "INT";
-    public static final String sql_type_DECIMAL = "DECIMAL";
+    public static final String SQL_TYPE_DECIMAL = "DECIMAL";
     public static final String SQL_TYPE_VARCHAR = "VARCHAR";
     public static final String SQL_TYPE_TINYINT = "TINYINT";
     public static final String SQL_TYPE_DATETIME = "DATETIME";
