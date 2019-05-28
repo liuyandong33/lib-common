@@ -782,17 +782,10 @@ public class Constants {
     public static final String CLIENT_TYPE_O2O = "O2O";
 
     /**
-     * @see #PRIMARY_KEY_GENERATION_STRATEGY: 主键生成策略配置key
-     * @see #PRIMARY_KEY_GENERATION_STRATEGY_NATIVE: 主键生成策略利用数据库生成
-     * @see #PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL: 主键生成策略MyCat全局序列
      * @see #DATABASE_ID_MYSQL: MySQL数据库标识
      * @see #DATABASE_ID_ORACLE: Oracle数据库标识
      * @see #DATABASE_ID_SQL_SERVER: SqlServer 数据库标识
      */
-    public static final String PRIMARY_KEY_GENERATION_STRATEGY = "primary.key.generation.strategy";
-    public static final String PRIMARY_KEY_GENERATION_STRATEGY_NATIVE = "NATIVE";
-    public static final String PRIMARY_KEY_GENERATION_STRATEGY_MYCATSEQ_GLOBAL = "MYCATSEQ_GLOBAL";
-    public static final String PRIMARY_KEY_GENERATION_STRATEGY_SNOWFLAKE = "SNOWFLAKE";
     public static final String DATABASE_ID_MYSQL = "mysql";
     public static final String DATABASE_ID_ORACLE = "oracle";
     public static final String DATABASE_ID_SQL_SERVER = "sql_server";

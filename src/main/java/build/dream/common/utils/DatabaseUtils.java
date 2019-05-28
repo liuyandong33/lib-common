@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class DatabaseUtils {
     private static final Map<Class<?>, String> DOMAIN_CLASS_INSERT_SQL_MAP = new ConcurrentHashMap<Class<?>, String>();
@@ -27,6 +28,7 @@ public class DatabaseUtils {
     private static final Map<Class<?>, IdGenerator> ID_GENERATOR_CLASS_ID_GENERATOR_MAP = new ConcurrentHashMap<Class<?>, IdGenerator>();
     //    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
+    public static final ReentrantLock INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK = new ReentrantLock();
 
     public static String generateInsertSql(Class<?> domainClass) {
         String insertSql = DOMAIN_CLASS_INSERT_SQL_MAP.get(domainClass);
@@ -72,19 +74,7 @@ public class DatabaseUtils {
                     switch (generationType) {
                         case AUTO_INCREMENT:
                             break;
-                        case SQL:
-                            insertSql.append(obtainColumnName(field));
-                            insertSql.append(", ");
-                            valuesSql.append("#{").append(fieldName);
-                            valuesSql.append("}, ");
-                            break;
                         case GENERATOR:
-                            insertSql.append(obtainColumnName(field));
-                            insertSql.append(", ");
-                            valuesSql.append("#{").append(fieldName);
-                            valuesSql.append("}, ");
-                            break;
-                        case UUID:
                             insertSql.append(obtainColumnName(field));
                             insertSql.append(", ");
                             valuesSql.append("#{").append(fieldName);
@@ -165,19 +155,7 @@ public class DatabaseUtils {
                     switch (generationType) {
                         case AUTO_INCREMENT:
                             break;
-                        case SQL:
-                            insertSql.append(obtainColumnName(field));
-                            insertSql.append(", ");
-                            valuesSql.append("#{item.").append(fieldName);
-                            valuesSql.append("}, ");
-                            break;
                         case GENERATOR:
-                            insertSql.append(obtainColumnName(field));
-                            insertSql.append(", ");
-                            valuesSql.append("#{item.").append(fieldName);
-                            valuesSql.append("}, ");
-                            break;
-                        case UUID:
                             insertSql.append(obtainColumnName(field));
                             insertSql.append(", ");
                             valuesSql.append("#{item.").append(fieldName);
@@ -426,15 +404,21 @@ public class DatabaseUtils {
     }
 
     public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {
+        IdGenerator idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
+        if (idGenerator != null) {
+            return idGenerator;
+        }
+        INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK.lock();
         try {
-            IdGenerator idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
-            if (idGenerator == null) {
+            if (!ID_GENERATOR_CLASS_ID_GENERATOR_MAP.containsKey(idGeneratorClass)) {
                 idGenerator = idGeneratorClass.newInstance();
                 ID_GENERATOR_CLASS_ID_GENERATOR_MAP.put(idGeneratorClass, idGenerator);
             }
             return idGenerator;
         } catch (Exception e) {
             throw new RuntimeException(e);
+        } finally {
+            INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK.unlock();
         }
     }
 

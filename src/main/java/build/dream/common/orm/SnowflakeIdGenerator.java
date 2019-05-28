@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
     // 开始时间2019-01-01 00:00:00
@@ -118,5 +120,14 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
         }
         lastTimestamp = timestamp;
         return BigInteger.valueOf(((timestamp - twepoch) << timestampLeftShift) | (dataCenterId << dataCenterIdShift) | (workerId << workerIdShift) | sequence);
+    }
+
+    @Override
+    public List<BigInteger> nextManyIds(int number) {
+        List<BigInteger> ids = new ArrayList<BigInteger>();
+        for (int index = 0; index < number; index++) {
+            ids.add(nextId());
+        }
+        return ids;
     }
 }
