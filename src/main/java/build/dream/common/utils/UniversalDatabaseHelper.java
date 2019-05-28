@@ -36,7 +36,7 @@ public class UniversalDatabaseHelper {
             case AUTO_INCREMENT:
                 return universalMapper.insertAutoIncrement(domain);
             case GENERATOR:
-                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGeneratorClass());
                 ReflectionUtils.setField(DatabaseUtils.obtainIdField(domain), domain, idGenerator.nextId());
                 return universalMapper.insert(domain);
             case MYCATSEQ_GLOBAL:
@@ -58,7 +58,7 @@ public class UniversalDatabaseHelper {
                 return universalMapper.insertAllAutoIncrement(domains);
             case GENERATOR:
                 Field idField = DatabaseUtils.obtainIdField(domainClass);
-                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGenerator());
+                IdGenerator idGenerator = DatabaseUtils.obtainIdGenerator(generatedValue.idGeneratorClass());
                 int size = domains.size();
                 List<?> ids = idGenerator.nextManyIds(size);
                 for (int index = 0; index < size; index++) {

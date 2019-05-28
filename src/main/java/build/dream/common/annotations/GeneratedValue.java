@@ -17,5 +17,5 @@ public @interface GeneratedValue {
 
     String sql() default "";
 
-    Class<? extends IdGenerator> idGenerator() default IdGenerator.class;
+    Class<? extends IdGenerator> idGeneratorClass() default IdGenerator.class;
 }
