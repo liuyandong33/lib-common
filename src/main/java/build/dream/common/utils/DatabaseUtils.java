@@ -434,4 +434,9 @@ public class DatabaseUtils {
             throw new RuntimeException(e);
         }
     }
+
+    public static String obtainIdColumnName(Class<?> domainClass) {
+        Field idField = obtainIdField(domainClass);
+        return obtainColumnName(idField);
+    }
 }

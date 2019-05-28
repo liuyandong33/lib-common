@@ -39,24 +39,16 @@ public class DatabaseHelper {
         return UniversalDatabaseHelper.delete(obtainUniversalMapper(), domainClass, deleteModel);
     }
 
-    public static long delete(String tableName, BigInteger id) {
-        return UniversalDatabaseHelper.delete(obtainUniversalMapper(), tableName, id);
+    public static long delete(Class<?> domainClass, Object id) {
+        return UniversalDatabaseHelper.delete(obtainUniversalMapper(), domainClass, id);
     }
 
     public static long markedDelete(Class<?> domainClass, BigInteger id, BigInteger userId, String updatedRemark) {
         return UniversalDatabaseHelper.markedDelete(obtainUniversalMapper(), domainClass, id, userId, updatedRemark);
     }
 
-    public static long markedDelete(String tableName, BigInteger id, BigInteger userId, String updatedRemark) {
-        return UniversalDatabaseHelper.markedDelete(obtainUniversalMapper(), tableName, id, userId, updatedRemark);
-    }
-
     public static long markedDelete(Class<?> domainClass, BigInteger userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
         return UniversalDatabaseHelper.markedDelete(obtainUniversalMapper(), domainClass, userId, updatedRemark, searchConditions);
-    }
-
-    public static long markedDelete(String tableName, BigInteger userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
-        return UniversalDatabaseHelper.markedDelete(obtainUniversalMapper(), tableName, userId, updatedRemark, searchConditions);
     }
 
     public static long update(Object domain) {
@@ -75,7 +67,7 @@ public class DatabaseHelper {
         return UniversalDatabaseHelper.universalCount(obtainUniversalMapper(), parameters);
     }
 
-    public static <T> T find(Class<T> domainClass, BigInteger id) {
+    public static <T> T find(Class<T> domainClass, Object id) {
         return UniversalDatabaseHelper.find(obtainUniversalMapper(), domainClass, id);
     }
 
