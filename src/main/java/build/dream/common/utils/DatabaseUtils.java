@@ -404,12 +404,11 @@ public class DatabaseUtils {
         return idField;
     }
 
-    public static Field obtainIdField(Object object) {
-        return obtainIdField(object.getClass());
+    public static Field obtainIdField(Object domain) {
+        return obtainIdField(domain.getClass());
     }
 
-    public static GeneratedValue obtainGeneratedValue(Object object) {
-        Class<?> domainClass = object.getClass();
+    public static GeneratedValue obtainGeneratedValue(Class<?> domainClass) {
         GeneratedValue generatedValue = DOMAIN_CLASS_GENERATED_VALUE_MAP.get(domainClass);
         if (generatedValue == null) {
             Field idField = obtainIdField(domainClass);
@@ -420,6 +419,10 @@ public class DatabaseUtils {
             }
         }
         return generatedValue;
+    }
+
+    public static GeneratedValue obtainGeneratedValue(Object domain) {
+        return obtainGeneratedValue(domain.getClass());
     }
 
     public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {
