@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface UniversalMapper {
-    long insertSelectKey(Object domain);
+    long insertSelectKey(@Param("sql") String sql, @Param("domain") Object domain);
 
-    long insertAllSelectKey(List<?> domains);
+    long insertAllSelectKey(@Param("sql") String sql, @Param("domains") List<?> domains);
 
     long insertAutoIncrement(Object domain);
 
