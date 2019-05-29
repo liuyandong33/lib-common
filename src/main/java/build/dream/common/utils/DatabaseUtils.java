@@ -26,7 +26,6 @@ public class DatabaseUtils {
     private static final Map<Class<?>, Id> DOMAIN_CLASS_ID_ANNOTATION_MAP = new ConcurrentHashMap<Class<?>, Id>();
     private static final Map<Class<?>, Field> DOMAIN_CLASS_ID_FIELD_MAP = new ConcurrentHashMap<Class<?>, Field>();
     private static final Map<Class<?>, IdGenerator> ID_GENERATOR_CLASS_ID_GENERATOR_MAP = new ConcurrentHashMap<Class<?>, IdGenerator>();
-    //    private static final String PRIMARY_KEY_GENERATION_STRATEGY = ConfigurationUtils.getConfiguration(Constants.PRIMARY_KEY_GENERATION_STRATEGY);
     private static final String NEXT_VALUE_FOR_MYCATSEQ_GLOBAL = "NEXT VALUE FOR MYCATSEQ_GLOBAL";
     public static final ReentrantLock INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK = new ReentrantLock();
 
