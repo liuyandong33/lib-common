@@ -12,10 +12,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlIdGenerator implements IdGenerator<BigInteger> {
+public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
     private DataSource dataSource;
 
-    public SqlIdGenerator() {
+    public OracleSequenceIdGenerator() {
         this.dataSource = ApplicationHandler.getBean(DataSource.class);
     }
 
@@ -26,10 +26,10 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
         ResultSet resultSet = null;
         try {
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement("SELECT RAND() * 10000;");
+            preparedStatement = connection.prepareStatement("SELECT id_sequence.nextval FROM DUAL;");
             resultSet = preparedStatement.executeQuery();
             Validate.isTrue(resultSet.next(), "生成ID失败！");
-            return BigInteger.valueOf(resultSet.getLong(0));
+            return BigInteger.valueOf(resultSet.getLong(1));
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -41,10 +41,26 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
 
     @Override
     public List<BigInteger> nextManyIds(int number) {
-        List<BigInteger> ids = new ArrayList<BigInteger>(number);
-        for (int index = 0; index < number; index++) {
-            ids.add(nextId());
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement("SELECT id_sequence.nextval FROM (SELECT ROWNUM FROM DUAL CONNECT BY ROWNUM <= ?);");
+            preparedStatement.setInt(1, number);
+            resultSet = preparedStatement.executeQuery();
+
+            List<BigInteger> ids = new ArrayList<BigInteger>();
+            while (resultSet.next()) {
+                ids.add(BigInteger.valueOf(resultSet.getLong(1)));
+            }
+            return ids;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeStatement(preparedStatement);
+            DatabaseUtils.closeConnection(connection);
         }
-        return ids;
     }
 }
