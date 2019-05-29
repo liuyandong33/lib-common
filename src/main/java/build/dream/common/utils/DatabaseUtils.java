@@ -392,6 +392,9 @@ public class DatabaseUtils {
             return idAnnotation;
         }
         Field idField = obtainIdField(domainClass);
+        if (idField == null) {
+            return null;
+        }
         idAnnotation = idField.getAnnotation(Id.class);
         DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, idAnnotation);
         return idAnnotation;
