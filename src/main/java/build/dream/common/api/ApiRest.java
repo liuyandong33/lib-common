@@ -2,7 +2,6 @@ package build.dream.common.api;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
-import build.dream.common.exceptions.ApiException;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
 import build.dream.common.utils.*;
@@ -205,7 +204,7 @@ public class ApiRest {
         try {
             this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(privateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         } catch (Exception e) {
-            throw new ApiException("签名失败！");
+            throw new CustomException("签名失败！");
         }
     }
 
