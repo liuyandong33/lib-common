@@ -50,7 +50,7 @@ public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
             preparedStatement.setInt(1, number);
             resultSet = preparedStatement.executeQuery();
 
-            List<BigInteger> ids = new ArrayList<BigInteger>();
+            List<BigInteger> ids = new ArrayList<BigInteger>(number);
             while (resultSet.next()) {
                 ids.add(BigInteger.valueOf(resultSet.getLong(1)));
             }
