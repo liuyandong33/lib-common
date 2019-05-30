@@ -82,6 +82,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/tk.mybatis/mapper-spring-boot-starter
     compile group: 'tk.mybatis', name: 'mapper-spring-boot-starter', version: '2.1.5'
+
+    // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
+    compile group: 'com.baomidou', name: 'mybatis-plus', version: '3.1.1'
 }
 
 task makeJar(type: Jar) {
