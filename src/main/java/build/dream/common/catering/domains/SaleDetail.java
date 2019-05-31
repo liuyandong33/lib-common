@@ -9,7 +9,7 @@ import java.util.Date;
 
 @ShardingColumn(fieldName = SaleDetail.FieldName.TENANT_ID, columnName = SaleDetail.ColumnName.TENANT_ID)
 public class SaleDetail extends BasicDomain {
-    public static final String TABLE_NAME = "require_goods_order_detail";
+    public static final String TABLE_NAME = "sale_detail";
     /**
      * sale.id
      */
