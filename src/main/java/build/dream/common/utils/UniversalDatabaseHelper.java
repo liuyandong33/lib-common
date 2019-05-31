@@ -128,29 +128,17 @@ public class UniversalDatabaseHelper {
         return find(universalMapper, domainClass, searchModel);
     }
 
-    public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, SearchModel searchModel) {
-        return find(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
-    }
-
     public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
         SearchModel searchModel = new SearchModel(true);
         for (Tuple3<String, String, Object> tuple3 : searchConditions) {
             searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
         }
-        return find(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
+        return find(universalMapper, domainClass, searchModel);
     }
 
-    public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, String tableName, Tuple3<String, String, Object>... searchConditions) {
-        SearchModel searchModel = new SearchModel(true);
-        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
-            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
-        }
-        return find(universalMapper, domainClass, tableName, searchModel);
-    }
-
-    public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, String tableName, SearchModel searchModel) {
+    public static <T> T find(UniversalMapper universalMapper, Class<T> domainClass, SearchModel searchModel) {
         try {
-            Map<String, Object> map = universalMapper.find(DatabaseUtils.obtainColumns(domainClass), tableName, searchModel);
+            Map<String, Object> map = universalMapper.find(DatabaseUtils.obtainColumns(domainClass), DatabaseUtils.obtainTableName(domainClass), searchModel);
             T t = null;
             if (MapUtils.isNotEmpty(map)) {
                 t = domainClass.newInstance();
@@ -163,16 +151,7 @@ public class UniversalDatabaseHelper {
     }
 
     public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass) {
-        return findAll(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass));
-    }
-
-    public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, String tableName) {
-        SearchModel searchModel = new SearchModel(true);
-        return findAll(universalMapper, domainClass, tableName, searchModel);
-    }
-
-    public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, SearchModel searchModel) {
-        return findAll(universalMapper, domainClass, DatabaseUtils.obtainTableName(domainClass), searchModel);
+        return findAll(universalMapper, domainClass, new SearchModel());
     }
 
     public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, Tuple3<String, String, Object>... searchConditions) {
@@ -183,17 +162,9 @@ public class UniversalDatabaseHelper {
         return findAll(universalMapper, domainClass, searchModel);
     }
 
-    public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, String tableName, Tuple3<String, String, Object>... searchConditions) {
-        SearchModel searchModel = new SearchModel(true);
-        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
-            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
-        }
-        return findAll(universalMapper, domainClass, tableName, searchModel);
-    }
-
-    public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, String tableName, SearchModel searchModel) {
+    public static <T> List<T> findAll(UniversalMapper universalMapper, Class<T> domainClass, SearchModel searchModel) {
         try {
-            List<Map<String, Object>> result = universalMapper.findAll(DatabaseUtils.obtainColumns(domainClass), tableName, searchModel);
+            List<Map<String, Object>> result = universalMapper.findAll(DatabaseUtils.obtainColumns(domainClass), DatabaseUtils.obtainTableName(domainClass), searchModel);
             List<T> list = new ArrayList<T>();
             for (Map<String, Object> map : result) {
                 T t = domainClass.newInstance();
@@ -211,31 +182,15 @@ public class UniversalDatabaseHelper {
         for (Tuple3<String, String, Object> tuple3 : searchConditions) {
             searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
         }
-        return count(universalMapper, DatabaseUtils.obtainTableName(domainClass), searchModel);
+        return count(universalMapper, domainClass, searchModel);
     }
 
     public static long count(UniversalMapper universalMapper, Class<?> domainClass, SearchModel searchModel) {
-        return count(universalMapper, DatabaseUtils.obtainTableName(domainClass), searchModel);
-    }
-
-    public static long count(UniversalMapper universalMapper, String tableName, Tuple3<String, String, Object>... searchConditions) {
-        SearchModel searchModel = new SearchModel(true);
-        for (Tuple3<String, String, Object> tuple3 : searchConditions) {
-            searchModel.addSearchCondition(tuple3._1(), tuple3._2(), tuple3._3());
-        }
-        return count(universalMapper, tableName, searchModel);
-    }
-
-    public static long count(UniversalMapper universalMapper, String tableName, SearchModel searchModel) {
-        return universalMapper.count(tableName, searchModel);
+        return universalMapper.count(DatabaseUtils.obtainTableName(domainClass), searchModel);
     }
 
     public static long pagedCount(UniversalMapper universalMapper, Class<?> domainClass, PagedSearchModel pagedSearchModel) {
         return universalMapper.pagedCount(DatabaseUtils.obtainTableName(domainClass), pagedSearchModel);
-    }
-
-    public static long pagedCount(UniversalMapper universalMapper, String tableName, PagedSearchModel pagedSearchModel) {
-        return universalMapper.pagedCount(tableName, pagedSearchModel);
     }
 
     public static <T> List<T> findAllPaged(UniversalMapper universalMapper, Class<T> domainClass, PagedSearchModel pagedSearchModel) {
