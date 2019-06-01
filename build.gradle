@@ -64,8 +64,8 @@ dependencies {
     compile("com.jcraft:jsch:0.1.54")
     compile("org.quartz-scheduler:quartz:2.3.0")
     compile("org.jsoup:jsoup:1.11.2")
-//    compile("com.squareup.okhttp3:okhttp:3.12.1")
-    compile("org.elasticsearch.client:transport:6.5.4")
+    compile group: 'org.elasticsearch.client', name: 'elasticsearch-rest-high-level-client', version: '7.1.0'
+    compile group: 'org.elasticsearch', name: 'elasticsearch', version: '7.1.0'
 
     compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 

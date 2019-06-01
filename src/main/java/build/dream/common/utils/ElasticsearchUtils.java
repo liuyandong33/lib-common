@@ -2,67 +2,48 @@ package build.dream.common.utils;
 
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
+import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
+import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.update.UpdateResponse;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.xcontent.XContentBuilder;
-import org.elasticsearch.common.xcontent.XContentFactory;
+import org.elasticsearch.client.RequestOptions;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 public class ElasticsearchUtils {
-    private static TransportClient transportClient;
+    private static RestHighLevelClient restHighLevelClient;
 
-    public static TransportClient obtainTransportClient() {
-        if (transportClient == null) {
-            transportClient = ApplicationHandler.getBean(TransportClient.class);
+    public static RestHighLevelClient obtainRestHighLevelClient() {
+        if (restHighLevelClient == null) {
+            restHighLevelClient = ApplicationHandler.getBean(RestHighLevelClient.class);
         }
-        return transportClient;
+        return restHighLevelClient;
     }
 
-    public static IndexResponse index(String index, String type, BasicDomain domain) {
-        return index(index, type, domain, Constants.DEFAULT_DATE_PATTERN);
+    public static IndexResponse index(String index, BasicDomain domain) throws IOException {
+        return index(index, domain, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public static IndexResponse index(String index, String type, BasicDomain domain, String datePattern) {
-        Map<String, Object> map = JacksonUtils.readValueAsMap(JacksonUtils.writeValueAsString(domain, datePattern), String.class, Object.class);
-        XContentBuilder contentBuilder = buildXContentBuilder(map);
-        IndexResponse indexResponse = obtainTransportClient().prepareIndex(index, type, domain.getId().toString()).setSource(contentBuilder).get();
+    public static IndexResponse index(String index, BasicDomain domain, String datePattern) throws IOException {
+        IndexRequest indexRequest = new IndexRequest(index);
+        indexRequest.source(JacksonUtils.writeValueAsString(domain, datePattern), XContentType.JSON);
+        indexRequest.id(domain.getId().toString());
+        IndexResponse indexResponse = obtainRestHighLevelClient().index(indexRequest, RequestOptions.DEFAULT);
         return indexResponse;
     }
 
-    public static void indexAll(String index, String type, List<? extends BasicDomain> domains) {
+    public static void indexAll(String index, List<? extends BasicDomain> domains) throws IOException {
         for (BasicDomain domain : domains) {
-            index(index, type, domain);
+            index(index, domain, Constants.DEFAULT_DATE_PATTERN);
         }
     }
 
-    public static XContentBuilder buildXContentBuilder(Map<String, Object> map) {
-        try {
-            XContentBuilder contentBuilder = XContentFactory.jsonBuilder().startObject();
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                contentBuilder.field(entry.getKey(), entry.getValue());
-            }
-            contentBuilder.endObject();
-            return contentBuilder;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static DeleteResponse delete(String index, String type, String id) {
-        return obtainTransportClient().prepareDelete(index, type, id).get();
-    }
-
-    public static UpdateResponse update(String index, String type, String id, BasicDomain domain) {
-        return update(index, type, id, domain, Constants.DEFAULT_DATE_PATTERN);
-    }
-
-    public static UpdateResponse update(String index, String type, String id, BasicDomain domain, String datePattern) {
-        Map<String, Object> map = JacksonUtils.readValueAsMap(JacksonUtils.writeValueAsString(domain, datePattern), String.class, Object.class);
-        XContentBuilder contentBuilder = buildXContentBuilder(map);
-        return obtainTransportClient().prepareUpdate(index, type, id).setDoc(contentBuilder).get();
+    public static DeleteResponse delete(String index, String id) throws IOException {
+        DeleteRequest deleteRequest = new DeleteRequest(index);
+        deleteRequest.id(id);
+        return obtainRestHighLevelClient().delete(deleteRequest, RequestOptions.DEFAULT);
     }
 }
