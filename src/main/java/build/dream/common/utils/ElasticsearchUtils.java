@@ -23,7 +23,6 @@ public class ElasticsearchUtils {
         return restHighLevelClient;
     }
 
-
     public static IndexResponse index(String index, BasicDomain domain) throws IOException {
         return index(index, domain, Constants.DEFAULT_DATE_PATTERN);
     }
