@@ -410,7 +410,8 @@ public class DatabaseUtils {
         }
         INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK.lock();
         try {
-            if (!ID_GENERATOR_CLASS_ID_GENERATOR_MAP.containsKey(idGeneratorClass)) {
+            idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
+            if (idGenerator == null) {
                 idGenerator = idGeneratorClass.newInstance();
                 ID_GENERATOR_CLASS_ID_GENERATOR_MAP.put(idGeneratorClass, idGenerator);
             }
