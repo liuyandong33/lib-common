@@ -1,22 +1,41 @@
 package build.dream.common;
 
 import build.dream.common.annotations.Transient;
+import build.dream.common.basic.BasicDomain;
+import build.dream.common.exceptions.CustomException;
 import build.dream.common.saas.domains.Tenant;
+import build.dream.common.utils.DatabaseUtils;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.*;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by liuyandong on 2017/7/25.
  */
 @SpringBootApplication
 public class Application {
+    private static final Map<Integer, String> DATABASE_TYPE_JAVA_TYPE_MAP = new HashMap<Integer, String>();
+
+    static {
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.TINYINT, Integer.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.INTEGER, Integer.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.BIGINT, BigInteger.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.FLOAT, BigDecimal.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.VARCHAR, String.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DATE, Date.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.TIMESTAMP, Date.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DECIMAL, BigDecimal.class.getSimpleName());
+    }
+
     public static void main(String[] args) {
         /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
@@ -32,6 +51,13 @@ public class Application {
 
         String sourcePath = Tenant.class.getProtectionDomain().getCodeSource().getLocation().getPath();
         System.out.println(sourcePath);
+
+        String url = "jdbc:mysql://node1:3306/catering-db?serverTimezone=GMT%2B8&useSSL=true";
+        String driverClassName = "com.mysql.cj.jdbc.Driver";
+        String user = "root";
+        String password = "root";
+        String tableName = "assemble_activity";
+        reverseJavaCode(url, driverClassName, user, password, tableName);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {
@@ -284,5 +310,79 @@ public class Application {
 
         System.out.print("排序后：");
         printArray(array);
+    }
+
+    private static void reverseJavaCode(String url, String driverClassName, String user, String password, String tableName) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultSet = null;
+        try {
+            Class.forName(driverClassName);
+            connection = DriverManager.getConnection(url, user, password);
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM " + tableName + " LIMIT 1");
+
+            DatabaseMetaData databaseMetaData = connection.getMetaData();
+            ResultSet resultSet1 = databaseMetaData.getColumns(null, "catering-db", tableName, "%");
+
+            Map<String, String> columnNameCommentMap = new HashMap<String, String>();
+            int count = resultSet1.getMetaData().getColumnCount();
+            while (resultSet1.next()) {
+                for (int index = 1; index <= count; index++) {
+                    columnNameCommentMap.put(resultSet1.getString("COLUMN_NAME"), resultSet1.getString("REMARKS"));
+                }
+            }
+
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+            int columnCount = resultSetMetaData.getColumnCount();
+            for (int index = 1; index <= columnCount; index++) {
+                String columnName = resultSetMetaData.getColumnName(index);
+                int columnType = resultSetMetaData.getColumnType(index);
+                if (BasicDomain.ColumnName.ID.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.CREATED_TIME.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.CREATED_USER_ID.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.UPDATED_TIME.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.UPDATED_USER_ID.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.UPDATED_REMARK.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.DELETED_TIME.equals(columnName)) {
+                    continue;
+                }
+
+                if (BasicDomain.ColumnName.DELETED.equals(columnName)) {
+                    continue;
+                }
+
+                System.out.println("/**\n* " + columnNameCommentMap.get(columnName) + "*/\nprivate " + DATABASE_TYPE_JAVA_TYPE_MAP.get(columnType) + " " + NamingStrategyUtils.underscoreToCamelCase(columnName) + ";\n");
+            }
+        } catch (Exception e) {
+            if (e instanceof CustomException) {
+                CustomException customException = (CustomException) e;
+                throw customException;
+            } else {
+                throw new RuntimeException(e);
+            }
+        } finally {
+            DatabaseUtils.closeResultSet(resultSet);
+            DatabaseUtils.closeStatement(statement);
+            DatabaseUtils.closeConnection(connection);
+        }
     }
 }

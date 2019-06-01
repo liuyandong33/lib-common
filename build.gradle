@@ -85,6 +85,8 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
     compile group: 'com.baomidou', name: 'mybatis-plus', version: '3.1.1'
+
+    compile("mysql:mysql-connector-java:6.0.6")
 }
 
 task makeJar(type: Jar) {
