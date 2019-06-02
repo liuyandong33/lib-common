@@ -1,19 +1,13 @@
 package build.dream.common.models.beeleme;
 
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ValidateUtils;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
 import javax.validation.constraints.NotNull;
 
-public class ShopAnnouncementSetModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String source;
-
+public class ShopAnnouncementSetModel extends BeElemeBasicModel {
     @SerializedName(value = "baidu_shop_id", alternate = "baiduShopId")
     @JsonProperty(value = "baidu_shop_id")
     private String baiduShopId;
@@ -26,14 +20,6 @@ public class ShopAnnouncementSetModel extends BasicModel {
 
     @NotNull
     private String content;
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
 
     public String getBaiduShopId() {
         return baiduShopId;
@@ -79,10 +65,20 @@ public class ShopAnnouncementSetModel extends BasicModel {
     }
 
     public static class Builder {
-        private ShopAnnouncementSetModel instance = new ShopAnnouncementSetModel();
+        private final ShopAnnouncementSetModel instance = new ShopAnnouncementSetModel();
 
         public Builder source(String source) {
             instance.setSource(source);
+            return this;
+        }
+
+        public Builder encrypt(String encrypt) {
+            instance.setEncrypt(encrypt);
+            return this;
+        }
+
+        public Builder fields(String fields) {
+            instance.setFields(fields);
             return this;
         }
 
@@ -109,6 +105,8 @@ public class ShopAnnouncementSetModel extends BasicModel {
         public ShopAnnouncementSetModel build() {
             ShopAnnouncementSetModel shopAnnouncementSetModel = new ShopAnnouncementSetModel();
             shopAnnouncementSetModel.setSource(instance.getSource());
+            shopAnnouncementSetModel.setEncrypt(instance.getEncrypt());
+            shopAnnouncementSetModel.setFields(instance.getFields());
             shopAnnouncementSetModel.setBaiduShopId(instance.getBaiduShopId());
             shopAnnouncementSetModel.setShopId(instance.getShopId());
             shopAnnouncementSetModel.setDescritption(instance.getDescritption());

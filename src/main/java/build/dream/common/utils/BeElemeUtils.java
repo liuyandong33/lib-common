@@ -2,31 +2,28 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.beeleme.ShopAnnouncementGetModel;
-import build.dream.common.models.beeleme.ShopAnnouncementSetModel;
+import build.dream.common.models.beeleme.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 
 public class BeElemeUtils {
     private static String BE_ELE_ME_SERVICE_URL = "https://api-be.ele.me/";
 
-    public static String generateSignature(Map<String, String> requestParameters) throws UnsupportedEncodingException {
+    public static String generateSignature(Map<String, String> requestParameters) {
         Map<String, String> sortedMap = new TreeMap<String, String>(requestParameters);
 
         List<String> requestParameterPairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            requestParameterPairs.add(entry.getKey() + "=" + URLEncoder.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
+            requestParameterPairs.add(entry.getKey() + "=" + UrlUtils.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
         }
 
         return DigestUtils.md5Hex(StringUtils.join(requestParameterPairs, "&")).toUpperCase();
     }
 
-    public static Map<String, Object> callBeElemeSystem(String cmd, String source, String body, String encrypt, String fields) throws UnsupportedEncodingException {
+    public static Map<String, Object> callBeElemeSystem(String cmd, String source, String body, String encrypt, String fields) {
         long timestamp = System.currentTimeMillis();
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("cmd", cmd);
@@ -49,15 +46,158 @@ public class BeElemeUtils {
         return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
-    public static Map<String, Object> shopAnnouncementGet(ShopAnnouncementGetModel shopAnnouncementGetModel) throws UnsupportedEncodingException {
-        shopAnnouncementGetModel.validateAndThrow();
-        String source = shopAnnouncementGetModel.getSource();
-        return callBeElemeSystem("shop.announcement.get", source, JacksonUtils.writeValueAsString(shopAnnouncementGetModel, JsonInclude.Include.NON_NULL), null, null);
+    public static Map<String, Object> callBeElemeSystem(String cmd, BeElemeBasicModel beElemeBasicModel) {
+        beElemeBasicModel.validateAndThrow();
+        return callBeElemeSystem(cmd, beElemeBasicModel.getSource(), JacksonUtils.writeValueAsString(beElemeBasicModel, JsonInclude.Include.NON_NULL), beElemeBasicModel.getEncrypt(), beElemeBasicModel.getFields());
     }
 
-    public static Map<String, Object> shopAnnouncementSet(ShopAnnouncementSetModel shopAnnouncementSetModel) throws UnsupportedEncodingException {
-        shopAnnouncementSetModel.validateAndThrow();
-        String source = shopAnnouncementSetModel.getSource();
-        return callBeElemeSystem("shop.announcement.set", source, JacksonUtils.writeValueAsString(shopAnnouncementSetModel, JsonInclude.Include.NON_NULL), null, null);
+    /**
+     * 获取商户公告
+     *
+     * @param shopAnnouncementGetModel
+     * @return
+     */
+    public static Map<String, Object> shopAnnouncementGet(ShopAnnouncementGetModel shopAnnouncementGetModel) {
+        return callBeElemeSystem("shop.announcement.get", shopAnnouncementGetModel);
+    }
+
+    /**
+     * 设置商户公告
+     *
+     * @param shopAnnouncementSetModel
+     * @return
+     */
+    public static Map<String, Object> shopAnnouncementSet(ShopAnnouncementSetModel shopAnnouncementSetModel) {
+        return callBeElemeSystem("shop.announcement.set", shopAnnouncementSetModel);
+    }
+
+    /**
+     * 获取商户资质
+     *
+     * @param shopAptitudeGetModel
+     * @return
+     */
+    public static Map<String, Object> shopAptitudeGet(ShopAptitudeGetModel shopAptitudeGetModel) {
+        return callBeElemeSystem("shop.aptitude.get", shopAptitudeGetModel);
+    }
+
+    /**
+     * 获取全部资质类型
+     *
+     * @param shopAptitudeGetTypesModel
+     * @return
+     */
+    public static Map<String, Object> shopAptitudeGetTypes(ShopAptitudeGetTypesModel shopAptitudeGetTypesModel) {
+        return callBeElemeSystem("shop.aptitude.gettypes", shopAptitudeGetTypesModel);
+    }
+
+    /**
+     * 上传资质
+     *
+     * @param shopAptitudeUploadModel
+     * @return
+     */
+    public static Map<String, Object> shopAptitudeUpload(ShopAptitudeUploadModel shopAptitudeUploadModel) {
+        return callBeElemeSystem("shop.aptitude.upload", shopAptitudeUploadModel);
+    }
+
+    /**
+     * 查看商户的营业状态
+     *
+     * @param shopBusStatusGetModel
+     * @return
+     */
+    public static Map<String, Object> shopBusStatusGet(ShopBusStatusGetModel shopBusStatusGetModel) {
+        return callBeElemeSystem("shop.busstatus.get", shopBusStatusGetModel);
+    }
+
+    /**
+     * 商户歇业
+     *
+     * @param shopCloseModel
+     * @return
+     */
+    public static Map<String, Object> shopClose(ShopCloseModel shopCloseModel) {
+        return callBeElemeSystem("shop.close", shopCloseModel);
+    }
+
+    /**
+     * 创建商户
+     *
+     * @param shopCreateModel
+     * @return
+     */
+    public static Map<String, Object> shopCreate(ShopCreateModel shopCreateModel) {
+        return callBeElemeSystem("shop.create", shopCreateModel);
+    }
+
+    /**
+     * 查看商户
+     *
+     * @param shopGetModel
+     * @return
+     */
+    public static Map<String, Object> shopGet(ShopGetModel shopGetModel) {
+        return callBeElemeSystem("shop.get", shopGetModel);
+    }
+
+    /**
+     * 商户三方门店ID映射
+     *
+     * @param shopIdBatchUpdateModel
+     * @return
+     */
+    public static Map<String, Object> shopIdBatchUpdate(ShopIdBatchUpdateModel shopIdBatchUpdateModel) {
+        return callBeElemeSystem("shop.id.batchupdate", shopIdBatchUpdateModel);
+    }
+
+    /**
+     * 商户列表
+     *
+     * @param shopListModel
+     * @return
+     */
+    public static Map<String, Object> shopList(ShopListModel shopListModel) {
+        return callBeElemeSystem("shop.list", shopListModel);
+    }
+
+    /**
+     * 下线商户
+     *
+     * @param shopOfflineModel
+     * @return
+     */
+    public static Map<String, Object> shopOffline(ShopOfflineModel shopOfflineModel) {
+        return callBeElemeSystem("shop.offline", shopOfflineModel);
+    }
+
+    /**
+     * 商户开业
+     *
+     * @param shopOpenModel
+     * @return
+     */
+    public static Map<String, Object> shopOpen(ShopOpenModel shopOpenModel) {
+        return callBeElemeSystem("shop.open", shopOpenModel);
+    }
+
+    /**
+     * 查看商户状态
+     *
+     * @param shopStatusGetModel
+     * @return
+     */
+    public static Map<String, Object> shopStatusGet(ShopStatusGetModel shopStatusGetModel) {
+        return callBeElemeSystem("shop.status.get", shopStatusGetModel);
+    }
+
+    /**
+     * 修改商户
+     *
+     * @param shopUpdateModel
+     * @return
+     */
+    public static Map<String, Object> shopUpdate(ShopUpdateModel shopUpdateModel) {
+        return callBeElemeSystem("shop.update", shopUpdateModel);
     }
 }

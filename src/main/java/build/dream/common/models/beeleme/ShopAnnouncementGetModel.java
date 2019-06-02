@@ -1,19 +1,11 @@
 package build.dream.common.models.beeleme;
 
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ValidateUtils;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.StringUtils;
 
-import javax.validation.constraints.NotNull;
-
-public class ShopAnnouncementGetModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String source;
-
+public class ShopAnnouncementGetModel extends BeElemeBasicModel {
     @SerializedName(value = "baidu_shop_id", alternate = "baiduShopId")
     @JsonProperty(value = "baidu_shop_id")
     private String baiduShopId;
@@ -21,14 +13,6 @@ public class ShopAnnouncementGetModel extends BasicModel {
     @SerializedName(value = "shop_id", alternate = "shopId")
     @JsonProperty(value = "shop_id")
     private String shopId;
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
 
     public String getBaiduShopId() {
         return baiduShopId;
@@ -65,6 +49,16 @@ public class ShopAnnouncementGetModel extends BasicModel {
             return this;
         }
 
+        public Builder encrypt(String encrypt) {
+            instance.setEncrypt(encrypt);
+            return this;
+        }
+
+        public Builder fields(String fields) {
+            instance.setFields(fields);
+            return this;
+        }
+
         public Builder baiduShopId(String baiduShopId) {
             instance.setBaiduShopId(baiduShopId);
             return this;
@@ -78,6 +72,8 @@ public class ShopAnnouncementGetModel extends BasicModel {
         public ShopAnnouncementGetModel build() {
             ShopAnnouncementGetModel shopAnnouncementGetModel = new ShopAnnouncementGetModel();
             shopAnnouncementGetModel.setSource(instance.getSource());
+            shopAnnouncementGetModel.setEncrypt(instance.getEncrypt());
+            shopAnnouncementGetModel.setFields(instance.getFields());
             shopAnnouncementGetModel.setBaiduShopId(instance.getBaiduShopId());
             shopAnnouncementGetModel.setShopId(instance.getShopId());
             return shopAnnouncementGetModel;
