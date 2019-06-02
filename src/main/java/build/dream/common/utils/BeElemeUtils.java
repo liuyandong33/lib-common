@@ -200,4 +200,24 @@ public class BeElemeUtils {
     public static Map<String, Object> shopUpdate(ShopUpdateModel shopUpdateModel) {
         return callBeElemeSystem("shop.update", shopUpdateModel);
     }
+
+    /**
+     * 同意用户取消单/退单
+     *
+     * @param orderAgreeRefundModel
+     * @return
+     */
+    public static Map<String, Object> orderAgreeRefund(OrderAgreeRefundModel orderAgreeRefundModel) {
+        return callBeElemeSystem("order.agreerefund", orderAgreeRefundModel);
+    }
+
+    /**
+     * 查看订单详情
+     *
+     * @param orderGetModel
+     * @return
+     */
+    public static Map<String, Object> orderGet(OrderGetModel orderGetModel) {
+        return callBeElemeSystem("order.get", orderGetModel);
+    }
 }
