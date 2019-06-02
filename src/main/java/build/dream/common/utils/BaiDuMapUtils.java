@@ -6,14 +6,13 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import scala.Tuple2;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class BaiDuMapUtils {
-    public static List<Tuple2<Double, Double>> geoConv(GeoConvModel geoConvModel) throws IOException {
+    public static List<Tuple2<Double, Double>> geoConv(GeoConvModel geoConvModel) {
         String coords = geoConvModel.getCoords();
         String ak = geoConvModel.getAk();
         String from = geoConvModel.getFrom();
