@@ -9,10 +9,29 @@ import java.util.Date;
 @ShardingColumn(fieldName = GoodsAttributeGroup.FieldName.TENANT_ID, columnName = GoodsAttributeGroup.ColumnName.TENANT_ID)
 public class GoodsAttributeGroup extends BasicDomain {
     public static final String TABLE_NAME = "goods_attribute_group";
+    /**
+     * 商户ID
+     */
     private BigInteger tenantId;
+
+    /**
+     * 商户编码
+     */
     private String tenantCode;
+
+    /**
+     * 门店ID
+     */
     private BigInteger branchId;
+
+    /**
+     * 商品ID
+     */
     private BigInteger goodsId;
+
+    /**
+     * 属性组名称
+     */
     private String name;
 
     public BigInteger getTenantId() {
