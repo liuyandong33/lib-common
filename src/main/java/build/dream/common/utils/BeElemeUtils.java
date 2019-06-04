@@ -52,6 +52,86 @@ public class BeElemeUtils {
     }
 
     /**
+     * 创建商户
+     *
+     * @param shopCreateModel
+     * @return
+     */
+    public static Map<String, Object> shopCreate(ShopCreateModel shopCreateModel) {
+        return callBeElemeSystem("shop.create", shopCreateModel);
+    }
+
+    /**
+     * 修改商户
+     *
+     * @param shopUpdateModel
+     * @return
+     */
+    public static Map<String, Object> shopUpdate(ShopUpdateModel shopUpdateModel) {
+        return callBeElemeSystem("shop.update", shopUpdateModel);
+    }
+
+    /**
+     * 商户开业
+     *
+     * @param shopOpenModel
+     * @return
+     */
+    public static Map<String, Object> shopOpen(ShopOpenModel shopOpenModel) {
+        return callBeElemeSystem("shop.open", shopOpenModel);
+    }
+
+    /**
+     * 商户歇业
+     *
+     * @param shopCloseModel
+     * @return
+     */
+    public static Map<String, Object> shopClose(ShopCloseModel shopCloseModel) {
+        return callBeElemeSystem("shop.close", shopCloseModel);
+    }
+
+    /**
+     * 下线商户
+     *
+     * @param shopOfflineModel
+     * @return
+     */
+    public static Map<String, Object> shopOffline(ShopOfflineModel shopOfflineModel) {
+        return callBeElemeSystem("shop.offline", shopOfflineModel);
+    }
+
+    /**
+     * 查看商户
+     *
+     * @param shopGetModel
+     * @return
+     */
+    public static Map<String, Object> shopGet(ShopGetModel shopGetModel) {
+        return callBeElemeSystem("shop.get", shopGetModel);
+    }
+
+    /**
+     * 商户列表
+     *
+     * @param shopListModel
+     * @return
+     */
+    public static Map<String, Object> shopList(ShopListModel shopListModel) {
+        return callBeElemeSystem("shop.list", shopListModel);
+    }
+
+    /**
+     * 查看商户状态
+     *
+     * @param shopStatusGetModel
+     * @return
+     */
+    public static Map<String, Object> shopStatusGet(ShopStatusGetModel shopStatusGetModel) {
+        return callBeElemeSystem("shop.status.get", shopStatusGetModel);
+    }
+
+    /**
      * 获取商户公告
      *
      * @param shopAnnouncementGetModel
@@ -69,6 +149,16 @@ public class BeElemeUtils {
      */
     public static Map<String, Object> shopAnnouncementSet(ShopAnnouncementSetModel shopAnnouncementSetModel) {
         return callBeElemeSystem("shop.announcement.set", shopAnnouncementSetModel);
+    }
+
+    /**
+     * 上传资质
+     *
+     * @param shopAptitudeUploadModel
+     * @return
+     */
+    public static Map<String, Object> shopAptitudeUpload(ShopAptitudeUploadModel shopAptitudeUploadModel) {
+        return callBeElemeSystem("shop.aptitude.upload", shopAptitudeUploadModel);
     }
 
     /**
@@ -92,56 +182,6 @@ public class BeElemeUtils {
     }
 
     /**
-     * 上传资质
-     *
-     * @param shopAptitudeUploadModel
-     * @return
-     */
-    public static Map<String, Object> shopAptitudeUpload(ShopAptitudeUploadModel shopAptitudeUploadModel) {
-        return callBeElemeSystem("shop.aptitude.upload", shopAptitudeUploadModel);
-    }
-
-    /**
-     * 查看商户的营业状态
-     *
-     * @param shopBusStatusGetModel
-     * @return
-     */
-    public static Map<String, Object> shopBusStatusGet(ShopBusStatusGetModel shopBusStatusGetModel) {
-        return callBeElemeSystem("shop.busstatus.get", shopBusStatusGetModel);
-    }
-
-    /**
-     * 商户歇业
-     *
-     * @param shopCloseModel
-     * @return
-     */
-    public static Map<String, Object> shopClose(ShopCloseModel shopCloseModel) {
-        return callBeElemeSystem("shop.close", shopCloseModel);
-    }
-
-    /**
-     * 创建商户
-     *
-     * @param shopCreateModel
-     * @return
-     */
-    public static Map<String, Object> shopCreate(ShopCreateModel shopCreateModel) {
-        return callBeElemeSystem("shop.create", shopCreateModel);
-    }
-
-    /**
-     * 查看商户
-     *
-     * @param shopGetModel
-     * @return
-     */
-    public static Map<String, Object> shopGet(ShopGetModel shopGetModel) {
-        return callBeElemeSystem("shop.get", shopGetModel);
-    }
-
-    /**
      * 商户三方门店ID映射
      *
      * @param shopIdBatchUpdateModel
@@ -152,53 +192,13 @@ public class BeElemeUtils {
     }
 
     /**
-     * 商户列表
+     * 查看商户的营业状态
      *
-     * @param shopListModel
+     * @param shopBusStatusGetModel
      * @return
      */
-    public static Map<String, Object> shopList(ShopListModel shopListModel) {
-        return callBeElemeSystem("shop.list", shopListModel);
-    }
-
-    /**
-     * 下线商户
-     *
-     * @param shopOfflineModel
-     * @return
-     */
-    public static Map<String, Object> shopOffline(ShopOfflineModel shopOfflineModel) {
-        return callBeElemeSystem("shop.offline", shopOfflineModel);
-    }
-
-    /**
-     * 商户开业
-     *
-     * @param shopOpenModel
-     * @return
-     */
-    public static Map<String, Object> shopOpen(ShopOpenModel shopOpenModel) {
-        return callBeElemeSystem("shop.open", shopOpenModel);
-    }
-
-    /**
-     * 查看商户状态
-     *
-     * @param shopStatusGetModel
-     * @return
-     */
-    public static Map<String, Object> shopStatusGet(ShopStatusGetModel shopStatusGetModel) {
-        return callBeElemeSystem("shop.status.get", shopStatusGetModel);
-    }
-
-    /**
-     * 修改商户
-     *
-     * @param shopUpdateModel
-     * @return
-     */
-    public static Map<String, Object> shopUpdate(ShopUpdateModel shopUpdateModel) {
-        return callBeElemeSystem("shop.update", shopUpdateModel);
+    public static Map<String, Object> shopBusStatusGet(ShopBusStatusGetModel shopBusStatusGetModel) {
+        return callBeElemeSystem("shop.busstatus.get", shopBusStatusGetModel);
     }
 
     /**
