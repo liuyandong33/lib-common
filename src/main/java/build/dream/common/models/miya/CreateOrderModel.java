@@ -21,7 +21,8 @@ public class CreateOrderModel extends BasicModel {
     @Length(max = 20)
     private String a5;
 
-    @Length(max = 32)
+    @NotNull
+    @InList(value = {"JSAPI", "APP", "H5", "WXA"})
     private String a11;
 
     @NotNull
