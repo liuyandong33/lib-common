@@ -202,13 +202,43 @@ public class BeElemeUtils {
     }
 
     /**
-     * 同意用户取消单/退单
+     * 确认订单
      *
-     * @param orderAgreeRefundModel
+     * @param orderConfirmModel
      * @return
      */
-    public static Map<String, Object> orderAgreeRefund(OrderAgreeRefundModel orderAgreeRefundModel) {
-        return callBeElemeSystem("order.agreerefund", orderAgreeRefundModel);
+    public static Map<String, Object> orderConfirm(OrderConfirmModel orderConfirmModel) {
+        return callBeElemeSystem("order.confirm", orderConfirmModel);
+    }
+
+    /**
+     * 订单送达
+     *
+     * @param orderCompleteModel
+     * @return
+     */
+    public static Map<String, Object> orderComplete(OrderCompleteModel orderCompleteModel) {
+        return callBeElemeSystem("order.complete", orderCompleteModel);
+    }
+
+    /**
+     * 订单送出
+     *
+     * @param orderSendOutModel
+     * @return
+     */
+    public static Map<String, Object> orderSendOut(OrderSendOutModel orderSendOutModel) {
+        return callBeElemeSystem("order.sendout", orderSendOutModel);
+    }
+
+    /**
+     * 取消订单
+     *
+     * @param orderCancelModel
+     * @return
+     */
+    public static Map<String, Object> orderCancel(OrderCancelModel orderCancelModel) {
+        return callBeElemeSystem("order.cancel", orderCancelModel);
     }
 
     /**
@@ -219,5 +249,85 @@ public class BeElemeUtils {
      */
     public static Map<String, Object> orderGet(OrderGetModel orderGetModel) {
         return callBeElemeSystem("order.get", orderGetModel);
+    }
+
+    /**
+     * 查看订单列表
+     *
+     * @param orderListModel
+     * @return
+     */
+    public static Map<String, Object> orderList(OrderListModel orderListModel) {
+        return callBeElemeSystem("order.list", orderListModel);
+    }
+
+    /**
+     * 查看订单状态
+     *
+     * @param orderStatusGetModel
+     * @return
+     */
+    public static Map<String, Object> orderStatusGet(OrderStatusGetModel orderStatusGetModel) {
+        return callBeElemeSystem("order.status.get", orderStatusGetModel);
+    }
+
+    /**
+     * 同意用户取消单/退单
+     *
+     * @param orderAgreeRefundModel
+     * @return
+     */
+    public static Map<String, Object> orderAgreeRefund(OrderAgreeRefundModel orderAgreeRefundModel) {
+        return callBeElemeSystem("order.agreerefund", orderAgreeRefundModel);
+    }
+
+    /**
+     * 拒绝用户取消单/退单
+     *
+     * @param orderDisAgreeRefundModel
+     * @return
+     */
+    public static Map<String, Object> orderDisAgreeRefund(OrderDisAgreeRefundModel orderDisAgreeRefundModel) {
+        return callBeElemeSystem("order.disagreerefund", orderDisAgreeRefundModel);
+    }
+
+    /**
+     * 获取订单隐私信息
+     *
+     * @param orderPrivateInfoModel
+     * @return
+     */
+    public static Map<String, Object> orderPrivateInfo(OrderPrivateInfoModel orderPrivateInfoModel) {
+        return callBeElemeSystem("order.privateinfo", orderPrivateInfoModel);
+    }
+
+    /**
+     * 商户发起部分退款申请
+     *
+     * @param orderPartRefundModel
+     * @return
+     */
+    public static Map<String, Object> orderPartRefund(OrderPartRefundModel orderPartRefundModel) {
+        return callBeElemeSystem("order.partrefund", orderPartRefundModel);
+    }
+
+    /**
+     * 查看部分退款订单详情
+     *
+     * @param orderPartRefundGetModel
+     * @return
+     */
+    public static Map<String, Object> orderPartRefundGet(OrderPartRefundGetModel orderPartRefundGetModel) {
+        return callBeElemeSystem("order.partrefund.get", orderPartRefundGetModel);
+    }
+
+    /**
+     * 获取未处理部分退单
+     *
+     * @param orderPartRefundUnTreListModel
+     * @return
+     */
+    public static Map<String, Object> orderPartRefundUnTreList(OrderPartRefundUnTreListModel orderPartRefundUnTreListModel) {
+        return callBeElemeSystem("order.partrefund.untrelist", orderPartRefundUnTreListModel);
     }
 }

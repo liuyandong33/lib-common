@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderGetModel extends BeElemeBasicModel {
+public class OrderStatusGetModel extends BeElemeBasicModel {
     @SerializedName(value = "order_id", alternate = "orderId")
     @JsonProperty(value = "order_id")
     @NotNull
@@ -20,7 +20,7 @@ public class OrderGetModel extends BeElemeBasicModel {
     }
 
     public static class Builder {
-        private final OrderGetModel instance = new OrderGetModel();
+        private final OrderStatusGetModel instance = new OrderStatusGetModel();
 
         public Builder source(String source) {
             instance.setSource(source);
@@ -42,13 +42,13 @@ public class OrderGetModel extends BeElemeBasicModel {
             return this;
         }
 
-        public OrderGetModel build() {
-            OrderGetModel orderGetModel = new OrderGetModel();
-            orderGetModel.setSource(instance.getSource());
-            orderGetModel.setEncrypt(instance.getEncrypt());
-            orderGetModel.setFields(instance.getFields());
-            orderGetModel.setOrderId(instance.getOrderId());
-            return orderGetModel;
+        public OrderStatusGetModel build() {
+            OrderStatusGetModel orderStatusGetModel = new OrderStatusGetModel();
+            orderStatusGetModel.setSource(instance.getSource());
+            orderStatusGetModel.setEncrypt(instance.getEncrypt());
+            orderStatusGetModel.setFields(instance.getFields());
+            orderStatusGetModel.setOrderId(instance.getOrderId());
+            return orderStatusGetModel;
         }
     }
 
