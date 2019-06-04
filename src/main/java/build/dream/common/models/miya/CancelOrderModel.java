@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderQueryModel extends BasicModel {
+public class CancelOrderModel extends BasicModel {
     @NotNull
     private String tenantId;
 
@@ -65,7 +65,7 @@ public class OrderQueryModel extends BasicModel {
     }
 
     public static class Builder {
-        private final OrderQueryModel instance = new OrderQueryModel();
+        private final CancelOrderModel instance = new CancelOrderModel();
 
         public Builder tenantId(String tenantId) {
             instance.setTenantId(tenantId);
@@ -92,14 +92,14 @@ public class OrderQueryModel extends BasicModel {
             return this;
         }
 
-        public OrderQueryModel build() {
-            OrderQueryModel orderQueryModel = new OrderQueryModel();
-            orderQueryModel.setTenantId(instance.getTenantId());
-            orderQueryModel.setBranchId(instance.getBranchId());
-            orderQueryModel.setA4(instance.getA4());
-            orderQueryModel.setA5(instance.getA5());
-            orderQueryModel.setB1(instance.getB1());
-            return orderQueryModel;
+        public CancelOrderModel build() {
+            CancelOrderModel cancelOrderModel = new CancelOrderModel();
+            cancelOrderModel.setTenantId(instance.getTenantId());
+            cancelOrderModel.setBranchId(instance.getBranchId());
+            cancelOrderModel.setA4(instance.getA4());
+            cancelOrderModel.setA5(instance.getA5());
+            cancelOrderModel.setB1(instance.getB1());
+            return cancelOrderModel;
         }
     }
 

@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderQueryModel extends BasicModel {
+public class RefundQueryModel extends BasicModel {
     @NotNull
     private String tenantId;
 
@@ -23,6 +23,10 @@ public class OrderQueryModel extends BasicModel {
     @NotNull
     @Length(max = 32)
     private String b1;
+
+    @NotNull
+    @Length(max = 32)
+    private String b2;
 
     public String getTenantId() {
         return tenantId;
@@ -64,8 +68,16 @@ public class OrderQueryModel extends BasicModel {
         this.b1 = b1;
     }
 
+    public String getB2() {
+        return b2;
+    }
+
+    public void setB2(String b2) {
+        this.b2 = b2;
+    }
+
     public static class Builder {
-        private final OrderQueryModel instance = new OrderQueryModel();
+        private final RefundQueryModel instance = new RefundQueryModel();
 
         public Builder tenantId(String tenantId) {
             instance.setTenantId(tenantId);
@@ -92,14 +104,20 @@ public class OrderQueryModel extends BasicModel {
             return this;
         }
 
-        public OrderQueryModel build() {
-            OrderQueryModel orderQueryModel = new OrderQueryModel();
-            orderQueryModel.setTenantId(instance.getTenantId());
-            orderQueryModel.setBranchId(instance.getBranchId());
-            orderQueryModel.setA4(instance.getA4());
-            orderQueryModel.setA5(instance.getA5());
-            orderQueryModel.setB1(instance.getB1());
-            return orderQueryModel;
+        public Builder b2(String b2) {
+            instance.setB2(b2);
+            return this;
+        }
+
+        public RefundQueryModel build() {
+            RefundQueryModel refundQueryModel = new RefundQueryModel();
+            refundQueryModel.setTenantId(instance.getTenantId());
+            refundQueryModel.setBranchId(instance.getBranchId());
+            refundQueryModel.setA4(instance.getA4());
+            refundQueryModel.setA5(instance.getA5());
+            refundQueryModel.setB1(instance.getB1());
+            refundQueryModel.setB2(instance.getB2());
+            return refundQueryModel;
         }
     }
 

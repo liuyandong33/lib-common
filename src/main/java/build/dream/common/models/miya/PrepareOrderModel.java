@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderPayModel extends BasicModel {
+public class PrepareOrderModel extends BasicModel {
     @NotNull
     private String tenantId;
 
@@ -24,16 +24,13 @@ public class OrderPayModel extends BasicModel {
     @Length(max = 30)
     private String a10;
 
-    @InList(value = {"A", "B"})
-    private String a11;
+    @NotNull
+    @InList(value = {"1", "3"})
+    private String a12;
 
     @NotNull
     @Length(max = 32)
     private String b1;
-
-    @NotNull
-    @Length(max = 32)
-    private String b2;
 
     @Length(max = 64)
     private String b3;
@@ -42,20 +39,11 @@ public class OrderPayModel extends BasicModel {
     @Length(max = 12)
     private String b4;
 
-    @Length(max = 2048)
+    @Length(max = 20480)
     private String b5;
 
-    @Length(max = 64)
-    private String b6;
-
-    @Length(max = 12)
-    private String b7;
-
-    @Length(max = 64)
-    private String b8;
-
-    @Length(max = 32)
-    private String b15;
+    @Length(max = 100)
+    private String b13;
 
     public String getTenantId() {
         return tenantId;
@@ -97,12 +85,12 @@ public class OrderPayModel extends BasicModel {
         this.a10 = a10;
     }
 
-    public String getA11() {
-        return a11;
+    public String getA12() {
+        return a12;
     }
 
-    public void setA11(String a11) {
-        this.a11 = a11;
+    public void setA12(String a12) {
+        this.a12 = a12;
     }
 
     public String getB1() {
@@ -111,14 +99,6 @@ public class OrderPayModel extends BasicModel {
 
     public void setB1(String b1) {
         this.b1 = b1;
-    }
-
-    public String getB2() {
-        return b2;
-    }
-
-    public void setB2(String b2) {
-        this.b2 = b2;
     }
 
     public String getB3() {
@@ -145,40 +125,16 @@ public class OrderPayModel extends BasicModel {
         this.b5 = b5;
     }
 
-    public String getB6() {
-        return b6;
+    public String getB13() {
+        return b13;
     }
 
-    public void setB6(String b6) {
-        this.b6 = b6;
-    }
-
-    public String getB7() {
-        return b7;
-    }
-
-    public void setB7(String b7) {
-        this.b7 = b7;
-    }
-
-    public String getB8() {
-        return b8;
-    }
-
-    public void setB8(String b8) {
-        this.b8 = b8;
-    }
-
-    public String getB15() {
-        return b15;
-    }
-
-    public void setB15(String b15) {
-        this.b15 = b15;
+    public void setB13(String b13) {
+        this.b13 = b13;
     }
 
     public static class Builder {
-        private final OrderPayModel instance = new OrderPayModel();
+        private final PrepareOrderModel instance = new PrepareOrderModel();
 
         public Builder tenantId(String tenantId) {
             instance.setTenantId(tenantId);
@@ -200,23 +156,8 @@ public class OrderPayModel extends BasicModel {
             return this;
         }
 
-        public Builder a10(String a10) {
-            instance.setA10(a10);
-            return this;
-        }
-
-        public Builder a11(String a11) {
-            instance.setA11(a11);
-            return this;
-        }
-
         public Builder b1(String b1) {
             instance.setB1(b1);
-            return this;
-        }
-
-        public Builder b2(String b2) {
-            instance.setB2(b2);
             return this;
         }
 
@@ -235,45 +176,23 @@ public class OrderPayModel extends BasicModel {
             return this;
         }
 
-        public Builder b6(String b6) {
-            instance.setB6(b6);
+        public Builder b13(String b13) {
+            instance.setB13(b13);
             return this;
         }
 
-        public Builder b7(String b7) {
-            instance.setB7(b7);
-            return this;
-        }
-
-        public Builder b8(String b8) {
-            instance.setB8(b8);
-            return this;
-        }
-
-
-        public Builder b15(String b15) {
-            instance.setB15(b15);
-            return this;
-        }
-
-        public OrderPayModel build() {
-            OrderPayModel orderPayModel = new OrderPayModel();
-            orderPayModel.setTenantId(instance.getTenantId());
-            orderPayModel.setBranchId(instance.getBranchId());
-            orderPayModel.setA4(instance.getA4());
-            orderPayModel.setA5(instance.getA5());
-            orderPayModel.setA10(instance.getA10());
-            orderPayModel.setA11(instance.getA11());
-            orderPayModel.setB1(instance.getB1());
-            orderPayModel.setB2(instance.getB2());
-            orderPayModel.setB3(instance.getB3());
-            orderPayModel.setB4(instance.getB4());
-            orderPayModel.setB5(instance.getB5());
-            orderPayModel.setB6(instance.getB6());
-            orderPayModel.setB7(instance.getB7());
-            orderPayModel.setB8(instance.getB8());
-            orderPayModel.setB15(instance.getB15());
-            return orderPayModel;
+        public PrepareOrderModel build() {
+            PrepareOrderModel prepareOrderModel = new PrepareOrderModel();
+            prepareOrderModel.setTenantId(instance.getTenantId());
+            prepareOrderModel.setBranchId(instance.getBranchId());
+            prepareOrderModel.setA4(instance.getA4());
+            prepareOrderModel.setA5(instance.getA5());
+            prepareOrderModel.setB1(instance.getB1());
+            prepareOrderModel.setB3(instance.getB3());
+            prepareOrderModel.setB4(instance.getB4());
+            prepareOrderModel.setB5(instance.getB5());
+            prepareOrderModel.setB13(instance.getB13());
+            return prepareOrderModel;
         }
     }
 
