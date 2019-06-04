@@ -1,14 +1,20 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.ApiRestAction;
+import build.dream.common.annotations.ApplicationJsonUtf8Encrypted;
+import build.dream.common.annotations.OnlyAllowedApplicationFormUrlencodedUtf8;
+import build.dream.common.annotations.OnlyAllowedApplicationJsonUtf8;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
 import build.dream.common.models.BasicModel;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.ReflectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -29,12 +35,25 @@ public class AspectUtils {
         return serviceMap.get(serviceClass);
     }
 
+    private static Method obtainTargetMethod(ProceedingJoinPoint proceedingJoinPoint) {
+        Object[] args = proceedingJoinPoint.getArgs();
+        int length = args.length;
+        Class<?>[] argTypes = new Class[length];
+        for (int index = 0; index < length; index++) {
+            argTypes[index] = args[index].getClass();
+        }
+        Class<?> targetClass = proceedingJoinPoint.getTarget().getClass();
+        String methodName = proceedingJoinPoint.getSignature().getName();
+        return ReflectionUtils.findMethod(targetClass, methodName, argTypes);
+    }
+
     public static String callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) {
         HttpServletRequest httpServletRequest = ApplicationHandler.getHttpServletRequest();
 
         ApiRest apiRest = null;
         Throwable throwable = null;
         String datePattern = apiRestAction.datePattern();
+        byte[] publicKey = null;
         try {
             String contentType = httpServletRequest.getContentType();
 
@@ -42,9 +61,26 @@ public class AspectUtils {
             Class<?> serviceClass = apiRestAction.serviceClass();
             String serviceMethodName = apiRestAction.serviceMethodName();
 
+            Method targetMethod = obtainTargetMethod(proceedingJoinPoint);
+            OnlyAllowedApplicationFormUrlencodedUtf8 onlyAllowedApplicationFormUrlencodedUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationFormUrlencodedUtf8.class);
+            if (onlyAllowedApplicationFormUrlencodedUtf8 != null) {
+                ValidateUtils.isTrue(APPLICATION_JSON_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+            }
+
+            OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
+            if (onlyAllowedApplicationJsonUtf8 != null) {
+                ValidateUtils.isTrue(APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+            }
+
             if (APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
                 if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-                    apiRest = callApiRestAction(ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8), modelClass, serviceClass, serviceMethodName, datePattern);
+                    String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
+                    ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
+                    if (applicationJsonUtf8Encrypted != null) {
+                        publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
+                        requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
+                    }
+                    apiRest = callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
                 } else {
                     apiRest = callApiRestAction(proceedingJoinPoint);
                 }
@@ -80,7 +116,9 @@ public class AspectUtils {
 
         // 处理加密
         if (apiRestAction.encrypted()) {
-            String publicKey = ApplicationHandler.obtainPublicKey();
+            if (publicKey == null) {
+                publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
+            }
             apiRest.encryptData(publicKey, datePattern);
         }
 

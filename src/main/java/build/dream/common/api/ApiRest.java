@@ -222,11 +222,17 @@ public class ApiRest {
     }
 
     public void encryptData(String publicKey, String datePattern) {
+        encryptData(Base64.decodeBase64(publicKey), datePattern);
+    }
+
+    public void encryptData(byte[] publicKey, String datePattern) {
+        byte[] bytes = null;
         if (data instanceof String) {
-            data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(data.toString().getBytes(Constants.CHARSET_UTF_8), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
+            bytes = data.toString().getBytes(Constants.CHARSET_UTF_8);
         } else {
-            data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(GsonUtils.toJson(data, datePattern).getBytes(Constants.CHARSET_UTF_8), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
+            bytes = GsonUtils.toJson(data, datePattern).getBytes(Constants.CHARSET_UTF_8);
         }
+        data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(bytes, publicKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
         encrypted = true;
     }
 
