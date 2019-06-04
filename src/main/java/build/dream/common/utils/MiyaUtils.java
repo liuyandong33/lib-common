@@ -2,12 +2,12 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.models.miya.OrderPayModel;
 import build.dream.common.models.miya.OrderQueryModel;
 import build.dream.common.models.miya.RefundModel;
 import build.dream.common.saas.domains.MiyaAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
-import org.dom4j.DocumentException;
 
 import java.util.*;
 
@@ -70,7 +70,24 @@ public class MiyaUtils {
         return xml.toString();
     }
 
-    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) throws DocumentException {
+    public static Map<String, String> orderPay(OrderPayModel orderPayModel) {
+        orderPayModel.validateAndThrow();
+        String tenantId = orderPayModel.getTenantId();
+        String branchId = orderPayModel.getBranchId();
+        String a10 = orderPayModel.getA10();
+        String a11 = orderPayModel.getA11();
+        String b1 = orderPayModel.getB1();
+        String b2 = orderPayModel.getB2();
+        String b3 = orderPayModel.getB3();
+        String b4 = orderPayModel.getB4();
+        String b5 = orderPayModel.getB5();
+
+        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
+        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
+        return null;
+    }
+
+    public static Map<String, String> refund(String tenantId, String branchId, RefundModel refundModel) {
         refundModel.validateAndThrow();
         MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
         ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
@@ -97,7 +114,7 @@ public class MiyaUtils {
         return result;
     }
 
-    public static Map<String, String> orderQuery(String tenantId, String branchId, OrderQueryModel orderQueryModel) throws DocumentException {
+    public static Map<String, String> orderQuery(String tenantId, String branchId, OrderQueryModel orderQueryModel) {
         orderQueryModel.validateAndThrow();
         MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
         ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
