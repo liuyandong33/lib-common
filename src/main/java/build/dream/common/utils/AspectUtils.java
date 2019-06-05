@@ -62,13 +62,13 @@ public class AspectUtils {
             String serviceMethodName = apiRestAction.serviceMethodName();
 
             Method targetMethod = obtainTargetMethod(proceedingJoinPoint);
-            OnlyAllowedApplicationFormUrlencodedUtf8 onlyAllowedApplicationFormUrlencodedUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationFormUrlencodedUtf8.class);
-            if (onlyAllowedApplicationFormUrlencodedUtf8 != null) {
+            OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
+            if (onlyAllowedApplicationJsonUtf8 != null) {
                 ValidateUtils.isTrue(APPLICATION_JSON_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
-            OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
-            if (onlyAllowedApplicationJsonUtf8 != null) {
+            OnlyAllowedApplicationFormUrlencodedUtf8 onlyAllowedApplicationFormUrlencodedUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationFormUrlencodedUtf8.class);
+            if (onlyAllowedApplicationFormUrlencodedUtf8 != null) {
                 ValidateUtils.isTrue(APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
