@@ -4,7 +4,6 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.GsonUtils;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -14,19 +13,8 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AlipayTradePayModel extends BasicModel {
+public class AlipayTradePayModel extends AlipayBasicModel {
     private static final String[] SCENES = {Constants.SCENE_BAR_CODE, Constants.SCENE_WAVE_CODE};
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    @JsonIgnore
-    private String notifyUrl;
-
     @NotNull
     @Length(max = 64)
     @JsonProperty(value = "out_trade_no")
@@ -89,30 +77,6 @@ public class AlipayTradePayModel extends BasicModel {
     @Length(max = 6)
     @JsonProperty(value = "timeout_express")
     private String timeoutExpress;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
 
     public String getOutTradeNo() {
         return outTradeNo;
@@ -351,21 +315,6 @@ public class AlipayTradePayModel extends BasicModel {
     public static class Builder {
         private AlipayTradePayModel instance = new AlipayTradePayModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
             return this;
@@ -448,9 +397,6 @@ public class AlipayTradePayModel extends BasicModel {
 
         public AlipayTradePayModel build() {
             AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
-            alipayTradePayModel.setTenantId(instance.getTenantId());
-            alipayTradePayModel.setBranchId(instance.getBranchId());
-            alipayTradePayModel.setNotifyUrl(instance.getNotifyUrl());
             alipayTradePayModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradePayModel.setScene(instance.getScene());
             alipayTradePayModel.setAuthCode(instance.getAuthCode());

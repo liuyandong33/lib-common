@@ -3,7 +3,6 @@ package build.dream.common.models.alipay;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
@@ -12,18 +11,7 @@ import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class AlipayTradeAppPayModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    @JsonIgnore
-    private String notifyUrl;
-
+public class AlipayTradeAppPayModel extends AlipayBasicModel {
     @Length(max = 6)
     @SerializedName(value = "timeout_express", alternate = "timeoutExpress")
     @JsonProperty(value = "timeout_express")
@@ -124,30 +112,6 @@ public class AlipayTradeAppPayModel extends BasicModel {
     @SerializedName(value = "business_params", alternate = "businessParams")
     @JsonProperty(value = "business_params")
     private String businessParams;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
 
     public String getTimeoutExpress() {
         return timeoutExpress;
@@ -855,21 +819,6 @@ public class AlipayTradeAppPayModel extends BasicModel {
     public static class Builder {
         private final AlipayTradeAppPayModel instance = new AlipayTradeAppPayModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
         public Builder timeoutExpress(String timeoutExpress) {
             instance.setTimeoutExpress(timeoutExpress);
             return this;
@@ -982,9 +931,6 @@ public class AlipayTradeAppPayModel extends BasicModel {
 
         public AlipayTradeAppPayModel build() {
             AlipayTradeAppPayModel alipayTradeAppPayModel = new AlipayTradeAppPayModel();
-            alipayTradeAppPayModel.setTenantId(instance.getTenantId());
-            alipayTradeAppPayModel.setBranchId(instance.goodsType);
-            alipayTradeAppPayModel.setNotifyUrl(instance.getNotifyUrl());
             alipayTradeAppPayModel.setTimeoutExpress(instance.getTimeoutExpress());
             alipayTradeAppPayModel.setTotalAmount(instance.getTotalAmount());
             alipayTradeAppPayModel.setSellerId(instance.getSellerId());

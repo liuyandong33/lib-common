@@ -144,28 +144,6 @@ CREATE TABLE alipay_open_auth_token
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '支付宝token';
 
-DROP TABLE IF EXISTS notify_record;
-CREATE TABLE notify_record
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
-    `uuid` VARCHAR(50) NOT NULL COMMENT '订单号',
-    notify_url VARCHAR(255) NOT NULL COMMENT '回调地址',
-    alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
-    alipay_sign_type VARCHAR(20) NOT NULL COMMENT '签名方式',
-    notify_result TINYINT NOT NULL COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
-    wei_xin_pay_api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
-    wei_xin_pay_sign_type VARCHAR(20) NOT NULL COMMENT '微信支付签名方式',
-    external_system_notify_request_body TEXT NOT NULL COMMENT '外部系统异步通知请求参数',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建人id',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '回调记录';
-
-
 DROP TABLE IF EXISTS eleme_token;
 CREATE TABLE eleme_token
 (
@@ -998,3 +976,24 @@ CREATE TABLE snowflake_id_config
     ip_address VARCHAR(50) NOT NULL COMMENT 'IP地址',
     description VARCHAR(50) NOT NULL COMMENT '描述'
 ) COMMENT '雪花ID配置';
+
+DROP TABLE IF EXISTS async_notify;
+CREATE TABLE async_notify
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    `uuid` VARCHAR(50) NOT NULL COMMENT '回调唯一标记',
+    topic VARCHAR(255) NOT NULL COMMENT '消息队列主题',
+    alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
+    alipay_sign_type VARCHAR(20) NOT NULL COMMENT '签名方式',
+    notify_result TINYINT NOT NULL COMMENT '回调结果，1-未回调 2-回调成功，3-回调失败',
+    wei_xin_pay_api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
+    wei_xin_pay_sign_type VARCHAR(20) NOT NULL COMMENT '微信支付签名方式',
+    external_system_notify_request_body TEXT NOT NULL COMMENT '外部系统异步通知请求参数',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '异步通知';

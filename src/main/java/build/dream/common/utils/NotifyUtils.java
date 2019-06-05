@@ -1,66 +1,72 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.models.notify.SaveNotifyRecordModel;
-import build.dream.common.saas.domains.NotifyRecord;
+import build.dream.common.models.notify.SaveAsyncNotifyModel;
+import build.dream.common.saas.domains.AsyncNotify;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
 
 public class NotifyUtils {
-    public static NotifyRecord saveNotifyRecord(SaveNotifyRecordModel saveNotifyRecordModel) {
-        String uuid = saveNotifyRecordModel.getUuid();
-        String notifyUrl = saveNotifyRecordModel.getNotifyUrl();
-        String alipayPublicKey = saveNotifyRecordModel.getAlipayPublicKey();
-        String alipaySignType = saveNotifyRecordModel.getAlipaySignType();
-        String weiXinPayApiSecretKey = saveNotifyRecordModel.getWeiXinPayApiSecretKey();
-        String weiXinPaySignType = saveNotifyRecordModel.getWeiXinPaySignType();
-
-        BigInteger userId = CommonUtils.getServiceSystemUserId();
-
-        SearchModel searchModel = new SearchModel(true);
-        searchModel.addSearchCondition(NotifyRecord.ColumnName.UUID, Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
-        NotifyRecord notifyRecord = DatabaseHelper.find(NotifyRecord.class, searchModel);
-        if (notifyRecord == null) {
-            notifyRecord = new NotifyRecord();
-            notifyRecord.setUuid(uuid);
-            notifyRecord.setNotifyUrl(notifyUrl);
-            if (StringUtils.isNotBlank(alipayPublicKey)) {
-                notifyRecord.setAlipayPublicKey(alipayPublicKey);
-            }
-            if (StringUtils.isNotBlank(alipaySignType)) {
-                notifyRecord.setAlipaySignType(alipaySignType);
-            }
-            notifyRecord.setNotifyResult(Constants.NOTIFY_RESULT_NOT_NOTIFY);
-            if (StringUtils.isNotBlank(weiXinPayApiSecretKey)) {
-                notifyRecord.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
-            }
-            if (StringUtils.isNotBlank(weiXinPaySignType)) {
-                notifyRecord.setWeiXinPaySignType(weiXinPaySignType);
-            }
-            notifyRecord.setCreatedUserId(userId);
-            notifyRecord.setUpdatedUserId(userId);
-            notifyRecord.setUpdatedRemark("保存回调记录！");
-            DatabaseHelper.insert(notifyRecord);
-        } else {
-            notifyRecord.setNotifyUrl(notifyUrl);
-            notifyRecord.setAlipayPublicKey(StringUtils.isNotBlank(alipayPublicKey) ? alipayPublicKey : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setAlipaySignType(StringUtils.isNotBlank(alipaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setWeiXinPayApiSecretKey(StringUtils.isNotBlank(weiXinPayApiSecretKey) ? weiXinPayApiSecretKey : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? weiXinPaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            notifyRecord.setUpdatedUserId(userId);
-            notifyRecord.setUpdatedRemark("修改回调记录！");
-            DatabaseHelper.update(notifyRecord);
-        }
-
-        return notifyRecord;
-    }
-
     public static String obtainAlipayNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayCallback");
     }
 
     public static String obtainWeiXinNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
+    }
+
+    /**
+     * 保存异步通知
+     *
+     * @param saveAsyncNotifyModel
+     * @return
+     */
+    public static AsyncNotify saveAsyncNotify(SaveAsyncNotifyModel saveAsyncNotifyModel) {
+        String uuid = saveAsyncNotifyModel.getUuid();
+        String topic = saveAsyncNotifyModel.getTopic();
+        String alipayPublicKey = saveAsyncNotifyModel.getAlipayPublicKey();
+        String alipaySignType = saveAsyncNotifyModel.getAlipaySignType();
+        String weiXinPayApiSecretKey = saveAsyncNotifyModel.getWeiXinPayApiSecretKey();
+        String weiXinPaySignType = saveAsyncNotifyModel.getWeiXinPaySignType();
+
+        BigInteger userId = CommonUtils.getServiceSystemUserId();
+
+        SearchModel searchModel = new SearchModel(true);
+        searchModel.addSearchCondition(AsyncNotify.ColumnName.UUID, Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
+        AsyncNotify asyncNotify = DatabaseHelper.find(AsyncNotify.class, searchModel);
+        if (asyncNotify == null) {
+            asyncNotify = new AsyncNotify();
+            asyncNotify.setUuid(uuid);
+            asyncNotify.setTopic(topic);
+            if (StringUtils.isNotBlank(alipayPublicKey)) {
+                asyncNotify.setAlipayPublicKey(alipayPublicKey);
+            }
+            if (StringUtils.isNotBlank(alipaySignType)) {
+                asyncNotify.setAlipaySignType(alipaySignType);
+            }
+            asyncNotify.setNotifyResult(Constants.NOTIFY_RESULT_NOT_NOTIFY);
+            if (StringUtils.isNotBlank(weiXinPayApiSecretKey)) {
+                asyncNotify.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
+            }
+            if (StringUtils.isNotBlank(weiXinPaySignType)) {
+                asyncNotify.setWeiXinPaySignType(weiXinPaySignType);
+            }
+            asyncNotify.setCreatedUserId(userId);
+            asyncNotify.setUpdatedUserId(userId);
+            asyncNotify.setUpdatedRemark("保存异步通知！");
+            DatabaseHelper.insert(asyncNotify);
+        } else {
+            asyncNotify.setTopic(topic);
+            asyncNotify.setAlipayPublicKey(StringUtils.isNotBlank(alipayPublicKey) ? alipayPublicKey : Constants.VARCHAR_DEFAULT_VALUE);
+            asyncNotify.setAlipaySignType(StringUtils.isNotBlank(alipaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
+            asyncNotify.setWeiXinPayApiSecretKey(StringUtils.isNotBlank(weiXinPayApiSecretKey) ? weiXinPayApiSecretKey : Constants.VARCHAR_DEFAULT_VALUE);
+            asyncNotify.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? weiXinPaySignType : Constants.VARCHAR_DEFAULT_VALUE);
+            asyncNotify.setUpdatedUserId(userId);
+            asyncNotify.setUpdatedRemark("修改异步通知！");
+            DatabaseHelper.update(asyncNotify);
+        }
+
+        return asyncNotify;
     }
 }

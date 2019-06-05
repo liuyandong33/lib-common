@@ -59,7 +59,7 @@ public class UnifiedOrderModel extends BasicModel {
 
     @NotNull
     @Length(max = 256)
-    private String notifyUrl;
+    private String topic;
 
     private String tradeType;
 
@@ -188,12 +188,12 @@ public class UnifiedOrderModel extends BasicModel {
         this.goodsTag = goodsTag;
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getTradeType() {
@@ -455,8 +455,8 @@ public class UnifiedOrderModel extends BasicModel {
             return this;
         }
 
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
             return this;
         }
 
@@ -506,7 +506,7 @@ public class UnifiedOrderModel extends BasicModel {
             unifiedOrderModel.setTimeStart(instance.getTimeStart());
             unifiedOrderModel.setTimeExpire(instance.getTimeExpire());
             unifiedOrderModel.setGoodsTag(instance.getGoodsTag());
-            unifiedOrderModel.setNotifyUrl(instance.getNotifyUrl());
+            unifiedOrderModel.setTopic(instance.getTopic());
             unifiedOrderModel.setTradeType(instance.getTradeType());
             unifiedOrderModel.setProductId(instance.getProductId());
             unifiedOrderModel.setLimitPay(instance.getLimitPay());

@@ -18,7 +18,7 @@ public class AlipayBasicModel extends BasicModel {
     private String returnUrl;
 
     @JsonIgnore
-    private String notifyUrl;
+    private String topic;
 
     @JsonIgnore
     private String authToken;
@@ -47,12 +47,12 @@ public class AlipayBasicModel extends BasicModel {
         this.returnUrl = returnUrl;
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getAuthToken() {

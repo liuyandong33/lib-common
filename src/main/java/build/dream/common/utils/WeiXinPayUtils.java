@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.notify.SaveNotifyRecordModel;
+import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.models.weixinpay.*;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -136,16 +136,16 @@ public class WeiXinPayUtils {
      * 保存异步通知记录
      *
      * @param uuid
-     * @param notifyUrl
+     * @param topic
      * @param weiXinPayApiSecretKey
      * @param weiXinPaySignType
      */
-    private static void saveNotifyRecord(String uuid, String notifyUrl, String weiXinPayApiSecretKey, String weiXinPaySignType) {
+    private static void saveAsyncNotify(String uuid, String topic, String weiXinPayApiSecretKey, String weiXinPaySignType) {
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
         if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
-            SaveNotifyRecordModel saveNotifyRecordModel = SaveNotifyRecordModel.builder()
+            SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
                     .uuid(uuid)
-                    .notifyUrl(notifyUrl)
+                    .topic(topic)
                     .weiXinPayApiSecretKey(weiXinPayApiSecretKey)
                     .weiXinPaySignType(weiXinPaySignType)
                     .build();
@@ -155,20 +155,20 @@ public class WeiXinPayUtils {
             defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
             TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
             try {
-                NotifyUtils.saveNotifyRecord(saveNotifyRecordModel);
+                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
                 dataSourceTransactionManager.commit(transactionStatus);
             } catch (Exception e) {
                 dataSourceTransactionManager.rollback(transactionStatus);
                 throw e;
             }
         } else {
-            Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
-            saveNotifyRecordRequestParameters.put("uuid", uuid);
-            saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
-            saveNotifyRecordRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
-            saveNotifyRecordRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
-            ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
-            ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+            Map<String, String> saveAsyncNotifyRequestParameters = new HashMap<String, String>();
+            saveAsyncNotifyRequestParameters.put("uuid", uuid);
+            saveAsyncNotifyRequestParameters.put("topic", topic);
+            saveAsyncNotifyRequestParameters.put("weiXinPayApiSecretKey", weiXinPayApiSecretKey);
+            saveAsyncNotifyRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
+            ApiRest saveAsyncNotifyResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveAsyncNotify", saveAsyncNotifyRequestParameters);
+            ValidateUtils.isTrue(saveAsyncNotifyResult.isSuccessful(), saveAsyncNotifyResult.getError());
         }
     }
 
@@ -279,7 +279,7 @@ public class WeiXinPayUtils {
         String timeStart = unifiedOrderModel.getTimeStart();
         String timeExpire = unifiedOrderModel.getTimeExpire();
         String goodsTag = unifiedOrderModel.getGoodsTag();
-        String notifyUrl = unifiedOrderModel.getNotifyUrl();
+        String topic = unifiedOrderModel.getTopic();
         String tradeType = unifiedOrderModel.getTradeType();
         String productId = unifiedOrderModel.getProductId();
         String limitPay = unifiedOrderModel.getLimitPay();
@@ -319,7 +319,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", timeExpire);
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", goodsTag);
 
-        unifiedOrderRequestParameters.put("notify_url", notifyUrl);
+        unifiedOrderRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinNotifyUrl());
 
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
             unifiedOrderRequestParameters.put("trade_type", Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI);
@@ -408,8 +408,8 @@ public class WeiXinPayUtils {
 
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
 
-        // 保存异步通知记录
-        saveNotifyRecord(outTradeNo, notifyUrl, apiSecretKey, signType);
+        // 保存异步通知
+        saveAsyncNotify(outTradeNo, topic, apiSecretKey, signType);
 
         Map<String, String> data = new HashMap<String, String>();
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {

@@ -4,7 +4,7 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.*;
-import build.dream.common.models.notify.SaveNotifyRecordModel;
+import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.saas.domains.AlipayAccount;
 import build.dream.common.saas.domains.AlipayAuthorizerInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -207,8 +207,10 @@ public class AlipayUtils {
         String tenantId = alipayBasicModel.getTenantId();
         String branchId = alipayBasicModel.getBranchId();
         String returnUrl = alipayBasicModel.getReturnUrl();
-        String notifyUrl = alipayBasicModel.getNotifyUrl();
+        String topic = alipayBasicModel.getTopic();
         String authToken = alipayBasicModel.getAuthToken();
+
+        String notifyUrl = StringUtils.isBlank(topic) ? null : NotifyUtils.obtainAlipayNotifyUrl();
 
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到授权信息！");
@@ -298,16 +300,18 @@ public class AlipayUtils {
 
         String tenantId = alipayTradePayModel.getTenantId();
         String branchId = alipayTradePayModel.getBranchId();
-        String notifyUrl = alipayTradePayModel.getNotifyUrl();
+        String topic = alipayTradePayModel.getTopic();
 
+        String notifyUrl = null;
         AlipayAuthorizerInfo alipayAuthorizerInfo = null;
-        if (StringUtils.isNotBlank(notifyUrl)) {
-            alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), notifyUrl);
-        } else {
+        if (StringUtils.isBlank(topic)) {
             alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
             ValidateUtils.notNull(alipayAuthorizerInfo, "未配置支付宝账号！");
+        } else {
+            alipayAuthorizerInfo = saveAsyncNotify(tenantId, branchId, alipayTradePayModel.getOutTradeNo(), topic);
+            notifyUrl = NotifyUtils.obtainAlipayNotifyUrl();
         }
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.pay", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.trade.pay", notifyUrl, JacksonUtils.writeValueAsString(alipayTradePayModel, JsonInclude.Include.NON_NULL));
     }
 
     /**
@@ -369,9 +373,9 @@ public class AlipayUtils {
     public static String alipayTradeAppPay(AlipayTradeAppPayModel alipayTradeAppPayModel) {
         String tenantId = alipayTradeAppPayModel.getTenantId();
         String branchId = alipayTradeAppPayModel.getBranchId();
-        String notifyUrl = alipayTradeAppPayModel.getNotifyUrl();
+        String topic = alipayTradeAppPayModel.getTopic();
 
-        AlipayAuthorizerInfo alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradeAppPayModel.getOutTradeNo(), notifyUrl);
+        AlipayAuthorizerInfo alipayAuthorizerInfo = saveAsyncNotify(tenantId, branchId, alipayTradeAppPayModel.getOutTradeNo(), topic);
         AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
 
         BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
@@ -381,7 +385,7 @@ public class AlipayUtils {
                 .returnUrl(null)
                 .charset(Constants.CHARSET_NAME_UTF_8)
                 .signType(alipayAccount.getSignType())
-                .notifyUrl(notifyUrl)
+                .notifyUrl(NotifyUtils.obtainAlipayNotifyUrl())
                 .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
                 .bizContent(JacksonUtils.writeValueAsString(alipayTradeAppPayModel, JsonInclude.Include.NON_NULL))
                 .privateKey(alipayAccount.getApplicationPrivateKey())
@@ -402,9 +406,9 @@ public class AlipayUtils {
         String tenantId = alipayTradeWapPayModel.getTenantId();
         String branchId = alipayTradeWapPayModel.getBranchId();
         String returnUrl = alipayTradeWapPayModel.getReturnUrl();
-        String notifyUrl = alipayTradeWapPayModel.getNotifyUrl();
+        String topic = alipayTradeWapPayModel.getTopic();
 
-        AlipayAuthorizerInfo alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), notifyUrl);
+        AlipayAuthorizerInfo alipayAuthorizerInfo = saveAsyncNotify(tenantId, branchId, alipayTradeWapPayModel.getOutTradeNo(), topic);
         AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
 
         BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
@@ -414,7 +418,7 @@ public class AlipayUtils {
                 .returnUrl(returnUrl)
                 .charset(Constants.CHARSET_NAME_UTF_8)
                 .signType(alipayAccount.getSignType())
-                .notifyUrl(notifyUrl)
+                .notifyUrl(NotifyUtils.obtainAlipayNotifyUrl())
                 .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
                 .bizContent(JacksonUtils.writeValueAsString(alipayTradeWapPayModel, JsonInclude.Include.NON_NULL))
                 .privateKey(alipayAccount.getApplicationPrivateKey())
@@ -485,9 +489,9 @@ public class AlipayUtils {
         String tenantId = alipayTradePagePayModel.getTenantId();
         String branchId = alipayTradePagePayModel.getBranchId();
         String returnUrl = alipayTradePagePayModel.getReturnUrl();
-        String notifyUrl = alipayTradePagePayModel.getNotifyUrl();
+        String topic = alipayTradePagePayModel.getTopic();
 
-        AlipayAuthorizerInfo alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), notifyUrl);
+        AlipayAuthorizerInfo alipayAuthorizerInfo = saveAsyncNotify(tenantId, branchId, alipayTradePagePayModel.getOutTradeNo(), topic);
         AlipayAccount alipayAccount = obtainAlipayAccount(alipayAuthorizerInfo.getAppId());
         BuildRequestBodyModel buildRequestBodyModel = BuildRequestBodyModel.builder()
                 .appId(alipayAuthorizerInfo.getAppId())
@@ -496,7 +500,7 @@ public class AlipayUtils {
                 .returnUrl(returnUrl)
                 .charset(Constants.CHARSET_NAME_UTF_8)
                 .signType(alipayAccount.getSignType())
-                .notifyUrl(notifyUrl)
+                .notifyUrl(NotifyUtils.obtainAlipayNotifyUrl())
                 .appAuthToken(alipayAuthorizerInfo.getAppAuthToken())
                 .bizContent(JacksonUtils.writeValueAsString(alipayTradePagePayModel, JsonInclude.Include.NON_NULL))
                 .privateKey(alipayAccount.getApplicationPrivateKey())
@@ -527,7 +531,7 @@ public class AlipayUtils {
 
     /***************************************************************支付API结束***************************************************************/
 
-    private static AlipayAuthorizerInfo saveNotifyRecord(String tenantId, String branchId, String uuid, String notifyUrl) {
+    private static AlipayAuthorizerInfo saveAsyncNotify(String tenantId, String branchId, String uuid, String topic) {
         AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
         ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到支付宝授权信息");
         String appId = alipayAuthorizerInfo.getAppId();
@@ -536,9 +540,9 @@ public class AlipayUtils {
 
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
         if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
-            SaveNotifyRecordModel saveNotifyRecordModel = SaveNotifyRecordModel.builder()
+            SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
                     .uuid(uuid)
-                    .notifyUrl(notifyUrl)
+                    .topic(topic)
                     .alipayPublicKey(alipayPublicKey)
                     .alipaySignType(signType)
                     .build();
@@ -547,21 +551,21 @@ public class AlipayUtils {
             defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
             TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
             try {
-                NotifyUtils.saveNotifyRecord(saveNotifyRecordModel);
+                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
                 dataSourceTransactionManager.commit(transactionStatus);
             } catch (Exception e) {
                 dataSourceTransactionManager.rollback(transactionStatus);
                 throw e;
             }
         } else {
-            Map<String, String> saveNotifyRecordRequestParameters = new HashMap<String, String>();
-            saveNotifyRecordRequestParameters.put("uuid", uuid);
-            saveNotifyRecordRequestParameters.put("notifyUrl", notifyUrl);
-            saveNotifyRecordRequestParameters.put("alipayPublicKey", alipayPublicKey);
-            saveNotifyRecordRequestParameters.put("alipaySignType", signType);
+            Map<String, String> saveAsyncNotifyRequestParameters = new HashMap<String, String>();
+            saveAsyncNotifyRequestParameters.put("uuid", uuid);
+            saveAsyncNotifyRequestParameters.put("topic", topic);
+            saveAsyncNotifyRequestParameters.put("alipayPublicKey", alipayPublicKey);
+            saveAsyncNotifyRequestParameters.put("alipaySignType", signType);
 
-            ApiRest saveNotifyRecordResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveNotifyRecord", saveNotifyRecordRequestParameters);
-            ValidateUtils.isTrue(saveNotifyRecordResult.isSuccessful(), saveNotifyRecordResult.getError());
+            ApiRest saveAsyncNotifyResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveAsyncNotify", saveAsyncNotifyRequestParameters);
+            ValidateUtils.isTrue(saveAsyncNotifyResult.isSuccessful(), saveAsyncNotifyResult.getError());
         }
 
         return alipayAuthorizerInfo;
@@ -1527,15 +1531,17 @@ public class AlipayUtils {
         alipayOfflineMarketShopCreateModel.validateAndThrow();
         String tenantId = alipayOfflineMarketShopCreateModel.getTenantId();
         String branchId = alipayOfflineMarketShopCreateModel.getBranchId();
-        String notifyUrl = alipayOfflineMarketShopCreateModel.getNotifyUrl();
+        String topic = alipayOfflineMarketShopCreateModel.getTopic();
 
+        String notifyUrl = null;
         AlipayAuthorizerInfo alipayAuthorizerInfo = null;
-        if (StringUtils.isNotBlank(notifyUrl)) {
-            alipayAuthorizerInfo = saveNotifyRecord(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), notifyUrl);
-        } else {
+        if (StringUtils.isBlank(topic)) {
             alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
+        } else {
+            alipayAuthorizerInfo = saveAsyncNotify(tenantId, branchId, alipayOfflineMarketShopCreateModel.getStoreId(), topic);
+            notifyUrl = NotifyUtils.obtainAlipayNotifyUrl();
         }
-        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.create", NotifyUtils.obtainAlipayNotifyUrl(), JacksonUtils.writeValueAsString(alipayOfflineMarketShopCreateModel, JsonInclude.Include.NON_NULL));
+        return callAlipayApi(alipayAuthorizerInfo, "alipay.offline.market.shop.create", notifyUrl, JacksonUtils.writeValueAsString(alipayOfflineMarketShopCreateModel, JsonInclude.Include.NON_NULL));
     }
 
     /**

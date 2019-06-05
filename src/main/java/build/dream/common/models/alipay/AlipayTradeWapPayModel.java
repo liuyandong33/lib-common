@@ -4,7 +4,6 @@ import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.ValidateUtils;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
@@ -14,21 +13,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AlipayTradeWapPayModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    @JsonIgnore
-    private String returnUrl;
-
-    @JsonIgnore
-    private String notifyUrl;
-
+public class AlipayTradeWapPayModel extends AlipayBasicModel {
     @Length(max = 128)
     private String body;
 
@@ -112,38 +97,6 @@ public class AlipayTradeWapPayModel extends BasicModel {
     @SerializedName(value = "ext_user_info", alternate = "extUserInfoModel")
     @JsonProperty(value = "ext_user_info")
     private ExtUserInfoModel extUserInfoModel;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getReturnUrl() {
-        return returnUrl;
-    }
-
-    public void setReturnUrl(String returnUrl) {
-        this.returnUrl = returnUrl;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
 
     public String getBody() {
         return body;
@@ -462,27 +415,7 @@ public class AlipayTradeWapPayModel extends BasicModel {
     }
 
     public static class Builder {
-        private AlipayTradeWapPayModel instance = new AlipayTradeWapPayModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
+        private final AlipayTradeWapPayModel instance = new AlipayTradeWapPayModel();
 
         public Builder body(String body) {
             instance.setBody(body);
@@ -571,10 +504,6 @@ public class AlipayTradeWapPayModel extends BasicModel {
 
         public AlipayTradeWapPayModel build() {
             AlipayTradeWapPayModel alipayTradeWapPayModel = new AlipayTradeWapPayModel();
-            alipayTradeWapPayModel.setTenantId(instance.getTenantId());
-            alipayTradeWapPayModel.setBranchId(instance.getBranchId());
-            alipayTradeWapPayModel.setReturnUrl(instance.getReturnUrl());
-            alipayTradeWapPayModel.setNotifyUrl(instance.getNotifyUrl());
             alipayTradeWapPayModel.setBody(instance.getBody());
             alipayTradeWapPayModel.setSubject(instance.getSubject());
             alipayTradeWapPayModel.setOutTradeNo(instance.getOutTradeNo());

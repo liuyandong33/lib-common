@@ -6,16 +6,16 @@ import build.dream.common.constants.Constants;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class NotifyRecord extends BasicDomain {
+public class AsyncNotify extends BasicDomain {
     public static final String TABLE_NAME = "notify_record";
     /**
      * 唯一ID
      */
     private String uuid;
     /**
-     * 回调地址
+     * 消息队列主题
      */
-    private String notifyUrl;
+    private String topic;
     /**
      * 支付宝公钥
      */
@@ -81,12 +81,12 @@ public class NotifyRecord extends BasicDomain {
         this.weiXinPaySignType = weiXinPaySignType;
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public Integer getNotifyResult() {
@@ -106,15 +106,15 @@ public class NotifyRecord extends BasicDomain {
     }
 
     public static class Builder {
-        private final NotifyRecord instance = new NotifyRecord();
+        private final AsyncNotify instance = new AsyncNotify();
 
         public Builder uuid(String uuid) {
             instance.setUuid(uuid);
             return this;
         }
 
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
             return this;
         }
 
@@ -188,25 +188,25 @@ public class NotifyRecord extends BasicDomain {
             return this;
         }
 
-        public NotifyRecord build() {
-            NotifyRecord notifyRecord = new NotifyRecord();
-            notifyRecord.setUuid(instance.getUuid());
-            notifyRecord.setNotifyUrl(instance.getNotifyUrl());
-            notifyRecord.setAlipayPublicKey(instance.getAlipayPublicKey());
-            notifyRecord.setAlipaySignType(instance.getAlipaySignType());
-            notifyRecord.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
-            notifyRecord.setWeiXinPaySignType(instance.getWeiXinPaySignType());
-            notifyRecord.setNotifyResult(instance.getNotifyResult());
-            notifyRecord.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
-            notifyRecord.setId(instance.getId());
-            notifyRecord.setCreatedTime(instance.getCreatedTime());
-            notifyRecord.setCreatedUserId(instance.getCreatedUserId());
-            notifyRecord.setUpdatedTime(instance.getUpdatedTime());
-            notifyRecord.setUpdatedUserId(instance.getUpdatedUserId());
-            notifyRecord.setUpdatedRemark(instance.getUpdatedRemark());
-            notifyRecord.setDeletedTime(instance.getDeletedTime());
-            notifyRecord.setDeleted(instance.isDeleted());
-            return notifyRecord;
+        public AsyncNotify build() {
+            AsyncNotify asyncNotify = new AsyncNotify();
+            asyncNotify.setUuid(instance.getUuid());
+            asyncNotify.setTopic(instance.getTopic());
+            asyncNotify.setAlipayPublicKey(instance.getAlipayPublicKey());
+            asyncNotify.setAlipaySignType(instance.getAlipaySignType());
+            asyncNotify.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
+            asyncNotify.setWeiXinPaySignType(instance.getWeiXinPaySignType());
+            asyncNotify.setNotifyResult(instance.getNotifyResult());
+            asyncNotify.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
+            asyncNotify.setId(instance.getId());
+            asyncNotify.setCreatedTime(instance.getCreatedTime());
+            asyncNotify.setCreatedUserId(instance.getCreatedUserId());
+            asyncNotify.setUpdatedTime(instance.getUpdatedTime());
+            asyncNotify.setUpdatedUserId(instance.getUpdatedUserId());
+            asyncNotify.setUpdatedRemark(instance.getUpdatedRemark());
+            asyncNotify.setDeletedTime(instance.getDeletedTime());
+            asyncNotify.setDeleted(instance.isDeleted());
+            return asyncNotify;
         }
     }
 
@@ -216,7 +216,7 @@ public class NotifyRecord extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String UUID = "uuid";
-        public static final String NOTIFY_URL = "notify_url";
+        public static final String TOPIC = "topic";
         public static final String ALIPAY_PUBLIC_KEY = "alipay_public_key";
         public static final String ALIPAY_SIGN_TYPE = "alipay_sign_type";
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "wei_xin_pay_api_secret_key";
@@ -227,7 +227,7 @@ public class NotifyRecord extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String UUID = "uuid";
-        public static final String NOTIFY_URL = "notifyUrl";
+        public static final String TOPIC = "topic";
         public static final String ALIPAY_PUBLIC_KEY = "alipayPublicKey";
         public static final String ALIPAY_SIGN_TYPE = "alipaySignType";
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "weiXinPayApiSecretKey";

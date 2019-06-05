@@ -1,8 +1,6 @@
 package build.dream.common.models.alipay;
 
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.ArrayUtils;
@@ -14,26 +12,9 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
-public class AlipayTradePagePayModel extends BasicModel {
+public class AlipayTradePagePayModel extends AlipayBasicModel {
     private static final String[] GOODS_TYPES = {"0", "1"};
     private static final String[] QR_PAY_MODES = {"0", "1", "2", "3", "4"};
-    @NotNull
-    @JsonIgnore
-    private String tenantId;
-
-    @NotNull
-    @JsonIgnore
-    private String branchId;
-
-    @JsonIgnore
-    private String returnUrl;
-
-    @JsonIgnore
-    private String notifyUrl;
-
-    @JsonIgnore
-    private String appAuthToken;
-
     @NotNull
     @Length(max = 64)
     @SerializedName(value = "out_trade_no", alternate = "outTradeNo")
@@ -100,46 +81,6 @@ public class AlipayTradePagePayModel extends BasicModel {
     @SerializedName(value = "qrcode_width", alternate = "qrcodeWidth")
     @JsonProperty(value = "qrcode_width")
     private String qrcodeWidth;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getReturnUrl() {
-        return returnUrl;
-    }
-
-    public void setReturnUrl(String returnUrl) {
-        this.returnUrl = returnUrl;
-    }
-
-    public String getNotifyUrl() {
-        return notifyUrl;
-    }
-
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
-    }
-
-    public String getAppAuthToken() {
-        return appAuthToken;
-    }
-
-    public void setAppAuthToken(String appAuthToken) {
-        this.appAuthToken = appAuthToken;
-    }
 
     public String getOutTradeNo() {
         return outTradeNo;
@@ -270,32 +211,7 @@ public class AlipayTradePagePayModel extends BasicModel {
     }
 
     public static class Builder {
-        private AlipayTradePagePayModel instance = new AlipayTradePagePayModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder appAuthToken(String appAuthToken) {
-            instance.setAppAuthToken(appAuthToken);
-            return this;
-        }
+        private final AlipayTradePagePayModel instance = new AlipayTradePagePayModel();
 
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
@@ -369,11 +285,6 @@ public class AlipayTradePagePayModel extends BasicModel {
 
         public AlipayTradePagePayModel build() {
             AlipayTradePagePayModel alipayTradePagePayModel = new AlipayTradePagePayModel();
-            alipayTradePagePayModel.setTenantId(instance.getTenantId());
-            alipayTradePagePayModel.setBranchId(instance.getBranchId());
-            alipayTradePagePayModel.setReturnUrl(instance.getReturnUrl());
-            alipayTradePagePayModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayTradePagePayModel.setAppAuthToken(instance.getAppAuthToken());
             alipayTradePagePayModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradePagePayModel.setProductCode(instance.getProductCode());
             alipayTradePagePayModel.setTotalAmount(instance.getTotalAmount());
