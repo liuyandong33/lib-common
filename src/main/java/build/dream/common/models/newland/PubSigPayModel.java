@@ -10,6 +10,12 @@ import javax.validation.constraints.NotNull;
 
 public class PubSigPayModel extends BasicModel {
     @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
+    @NotNull
     @Length(min = 14, max = 14)
     private String txnTime;
 
@@ -37,6 +43,22 @@ public class PubSigPayModel extends BasicModel {
 
     @Length(max = 256)
     private String attach;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getTxnTime() {
         return txnTime;
@@ -127,5 +149,90 @@ public class PubSigPayModel extends BasicModel {
     public void validateAndThrow() {
         super.validateAndThrow();
         ValidateUtils.isTrue(StringUtils.isNotBlank(code) || StringUtils.isNotBlank(openid), "参数code与openid不能同时为空！");
+    }
+
+    public static class Builder {
+        private final PubSigPayModel instance = new PubSigPayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder txnTime(String txnTime) {
+            instance.setTxnTime(txnTime);
+            return this;
+        }
+
+        public Builder version(String version) {
+            instance.setVersion(version);
+            return this;
+        }
+
+        public Builder code(String code) {
+            instance.setCode(code);
+            return this;
+        }
+
+        public Builder openid(String openid) {
+            instance.setOpenid(openid);
+            return this;
+        }
+
+        public Builder amount(Integer amount) {
+            instance.setAmount(amount);
+            return this;
+        }
+
+        public Builder totalAmount(Integer totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder selOrderNo(String selOrderNo) {
+            instance.setSelOrderNo(selOrderNo);
+            return this;
+        }
+
+        public Builder goodsTag(String goodsTag) {
+            instance.setGoodsTag(goodsTag);
+            return this;
+        }
+
+        public Builder attach(String attach) {
+            instance.setAttach(attach);
+            return this;
+        }
+
+        public PubSigPayModel build() {
+            PubSigPayModel pubSigPayModel = new PubSigPayModel();
+            pubSigPayModel.setTenantId(instance.getTenantId());
+            pubSigPayModel.setBranchId(instance.getBranchId());
+            pubSigPayModel.setTxnTime(instance.getTxnTime());
+            pubSigPayModel.setVersion(instance.getVersion());
+            pubSigPayModel.setCode(instance.getCode());
+            pubSigPayModel.setOpenid(instance.getOpenid());
+            pubSigPayModel.setAmount(instance.getAmount());
+            pubSigPayModel.setTotalAmount(instance.getTotalAmount());
+            pubSigPayModel.setSubject(instance.getSubject());
+            pubSigPayModel.setSelOrderNo(instance.getSelOrderNo());
+            pubSigPayModel.setGoodsTag(instance.getGoodsTag());
+            pubSigPayModel.setAttach(instance.getAttach());
+            return pubSigPayModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

@@ -7,7 +7,13 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class CommonModel extends BasicModel {
+public class NewLandBasicModel extends BasicModel {
+    @NotNull
+    private String tenantId;
+
+    @NotNull
+    private String branchId;
+
     @NotNull
     @InList(value = {"0", "1", "2", "3"})
     private String opSys;
@@ -41,6 +47,22 @@ public class CommonModel extends BasicModel {
 
     @NotNull
     private String version = Constants.NEW_LAND_PAY_VERSION_1_0_0;
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(String branchId) {
+        this.branchId = branchId;
+    }
 
     public String getOpSys() {
         return opSys;

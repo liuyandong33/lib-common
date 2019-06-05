@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class BarcodePosPayModel extends CommonModel {
+public class BarcodePosPayModel extends NewLandBasicModel {
     @NotNull
     private Integer amount;
 
@@ -83,5 +83,132 @@ public class BarcodePosPayModel extends CommonModel {
 
     public void setAttach(String attach) {
         this.attach = attach;
+    }
+
+    public static class Builder {
+        private final BarcodePosPayModel instance = new BarcodePosPayModel();
+
+        public Builder tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder opSys(String opSys) {
+            instance.setOpSys(opSys);
+            return this;
+        }
+
+        public Builder characterSet(String characterSet) {
+            instance.setCharacterSet(characterSet);
+            return this;
+        }
+
+        public Builder latitude(String latitude) {
+            instance.setLatitude(latitude);
+            return this;
+        }
+
+        public Builder longitude(String longitude) {
+            instance.setLongitude(longitude);
+            return this;
+        }
+
+        public Builder oprId(String oprId) {
+            instance.setOprId(oprId);
+            return this;
+        }
+
+        public Builder trmTyp(String trmTyp) {
+            instance.setTrmTyp(trmTyp);
+            return this;
+        }
+
+        public Builder tradeNo(String tradeNo) {
+            instance.setTradeNo(tradeNo);
+            return this;
+        }
+
+        public Builder txnTime(String txnTime) {
+            instance.setTxnTime(txnTime);
+            return this;
+        }
+
+        public Builder addField(String addField) {
+            instance.setAddField(addField);
+            return this;
+        }
+
+        public Builder version(String version) {
+            instance.setVersion(version);
+            return this;
+        }
+
+        public Builder amount(Integer amount) {
+            instance.setAmount(amount);
+            return this;
+        }
+
+        public Builder totalAmount(Integer totalAmount) {
+            instance.setTotalAmount(totalAmount);
+            return this;
+        }
+
+        public Builder payChannel(String payChannel) {
+            instance.setPayChannel(payChannel);
+            return this;
+        }
+
+        public Builder subject(String subject) {
+            instance.setSubject(subject);
+            return this;
+        }
+
+        public Builder selOrderNo(String selOrderNo) {
+            instance.setSelOrderNo(selOrderNo);
+            return this;
+        }
+
+        public Builder goodsTag(String goodsTag) {
+            instance.setGoodsTag(goodsTag);
+            return this;
+        }
+
+        public Builder attach(String attach) {
+            instance.setAttach(attach);
+            return this;
+        }
+
+        public BarcodePosPayModel build() {
+            BarcodePosPayModel barcodePosPayModel = new BarcodePosPayModel();
+            barcodePosPayModel.setTenantId(instance.getTenantId());
+            barcodePosPayModel.setBranchId(instance.getBranchId());
+            barcodePosPayModel.setOpSys(instance.getOpSys());
+            barcodePosPayModel.setCharacterSet(instance.getCharacterSet());
+            barcodePosPayModel.setLatitude(instance.getLatitude());
+            barcodePosPayModel.setLongitude(instance.getLongitude());
+            barcodePosPayModel.setOprId(instance.getOprId());
+            barcodePosPayModel.setTrmTyp(instance.getTrmTyp());
+            barcodePosPayModel.setTradeNo(instance.getTradeNo());
+            barcodePosPayModel.setTxnTime(instance.getTxnTime());
+            barcodePosPayModel.setAddField(instance.getAddField());
+            barcodePosPayModel.setVersion(instance.getVersion());
+            barcodePosPayModel.setAmount(instance.getAmount());
+            barcodePosPayModel.setTotalAmount(instance.getTotalAmount());
+            barcodePosPayModel.setPayChannel(instance.getPayChannel());
+            barcodePosPayModel.setSubject(instance.getSubject());
+            barcodePosPayModel.setSelOrderNo(instance.getSelOrderNo());
+            barcodePosPayModel.setGoodsTag(instance.getGoodsTag());
+            barcodePosPayModel.setAttach(instance.getAttach());
+            return barcodePosPayModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
