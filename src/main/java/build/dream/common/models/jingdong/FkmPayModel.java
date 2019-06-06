@@ -1,5 +1,6 @@
 package build.dream.common.models.jingdong;
 
+import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.validator.constraints.Length;
@@ -14,7 +15,7 @@ public class FkmPayModel extends BasicModel {
 
     @NotNull
     @Length(max = 10)
-    private String version;
+    private String version = Constants.JING_DONG_PAY_VERSION;
 
     @NotNull
     @Length(max = 32)
@@ -32,7 +33,7 @@ public class FkmPayModel extends BasicModel {
     @Length(max = 50)
     private String tradeName;
 
-    @Length(max = 512)
+    @Length(max = 256)
     private String tradeDesc;
 
     @NotNull
@@ -47,13 +48,13 @@ public class FkmPayModel extends BasicModel {
 
     @NotNull
     @Length(max = 8)
-    private String currency;
+    private String currency = Constants.CNY;
 
     @Length(max = 256)
     private String note;
 
     @Length(max = 256)
-    private String notifyUrl;
+    private String topic;
 
     @Length(max = 3)
     private String orderGoodsNum;
@@ -168,12 +169,12 @@ public class FkmPayModel extends BasicModel {
         this.note = note;
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getOrderGoodsNum() {

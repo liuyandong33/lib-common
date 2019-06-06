@@ -20,6 +20,10 @@ public class NotifyUtils {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinRefundCallback");
     }
 
+    public static String obtainJingDongPayNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "jingDongPayCallback");
+    }
+
     /**
      * 保存异步通知
      *

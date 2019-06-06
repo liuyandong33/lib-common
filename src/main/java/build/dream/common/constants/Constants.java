@@ -795,7 +795,11 @@ public class Constants {
 
     public static final int[] WEI_XIN_PAY_CODE_PREFIXES = {10, 11, 12, 13, 14, 15};
     public static final int[] ALIPAY_PAY_CODE_PREFIXES = {28};
-    public static final int[] JING_DONG_PAY_CODE_PREFIXES = {};
+    public static final int[] JING_DONG_PAY_CODE_PREFIXES = {18, 62};
+    /**
+     * 京东支付版本号
+     */
+    public static final String JING_DONG_PAY_VERSION = "V2.0";
 
     public static final String CLIENT_TYPE = "clientType";
     public static final String LOG_STACK_INFO = "log.stack.info";
@@ -856,4 +860,9 @@ public class Constants {
     public static final String DATABASE_PRODUCT_NAME_MYSQL = "MySQL";
     public static final String DATABASE_PRODUCT_NAME_ORACLE = "Oracle";
     public static final String DATABASE_PRODUCT_NAME_MICROSOFT_SQL_SERVER = "Microsoft SQL Server";
+
+    /**
+     * 人民币Chinese Yuan
+     */
+    public static final String CNY = "CNY";
 }
