@@ -180,8 +180,12 @@ public class WeiXinPayUtils {
      */
     public static Map<String, String> microPay(MicroPayModel microPayModel) {
         microPayModel.validateAndThrow();
-        String tenantId = microPayModel.getTenantId();
-        String branchId = microPayModel.getBranchId();
+        String appId = microPayModel.getAppId();
+        String mchId = microPayModel.getMchId();
+        String key = microPayModel.getKey();
+        String subAppId = microPayModel.getSubAppId();
+        String subMchId = microPayModel.getSubMchId();
+        boolean acceptanceModel = microPayModel.isAcceptanceModel();
         String deviceInfo = microPayModel.getDeviceInfo();
         String signType = microPayModel.getSignType();
         String body = microPayModel.getBody();
@@ -198,22 +202,12 @@ public class WeiXinPayUtils {
         String authCode = microPayModel.getAuthCode();
         MicroPayModel.SceneInfoModel sceneInfoModel = microPayModel.getSceneInfoModel();
 
-        WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
-        ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
-
-        String appId = weiXinPayAccount.getAppId();
-        String mchId = weiXinPayAccount.getMchId();
-        boolean acceptanceModel = weiXinPayAccount.isAcceptanceModel();
-        String subPublicAccountAppId = weiXinPayAccount.getSubPublicAccountAppId();
-        String subMchId = weiXinPayAccount.getSubMchId();
-        String apiSecretKey = weiXinPayAccount.getApiSecretKey();
-
         Map<String, String> microPayRequestParameters = new HashMap<String, String>();
         microPayRequestParameters.put("appid", appId);
         microPayRequestParameters.put("mch_id", mchId);
 
         if (acceptanceModel) {
-            ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "sub_appid", subPublicAccountAppId);
+            ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "sub_appid", subAppId);
             microPayRequestParameters.put("sub_mch_id", subMchId);
         }
 
@@ -238,7 +232,7 @@ public class WeiXinPayUtils {
             microPayRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
-        String sign = generateSign(microPayRequestParameters, apiSecretKey, Constants.MD5);
+        String sign = generateSign(microPayRequestParameters, key, signType);
         microPayRequestParameters.put("sign", sign);
 
         String microPayFinalData = generateFinalData(microPayRequestParameters);
@@ -247,7 +241,7 @@ public class WeiXinPayUtils {
         String returnCode = microPayResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(microPayResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(checkSign(microPayResult, key, signType), "微信系统返回结果签名校验未通过！");
 
         String resultCode = microPayResult.get("result_code");
         String errCode = microPayResult.get("err_code");
@@ -450,6 +444,52 @@ public class WeiXinPayUtils {
         }
 
         return data;
+    }
+
+    /**
+     * 订单查询
+     *
+     * @param orderQueryModel
+     * @return
+     */
+    public static Map<String, String> orderQuery(OrderQueryModel orderQueryModel) {
+        orderQueryModel.validateAndThrow();
+        String appId = orderQueryModel.getAppId();
+        String mchId = orderQueryModel.getMchId();
+        String key = orderQueryModel.getKey();
+        String subAppId = orderQueryModel.getSubAppId();
+        String subMchId = orderQueryModel.getSubMchId();
+        boolean acceptanceModel = orderQueryModel.isAcceptanceModel();
+        String transactionId = orderQueryModel.getTransactionId();
+        String outTradeNo = orderQueryModel.getOutTradeNo();
+
+        Map<String, String> orderQueryRequestParameters = new HashMap<String, String>();
+        orderQueryRequestParameters.put("appid", appId);
+        orderQueryRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(orderQueryRequestParameters, "sub_appid", subAppId);
+            orderQueryRequestParameters.put("sub_mch_id", subMchId);
+        }
+        ApplicationHandler.ifNotBlankPut(orderQueryRequestParameters, "transaction_id", transactionId);
+        ApplicationHandler.ifNotBlankPut(orderQueryRequestParameters, "out_trade_no", outTradeNo);
+        orderQueryRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+
+        String sign = generateSign(orderQueryRequestParameters, key, Constants.MD5);
+        orderQueryRequestParameters.put("sign", sign);
+
+        String finalData = generateFinalData(orderQueryRequestParameters);
+        Map<String, String> result = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/pay/orderquery", finalData);
+
+        String returnCode = result.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), result.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(result, key, Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = result.get("result_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), result.get("err_code_des"));
+
+        return result;
     }
 
     /**

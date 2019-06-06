@@ -9,16 +9,10 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class MicroPayModel extends BasicModel {
+public class MicroPayModel extends WeiXinPayBasicModel {
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
-
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
 
     @Length(max = 32)
     private String deviceInfo;
@@ -64,22 +58,6 @@ public class MicroPayModel extends BasicModel {
     private String authCode;
 
     private SceneInfoModel sceneInfoModel;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getDeviceInfo() {
         return deviceInfo;
@@ -279,17 +257,11 @@ public class MicroPayModel extends BasicModel {
         }
     }
 
-    public static class Builder {
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
         private MicroPayModel instance = new MicroPayModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
+        public Builder() {
+            setWeiXinPayBasicModel(instance);
         }
 
         public Builder deviceInfo(String deviceInfo) {
@@ -369,8 +341,7 @@ public class MicroPayModel extends BasicModel {
 
         public MicroPayModel build() {
             MicroPayModel microPayModel = new MicroPayModel();
-            microPayModel.setTenantId(instance.getTenantId());
-            microPayModel.setBranchId(instance.getBranchId());
+            build(microPayModel);
             microPayModel.setDeviceInfo(instance.getDeviceInfo());
             microPayModel.setSignType(instance.getSignType());
             microPayModel.setBody(instance.getBody());
