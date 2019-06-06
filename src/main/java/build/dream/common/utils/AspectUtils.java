@@ -142,6 +142,7 @@ public class AspectUtils {
      */
     private static ApiRest callApiRestAction(Map<String, String> requestParameters, Class<? extends BasicModel> modelClass, Class<?> serviceClass, String serviceMethodName, String datePattern) throws Throwable {
         BasicModel model = buildModel(modelClass, requestParameters, datePattern);
+        model.validateAndThrow();
         return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
     }
 
