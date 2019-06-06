@@ -25,6 +25,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
+import scala.Tuple2;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -1193,5 +1194,21 @@ public class ApplicationHandler {
         ConvertUtils.register(new BigIntegerConverter(null), BigInteger.class);
         ConvertUtils.register(new BigDecimalConverter(null), BigDecimal.class);
         ConvertUtils.register(new DateConverter(null), Date.class);
+    }
+
+    public static <K, V> Map<K, V> buildHashMap(Tuple2<K, V>... tuple2s) {
+        Map<K, V> map = new HashMap<K, V>();
+        for (Tuple2<K, V> tuple2 : tuple2s) {
+            map.put(tuple2._1(), tuple2._2());
+        }
+        return map;
+    }
+
+    public static <K, V> Map<K, V> buildLinkedHashMap(Tuple2<K, V>... tuple2s) {
+        Map<K, V> map = new LinkedHashMap<K, V>();
+        for (Tuple2<K, V> tuple2 : tuple2s) {
+            map.put(tuple2._1(), tuple2._2());
+        }
+        return map;
     }
 }
