@@ -13,11 +13,11 @@ public class NotifyUtils {
     }
 
     public static String obtainWeiXinPayNotifyUrl() {
-        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinPayCallback");
     }
 
     public static String obtainWeiXinRefundNotifyUrl() {
-        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinRefundCallback");
     }
 
     /**
