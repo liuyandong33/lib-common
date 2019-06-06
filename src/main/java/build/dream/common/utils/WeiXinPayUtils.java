@@ -479,7 +479,7 @@ public class WeiXinPayUtils {
         orderQueryRequestParameters.put("sign", sign);
 
         String finalData = generateFinalData(orderQueryRequestParameters);
-        Map<String, String> result = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/secapi/pay/orderquery", finalData);
+        Map<String, String> result = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/orderquery", finalData);
 
         String returnCode = result.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), result.get("return_msg"));
