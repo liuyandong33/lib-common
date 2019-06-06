@@ -5,6 +5,7 @@ import build.dream.common.models.aggregatepay.ScanCodePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.jingdong.FkmPayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
+import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.dom4j.DocumentException;
 
 import java.math.BigDecimal;
@@ -24,9 +25,14 @@ public class AggregatePayUtils {
 
         Map<String, ? extends Object> result = null;
         if (channelType == Constants.CHANNEL_TYPE_WEI_XIN) {
+            WeiXinPayAccount weiXinPayAccount = WeiXinPayUtils.obtainWeiXinPayAccount(tenantId, branchId);
             MicroPayModel microPayModel = MicroPayModel.builder()
-                    .tenantId(tenantId)
-                    .branchId(branchId)
+                    .appId(weiXinPayAccount.getAppId())
+                    .mchId(weiXinPayAccount.getMchId())
+                    .key(weiXinPayAccount.getApiSecretKey())
+                    .subAppId(weiXinPayAccount.getSubPublicAccountAppId())
+                    .subMchId(weiXinPayAccount.getSubMchId())
+                    .acceptanceModel(weiXinPayAccount.isAcceptanceModel())
                     .body(subject)
                     .outTradeNo(outTradeNo)
                     .totalFee(totalAmount)

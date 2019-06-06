@@ -30,7 +30,7 @@ public class WeiXinPayUtils {
      * @param branchId
      * @return
      */
-    private static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
+    public static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
         String weiXinPayAccountJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
         WeiXinPayAccount weiXinPayAccount = null;
         if (StringUtils.isNotBlank(weiXinPayAccountJson)) {
