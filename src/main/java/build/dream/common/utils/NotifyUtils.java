@@ -12,7 +12,11 @@ public class NotifyUtils {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayCallback");
     }
 
-    public static String obtainWeiXinNotifyUrl() {
+    public static String obtainWeiXinPayNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
+    }
+
+    public static String obtainWeiXinRefundNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinCallback");
     }
 

@@ -45,6 +45,8 @@ public class RefundModel extends BasicModel {
 
     private String tradeType;
 
+    private String topic;
+
     public String getTenantId() {
         return tenantId;
     }
@@ -133,6 +135,14 @@ public class RefundModel extends BasicModel {
         this.tradeType = tradeType;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
@@ -204,6 +214,11 @@ public class RefundModel extends BasicModel {
             return this;
         }
 
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
+            return this;
+        }
+
         public RefundModel build() {
             RefundModel refundModel = new RefundModel();
             refundModel.setTenantId(instance.getTenantId());
@@ -217,6 +232,7 @@ public class RefundModel extends BasicModel {
             refundModel.setRefundDesc(instance.getRefundDesc());
             refundModel.setRefundAccount(instance.getRefundAccount());
             refundModel.setTradeType(instance.getTradeType());
+            refundModel.setTopic(instance.getTopic());
             return refundModel;
         }
     }

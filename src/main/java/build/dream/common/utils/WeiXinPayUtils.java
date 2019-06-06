@@ -319,7 +319,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", timeExpire);
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", goodsTag);
 
-        unifiedOrderRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinNotifyUrl());
+        unifiedOrderRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinPayNotifyUrl());
 
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM.equals(tradeType)) {
             unifiedOrderRequestParameters.put("trade_type", Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI);
@@ -472,6 +472,7 @@ public class WeiXinPayUtils {
         String refundDesc = refundModel.getRefundDesc();
         String refundAccount = refundModel.getRefundAccount();
         String tradeType = refundModel.getTradeType();
+        String topic = refundModel.getTopic();
 
         WeiXinPayAccount weiXinPayAccount = obtainWeiXinPayAccount(tenantId, branchId);
         ValidateUtils.notNull(weiXinPayAccount, "未配置微信支付账号！");
@@ -498,6 +499,10 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_fee_type", refundFeeType);
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundDesc);
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
+        if (StringUtils.isNotBlank(topic)) {
+            refundRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinRefundNotifyUrl());
+            saveAsyncNotify(outRefundNo, topic, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
+        }
 
         String sign = generateSign(refundRequestParameters, weiXinPayAccount.getApiSecretKey(), Constants.MD5);
         refundRequestParameters.put("sign", sign);
