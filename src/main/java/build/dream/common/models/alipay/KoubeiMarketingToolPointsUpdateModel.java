@@ -117,32 +117,11 @@ public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
         this.extInfo = extInfo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingToolPointsUpdateModel instance = new KoubeiMarketingToolPointsUpdateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder reqId(String reqId) {
@@ -192,11 +171,7 @@ public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
 
         public KoubeiMarketingToolPointsUpdateModel build() {
             KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel = new KoubeiMarketingToolPointsUpdateModel();
-            koubeiMarketingToolPointsUpdateModel.setTenantId(instance.getTenantId());
-            koubeiMarketingToolPointsUpdateModel.setBranchId(instance.getBranchId());
-            koubeiMarketingToolPointsUpdateModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingToolPointsUpdateModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingToolPointsUpdateModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingToolPointsUpdateModel);
             koubeiMarketingToolPointsUpdateModel.setReqId(instance.getReqId());
             koubeiMarketingToolPointsUpdateModel.setUserId(instance.getUserId());
             koubeiMarketingToolPointsUpdateModel.setActivityAccount(instance.getActivityAccount());

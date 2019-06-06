@@ -32,32 +32,11 @@ public class AlipayFundStudentLoanRepayQueryModel extends AlipayBasicModel {
         this.certNo = certNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundStudentLoanRepayQueryModel instance = new AlipayFundStudentLoanRepayQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder logonId(String logonId) {
@@ -72,11 +51,7 @@ public class AlipayFundStudentLoanRepayQueryModel extends AlipayBasicModel {
 
         public AlipayFundStudentLoanRepayQueryModel build() {
             AlipayFundStudentLoanRepayQueryModel alipayFundStudentLoanRepayQueryModel = new AlipayFundStudentLoanRepayQueryModel();
-            alipayFundStudentLoanRepayQueryModel.setTenantId(instance.getTenantId());
-            alipayFundStudentLoanRepayQueryModel.setBranchId(instance.getBranchId());
-            alipayFundStudentLoanRepayQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundStudentLoanRepayQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundStudentLoanRepayQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayFundStudentLoanRepayQueryModel);
             alipayFundStudentLoanRepayQueryModel.setLogonId(instance.getLogonId());
             alipayFundStudentLoanRepayQueryModel.setCertNo(instance.getCertNo());
             return alipayFundStudentLoanRepayQueryModel;

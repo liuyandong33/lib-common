@@ -184,32 +184,11 @@ public class AlipayFundAuthOrderFreezeModel extends AlipayBasicModel {
         this.enablePayChannels = enablePayChannels;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundAuthOrderFreezeModel instance = new AlipayFundAuthOrderFreezeModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder authCode(String authCode) {
@@ -284,11 +263,7 @@ public class AlipayFundAuthOrderFreezeModel extends AlipayBasicModel {
 
         public AlipayFundAuthOrderFreezeModel build() {
             AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel = new AlipayFundAuthOrderFreezeModel();
-            alipayFundAuthOrderFreezeModel.setTenantId(instance.getTenantId());
-            alipayFundAuthOrderFreezeModel.setBranchId(instance.getBranchId());
-            alipayFundAuthOrderFreezeModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundAuthOrderFreezeModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundAuthOrderFreezeModel.setAuthToken(instance.getAuthToken());
+            build(alipayFundAuthOrderFreezeModel);
             alipayFundAuthOrderFreezeModel.setAuthCode(instance.getAuthCode());
             alipayFundAuthOrderFreezeModel.setAuthCodeType(instance.getAuthCodeType());
             alipayFundAuthOrderFreezeModel.setOutOrderNo(instance.getOutOrderNo());

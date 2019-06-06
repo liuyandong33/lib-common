@@ -43,32 +43,11 @@ public class AlipayOpenAgentCreateModel extends AlipayBasicModel {
         ApplicationHandler.isTrue(contactInfo.validate(), "contactInfo");
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenAgentCreateModel instance = new AlipayOpenAgentCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder contactInfo(ContactInfo contactInfo) {
@@ -83,11 +62,7 @@ public class AlipayOpenAgentCreateModel extends AlipayBasicModel {
 
         public AlipayOpenAgentCreateModel build() {
             AlipayOpenAgentCreateModel alipayOpenAgentCreateModel = new AlipayOpenAgentCreateModel();
-            alipayOpenAgentCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenAgentCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenAgentCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenAgentCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenAgentCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenAgentCreateModel);
             alipayOpenAgentCreateModel.setContactInfo(instance.getContactInfo());
             alipayOpenAgentCreateModel.setOrderTicket(instance.getOrderTicket());
             return alipayOpenAgentCreateModel;

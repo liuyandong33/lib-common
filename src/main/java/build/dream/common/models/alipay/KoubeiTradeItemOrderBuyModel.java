@@ -135,32 +135,11 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
         this.itemOrderDetails = itemOrderDetails;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiTradeItemOrderBuyModel instance = new KoubeiTradeItemOrderBuyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outOrderNo(String outOrderNo) {
@@ -215,11 +194,7 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
 
         public KoubeiTradeItemOrderBuyModel build() {
             KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel = new KoubeiTradeItemOrderBuyModel();
-            koubeiTradeItemOrderBuyModel.setTenantId(instance.getTenantId());
-            koubeiTradeItemOrderBuyModel.setBranchId(instance.getBranchId());
-            koubeiTradeItemOrderBuyModel.setReturnUrl(instance.getReturnUrl());
-            koubeiTradeItemOrderBuyModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiTradeItemOrderBuyModel.setAuthToken(instance.getAuthToken());
+            build(koubeiTradeItemOrderBuyModel);
             koubeiTradeItemOrderBuyModel.setOutOrderNo(instance.getOutOrderNo());
             koubeiTradeItemOrderBuyModel.setSubject(instance.getSubject());
             koubeiTradeItemOrderBuyModel.setBizProduct(instance.getBizProduct());

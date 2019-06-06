@@ -31,33 +31,13 @@ public class AlipayMarketingToolFengDieActivityCreateModel extends AlipayBasicMo
         this.activity = activity;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingToolFengDieActivityCreateModel instance = new AlipayMarketingToolFengDieActivityCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
-        }
 
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
@@ -71,11 +51,7 @@ public class AlipayMarketingToolFengDieActivityCreateModel extends AlipayBasicMo
 
         public AlipayMarketingToolFengDieActivityCreateModel build() {
             AlipayMarketingToolFengDieActivityCreateModel alipayMarketingToolFengDieActivityCreateModel = new AlipayMarketingToolFengDieActivityCreateModel();
-            alipayMarketingToolFengDieActivityCreateModel.setTenantId(instance.getTenantId());
-            alipayMarketingToolFengDieActivityCreateModel.setBranchId(instance.getBranchId());
-            alipayMarketingToolFengDieActivityCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingToolFengDieActivityCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingToolFengDieActivityCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingToolFengDieActivityCreateModel);
             alipayMarketingToolFengDieActivityCreateModel.setTemplateId(instance.getTemplateId());
             alipayMarketingToolFengDieActivityCreateModel.setActivity(instance.getActivity());
             return alipayMarketingToolFengDieActivityCreateModel;

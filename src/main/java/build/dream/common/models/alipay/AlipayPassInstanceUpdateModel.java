@@ -80,32 +80,11 @@ public class AlipayPassInstanceUpdateModel extends AlipayBasicModel {
         this.verifyType = verifyType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayPassInstanceUpdateModel instance = new AlipayPassInstanceUpdateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder serialNumber(String serialNumber) {
@@ -140,11 +119,7 @@ public class AlipayPassInstanceUpdateModel extends AlipayBasicModel {
 
         public AlipayPassInstanceUpdateModel build() {
             AlipayPassInstanceUpdateModel alipayPassInstanceUpdateModel = new AlipayPassInstanceUpdateModel();
-            alipayPassInstanceUpdateModel.setTenantId(instance.getTenantId());
-            alipayPassInstanceUpdateModel.setBranchId(instance.getBranchId());
-            alipayPassInstanceUpdateModel.setReturnUrl(instance.getReturnUrl());
-            alipayPassInstanceUpdateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayPassInstanceUpdateModel.setAuthToken(instance.getAuthToken());
+            build(alipayPassInstanceUpdateModel);
             alipayPassInstanceUpdateModel.setSerialNumber(instance.getSerialNumber());
             alipayPassInstanceUpdateModel.setChannelId(instance.getChannelId());
             alipayPassInstanceUpdateModel.setTplParams(instance.getTplParams());

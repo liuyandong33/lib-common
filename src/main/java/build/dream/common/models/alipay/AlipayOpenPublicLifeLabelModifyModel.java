@@ -32,41 +32,28 @@ public class AlipayOpenPublicLifeLabelModifyModel extends AlipayBasicModel {
         this.labelName = labelName;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicLifeLabelModifyModel instance = new AlipayOpenPublicLifeLabelModifyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
+        public Builder() {
+            setAlipayBasicModel(instance);
+        }
+
+        public Builder labelId(String labelId) {
+            instance.setLabelId(labelId);
             return this;
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
+        public Builder labelName(String labelName) {
+            instance.setLabelName(labelName);
             return this;
         }
 
         public AlipayOpenPublicLifeLabelModifyModel build() {
             AlipayOpenPublicLifeLabelModifyModel alipayOpenPublicLifeLabelModifyModel = new AlipayOpenPublicLifeLabelModifyModel();
-            alipayOpenPublicLifeLabelModifyModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeLabelModifyModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicLifeLabelModifyModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicLifeLabelModifyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicLifeLabelModifyModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicLifeLabelModifyModel);
+            alipayOpenPublicLifeLabelModifyModel.setLabelId(instance.getLabelId());
+            alipayOpenPublicLifeLabelModifyModel.setLabelName(instance.getLabelName());
             return alipayOpenPublicLifeLabelModifyModel;
         }
     }

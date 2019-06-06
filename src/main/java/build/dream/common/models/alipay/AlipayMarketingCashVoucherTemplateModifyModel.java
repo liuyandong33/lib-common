@@ -80,32 +80,11 @@ public class AlipayMarketingCashVoucherTemplateModifyModel extends AlipayBasicMo
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingCashVoucherTemplateModifyModel instance = new AlipayMarketingCashVoucherTemplateModifyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder templateId(String templateId) {
@@ -140,11 +119,7 @@ public class AlipayMarketingCashVoucherTemplateModifyModel extends AlipayBasicMo
 
         public AlipayMarketingCashVoucherTemplateModifyModel build() {
             AlipayMarketingCashVoucherTemplateModifyModel alipayMarketingCashVoucherTemplateModifyModel = new AlipayMarketingCashVoucherTemplateModifyModel();
-            alipayMarketingCashVoucherTemplateModifyModel.setTenantId(instance.getTenantId());
-            alipayMarketingCashVoucherTemplateModifyModel.setBranchId(instance.getBranchId());
-            alipayMarketingCashVoucherTemplateModifyModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingCashVoucherTemplateModifyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingCashVoucherTemplateModifyModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingCashVoucherTemplateModifyModel);
             alipayMarketingCashVoucherTemplateModifyModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCashVoucherTemplateModifyModel.setSlogan(instance.getSlogan());
             alipayMarketingCashVoucherTemplateModifyModel.setPublishStartTime(instance.getPublishStartTime());

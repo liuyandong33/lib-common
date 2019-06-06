@@ -57,32 +57,11 @@ public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMessageTotalSendModel instance = new AlipayOpenPublicMessageTotalSendModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder msgType(String msgType) {
@@ -102,11 +81,7 @@ public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMessageTotalSendModel build() {
             AlipayOpenPublicMessageTotalSendModel alipayOpenPublicMessageTotalSendModel = new AlipayOpenPublicMessageTotalSendModel();
-            alipayOpenPublicMessageTotalSendModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMessageTotalSendModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMessageTotalSendModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMessageTotalSendModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMessageTotalSendModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMessageTotalSendModel);
             alipayOpenPublicMessageTotalSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageTotalSendModel.setArticles(instance.getArticles());
             alipayOpenPublicMessageTotalSendModel.setText(instance.getText());

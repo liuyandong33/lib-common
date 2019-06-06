@@ -19,32 +19,11 @@ public class AlipayOpenPublicTopicDeleteModel extends AlipayBasicModel {
         this.topicId = topicId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicTopicDeleteModel instance = new AlipayOpenPublicTopicDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder topicId(String topicId) {
@@ -54,11 +33,7 @@ public class AlipayOpenPublicTopicDeleteModel extends AlipayBasicModel {
 
         public AlipayOpenPublicTopicDeleteModel build() {
             AlipayOpenPublicTopicDeleteModel alipayOpenPublicTopicDeleteModel = new AlipayOpenPublicTopicDeleteModel();
-            alipayOpenPublicTopicDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicTopicDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicTopicDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicTopicDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicTopicDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicTopicDeleteModel);
             alipayOpenPublicTopicDeleteModel.setTopicId(instance.getTopicId());
             return alipayOpenPublicTopicDeleteModel;
         }

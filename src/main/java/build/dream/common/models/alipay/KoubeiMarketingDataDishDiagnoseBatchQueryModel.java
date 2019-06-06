@@ -1,41 +1,16 @@
 package build.dream.common.models.alipay;
 
 public class KoubeiMarketingDataDishDiagnoseBatchQueryModel extends AlipayBasicModel {
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingDataDishDiagnoseBatchQueryModel instance = new KoubeiMarketingDataDishDiagnoseBatchQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public KoubeiMarketingDataDishDiagnoseBatchQueryModel build() {
             KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel = new KoubeiMarketingDataDishDiagnoseBatchQueryModel();
-            koubeiMarketingDataDishDiagnoseBatchQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingDataDishDiagnoseBatchQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingDataDishDiagnoseBatchQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingDataDishDiagnoseBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingDataDishDiagnoseBatchQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingDataDishDiagnoseBatchQueryModel);
             return koubeiMarketingDataDishDiagnoseBatchQueryModel;
         }
     }

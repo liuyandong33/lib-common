@@ -31,32 +31,11 @@ public class AlipayOfflineMarketShopQueryDetailModel extends AlipayBasicModel {
         this.opRole = opRole;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOfflineMarketShopQueryDetailModel instance = new AlipayOfflineMarketShopQueryDetailModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder shopId(String shopId) {
@@ -71,11 +50,7 @@ public class AlipayOfflineMarketShopQueryDetailModel extends AlipayBasicModel {
 
         public AlipayOfflineMarketShopQueryDetailModel build() {
             AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel = new AlipayOfflineMarketShopQueryDetailModel();
-            alipayOfflineMarketShopQueryDetailModel.setTenantId(instance.getTenantId());
-            alipayOfflineMarketShopQueryDetailModel.setBranchId(instance.getBranchId());
-            alipayOfflineMarketShopQueryDetailModel.setReturnUrl(instance.getReturnUrl());
-            alipayOfflineMarketShopQueryDetailModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOfflineMarketShopQueryDetailModel.setAuthToken(instance.getAuthToken());
+            build(alipayOfflineMarketShopQueryDetailModel);
             alipayOfflineMarketShopQueryDetailModel.setShopId(instance.getShopId());
             alipayOfflineMarketShopQueryDetailModel.setOpRole(instance.getOpRole());
             return alipayOfflineMarketShopQueryDetailModel;

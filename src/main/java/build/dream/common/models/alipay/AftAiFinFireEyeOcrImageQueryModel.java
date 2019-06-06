@@ -47,32 +47,11 @@ public class AftAiFinFireEyeOcrImageQueryModel extends AlipayBasicModel {
         this.ocrType = ocrType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AftAiFinFireEyeOcrImageQueryModel instance = new AftAiFinFireEyeOcrImageQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder productInstanceId(String productInstanceId) {
@@ -92,14 +71,7 @@ public class AftAiFinFireEyeOcrImageQueryModel extends AlipayBasicModel {
 
         public AftAiFinFireEyeOcrImageQueryModel build() {
             AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel = new AftAiFinFireEyeOcrImageQueryModel();
-            aftAiFinFireEyeOcrImageQueryModel.setTenantId(instance.getTenantId());
-            aftAiFinFireEyeOcrImageQueryModel.setBranchId(instance.getBranchId());
-            aftAiFinFireEyeOcrImageQueryModel.setReturnUrl(instance.getReturnUrl());
-            aftAiFinFireEyeOcrImageQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            aftAiFinFireEyeOcrImageQueryModel.setAuthToken(instance.getAuthToken());
-            aftAiFinFireEyeOcrImageQueryModel.setReturnUrl(instance.getReturnUrl());
-            aftAiFinFireEyeOcrImageQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            aftAiFinFireEyeOcrImageQueryModel.setAuthToken(instance.getAuthToken());
+            build(aftAiFinFireEyeOcrImageQueryModel);
             aftAiFinFireEyeOcrImageQueryModel.setProductInstanceId(instance.getProductInstanceId());
             aftAiFinFireEyeOcrImageQueryModel.setImage(instance.getImage());
             aftAiFinFireEyeOcrImageQueryModel.setOcrType(instance.getOcrType());

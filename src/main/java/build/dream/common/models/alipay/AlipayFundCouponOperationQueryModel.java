@@ -52,32 +52,11 @@ public class AlipayFundCouponOperationQueryModel extends AlipayBasicModel {
         this.outRequestNo = outRequestNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundCouponOperationQueryModel instance = new AlipayFundCouponOperationQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder authNo(String authNo) {
@@ -102,11 +81,7 @@ public class AlipayFundCouponOperationQueryModel extends AlipayBasicModel {
 
         public AlipayFundCouponOperationQueryModel build() {
             AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel = new AlipayFundCouponOperationQueryModel();
-            alipayFundCouponOperationQueryModel.setTenantId(instance.getTenantId());
-            alipayFundCouponOperationQueryModel.setBranchId(instance.getBranchId());
-            alipayFundCouponOperationQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundCouponOperationQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundCouponOperationQueryModel.setAuthNo(instance.getAuthNo());
+            build(alipayFundCouponOperationQueryModel);
             alipayFundCouponOperationQueryModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOperationQueryModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOperationQueryModel.setOperationId(instance.getOperationId());

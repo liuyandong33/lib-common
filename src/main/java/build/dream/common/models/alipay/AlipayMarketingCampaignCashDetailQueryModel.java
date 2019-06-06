@@ -19,32 +19,11 @@ public class AlipayMarketingCampaignCashDetailQueryModel extends AlipayBasicMode
         this.crowdNo = crowdNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingCampaignCashDetailQueryModel instance = new AlipayMarketingCampaignCashDetailQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder crowdNo(String crowdNo) {
@@ -54,11 +33,7 @@ public class AlipayMarketingCampaignCashDetailQueryModel extends AlipayBasicMode
 
         public AlipayMarketingCampaignCashDetailQueryModel build() {
             AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel = new AlipayMarketingCampaignCashDetailQueryModel();
-            alipayMarketingCampaignCashDetailQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingCampaignCashDetailQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingCampaignCashDetailQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingCampaignCashDetailQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingCampaignCashDetailQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingCampaignCashDetailQueryModel);
             alipayMarketingCampaignCashDetailQueryModel.setCrowdNo(instance.getCrowdNo());
             return alipayMarketingCampaignCashDetailQueryModel;
         }

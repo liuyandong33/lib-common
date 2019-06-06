@@ -32,32 +32,11 @@ public class KoubeiMarketingToolPointsQueryModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingToolPointsQueryModel instance = new KoubeiMarketingToolPointsQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder activityAccount(String activityAccount) {
@@ -72,11 +51,7 @@ public class KoubeiMarketingToolPointsQueryModel extends AlipayBasicModel {
 
         public KoubeiMarketingToolPointsQueryModel build() {
             KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel = new KoubeiMarketingToolPointsQueryModel();
-            koubeiMarketingToolPointsQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingToolPointsQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingToolPointsQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingToolPointsQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingToolPointsQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingToolPointsQueryModel);
             koubeiMarketingToolPointsQueryModel.setActivityAccount(instance.getActivityAccount());
             koubeiMarketingToolPointsQueryModel.setUserId(instance.getUserId());
             return koubeiMarketingToolPointsQueryModel;

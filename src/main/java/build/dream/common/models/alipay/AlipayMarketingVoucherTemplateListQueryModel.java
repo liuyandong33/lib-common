@@ -61,32 +61,11 @@ public class AlipayMarketingVoucherTemplateListQueryModel extends AlipayBasicMod
         this.pageSize = pageSize;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingVoucherTemplateListQueryModel instance = new AlipayMarketingVoucherTemplateListQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder createStartTime(String createStartTime) {
@@ -111,11 +90,7 @@ public class AlipayMarketingVoucherTemplateListQueryModel extends AlipayBasicMod
 
         public AlipayMarketingVoucherTemplateListQueryModel build() {
             AlipayMarketingVoucherTemplateListQueryModel alipayMarketingVoucherTemplateListQueryModel = new AlipayMarketingVoucherTemplateListQueryModel();
-            alipayMarketingVoucherTemplateListQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingVoucherTemplateListQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingVoucherTemplateListQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingVoucherTemplateListQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingVoucherTemplateListQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingVoucherTemplateListQueryModel);
             alipayMarketingVoucherTemplateListQueryModel.setCreateStartTime(instance.getCreateStartTime());
             alipayMarketingVoucherTemplateListQueryModel.setCreateEndTime(instance.getCreateEndTime());
             alipayMarketingVoucherTemplateListQueryModel.setPageNum(instance.getPageNum());

@@ -122,32 +122,11 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
         this.productId = productId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingDataNearMallQueryModel instance = new KoubeiMarketingDataNearMallQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder radius(String radius) {
@@ -202,11 +181,7 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
 
         public KoubeiMarketingDataNearMallQueryModel build() {
             KoubeiMarketingDataNearMallQueryModel koubeiMarketingDataNearMallQueryModel = new KoubeiMarketingDataNearMallQueryModel();
-            koubeiMarketingDataNearMallQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingDataNearMallQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingDataNearMallQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingDataNearMallQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingDataNearMallQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingDataNearMallQueryModel);
             koubeiMarketingDataNearMallQueryModel.setRadius(instance.getRadius());
             koubeiMarketingDataNearMallQueryModel.setUserId(instance.getUserId());
             koubeiMarketingDataNearMallQueryModel.setCityId(instance.getCityId());

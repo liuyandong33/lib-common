@@ -19,32 +19,11 @@ public class AlipayOpenPublicLifeAgentCreateQueryModel extends AlipayBasicModel 
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicLifeAgentCreateQueryModel instance = new AlipayOpenPublicLifeAgentCreateQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outBizNo(String outBizNo) {
@@ -54,11 +33,7 @@ public class AlipayOpenPublicLifeAgentCreateQueryModel extends AlipayBasicModel 
 
         public AlipayOpenPublicLifeAgentCreateQueryModel build() {
             AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel = new AlipayOpenPublicLifeAgentCreateQueryModel();
-            alipayOpenPublicLifeAgentCreateQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeAgentCreateQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicLifeAgentCreateQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicLifeAgentCreateQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicLifeAgentCreateQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicLifeAgentCreateQueryModel);
             alipayOpenPublicLifeAgentCreateQueryModel.setOutBizNo(instance.getOutBizNo());
             return alipayOpenPublicLifeAgentCreateQueryModel;
         }

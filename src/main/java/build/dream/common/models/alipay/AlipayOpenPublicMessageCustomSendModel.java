@@ -79,32 +79,11 @@ public class AlipayOpenPublicMessageCustomSendModel extends AlipayBasicModel {
         this.eventType = eventType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMessageCustomSendModel instance = new AlipayOpenPublicMessageCustomSendModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder toUserId(String toUserId) {
@@ -139,11 +118,7 @@ public class AlipayOpenPublicMessageCustomSendModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMessageCustomSendModel build() {
             AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel = new AlipayOpenPublicMessageCustomSendModel();
-            alipayOpenPublicMessageCustomSendModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMessageCustomSendModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMessageCustomSendModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMessageCustomSendModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMessageCustomSendModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMessageCustomSendModel);
             alipayOpenPublicMessageCustomSendModel.setToUserId(instance.getToUserId());
             alipayOpenPublicMessageCustomSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageCustomSendModel.setArticles(instance.getArticles());

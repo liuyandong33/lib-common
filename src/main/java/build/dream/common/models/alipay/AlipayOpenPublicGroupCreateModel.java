@@ -1,41 +1,16 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicGroupCreateModel extends AlipayBasicModel {
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicGroupCreateModel instance = new AlipayOpenPublicGroupCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public AlipayOpenPublicGroupCreateModel build() {
             AlipayOpenPublicGroupCreateModel alipayOpenPublicGroupCreateModel = new AlipayOpenPublicGroupCreateModel();
-            alipayOpenPublicGroupCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicGroupCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicGroupCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicGroupCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicGroupCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicGroupCreateModel);
             return alipayOpenPublicGroupCreateModel;
         }
     }

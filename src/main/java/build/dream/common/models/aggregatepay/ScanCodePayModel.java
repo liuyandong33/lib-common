@@ -27,7 +27,7 @@ public class ScanCodePayModel extends BasicModel {
     private Integer totalAmount;
 
     @NotNull
-    private String notifyUrl;
+    private String topic;
 
     @NotNull
     private String ipAddress;
@@ -88,12 +88,12 @@ public class ScanCodePayModel extends BasicModel {
         this.totalAmount = totalAmount;
     }
 
-    public String getNotifyUrl() {
-        return notifyUrl;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setNotifyUrl(String notifyUrl) {
-        this.notifyUrl = notifyUrl;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getIpAddress() {
@@ -142,8 +142,8 @@ public class ScanCodePayModel extends BasicModel {
             return this;
         }
 
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
             return this;
         }
 
@@ -161,7 +161,7 @@ public class ScanCodePayModel extends BasicModel {
             scanCodePayModel.setAuthCode(instance.getAuthCode());
             scanCodePayModel.setSubject(instance.getSubject());
             scanCodePayModel.setTotalAmount(instance.getTotalAmount());
-            scanCodePayModel.setNotifyUrl(instance.getNotifyUrl());
+            scanCodePayModel.setTopic(instance.getTopic());
             scanCodePayModel.setIpAddress(instance.getIpAddress());
             return scanCodePayModel;
         }

@@ -19,32 +19,11 @@ public class AlipayMarketingToolFengDieActivityQueryModel extends AlipayBasicMod
         this.activityId = activityId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingToolFengDieActivityQueryModel instance = new AlipayMarketingToolFengDieActivityQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder activityId(String activityId) {
@@ -54,11 +33,7 @@ public class AlipayMarketingToolFengDieActivityQueryModel extends AlipayBasicMod
 
         public AlipayMarketingToolFengDieActivityQueryModel build() {
             AlipayMarketingToolFengDieActivityQueryModel alipayMarketingToolFengDieActivityQueryModel = new AlipayMarketingToolFengDieActivityQueryModel();
-            alipayMarketingToolFengDieActivityQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingToolFengDieActivityQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingToolFengDieActivityQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingToolFengDieActivityQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingToolFengDieActivityQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingToolFengDieActivityQueryModel);
             alipayMarketingToolFengDieActivityQueryModel.setActivityId(instance.getActivityId());
             return alipayMarketingToolFengDieActivityQueryModel;
         }

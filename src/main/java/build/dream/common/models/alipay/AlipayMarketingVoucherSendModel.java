@@ -94,32 +94,11 @@ public class AlipayMarketingVoucherSendModel extends AlipayBasicModel {
         this.memo = memo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingVoucherSendModel instance = new AlipayMarketingVoucherSendModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder templateId(String templateId) {
@@ -159,11 +138,7 @@ public class AlipayMarketingVoucherSendModel extends AlipayBasicModel {
 
         public AlipayMarketingVoucherSendModel build() {
             AlipayMarketingVoucherSendModel alipayMarketingVoucherSendModel = new AlipayMarketingVoucherSendModel();
-            alipayMarketingVoucherSendModel.setTenantId(instance.getTenantId());
-            alipayMarketingVoucherSendModel.setBranchId(instance.getBranchId());
-            alipayMarketingVoucherSendModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingVoucherSendModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingVoucherSendModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingVoucherSendModel);
             alipayMarketingVoucherSendModel.setTemplateId(instance.getTemplateId());
             alipayMarketingVoucherSendModel.setLoginId(instance.getLoginId());
             alipayMarketingVoucherSendModel.setTaobaoNick(instance.getTaobaoNick());

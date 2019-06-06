@@ -28,32 +28,11 @@ public class AlipayOfflineMarketShopCategoryQueryModel extends AlipayBasicModel 
         this.opRole = opRole;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOfflineMarketShopCategoryQueryModel instance = new AlipayOfflineMarketShopCategoryQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder categoryId(String categoryId) {
@@ -68,11 +47,7 @@ public class AlipayOfflineMarketShopCategoryQueryModel extends AlipayBasicModel 
 
         public AlipayOfflineMarketShopCategoryQueryModel build() {
             AlipayOfflineMarketShopCategoryQueryModel alipayOfflineMarketShopCategoryQueryModel = new AlipayOfflineMarketShopCategoryQueryModel();
-            alipayOfflineMarketShopCategoryQueryModel.setTenantId(instance.getTenantId());
-            alipayOfflineMarketShopCategoryQueryModel.setBranchId(instance.getBranchId());
-            alipayOfflineMarketShopCategoryQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOfflineMarketShopCategoryQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOfflineMarketShopCategoryQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOfflineMarketShopCategoryQueryModel);
             alipayOfflineMarketShopCategoryQueryModel.setCategoryId(instance.getCategoryId());
             alipayOfflineMarketShopCategoryQueryModel.setOpRole(instance.getOpRole());
             return alipayOfflineMarketShopCategoryQueryModel;

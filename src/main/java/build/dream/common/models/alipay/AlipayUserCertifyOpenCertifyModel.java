@@ -19,32 +19,11 @@ public class AlipayUserCertifyOpenCertifyModel extends AlipayBasicModel {
         this.certifyId = certifyId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserCertifyOpenCertifyModel instance = new AlipayUserCertifyOpenCertifyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder certifyId(String certifyId) {
@@ -54,11 +33,7 @@ public class AlipayUserCertifyOpenCertifyModel extends AlipayBasicModel {
 
         public AlipayUserCertifyOpenCertifyModel build() {
             AlipayUserCertifyOpenCertifyModel alipayUserCertifyOpenCertifyModel = new AlipayUserCertifyOpenCertifyModel();
-            alipayUserCertifyOpenCertifyModel.setTenantId(instance.getTenantId());
-            alipayUserCertifyOpenCertifyModel.setBranchId(instance.getBranchId());
-            alipayUserCertifyOpenCertifyModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserCertifyOpenCertifyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserCertifyOpenCertifyModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserCertifyOpenCertifyModel);
             alipayUserCertifyOpenCertifyModel.setCertifyId(instance.getCertifyId());
             return alipayUserCertifyOpenCertifyModel;
         }

@@ -19,32 +19,11 @@ public class AlipayOpenAgentCancelModel extends AlipayBasicModel {
         this.batchNo = batchNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenAgentCancelModel instance = new AlipayOpenAgentCancelModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder batchNo(String batchNo) {
@@ -54,11 +33,7 @@ public class AlipayOpenAgentCancelModel extends AlipayBasicModel {
 
         public AlipayOpenAgentCancelModel build() {
             AlipayOpenAgentCancelModel alipayOpenAgentCancelModel = new AlipayOpenAgentCancelModel();
-            alipayOpenAgentCancelModel.setTenantId(instance.getTenantId());
-            alipayOpenAgentCancelModel.setBranchId(instance.getBranchId());
-            alipayOpenAgentCancelModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenAgentCancelModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenAgentCancelModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenAgentCancelModel);
             alipayOpenAgentCancelModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentCancelModel;
         }

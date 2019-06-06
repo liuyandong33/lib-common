@@ -57,32 +57,11 @@ public class ZolozAuthenticationCustomerFtokenQueryModel extends AlipayBasicMode
         }
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final ZolozAuthenticationCustomerFtokenQueryModel instance = new ZolozAuthenticationCustomerFtokenQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder ftoken(String ftoken) {
@@ -102,11 +81,7 @@ public class ZolozAuthenticationCustomerFtokenQueryModel extends AlipayBasicMode
 
         public ZolozAuthenticationCustomerFtokenQueryModel build() {
             ZolozAuthenticationCustomerFtokenQueryModel zolozAuthenticationCustomerFtokenQueryModel = new ZolozAuthenticationCustomerFtokenQueryModel();
-            zolozAuthenticationCustomerFtokenQueryModel.setTenantId(instance.getTenantId());
-            zolozAuthenticationCustomerFtokenQueryModel.setBranchId(instance.getBranchId());
-            zolozAuthenticationCustomerFtokenQueryModel.setReturnUrl(instance.getReturnUrl());
-            zolozAuthenticationCustomerFtokenQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            zolozAuthenticationCustomerFtokenQueryModel.setAuthToken(instance.getAuthToken());
+            build(zolozAuthenticationCustomerFtokenQueryModel);
             zolozAuthenticationCustomerFtokenQueryModel.setFtoken(instance.getFtoken());
             zolozAuthenticationCustomerFtokenQueryModel.setBizType(instance.getBizType());
             zolozAuthenticationCustomerFtokenQueryModel.setExtInfo(instance.getExtInfo());

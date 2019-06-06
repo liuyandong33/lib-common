@@ -17,32 +17,11 @@ public class AlipayMarketingToolFengDieSpaceCreateModel extends AlipayBasicModel
         this.title = title;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingToolFengDieSpaceCreateModel instance = new AlipayMarketingToolFengDieSpaceCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder title(String title) {
@@ -52,11 +31,7 @@ public class AlipayMarketingToolFengDieSpaceCreateModel extends AlipayBasicModel
 
         public AlipayMarketingToolFengDieSpaceCreateModel build() {
             AlipayMarketingToolFengDieSpaceCreateModel alipayMarketingToolFengDieSpaceCreateModel = new AlipayMarketingToolFengDieSpaceCreateModel();
-            alipayMarketingToolFengDieSpaceCreateModel.setTenantId(instance.getTenantId());
-            alipayMarketingToolFengDieSpaceCreateModel.setBranchId(instance.getBranchId());
-            alipayMarketingToolFengDieSpaceCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingToolFengDieSpaceCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingToolFengDieSpaceCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingToolFengDieSpaceCreateModel);
             alipayMarketingToolFengDieSpaceCreateModel.setTitle(instance.getTitle());
             return alipayMarketingToolFengDieSpaceCreateModel;
         }

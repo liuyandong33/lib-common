@@ -31,32 +31,11 @@ public class AlipayOpenPublicMenuModifyModel extends AlipayBasicModel {
         this.type = type;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMenuModifyModel instance = new AlipayOpenPublicMenuModifyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder buttonObjects(List<ButtonObject> buttonObjects) {
@@ -71,11 +50,7 @@ public class AlipayOpenPublicMenuModifyModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMenuModifyModel build() {
             AlipayOpenPublicMenuModifyModel alipayOpenPublicMenuModifyModel = new AlipayOpenPublicMenuModifyModel();
-            alipayOpenPublicMenuModifyModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMenuModifyModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMenuModifyModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMenuModifyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMenuModifyModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMenuModifyModel);
             alipayOpenPublicMenuModifyModel.setButtonObjects(instance.getButtonObjects());
             alipayOpenPublicMenuModifyModel.setType(instance.getType());
             return alipayOpenPublicMenuModifyModel;

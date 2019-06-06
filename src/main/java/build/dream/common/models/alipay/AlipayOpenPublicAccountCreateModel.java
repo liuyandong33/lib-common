@@ -80,32 +80,11 @@ public class AlipayOpenPublicAccountCreateModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicAccountCreateModel instance = new AlipayOpenPublicAccountCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder bindAccountNo(String bindAccountNo) {
@@ -140,11 +119,7 @@ public class AlipayOpenPublicAccountCreateModel extends AlipayBasicModel {
 
         public AlipayOpenPublicAccountCreateModel build() {
             AlipayOpenPublicAccountCreateModel alipayOpenPublicAccountCreateModel = new AlipayOpenPublicAccountCreateModel();
-            alipayOpenPublicAccountCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicAccountCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicAccountCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicAccountCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicAccountCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicAccountCreateModel);
             alipayOpenPublicAccountCreateModel.setBindAccountNo(instance.getBindAccountNo());
             alipayOpenPublicAccountCreateModel.setDisplayName(instance.getDisplayName());
             alipayOpenPublicAccountCreateModel.setAgreementId(instance.getAgreementId());

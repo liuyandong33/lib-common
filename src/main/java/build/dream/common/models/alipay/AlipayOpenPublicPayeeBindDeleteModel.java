@@ -30,32 +30,11 @@ public class AlipayOpenPublicPayeeBindDeleteModel extends AlipayBasicModel {
         this.pid = pid;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicPayeeBindDeleteModel instance = new AlipayOpenPublicPayeeBindDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder loginId(String loginId) {
@@ -70,11 +49,7 @@ public class AlipayOpenPublicPayeeBindDeleteModel extends AlipayBasicModel {
 
         public AlipayOpenPublicPayeeBindDeleteModel build() {
             AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel = new AlipayOpenPublicPayeeBindDeleteModel();
-            alipayOpenPublicPayeeBindDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicPayeeBindDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicPayeeBindDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicPayeeBindDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicPayeeBindDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicPayeeBindDeleteModel);
             alipayOpenPublicPayeeBindDeleteModel.setLoginId(instance.getLoginId());
             alipayOpenPublicPayeeBindDeleteModel.setPid(instance.getPid());
             return alipayOpenPublicPayeeBindDeleteModel;

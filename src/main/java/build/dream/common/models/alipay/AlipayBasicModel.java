@@ -62,4 +62,45 @@ public class AlipayBasicModel extends BasicModel {
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
     }
+
+    public static class Builder<T extends Builder<T>> {
+        private AlipayBasicModel instance;
+
+        protected void setAlipayBasicModel(AlipayBasicModel alipayBasicModel) {
+            this.instance = alipayBasicModel;
+        }
+
+        public T tenantId(String tenantId) {
+            instance.setTenantId(tenantId);
+            return (T) this;
+        }
+
+        public T branchId(String branchId) {
+            instance.setBranchId(branchId);
+            return (T) this;
+        }
+
+        public T returnUrl(String returnUrl) {
+            instance.setReturnUrl(returnUrl);
+            return (T) this;
+        }
+
+        public T topic(String topic) {
+            instance.setTopic(topic);
+            return (T) this;
+        }
+
+        public T authToken(String authToken) {
+            instance.setAuthToken(authToken);
+            return (T) this;
+        }
+
+        protected void build(AlipayBasicModel alipayBasicModel) {
+            alipayBasicModel.setTenantId(instance.getTenantId());
+            alipayBasicModel.setBranchId(instance.getBranchId());
+            alipayBasicModel.setReturnUrl(instance.getReturnUrl());
+            alipayBasicModel.setTopic(instance.getTopic());
+            alipayBasicModel.setAuthToken(instance.getAuthToken());
+        }
+    }
 }

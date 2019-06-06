@@ -44,32 +44,11 @@ public class AlipayOpenPublicGroupModifyModel extends AlipayBasicModel {
         this.labelRules = labelRules;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicGroupModifyModel instance = new AlipayOpenPublicGroupModifyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder groupId(String groupId) {
@@ -89,11 +68,7 @@ public class AlipayOpenPublicGroupModifyModel extends AlipayBasicModel {
 
         public AlipayOpenPublicGroupModifyModel build() {
             AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel = new AlipayOpenPublicGroupModifyModel();
-            alipayOpenPublicGroupModifyModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicGroupModifyModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicGroupModifyModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicGroupModifyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicGroupModifyModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicGroupModifyModel);
             alipayOpenPublicGroupModifyModel.setGroupId(instance.getGroupId());
             alipayOpenPublicGroupModifyModel.setName(instance.getName());
             alipayOpenPublicGroupModifyModel.setLabelRules(instance.getLabelRules());

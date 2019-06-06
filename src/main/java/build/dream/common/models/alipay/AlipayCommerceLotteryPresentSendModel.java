@@ -71,32 +71,11 @@ public class AlipayCommerceLotteryPresentSendModel extends AlipayBasicModel {
         this.swetyWords = swetyWords;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayCommerceLotteryPresentSendModel instance = new AlipayCommerceLotteryPresentSendModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outOrderNo(String outOrderNo) {
@@ -126,11 +105,7 @@ public class AlipayCommerceLotteryPresentSendModel extends AlipayBasicModel {
 
         public AlipayCommerceLotteryPresentSendModel build() {
             AlipayCommerceLotteryPresentSendModel alipayCommerceLotteryPresentSendModel = new AlipayCommerceLotteryPresentSendModel();
-            alipayCommerceLotteryPresentSendModel.setTenantId(instance.getTenantId());
-            alipayCommerceLotteryPresentSendModel.setBranchId(instance.getBranchId());
-            alipayCommerceLotteryPresentSendModel.setReturnUrl(instance.getReturnUrl());
-            alipayCommerceLotteryPresentSendModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayCommerceLotteryPresentSendModel.setAuthToken(instance.getAuthToken());
+            build(alipayCommerceLotteryPresentSendModel);
             alipayCommerceLotteryPresentSendModel.setOutOrderNo(instance.getOutOrderNo());
             alipayCommerceLotteryPresentSendModel.setAlipayUserId(instance.getAlipayUserId());
             alipayCommerceLotteryPresentSendModel.setLotteryTypeId(instance.getLotteryTypeId());

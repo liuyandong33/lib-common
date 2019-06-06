@@ -140,32 +140,11 @@ public class ZolozAuthenticationCustomerFaceManageCreateModel extends AlipayBasi
         this.extInfo = extInfo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final ZolozAuthenticationCustomerFaceManageCreateModel instance = new ZolozAuthenticationCustomerFaceManageCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder faceType(String faceType) {
@@ -225,11 +204,7 @@ public class ZolozAuthenticationCustomerFaceManageCreateModel extends AlipayBasi
 
         public ZolozAuthenticationCustomerFaceManageCreateModel build() {
             ZolozAuthenticationCustomerFaceManageCreateModel zolozAuthenticationCustomerFaceManageCreateModel = new ZolozAuthenticationCustomerFaceManageCreateModel();
-            zolozAuthenticationCustomerFaceManageCreateModel.setTenantId(instance.getTenantId());
-            zolozAuthenticationCustomerFaceManageCreateModel.setBranchId(instance.getBranchId());
-            zolozAuthenticationCustomerFaceManageCreateModel.setReturnUrl(instance.getReturnUrl());
-            zolozAuthenticationCustomerFaceManageCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            zolozAuthenticationCustomerFaceManageCreateModel.setAuthToken(instance.getAuthToken());
+            build(zolozAuthenticationCustomerFaceManageCreateModel);
             zolozAuthenticationCustomerFaceManageCreateModel.setFaceType(instance.getFaceType());
             zolozAuthenticationCustomerFaceManageCreateModel.setFaceVal(instance.getFaceVal());
             zolozAuthenticationCustomerFaceManageCreateModel.setValidTimes(instance.getValidTimes());

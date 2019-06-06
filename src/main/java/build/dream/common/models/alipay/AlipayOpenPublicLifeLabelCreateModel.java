@@ -32,32 +32,11 @@ public class AlipayOpenPublicLifeLabelCreateModel extends AlipayBasicModel {
         this.dataType = dataType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicLifeLabelCreateModel instance = new AlipayOpenPublicLifeLabelCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder labelName(String labelName) {
@@ -72,11 +51,7 @@ public class AlipayOpenPublicLifeLabelCreateModel extends AlipayBasicModel {
 
         public AlipayOpenPublicLifeLabelCreateModel build() {
             AlipayOpenPublicLifeLabelCreateModel alipayOpenPublicLifeLabelCreateModel = new AlipayOpenPublicLifeLabelCreateModel();
-            alipayOpenPublicLifeLabelCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeLabelCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicLifeLabelCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicLifeLabelCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicLifeLabelCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicLifeLabelCreateModel);
             alipayOpenPublicLifeLabelCreateModel.setLabelName(instance.getLabelName());
             alipayOpenPublicLifeLabelCreateModel.setDataType(instance.getDataType());
             return alipayOpenPublicLifeLabelCreateModel;

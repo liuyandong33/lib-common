@@ -17,32 +17,11 @@ public class KoubeiTradeItemOrderQueryModel extends AlipayBasicModel {
         this.orderNo = orderNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiTradeItemOrderQueryModel instance = new KoubeiTradeItemOrderQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder orderNo(String orderNo) {
@@ -52,11 +31,7 @@ public class KoubeiTradeItemOrderQueryModel extends AlipayBasicModel {
 
         public KoubeiTradeItemOrderQueryModel build() {
             KoubeiTradeItemOrderQueryModel koubeiTradeItemOrderQueryModel = new KoubeiTradeItemOrderQueryModel();
-            koubeiTradeItemOrderQueryModel.setTenantId(instance.getTenantId());
-            koubeiTradeItemOrderQueryModel.setBranchId(instance.getBranchId());
-            koubeiTradeItemOrderQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiTradeItemOrderQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiTradeItemOrderQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiTradeItemOrderQueryModel);
             koubeiTradeItemOrderQueryModel.setOrderNo(instance.getOrderNo());
             return koubeiTradeItemOrderQueryModel;
         }

@@ -80,32 +80,11 @@ public class KoubeiMarketingCampaignRecruitShopQueryModel extends AlipayBasicMod
         this.operatorType = operatorType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingCampaignRecruitShopQueryModel instance = new KoubeiMarketingCampaignRecruitShopQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder campId(String campId) {
@@ -140,11 +119,7 @@ public class KoubeiMarketingCampaignRecruitShopQueryModel extends AlipayBasicMod
 
         public KoubeiMarketingCampaignRecruitShopQueryModel build() {
             KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel = new KoubeiMarketingCampaignRecruitShopQueryModel();
-            koubeiMarketingCampaignRecruitShopQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingCampaignRecruitShopQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingCampaignRecruitShopQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingCampaignRecruitShopQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingCampaignRecruitShopQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingCampaignRecruitShopQueryModel);
             koubeiMarketingCampaignRecruitShopQueryModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageSize(instance.getPageSize());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageNum(instance.getPageNum());

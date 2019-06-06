@@ -70,32 +70,11 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicM
         this.pageSize = pageSize;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingCampaignActivityBatchQueryModel instance = new KoubeiMarketingCampaignActivityBatchQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder queryCriterias(List<QueryCriteria> queryCriterias) {
@@ -125,11 +104,7 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicM
 
         public KoubeiMarketingCampaignActivityBatchQueryModel build() {
             KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel = new KoubeiMarketingCampaignActivityBatchQueryModel();
-            koubeiMarketingCampaignActivityBatchQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingCampaignActivityBatchQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingCampaignActivityBatchQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingCampaignActivityBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingCampaignActivityBatchQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingCampaignActivityBatchQueryModel);
             koubeiMarketingCampaignActivityBatchQueryModel.setQueryCriterias(instance.getQueryCriterias());
             koubeiMarketingCampaignActivityBatchQueryModel.setPageNumber(instance.getPageNumber());
             koubeiMarketingCampaignActivityBatchQueryModel.setOperatorId(instance.getOperatorId());

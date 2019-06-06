@@ -19,32 +19,11 @@ public class AlipayOpenPublicUserFollowQueryModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicUserFollowQueryModel instance = new AlipayOpenPublicUserFollowQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder userId(String userId) {
@@ -54,11 +33,7 @@ public class AlipayOpenPublicUserFollowQueryModel extends AlipayBasicModel {
 
         public AlipayOpenPublicUserFollowQueryModel build() {
             AlipayOpenPublicUserFollowQueryModel alipayOpenPublicUserFollowQueryModel = new AlipayOpenPublicUserFollowQueryModel();
-            alipayOpenPublicUserFollowQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicUserFollowQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicUserFollowQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicUserFollowQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicUserFollowQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicUserFollowQueryModel);
             alipayOpenPublicUserFollowQueryModel.setUserId(instance.getUserId());
             return alipayOpenPublicUserFollowQueryModel;
         }

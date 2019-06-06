@@ -44,32 +44,11 @@ public class KoubeiMarketingDataMessageDeliverModel extends AlipayBasicModel {
         this.extInfo = extInfo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingDataMessageDeliverModel instance = new KoubeiMarketingDataMessageDeliverModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder msgType(String msgType) {
@@ -89,11 +68,7 @@ public class KoubeiMarketingDataMessageDeliverModel extends AlipayBasicModel {
 
         public KoubeiMarketingDataMessageDeliverModel build() {
             KoubeiMarketingDataMessageDeliverModel koubeiMarketingDataMessageDeliverModel = new KoubeiMarketingDataMessageDeliverModel();
-            koubeiMarketingDataMessageDeliverModel.setTenantId(instance.getTenantId());
-            koubeiMarketingDataMessageDeliverModel.setBranchId(instance.getBranchId());
-            koubeiMarketingDataMessageDeliverModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingDataMessageDeliverModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingDataMessageDeliverModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingDataMessageDeliverModel);
             koubeiMarketingDataMessageDeliverModel.setMsgType(instance.getMsgType());
             koubeiMarketingDataMessageDeliverModel.setContent(instance.getContent());
             koubeiMarketingDataMessageDeliverModel.setExtInfo(instance.getExtInfo());

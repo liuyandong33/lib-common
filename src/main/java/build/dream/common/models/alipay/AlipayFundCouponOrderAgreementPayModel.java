@@ -98,32 +98,11 @@ public class AlipayFundCouponOrderAgreementPayModel extends AlipayBasicModel {
         this.extraParam = extraParam;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundCouponOrderAgreementPayModel instance = new AlipayFundCouponOrderAgreementPayModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outOrderNo(String outOrderNo) {
@@ -163,11 +142,7 @@ public class AlipayFundCouponOrderAgreementPayModel extends AlipayBasicModel {
 
         public AlipayFundCouponOrderAgreementPayModel build() {
             AlipayFundCouponOrderAgreementPayModel alipayFundCouponOrderAgreementPayModel = new AlipayFundCouponOrderAgreementPayModel();
-            alipayFundCouponOrderAgreementPayModel.setTenantId(instance.getTenantId());
-            alipayFundCouponOrderAgreementPayModel.setBranchId(instance.getBranchId());
-            alipayFundCouponOrderAgreementPayModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundCouponOrderAgreementPayModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundCouponOrderAgreementPayModel.setAuthToken(instance.getAuthToken());
+            build(alipayFundCouponOrderAgreementPayModel);
             alipayFundCouponOrderAgreementPayModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOrderAgreementPayModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderAgreementPayModel.setOrderTitle(instance.getOrderTitle());

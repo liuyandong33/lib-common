@@ -123,32 +123,11 @@ public class ZolozIdentificationUserWebInitializeModel extends AlipayBasicModel 
         }
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final ZolozIdentificationUserWebInitializeModel instance = new ZolozIdentificationUserWebInitializeModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder bizId(String bizId) {
@@ -173,10 +152,7 @@ public class ZolozIdentificationUserWebInitializeModel extends AlipayBasicModel 
 
         public ZolozIdentificationUserWebInitializeModel build() {
             ZolozIdentificationUserWebInitializeModel zolozIdentificationUserWebInitializeModel = new ZolozIdentificationUserWebInitializeModel();
-            zolozIdentificationUserWebInitializeModel.setTenantId(instance.getTenantId());
-            zolozIdentificationUserWebInitializeModel.setBranchId(instance.getBranchId());
-            zolozIdentificationUserWebInitializeModel.setReturnUrl(instance.getReturnUrl());
-            zolozIdentificationUserWebInitializeModel.setNotifyUrl(instance.getNotifyUrl());
+            super.build(zolozIdentificationUserWebInitializeModel);
             zolozIdentificationUserWebInitializeModel.setAuthToken(instance.getAuthToken());
             zolozIdentificationUserWebInitializeModel.setBizId(instance.getBizId());
             zolozIdentificationUserWebInitializeModel.setIdentityParam(instance.getIdentityParam());

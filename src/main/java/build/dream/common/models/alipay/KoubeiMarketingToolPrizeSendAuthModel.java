@@ -45,32 +45,11 @@ public class KoubeiMarketingToolPrizeSendAuthModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingToolPrizeSendAuthModel instance = new KoubeiMarketingToolPrizeSendAuthModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder reqId(String reqId) {
@@ -90,11 +69,7 @@ public class KoubeiMarketingToolPrizeSendAuthModel extends AlipayBasicModel {
 
         public KoubeiMarketingToolPrizeSendAuthModel build() {
             KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel = new KoubeiMarketingToolPrizeSendAuthModel();
-            koubeiMarketingToolPrizeSendAuthModel.setTenantId(instance.getTenantId());
-            koubeiMarketingToolPrizeSendAuthModel.setBranchId(instance.getBranchId());
-            koubeiMarketingToolPrizeSendAuthModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingToolPrizeSendAuthModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingToolPrizeSendAuthModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingToolPrizeSendAuthModel);
             koubeiMarketingToolPrizeSendAuthModel.setReqId(instance.getReqId());
             koubeiMarketingToolPrizeSendAuthModel.setPrizeId(instance.getPrizeId());
             koubeiMarketingToolPrizeSendAuthModel.setUserId(instance.getUserId());

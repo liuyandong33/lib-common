@@ -32,32 +32,11 @@ public class AlipayMarketingVoucherStockUseModel extends AlipayBasicModel {
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingVoucherStockUseModel instance = new AlipayMarketingVoucherStockUseModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder entityNo(String entityNo) {
@@ -72,11 +51,7 @@ public class AlipayMarketingVoucherStockUseModel extends AlipayBasicModel {
 
         public AlipayMarketingVoucherStockUseModel build() {
             AlipayMarketingVoucherStockUseModel alipayMarketingVoucherStockUseModel = new AlipayMarketingVoucherStockUseModel();
-            alipayMarketingVoucherStockUseModel.setTenantId(instance.getTenantId());
-            alipayMarketingVoucherStockUseModel.setBranchId(instance.getBranchId());
-            alipayMarketingVoucherStockUseModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingVoucherStockUseModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingVoucherStockUseModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingVoucherStockUseModel);
             alipayMarketingVoucherStockUseModel.setEntityNo(instance.getEntityNo());
             alipayMarketingVoucherStockUseModel.setOutBizNo(instance.getOutBizNo());
             return alipayMarketingVoucherStockUseModel;

@@ -188,32 +188,11 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
         this.notifyUri = notifyUri;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingCashLessVoucherTemplateCreateModel instance = new AlipayMarketingCashLessVoucherTemplateCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder voucherType(String voucherType) {
@@ -289,11 +268,7 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
 
         public AlipayMarketingCashLessVoucherTemplateCreateModel build() {
             AlipayMarketingCashLessVoucherTemplateCreateModel alipayMarketingCashLessVoucherTemplateCreateModel = new AlipayMarketingCashLessVoucherTemplateCreateModel();
-            alipayMarketingCashLessVoucherTemplateCreateModel.setTenantId(instance.getTenantId());
-            alipayMarketingCashLessVoucherTemplateCreateModel.setBranchId(instance.getBranchId());
-            alipayMarketingCashLessVoucherTemplateCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingCashLessVoucherTemplateCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingCashLessVoucherTemplateCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingCashLessVoucherTemplateCreateModel);
             alipayMarketingCashLessVoucherTemplateCreateModel.setVoucherType(instance.getVoucherType());
             alipayMarketingCashLessVoucherTemplateCreateModel.setBrandName(instance.getBrandName());
             alipayMarketingCashLessVoucherTemplateCreateModel.setPublishStartTime(instance.getPublishStartTime());

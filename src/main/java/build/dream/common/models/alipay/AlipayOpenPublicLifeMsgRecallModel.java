@@ -19,32 +19,11 @@ public class AlipayOpenPublicLifeMsgRecallModel extends AlipayBasicModel {
         this.messageId = messageId;
     }
 
-    public static class Builder {
+    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
         private final AlipayOpenPublicLifeMsgRecallModel instance = new AlipayOpenPublicLifeMsgRecallModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder messageId(String messageId) {
@@ -54,11 +33,7 @@ public class AlipayOpenPublicLifeMsgRecallModel extends AlipayBasicModel {
 
         public AlipayOpenPublicLifeMsgRecallModel build() {
             AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel = new AlipayOpenPublicLifeMsgRecallModel();
-            alipayOpenPublicLifeMsgRecallModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeMsgRecallModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicLifeMsgRecallModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicLifeMsgRecallModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicLifeMsgRecallModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicLifeMsgRecallModel);
             alipayOpenPublicLifeMsgRecallModel.setMessageId(instance.getMessageId());
             return alipayOpenPublicLifeMsgRecallModel;
         }

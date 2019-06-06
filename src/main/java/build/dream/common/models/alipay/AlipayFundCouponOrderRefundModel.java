@@ -60,32 +60,11 @@ public class AlipayFundCouponOrderRefundModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundCouponOrderRefundModel instance = new AlipayFundCouponOrderRefundModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder authNo(String authNo) {
@@ -110,11 +89,7 @@ public class AlipayFundCouponOrderRefundModel extends AlipayBasicModel {
 
         public AlipayFundCouponOrderRefundModel build() {
             AlipayFundCouponOrderRefundModel alipayFundCouponOrderRefundModel = new AlipayFundCouponOrderRefundModel();
-            alipayFundCouponOrderRefundModel.setTenantId(instance.getTenantId());
-            alipayFundCouponOrderRefundModel.setBranchId(instance.getBranchId());
-            alipayFundCouponOrderRefundModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundCouponOrderRefundModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundCouponOrderRefundModel.setAuthToken(instance.getAuthToken());
+            build(alipayFundCouponOrderRefundModel);
             alipayFundCouponOrderRefundModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOrderRefundModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderRefundModel.setAmount(instance.getAmount());

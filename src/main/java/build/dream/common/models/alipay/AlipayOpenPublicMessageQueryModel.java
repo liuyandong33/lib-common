@@ -20,32 +20,11 @@ public class AlipayOpenPublicMessageQueryModel extends AlipayBasicModel {
         this.messageIds = messageIds;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMessageQueryModel instance = new AlipayOpenPublicMessageQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder messageIds(List<String> messageIds) {
@@ -55,11 +34,7 @@ public class AlipayOpenPublicMessageQueryModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMessageQueryModel build() {
             AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel = new AlipayOpenPublicMessageQueryModel();
-            alipayOpenPublicMessageQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMessageQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMessageQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMessageQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMessageQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMessageQueryModel);
             alipayOpenPublicMessageQueryModel.setMessageIds(instance.getMessageIds());
             return alipayOpenPublicMessageQueryModel;
         }

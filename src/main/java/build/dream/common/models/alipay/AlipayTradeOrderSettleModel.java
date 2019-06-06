@@ -59,32 +59,11 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
         this.operatorId = operatorId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayTradeOrderSettleModel instance = new AlipayTradeOrderSettleModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outRequestNo(String outRequestNo) {
@@ -109,11 +88,7 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
 
         public AlipayTradeOrderSettleModel build() {
             AlipayTradeOrderSettleModel alipayTradeOrderSettleModel = new AlipayTradeOrderSettleModel();
-            alipayTradeOrderSettleModel.setTenantId(instance.getTenantId());
-            alipayTradeOrderSettleModel.setBranchId(instance.getBranchId());
-            alipayTradeOrderSettleModel.setReturnUrl(instance.getReturnUrl());
-            alipayTradeOrderSettleModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayTradeOrderSettleModel.setAuthToken(instance.getAuthToken());
+            build(alipayTradeOrderSettleModel);
             alipayTradeOrderSettleModel.setOutRequestNo(instance.getOutRequestNo());
             alipayTradeOrderSettleModel.setTradeNo(instance.getTradeNo());
             alipayTradeOrderSettleModel.setRoyaltyParameters(instance.getRoyaltyParameters());

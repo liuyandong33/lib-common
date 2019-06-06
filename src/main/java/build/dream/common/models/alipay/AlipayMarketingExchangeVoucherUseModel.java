@@ -43,32 +43,11 @@ public class AlipayMarketingExchangeVoucherUseModel extends AlipayBasicModel {
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingExchangeVoucherUseModel instance = new AlipayMarketingExchangeVoucherUseModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder voucherId(String voucherId) {
@@ -88,11 +67,7 @@ public class AlipayMarketingExchangeVoucherUseModel extends AlipayBasicModel {
 
         public AlipayMarketingExchangeVoucherUseModel build() {
             AlipayMarketingExchangeVoucherUseModel alipayMarketingExchangeVoucherUseModel = new AlipayMarketingExchangeVoucherUseModel();
-            alipayMarketingExchangeVoucherUseModel.setTenantId(instance.getTenantId());
-            alipayMarketingExchangeVoucherUseModel.setBranchId(instance.getBranchId());
-            alipayMarketingExchangeVoucherUseModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingExchangeVoucherUseModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingExchangeVoucherUseModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingExchangeVoucherUseModel);
             alipayMarketingExchangeVoucherUseModel.setVoucherId(instance.getVoucherId());
             alipayMarketingExchangeVoucherUseModel.setUserId(instance.getUserId());
             alipayMarketingExchangeVoucherUseModel.setOutBizNo(instance.getOutBizNo());

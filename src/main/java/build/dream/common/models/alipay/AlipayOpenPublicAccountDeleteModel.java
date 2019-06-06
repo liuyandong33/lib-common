@@ -28,32 +28,11 @@ public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
         this.bindAccountNo = bindAccountNo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicAccountDeleteModel instance = new AlipayOpenPublicAccountDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder agreementId(String agreementId) {
@@ -68,11 +47,7 @@ public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
 
         public AlipayOpenPublicAccountDeleteModel build() {
             AlipayOpenPublicAccountDeleteModel alipayOpenPublicAccountDeleteModel = new AlipayOpenPublicAccountDeleteModel();
-            alipayOpenPublicAccountDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicAccountDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicAccountDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicAccountDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicAccountDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicAccountDeleteModel);
             alipayOpenPublicAccountDeleteModel.setAgreementId(instance.getAgreementId());
             alipayOpenPublicAccountDeleteModel.setBindAccountNo(instance.getBindAccountNo());
             return alipayOpenPublicAccountDeleteModel;

@@ -31,32 +31,11 @@ public class KoubeiTradeTicketTicketCodeQueryModel extends AlipayBasicModel {
         this.shopId = shopId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiTradeTicketTicketCodeQueryModel instance = new KoubeiTradeTicketTicketCodeQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder ticketCode(String ticketCode) {
@@ -71,11 +50,7 @@ public class KoubeiTradeTicketTicketCodeQueryModel extends AlipayBasicModel {
 
         public KoubeiTradeTicketTicketCodeQueryModel build() {
             KoubeiTradeTicketTicketCodeQueryModel koubeiTradeTicketTicketCodeQueryModel = new KoubeiTradeTicketTicketCodeQueryModel();
-            koubeiTradeTicketTicketCodeQueryModel.setTenantId(instance.getTenantId());
-            koubeiTradeTicketTicketCodeQueryModel.setBranchId(instance.getBranchId());
-            koubeiTradeTicketTicketCodeQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiTradeTicketTicketCodeQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiTradeTicketTicketCodeQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiTradeTicketTicketCodeQueryModel);
             koubeiTradeTicketTicketCodeQueryModel.setTicketCode(instance.getTicketCode());
             koubeiTradeTicketTicketCodeQueryModel.setShopId(instance.getShopId());
             return koubeiTradeTicketTicketCodeQueryModel;

@@ -35,32 +35,11 @@ public class AlipayOpenPublicPersonalizedExtensionCreateModel extends AlipayBasi
         this.labelRules = labelRules;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicPersonalizedExtensionCreateModel instance = new AlipayOpenPublicPersonalizedExtensionCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder areas(List<Area> areas) {
@@ -75,11 +54,7 @@ public class AlipayOpenPublicPersonalizedExtensionCreateModel extends AlipayBasi
 
         public AlipayOpenPublicPersonalizedExtensionCreateModel build() {
             AlipayOpenPublicPersonalizedExtensionCreateModel alipayOpenPublicPersonalizedExtensionCreateModel = new AlipayOpenPublicPersonalizedExtensionCreateModel();
-            alipayOpenPublicPersonalizedExtensionCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicPersonalizedExtensionCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicPersonalizedExtensionCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicPersonalizedExtensionCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicPersonalizedExtensionCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicPersonalizedExtensionCreateModel);
             alipayOpenPublicPersonalizedExtensionCreateModel.setAreas(instance.getAreas());
             alipayOpenPublicPersonalizedExtensionCreateModel.setLabelRules(instance.getLabelRules());
             return alipayOpenPublicPersonalizedExtensionCreateModel;

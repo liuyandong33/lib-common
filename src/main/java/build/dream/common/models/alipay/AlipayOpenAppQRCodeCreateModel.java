@@ -44,32 +44,11 @@ public class AlipayOpenAppQRCodeCreateModel extends AlipayBasicModel {
         this.describe = describe;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenAppQRCodeCreateModel instance = new AlipayOpenAppQRCodeCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder urlParam(String urlParam) {
@@ -89,11 +68,7 @@ public class AlipayOpenAppQRCodeCreateModel extends AlipayBasicModel {
 
         public AlipayOpenAppQRCodeCreateModel build() {
             AlipayOpenAppQRCodeCreateModel alipayOpenAppQRCodeCreateModel = new AlipayOpenAppQRCodeCreateModel();
-            alipayOpenAppQRCodeCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenAppQRCodeCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenAppQRCodeCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenAppQRCodeCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenAppQRCodeCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenAppQRCodeCreateModel);
             alipayOpenAppQRCodeCreateModel.setUrlParam(instance.getUrlParam());
             alipayOpenAppQRCodeCreateModel.setQueryParam(instance.getQueryParam());
             alipayOpenAppQRCodeCreateModel.setDescribe(instance.getDescribe());

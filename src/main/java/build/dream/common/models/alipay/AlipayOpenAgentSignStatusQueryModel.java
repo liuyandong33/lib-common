@@ -15,32 +15,11 @@ public class AlipayOpenAgentSignStatusQueryModel extends AlipayBasicModel {
         this.productCodes = productCodes;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenAgentSignStatusQueryModel instance = new AlipayOpenAgentSignStatusQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder productCodes(List<String> productCodes) {
@@ -50,11 +29,7 @@ public class AlipayOpenAgentSignStatusQueryModel extends AlipayBasicModel {
 
         public AlipayOpenAgentSignStatusQueryModel build() {
             AlipayOpenAgentSignStatusQueryModel alipayOpenAgentSignStatusQueryModel = new AlipayOpenAgentSignStatusQueryModel();
-            alipayOpenAgentSignStatusQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenAgentSignStatusQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenAgentSignStatusQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenAgentSignStatusQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenAgentSignStatusQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenAgentSignStatusQueryModel);
             alipayOpenAgentSignStatusQueryModel.setProductCodes(instance.getProductCodes());
             return alipayOpenAgentSignStatusQueryModel;
         }

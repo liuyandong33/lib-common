@@ -53,32 +53,11 @@ public class AlipayOpenPublicQrCodeCreateModel extends AlipayBasicModel {
         this.showLogo = showLogo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicQrCodeCreateModel instance = new AlipayOpenPublicQrCodeCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder codeInfo(CodeInfo codeInfo) {
@@ -103,11 +82,7 @@ public class AlipayOpenPublicQrCodeCreateModel extends AlipayBasicModel {
 
         public AlipayOpenPublicQrCodeCreateModel build() {
             AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel = new AlipayOpenPublicQrCodeCreateModel();
-            alipayOpenPublicQrCodeCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicQrCodeCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicQrCodeCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicQrCodeCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicQrCodeCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicQrCodeCreateModel);
             alipayOpenPublicQrCodeCreateModel.setCodeInfo(instance.getCodeInfo());
             alipayOpenPublicQrCodeCreateModel.setCodeType(instance.getCodeType());
             alipayOpenPublicQrCodeCreateModel.setExpireSecond(instance.getExpireSecond());

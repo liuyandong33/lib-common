@@ -40,32 +40,11 @@ public class AlipayPromoRuleCenterRuleAnalyzeModel extends AlipayBasicModel {
         this.bizId = bizId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayPromoRuleCenterRuleAnalyzeModel instance = new AlipayPromoRuleCenterRuleAnalyzeModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder userId(String userId) {
@@ -85,11 +64,7 @@ public class AlipayPromoRuleCenterRuleAnalyzeModel extends AlipayBasicModel {
 
         public AlipayPromoRuleCenterRuleAnalyzeModel build() {
             AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel = new AlipayPromoRuleCenterRuleAnalyzeModel();
-            alipayPromoRuleCenterRuleAnalyzeModel.setTenantId(instance.getTenantId());
-            alipayPromoRuleCenterRuleAnalyzeModel.setBranchId(instance.getBranchId());
-            alipayPromoRuleCenterRuleAnalyzeModel.setReturnUrl(instance.getReturnUrl());
-            alipayPromoRuleCenterRuleAnalyzeModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayPromoRuleCenterRuleAnalyzeModel.setAuthToken(instance.getAuthToken());
+            build(alipayPromoRuleCenterRuleAnalyzeModel);
             alipayPromoRuleCenterRuleAnalyzeModel.setUserId(instance.getUserId());
             alipayPromoRuleCenterRuleAnalyzeModel.setRuleUuid(instance.getRuleUuid());
             alipayPromoRuleCenterRuleAnalyzeModel.setBizId(instance.getBizId());

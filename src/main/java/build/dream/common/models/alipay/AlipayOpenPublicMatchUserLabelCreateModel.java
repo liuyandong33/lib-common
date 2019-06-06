@@ -56,32 +56,11 @@ public class AlipayOpenPublicMatchUserLabelCreateModel extends AlipayBasicModel 
         }
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMatchUserLabelCreateModel instance = new AlipayOpenPublicMatchUserLabelCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder matchers(List<Matcher> matchers) {
@@ -101,11 +80,7 @@ public class AlipayOpenPublicMatchUserLabelCreateModel extends AlipayBasicModel 
 
         public AlipayOpenPublicMatchUserLabelCreateModel build() {
             AlipayOpenPublicMatchUserLabelCreateModel alipayOpenPublicMatchUserLabelCreateModel = new AlipayOpenPublicMatchUserLabelCreateModel();
-            alipayOpenPublicMatchUserLabelCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMatchUserLabelCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMatchUserLabelCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMatchUserLabelCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMatchUserLabelCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMatchUserLabelCreateModel);
             alipayOpenPublicMatchUserLabelCreateModel.setMatchers(instance.getMatchers());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelId(instance.getLabelId());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelValue(instance.getLabelValue());

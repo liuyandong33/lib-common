@@ -45,32 +45,11 @@ public class AlipayUserTwoStageCommonUseModel extends AlipayBasicModel {
         this.payPid = payPid;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserTwoStageCommonUseModel instance = new AlipayUserTwoStageCommonUseModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder dynamicId(String dynamicId) {
@@ -90,11 +69,7 @@ public class AlipayUserTwoStageCommonUseModel extends AlipayBasicModel {
 
         public AlipayUserTwoStageCommonUseModel build() {
             AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel = new AlipayUserTwoStageCommonUseModel();
-            alipayUserTwoStageCommonUseModel.setTenantId(instance.getTenantId());
-            alipayUserTwoStageCommonUseModel.setBranchId(instance.getBranchId());
-            alipayUserTwoStageCommonUseModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserTwoStageCommonUseModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserTwoStageCommonUseModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserTwoStageCommonUseModel);
             alipayUserTwoStageCommonUseModel.setDynamicId(instance.getDynamicId());
             alipayUserTwoStageCommonUseModel.setSenceNo(instance.getSenceNo());
             alipayUserTwoStageCommonUseModel.setPayPid(instance.getPayPid());

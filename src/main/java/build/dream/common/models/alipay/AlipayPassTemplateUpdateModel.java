@@ -32,32 +32,11 @@ public class AlipayPassTemplateUpdateModel extends AlipayBasicModel {
         this.tplContent = tplContent;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayPassTemplateUpdateModel instance = new AlipayPassTemplateUpdateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder tplId(String tplId) {
@@ -72,11 +51,7 @@ public class AlipayPassTemplateUpdateModel extends AlipayBasicModel {
 
         public AlipayPassTemplateUpdateModel build() {
             AlipayPassTemplateUpdateModel alipayPassTemplateUpdateModel = new AlipayPassTemplateUpdateModel();
-            alipayPassTemplateUpdateModel.setTenantId(instance.getTenantId());
-            alipayPassTemplateUpdateModel.setBranchId(instance.getBranchId());
-            alipayPassTemplateUpdateModel.setReturnUrl(instance.getReturnUrl());
-            alipayPassTemplateUpdateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayPassTemplateUpdateModel.setAuthToken(instance.getAuthToken());
+            build(alipayPassTemplateUpdateModel);
             alipayPassTemplateUpdateModel.setTplId(instance.getTplId());
             alipayPassTemplateUpdateModel.setTplContent(instance.getTplContent());
             return alipayPassTemplateUpdateModel;

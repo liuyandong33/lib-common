@@ -19,17 +19,11 @@ public class AlipayOpenPublicGroupDeleteModel extends AlipayBasicModel {
         this.groupId = groupId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicGroupDeleteModel instance = new AlipayOpenPublicGroupDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder groupId(String groupId) {
@@ -37,28 +31,9 @@ public class AlipayOpenPublicGroupDeleteModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
-        }
-
         public AlipayOpenPublicGroupDeleteModel build() {
             AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel = new AlipayOpenPublicGroupDeleteModel();
-            alipayOpenPublicGroupDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicGroupDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicGroupDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicGroupDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicGroupDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicGroupDeleteModel);
             alipayOpenPublicGroupDeleteModel.setGroupId(instance.getGroupId());
             return alipayOpenPublicGroupDeleteModel;
         }

@@ -41,32 +41,11 @@ public class AlipayTradeCancelModel extends AlipayBasicModel {
         ValidateUtils.isTrue(StringUtils.isNotBlank(outTradeNo) || StringUtils.isNotBlank(tradeNo), "参数outTradeNo和tradeNo不能同时为空！");
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayTradeCancelModel instance = new AlipayTradeCancelModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outTradeNo(String outTradeNo) {
@@ -81,11 +60,7 @@ public class AlipayTradeCancelModel extends AlipayBasicModel {
 
         public AlipayTradeCancelModel build() {
             AlipayTradeCancelModel alipayTradeCancelModel = new AlipayTradeCancelModel();
-            alipayTradeCancelModel.setTenantId(instance.getTenantId());
-            alipayTradeCancelModel.setBranchId(instance.getBranchId());
-            alipayTradeCancelModel.setReturnUrl(instance.getReturnUrl());
-            alipayTradeCancelModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayTradeCancelModel.setAuthToken(instance.getAuthToken());
+            build(alipayTradeCancelModel);
             alipayTradeCancelModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeCancelModel.setTradeNo(instance.getTradeNo());
             return alipayTradeCancelModel;

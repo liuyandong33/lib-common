@@ -19,41 +19,21 @@ public class AlipayOpenPublicLifeLabelDeleteModel extends AlipayBasicModel {
         this.labelId = labelId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicLifeLabelDeleteModel instance = new AlipayOpenPublicLifeLabelDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
+        public Builder labelId(String labelId) {
+            instance.setLabelId(labelId);
             return this;
         }
 
         public AlipayOpenPublicLifeLabelDeleteModel build() {
             AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel = new AlipayOpenPublicLifeLabelDeleteModel();
-            alipayOpenPublicLifeLabelDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicLifeLabelDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicLifeLabelDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicLifeLabelDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicLifeLabelDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicLifeLabelDeleteModel);
             alipayOpenPublicLifeLabelDeleteModel.setLabelId(instance.getLabelId());
             return alipayOpenPublicLifeLabelDeleteModel;
         }

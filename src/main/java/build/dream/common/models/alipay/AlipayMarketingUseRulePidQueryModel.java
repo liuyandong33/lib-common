@@ -17,32 +17,11 @@ public class AlipayMarketingUseRulePidQueryModel extends AlipayBasicModel {
         this.pid = pid;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingUseRulePidQueryModel instance = new AlipayMarketingUseRulePidQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder pid(String pid) {
@@ -52,11 +31,7 @@ public class AlipayMarketingUseRulePidQueryModel extends AlipayBasicModel {
 
         public AlipayMarketingUseRulePidQueryModel build() {
             AlipayMarketingUseRulePidQueryModel alipayMarketingUseRulePidQueryModel = new AlipayMarketingUseRulePidQueryModel();
-            alipayMarketingUseRulePidQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingUseRulePidQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingUseRulePidQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingUseRulePidQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingUseRulePidQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingUseRulePidQueryModel);
             alipayMarketingUseRulePidQueryModel.setPid(instance.getPid());
             return alipayMarketingUseRulePidQueryModel;
         }

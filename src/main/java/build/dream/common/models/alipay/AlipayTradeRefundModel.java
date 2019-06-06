@@ -155,32 +155,11 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         this.orgPid = orgPid;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayTradeRefundModel instance = new AlipayTradeRefundModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outTradeNo(String outTradeNo) {
@@ -240,11 +219,7 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
 
         public AlipayTradeRefundModel build() {
             AlipayTradeRefundModel alipayTradeRefundModel = new AlipayTradeRefundModel();
-            alipayTradeRefundModel.setTenantId(instance.getTenantId());
-            alipayTradeRefundModel.setBranchId(instance.getBranchId());
-            alipayTradeRefundModel.setReturnUrl(instance.getReturnUrl());
-            alipayTradeRefundModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayTradeRefundModel.setAuthToken(instance.getAuthToken());
+            build(alipayTradeRefundModel);
             alipayTradeRefundModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeRefundModel.setTradeNo(instance.getTradeNo());
             alipayTradeRefundModel.setRefundAmount(instance.getRefundAmount());

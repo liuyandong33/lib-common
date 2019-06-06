@@ -125,32 +125,11 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
         this.sendFreqency = sendFreqency;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingCampaignCashCreateModel instance = new AlipayMarketingCampaignCashCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder couponName(String couponName) {
@@ -200,11 +179,7 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
 
         public AlipayMarketingCampaignCashCreateModel build() {
             AlipayMarketingCampaignCashCreateModel alipayMarketingCampaignCashCreateModel = new AlipayMarketingCampaignCashCreateModel();
-            alipayMarketingCampaignCashCreateModel.setTenantId(instance.getTenantId());
-            alipayMarketingCampaignCashCreateModel.setBranchId(instance.getBranchId());
-            alipayMarketingCampaignCashCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingCampaignCashCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingCampaignCashCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingCampaignCashCreateModel);
             alipayMarketingCampaignCashCreateModel.setCouponName(instance.getCouponName());
             alipayMarketingCampaignCashCreateModel.setPrizeType(instance.getPrizeType());
             alipayMarketingCampaignCashCreateModel.setTotalMoney(instance.getTotalMoney());

@@ -140,32 +140,11 @@ public class ZolozAuthenticationCustomerFaceManageDeleteModel extends AlipayBasi
         this.extInfo = extInfo;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final ZolozAuthenticationCustomerFaceManageDeleteModel instance = new ZolozAuthenticationCustomerFaceManageDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder faceType(String faceType) {
@@ -225,11 +204,7 @@ public class ZolozAuthenticationCustomerFaceManageDeleteModel extends AlipayBasi
 
         public ZolozAuthenticationCustomerFaceManageDeleteModel build() {
             ZolozAuthenticationCustomerFaceManageDeleteModel zolozAuthenticationCustomerFaceManageDeleteModel = new ZolozAuthenticationCustomerFaceManageDeleteModel();
-            zolozAuthenticationCustomerFaceManageDeleteModel.setTenantId(instance.getTenantId());
-            zolozAuthenticationCustomerFaceManageDeleteModel.setBranchId(instance.getBranchId());
-            zolozAuthenticationCustomerFaceManageDeleteModel.setReturnUrl(instance.getReturnUrl());
-            zolozAuthenticationCustomerFaceManageDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            zolozAuthenticationCustomerFaceManageDeleteModel.setAuthToken(instance.getAuthToken());
+            build(zolozAuthenticationCustomerFaceManageDeleteModel);
             zolozAuthenticationCustomerFaceManageDeleteModel.setFaceType(instance.getFaceType());
             zolozAuthenticationCustomerFaceManageDeleteModel.setFaceVal(instance.getFaceVal());
             zolozAuthenticationCustomerFaceManageDeleteModel.setValidTimes(instance.getValidTimes());

@@ -46,32 +46,11 @@ public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel 
         this.requestId = requestId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingCardActivateFormQueryModel instance = new AlipayMarketingCardActivateFormQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder bizType(String bizType) {
@@ -91,11 +70,7 @@ public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel 
 
         public AlipayMarketingCardActivateFormQueryModel build() {
             AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel = new AlipayMarketingCardActivateFormQueryModel();
-            alipayMarketingCardActivateFormQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingCardActivateFormQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingCardActivateFormQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingCardActivateFormQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingCardActivateFormQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingCardActivateFormQueryModel);
             alipayMarketingCardActivateFormQueryModel.setBizType(instance.getBizType());
             alipayMarketingCardActivateFormQueryModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCardActivateFormQueryModel.setRequestId(instance.getRequestId());

@@ -45,32 +45,11 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
         this.name = name;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserAuthZhiMaOrgIdentityApplyModel instance = new AlipayUserAuthZhiMaOrgIdentityApplyModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder certType(String certType) {
@@ -90,11 +69,7 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
 
         public AlipayUserAuthZhiMaOrgIdentityApplyModel build() {
             AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel = new AlipayUserAuthZhiMaOrgIdentityApplyModel();
-            alipayUserAuthZhiMaOrgIdentityApplyModel.setTenantId(instance.getTenantId());
-            alipayUserAuthZhiMaOrgIdentityApplyModel.setBranchId(instance.getBranchId());
-            alipayUserAuthZhiMaOrgIdentityApplyModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserAuthZhiMaOrgIdentityApplyModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserAuthZhiMaOrgIdentityApplyModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserAuthZhiMaOrgIdentityApplyModel);
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertType(instance.getCertType());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertNo(instance.getCertNo());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setName(instance.getName());

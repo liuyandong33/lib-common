@@ -32,32 +32,11 @@ public class AlipayOpenPublicArticleSummaryDataBatchQueryModel extends AlipayBas
         this.endDate = endDate;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicArticleSummaryDataBatchQueryModel instance = new AlipayOpenPublicArticleSummaryDataBatchQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder beginDate(String beginDate) {
@@ -72,11 +51,7 @@ public class AlipayOpenPublicArticleSummaryDataBatchQueryModel extends AlipayBas
 
         public AlipayOpenPublicArticleSummaryDataBatchQueryModel build() {
             AlipayOpenPublicArticleSummaryDataBatchQueryModel alipayOpenPublicArticleSummaryDataBatchQueryModel = new AlipayOpenPublicArticleSummaryDataBatchQueryModel();
-            alipayOpenPublicArticleSummaryDataBatchQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicArticleSummaryDataBatchQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicArticleSummaryDataBatchQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicArticleSummaryDataBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicArticleSummaryDataBatchQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicArticleSummaryDataBatchQueryModel);
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setBeginDate(instance.getBeginDate());
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setEndDate(instance.getEndDate());
             return alipayOpenPublicArticleSummaryDataBatchQueryModel;

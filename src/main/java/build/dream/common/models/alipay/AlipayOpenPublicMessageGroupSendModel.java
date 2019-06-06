@@ -65,32 +65,11 @@ public class AlipayOpenPublicMessageGroupSendModel extends AlipayBasicModel {
         this.articles = articles;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMessageGroupSendModel instance = new AlipayOpenPublicMessageGroupSendModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder groupId(String groupId) {
@@ -120,11 +99,7 @@ public class AlipayOpenPublicMessageGroupSendModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMessageGroupSendModel build() {
             AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel = new AlipayOpenPublicMessageGroupSendModel();
-            alipayOpenPublicMessageGroupSendModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMessageGroupSendModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMessageGroupSendModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMessageGroupSendModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMessageGroupSendModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMessageGroupSendModel);
             alipayOpenPublicMessageGroupSendModel.setGroupId(instance.getGroupId());
             alipayOpenPublicMessageGroupSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageGroupSendModel.setText(instance.getText());

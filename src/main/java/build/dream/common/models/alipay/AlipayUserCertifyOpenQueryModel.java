@@ -19,32 +19,11 @@ public class AlipayUserCertifyOpenQueryModel extends AlipayBasicModel {
         this.certifyId = certifyId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserCertifyOpenQueryModel instance = new AlipayUserCertifyOpenQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder certifyId(String certifyId) {
@@ -54,11 +33,8 @@ public class AlipayUserCertifyOpenQueryModel extends AlipayBasicModel {
 
         public AlipayUserCertifyOpenQueryModel build() {
             AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel = new AlipayUserCertifyOpenQueryModel();
-            alipayUserCertifyOpenQueryModel.setTenantId(instance.getTenantId());
-            alipayUserCertifyOpenQueryModel.setBranchId(instance.getBranchId());
-            alipayUserCertifyOpenQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserCertifyOpenQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserCertifyOpenQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserCertifyOpenQueryModel);
+            alipayUserCertifyOpenQueryModel.setCertifyId(instance.getCertifyId());
             return alipayUserCertifyOpenQueryModel;
         }
     }

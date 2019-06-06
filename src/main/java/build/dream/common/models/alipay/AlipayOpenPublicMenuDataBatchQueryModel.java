@@ -32,32 +32,11 @@ public class AlipayOpenPublicMenuDataBatchQueryModel extends AlipayBasicModel {
         this.endDate = endDate;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicMenuDataBatchQueryModel instance = new AlipayOpenPublicMenuDataBatchQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder beginDate(String beginDate) {
@@ -72,11 +51,7 @@ public class AlipayOpenPublicMenuDataBatchQueryModel extends AlipayBasicModel {
 
         public AlipayOpenPublicMenuDataBatchQueryModel build() {
             AlipayOpenPublicMenuDataBatchQueryModel alipayOpenPublicMenuDataBatchQueryModel = new AlipayOpenPublicMenuDataBatchQueryModel();
-            alipayOpenPublicMenuDataBatchQueryModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicMenuDataBatchQueryModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicMenuDataBatchQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicMenuDataBatchQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicMenuDataBatchQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicMenuDataBatchQueryModel);
             alipayOpenPublicMenuDataBatchQueryModel.setBeginDate(instance.getBeginDate());
             alipayOpenPublicMenuDataBatchQueryModel.setEndDate(instance.getEndDate());
             return alipayOpenPublicMenuDataBatchQueryModel;

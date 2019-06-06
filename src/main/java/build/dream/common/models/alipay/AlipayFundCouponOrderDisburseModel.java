@@ -133,32 +133,11 @@ public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
         this.extraParam = extraParam;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayFundCouponOrderDisburseModel instance = new AlipayFundCouponOrderDisburseModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outOrderNo(String outOrderNo) {
@@ -213,11 +192,7 @@ public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
 
         public AlipayFundCouponOrderDisburseModel build() {
             AlipayFundCouponOrderDisburseModel alipayFundCouponOrderDisburseModel = new AlipayFundCouponOrderDisburseModel();
-            alipayFundCouponOrderDisburseModel.setTenantId(instance.getTenantId());
-            alipayFundCouponOrderDisburseModel.setBranchId(instance.getBranchId());
-            alipayFundCouponOrderDisburseModel.setReturnUrl(instance.getReturnUrl());
-            alipayFundCouponOrderDisburseModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayFundCouponOrderDisburseModel.setAuthToken(instance.getAuthToken());
+            build(alipayFundCouponOrderDisburseModel);
             alipayFundCouponOrderDisburseModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOrderDisburseModel.setDeductAuthNo(instance.getDeductAuthNo());
             alipayFundCouponOrderDisburseModel.setDeductOutOrderNo(instance.getDeductOutOrderNo());

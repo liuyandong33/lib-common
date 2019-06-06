@@ -68,32 +68,11 @@ public class AlipayUserCharityRecordExistQueryModel extends AlipayBasicModel {
         this.endTime = endTime;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserCharityRecordExistQueryModel instance = new AlipayUserCharityRecordExistQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder partnerId(String partnerId) {
@@ -123,11 +102,7 @@ public class AlipayUserCharityRecordExistQueryModel extends AlipayBasicModel {
 
         public AlipayUserCharityRecordExistQueryModel build() {
             AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel = new AlipayUserCharityRecordExistQueryModel();
-            alipayUserCharityRecordExistQueryModel.setTenantId(instance.getTenantId());
-            alipayUserCharityRecordExistQueryModel.setBranchId(instance.getBranchId());
-            alipayUserCharityRecordExistQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserCharityRecordExistQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserCharityRecordExistQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserCharityRecordExistQueryModel);
             alipayUserCharityRecordExistQueryModel.setPartnerId(instance.getPartnerId());
             alipayUserCharityRecordExistQueryModel.setUserId(instance.getUserId());
             alipayUserCharityRecordExistQueryModel.setBizType(instance.getBizType());

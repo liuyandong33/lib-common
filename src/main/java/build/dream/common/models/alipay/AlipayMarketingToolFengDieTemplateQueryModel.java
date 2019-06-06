@@ -28,32 +28,11 @@ public class AlipayMarketingToolFengDieTemplateQueryModel extends AlipayBasicMod
         this.pageSize = pageSize;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingToolFengDieTemplateQueryModel instance = new AlipayMarketingToolFengDieTemplateQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder pageNumber(String pageNumber) {
@@ -68,11 +47,7 @@ public class AlipayMarketingToolFengDieTemplateQueryModel extends AlipayBasicMod
 
         public AlipayMarketingToolFengDieTemplateQueryModel build() {
             AlipayMarketingToolFengDieTemplateQueryModel alipayMarketingToolFengDieTemplateQueryModel = new AlipayMarketingToolFengDieTemplateQueryModel();
-            alipayMarketingToolFengDieTemplateQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingToolFengDieTemplateQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingToolFengDieTemplateQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingToolFengDieTemplateQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingToolFengDieTemplateQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingToolFengDieTemplateQueryModel);
             alipayMarketingToolFengDieTemplateQueryModel.setPageNumber(instance.getPageNumber());
             alipayMarketingToolFengDieTemplateQueryModel.setPageSize(instance.getPageSize());
             return alipayMarketingToolFengDieTemplateQueryModel;

@@ -414,8 +414,12 @@ public class AlipayTradeWapPayModel extends AlipayBasicModel {
         super.validateAndThrow();
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayTradeWapPayModel instance = new AlipayTradeWapPayModel();
+
+        public Builder() {
+            setAlipayBasicModel(instance);
+        }
 
         public Builder body(String body) {
             instance.setBody(body);
@@ -504,6 +508,7 @@ public class AlipayTradeWapPayModel extends AlipayBasicModel {
 
         public AlipayTradeWapPayModel build() {
             AlipayTradeWapPayModel alipayTradeWapPayModel = new AlipayTradeWapPayModel();
+            build(alipayTradeWapPayModel);
             alipayTradeWapPayModel.setBody(instance.getBody());
             alipayTradeWapPayModel.setSubject(instance.getSubject());
             alipayTradeWapPayModel.setOutTradeNo(instance.getOutTradeNo());

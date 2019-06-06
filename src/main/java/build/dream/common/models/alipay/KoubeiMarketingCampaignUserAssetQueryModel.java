@@ -61,32 +61,11 @@ public class KoubeiMarketingCampaignUserAssetQueryModel extends AlipayBasicModel
         this.pageSize = pageSize;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingCampaignUserAssetQueryModel instance = new KoubeiMarketingCampaignUserAssetQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder scope(String scope) {
@@ -111,11 +90,7 @@ public class KoubeiMarketingCampaignUserAssetQueryModel extends AlipayBasicModel
 
         public KoubeiMarketingCampaignUserAssetQueryModel build() {
             KoubeiMarketingCampaignUserAssetQueryModel koubeiMarketingCampaignUserAssetQueryModel = new KoubeiMarketingCampaignUserAssetQueryModel();
-            koubeiMarketingCampaignUserAssetQueryModel.setTenantId(instance.getTenantId());
-            koubeiMarketingCampaignUserAssetQueryModel.setBranchId(instance.getBranchId());
-            koubeiMarketingCampaignUserAssetQueryModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingCampaignUserAssetQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingCampaignUserAssetQueryModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingCampaignUserAssetQueryModel);
             koubeiMarketingCampaignUserAssetQueryModel.setScope(instance.getScope());
             koubeiMarketingCampaignUserAssetQueryModel.setShopId(instance.getShopId());
             koubeiMarketingCampaignUserAssetQueryModel.setPageNum(instance.getPageNum());

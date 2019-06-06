@@ -80,32 +80,11 @@ public class KoubeiMarketingCampaignActivityOfflineModel extends AlipayBasicMode
         this.operatorType = operatorType;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final KoubeiMarketingCampaignActivityOfflineModel instance = new KoubeiMarketingCampaignActivityOfflineModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder outBizNo(String outBizNo) {
@@ -140,11 +119,7 @@ public class KoubeiMarketingCampaignActivityOfflineModel extends AlipayBasicMode
 
         public KoubeiMarketingCampaignActivityOfflineModel build() {
             KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel = new KoubeiMarketingCampaignActivityOfflineModel();
-            koubeiMarketingCampaignActivityOfflineModel.setTenantId(instance.getTenantId());
-            koubeiMarketingCampaignActivityOfflineModel.setBranchId(instance.getBranchId());
-            koubeiMarketingCampaignActivityOfflineModel.setReturnUrl(instance.getReturnUrl());
-            koubeiMarketingCampaignActivityOfflineModel.setNotifyUrl(instance.getNotifyUrl());
-            koubeiMarketingCampaignActivityOfflineModel.setAuthToken(instance.getAuthToken());
+            build(koubeiMarketingCampaignActivityOfflineModel);
             koubeiMarketingCampaignActivityOfflineModel.setOutBizNo(instance.getOutBizNo());
             koubeiMarketingCampaignActivityOfflineModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignActivityOfflineModel.setReason(instance.getReason());

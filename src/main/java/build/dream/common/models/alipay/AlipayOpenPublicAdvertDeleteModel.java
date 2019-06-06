@@ -19,41 +19,21 @@ public class AlipayOpenPublicAdvertDeleteModel extends AlipayBasicModel {
         this.advertId = advertId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicAdvertDeleteModel instance = new AlipayOpenPublicAdvertDeleteModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
+        public Builder advertId(String advertId) {
+            instance.setAdvertId(advertId);
             return this;
         }
 
         public AlipayOpenPublicAdvertDeleteModel build() {
             AlipayOpenPublicAdvertDeleteModel alipayOpenPublicAdvertDeleteModel = new AlipayOpenPublicAdvertDeleteModel();
-            alipayOpenPublicAdvertDeleteModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicAdvertDeleteModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicAdvertDeleteModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicAdvertDeleteModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicAdvertDeleteModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicAdvertDeleteModel);
             alipayOpenPublicAdvertDeleteModel.setAdvertId(instance.getAdvertId());
             return alipayOpenPublicAdvertDeleteModel;
         }

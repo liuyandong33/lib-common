@@ -30,41 +30,26 @@ public class AlipayOpenPublicShortLinkCreateModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenPublicShortLinkCreateModel instance = new AlipayOpenPublicShortLinkCreateModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
+        public Builder() {
+            setAlipayBasicModel(instance);
+        }
+
+        public Builder sceneId(String sceneId) {
+            instance.setSceneId(sceneId);
             return this;
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
+        public Builder remark(String remark) {
+            instance.setRemark(remark);
             return this;
         }
 
         public AlipayOpenPublicShortLinkCreateModel build() {
             AlipayOpenPublicShortLinkCreateModel alipayOpenPublicShortLinkCreateModel = new AlipayOpenPublicShortLinkCreateModel();
-            alipayOpenPublicShortLinkCreateModel.setTenantId(instance.getTenantId());
-            alipayOpenPublicShortLinkCreateModel.setBranchId(instance.getBranchId());
-            alipayOpenPublicShortLinkCreateModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenPublicShortLinkCreateModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenPublicShortLinkCreateModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenPublicShortLinkCreateModel);
             alipayOpenPublicShortLinkCreateModel.setSceneId(instance.getSceneId());
             alipayOpenPublicShortLinkCreateModel.setRemark(instance.getRemark());
             return alipayOpenPublicShortLinkCreateModel;

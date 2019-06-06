@@ -32,32 +32,11 @@ public class AlipayOpenAgentZhiMaBriefSignModel extends AlipayBasicModel {
         this.mccCode = mccCode;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayOpenAgentZhiMaBriefSignModel instance = new AlipayOpenAgentZhiMaBriefSignModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder batchNo(String batchNo) {
@@ -72,11 +51,7 @@ public class AlipayOpenAgentZhiMaBriefSignModel extends AlipayBasicModel {
 
         public AlipayOpenAgentZhiMaBriefSignModel build() {
             AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel = new AlipayOpenAgentZhiMaBriefSignModel();
-            alipayOpenAgentZhiMaBriefSignModel.setTenantId(instance.getTenantId());
-            alipayOpenAgentZhiMaBriefSignModel.setBranchId(instance.getBranchId());
-            alipayOpenAgentZhiMaBriefSignModel.setReturnUrl(instance.getReturnUrl());
-            alipayOpenAgentZhiMaBriefSignModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayOpenAgentZhiMaBriefSignModel.setAuthToken(instance.getAuthToken());
+            build(alipayOpenAgentZhiMaBriefSignModel);
             alipayOpenAgentZhiMaBriefSignModel.setBatchNo(instance.getBatchNo());
             alipayOpenAgentZhiMaBriefSignModel.setMccCode(instance.getMccCode());
             return alipayOpenAgentZhiMaBriefSignModel;

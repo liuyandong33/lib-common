@@ -19,32 +19,11 @@ public class AlipayMarketingVoucherQueryModel extends AlipayBasicModel {
         this.voucherId = voucherId;
     }
 
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayMarketingVoucherQueryModel instance = new AlipayMarketingVoucherQueryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public Builder voucherId(String voucherId) {
@@ -54,11 +33,7 @@ public class AlipayMarketingVoucherQueryModel extends AlipayBasicModel {
 
         public AlipayMarketingVoucherQueryModel build() {
             AlipayMarketingVoucherQueryModel alipayMarketingVoucherQueryModel = new AlipayMarketingVoucherQueryModel();
-            alipayMarketingVoucherQueryModel.setTenantId(instance.getTenantId());
-            alipayMarketingVoucherQueryModel.setBranchId(instance.getBranchId());
-            alipayMarketingVoucherQueryModel.setReturnUrl(instance.getReturnUrl());
-            alipayMarketingVoucherQueryModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayMarketingVoucherQueryModel.setAuthToken(instance.getAuthToken());
+            build(alipayMarketingVoucherQueryModel);
             alipayMarketingVoucherQueryModel.setVoucherId(instance.getVoucherId());
             return alipayMarketingVoucherQueryModel;
         }

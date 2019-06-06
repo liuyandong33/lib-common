@@ -1,41 +1,16 @@
 package build.dream.common.models.alipay;
 
 public class AlipayUserInfoShareModel extends AlipayBasicModel {
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserInfoShareModel instance = new AlipayUserInfoShareModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public AlipayUserInfoShareModel build() {
             AlipayUserInfoShareModel alipayUserInfoShareModel = new AlipayUserInfoShareModel();
-            alipayUserInfoShareModel.setTenantId(instance.getTenantId());
-            alipayUserInfoShareModel.setBranchId(instance.getBranchId());
-            alipayUserInfoShareModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserInfoShareModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserInfoShareModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserInfoShareModel);
             return alipayUserInfoShareModel;
         }
     }

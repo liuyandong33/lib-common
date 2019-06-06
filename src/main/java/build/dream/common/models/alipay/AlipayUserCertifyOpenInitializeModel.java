@@ -1,41 +1,16 @@
 package build.dream.common.models.alipay;
 
 public class AlipayUserCertifyOpenInitializeModel extends AlipayBasicModel {
-    public static class Builder {
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
         private final AlipayUserCertifyOpenInitializeModel instance = new AlipayUserCertifyOpenInitializeModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder returnUrl(String returnUrl) {
-            instance.setReturnUrl(returnUrl);
-            return this;
-        }
-
-        public Builder notifyUrl(String notifyUrl) {
-            instance.setNotifyUrl(notifyUrl);
-            return this;
-        }
-
-        public Builder authToken(String authToken) {
-            instance.setAuthToken(authToken);
-            return this;
+        public Builder() {
+            setAlipayBasicModel(instance);
         }
 
         public AlipayUserCertifyOpenInitializeModel build() {
             AlipayUserCertifyOpenInitializeModel alipayUserCertifyOpenInitializeModel = new AlipayUserCertifyOpenInitializeModel();
-            alipayUserCertifyOpenInitializeModel.setTenantId(instance.getTenantId());
-            alipayUserCertifyOpenInitializeModel.setBranchId(instance.getBranchId());
-            alipayUserCertifyOpenInitializeModel.setReturnUrl(instance.getReturnUrl());
-            alipayUserCertifyOpenInitializeModel.setNotifyUrl(instance.getNotifyUrl());
-            alipayUserCertifyOpenInitializeModel.setAuthToken(instance.getAuthToken());
+            build(alipayUserCertifyOpenInitializeModel);
             return alipayUserCertifyOpenInitializeModel;
         }
     }

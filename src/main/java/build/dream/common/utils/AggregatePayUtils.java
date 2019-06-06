@@ -19,7 +19,7 @@ public class AggregatePayUtils {
         String authCode = scanCodePayModel.getAuthCode();
         String subject = scanCodePayModel.getSubject();
         int totalAmount = scanCodePayModel.getTotalAmount();
-        String notifyUrl = scanCodePayModel.getNotifyUrl();
+        String topic = scanCodePayModel.getTopic();
         String ipAddress = scanCodePayModel.getIpAddress();
 
         Map<String, ? extends Object> result = null;
@@ -38,7 +38,7 @@ public class AggregatePayUtils {
             AlipayTradePayModel alipayTradePayModel = AlipayTradePayModel.builder()
                     .tenantId(tenantId)
                     .branchId(branchId)
-                    .notifyUrl(notifyUrl)
+                    .topic(topic)
                     .outTradeNo(outTradeNo)
                     .authCode(authCode)
                     .scene(Constants.SCENE_BAR_CODE)
