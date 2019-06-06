@@ -1,4 +1,4 @@
-package build.dream.common.models.weixinpay;
+package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.VipUserDetails;

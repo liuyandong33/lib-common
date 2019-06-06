@@ -34,8 +34,9 @@ public class AddRecommendConfModel extends BasicModel {
     @Length(max = 32)
     private String receiptAppId;
 
-    @InList(value = {Constants.HMAC_SHA256})
-    private String signType;
+    @NotNull
+    @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
+    private String signType = Constants.MD5;
 
     public String getTenantId() {
         return tenantId;

@@ -1,6 +1,7 @@
 package build.dream.common.models.weixinpay;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
@@ -10,7 +11,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class UnifiedOrderModel extends BasicModel {
-    private static final String[] TRADE_TYPES = {Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI, Constants.WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM, Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE, Constants.WEI_XIN_PAY_TRADE_TYPE_APP, Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB};
     private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
@@ -23,6 +23,8 @@ public class UnifiedOrderModel extends BasicModel {
     @Length(max = 32)
     private String deviceInfo;
 
+    @NotNull
+    @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
     private String signType;
 
     @NotNull
@@ -251,7 +253,6 @@ public class UnifiedOrderModel extends BasicModel {
         if (StringUtils.isNotBlank(feeType)) {
             ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
         }
-        ApplicationHandler.inArray(TRADE_TYPES, tradeType, "tradeType");
         if (StringUtils.isNotBlank(limitPay)) {
             ApplicationHandler.inArray(LIMIT_PAYS, limitPay, "limitPay");
         }

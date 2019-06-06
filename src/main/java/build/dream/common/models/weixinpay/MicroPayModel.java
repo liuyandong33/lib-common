@@ -1,5 +1,7 @@
 package build.dream.common.models.weixinpay;
 
+import build.dream.common.constants.Constants;
+import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
@@ -10,14 +12,15 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class MicroPayModel extends WeiXinPayBasicModel {
-    private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
 
     @Length(max = 32)
     private String deviceInfo;
 
-    private String signType;
+    @NotNull
+    @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
+    private String signType = Constants.MD5;
 
     @NotNull
     @Length(max = 128)
@@ -178,13 +181,12 @@ public class MicroPayModel extends WeiXinPayBasicModel {
 
     @Override
     public boolean validate() {
-        return super.validate() && ArrayUtils.contains(SIGN_TYPES, signType) && (StringUtils.isNotBlank(feeType) ? ArrayUtils.contains(FEE_TYPES, feeType) : true) && (StringUtils.isNotBlank(limitPay) ? ArrayUtils.contains(LIMIT_PAYS, limitPay) : true);
+        return super.validate() && (StringUtils.isNotBlank(feeType) ? ArrayUtils.contains(FEE_TYPES, feeType) : true) && (StringUtils.isNotBlank(limitPay) ? ArrayUtils.contains(LIMIT_PAYS, limitPay) : true);
     }
 
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        ApplicationHandler.inArray(SIGN_TYPES, signType, "signType");
         if (StringUtils.isNotBlank(feeType)) {
             ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
         }
