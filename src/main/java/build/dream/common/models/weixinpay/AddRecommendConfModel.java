@@ -10,11 +10,19 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class AddRecommendConfModel extends BasicModel {
+    /**
+     * api 秘钥
+     */
     @NotNull
-    private String tenantId;
+    private String apiSecretKey;
 
     @NotNull
-    private String branchId;
+    private String operationCertificate;
+    /**
+     * 操作证书密码
+     */
+    @NotNull
+    private String operationCertificatePassword;
 
     @NotNull
     @Length(max = 32)
@@ -38,20 +46,28 @@ public class AddRecommendConfModel extends BasicModel {
     @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
     private String signType = Constants.MD5;
 
-    public String getTenantId() {
-        return tenantId;
+    public String getApiSecretKey() {
+        return apiSecretKey;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setApiSecretKey(String apiSecretKey) {
+        this.apiSecretKey = apiSecretKey;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public String getOperationCertificate() {
+        return operationCertificate;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setOperationCertificate(String operationCertificate) {
+        this.operationCertificate = operationCertificate;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
     }
 
     public String getMchId() {
@@ -114,15 +130,20 @@ public class AddRecommendConfModel extends BasicModel {
     }
 
     public static class Builder {
-        private AddRecommendConfModel instance = new AddRecommendConfModel();
+        private final AddRecommendConfModel instance = new AddRecommendConfModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
+        public Builder apiSecretKey(String apiSecretKey) {
+            instance.setApiSecretKey(apiSecretKey);
             return this;
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
+        public Builder operationCertificate(String operationCertificate) {
+            instance.setOperationCertificate(operationCertificate);
+            return this;
+        }
+
+        public Builder operationCertificatePassword(String operationCertificatePassword) {
+            instance.setOperationCertificatePassword(operationCertificatePassword);
             return this;
         }
 
@@ -158,8 +179,9 @@ public class AddRecommendConfModel extends BasicModel {
 
         public AddRecommendConfModel build() {
             AddRecommendConfModel addRecommendConfModel = new AddRecommendConfModel();
-            addRecommendConfModel.setTenantId(instance.getTenantId());
-            addRecommendConfModel.setBranchId(instance.getBranchId());
+            addRecommendConfModel.setApiSecretKey(instance.getApiSecretKey());
+            addRecommendConfModel.setOperationCertificate(instance.getOperationCertificate());
+            addRecommendConfModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             addRecommendConfModel.setMchId(instance.getMchId());
             addRecommendConfModel.setSubMchId(instance.getSubMchId());
             addRecommendConfModel.setSubAppId(instance.getSubAppId());

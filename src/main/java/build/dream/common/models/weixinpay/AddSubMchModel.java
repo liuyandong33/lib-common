@@ -9,10 +9,12 @@ import javax.validation.constraints.NotNull;
 
 public class AddSubMchModel extends BasicModel {
     @NotNull
-    private String tenantId;
+    @Length(max = 32)
+    private String appId;
 
     @NotNull
-    private String branchId;
+    @Length(max = 32)
+    private String mchId;
 
     @NotNull
     @Length(max = 50)
@@ -43,7 +45,6 @@ public class AddSubMchModel extends BasicModel {
     @Length(max = 10)
     private String business;
 
-    @NotNull
     @InList(value = {Constants.CONTACT_WE_CHAT_ID_TYPE_WE_CHAT_ID, Constants.CONTACT_WE_CHAT_ID_TYPE_OPEN_ID})
     private String contactWeChatIdType;
 
@@ -54,20 +55,34 @@ public class AddSubMchModel extends BasicModel {
     @Length(max = 20)
     private String merchantRemark;
 
-    public String getTenantId() {
-        return tenantId;
+    /**
+     * api 秘钥
+     */
+    @NotNull
+    private String apiSecretKey;
+
+    @NotNull
+    private String operationCertificate;
+    /**
+     * 操作证书密码
+     */
+    @NotNull
+    private String operationCertificatePassword;
+
+    public String getAppId() {
+        return appId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public String getMchId() {
+        return mchId;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
     }
 
     public String getMerchantName() {
@@ -156,5 +171,138 @@ public class AddSubMchModel extends BasicModel {
 
     public void setMerchantRemark(String merchantRemark) {
         this.merchantRemark = merchantRemark;
+    }
+
+    public String getApiSecretKey() {
+        return apiSecretKey;
+    }
+
+    public void setApiSecretKey(String apiSecretKey) {
+        this.apiSecretKey = apiSecretKey;
+    }
+
+    public String getOperationCertificate() {
+        return operationCertificate;
+    }
+
+    public void setOperationCertificate(String operationCertificate) {
+        this.operationCertificate = operationCertificate;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
+    }
+
+    public static class Builder {
+        private final AddSubMchModel instance = new AddSubMchModel();
+
+        public Builder appId(String appId) {
+            instance.setAppId(appId);
+            return this;
+        }
+
+        public Builder mchId(String mchId) {
+            instance.setMchId(mchId);
+            return this;
+        }
+
+        public Builder merchantName(String merchantName) {
+            instance.setMerchantName(merchantName);
+            return this;
+        }
+
+        public Builder merchantShortName(String merchantShortName) {
+            instance.setMerchantShortName(merchantShortName);
+            return this;
+        }
+
+        public Builder servicePhone(String servicePhone) {
+            instance.setServicePhone(servicePhone);
+            return this;
+        }
+
+        public Builder contact(String contact) {
+            instance.setContact(contact);
+            return this;
+        }
+
+        public Builder contactPhone(String contactPhone) {
+            instance.setContactPhone(contactPhone);
+            return this;
+        }
+
+        public Builder contactEmail(String contactEmail) {
+            instance.setContactEmail(contactEmail);
+            return this;
+        }
+
+        public Builder channelId(String channelId) {
+            instance.setChannelId(channelId);
+            return this;
+        }
+
+        public Builder business(String business) {
+            instance.setBusiness(business);
+            return this;
+        }
+
+        public Builder contactWeChatIdType(String contactWeChatIdType) {
+            instance.setContactWeChatIdType(contactWeChatIdType);
+            return this;
+        }
+
+        public Builder contactWeChatId(String contactWeChatId) {
+            instance.setContactWeChatId(contactWeChatId);
+            return this;
+        }
+
+        public Builder merchantRemark(String merchantRemark) {
+            instance.setMerchantRemark(merchantRemark);
+            return this;
+        }
+
+        public Builder apiSecretKey(String apiSecretKey) {
+            instance.setApiSecretKey(apiSecretKey);
+            return this;
+        }
+
+        public Builder operationCertificate(String operationCertificate) {
+            instance.setOperationCertificate(operationCertificate);
+            return this;
+        }
+
+        public Builder operationCertificatePassword(String operationCertificatePassword) {
+            instance.setOperationCertificatePassword(operationCertificatePassword);
+            return this;
+        }
+
+        public AddSubMchModel build() {
+            AddSubMchModel addSubMchModel = new AddSubMchModel();
+            addSubMchModel.setAppId(instance.getAppId());
+            addSubMchModel.setMchId(instance.getMchId());
+            addSubMchModel.setMerchantName(instance.getMerchantName());
+            addSubMchModel.setMerchantShortName(instance.getMerchantShortName());
+            addSubMchModel.setServicePhone(instance.getServicePhone());
+            addSubMchModel.setContact(instance.getContact());
+            addSubMchModel.setContactPhone(instance.getContactPhone());
+            addSubMchModel.setContactEmail(instance.getContactEmail());
+            addSubMchModel.setChannelId(instance.getChannelId());
+            addSubMchModel.setBusiness(instance.getBusiness());
+            addSubMchModel.setContactWeChatIdType(instance.getContactWeChatIdType());
+            addSubMchModel.setContactWeChatId(instance.getContactWeChatId());
+            addSubMchModel.setMerchantRemark(instance.getMerchantRemark());
+            addSubMchModel.setApiSecretKey(instance.getApiSecretKey());
+            addSubMchModel.setOperationCertificate(instance.getOperationCertificate());
+            addSubMchModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
+            return addSubMchModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

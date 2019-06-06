@@ -148,11 +148,11 @@ public class Constants {
      * 微信交易类型常量
      */
     public static final String WEI_XIN_PAY_TRADE_TYPE_JSAPI = "JSAPI";
-    public static final String WEI_XIN_PAY_TRADE_TYPE_MINI_PROGRAM = "MINIPROGRAM";
     public static final String WEI_XIN_PAY_TRADE_TYPE_NATIVE = "NATIVE";
     public static final String WEI_XIN_PAY_TRADE_TYPE_APP = "APP";
     public static final String WEI_XIN_PAY_TRADE_TYPE_MWEB = "MWEB";
     public static final String WEI_XIN_PAY_TRADE_TYPE_MICROPAY = "MICROPAY";
+    public static final String[] WEI_XIN_PAY_TRADE_TYPES = {WEI_XIN_PAY_TRADE_TYPE_JSAPI, WEI_XIN_PAY_TRADE_TYPE_NATIVE, WEI_XIN_PAY_TRADE_TYPE_APP, WEI_XIN_PAY_TRADE_TYPE_MWEB, WEI_XIN_PAY_TRADE_TYPE_MICROPAY};
 
     /**
      * 支付场景常量

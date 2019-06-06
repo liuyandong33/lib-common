@@ -1,7 +1,5 @@
 package build.dream.common.models.weixinpay;
 
-import build.dream.common.constants.Constants;
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.ValidateUtils;
 import org.apache.commons.lang.StringUtils;
@@ -9,16 +7,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class RefundModel extends BasicModel {
-    private static final String[] TRADE_TYPES = {Constants.WEI_XIN_PAY_TRADE_TYPE_JSAPI, Constants.WEI_XIN_PAY_TRADE_TYPE_NATIVE, Constants.WEI_XIN_PAY_TRADE_TYPE_APP, Constants.WEI_XIN_PAY_TRADE_TYPE_MWEB, Constants.WEI_XIN_PAY_TRADE_TYPE_MICROPAY};
+public class RefundModel extends WeiXinPayBasicModel {
     private static final String[] REFUNDS_ACCOUNTS = {"REFUND_SOURCE_UNSETTLED_FUNDS", "REFUND_SOURCE_RECHARGE_FUNDS"};
     private static final String[] REFUND_FEE_TYPES = {"CNY"};
-
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
 
     @Length(max = 32)
     private String transactionId;
@@ -43,25 +34,18 @@ public class RefundModel extends BasicModel {
 
     private String refundAccount;
 
-    private String tradeType;
-
     private String topic;
 
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
+    /**
+     * 操作证书
+     */
+    @NotNull
+    private String operationCertificate;
+    /**
+     * 操作证书密码
+     */
+    @NotNull
+    private String operationCertificatePassword;
 
     public String getTransactionId() {
         return transactionId;
@@ -127,14 +111,6 @@ public class RefundModel extends BasicModel {
         this.refundAccount = refundAccount;
     }
 
-    public String getTradeType() {
-        return tradeType;
-    }
-
-    public void setTradeType(String tradeType) {
-        this.tradeType = tradeType;
-    }
-
     public String getTopic() {
         return topic;
     }
@@ -143,11 +119,26 @@ public class RefundModel extends BasicModel {
         this.topic = topic;
     }
 
+    public String getOperationCertificate() {
+        return operationCertificate;
+    }
+
+    public void setOperationCertificate(String operationCertificate) {
+        this.operationCertificate = operationCertificate;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
+    }
+
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
         ValidateUtils.isTrue(StringUtils.isNotBlank(transactionId) || StringUtils.isNotBlank(outTradeNo), "参数transactionId，outTradeNo不能同时为空！");
-        ApplicationHandler.inArray(TRADE_TYPES, tradeType, "tradeType");
         if (StringUtils.isNotBlank(refundFeeType)) {
             ApplicationHandler.inArray(REFUND_FEE_TYPES, refundFeeType, "refundFeeType");
         }
@@ -156,17 +147,11 @@ public class RefundModel extends BasicModel {
         }
     }
 
-    public static class Builder {
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
         private RefundModel instance = new RefundModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
+        public Builder() {
+            setWeiXinPayBasicModel(instance);
         }
 
         public Builder transactionId(String transactionId) {
@@ -209,20 +194,24 @@ public class RefundModel extends BasicModel {
             return this;
         }
 
-        public Builder tradeType(String tradeType) {
-            instance.setTradeType(tradeType);
-            return this;
-        }
-
         public Builder topic(String topic) {
             instance.setTopic(topic);
             return this;
         }
 
+        public Builder operationCertificate(String operationCertificate) {
+            instance.setOperationCertificate(operationCertificate);
+            return this;
+        }
+
+        public Builder operationCertificatePassword(String operationCertificatePassword) {
+            instance.setOperationCertificatePassword(operationCertificatePassword);
+            return this;
+        }
+
         public RefundModel build() {
             RefundModel refundModel = new RefundModel();
-            refundModel.setTenantId(instance.getTenantId());
-            refundModel.setBranchId(instance.getBranchId());
+            build(refundModel);
             refundModel.setTransactionId(instance.getTransactionId());
             refundModel.setOutTradeNo(instance.getOutTradeNo());
             refundModel.setOutRefundNo(instance.getOutRefundNo());
@@ -231,8 +220,9 @@ public class RefundModel extends BasicModel {
             refundModel.setRefundFeeType(instance.getRefundFeeType());
             refundModel.setRefundDesc(instance.getRefundDesc());
             refundModel.setRefundAccount(instance.getRefundAccount());
-            refundModel.setTradeType(instance.getTradeType());
             refundModel.setTopic(instance.getTopic());
+            refundModel.setOperationCertificate(instance.getOperationCertificate());
+            refundModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return refundModel;
         }
     }

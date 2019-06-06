@@ -10,16 +10,9 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class UnifiedOrderModel extends BasicModel {
-    private static final String[] SIGN_TYPES = {"MD5", "HMAC-SHA256"};
+public class UnifiedOrderModel extends WeiXinPayBasicModel {
     private static final String[] FEE_TYPES = {"CNY"};
     private static final String[] LIMIT_PAYS = {"no_credit"};
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
     @Length(max = 32)
     private String deviceInfo;
 
@@ -77,22 +70,6 @@ public class UnifiedOrderModel extends BasicModel {
     private String subOpenId;
 
     private SceneInfoModel sceneInfoModel;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
 
     public String getDeviceInfo() {
         return deviceInfo;
@@ -249,7 +226,6 @@ public class UnifiedOrderModel extends BasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        ApplicationHandler.inArray(SIGN_TYPES, signType, "signType");
         if (StringUtils.isNotBlank(feeType)) {
             ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
         }
@@ -383,17 +359,11 @@ public class UnifiedOrderModel extends BasicModel {
         }
     }
 
-    public static class Builder {
-        private UnifiedOrderModel instance = new UnifiedOrderModel();
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
+        private final UnifiedOrderModel instance = new UnifiedOrderModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
+        public Builder() {
+            setWeiXinPayBasicModel(instance);
         }
 
         public Builder deviceInfo(String deviceInfo) {
@@ -493,8 +463,7 @@ public class UnifiedOrderModel extends BasicModel {
 
         public UnifiedOrderModel build() {
             UnifiedOrderModel unifiedOrderModel = new UnifiedOrderModel();
-            unifiedOrderModel.setTenantId(instance.getTenantId());
-            unifiedOrderModel.setBranchId(instance.getBranchId());
+            build(unifiedOrderModel);
             unifiedOrderModel.setDeviceInfo(instance.getDeviceInfo());
             unifiedOrderModel.setSignType(instance.getSignType());
             unifiedOrderModel.setBody(instance.getBody());

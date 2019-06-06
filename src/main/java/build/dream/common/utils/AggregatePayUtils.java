@@ -29,7 +29,7 @@ public class AggregatePayUtils {
             MicroPayModel microPayModel = MicroPayModel.builder()
                     .appId(weiXinPayAccount.getAppId())
                     .mchId(weiXinPayAccount.getMchId())
-                    .key(weiXinPayAccount.getApiSecretKey())
+                    .apiSecretKey(weiXinPayAccount.getApiSecretKey())
                     .subAppId(weiXinPayAccount.getSubPublicAccountAppId())
                     .subMchId(weiXinPayAccount.getSubMchId())
                     .acceptanceModel(weiXinPayAccount.isAcceptanceModel())

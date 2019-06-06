@@ -7,12 +7,6 @@ import javax.validation.constraints.NotNull;
 
 public class QuerySubDevConfigModel extends BasicModel {
     @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
-    @NotNull
     @Length(max = 32)
     private String appId;
 
@@ -24,21 +18,19 @@ public class QuerySubDevConfigModel extends BasicModel {
     @Length(max = 32)
     private String subMchId;
 
-    public String getTenantId() {
-        return tenantId;
-    }
+    /**
+     * api 秘钥
+     */
+    @NotNull
+    private String apiSecretKey;
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
+    @NotNull
+    private String operationCertificate;
+    /**
+     * 操作证书密码
+     */
+    @NotNull
+    private String operationCertificatePassword;
 
     public String getAppId() {
         return appId;
@@ -62,5 +54,78 @@ public class QuerySubDevConfigModel extends BasicModel {
 
     public void setSubMchId(String subMchId) {
         this.subMchId = subMchId;
+    }
+
+    public String getApiSecretKey() {
+        return apiSecretKey;
+    }
+
+    public void setApiSecretKey(String apiSecretKey) {
+        this.apiSecretKey = apiSecretKey;
+    }
+
+    public String getOperationCertificate() {
+        return operationCertificate;
+    }
+
+    public void setOperationCertificate(String operationCertificate) {
+        this.operationCertificate = operationCertificate;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
+    }
+
+    public static class Builder {
+        private final QuerySubDevConfigModel instance = new QuerySubDevConfigModel();
+
+        public Builder appId(String appId) {
+            instance.setAppId(appId);
+            return this;
+        }
+
+        public Builder mchId(String mchId) {
+            instance.setMchId(mchId);
+            return this;
+        }
+
+        public Builder subMchId(String subMchId) {
+            instance.setSubMchId(subMchId);
+            return this;
+        }
+
+        public Builder apiSecretKey(String apiSecretKey) {
+            instance.setApiSecretKey(apiSecretKey);
+            return this;
+        }
+
+        public Builder operationCertificate(String operationCertificate) {
+            instance.setOperationCertificate(operationCertificate);
+            return this;
+        }
+
+        public Builder operationCertificatePassword(String operationCertificatePassword) {
+            instance.setOperationCertificatePassword(operationCertificatePassword);
+            return this;
+        }
+
+        public QuerySubDevConfigModel build() {
+            QuerySubDevConfigModel querySubDevConfigModel = new QuerySubDevConfigModel();
+            querySubDevConfigModel.setAppId(instance.getAppId());
+            querySubDevConfigModel.setMchId(instance.getMchId());
+            querySubDevConfigModel.setSubMchId(instance.getSubMchId());
+            querySubDevConfigModel.setApiSecretKey(instance.getApiSecretKey());
+            querySubDevConfigModel.setOperationCertificate(instance.getOperationCertificate());
+            querySubDevConfigModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
+            return querySubDevConfigModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

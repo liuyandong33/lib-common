@@ -9,31 +9,57 @@ import javax.validation.constraints.NotNull;
 
 public class AddSubDevConfigModel extends BasicModel {
     @NotNull
-    private String tenantId;
+    @Length(max = 32)
+    private String appId;
 
     @NotNull
-    private String branchId;
+    @Length(max = 32)
+    private String mchId;
+
+    @Length(max = 32)
+    private String subMchId;
 
     @Length(max = 256)
     private String jsApiPath;
 
     @Length(max = 32)
     private String subAppId;
+    /**
+     * api 秘钥
+     */
+    @NotNull
+    private String apiSecretKey;
 
-    public String getTenantId() {
-        return tenantId;
+    @NotNull
+    private String operationCertificate;
+    /**
+     * 操作证书密码
+     */
+    @NotNull
+    private String operationCertificatePassword;
+
+    public String getAppId() {
+        return appId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setAppId(String appId) {
+        this.appId = appId;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public String getMchId() {
+        return mchId;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setMchId(String mchId) {
+        this.mchId = mchId;
+    }
+
+    public String getSubMchId() {
+        return subMchId;
+    }
+
+    public void setSubMchId(String subMchId) {
+        this.subMchId = subMchId;
     }
 
     public String getJsApiPath() {
@@ -52,6 +78,30 @@ public class AddSubDevConfigModel extends BasicModel {
         this.subAppId = subAppId;
     }
 
+    public String getApiSecretKey() {
+        return apiSecretKey;
+    }
+
+    public void setApiSecretKey(String apiSecretKey) {
+        this.apiSecretKey = apiSecretKey;
+    }
+
+    public String getOperationCertificate() {
+        return operationCertificate;
+    }
+
+    public void setOperationCertificate(String operationCertificate) {
+        this.operationCertificate = operationCertificate;
+    }
+
+    public String getOperationCertificatePassword() {
+        return operationCertificatePassword;
+    }
+
+    public void setOperationCertificatePassword(String operationCertificatePassword) {
+        this.operationCertificatePassword = operationCertificatePassword;
+    }
+
     @Override
     public boolean validate() {
         return super.validate() && (StringUtils.isNotBlank(jsApiPath) || StringUtils.isNotBlank(subAppId));
@@ -60,6 +110,67 @@ public class AddSubDevConfigModel extends BasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        ValidateUtils.isTrue(StringUtils.isNotBlank(jsApiPath) || StringUtils.isNotBlank(subAppId), "参数jsApiPath和subAppId不能同时为空！");
+        ValidateUtils.isTrue(StringUtils.isNotBlank(jsApiPath) || StringUtils.isNotBlank(subAppId), "jsApiPath和subAppId不能同时为空！");
+    }
+
+    public static class Builder {
+        private final AddSubDevConfigModel instance = new AddSubDevConfigModel();
+
+        public Builder appId(String appId) {
+            instance.setAppId(appId);
+            return this;
+        }
+
+        public Builder mchId(String mchId) {
+            instance.setMchId(mchId);
+            return this;
+        }
+
+        public Builder subMchId(String subMchId) {
+            instance.setSubMchId(subMchId);
+            return this;
+        }
+
+        public Builder jsApiPath(String jsApiPath) {
+            instance.setJsApiPath(jsApiPath);
+            return this;
+        }
+
+        public Builder subAppId(String subAppId) {
+            instance.setSubAppId(subAppId);
+            return this;
+        }
+
+        public Builder apiSecretKey(String apiSecretKey) {
+            instance.setApiSecretKey(apiSecretKey);
+            return this;
+        }
+
+        public Builder operationCertificate(String operationCertificate) {
+            instance.setOperationCertificate(operationCertificate);
+            return this;
+        }
+
+        public Builder operationCertificatePassword(String operationCertificatePassword) {
+            instance.setOperationCertificatePassword(operationCertificatePassword);
+            return this;
+        }
+
+        public AddSubDevConfigModel build() {
+            AddSubDevConfigModel addSubDevConfigModel = new AddSubDevConfigModel();
+            addSubDevConfigModel.setAppId(instance.getAppId());
+            addSubDevConfigModel.setMchId(instance.getMchId());
+            addSubDevConfigModel.setSubMchId(instance.getSubMchId());
+            addSubDevConfigModel.setJsApiPath(instance.getJsApiPath());
+            addSubDevConfigModel.setSubAppId(instance.getSubAppId());
+            addSubDevConfigModel.setApiSecretKey(instance.getApiSecretKey());
+            addSubDevConfigModel.setOperationCertificate(instance.getOperationCertificate());
+            addSubDevConfigModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
+            return addSubDevConfigModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
