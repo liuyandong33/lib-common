@@ -2,18 +2,10 @@ package build.dream.common.models.alipay;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.validation.constraints.NotNull;
-
-public class AlipayOpenAuthTokenAppModel extends BasicModel {
-    @NotNull
-    @JsonIgnore
-    private String appId;
-
+public class AlipayOpenAuthTokenAppModel extends AlipayBasicModel {
     @InList(value = {Constants.AUTHORIZATION_CODE, Constants.REFRESH_TOKEN})
     @JsonProperty(value = "grant_type")
     private String grantType;
@@ -22,14 +14,6 @@ public class AlipayOpenAuthTokenAppModel extends BasicModel {
 
     @JsonProperty(value = "refresh_token")
     private String refreshToken;
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId;
-    }
 
     public String getGrantType() {
         return grantType;
@@ -64,5 +48,41 @@ public class AlipayOpenAuthTokenAppModel extends BasicModel {
         if (Constants.REFRESH_TOKEN.equals(grantType)) {
             ApplicationHandler.notBlank(refreshToken, "refreshToken");
         }
+    }
+
+    public static class Builder extends AlipayBasicModel.Builder<Builder> {
+        private final AlipayOpenAuthTokenAppModel instance = new AlipayOpenAuthTokenAppModel();
+
+        public Builder() {
+            setAlipayBasicModel(instance);
+        }
+
+        public Builder grantType(String grantType) {
+            instance.setGrantType(grantType);
+            return this;
+        }
+
+        public Builder code(String code) {
+            instance.setCode(code);
+            return this;
+        }
+
+        public Builder refreshToken(String refreshToken) {
+            instance.setRefreshToken(refreshToken);
+            return this;
+        }
+
+        public AlipayOpenAuthTokenAppModel build() {
+            AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel = new AlipayOpenAuthTokenAppModel();
+            build(alipayOpenAuthTokenAppModel);
+            alipayOpenAuthTokenAppModel.setGrantType(instance.getGrantType());
+            alipayOpenAuthTokenAppModel.setCode(instance.getCode());
+            alipayOpenAuthTokenAppModel.setRefreshToken(instance.getRefreshToken());
+            return alipayOpenAuthTokenAppModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

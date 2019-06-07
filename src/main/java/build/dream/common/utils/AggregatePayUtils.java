@@ -42,8 +42,8 @@ public class AggregatePayUtils {
             result = WeiXinPayUtils.microPay(microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
             AlipayTradePayModel alipayTradePayModel = AlipayTradePayModel.builder()
-                    .tenantId(tenantId)
-                    .branchId(branchId)
+//                    .tenantId(tenantId)
+//                    .branchId(branchId)
                     .topic(topic)
                     .outTradeNo(outTradeNo)
                     .authCode(authCode)

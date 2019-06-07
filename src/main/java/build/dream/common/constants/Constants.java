@@ -865,4 +865,8 @@ public class Constants {
      * 人民币Chinese Yuan
      */
     public static final String CNY = "CNY";
+    /**
+     * 支付宝api版本号1.0
+     */
+    public static final String ALIPAY_API_VERSION_1_0 = "1.0";
 }
