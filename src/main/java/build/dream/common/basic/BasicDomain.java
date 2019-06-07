@@ -118,4 +118,63 @@ public class BasicDomain implements IdDomain<BigInteger> {
         public static final String DELETED_TIME = "deletedTime";
         public static final String DELETED = "deleted";
     }
+
+    public static class Builder<T extends Builder<T>> {
+        private BasicDomain instance;
+
+        protected void setAlipayBasicModel(BasicDomain basicDomain) {
+            this.instance = basicDomain;
+        }
+
+        public T id(BigInteger id) {
+            instance.setId(id);
+            return (T) this;
+        }
+
+        public T createdTime(Date createdTime) {
+            instance.setCreatedTime(createdTime);
+            return (T) this;
+        }
+
+        public T createdUserId(BigInteger createdUserId) {
+            instance.setCreatedUserId(createdUserId);
+            return (T) this;
+        }
+
+        public T updatedTime(Date updatedTime) {
+            instance.setUpdatedTime(updatedTime);
+            return (T) this;
+        }
+
+        public T updatedUserId(BigInteger updatedUserId) {
+            instance.setUpdatedUserId(updatedUserId);
+            return (T) this;
+        }
+
+        public T updatedRemark(String updatedRemark) {
+            instance.setUpdatedRemark(updatedRemark);
+            return (T) this;
+        }
+
+        public T deletedTime(Date deletedTime) {
+            instance.setDeletedTime(deletedTime);
+            return (T) this;
+        }
+
+        public T deleted(boolean deleted) {
+            instance.setDeleted(deleted);
+            return (T) this;
+        }
+
+        protected void build(BasicDomain basicDomain) {
+            basicDomain.setId(instance.getId());
+            basicDomain.setCreatedTime(instance.getCreatedTime());
+            basicDomain.setCreatedUserId(instance.getCreatedUserId());
+            basicDomain.setUpdatedTime(instance.getUpdatedTime());
+            basicDomain.setUpdatedUserId(instance.getUpdatedUserId());
+            basicDomain.setUpdatedRemark(instance.getUpdatedRemark());
+            basicDomain.setDeletedTime(instance.getDeletedTime());
+            basicDomain.setDeleted(instance.isDeleted());
+        }
+    }
 }
