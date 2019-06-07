@@ -26,15 +26,13 @@ public class AlipayUtils {
     private static final String ALIPAY_APP_TO_APP_AUTHORIZE_URL = "https://openauth.alipay.com/oauth2/appToAppAuth.htm";
 
     public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) {
-        String signatureType = null;
-        if (Constants.RSA.equals(signType)) {
-            signatureType = SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA;
-        } else if (Constants.RSA2.equals(signType)) {
-            signatureType = SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA;
-        }
-
         byte[] data = originalString.getBytes(Charset.forName(charset));
-        return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), signatureType);
+        if (Constants.RSA.equals(signType)) {
+            return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA);
+        } else if (Constants.RSA2.equals(signType)) {
+            return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA);
+        }
+        return false;
     }
 
     public static AlipayAccount obtainAlipayAccount(String appId) {
@@ -86,7 +84,6 @@ public class AlipayUtils {
         sortedRequestParameters.put("biz_content", bizContent);
 
         byte[] data = WebUtils.concat(sortedRequestParameters).getBytes(Charset.forName(charset));
-        String signatureType = null;
         String sign = null;
         if (Constants.RSA.equals(signType)) {
             sign = Base64.encodeBase64String(SignatureUtils.sign(data, Base64.decodeBase64(appPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA));
@@ -103,21 +100,22 @@ public class AlipayUtils {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(ALIPAY_GATEWAY_URL, null, requestBody);
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        Map<String, Object> responseMap = MapUtils.getMap(resultMap, method.replaceAll("\\.", "_") + "_response");
 
+        // 开始验签
+        Map<String, Object> responseMap = MapUtils.getMap(resultMap, method.replaceAll("\\.", "_") + "_response");
         String alipayPublicKey = alipayBasicModel.getAlipayPublicKey();
         String signType = alipayBasicModel.getSignType();
         String charset = alipayBasicModel.getCharset();
         ValidateUtils.isTrue(verifySign(GsonUtils.toJson(responseMap), signType, MapUtils.getString(resultMap, "sign"), charset, alipayPublicKey), "支付宝返回结果签名验证未通过！");
 
-        String code = MapUtils.getString(responseMap, "code");
+        /*String code = MapUtils.getString(responseMap, "code");
         String msg = MapUtils.getString(responseMap, "msg");
         ValidateUtils.isTrue("10000".equals(code), msg);
 
         if (responseMap.containsKey("sub_code")) {
             ValidateUtils.isTrue(false, MapUtils.getString(responseMap, "sub_msg"));
-        }
-        return responseMap;
+        }*/
+        return resultMap;
     }
 
 
