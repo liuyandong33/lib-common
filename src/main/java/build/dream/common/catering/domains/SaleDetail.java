@@ -215,9 +215,7 @@ public class SaleDetail extends BasicDomain {
         this.discountShare = discountShare;
     }
 
-    public static class Builder {
-        private final SaleDetail instance = new SaleDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SaleDetail> {
         public Builder saleId(BigInteger saleId) {
             instance.setSaleId(saleId);
             return this;
@@ -303,48 +301,9 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SaleDetail build() {
-            SaleDetail saleDetail = new SaleDetail();
+            SaleDetail saleDetail = super.build();
             saleDetail.setSaleId(instance.getSaleId());
             saleDetail.setSaleTime(instance.getSaleTime());
             saleDetail.setTenantId(instance.getTenantId());
@@ -362,14 +321,6 @@ public class SaleDetail extends BasicDomain {
             saleDetail.setDiscountAmount(instance.getDiscountAmount());
             saleDetail.setPayableAmount(instance.getPayableAmount());
             saleDetail.setDiscountShare(instance.getDiscountShare());
-            saleDetail.setId(instance.getId());
-            saleDetail.setCreatedTime(instance.getCreatedTime());
-            saleDetail.setCreatedUserId(instance.getCreatedUserId());
-            saleDetail.setUpdatedTime(instance.getUpdatedTime());
-            saleDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            saleDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            saleDetail.setDeletedTime(instance.getDeletedTime());
-            saleDetail.setDeleted(instance.isDeleted());
             return saleDetail;
         }
     }

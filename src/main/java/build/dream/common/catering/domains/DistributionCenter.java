@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = DistributionCenter.FieldName.TENANT_ID, columnName = DistributionCenter.ColumnName.TENANT_ID)
 public class DistributionCenter extends BasicDomain {
@@ -202,9 +201,7 @@ public class DistributionCenter extends BasicDomain {
         this.contactPhone = contactPhone;
     }
 
-    public static class Builder {
-        private final DistributionCenter instance = new DistributionCenter();
-
+    public static class Builder extends BasicDomain.Builder<Builder, DistributionCenter> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -285,48 +282,9 @@ public class DistributionCenter extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public DistributionCenter build() {
-            DistributionCenter distributionCenter = new DistributionCenter();
+            DistributionCenter distributionCenter = super.build();
             distributionCenter.setTenantId(instance.getTenantId());
             distributionCenter.setTenantCode(instance.getTenantCode());
             distributionCenter.setCode(instance.getCode());
@@ -343,14 +301,6 @@ public class DistributionCenter extends BasicDomain {
             distributionCenter.setLatitude(instance.getLatitude());
             distributionCenter.setLinkman(instance.getLinkman());
             distributionCenter.setContactPhone(instance.getContactPhone());
-            distributionCenter.setId(instance.getId());
-            distributionCenter.setCreatedTime(instance.getCreatedTime());
-            distributionCenter.setCreatedUserId(instance.getCreatedUserId());
-            distributionCenter.setUpdatedTime(instance.getUpdatedTime());
-            distributionCenter.setUpdatedUserId(instance.getUpdatedUserId());
-            distributionCenter.setUpdatedRemark(instance.getUpdatedRemark());
-            distributionCenter.setDeletedTime(instance.getDeletedTime());
-            distributionCenter.setDeleted(instance.isDeleted());
             return distributionCenter;
         }
     }

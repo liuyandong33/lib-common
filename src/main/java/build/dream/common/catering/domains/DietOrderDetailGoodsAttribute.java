@@ -216,9 +216,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         this.localUpdatedTime = localUpdatedTime;
     }
 
-    public static class Builder {
-        private final DietOrderDetailGoodsAttribute instance = new DietOrderDetailGoodsAttribute();
-
+    public static class Builder extends BasicDomain.Builder<Builder, DietOrderDetailGoodsAttribute> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -304,48 +302,9 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public DietOrderDetailGoodsAttribute build() {
-            DietOrderDetailGoodsAttribute dietOrderDetailGoodsAttribute = new DietOrderDetailGoodsAttribute();
+            DietOrderDetailGoodsAttribute dietOrderDetailGoodsAttribute = super.build();
             dietOrderDetailGoodsAttribute.setTenantId(instance.getTenantId());
             dietOrderDetailGoodsAttribute.setTenantCode(instance.getTenantCode());
             dietOrderDetailGoodsAttribute.setBranchId(instance.getBranchId());
@@ -363,14 +322,6 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
             dietOrderDetailGoodsAttribute.setLocalDietOrderDetailId(instance.getLocalDietOrderDetailId());
             dietOrderDetailGoodsAttribute.setLocalCreatedTime(instance.getLocalCreatedTime());
             dietOrderDetailGoodsAttribute.setLocalUpdatedTime(instance.getLocalUpdatedTime());
-            dietOrderDetailGoodsAttribute.setId(instance.getId());
-            dietOrderDetailGoodsAttribute.setCreatedTime(instance.getCreatedTime());
-            dietOrderDetailGoodsAttribute.setCreatedUserId(instance.getCreatedUserId());
-            dietOrderDetailGoodsAttribute.setUpdatedTime(instance.getUpdatedTime());
-            dietOrderDetailGoodsAttribute.setUpdatedUserId(instance.getUpdatedUserId());
-            dietOrderDetailGoodsAttribute.setUpdatedRemark(instance.getUpdatedRemark());
-            dietOrderDetailGoodsAttribute.setDeletedTime(instance.getDeletedTime());
-            dietOrderDetailGoodsAttribute.setDeleted(instance.isDeleted());
             return dietOrderDetailGoodsAttribute;
         }
     }

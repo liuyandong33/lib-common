@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = WeiXinMenu.FieldName.TENANT_ID, columnName = WeiXinMenu.ColumnName.TENANT_ID)
 public class WeiXinMenu extends BasicDomain {
@@ -130,9 +129,7 @@ public class WeiXinMenu extends BasicDomain {
         this.miniProgramAppId = miniProgramAppId;
     }
 
-    public static class Builder {
-        private WeiXinMenu instance = new WeiXinMenu();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinMenu> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -183,48 +180,9 @@ public class WeiXinMenu extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinMenu build() {
-            WeiXinMenu weiXinMenu = new WeiXinMenu();
+            WeiXinMenu weiXinMenu = super.build();
             weiXinMenu.setTenantId(instance.getTenantId());
             weiXinMenu.setTenantCode(instance.getTenantCode());
             weiXinMenu.setParentId(instance.getParentId());
@@ -235,14 +193,6 @@ public class WeiXinMenu extends BasicDomain {
             weiXinMenu.setUrl(instance.getUrl());
             weiXinMenu.setPagePath(instance.getPagePath());
             weiXinMenu.setMiniProgramAppId(instance.getMiniProgramAppId());
-            weiXinMenu.setId(instance.getId());
-            weiXinMenu.setCreatedTime(instance.getCreatedTime());
-            weiXinMenu.setCreatedUserId(instance.getCreatedUserId());
-            weiXinMenu.setUpdatedTime(instance.getUpdatedTime());
-            weiXinMenu.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinMenu.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinMenu.setDeletedTime(instance.getDeletedTime());
-            weiXinMenu.setDeleted(instance.isDeleted());
             return weiXinMenu;
         }
     }

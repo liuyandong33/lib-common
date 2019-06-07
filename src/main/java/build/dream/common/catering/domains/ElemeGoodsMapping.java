@@ -3,7 +3,6 @@ package build.dream.common.catering.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class ElemeGoodsMapping extends BasicDomain {
     /**
@@ -97,9 +96,7 @@ public class ElemeGoodsMapping extends BasicDomain {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public static class Builder {
-        private final ElemeGoodsMapping instance = new ElemeGoodsMapping();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ElemeGoodsMapping> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -135,48 +132,9 @@ public class ElemeGoodsMapping extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ElemeGoodsMapping build() {
-            ElemeGoodsMapping elemeGoodsMapping = new ElemeGoodsMapping();
+            ElemeGoodsMapping elemeGoodsMapping = super.build();
             elemeGoodsMapping.setTenantId(instance.getTenantId());
             elemeGoodsMapping.setTenantCode(instance.getTenantCode());
             elemeGoodsMapping.setBranchId(instance.getBranchId());
@@ -184,14 +142,6 @@ public class ElemeGoodsMapping extends BasicDomain {
             elemeGoodsMapping.setElemeSpecId(instance.getElemeSpecId());
             elemeGoodsMapping.setGoodsId(instance.getGoodsId());
             elemeGoodsMapping.setGoodsSpecificationId(instance.getGoodsSpecificationId());
-            elemeGoodsMapping.setId(instance.getId());
-            elemeGoodsMapping.setCreatedTime(instance.getCreatedTime());
-            elemeGoodsMapping.setCreatedUserId(instance.getCreatedUserId());
-            elemeGoodsMapping.setUpdatedTime(instance.getUpdatedTime());
-            elemeGoodsMapping.setUpdatedUserId(instance.getUpdatedUserId());
-            elemeGoodsMapping.setUpdatedRemark(instance.getUpdatedRemark());
-            elemeGoodsMapping.setDeletedTime(instance.getDeletedTime());
-            elemeGoodsMapping.setDeleted(instance.isDeleted());
             return elemeGoodsMapping;
         }
     }

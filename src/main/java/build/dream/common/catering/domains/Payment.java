@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Payment.FieldName.TENANT_ID, columnName = Payment.ColumnName.TENANT_ID)
 public class Payment extends BasicDomain {
@@ -82,9 +81,7 @@ public class Payment extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
-        private final Payment instance = new Payment();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Payment> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -115,62 +112,15 @@ public class Payment extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Payment build() {
-            Payment payment = new Payment();
+            Payment payment = super.build();
             payment.setTenantId(instance.getTenantId());
             payment.setTenantCode(instance.getTenantCode());
             payment.setBranchId(instance.getBranchId());
             payment.setCode(instance.getCode());
             payment.setName(instance.getName());
             payment.setStatus(instance.getStatus());
-            payment.setId(instance.getId());
-            payment.setCreatedTime(instance.getCreatedTime());
-            payment.setCreatedUserId(instance.getCreatedUserId());
-            payment.setUpdatedTime(instance.getUpdatedTime());
-            payment.setUpdatedUserId(instance.getUpdatedUserId());
-            payment.setUpdatedRemark(instance.getUpdatedRemark());
-            payment.setDeletedTime(instance.getDeletedTime());
-            payment.setDeleted(instance.isDeleted());
             return payment;
         }
     }

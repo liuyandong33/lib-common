@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = VipAccount.FieldName.TENANT_ID, columnName = VipAccount.ColumnName.TENANT_ID)
 public class VipAccount extends BasicDomain {
@@ -132,9 +131,7 @@ public class VipAccount extends BasicDomain {
         this.accumulativeRecharge = accumulativeRecharge;
     }
 
-    public static class Builder {
-        private final VipAccount instance = new VipAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, VipAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -185,48 +182,9 @@ public class VipAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public VipAccount build() {
-            VipAccount vipAccount = new VipAccount();
+            VipAccount vipAccount = super.build();
             vipAccount.setTenantId(instance.getTenantId());
             vipAccount.setTenantCode(instance.getTenantCode());
             vipAccount.setBranchId(instance.getBranchId());
@@ -237,14 +195,6 @@ public class VipAccount extends BasicDomain {
             vipAccount.setAccumulativePoint(instance.getAccumulativePoint());
             vipAccount.setBalance(instance.getBalance());
             vipAccount.setAccumulativeRecharge(instance.getAccumulativeRecharge());
-            vipAccount.setId(instance.getId());
-            vipAccount.setCreatedTime(instance.getCreatedTime());
-            vipAccount.setCreatedUserId(instance.getCreatedUserId());
-            vipAccount.setUpdatedTime(instance.getUpdatedTime());
-            vipAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            vipAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            vipAccount.setDeletedTime(instance.getDeletedTime());
-            vipAccount.setDeleted(instance.isDeleted());
             return vipAccount;
         }
     }

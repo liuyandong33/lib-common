@@ -155,9 +155,7 @@ public class Vip extends BasicDomain {
         this.userCardCode = userCardCode;
     }
 
-    public static class Builder {
-        private final Vip instance = new Vip();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Vip> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -218,48 +216,9 @@ public class Vip extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Vip build() {
-            Vip vip = new Vip();
+            Vip vip = super.build();
             vip.setTenantId(instance.getTenantId());
             vip.setTenantCode(instance.getTenantCode());
             vip.setBranchId(instance.getBranchId());
@@ -272,14 +231,6 @@ public class Vip extends BasicDomain {
             vip.setAlipayUserId(instance.getAlipayUserId());
             vip.setCardId(instance.getCardId());
             vip.setUserCardCode(instance.getUserCardCode());
-            vip.setId(instance.getId());
-            vip.setCreatedTime(instance.getCreatedTime());
-            vip.setCreatedUserId(instance.getCreatedUserId());
-            vip.setUpdatedTime(instance.getUpdatedTime());
-            vip.setUpdatedUserId(instance.getUpdatedUserId());
-            vip.setUpdatedRemark(instance.getUpdatedRemark());
-            vip.setDeletedTime(instance.getDeletedTime());
-            vip.setDeleted(instance.isDeleted());
             return vip;
         }
     }

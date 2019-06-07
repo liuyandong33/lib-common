@@ -241,9 +241,7 @@ public class FlashSaleActivity extends BasicDomain {
         this.description = description;
     }
 
-    public static class Builder {
-        private final FlashSaleActivity instance = new FlashSaleActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, FlashSaleActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -334,48 +332,9 @@ public class FlashSaleActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public FlashSaleActivity build() {
-            FlashSaleActivity flashSaleActivity = new FlashSaleActivity();
+            FlashSaleActivity flashSaleActivity = super.build();
             flashSaleActivity.setTenantId(instance.getTenantId());
             flashSaleActivity.setTenantCode(instance.getTenantCode());
             flashSaleActivity.setBranchId(instance.getBranchId());
@@ -394,14 +353,6 @@ public class FlashSaleActivity extends BasicDomain {
             flashSaleActivity.setFlashSalePrice(instance.getFlashSalePrice());
             flashSaleActivity.setFlashSaleStock(instance.getFlashSaleStock());
             flashSaleActivity.setDescription(instance.getDescription());
-            flashSaleActivity.setId(instance.getId());
-            flashSaleActivity.setCreatedTime(instance.getCreatedTime());
-            flashSaleActivity.setCreatedUserId(instance.getCreatedUserId());
-            flashSaleActivity.setUpdatedTime(instance.getUpdatedTime());
-            flashSaleActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            flashSaleActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            flashSaleActivity.setDeletedTime(instance.getDeletedTime());
-            flashSaleActivity.setDeleted(instance.isDeleted());
             return flashSaleActivity;
         }
     }

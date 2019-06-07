@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = GoodsUnit.FieldName.TENANT_ID, columnName = GoodsUnit.ColumnName.TENANT_ID)
 public class GoodsUnit extends BasicDomain {
@@ -83,9 +82,7 @@ public class GoodsUnit extends BasicDomain {
         this.proportion = proportion;
     }
 
-    public static class Builder {
-        private final GoodsUnit instance = new GoodsUnit();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsUnit> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -116,62 +113,15 @@ public class GoodsUnit extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsUnit build() {
-            GoodsUnit goodsUnit = new GoodsUnit();
+            GoodsUnit goodsUnit = super.build();
             goodsUnit.setTenantId(instance.getTenantId());
             goodsUnit.setTenantCode(instance.getTenantCode());
             goodsUnit.setBranchId(instance.getBranchId());
             goodsUnit.setGoodsId(instance.getGoodsId());
             goodsUnit.setName(instance.getName());
             goodsUnit.setProportion(instance.getProportion());
-            goodsUnit.setId(instance.getId());
-            goodsUnit.setCreatedTime(instance.getCreatedTime());
-            goodsUnit.setCreatedUserId(instance.getCreatedUserId());
-            goodsUnit.setUpdatedTime(instance.getUpdatedTime());
-            goodsUnit.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsUnit.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsUnit.setDeletedTime(instance.getDeletedTime());
-            goodsUnit.setDeleted(instance.isDeleted());
             return goodsUnit;
         }
     }

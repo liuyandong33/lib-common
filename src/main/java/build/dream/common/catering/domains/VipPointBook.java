@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = VipPointBook.FieldName.TENANT_ID, columnName = VipPointBook.ColumnName.TENANT_ID)
 public class VipPointBook extends BasicDomain {
@@ -107,9 +106,7 @@ public class VipPointBook extends BasicDomain {
         this.pointBalance = pointBalance;
     }
 
-    public static class Builder {
-        private final VipPointBook instance = new VipPointBook();
-
+    public static class Builder extends BasicDomain.Builder<Builder, VipPointBook> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -150,48 +147,9 @@ public class VipPointBook extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public VipPointBook build() {
-            VipPointBook vipPointBook = new VipPointBook();
+            VipPointBook vipPointBook = super.build();
             vipPointBook.setTenantId(instance.getTenantId());
             vipPointBook.setTenantCode(instance.getTenantCode());
             vipPointBook.setBranchId(instance.getBranchId());
@@ -200,14 +158,6 @@ public class VipPointBook extends BasicDomain {
             vipPointBook.setType(instance.getType());
             vipPointBook.setChangeAmount(instance.getChangeAmount());
             vipPointBook.setPointBalance(instance.getPointBalance());
-            vipPointBook.setId(instance.getId());
-            vipPointBook.setCreatedTime(instance.getCreatedTime());
-            vipPointBook.setCreatedUserId(instance.getCreatedUserId());
-            vipPointBook.setUpdatedTime(instance.getUpdatedTime());
-            vipPointBook.setUpdatedUserId(instance.getUpdatedUserId());
-            vipPointBook.setUpdatedRemark(instance.getUpdatedRemark());
-            vipPointBook.setDeletedTime(instance.getDeletedTime());
-            vipPointBook.setDeleted(instance.isDeleted());
             return vipPointBook;
         }
     }

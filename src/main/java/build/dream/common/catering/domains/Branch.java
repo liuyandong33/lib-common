@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Branch.FieldName.TENANT_ID, columnName = Branch.ColumnName.TENANT_ID)
 public class Branch extends BasicDomain {
@@ -311,9 +310,7 @@ public class Branch extends BasicDomain {
         this.businessTimes = businessTimes;
     }
 
-    public static class Builder {
-        private final Branch instance = new Branch();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Branch> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -439,48 +436,9 @@ public class Branch extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Branch build() {
-            Branch branch = new Branch();
+            Branch branch = super.build();
             branch.setTenantId(instance.getTenantId());
             branch.setTenantCode(instance.getTenantCode());
             branch.setCode(instance.getCode());
@@ -506,14 +464,6 @@ public class Branch extends BasicDomain {
             branch.setPoiName(instance.getPoiName());
             branch.setVipGroupId(instance.getVipGroupId());
             branch.setBusinessTimes(instance.getBusinessTimes());
-            branch.setId(instance.getId());
-            branch.setCreatedTime(instance.getCreatedTime());
-            branch.setCreatedUserId(instance.getCreatedUserId());
-            branch.setUpdatedTime(instance.getUpdatedTime());
-            branch.setUpdatedUserId(instance.getUpdatedUserId());
-            branch.setUpdatedRemark(instance.getUpdatedRemark());
-            branch.setDeletedTime(instance.getDeletedTime());
-            branch.setDeleted(instance.isDeleted());
             return branch;
         }
     }

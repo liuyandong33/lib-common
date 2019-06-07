@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = GoodsAttribute.FieldName.TENANT_ID, columnName = GoodsAttribute.ColumnName.TENANT_ID)
 public class GoodsAttribute extends BasicDomain {
@@ -96,9 +95,7 @@ public class GoodsAttribute extends BasicDomain {
         this.price = price;
     }
 
-    public static class Builder {
-        private final GoodsAttribute instance = new GoodsAttribute();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsAttribute> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -134,48 +131,9 @@ public class GoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsAttribute build() {
-            GoodsAttribute goodsAttribute = new GoodsAttribute();
+            GoodsAttribute goodsAttribute = super.build();
             goodsAttribute.setTenantId(instance.getTenantId());
             goodsAttribute.setTenantCode(instance.getTenantCode());
             goodsAttribute.setBranchId(instance.getBranchId());
@@ -183,14 +141,6 @@ public class GoodsAttribute extends BasicDomain {
             goodsAttribute.setGoodsAttributeGroupId(instance.getGoodsAttributeGroupId());
             goodsAttribute.setName(instance.getName());
             goodsAttribute.setPrice(instance.getPrice());
-            goodsAttribute.setId(instance.getId());
-            goodsAttribute.setCreatedTime(instance.getCreatedTime());
-            goodsAttribute.setCreatedUserId(instance.getCreatedUserId());
-            goodsAttribute.setUpdatedTime(instance.getUpdatedTime());
-            goodsAttribute.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsAttribute.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsAttribute.setDeletedTime(instance.getDeletedTime());
-            goodsAttribute.setDeleted(instance.isDeleted());
             return goodsAttribute;
         }
     }

@@ -215,9 +215,7 @@ public class DietOrderDeliveryState extends BasicDomain {
         this.pushTime = pushTime;
     }
 
-    public static class Builder {
-        private final DietOrderDeliveryState instance = new DietOrderDeliveryState();
-
+    public static class Builder extends BasicDomain.Builder<Builder, DietOrderDeliveryState> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -303,48 +301,9 @@ public class DietOrderDeliveryState extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public DietOrderDeliveryState build() {
-            DietOrderDeliveryState dietOrderDeliveryState = new DietOrderDeliveryState();
+            DietOrderDeliveryState dietOrderDeliveryState = super.build();
             dietOrderDeliveryState.setTenantId(instance.getTenantId());
             dietOrderDeliveryState.setTenantCode(instance.getTenantCode());
             dietOrderDeliveryState.setBranchId(instance.getBranchId());
@@ -362,14 +321,6 @@ public class DietOrderDeliveryState extends BasicDomain {
             dietOrderDeliveryState.setLongitude(instance.getLongitude());
             dietOrderDeliveryState.setLatitude(instance.getLatitude());
             dietOrderDeliveryState.setPushTime(instance.getPushTime());
-            dietOrderDeliveryState.setId(instance.getId());
-            dietOrderDeliveryState.setCreatedTime(instance.getCreatedTime());
-            dietOrderDeliveryState.setCreatedUserId(instance.getCreatedUserId());
-            dietOrderDeliveryState.setUpdatedTime(instance.getUpdatedTime());
-            dietOrderDeliveryState.setUpdatedUserId(instance.getUpdatedUserId());
-            dietOrderDeliveryState.setUpdatedRemark(instance.getUpdatedRemark());
-            dietOrderDeliveryState.setDeletedTime(instance.getDeletedTime());
-            dietOrderDeliveryState.setDeleted(instance.isDeleted());
             return dietOrderDeliveryState;
         }
     }

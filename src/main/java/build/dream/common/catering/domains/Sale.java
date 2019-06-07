@@ -117,9 +117,7 @@ public class Sale extends BasicDomain {
         this.paidAmount = paidAmount;
     }
 
-    public static class Builder {
-        private final Sale instance = new Sale();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Sale> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -165,48 +163,9 @@ public class Sale extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Sale build() {
-            Sale sale = new Sale();
+            Sale sale = super.build();
             sale.setTenantId(instance.getTenantId());
             sale.setTenantCode(instance.getTenantCode());
             sale.setBranchId(instance.getBranchId());
@@ -216,14 +175,6 @@ public class Sale extends BasicDomain {
             sale.setDiscountAmount(instance.getDiscountAmount());
             sale.setPayableAmount(instance.getPayableAmount());
             sale.setPaidAmount(instance.getPaidAmount());
-            sale.setId(instance.getId());
-            sale.setCreatedTime(instance.getCreatedTime());
-            sale.setCreatedUserId(instance.getCreatedUserId());
-            sale.setUpdatedTime(instance.getUpdatedTime());
-            sale.setUpdatedUserId(instance.getUpdatedUserId());
-            sale.setUpdatedRemark(instance.getUpdatedRemark());
-            sale.setDeletedTime(instance.getDeletedTime());
-            sale.setDeleted(instance.isDeleted());
             return sale;
         }
     }

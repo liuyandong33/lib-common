@@ -136,9 +136,7 @@ public class RequireGoodsOrder extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
-        private final RequireGoodsOrder instance = new RequireGoodsOrder();
-
+    public static class Builder extends BasicDomain.Builder<Builder, RequireGoodsOrder> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -189,48 +187,9 @@ public class RequireGoodsOrder extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public RequireGoodsOrder build() {
-            RequireGoodsOrder requireGoodsOrder = new RequireGoodsOrder();
+            RequireGoodsOrder requireGoodsOrder = super.build();
             requireGoodsOrder.setTenantId(instance.getTenantId());
             requireGoodsOrder.setTenantCode(instance.getTenantCode());
             requireGoodsOrder.setBranchId(instance.getBranchId());
@@ -241,14 +200,6 @@ public class RequireGoodsOrder extends BasicDomain {
             requireGoodsOrder.setAuditTime(instance.getAuditTime());
             requireGoodsOrder.setRemark(instance.getRemark());
             requireGoodsOrder.setStatus(instance.getStatus());
-            requireGoodsOrder.setId(instance.getId());
-            requireGoodsOrder.setCreatedTime(instance.getCreatedTime());
-            requireGoodsOrder.setCreatedUserId(instance.getCreatedUserId());
-            requireGoodsOrder.setUpdatedTime(instance.getUpdatedTime());
-            requireGoodsOrder.setUpdatedUserId(instance.getUpdatedUserId());
-            requireGoodsOrder.setUpdatedRemark(instance.getUpdatedRemark());
-            requireGoodsOrder.setDeletedTime(instance.getDeletedTime());
-            requireGoodsOrder.setDeleted(instance.isDeleted());
             return requireGoodsOrder;
         }
     }

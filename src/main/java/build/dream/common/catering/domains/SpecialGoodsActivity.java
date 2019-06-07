@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = SpecialGoodsActivity.FieldName.TENANT_ID, columnName = SpecialGoodsActivity.ColumnName.TENANT_ID)
 public class SpecialGoodsActivity extends BasicDomain {
@@ -108,9 +107,7 @@ public class SpecialGoodsActivity extends BasicDomain {
         this.discountRate = discountRate;
     }
 
-    public static class Builder {
-        private final SpecialGoodsActivity instance = new SpecialGoodsActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SpecialGoodsActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -151,48 +148,9 @@ public class SpecialGoodsActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SpecialGoodsActivity build() {
-            SpecialGoodsActivity specialGoodsActivity = new SpecialGoodsActivity();
+            SpecialGoodsActivity specialGoodsActivity = super.build();
             specialGoodsActivity.setTenantId(instance.getTenantId());
             specialGoodsActivity.setTenantCode(instance.getTenantCode());
             specialGoodsActivity.setActivityId(instance.getActivityId());
@@ -201,14 +159,6 @@ public class SpecialGoodsActivity extends BasicDomain {
             specialGoodsActivity.setDiscountType(instance.getDiscountType());
             specialGoodsActivity.setSpecialPrice(instance.getSpecialPrice());
             specialGoodsActivity.setDiscountRate(instance.getDiscountRate());
-            specialGoodsActivity.setId(instance.getId());
-            specialGoodsActivity.setCreatedTime(instance.getCreatedTime());
-            specialGoodsActivity.setCreatedUserId(instance.getCreatedUserId());
-            specialGoodsActivity.setUpdatedTime(instance.getUpdatedTime());
-            specialGoodsActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            specialGoodsActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            specialGoodsActivity.setDeletedTime(instance.getDeletedTime());
-            specialGoodsActivity.setDeleted(instance.isDeleted());
             return specialGoodsActivity;
         }
     }

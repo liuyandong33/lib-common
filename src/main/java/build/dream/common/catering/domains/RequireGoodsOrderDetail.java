@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class RequireGoodsOrderDetail extends BasicDomain {
     public static final String TABLE_NAME = "require_goods_order_detail";
@@ -125,9 +124,7 @@ public class RequireGoodsOrderDetail extends BasicDomain {
         this.quantity = quantity;
     }
 
-    public static class Builder {
-        private final RequireGoodsOrderDetail instance = new RequireGoodsOrderDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, RequireGoodsOrderDetail> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -173,48 +170,9 @@ public class RequireGoodsOrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public RequireGoodsOrderDetail build() {
-            RequireGoodsOrderDetail requireGoodsOrderDetail = new RequireGoodsOrderDetail();
+            RequireGoodsOrderDetail requireGoodsOrderDetail = super.build();
             requireGoodsOrderDetail.setTenantId(instance.getTenantId());
             requireGoodsOrderDetail.setTenantCode(instance.getTenantCode());
             requireGoodsOrderDetail.setBranchId(instance.getBranchId());
@@ -223,14 +181,6 @@ public class RequireGoodsOrderDetail extends BasicDomain {
             requireGoodsOrderDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             requireGoodsOrderDetail.setUnitId(instance.getUnitId());
             requireGoodsOrderDetail.setQuantity(instance.getQuantity());
-            requireGoodsOrderDetail.setId(instance.getId());
-            requireGoodsOrderDetail.setCreatedTime(instance.getCreatedTime());
-            requireGoodsOrderDetail.setCreatedUserId(instance.getCreatedUserId());
-            requireGoodsOrderDetail.setUpdatedTime(instance.getUpdatedTime());
-            requireGoodsOrderDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            requireGoodsOrderDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            requireGoodsOrderDetail.setDeletedTime(instance.getDeletedTime());
-            requireGoodsOrderDetail.setDeleted(instance.isDeleted());
             return requireGoodsOrderDetail;
         }
     }

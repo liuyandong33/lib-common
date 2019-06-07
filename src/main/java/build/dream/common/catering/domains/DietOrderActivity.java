@@ -156,9 +156,7 @@ public class DietOrderActivity extends BasicDomain {
         this.localUpdatedTime = localUpdatedTime;
     }
 
-    public static class Builder {
-        private final DietOrderActivity instance = new DietOrderActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, DietOrderActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -219,48 +217,9 @@ public class DietOrderActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public DietOrderActivity build() {
-            DietOrderActivity dietOrderActivity = new DietOrderActivity();
+            DietOrderActivity dietOrderActivity = super.build();
             dietOrderActivity.setTenantId(instance.getTenantId());
             dietOrderActivity.setTenantCode(instance.getTenantCode());
             dietOrderActivity.setBranchId(instance.getBranchId());
@@ -273,14 +232,6 @@ public class DietOrderActivity extends BasicDomain {
             dietOrderActivity.setLocalDietOrderId(instance.getLocalDietOrderId());
             dietOrderActivity.setLocalCreatedTime(instance.getLocalCreatedTime());
             dietOrderActivity.setLocalUpdatedTime(instance.getLocalUpdatedTime());
-            dietOrderActivity.setId(instance.getId());
-            dietOrderActivity.setCreatedTime(instance.getCreatedTime());
-            dietOrderActivity.setCreatedUserId(instance.getCreatedUserId());
-            dietOrderActivity.setUpdatedTime(instance.getUpdatedTime());
-            dietOrderActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            dietOrderActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            dietOrderActivity.setDeletedTime(instance.getDeletedTime());
-            dietOrderActivity.setDeleted(instance.isDeleted());
             return dietOrderActivity;
         }
 

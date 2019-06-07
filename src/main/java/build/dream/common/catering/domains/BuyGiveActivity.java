@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = BuyGiveActivity.FieldName.TENANT_ID, columnName = BuyGiveActivity.ColumnName.TENANT_ID)
 public class BuyGiveActivity extends BasicDomain {
@@ -118,9 +117,7 @@ public class BuyGiveActivity extends BasicDomain {
         this.giveQuantity = giveQuantity;
     }
 
-    public static class Builder {
-        private final BuyGiveActivity instance = new BuyGiveActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, BuyGiveActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -166,48 +163,9 @@ public class BuyGiveActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public BuyGiveActivity build() {
-            BuyGiveActivity buyGiveActivity = new BuyGiveActivity();
+            BuyGiveActivity buyGiveActivity = super.build();
             buyGiveActivity.setTenantId(instance.getTenantId());
             buyGiveActivity.setTenantCode(instance.getTenantCode());
             buyGiveActivity.setActivityId(instance.getActivityId());
@@ -217,15 +175,6 @@ public class BuyGiveActivity extends BasicDomain {
             buyGiveActivity.setGiveGoodsId(instance.getGiveGoodsId());
             buyGiveActivity.setGiveGoodsSpecificationId(instance.getGiveGoodsSpecificationId());
             buyGiveActivity.setGiveQuantity(instance.getGiveQuantity());
-            buyGiveActivity.setId(instance.getId());
-            buyGiveActivity.setCreatedTime(instance.getCreatedTime());
-            buyGiveActivity.setCreatedUserId(instance.getCreatedUserId());
-            buyGiveActivity.setUpdatedTime(instance.getUpdatedTime());
-            buyGiveActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            buyGiveActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            buyGiveActivity.setDeletedTime(instance.getDeletedTime());
-            buyGiveActivity.setDeleted(instance.isDeleted());
-            buyGiveActivity.setId(instance.getId());
             return buyGiveActivity;
         }
     }

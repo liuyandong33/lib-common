@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Coupon.FieldName.TENANT_ID, columnName = Coupon.ColumnName.TENANT_ID)
 public class Coupon extends BasicDomain {
@@ -83,9 +82,7 @@ public class Coupon extends BasicDomain {
         this.faceValue = faceValue;
     }
 
-    public static class Builder {
-        private final Coupon instance = new Coupon();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Coupon> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -116,62 +113,15 @@ public class Coupon extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Coupon build() {
-            Coupon coupon = new Coupon();
+            Coupon coupon = super.build();
             coupon.setTenantId(instance.getTenantId());
             coupon.setTenantCode(instance.getTenantCode());
             coupon.setBranchId(instance.getBranchId());
             coupon.setName(instance.getName());
             coupon.setType(instance.getType());
             coupon.setFaceValue(instance.getFaceValue());
-            coupon.setId(instance.getId());
-            coupon.setCreatedTime(instance.getCreatedTime());
-            coupon.setCreatedUserId(instance.getCreatedUserId());
-            coupon.setUpdatedTime(instance.getUpdatedTime());
-            coupon.setUpdatedUserId(instance.getUpdatedUserId());
-            coupon.setUpdatedRemark(instance.getUpdatedRemark());
-            coupon.setDeletedTime(instance.getDeletedTime());
-            coupon.setDeleted(instance.isDeleted());
             return coupon;
         }
     }

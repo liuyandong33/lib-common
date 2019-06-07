@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = VipType.FieldName.TENANT_ID, columnName = VipType.ColumnName.TENANT_ID)
 public class VipType extends BasicDomain {
@@ -120,9 +119,7 @@ public class VipType extends BasicDomain {
         this.bonusCoefficient = bonusCoefficient;
     }
 
-    public static class Builder {
-        private final VipType instance = new VipType();
-
+    public static class Builder extends BasicDomain.Builder<Builder, VipType> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -168,48 +165,9 @@ public class VipType extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public VipType build() {
-            VipType vipType = new VipType();
+            VipType vipType = super.build();
             vipType.setTenantId(instance.getTenantId());
             vipType.setTenantCode(instance.getTenantCode());
             vipType.setBranchId(instance.getBranchId());
@@ -219,14 +177,6 @@ public class VipType extends BasicDomain {
             vipType.setDiscountRate(instance.getDiscountRate());
             vipType.setEnableBonus(instance.isEnableBonus());
             vipType.setBonusCoefficient(instance.getBonusCoefficient());
-            vipType.setId(instance.getId());
-            vipType.setCreatedTime(instance.getCreatedTime());
-            vipType.setCreatedUserId(instance.getCreatedUserId());
-            vipType.setUpdatedTime(instance.getUpdatedTime());
-            vipType.setUpdatedUserId(instance.getUpdatedUserId());
-            vipType.setUpdatedRemark(instance.getUpdatedRemark());
-            vipType.setDeletedTime(instance.getDeletedTime());
-            vipType.setDeleted(instance.isDeleted());
             return vipType;
         }
     }

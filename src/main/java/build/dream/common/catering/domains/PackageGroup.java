@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = PackageGroup.FieldName.TENANT_ID, columnName = PackageGroup.ColumnName.TENANT_ID)
 public class PackageGroup extends BasicDomain {
@@ -95,9 +94,7 @@ public class PackageGroup extends BasicDomain {
         this.optionalQuantity = optionalQuantity;
     }
 
-    public static class Builder {
-        private final PackageGroup instance = new PackageGroup();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PackageGroup> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -133,48 +130,9 @@ public class PackageGroup extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PackageGroup build() {
-            PackageGroup packageGroup = new PackageGroup();
+            PackageGroup packageGroup = super.build();
             packageGroup.setTenantId(instance.getTenantId());
             packageGroup.setTenantCode(instance.getTenantCode());
             packageGroup.setBranchId(instance.getBranchId());
@@ -182,14 +140,6 @@ public class PackageGroup extends BasicDomain {
             packageGroup.setGroupName(instance.getGroupName());
             packageGroup.setGroupType(instance.getGroupType());
             packageGroup.setOptionalQuantity(instance.getOptionalQuantity());
-            packageGroup.setId(instance.getId());
-            packageGroup.setCreatedTime(instance.getCreatedTime());
-            packageGroup.setCreatedUserId(instance.getCreatedUserId());
-            packageGroup.setUpdatedTime(instance.getUpdatedTime());
-            packageGroup.setUpdatedUserId(instance.getUpdatedUserId());
-            packageGroup.setUpdatedRemark(instance.getUpdatedRemark());
-            packageGroup.setDeletedTime(instance.getDeletedTime());
-            packageGroup.setDeleted(instance.isDeleted());
             return packageGroup;
         }
     }

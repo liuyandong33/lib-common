@@ -119,9 +119,7 @@ public class SalePayment extends BasicDomain {
         this.paidAmount = paidAmount;
     }
 
-    public static class Builder {
-        private final SalePayment instance = new SalePayment();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SalePayment> {
         public Builder saleId(BigInteger saleId) {
             instance.setSaleId(saleId);
             return this;
@@ -167,48 +165,9 @@ public class SalePayment extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SalePayment build() {
-            SalePayment salePayment = new SalePayment();
+            SalePayment salePayment = super.build();
             salePayment.setSaleId(instance.getSaleId());
             salePayment.setSaleTime(instance.getSaleTime());
             salePayment.setTenantId(instance.getTenantId());
@@ -218,14 +177,6 @@ public class SalePayment extends BasicDomain {
             salePayment.setPaymentCode(instance.getPaymentCode());
             salePayment.setPaymentName(instance.getPaymentName());
             salePayment.setPaidAmount(instance.getPaidAmount());
-            salePayment.setId(instance.getId());
-            salePayment.setCreatedTime(instance.getCreatedTime());
-            salePayment.setCreatedUserId(instance.getCreatedUserId());
-            salePayment.setUpdatedTime(instance.getUpdatedTime());
-            salePayment.setUpdatedUserId(instance.getUpdatedUserId());
-            salePayment.setUpdatedRemark(instance.getUpdatedRemark());
-            salePayment.setDeletedTime(instance.getDeletedTime());
-            salePayment.setDeleted(instance.isDeleted());
             return salePayment;
         }
     }

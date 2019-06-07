@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = PurchaseOrderDetail.FieldName.TENANT_ID, columnName = PurchaseOrderDetail.ColumnName.TENANT_ID)
 public class PurchaseOrderDetail extends BasicDomain {
@@ -127,9 +126,7 @@ public class PurchaseOrderDetail extends BasicDomain {
         this.quantity = quantity;
     }
 
-    public static class Builder {
-        private final PurchaseOrderDetail instance = new PurchaseOrderDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PurchaseOrderDetail> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -175,48 +172,9 @@ public class PurchaseOrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PurchaseOrderDetail build() {
-            PurchaseOrderDetail purchaseOrderDetail = new PurchaseOrderDetail();
+            PurchaseOrderDetail purchaseOrderDetail = super.build();
             purchaseOrderDetail.setTenantId(instance.getTenantId());
             purchaseOrderDetail.setTenantCode(instance.getTenantCode());
             purchaseOrderDetail.setBranchId(instance.getBranchId());
@@ -226,14 +184,6 @@ public class PurchaseOrderDetail extends BasicDomain {
             purchaseOrderDetail.setUnitId(instance.getUnitId());
             purchaseOrderDetail.setPurchasePrice(instance.getPurchasePrice());
             purchaseOrderDetail.setQuantity(instance.getQuantity());
-            purchaseOrderDetail.setId(instance.getId());
-            purchaseOrderDetail.setCreatedTime(instance.getCreatedTime());
-            purchaseOrderDetail.setCreatedUserId(instance.getCreatedUserId());
-            purchaseOrderDetail.setUpdatedTime(instance.getUpdatedTime());
-            purchaseOrderDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            purchaseOrderDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            purchaseOrderDetail.setDeletedTime(instance.getDeletedTime());
-            purchaseOrderDetail.setDeleted(instance.isDeleted());
             return purchaseOrderDetail;
         }
     }

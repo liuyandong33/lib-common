@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Menu.FieldName.TENANT_ID, columnName = Menu.ColumnName.TENANT_ID)
 public class MenuDetail extends BasicDomain {
@@ -101,9 +100,7 @@ public class MenuDetail extends BasicDomain {
         this.price = price;
     }
 
-    public static class Builder {
-        private final MenuDetail instance = new MenuDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, MenuDetail> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -139,48 +136,9 @@ public class MenuDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public MenuDetail build() {
-            MenuDetail menuDetail = new MenuDetail();
+            MenuDetail menuDetail = super.build();
             menuDetail.setTenantId(instance.getTenantId());
             menuDetail.setTenantCode(instance.getTenantCode());
             menuDetail.setMenuId(instance.getMenuId());
@@ -188,14 +146,6 @@ public class MenuDetail extends BasicDomain {
             menuDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             menuDetail.setGoodsUnitId(instance.getGoodsUnitId());
             menuDetail.setPrice(instance.getPrice());
-            menuDetail.setId(instance.getId());
-            menuDetail.setCreatedTime(instance.getCreatedTime());
-            menuDetail.setCreatedUserId(instance.getCreatedUserId());
-            menuDetail.setUpdatedTime(instance.getUpdatedTime());
-            menuDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            menuDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            menuDetail.setDeletedTime(instance.getDeletedTime());
-            menuDetail.setDeleted(instance.isDeleted());
             return menuDetail;
         }
     }

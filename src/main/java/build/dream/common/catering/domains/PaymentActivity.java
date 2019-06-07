@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = PaymentActivity.FieldName.TENANT_ID, columnName = PaymentActivity.ColumnName.TENANT_ID)
 public class PaymentActivity extends BasicDomain {
@@ -108,9 +107,7 @@ public class PaymentActivity extends BasicDomain {
         this.discountAmount = discountAmount;
     }
 
-    public static class Builder {
-        private final PaymentActivity instance = new PaymentActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PaymentActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -151,48 +148,9 @@ public class PaymentActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PaymentActivity build() {
-            PaymentActivity paymentActivity = new PaymentActivity();
+            PaymentActivity paymentActivity = super.build();
             paymentActivity.setTenantId(instance.getTenantId());
             paymentActivity.setTenantCode(instance.getTenantCode());
             paymentActivity.setActivityId(instance.getActivityId());
@@ -201,14 +159,6 @@ public class PaymentActivity extends BasicDomain {
             paymentActivity.setDiscountType(instance.getDiscountType());
             paymentActivity.setDiscountRate(instance.getDiscountRate());
             paymentActivity.setDiscountAmount(instance.getDiscountAmount());
-            paymentActivity.setId(instance.getId());
-            paymentActivity.setCreatedTime(instance.getCreatedTime());
-            paymentActivity.setCreatedUserId(instance.getCreatedUserId());
-            paymentActivity.setUpdatedTime(instance.getUpdatedTime());
-            paymentActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            paymentActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            paymentActivity.setDeletedTime(instance.getDeletedTime());
-            paymentActivity.setDeleted(instance.isDeleted());
             return paymentActivity;
         }
     }

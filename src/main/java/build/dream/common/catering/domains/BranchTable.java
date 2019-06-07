@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = BranchTable.FieldName.TENANT_ID, columnName = BranchTable.ColumnName.TENANT_ID)
 public class BranchTable extends BasicDomain {
@@ -114,9 +113,7 @@ public class BranchTable extends BasicDomain {
         this.dinnersNumber = dinnersNumber;
     }
 
-    public static class Builder {
-        private final BranchTable instance = new BranchTable();
-
+    public static class Builder extends BasicDomain.Builder<Builder, BranchTable> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -157,48 +154,9 @@ public class BranchTable extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public BranchTable build() {
-            BranchTable branchTable = new BranchTable();
+            BranchTable branchTable = super.build();
             branchTable.setTenantId(instance.getTenantId());
             branchTable.setTenantCode(instance.getTenantCode());
             branchTable.setBranchId(instance.getBranchId());
@@ -207,14 +165,6 @@ public class BranchTable extends BasicDomain {
             branchTable.setName(instance.getName());
             branchTable.setStatus(instance.getStatus());
             branchTable.setDinnersNumber(instance.getDinnersNumber());
-            branchTable.setId(instance.getId());
-            branchTable.setCreatedTime(instance.getCreatedTime());
-            branchTable.setCreatedUserId(instance.getCreatedUserId());
-            branchTable.setUpdatedTime(instance.getUpdatedTime());
-            branchTable.setUpdatedUserId(instance.getUpdatedUserId());
-            branchTable.setUpdatedRemark(instance.getUpdatedRemark());
-            branchTable.setDeletedTime(instance.getDeletedTime());
-            branchTable.setDeleted(instance.isDeleted());
             return branchTable;
         }
     }

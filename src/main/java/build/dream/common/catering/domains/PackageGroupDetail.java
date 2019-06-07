@@ -5,7 +5,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = PackageGroupDetail.FieldName.TENANT_ID, columnName = PackageGroupDetail.ColumnName.TENANT_ID)
 public class PackageGroupDetail extends BasicDomain {
@@ -107,9 +106,7 @@ public class PackageGroupDetail extends BasicDomain {
         this.quantity = quantity;
     }
 
-    public static class Builder {
-        private final PackageGroupDetail instance = new PackageGroupDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PackageGroupDetail> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -150,48 +147,9 @@ public class PackageGroupDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PackageGroupDetail build() {
-            PackageGroupDetail packageGroupDetail = new PackageGroupDetail();
+            PackageGroupDetail packageGroupDetail = super.build();
             packageGroupDetail.setTenantId(instance.getTenantId());
             packageGroupDetail.setTenantCode(instance.getTenantCode());
             packageGroupDetail.setBranchId(instance.getBranchId());
@@ -200,14 +158,6 @@ public class PackageGroupDetail extends BasicDomain {
             packageGroupDetail.setGoodsId(instance.getGoodsId());
             packageGroupDetail.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             packageGroupDetail.setQuantity(instance.getQuantity());
-            packageGroupDetail.setId(instance.getId());
-            packageGroupDetail.setCreatedTime(instance.getCreatedTime());
-            packageGroupDetail.setCreatedUserId(instance.getCreatedUserId());
-            packageGroupDetail.setUpdatedTime(instance.getUpdatedTime());
-            packageGroupDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            packageGroupDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            packageGroupDetail.setDeletedTime(instance.getDeletedTime());
-            packageGroupDetail.setDeleted(instance.isDeleted());
             return packageGroupDetail;
         }
     }

@@ -127,9 +127,7 @@ public class StockFlow extends BasicDomain {
         this.quantity = quantity;
     }
 
-    public static class Builder {
-        private final StockFlow instance = new StockFlow();
-
+    public static class Builder extends BasicDomain.Builder<Builder, StockFlow> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -175,48 +173,9 @@ public class StockFlow extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public StockFlow build() {
-            StockFlow stockFlow = new StockFlow();
+            StockFlow stockFlow = super.build();
             stockFlow.setTenantId(instance.getTenantId());
             stockFlow.setTenantCode(instance.getTenantCode());
             stockFlow.setBranchId(instance.getBranchId());
@@ -226,14 +185,6 @@ public class StockFlow extends BasicDomain {
             stockFlow.setType(instance.getType());
             stockFlow.setOccurrenceTime(instance.getOccurrenceTime());
             stockFlow.setQuantity(instance.getQuantity());
-            stockFlow.setId(instance.getId());
-            stockFlow.setCreatedTime(instance.getCreatedTime());
-            stockFlow.setCreatedUserId(instance.getCreatedUserId());
-            stockFlow.setUpdatedTime(instance.getUpdatedTime());
-            stockFlow.setUpdatedUserId(instance.getUpdatedUserId());
-            stockFlow.setUpdatedRemark(instance.getUpdatedRemark());
-            stockFlow.setDeletedTime(instance.getDeletedTime());
-            stockFlow.setDeleted(instance.isDeleted());
             return stockFlow;
         }
     }

@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = GoodsAttributeGroup.FieldName.TENANT_ID, columnName = GoodsAttributeGroup.ColumnName.TENANT_ID)
 public class GoodsAttributeGroup extends BasicDomain {
@@ -74,9 +73,7 @@ public class GoodsAttributeGroup extends BasicDomain {
         this.name = name;
     }
 
-    public static class Builder {
-        private final GoodsAttributeGroup instance = new GoodsAttributeGroup();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsAttributeGroup> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -102,61 +99,14 @@ public class GoodsAttributeGroup extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsAttributeGroup build() {
-            GoodsAttributeGroup goodsAttributeGroup = new GoodsAttributeGroup();
+            GoodsAttributeGroup goodsAttributeGroup = super.build();
             goodsAttributeGroup.setTenantId(instance.getTenantId());
             goodsAttributeGroup.setTenantCode(instance.getTenantCode());
             goodsAttributeGroup.setBranchId(instance.getBranchId());
             goodsAttributeGroup.setGoodsId(instance.getGoodsId());
             goodsAttributeGroup.setName(instance.getName());
-            goodsAttributeGroup.setId(instance.getId());
-            goodsAttributeGroup.setCreatedTime(instance.getCreatedTime());
-            goodsAttributeGroup.setCreatedUserId(instance.getCreatedUserId());
-            goodsAttributeGroup.setUpdatedTime(instance.getUpdatedTime());
-            goodsAttributeGroup.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsAttributeGroup.setDeletedTime(instance.getDeletedTime());
-            goodsAttributeGroup.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsAttributeGroup.setDeleted(instance.isDeleted());
             return goodsAttributeGroup;
         }
     }

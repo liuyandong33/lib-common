@@ -6,7 +6,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = FullReductionActivity.FieldName.TENANT_ID, columnName = FullReductionActivity.ColumnName.TENANT_ID)
 public class FullReductionActivity extends BasicDomain {
@@ -96,9 +95,7 @@ public class FullReductionActivity extends BasicDomain {
         this.discountAmount = discountAmount;
     }
 
-    public static class Builder {
-        private final FullReductionActivity instance = new FullReductionActivity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, FullReductionActivity> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -134,48 +131,9 @@ public class FullReductionActivity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public FullReductionActivity build() {
-            FullReductionActivity fullReductionActivity = new FullReductionActivity();
+            FullReductionActivity fullReductionActivity = super.build();
             fullReductionActivity.setTenantId(instance.getTenantId());
             fullReductionActivity.setTenantCode(instance.getTenantCode());
             fullReductionActivity.setActivityId(instance.getActivityId());
@@ -183,14 +141,6 @@ public class FullReductionActivity extends BasicDomain {
             fullReductionActivity.setDiscountType(instance.getDiscountType());
             fullReductionActivity.setDiscountRate(instance.getDiscountRate());
             fullReductionActivity.setDiscountAmount(instance.getDiscountAmount());
-            fullReductionActivity.setId(instance.getId());
-            fullReductionActivity.setCreatedTime(instance.getCreatedTime());
-            fullReductionActivity.setCreatedUserId(instance.getCreatedUserId());
-            fullReductionActivity.setUpdatedTime(instance.getUpdatedTime());
-            fullReductionActivity.setUpdatedUserId(instance.getUpdatedUserId());
-            fullReductionActivity.setUpdatedRemark(instance.getUpdatedRemark());
-            fullReductionActivity.setDeletedTime(instance.getDeletedTime());
-            fullReductionActivity.setDeleted(instance.isDeleted());
             return fullReductionActivity;
         }
     }

@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = VipGroup.FieldName.TENANT_ID, columnName = VipGroup.ColumnName.TENANT_ID)
 public class VipGroup extends BasicDomain {
@@ -46,9 +45,7 @@ public class VipGroup extends BasicDomain {
         this.name = name;
     }
 
-    public static class Builder {
-        private final VipGroup instance = new VipGroup();
-
+    public static class Builder extends BasicDomain.Builder<Builder, VipGroup> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -64,59 +61,12 @@ public class VipGroup extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public VipGroup build() {
-            VipGroup vipGroup = new VipGroup();
+            VipGroup vipGroup = super.build();
             vipGroup.setTenantId(instance.getTenantId());
             vipGroup.setTenantCode(instance.getTenantCode());
             vipGroup.setName(instance.getName());
-            vipGroup.setId(instance.getId());
-            vipGroup.setCreatedTime(instance.getCreatedTime());
-            vipGroup.setCreatedUserId(instance.getCreatedUserId());
-            vipGroup.setUpdatedTime(instance.getUpdatedTime());
-            vipGroup.setUpdatedUserId(instance.getUpdatedUserId());
-            vipGroup.setUpdatedRemark(instance.getUpdatedRemark());
-            vipGroup.setDeletedTime(instance.getDeletedTime());
-            vipGroup.setDeleted(instance.isDeleted());
             return vipGroup;
         }
     }

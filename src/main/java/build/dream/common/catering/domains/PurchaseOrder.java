@@ -126,9 +126,7 @@ public class PurchaseOrder extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
-        private final PurchaseOrder instance = new PurchaseOrder();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PurchaseOrder> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -174,48 +172,9 @@ public class PurchaseOrder extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PurchaseOrder build() {
-            PurchaseOrder purchaseOrder = new PurchaseOrder();
+            PurchaseOrder purchaseOrder = super.build();
             purchaseOrder.setTenantId(instance.getTenantId());
             purchaseOrder.setTenantCode(instance.getTenantCode());
             purchaseOrder.setBranchId(instance.getBranchId());
@@ -225,14 +184,6 @@ public class PurchaseOrder extends BasicDomain {
             purchaseOrder.setAuditTime(instance.getAuditTime());
             purchaseOrder.setRemark(instance.getRemark());
             purchaseOrder.setStatus(instance.getStatus());
-            purchaseOrder.setId(instance.getId());
-            purchaseOrder.setCreatedTime(instance.getCreatedTime());
-            purchaseOrder.setCreatedUserId(instance.getCreatedUserId());
-            purchaseOrder.setUpdatedTime(instance.getUpdatedTime());
-            purchaseOrder.setUpdatedUserId(instance.getUpdatedUserId());
-            purchaseOrder.setUpdatedRemark(instance.getUpdatedRemark());
-            purchaseOrder.setDeletedTime(instance.getDeletedTime());
-            purchaseOrder.setDeleted(instance.isDeleted());
             return purchaseOrder;
         }
     }

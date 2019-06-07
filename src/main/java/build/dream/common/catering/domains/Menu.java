@@ -113,9 +113,7 @@ public class Menu extends BasicDomain {
         this.effectiveScope = effectiveScope;
     }
 
-    public static class Builder {
-        private final Menu instance = new Menu();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Menu> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -156,48 +154,9 @@ public class Menu extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Menu build() {
-            Menu menu = new Menu();
+            Menu menu = super.build();
             menu.setTenantId(instance.getTenantId());
             menu.setTenantCode(instance.getTenantCode());
             menu.setCode(instance.getCode());
@@ -206,14 +165,6 @@ public class Menu extends BasicDomain {
             menu.setEndTime(instance.getEndTime());
             menu.setStatus(instance.getStatus());
             menu.setEffectiveScope(instance.getEffectiveScope());
-            menu.setId(instance.tenantId);
-            menu.setCreatedTime(instance.getCreatedTime());
-            menu.setCreatedUserId(instance.getCreatedUserId());
-            menu.setUpdatedTime(instance.getUpdatedTime());
-            menu.setUpdatedUserId(instance.getUpdatedUserId());
-            menu.setUpdatedRemark(instance.getUpdatedRemark());
-            menu.setDeletedTime(instance.getDeletedTime());
-            menu.setDeleted(instance.isDeleted());
             return menu;
         }
     }

@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = WeiXinMemberCard.FieldName.TENANT_ID, columnName = WeiXinMemberCard.ColumnName.TENANT_ID)
 public class WeiXinMemberCard extends BasicDomain {
@@ -70,9 +69,7 @@ public class WeiXinMemberCard extends BasicDomain {
         this.showQrCodeUrl = showQrCodeUrl;
     }
 
-    public static class Builder {
-        private final WeiXinMemberCard instance = new WeiXinMemberCard();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinMemberCard> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -98,61 +95,14 @@ public class WeiXinMemberCard extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinMemberCard build() {
-            WeiXinMemberCard weiXinMemberCard = new WeiXinMemberCard();
+            WeiXinMemberCard weiXinMemberCard = super.build();
             weiXinMemberCard.setTenantId(instance.getTenantId());
             weiXinMemberCard.setAppId(instance.getAppId());
             weiXinMemberCard.setCardId(instance.getCardId());
             weiXinMemberCard.setUrl(instance.getUrl());
             weiXinMemberCard.setShowQrCodeUrl(instance.getShowQrCodeUrl());
-            weiXinMemberCard.setId(instance.getId());
-            weiXinMemberCard.setCreatedTime(instance.getCreatedTime());
-            weiXinMemberCard.setCreatedUserId(instance.getCreatedUserId());
-            weiXinMemberCard.setUpdatedTime(instance.getUpdatedTime());
-            weiXinMemberCard.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinMemberCard.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinMemberCard.setDeletedTime(instance.getDeletedTime());
-            weiXinMemberCard.setDeleted(instance.isDeleted());
             return weiXinMemberCard;
         }
     }

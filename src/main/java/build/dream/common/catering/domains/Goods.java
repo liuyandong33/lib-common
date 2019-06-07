@@ -6,7 +6,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Goods.FieldName.TENANT_ID, columnName = Goods.ColumnName.TENANT_ID)
 public class Goods extends BasicDomain {
@@ -117,9 +116,7 @@ public class Goods extends BasicDomain {
         this.stocked = stocked;
     }
 
-    public static class Builder {
-        private final Goods instance = new Goods();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Goods> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -165,48 +162,9 @@ public class Goods extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Goods build() {
-            Goods goods = new Goods();
+            Goods goods = super.build();
             goods.setTenantId(instance.getTenantId());
             goods.setTenantCode(instance.getTenantCode());
             goods.setBranchId(instance.getBranchId());
@@ -216,14 +174,6 @@ public class Goods extends BasicDomain {
             goods.setCategoryName(instance.getCategoryName());
             goods.setImageUrl(instance.getImageUrl());
             goods.setStocked(instance.isStocked());
-            goods.setId(instance.getId());
-            goods.setCreatedTime(instance.getCreatedTime());
-            goods.setCreatedUserId(instance.getCreatedUserId());
-            goods.setUpdatedTime(instance.getUpdatedTime());
-            goods.setUpdatedUserId(instance.getUpdatedUserId());
-            goods.setUpdatedRemark(instance.getUpdatedRemark());
-            goods.setDeletedTime(instance.getDeletedTime());
-            goods.setDeleted(instance.isDeleted());
             return goods;
         }
     }

@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = GoodsCategory.FieldName.TENANT_ID, columnName = GoodsCategory.ColumnName.TENANT_ID)
 public class GoodsCategory extends BasicDomain {
@@ -82,9 +81,7 @@ public class GoodsCategory extends BasicDomain {
         this.parentId = parentId;
     }
 
-    public static class Builder {
-        private final GoodsCategory instance = new GoodsCategory();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsCategory> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -115,62 +112,15 @@ public class GoodsCategory extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsCategory build() {
-            GoodsCategory goodsCategory = new GoodsCategory();
+            GoodsCategory goodsCategory = super.build();
             goodsCategory.setTenantId(instance.getTenantId());
             goodsCategory.setTenantCode(instance.getTenantCode());
             goodsCategory.setBranchId(instance.getBranchId());
             goodsCategory.setName(instance.getName());
             goodsCategory.setDescription(instance.getDescription());
             goodsCategory.setParentId(instance.getParentId());
-            goodsCategory.setId(instance.getId());
-            goodsCategory.setCreatedTime(instance.getCreatedTime());
-            goodsCategory.setCreatedUserId(instance.getCreatedUserId());
-            goodsCategory.setUpdatedTime(instance.getUpdatedTime());
-            goodsCategory.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsCategory.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsCategory.setDeletedTime(instance.getDeletedTime());
-            goodsCategory.setDeleted(instance.isDeleted());
             return goodsCategory;
         }
     }

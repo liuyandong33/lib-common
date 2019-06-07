@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = Pos.FieldName.TENANT_ID, columnName = Pos.ColumnName.TENANT_ID)
 public class Pos extends BasicDomain {
@@ -118,9 +117,7 @@ public class Pos extends BasicDomain {
         this.online = online;
     }
 
-    public static class Builder {
-        private final Pos instance = new Pos();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Pos> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -166,48 +163,9 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Pos build() {
-            Pos pos = new Pos();
+            Pos pos = super.build();
             pos.setTenantId(instance.getTenantId());
             pos.setTenantCode(instance.getTenantCode());
             pos.setBranchId(instance.getBranchId());
@@ -217,14 +175,6 @@ public class Pos extends BasicDomain {
             pos.setType(instance.getType());
             pos.setVersion(instance.getVersion());
             pos.setOnline(instance.isOnline());
-            pos.setId(instance.getId());
-            pos.setCreatedTime(instance.getCreatedTime());
-            pos.setCreatedUserId(instance.getCreatedUserId());
-            pos.setUpdatedTime(instance.getUpdatedTime());
-            pos.setUpdatedUserId(instance.getUpdatedUserId());
-            pos.setUpdatedRemark(instance.getUpdatedRemark());
-            pos.setDeletedTime(instance.getDeletedTime());
-            pos.setDeleted(instance.isDeleted());
             return pos;
         }
     }
