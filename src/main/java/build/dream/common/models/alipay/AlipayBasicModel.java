@@ -250,6 +250,8 @@ public class AlipayBasicModel extends BasicModel {
             alipayBasicModel.setTopic(instance.getTopic());
             alipayBasicModel.setAppAuthToken(instance.getAppAuthToken());
             alipayBasicModel.setAuthToken(instance.getAuthToken());
+            alipayBasicModel.setAppPrivateKey(instance.getAppPrivateKey());
+            alipayBasicModel.setAlipayPublicKey(instance.getAlipayPublicKey());
         }
     }
 }
