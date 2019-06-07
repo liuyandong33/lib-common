@@ -211,6 +211,7 @@ public class OfflinePayRecord extends BasicDomain {
             offlinePayRecord.setBranchId(instance.getBranchId());
             offlinePayRecord.setUserId(instance.getUserId());
             offlinePayRecord.setOrderNumber(instance.getOrderNumber());
+            offlinePayRecord.setPaidScene(instance.getPaidScene());
             offlinePayRecord.setChannelType(instance.getChannelType());
             offlinePayRecord.setOutTradeNo(instance.getOutTradeNo());
             offlinePayRecord.setTotalAmount(instance.getTotalAmount());
