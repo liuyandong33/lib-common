@@ -175,7 +175,7 @@ public class AlipayBasicModel extends BasicModel {
         this.alipayPublicKey = alipayPublicKey;
     }
 
-    public static class Builder<BT extends Builder<BT, MT>, MT extends AlipayBasicModel> {
+    protected abstract static class Builder<BT extends Builder<BT, MT>, MT extends AlipayBasicModel> {
         protected MT instance;
         private Class<MT> modelClass;
 

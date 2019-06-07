@@ -108,7 +108,7 @@ public class WeiXinPayBasicModel extends BasicModel {
         }
     }
 
-    public static abstract class Builder<BT extends Builder<BT, MT>, MT extends WeiXinPayBasicModel> {
+    protected abstract static class Builder<BT extends Builder<BT, MT>, MT extends WeiXinPayBasicModel> {
         protected MT instance;
         private Class<MT> modelClass;
 
