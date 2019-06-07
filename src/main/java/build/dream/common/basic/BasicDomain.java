@@ -121,14 +121,9 @@ public class BasicDomain implements IdDomain<BigInteger> {
     }
 
     protected abstract static class Builder<BT extends Builder<BT, IT>, IT extends BasicDomain> {
-        private IT instance;
+        private IT instance = getInstance();
 
         protected abstract IT getInstance();
-
-        public Builder() {
-            super();
-            instance = getInstance();
-        }
 
         public BT id(BigInteger id) {
             instance.setId(id);
