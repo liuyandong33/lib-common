@@ -108,13 +108,13 @@ public class AlipayUtils {
         String charset = alipayBasicModel.getCharset();
         ValidateUtils.isTrue(verifySign(GsonUtils.toJson(responseMap), signType, MapUtils.getString(resultMap, "sign"), charset, alipayPublicKey), "支付宝返回结果签名验证未通过！");
 
-        /*String code = MapUtils.getString(responseMap, "code");
+        String code = MapUtils.getString(responseMap, "code");
         String msg = MapUtils.getString(responseMap, "msg");
         ValidateUtils.isTrue("10000".equals(code), msg);
 
         if (responseMap.containsKey("sub_code")) {
             ValidateUtils.isTrue(false, MapUtils.getString(responseMap, "sub_msg"));
-        }*/
+        }
         return resultMap;
     }
 
