@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayEbppPdeductSignValidateModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayEbppPdeductSignValidateModel instance = new AlipayEbppPdeductSignValidateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayEbppPdeductSignValidateModel> {
+        @Override
         public AlipayEbppPdeductSignValidateModel build() {
-            AlipayEbppPdeductSignValidateModel alipayEbppPdeductSignValidateModel = new AlipayEbppPdeductSignValidateModel();
-            super.build(alipayEbppPdeductSignValidateModel);
+            AlipayEbppPdeductSignValidateModel alipayEbppPdeductSignValidateModel = super.build();
             return alipayEbppPdeductSignValidateModel;
         }
     }

@@ -69,13 +69,7 @@ public class AlipayOpenAppMiniTemplateMessageSendModel extends AlipayBasicModel 
         this.data = data;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAppMiniTemplateMessageSendModel instance = new AlipayOpenAppMiniTemplateMessageSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAppMiniTemplateMessageSendModel> {
         public Builder toUserId(String toUserId) {
             instance.setToUserId(toUserId);
             return this;
@@ -101,9 +95,9 @@ public class AlipayOpenAppMiniTemplateMessageSendModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public AlipayOpenAppMiniTemplateMessageSendModel build() {
-            AlipayOpenAppMiniTemplateMessageSendModel alipayOpenAppMiniTemplateMessageSendModel = new AlipayOpenAppMiniTemplateMessageSendModel();
-            build(alipayOpenAppMiniTemplateMessageSendModel);
+            AlipayOpenAppMiniTemplateMessageSendModel alipayOpenAppMiniTemplateMessageSendModel = super.build();
             alipayOpenAppMiniTemplateMessageSendModel.setToUserId(instance.getToUserId());
             alipayOpenAppMiniTemplateMessageSendModel.setFormId(instance.getFormId());
             alipayOpenAppMiniTemplateMessageSendModel.setUserTemplateId(instance.getUserTemplateId());

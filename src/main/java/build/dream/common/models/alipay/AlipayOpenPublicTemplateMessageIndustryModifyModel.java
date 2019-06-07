@@ -58,13 +58,7 @@ public class AlipayOpenPublicTemplateMessageIndustryModifyModel extends AlipayBa
         this.secondaryIndustryName = secondaryIndustryName;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicTemplateMessageIndustryModifyModel instance = new AlipayOpenPublicTemplateMessageIndustryModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicTemplateMessageIndustryModifyModel> {
         public Builder primaryIndustryName(String primaryIndustryName) {
             instance.setPrimaryIndustryName(primaryIndustryName);
             return this;
@@ -85,9 +79,9 @@ public class AlipayOpenPublicTemplateMessageIndustryModifyModel extends AlipayBa
             return this;
         }
 
+        @Override
         public AlipayOpenPublicTemplateMessageIndustryModifyModel build() {
-            AlipayOpenPublicTemplateMessageIndustryModifyModel alipayOpenPublicTemplateMessageIndustryModifyModel = new AlipayOpenPublicTemplateMessageIndustryModifyModel();
-            build(alipayOpenPublicTemplateMessageIndustryModifyModel);
+            AlipayOpenPublicTemplateMessageIndustryModifyModel alipayOpenPublicTemplateMessageIndustryModifyModel = super.build();
             alipayOpenPublicTemplateMessageIndustryModifyModel.setPrimaryIndustryName(instance.getPrimaryIndustryName());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setPrimaryIndustryCode(instance.getPrimaryIndustryCode());
             alipayOpenPublicTemplateMessageIndustryModifyModel.setSecondaryIndustryCode(instance.getSecondaryIndustryCode());

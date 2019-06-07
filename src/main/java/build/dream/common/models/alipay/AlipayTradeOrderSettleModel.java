@@ -59,13 +59,7 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
         this.operatorId = operatorId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeOrderSettleModel instance = new AlipayTradeOrderSettleModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeOrderSettleModel> {
         public Builder outRequestNo(String outRequestNo) {
             instance.setOutRequestNo(outRequestNo);
             return this;
@@ -86,9 +80,9 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeOrderSettleModel build() {
-            AlipayTradeOrderSettleModel alipayTradeOrderSettleModel = new AlipayTradeOrderSettleModel();
-            build(alipayTradeOrderSettleModel);
+            AlipayTradeOrderSettleModel alipayTradeOrderSettleModel = super.build();
             alipayTradeOrderSettleModel.setOutRequestNo(instance.getOutRequestNo());
             alipayTradeOrderSettleModel.setTradeNo(instance.getTradeNo());
             alipayTradeOrderSettleModel.setRoyaltyParameters(instance.getRoyaltyParameters());

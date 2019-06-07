@@ -19,21 +19,15 @@ public class AlipayOpenPublicLifeAgentCreateQueryModel extends AlipayBasicModel 
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicLifeAgentCreateQueryModel instance = new AlipayOpenPublicLifeAgentCreateQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicLifeAgentCreateQueryModel> {
         public Builder outBizNo(String outBizNo) {
             instance.setOutBizNo(outBizNo);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicLifeAgentCreateQueryModel build() {
-            AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel = new AlipayOpenPublicLifeAgentCreateQueryModel();
-            build(alipayOpenPublicLifeAgentCreateQueryModel);
+            AlipayOpenPublicLifeAgentCreateQueryModel alipayOpenPublicLifeAgentCreateQueryModel = super.build();
             alipayOpenPublicLifeAgentCreateQueryModel.setOutBizNo(instance.getOutBizNo());
             return alipayOpenPublicLifeAgentCreateQueryModel;
         }

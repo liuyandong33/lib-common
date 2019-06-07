@@ -47,13 +47,7 @@ public class AftAiFinFireEyeOcrImageQueryModel extends AlipayBasicModel {
         this.ocrType = ocrType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AftAiFinFireEyeOcrImageQueryModel instance = new AftAiFinFireEyeOcrImageQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AftAiFinFireEyeOcrImageQueryModel> {
         public Builder productInstanceId(String productInstanceId) {
             instance.setProductInstanceId(productInstanceId);
             return this;
@@ -69,9 +63,9 @@ public class AftAiFinFireEyeOcrImageQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AftAiFinFireEyeOcrImageQueryModel build() {
-            AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel = new AftAiFinFireEyeOcrImageQueryModel();
-            build(aftAiFinFireEyeOcrImageQueryModel);
+            AftAiFinFireEyeOcrImageQueryModel aftAiFinFireEyeOcrImageQueryModel = super.build();
             aftAiFinFireEyeOcrImageQueryModel.setProductInstanceId(instance.getProductInstanceId());
             aftAiFinFireEyeOcrImageQueryModel.setImage(instance.getImage());
             aftAiFinFireEyeOcrImageQueryModel.setOcrType(instance.getOcrType());

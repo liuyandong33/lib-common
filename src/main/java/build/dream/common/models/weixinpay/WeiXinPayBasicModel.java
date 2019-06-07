@@ -2,10 +2,13 @@ package build.dream.common.models.weixinpay;
 
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 public class WeiXinPayBasicModel extends BasicModel {
     @NotNull
@@ -105,50 +108,57 @@ public class WeiXinPayBasicModel extends BasicModel {
         }
     }
 
-    public static class Builder<T extends Builder<T>> {
-        private WeiXinPayBasicModel instance;
+    public static abstract class Builder<BT extends Builder<BT, MT>, MT extends WeiXinPayBasicModel> {
+        protected MT instance;
+        private Class<MT> modelClass;
 
-        public void setWeiXinPayBasicModel(WeiXinPayBasicModel weiXinPayBasicModel) {
-            instance = weiXinPayBasicModel;
+        public Builder() {
+            Type type = this.getClass().getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+            modelClass = (Class<MT>) actualTypeArguments[1];
+            instance = ObjectUtils.newInstance(modelClass);
         }
 
-        public T appId(String appId) {
+        public BT appId(String appId) {
             instance.setAppId(appId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T mchId(String mchId) {
+        public BT mchId(String mchId) {
             instance.setMchId(mchId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T apiSecretKey(String apiSecretKey) {
+        public BT apiSecretKey(String apiSecretKey) {
             instance.setApiSecretKey(apiSecretKey);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T subAppId(String subAppId) {
+        public BT subAppId(String subAppId) {
             instance.setSubAppId(subAppId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T subMchId(String subMchId) {
+        public BT subMchId(String subMchId) {
             instance.setSubMchId(subMchId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T acceptanceModel(boolean acceptanceModel) {
+        public BT acceptanceModel(boolean acceptanceModel) {
             instance.setAcceptanceModel(acceptanceModel);
-            return (T) this;
+            return (BT) this;
         }
 
-        protected void build(WeiXinPayBasicModel weiXinPayBasicModel) {
-            weiXinPayBasicModel.setAppId(instance.getAppId());
-            weiXinPayBasicModel.setMchId(instance.getMchId());
-            weiXinPayBasicModel.setApiSecretKey(instance.getApiSecretKey());
-            weiXinPayBasicModel.setSubAppId(instance.getSubAppId());
-            weiXinPayBasicModel.setSubMchId(instance.getSubMchId());
-            weiXinPayBasicModel.setAcceptanceModel(instance.isAcceptanceModel());
+        public MT build() {
+            MT model = ObjectUtils.newInstance(modelClass);
+            model.setAppId(instance.getAppId());
+            model.setMchId(instance.getMchId());
+            model.setApiSecretKey(instance.getApiSecretKey());
+            model.setSubAppId(instance.getSubAppId());
+            model.setSubMchId(instance.getSubMchId());
+            model.setAcceptanceModel(instance.isAcceptanceModel());
+            return model;
         }
     }
 }

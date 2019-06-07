@@ -154,14 +154,6 @@ public class OfflinePayRecord extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
-        private OfflinePayRecord instance;
-
-        @Override
-        protected OfflinePayRecord getInstance() {
-            instance = new OfflinePayRecord();
-            return instance;
-        }
-
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;

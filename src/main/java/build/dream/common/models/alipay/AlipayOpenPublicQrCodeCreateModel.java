@@ -53,13 +53,7 @@ public class AlipayOpenPublicQrCodeCreateModel extends AlipayBasicModel {
         this.showLogo = showLogo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicQrCodeCreateModel instance = new AlipayOpenPublicQrCodeCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicQrCodeCreateModel> {
         public Builder codeInfo(CodeInfo codeInfo) {
             instance.setCodeInfo(codeInfo);
             return this;
@@ -80,9 +74,9 @@ public class AlipayOpenPublicQrCodeCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicQrCodeCreateModel build() {
-            AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel = new AlipayOpenPublicQrCodeCreateModel();
-            build(alipayOpenPublicQrCodeCreateModel);
+            AlipayOpenPublicQrCodeCreateModel alipayOpenPublicQrCodeCreateModel = super.build();
             alipayOpenPublicQrCodeCreateModel.setCodeInfo(instance.getCodeInfo());
             alipayOpenPublicQrCodeCreateModel.setCodeType(instance.getCodeType());
             alipayOpenPublicQrCodeCreateModel.setExpireSecond(instance.getExpireSecond());

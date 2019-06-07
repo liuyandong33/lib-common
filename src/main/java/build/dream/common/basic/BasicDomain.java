@@ -7,6 +7,8 @@ import build.dream.common.annotations.UpdateIgnore;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.ObjectUtils;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -121,9 +123,16 @@ public class BasicDomain implements IdDomain<BigInteger> {
     }
 
     protected abstract static class Builder<BT extends Builder<BT, IT>, IT extends BasicDomain> {
-        private IT instance = getInstance();
+        private Class<IT> domainClass;
+        protected IT instance;
 
-        protected abstract IT getInstance();
+        public Builder() {
+            Type type = this.getClass().getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+            domainClass = (Class<IT>) actualTypeArguments[1];
+            instance = ObjectUtils.newInstance(domainClass);
+        }
 
         public BT id(BigInteger id) {
             instance.setId(id);
@@ -166,16 +175,16 @@ public class BasicDomain implements IdDomain<BigInteger> {
         }
 
         protected IT build() {
-            IT object = (IT) ObjectUtils.newInstance(instance.getClass());
-            object.setId(instance.getId());
-            object.setCreatedTime(instance.getCreatedTime());
-            object.setCreatedUserId(instance.getCreatedUserId());
-            object.setUpdatedTime(instance.getUpdatedTime());
-            object.setUpdatedUserId(instance.getUpdatedUserId());
-            object.setUpdatedRemark(instance.getUpdatedRemark());
-            object.setDeletedTime(instance.getDeletedTime());
-            object.setDeleted(instance.isDeleted());
-            return object;
+            IT domain = ObjectUtils.newInstance(domainClass);
+            domain.setId(instance.getId());
+            domain.setCreatedTime(instance.getCreatedTime());
+            domain.setCreatedUserId(instance.getCreatedUserId());
+            domain.setUpdatedTime(instance.getUpdatedTime());
+            domain.setUpdatedUserId(instance.getUpdatedUserId());
+            domain.setUpdatedRemark(instance.getUpdatedRemark());
+            domain.setDeletedTime(instance.getDeletedTime());
+            domain.setDeleted(instance.isDeleted());
+            return domain;
         }
     }
 }

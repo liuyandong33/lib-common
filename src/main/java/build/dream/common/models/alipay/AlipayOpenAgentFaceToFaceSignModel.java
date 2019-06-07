@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenAgentFaceToFaceSignModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentFaceToFaceSignModel instance = new AlipayOpenAgentFaceToFaceSignModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentFaceToFaceSignModel> {
+        @Override
         public AlipayOpenAgentFaceToFaceSignModel build() {
-            AlipayOpenAgentFaceToFaceSignModel alipayOpenAgentFaceToFaceSignModel = new AlipayOpenAgentFaceToFaceSignModel();
-            build(alipayOpenAgentFaceToFaceSignModel);
+            AlipayOpenAgentFaceToFaceSignModel alipayOpenAgentFaceToFaceSignModel = super.build();
             return alipayOpenAgentFaceToFaceSignModel;
         }
     }

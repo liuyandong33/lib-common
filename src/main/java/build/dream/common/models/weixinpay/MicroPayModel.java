@@ -259,13 +259,7 @@ public class MicroPayModel extends WeiXinPayBasicModel {
         }
     }
 
-    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
-        private MicroPayModel instance = new MicroPayModel();
-
-        public Builder() {
-            setWeiXinPayBasicModel(instance);
-        }
-
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder, MicroPayModel> {
         public Builder deviceInfo(String deviceInfo) {
             instance.setDeviceInfo(deviceInfo);
             return this;
@@ -341,9 +335,9 @@ public class MicroPayModel extends WeiXinPayBasicModel {
             return this;
         }
 
+        @Override
         public MicroPayModel build() {
-            MicroPayModel microPayModel = new MicroPayModel();
-            build(microPayModel);
+            MicroPayModel microPayModel = super.build();
             microPayModel.setDeviceInfo(instance.getDeviceInfo());
             microPayModel.setSignType(instance.getSignType());
             microPayModel.setBody(instance.getBody());

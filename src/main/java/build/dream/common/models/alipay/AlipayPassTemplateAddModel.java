@@ -32,13 +32,7 @@ public class AlipayPassTemplateAddModel extends AlipayBasicModel {
         this.tplContent = tplContent;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayPassTemplateAddModel instance = new AlipayPassTemplateAddModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayPassTemplateAddModel> {
         public Builder uniqueId(String uniqueId) {
             instance.setUniqueId(uniqueId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayPassTemplateAddModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayPassTemplateAddModel build() {
-            AlipayPassTemplateAddModel alipayPassTemplateAddModel = new AlipayPassTemplateAddModel();
-            build(alipayPassTemplateAddModel);
+            AlipayPassTemplateAddModel alipayPassTemplateAddModel = super.build();
             alipayPassTemplateAddModel.setUniqueId(instance.getUniqueId());
             alipayPassTemplateAddModel.setTplContent(instance.getTplContent());
             return alipayPassTemplateAddModel;

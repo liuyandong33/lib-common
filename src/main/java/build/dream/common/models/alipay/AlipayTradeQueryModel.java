@@ -40,13 +40,7 @@ public class AlipayTradeQueryModel extends AlipayBasicModel {
         this.orgPid = orgPid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeQueryModel instance = new AlipayTradeQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeQueryModel> {
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
             return this;
@@ -62,9 +56,9 @@ public class AlipayTradeQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeQueryModel build() {
-            AlipayTradeQueryModel alipayTradeQueryModel = new AlipayTradeQueryModel();
-            build(alipayTradeQueryModel);
+            AlipayTradeQueryModel alipayTradeQueryModel = super.build();
             alipayTradeQueryModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeQueryModel.setTradeNo(instance.getTradeNo());
             alipayTradeQueryModel.setOrgPid(instance.getOrgPid());

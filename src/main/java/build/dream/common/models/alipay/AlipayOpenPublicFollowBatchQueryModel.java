@@ -16,21 +16,15 @@ public class AlipayOpenPublicFollowBatchQueryModel extends AlipayBasicModel {
         this.nextUserId = nextUserId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicFollowBatchQueryModel instance = new AlipayOpenPublicFollowBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicFollowBatchQueryModel> {
         public Builder nextUserId(String nextUserId) {
             instance.setNextUserId(nextUserId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicFollowBatchQueryModel build() {
-            AlipayOpenPublicFollowBatchQueryModel alipayOpenPublicFollowBatchQueryModel = new AlipayOpenPublicFollowBatchQueryModel();
-            build(alipayOpenPublicFollowBatchQueryModel);
+            AlipayOpenPublicFollowBatchQueryModel alipayOpenPublicFollowBatchQueryModel = super.build();
             alipayOpenPublicFollowBatchQueryModel.setNextUserId(instance.getNextUserId());
             return alipayOpenPublicFollowBatchQueryModel;
         }

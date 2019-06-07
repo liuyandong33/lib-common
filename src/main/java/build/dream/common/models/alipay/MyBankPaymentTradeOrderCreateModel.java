@@ -165,13 +165,7 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final MyBankPaymentTradeOrderCreateModel instance = new MyBankPaymentTradeOrderCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, MyBankPaymentTradeOrderCreateModel> {
         public Builder partnerId(String partnerId) {
             instance.setPartnerId(partnerId);
             return this;
@@ -232,9 +226,9 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public MyBankPaymentTradeOrderCreateModel build() {
-            MyBankPaymentTradeOrderCreateModel myBankPaymentTradeOrderCreateModel = new MyBankPaymentTradeOrderCreateModel();
-            build(myBankPaymentTradeOrderCreateModel);
+            MyBankPaymentTradeOrderCreateModel myBankPaymentTradeOrderCreateModel = super.build();
             myBankPaymentTradeOrderCreateModel.setPartnerId(instance.getPartnerId());
             myBankPaymentTradeOrderCreateModel.setOutTradeNo(instance.getOutTradeNo());
             myBankPaymentTradeOrderCreateModel.setReconRelatedNo(instance.getReconRelatedNo());

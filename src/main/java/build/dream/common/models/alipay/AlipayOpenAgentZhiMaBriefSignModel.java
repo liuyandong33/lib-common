@@ -32,13 +32,7 @@ public class AlipayOpenAgentZhiMaBriefSignModel extends AlipayBasicModel {
         this.mccCode = mccCode;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentZhiMaBriefSignModel instance = new AlipayOpenAgentZhiMaBriefSignModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentZhiMaBriefSignModel> {
         public Builder batchNo(String batchNo) {
             instance.setBatchNo(batchNo);
             return this;
@@ -49,9 +43,9 @@ public class AlipayOpenAgentZhiMaBriefSignModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenAgentZhiMaBriefSignModel build() {
-            AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel = new AlipayOpenAgentZhiMaBriefSignModel();
-            build(alipayOpenAgentZhiMaBriefSignModel);
+            AlipayOpenAgentZhiMaBriefSignModel alipayOpenAgentZhiMaBriefSignModel = super.build();
             alipayOpenAgentZhiMaBriefSignModel.setBatchNo(instance.getBatchNo());
             alipayOpenAgentZhiMaBriefSignModel.setMccCode(instance.getMccCode());
             return alipayOpenAgentZhiMaBriefSignModel;

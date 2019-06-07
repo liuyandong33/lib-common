@@ -31,4 +31,28 @@ public class AlipayOpenPublicPayeeBindCreateModel extends AlipayBasicModel {
     public void setPid(String pid) {
         this.pid = pid;
     }
+
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPayeeBindCreateModel> {
+        public Builder loginId(String loginId) {
+            instance.setLoginId(loginId);
+            return this;
+        }
+
+        public Builder pid(String pid) {
+            instance.setPid(pid);
+            return this;
+        }
+
+        @Override
+        public AlipayOpenPublicPayeeBindCreateModel build() {
+            AlipayOpenPublicPayeeBindCreateModel alipayOpenPublicPayeeBindCreateModel = super.build();
+            alipayOpenPublicPayeeBindCreateModel.setLoginId(instance.getLoginId());
+            alipayOpenPublicPayeeBindCreateModel.setPid(instance.getPid());
+            return alipayOpenPublicPayeeBindCreateModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

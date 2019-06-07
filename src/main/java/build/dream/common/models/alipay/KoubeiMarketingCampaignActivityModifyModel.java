@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class KoubeiMarketingCampaignActivityModifyModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignActivityModifyModel instance = new KoubeiMarketingCampaignActivityModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignActivityModifyModel> {
+        @Override
         public KoubeiMarketingCampaignActivityModifyModel build() {
-            KoubeiMarketingCampaignActivityModifyModel koubeiMarketingCampaignActivityModifyModel = new KoubeiMarketingCampaignActivityModifyModel();
-            build(koubeiMarketingCampaignActivityModifyModel);
+            KoubeiMarketingCampaignActivityModifyModel koubeiMarketingCampaignActivityModifyModel = super.build();
             return koubeiMarketingCampaignActivityModifyModel;
         }
     }

@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayCommerceLotteryTypeListQueryModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayCommerceLotteryTypeListQueryModel instance = new AlipayCommerceLotteryTypeListQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayCommerceLotteryTypeListQueryModel> {
+        @Override
         public AlipayCommerceLotteryTypeListQueryModel build() {
-            AlipayCommerceLotteryTypeListQueryModel alipayCommerceLotteryTypeListQueryModel = new AlipayCommerceLotteryTypeListQueryModel();
-            build(alipayCommerceLotteryTypeListQueryModel);
+            AlipayCommerceLotteryTypeListQueryModel alipayCommerceLotteryTypeListQueryModel = super.build();
             return alipayCommerceLotteryTypeListQueryModel;
         }
     }

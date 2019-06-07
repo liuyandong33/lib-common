@@ -31,13 +31,7 @@ public class AlipayOfflineMarketShopQueryDetailModel extends AlipayBasicModel {
         this.opRole = opRole;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOfflineMarketShopQueryDetailModel instance = new AlipayOfflineMarketShopQueryDetailModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOfflineMarketShopQueryDetailModel> {
         public Builder shopId(String shopId) {
             instance.setShopId(shopId);
             return this;
@@ -48,9 +42,9 @@ public class AlipayOfflineMarketShopQueryDetailModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOfflineMarketShopQueryDetailModel build() {
-            AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel = new AlipayOfflineMarketShopQueryDetailModel();
-            build(alipayOfflineMarketShopQueryDetailModel);
+            AlipayOfflineMarketShopQueryDetailModel alipayOfflineMarketShopQueryDetailModel = super.build();
             alipayOfflineMarketShopQueryDetailModel.setShopId(instance.getShopId());
             alipayOfflineMarketShopQueryDetailModel.setOpRole(instance.getOpRole());
             return alipayOfflineMarketShopQueryDetailModel;

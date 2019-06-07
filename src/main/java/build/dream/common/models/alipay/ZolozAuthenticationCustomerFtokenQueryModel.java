@@ -57,13 +57,7 @@ public class ZolozAuthenticationCustomerFtokenQueryModel extends AlipayBasicMode
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final ZolozAuthenticationCustomerFtokenQueryModel instance = new ZolozAuthenticationCustomerFtokenQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, ZolozAuthenticationCustomerFtokenQueryModel> {
         public Builder ftoken(String ftoken) {
             instance.setFtoken(ftoken);
             return this;
@@ -79,9 +73,9 @@ public class ZolozAuthenticationCustomerFtokenQueryModel extends AlipayBasicMode
             return this;
         }
 
+        @Override
         public ZolozAuthenticationCustomerFtokenQueryModel build() {
-            ZolozAuthenticationCustomerFtokenQueryModel zolozAuthenticationCustomerFtokenQueryModel = new ZolozAuthenticationCustomerFtokenQueryModel();
-            build(zolozAuthenticationCustomerFtokenQueryModel);
+            ZolozAuthenticationCustomerFtokenQueryModel zolozAuthenticationCustomerFtokenQueryModel = super.build();
             zolozAuthenticationCustomerFtokenQueryModel.setFtoken(instance.getFtoken());
             zolozAuthenticationCustomerFtokenQueryModel.setBizType(instance.getBizType());
             zolozAuthenticationCustomerFtokenQueryModel.setExtInfo(instance.getExtInfo());

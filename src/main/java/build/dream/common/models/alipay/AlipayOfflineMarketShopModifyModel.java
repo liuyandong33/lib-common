@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOfflineMarketShopModifyModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder>{
-        private final AlipayOfflineMarketShopModifyModel instance = new AlipayOfflineMarketShopModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOfflineMarketShopModifyModel> {
+        @Override
         public AlipayOfflineMarketShopModifyModel build() {
-            AlipayOfflineMarketShopModifyModel alipayOfflineMarketShopModifyModel = new AlipayOfflineMarketShopModifyModel();
-            build(alipayOfflineMarketShopModifyModel);
+            AlipayOfflineMarketShopModifyModel alipayOfflineMarketShopModifyModel = super.build();
             return alipayOfflineMarketShopModifyModel;
         }
     }

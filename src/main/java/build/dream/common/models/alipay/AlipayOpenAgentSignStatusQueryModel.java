@@ -15,21 +15,15 @@ public class AlipayOpenAgentSignStatusQueryModel extends AlipayBasicModel {
         this.productCodes = productCodes;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentSignStatusQueryModel instance = new AlipayOpenAgentSignStatusQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentSignStatusQueryModel> {
         public Builder productCodes(List<String> productCodes) {
             instance.setProductCodes(productCodes);
             return this;
         }
 
+        @Override
         public AlipayOpenAgentSignStatusQueryModel build() {
-            AlipayOpenAgentSignStatusQueryModel alipayOpenAgentSignStatusQueryModel = new AlipayOpenAgentSignStatusQueryModel();
-            build(alipayOpenAgentSignStatusQueryModel);
+            AlipayOpenAgentSignStatusQueryModel alipayOpenAgentSignStatusQueryModel = super.build();
             alipayOpenAgentSignStatusQueryModel.setProductCodes(instance.getProductCodes());
             return alipayOpenAgentSignStatusQueryModel;
         }

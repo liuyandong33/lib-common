@@ -17,21 +17,15 @@ public class AlipayMarketingToolFengDieSpaceCreateModel extends AlipayBasicModel
         this.title = title;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingToolFengDieSpaceCreateModel instance = new AlipayMarketingToolFengDieSpaceCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingToolFengDieSpaceCreateModel> {
         public Builder title(String title) {
             instance.setTitle(title);
             return this;
         }
 
+        @Override
         public AlipayMarketingToolFengDieSpaceCreateModel build() {
-            AlipayMarketingToolFengDieSpaceCreateModel alipayMarketingToolFengDieSpaceCreateModel = new AlipayMarketingToolFengDieSpaceCreateModel();
-            build(alipayMarketingToolFengDieSpaceCreateModel);
+            AlipayMarketingToolFengDieSpaceCreateModel alipayMarketingToolFengDieSpaceCreateModel = super.build();
             alipayMarketingToolFengDieSpaceCreateModel.setTitle(instance.getTitle());
             return alipayMarketingToolFengDieSpaceCreateModel;
         }

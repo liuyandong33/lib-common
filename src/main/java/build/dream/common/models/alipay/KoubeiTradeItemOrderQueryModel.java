@@ -17,21 +17,15 @@ public class KoubeiTradeItemOrderQueryModel extends AlipayBasicModel {
         this.orderNo = orderNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiTradeItemOrderQueryModel instance = new KoubeiTradeItemOrderQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeItemOrderQueryModel> {
         public Builder orderNo(String orderNo) {
             instance.setOrderNo(orderNo);
             return this;
         }
 
+        @Override
         public KoubeiTradeItemOrderQueryModel build() {
-            KoubeiTradeItemOrderQueryModel koubeiTradeItemOrderQueryModel = new KoubeiTradeItemOrderQueryModel();
-            build(koubeiTradeItemOrderQueryModel);
+            KoubeiTradeItemOrderQueryModel koubeiTradeItemOrderQueryModel = super.build();
             koubeiTradeItemOrderQueryModel.setOrderNo(instance.getOrderNo());
             return koubeiTradeItemOrderQueryModel;
         }

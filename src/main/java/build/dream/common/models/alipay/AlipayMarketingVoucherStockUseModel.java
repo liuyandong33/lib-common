@@ -32,13 +32,7 @@ public class AlipayMarketingVoucherStockUseModel extends AlipayBasicModel {
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingVoucherStockUseModel instance = new AlipayMarketingVoucherStockUseModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingVoucherStockUseModel> {
         public Builder entityNo(String entityNo) {
             instance.setEntityNo(entityNo);
             return this;
@@ -49,9 +43,9 @@ public class AlipayMarketingVoucherStockUseModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingVoucherStockUseModel build() {
-            AlipayMarketingVoucherStockUseModel alipayMarketingVoucherStockUseModel = new AlipayMarketingVoucherStockUseModel();
-            build(alipayMarketingVoucherStockUseModel);
+            AlipayMarketingVoucherStockUseModel alipayMarketingVoucherStockUseModel = super.build();
             alipayMarketingVoucherStockUseModel.setEntityNo(instance.getEntityNo());
             alipayMarketingVoucherStockUseModel.setOutBizNo(instance.getOutBizNo());
             return alipayMarketingVoucherStockUseModel;

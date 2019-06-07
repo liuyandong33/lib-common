@@ -82,13 +82,7 @@ public class KoubeiTradeTicketTicketCodeSyncModel extends AlipayBasicModel {
         this.gmtBiz = gmtBiz;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiTradeTicketTicketCodeSyncModel instance = new KoubeiTradeTicketTicketCodeSyncModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeTicketTicketCodeSyncModel> {
         public Builder requestId(String requestId) {
             instance.setRequestId(requestId);
             return this;
@@ -119,9 +113,9 @@ public class KoubeiTradeTicketTicketCodeSyncModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiTradeTicketTicketCodeSyncModel build() {
-            KoubeiTradeTicketTicketCodeSyncModel koubeiTradeTicketTicketCodeSyncModel = new KoubeiTradeTicketTicketCodeSyncModel();
-            build(koubeiTradeTicketTicketCodeSyncModel);
+            KoubeiTradeTicketTicketCodeSyncModel koubeiTradeTicketTicketCodeSyncModel = super.build();
             koubeiTradeTicketTicketCodeSyncModel.setRequestId(instance.getRequestId());
             koubeiTradeTicketTicketCodeSyncModel.setTicketCode(instance.getTicketCode());
             koubeiTradeTicketTicketCodeSyncModel.setQuantity(instance.getQuantity());

@@ -44,13 +44,7 @@ public class AlipayTradeCloseModel extends AlipayBasicModel {
         this.operatorId = operatorId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeCloseModel instance = new AlipayTradeCloseModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeCloseModel> {
         public Builder tradeNo(String tradeNo) {
             instance.setTradeNo(tradeNo);
             return this;
@@ -66,9 +60,9 @@ public class AlipayTradeCloseModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeCloseModel build() {
-            AlipayTradeCloseModel alipayTradeCloseModel = new AlipayTradeCloseModel();
-            build(alipayTradeCloseModel);
+            AlipayTradeCloseModel alipayTradeCloseModel = super.build();
             alipayTradeCloseModel.setTradeNo(instance.getTradeNo());
             alipayTradeCloseModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeCloseModel.setOperatorId(instance.getOperatorId());

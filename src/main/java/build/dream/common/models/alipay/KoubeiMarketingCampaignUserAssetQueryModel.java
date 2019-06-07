@@ -61,13 +61,7 @@ public class KoubeiMarketingCampaignUserAssetQueryModel extends AlipayBasicModel
         this.pageSize = pageSize;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignUserAssetQueryModel instance = new KoubeiMarketingCampaignUserAssetQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignUserAssetQueryModel> {
         public Builder scope(String scope) {
             instance.setScope(scope);
             return this;
@@ -88,9 +82,9 @@ public class KoubeiMarketingCampaignUserAssetQueryModel extends AlipayBasicModel
             return this;
         }
 
+        @Override
         public KoubeiMarketingCampaignUserAssetQueryModel build() {
-            KoubeiMarketingCampaignUserAssetQueryModel koubeiMarketingCampaignUserAssetQueryModel = new KoubeiMarketingCampaignUserAssetQueryModel();
-            build(koubeiMarketingCampaignUserAssetQueryModel);
+            KoubeiMarketingCampaignUserAssetQueryModel koubeiMarketingCampaignUserAssetQueryModel = super.build();
             koubeiMarketingCampaignUserAssetQueryModel.setScope(instance.getScope());
             koubeiMarketingCampaignUserAssetQueryModel.setShopId(instance.getShopId());
             koubeiMarketingCampaignUserAssetQueryModel.setPageNum(instance.getPageNum());

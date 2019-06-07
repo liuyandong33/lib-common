@@ -80,13 +80,7 @@ public class KoubeiMarketingCampaignRecruitShopQueryModel extends AlipayBasicMod
         this.operatorType = operatorType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignRecruitShopQueryModel instance = new KoubeiMarketingCampaignRecruitShopQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignRecruitShopQueryModel> {
         public Builder campId(String campId) {
             instance.setCampId(campId);
             return this;
@@ -117,9 +111,9 @@ public class KoubeiMarketingCampaignRecruitShopQueryModel extends AlipayBasicMod
             return this;
         }
 
+        @Override
         public KoubeiMarketingCampaignRecruitShopQueryModel build() {
-            KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel = new KoubeiMarketingCampaignRecruitShopQueryModel();
-            build(koubeiMarketingCampaignRecruitShopQueryModel);
+            KoubeiMarketingCampaignRecruitShopQueryModel koubeiMarketingCampaignRecruitShopQueryModel = super.build();
             koubeiMarketingCampaignRecruitShopQueryModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageSize(instance.getPageSize());
             koubeiMarketingCampaignRecruitShopQueryModel.setPageNum(instance.getPageNum());

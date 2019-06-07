@@ -60,13 +60,7 @@ public class AlipayFundCouponOrderRefundModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayFundCouponOrderRefundModel instance = new AlipayFundCouponOrderRefundModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayFundCouponOrderRefundModel> {
         public Builder authNo(String authNo) {
             instance.setAuthNo(authNo);
             return this;
@@ -87,9 +81,9 @@ public class AlipayFundCouponOrderRefundModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayFundCouponOrderRefundModel build() {
-            AlipayFundCouponOrderRefundModel alipayFundCouponOrderRefundModel = new AlipayFundCouponOrderRefundModel();
-            build(alipayFundCouponOrderRefundModel);
+            AlipayFundCouponOrderRefundModel alipayFundCouponOrderRefundModel = super.build();
             alipayFundCouponOrderRefundModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOrderRefundModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderRefundModel.setAmount(instance.getAmount());

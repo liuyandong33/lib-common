@@ -19,21 +19,15 @@ public class AlipayOpenAgentConfirmModel extends AlipayBasicModel {
         this.batchNo = batchNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentConfirmModel instance = new AlipayOpenAgentConfirmModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentConfirmModel> {
         public Builder batchNo(String batchNo) {
             instance.setBatchNo(batchNo);
             return this;
         }
 
+        @Override
         public AlipayOpenAgentConfirmModel build() {
-            AlipayOpenAgentConfirmModel alipayOpenAgentConfirmModel = new AlipayOpenAgentConfirmModel();
-            build(alipayOpenAgentConfirmModel);
+            AlipayOpenAgentConfirmModel alipayOpenAgentConfirmModel = super.build();
             alipayOpenAgentConfirmModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentConfirmModel;
         }

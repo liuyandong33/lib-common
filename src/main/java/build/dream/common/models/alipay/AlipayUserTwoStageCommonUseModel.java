@@ -45,13 +45,7 @@ public class AlipayUserTwoStageCommonUseModel extends AlipayBasicModel {
         this.payPid = payPid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayUserTwoStageCommonUseModel instance = new AlipayUserTwoStageCommonUseModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayUserTwoStageCommonUseModel> {
         public Builder dynamicId(String dynamicId) {
             instance.setDynamicId(dynamicId);
             return this;
@@ -67,9 +61,9 @@ public class AlipayUserTwoStageCommonUseModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayUserTwoStageCommonUseModel build() {
-            AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel = new AlipayUserTwoStageCommonUseModel();
-            build(alipayUserTwoStageCommonUseModel);
+            AlipayUserTwoStageCommonUseModel alipayUserTwoStageCommonUseModel = super.build();
             alipayUserTwoStageCommonUseModel.setDynamicId(instance.getDynamicId());
             alipayUserTwoStageCommonUseModel.setSenceNo(instance.getSenceNo());
             alipayUserTwoStageCommonUseModel.setPayPid(instance.getPayPid());

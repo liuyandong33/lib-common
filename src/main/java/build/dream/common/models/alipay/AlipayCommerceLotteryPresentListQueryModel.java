@@ -60,13 +60,7 @@ public class AlipayCommerceLotteryPresentListQueryModel extends AlipayBasicModel
         this.pageSize = pageSize;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayCommerceLotteryPresentListQueryModel instance = new AlipayCommerceLotteryPresentListQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayCommerceLotteryPresentListQueryModel> {
         public Builder gmtStart(String gmtStart) {
             instance.setGmtStart(gmtStart);
             return this;
@@ -87,9 +81,9 @@ public class AlipayCommerceLotteryPresentListQueryModel extends AlipayBasicModel
             return this;
         }
 
+        @Override
         public AlipayCommerceLotteryPresentListQueryModel build() {
-            AlipayCommerceLotteryPresentListQueryModel alipayCommerceLotteryPresentListQueryModel = new AlipayCommerceLotteryPresentListQueryModel();
-            build(alipayCommerceLotteryPresentListQueryModel);
+            AlipayCommerceLotteryPresentListQueryModel alipayCommerceLotteryPresentListQueryModel = super.build();
             alipayCommerceLotteryPresentListQueryModel.setGmtStart(instance.getGmtStart());
             alipayCommerceLotteryPresentListQueryModel.setGmtEnd(instance.getGmtEnd());
             alipayCommerceLotteryPresentListQueryModel.setPageNo(instance.getPageNo());

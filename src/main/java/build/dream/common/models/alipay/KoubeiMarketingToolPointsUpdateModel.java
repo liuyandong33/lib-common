@@ -117,13 +117,7 @@ public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
         this.extInfo = extInfo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingToolPointsUpdateModel instance = new KoubeiMarketingToolPointsUpdateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingToolPointsUpdateModel> {
         public Builder reqId(String reqId) {
             instance.setReqId(reqId);
             return this;
@@ -169,9 +163,9 @@ public class KoubeiMarketingToolPointsUpdateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingToolPointsUpdateModel build() {
-            KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel = new KoubeiMarketingToolPointsUpdateModel();
-            build(koubeiMarketingToolPointsUpdateModel);
+            KoubeiMarketingToolPointsUpdateModel koubeiMarketingToolPointsUpdateModel = super.build();
             koubeiMarketingToolPointsUpdateModel.setReqId(instance.getReqId());
             koubeiMarketingToolPointsUpdateModel.setUserId(instance.getUserId());
             koubeiMarketingToolPointsUpdateModel.setActivityAccount(instance.getActivityAccount());

@@ -4,10 +4,13 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.CustomDateUtils;
+import build.dream.common.utils.ObjectUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Date;
 
 public class AlipayBasicModel extends BasicModel {
@@ -172,86 +175,93 @@ public class AlipayBasicModel extends BasicModel {
         this.alipayPublicKey = alipayPublicKey;
     }
 
-    public static class Builder<T extends Builder<T>> {
-        private AlipayBasicModel instance;
+    public static class Builder<BT extends Builder<BT, MT>, MT extends AlipayBasicModel> {
+        protected MT instance;
+        private Class<MT> modelClass;
 
-        protected void setAlipayBasicModel(AlipayBasicModel alipayBasicModel) {
-            this.instance = alipayBasicModel;
+        public Builder() {
+            Type type = this.getClass().getGenericSuperclass();
+            ParameterizedType parameterizedType = (ParameterizedType) type;
+            Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
+            modelClass = (Class<MT>) actualTypeArguments[1];
+            instance = ObjectUtils.newInstance(modelClass);
         }
 
-        public T appId(String appId) {
+        public BT appId(String appId) {
             instance.setAppId(appId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T format(String format) {
+        public BT format(String format) {
             instance.setFormat(format);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T returnUrl(String returnUrl) {
+        public BT returnUrl(String returnUrl) {
             instance.setReturnUrl(returnUrl);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T charset(String charset) {
+        public BT charset(String charset) {
             instance.setCharset(charset);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T signType(String signType) {
+        public BT signType(String signType) {
             instance.setSignType(signType);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T timestamp(String timestamp) {
+        public BT timestamp(String timestamp) {
             instance.setTimestamp(timestamp);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T version(String version) {
+        public BT version(String version) {
             instance.setVersion(version);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T topic(String topic) {
+        public BT topic(String topic) {
             instance.setTopic(topic);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T appAuthToken(String appAuthToken) {
+        public BT appAuthToken(String appAuthToken) {
             instance.setAppAuthToken(appAuthToken);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T authToken(String authToken) {
+        public BT authToken(String authToken) {
             instance.setAuthToken(authToken);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T appPrivateKey(String appPrivateKey) {
+        public BT appPrivateKey(String appPrivateKey) {
             instance.setAppPrivateKey(appPrivateKey);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T alipayPublicKey(String alipayPublicKey) {
+        public BT alipayPublicKey(String alipayPublicKey) {
             instance.setAlipayPublicKey(alipayPublicKey);
-            return (T) this;
+            return (BT) this;
         }
 
-        protected void build(AlipayBasicModel alipayBasicModel) {
-            alipayBasicModel.setAppId(instance.getAppId());
-            alipayBasicModel.setFormat(instance.getFormat());
-            alipayBasicModel.setReturnUrl(instance.getReturnUrl());
-            alipayBasicModel.setCharset(instance.getCharset());
-            alipayBasicModel.setSignType(instance.getSignType());
-            alipayBasicModel.setTimestamp(instance.getTimestamp());
-            alipayBasicModel.setVersion(instance.getVersion());
-            alipayBasicModel.setTopic(instance.getTopic());
-            alipayBasicModel.setAppAuthToken(instance.getAppAuthToken());
-            alipayBasicModel.setAuthToken(instance.getAuthToken());
-            alipayBasicModel.setAppPrivateKey(instance.getAppPrivateKey());
-            alipayBasicModel.setAlipayPublicKey(instance.getAlipayPublicKey());
+        protected MT build() {
+            MT model = ObjectUtils.newInstance(modelClass);
+            model.setAppId(instance.getAppId());
+            model.setFormat(instance.getFormat());
+            model.setReturnUrl(instance.getReturnUrl());
+            model.setCharset(instance.getCharset());
+            model.setSignType(instance.getSignType());
+            model.setTimestamp(instance.getTimestamp());
+            model.setVersion(instance.getVersion());
+            model.setTopic(instance.getTopic());
+            model.setAppAuthToken(instance.getAppAuthToken());
+            model.setAuthToken(instance.getAuthToken());
+            model.setAppPrivateKey(instance.getAppPrivateKey());
+            model.setAlipayPublicKey(instance.getAlipayPublicKey());
+            return model;
         }
     }
 }

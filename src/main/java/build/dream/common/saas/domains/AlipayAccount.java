@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AlipayAccount extends BasicDomain {
     public static final String TABLE_NAME = "alipay_account";
@@ -39,11 +38,11 @@ public class AlipayAccount extends BasicDomain {
     /**
      * 应用公钥
      */
-    private String applicationPublicKey;
+    private String appPublicKey;
     /**
      * 应用私钥
      */
-    private String applicationPrivateKey;
+    private String appPrivateKey;
     /**
      * 签名方式，只能为RSA或RSA2
      */
@@ -105,20 +104,20 @@ public class AlipayAccount extends BasicDomain {
         this.alipayPublicKey = alipayPublicKey;
     }
 
-    public String getApplicationPublicKey() {
-        return applicationPublicKey;
+    public String getAppPublicKey() {
+        return appPublicKey;
     }
 
-    public void setApplicationPublicKey(String applicationPublicKey) {
-        this.applicationPublicKey = applicationPublicKey;
+    public void setAppPublicKey(String appPublicKey) {
+        this.appPublicKey = appPublicKey;
     }
 
-    public String getApplicationPrivateKey() {
-        return applicationPrivateKey;
+    public String getAppPrivateKey() {
+        return appPrivateKey;
     }
 
-    public void setApplicationPrivateKey(String applicationPrivateKey) {
-        this.applicationPrivateKey = applicationPrivateKey;
+    public void setAppPrivateKey(String appPrivateKey) {
+        this.appPrivateKey = appPrivateKey;
     }
 
     public String getSignType() {
@@ -129,9 +128,7 @@ public class AlipayAccount extends BasicDomain {
         this.signType = signType;
     }
 
-    public static class Builder {
-        private final AlipayAccount instance = new AlipayAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AlipayAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -167,13 +164,13 @@ public class AlipayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder applicationPublicKey(String applicationPublicKey) {
-            instance.setApplicationPublicKey(applicationPublicKey);
+        public Builder appPublicKey(String appPublicKey) {
+            instance.setAppPublicKey(appPublicKey);
             return this;
         }
 
-        public Builder applicationPrivateKey(String applicationPrivateKey) {
-            instance.setApplicationPrivateKey(applicationPrivateKey);
+        public Builder appPrivateKey(String appPrivateKey) {
+            instance.setAppPrivateKey(appPrivateKey);
             return this;
         }
 
@@ -182,65 +179,17 @@ public class AlipayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
         public AlipayAccount build() {
-            AlipayAccount alipayAccount = new AlipayAccount();
+            AlipayAccount alipayAccount = super.build();
             alipayAccount.setTenantId(instance.getTenantId());
             alipayAccount.setBranchId(instance.getBranchId());
             alipayAccount.setAccount(instance.getAccount());
             alipayAccount.setAppId(instance.getAppId());
             alipayAccount.setPartnerId(instance.getPartnerId());
             alipayAccount.setAlipayPublicKey(instance.getAlipayPublicKey());
-            alipayAccount.setApplicationPublicKey(instance.getApplicationPublicKey());
-            alipayAccount.setApplicationPrivateKey(instance.getApplicationPrivateKey());
+            alipayAccount.setAppPublicKey(instance.getAppPublicKey());
+            alipayAccount.setAppPrivateKey(instance.getAppPrivateKey());
             alipayAccount.setSignType(instance.getSignType());
-            alipayAccount.setId(instance.getId());
-            alipayAccount.setCreatedTime(instance.getCreatedTime());
-            alipayAccount.setCreatedUserId(instance.getCreatedUserId());
-            alipayAccount.setUpdatedTime(instance.getUpdatedTime());
-            alipayAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            alipayAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            alipayAccount.setDeletedTime(instance.getDeletedTime());
-            alipayAccount.setDeleted(instance.isDeleted());
             return alipayAccount;
         }
     }

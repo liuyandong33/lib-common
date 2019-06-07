@@ -155,13 +155,7 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         this.orgPid = orgPid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeRefundModel instance = new AlipayTradeRefundModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeRefundModel> {
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
             return this;
@@ -217,9 +211,9 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeRefundModel build() {
-            AlipayTradeRefundModel alipayTradeRefundModel = new AlipayTradeRefundModel();
-            build(alipayTradeRefundModel);
+            AlipayTradeRefundModel alipayTradeRefundModel = super.build();
             alipayTradeRefundModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeRefundModel.setTradeNo(instance.getTradeNo());
             alipayTradeRefundModel.setRefundAmount(instance.getRefundAmount());

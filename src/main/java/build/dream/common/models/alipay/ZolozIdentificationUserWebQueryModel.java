@@ -44,13 +44,7 @@ public class ZolozIdentificationUserWebQueryModel extends AlipayBasicModel {
         this.externParam = externParam;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final ZolozIdentificationUserWebQueryModel instance = new ZolozIdentificationUserWebQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, ZolozIdentificationUserWebQueryModel> {
         public Builder bizId(String bizId) {
             instance.setBizId(bizId);
             return this;
@@ -66,9 +60,9 @@ public class ZolozIdentificationUserWebQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public ZolozIdentificationUserWebQueryModel build() {
-            ZolozIdentificationUserWebQueryModel zolozIdentificationUserWebQueryModel = new ZolozIdentificationUserWebQueryModel();
-            build(zolozIdentificationUserWebQueryModel);
+            ZolozIdentificationUserWebQueryModel zolozIdentificationUserWebQueryModel = super.build();
             zolozIdentificationUserWebQueryModel.setBizId(instance.getBizId());
             zolozIdentificationUserWebQueryModel.setZimId(instance.getZimId());
             zolozIdentificationUserWebQueryModel.setExternParam(instance.getExternParam());

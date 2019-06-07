@@ -98,13 +98,7 @@ public class AlipayFundCouponOrderAgreementPayModel extends AlipayBasicModel {
         this.extraParam = extraParam;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayFundCouponOrderAgreementPayModel instance = new AlipayFundCouponOrderAgreementPayModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayFundCouponOrderAgreementPayModel> {
         public Builder outOrderNo(String outOrderNo) {
             instance.setOutOrderNo(outOrderNo);
             return this;
@@ -140,9 +134,9 @@ public class AlipayFundCouponOrderAgreementPayModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayFundCouponOrderAgreementPayModel build() {
-            AlipayFundCouponOrderAgreementPayModel alipayFundCouponOrderAgreementPayModel = new AlipayFundCouponOrderAgreementPayModel();
-            build(alipayFundCouponOrderAgreementPayModel);
+            AlipayFundCouponOrderAgreementPayModel alipayFundCouponOrderAgreementPayModel = super.build();
             alipayFundCouponOrderAgreementPayModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOrderAgreementPayModel.setOutRequestNo(instance.getOutRequestNo());
             alipayFundCouponOrderAgreementPayModel.setOrderTitle(instance.getOrderTitle());

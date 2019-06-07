@@ -52,13 +52,7 @@ public class AlipayFundCouponOperationQueryModel extends AlipayBasicModel {
         this.outRequestNo = outRequestNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayFundCouponOperationQueryModel instance = new AlipayFundCouponOperationQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayFundCouponOperationQueryModel> {
         public Builder authNo(String authNo) {
             instance.setAuthNo(authNo);
             return this;
@@ -79,9 +73,9 @@ public class AlipayFundCouponOperationQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayFundCouponOperationQueryModel build() {
-            AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel = new AlipayFundCouponOperationQueryModel();
-            build(alipayFundCouponOperationQueryModel);
+            AlipayFundCouponOperationQueryModel alipayFundCouponOperationQueryModel = super.build();
             alipayFundCouponOperationQueryModel.setAuthNo(instance.getAuthNo());
             alipayFundCouponOperationQueryModel.setOutOrderNo(instance.getOutOrderNo());
             alipayFundCouponOperationQueryModel.setOperationId(instance.getOperationId());

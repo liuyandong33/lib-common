@@ -45,13 +45,7 @@ public class KoubeiMarketingToolPrizeSendAuthModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingToolPrizeSendAuthModel instance = new KoubeiMarketingToolPrizeSendAuthModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingToolPrizeSendAuthModel> {
         public Builder reqId(String reqId) {
             instance.setReqId(reqId);
             return this;
@@ -67,9 +61,9 @@ public class KoubeiMarketingToolPrizeSendAuthModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingToolPrizeSendAuthModel build() {
-            KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel = new KoubeiMarketingToolPrizeSendAuthModel();
-            build(koubeiMarketingToolPrizeSendAuthModel);
+            KoubeiMarketingToolPrizeSendAuthModel koubeiMarketingToolPrizeSendAuthModel = super.build();
             koubeiMarketingToolPrizeSendAuthModel.setReqId(instance.getReqId());
             koubeiMarketingToolPrizeSendAuthModel.setPrizeId(instance.getPrizeId());
             koubeiMarketingToolPrizeSendAuthModel.setUserId(instance.getUserId());

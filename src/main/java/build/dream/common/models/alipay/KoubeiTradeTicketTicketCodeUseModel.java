@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class KoubeiTradeTicketTicketCodeUseModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiTradeTicketTicketCodeUseModel instance = new KoubeiTradeTicketTicketCodeUseModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeTicketTicketCodeUseModel> {
+        @Override
         public KoubeiTradeTicketTicketCodeUseModel build() {
-            KoubeiTradeTicketTicketCodeUseModel koubeiTradeTicketTicketCodeUseModel = new KoubeiTradeTicketTicketCodeUseModel();
-            build(koubeiTradeTicketTicketCodeUseModel);
+            KoubeiTradeTicketTicketCodeUseModel koubeiTradeTicketTicketCodeUseModel = super.build();
             return koubeiTradeTicketTicketCodeUseModel;
         }
     }

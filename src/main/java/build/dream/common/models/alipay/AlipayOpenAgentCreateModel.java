@@ -43,13 +43,7 @@ public class AlipayOpenAgentCreateModel extends AlipayBasicModel {
         ApplicationHandler.isTrue(contactInfo.validate(), "contactInfo");
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentCreateModel instance = new AlipayOpenAgentCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentCreateModel> {
         public Builder contactInfo(ContactInfo contactInfo) {
             instance.setContactInfo(contactInfo);
             return this;
@@ -60,9 +54,9 @@ public class AlipayOpenAgentCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenAgentCreateModel build() {
-            AlipayOpenAgentCreateModel alipayOpenAgentCreateModel = new AlipayOpenAgentCreateModel();
-            build(alipayOpenAgentCreateModel);
+            AlipayOpenAgentCreateModel alipayOpenAgentCreateModel = super.build();
             alipayOpenAgentCreateModel.setContactInfo(instance.getContactInfo());
             alipayOpenAgentCreateModel.setOrderTicket(instance.getOrderTicket());
             return alipayOpenAgentCreateModel;

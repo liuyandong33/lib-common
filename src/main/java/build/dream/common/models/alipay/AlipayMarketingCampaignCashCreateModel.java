@@ -125,13 +125,7 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
         this.sendFreqency = sendFreqency;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCampaignCashCreateModel instance = new AlipayMarketingCampaignCashCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCampaignCashCreateModel> {
         public Builder couponName(String couponName) {
             instance.setCouponName(couponName);
             return this;
@@ -177,9 +171,9 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingCampaignCashCreateModel build() {
-            AlipayMarketingCampaignCashCreateModel alipayMarketingCampaignCashCreateModel = new AlipayMarketingCampaignCashCreateModel();
-            build(alipayMarketingCampaignCashCreateModel);
+            AlipayMarketingCampaignCashCreateModel alipayMarketingCampaignCashCreateModel = super.build();
             alipayMarketingCampaignCashCreateModel.setCouponName(instance.getCouponName());
             alipayMarketingCampaignCashCreateModel.setPrizeType(instance.getPrizeType());
             alipayMarketingCampaignCashCreateModel.setTotalMoney(instance.getTotalMoney());

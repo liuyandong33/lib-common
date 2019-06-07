@@ -19,21 +19,15 @@ public class AlipayUserCertifyOpenQueryModel extends AlipayBasicModel {
         this.certifyId = certifyId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayUserCertifyOpenQueryModel instance = new AlipayUserCertifyOpenQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayUserCertifyOpenQueryModel> {
         public Builder certifyId(String certifyId) {
             instance.setCertifyId(certifyId);
             return this;
         }
 
+        @Override
         public AlipayUserCertifyOpenQueryModel build() {
-            AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel = new AlipayUserCertifyOpenQueryModel();
-            build(alipayUserCertifyOpenQueryModel);
+            AlipayUserCertifyOpenQueryModel alipayUserCertifyOpenQueryModel = super.build();
             alipayUserCertifyOpenQueryModel.setCertifyId(instance.getCertifyId());
             return alipayUserCertifyOpenQueryModel;
         }

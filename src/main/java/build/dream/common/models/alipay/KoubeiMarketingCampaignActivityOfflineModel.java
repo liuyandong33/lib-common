@@ -80,13 +80,7 @@ public class KoubeiMarketingCampaignActivityOfflineModel extends AlipayBasicMode
         this.operatorType = operatorType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignActivityOfflineModel instance = new KoubeiMarketingCampaignActivityOfflineModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignActivityOfflineModel> {
         public Builder outBizNo(String outBizNo) {
             instance.setOutBizNo(outBizNo);
             return this;
@@ -117,9 +111,9 @@ public class KoubeiMarketingCampaignActivityOfflineModel extends AlipayBasicMode
             return this;
         }
 
+        @Override
         public KoubeiMarketingCampaignActivityOfflineModel build() {
-            KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel = new KoubeiMarketingCampaignActivityOfflineModel();
-            build(koubeiMarketingCampaignActivityOfflineModel);
+            KoubeiMarketingCampaignActivityOfflineModel koubeiMarketingCampaignActivityOfflineModel = super.build();
             koubeiMarketingCampaignActivityOfflineModel.setOutBizNo(instance.getOutBizNo());
             koubeiMarketingCampaignActivityOfflineModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignActivityOfflineModel.setReason(instance.getReason());

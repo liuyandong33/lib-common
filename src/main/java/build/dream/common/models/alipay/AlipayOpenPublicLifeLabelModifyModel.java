@@ -32,13 +32,7 @@ public class AlipayOpenPublicLifeLabelModifyModel extends AlipayBasicModel {
         this.labelName = labelName;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicLifeLabelModifyModel instance = new AlipayOpenPublicLifeLabelModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicLifeLabelModifyModel> {
         public Builder labelId(String labelId) {
             instance.setLabelId(labelId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayOpenPublicLifeLabelModifyModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicLifeLabelModifyModel build() {
-            AlipayOpenPublicLifeLabelModifyModel alipayOpenPublicLifeLabelModifyModel = new AlipayOpenPublicLifeLabelModifyModel();
-            build(alipayOpenPublicLifeLabelModifyModel);
+            AlipayOpenPublicLifeLabelModifyModel alipayOpenPublicLifeLabelModifyModel = super.build();
             alipayOpenPublicLifeLabelModifyModel.setLabelId(instance.getLabelId());
             alipayOpenPublicLifeLabelModifyModel.setLabelName(instance.getLabelName());
             return alipayOpenPublicLifeLabelModifyModel;

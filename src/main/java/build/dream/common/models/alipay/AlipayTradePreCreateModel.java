@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayTradePreCreateModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradePreCreateModel instance = new AlipayTradePreCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradePreCreateModel> {
+        @Override
         public AlipayTradePreCreateModel build() {
-            AlipayTradePreCreateModel alipayTradePreCreateModel = new AlipayTradePreCreateModel();
-            build(alipayTradePreCreateModel);
+            AlipayTradePreCreateModel alipayTradePreCreateModel = super.build();
             return alipayTradePreCreateModel;
         }
     }

@@ -33,13 +33,7 @@ public class AlipayMarketingCampaignCashStatusModifyModel extends AlipayBasicMod
         this.campStatus = campStatus;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCampaignCashStatusModifyModel instance = new AlipayMarketingCampaignCashStatusModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCampaignCashStatusModifyModel> {
         public Builder crowdNo(String crowdNo) {
             instance.setCrowdNo(crowdNo);
             return this;
@@ -50,9 +44,9 @@ public class AlipayMarketingCampaignCashStatusModifyModel extends AlipayBasicMod
             return this;
         }
 
+        @Override
         public AlipayMarketingCampaignCashStatusModifyModel build() {
-            AlipayMarketingCampaignCashStatusModifyModel alipayMarketingCampaignCashStatusModifyModel = new AlipayMarketingCampaignCashStatusModifyModel();
-            build(alipayMarketingCampaignCashStatusModifyModel);
+            AlipayMarketingCampaignCashStatusModifyModel alipayMarketingCampaignCashStatusModifyModel = super.build();
             alipayMarketingCampaignCashStatusModifyModel.setCrowdNo(instance.getCrowdNo());
             alipayMarketingCampaignCashStatusModifyModel.setCampStatus(instance.getCampStatus());
             return alipayMarketingCampaignCashStatusModifyModel;

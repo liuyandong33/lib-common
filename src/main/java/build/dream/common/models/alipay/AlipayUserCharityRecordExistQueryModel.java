@@ -68,13 +68,7 @@ public class AlipayUserCharityRecordExistQueryModel extends AlipayBasicModel {
         this.endTime = endTime;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayUserCharityRecordExistQueryModel instance = new AlipayUserCharityRecordExistQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayUserCharityRecordExistQueryModel> {
         public Builder partnerId(String partnerId) {
             instance.setPartnerId(partnerId);
             return this;
@@ -100,9 +94,9 @@ public class AlipayUserCharityRecordExistQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayUserCharityRecordExistQueryModel build() {
-            AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel = new AlipayUserCharityRecordExistQueryModel();
-            build(alipayUserCharityRecordExistQueryModel);
+            AlipayUserCharityRecordExistQueryModel alipayUserCharityRecordExistQueryModel = super.build();
             alipayUserCharityRecordExistQueryModel.setPartnerId(instance.getPartnerId());
             alipayUserCharityRecordExistQueryModel.setUserId(instance.getUserId());
             alipayUserCharityRecordExistQueryModel.setBizType(instance.getBizType());

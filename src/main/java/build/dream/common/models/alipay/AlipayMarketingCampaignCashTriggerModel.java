@@ -59,13 +59,7 @@ public class AlipayMarketingCampaignCashTriggerModel extends AlipayBasicModel {
         this.outBizNo = outBizNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCampaignCashTriggerModel instance = new AlipayMarketingCampaignCashTriggerModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCampaignCashTriggerModel> {
         public Builder userId(String userId) {
             instance.setUserId(userId);
             return this;
@@ -86,9 +80,9 @@ public class AlipayMarketingCampaignCashTriggerModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingCampaignCashTriggerModel build() {
-            AlipayMarketingCampaignCashTriggerModel alipayMarketingCampaignCashTriggerModel = new AlipayMarketingCampaignCashTriggerModel();
-            build(alipayMarketingCampaignCashTriggerModel);
+            AlipayMarketingCampaignCashTriggerModel alipayMarketingCampaignCashTriggerModel = super.build();
             alipayMarketingCampaignCashTriggerModel.setUserId(instance.getUserId());
             alipayMarketingCampaignCashTriggerModel.setCrowdNo(instance.getCrowdNo());
             alipayMarketingCampaignCashTriggerModel.setOrderPrice(instance.getOrderPrice());

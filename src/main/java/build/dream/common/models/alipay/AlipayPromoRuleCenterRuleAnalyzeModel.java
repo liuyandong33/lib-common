@@ -40,13 +40,7 @@ public class AlipayPromoRuleCenterRuleAnalyzeModel extends AlipayBasicModel {
         this.bizId = bizId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayPromoRuleCenterRuleAnalyzeModel instance = new AlipayPromoRuleCenterRuleAnalyzeModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayPromoRuleCenterRuleAnalyzeModel> {
         public Builder userId(String userId) {
             instance.setUserId(userId);
             return this;
@@ -62,9 +56,9 @@ public class AlipayPromoRuleCenterRuleAnalyzeModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayPromoRuleCenterRuleAnalyzeModel build() {
-            AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel = new AlipayPromoRuleCenterRuleAnalyzeModel();
-            build(alipayPromoRuleCenterRuleAnalyzeModel);
+            AlipayPromoRuleCenterRuleAnalyzeModel alipayPromoRuleCenterRuleAnalyzeModel = super.build();
             alipayPromoRuleCenterRuleAnalyzeModel.setUserId(instance.getUserId());
             alipayPromoRuleCenterRuleAnalyzeModel.setRuleUuid(instance.getRuleUuid());
             alipayPromoRuleCenterRuleAnalyzeModel.setBizId(instance.getBizId());

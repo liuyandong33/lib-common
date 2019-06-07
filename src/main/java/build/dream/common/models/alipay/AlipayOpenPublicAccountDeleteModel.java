@@ -28,13 +28,7 @@ public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
         this.bindAccountNo = bindAccountNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicAccountDeleteModel instance = new AlipayOpenPublicAccountDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicAccountDeleteModel> {
         public Builder agreementId(String agreementId) {
             instance.setAgreementId(agreementId);
             return this;
@@ -45,9 +39,9 @@ public class AlipayOpenPublicAccountDeleteModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicAccountDeleteModel build() {
-            AlipayOpenPublicAccountDeleteModel alipayOpenPublicAccountDeleteModel = new AlipayOpenPublicAccountDeleteModel();
-            build(alipayOpenPublicAccountDeleteModel);
+            AlipayOpenPublicAccountDeleteModel alipayOpenPublicAccountDeleteModel = super.build();
             alipayOpenPublicAccountDeleteModel.setAgreementId(instance.getAgreementId());
             alipayOpenPublicAccountDeleteModel.setBindAccountNo(instance.getBindAccountNo());
             return alipayOpenPublicAccountDeleteModel;

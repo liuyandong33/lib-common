@@ -32,13 +32,7 @@ public class AlipayMarketingVoucherListQueryModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingVoucherListQueryModel instance = new AlipayMarketingVoucherListQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingVoucherListQueryModel> {
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayMarketingVoucherListQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingVoucherListQueryModel build() {
-            AlipayMarketingVoucherListQueryModel alipayMarketingVoucherListQueryModel = new AlipayMarketingVoucherListQueryModel();
-            build(alipayMarketingVoucherListQueryModel);
+            AlipayMarketingVoucherListQueryModel alipayMarketingVoucherListQueryModel = super.build();
             alipayMarketingVoucherListQueryModel.setTemplateId(instance.getTemplateId());
             alipayMarketingVoucherListQueryModel.setUserId(instance.getUserId());
             return alipayMarketingVoucherListQueryModel;

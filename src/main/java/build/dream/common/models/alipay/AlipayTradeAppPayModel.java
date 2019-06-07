@@ -816,13 +816,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeAppPayModel instance = new AlipayTradeAppPayModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeAppPayModel> {
         public Builder timeoutExpress(String timeoutExpress) {
             instance.setTimeoutExpress(timeoutExpress);
             return this;
@@ -933,9 +927,9 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeAppPayModel build() {
-            AlipayTradeAppPayModel alipayTradeAppPayModel = new AlipayTradeAppPayModel();
-            build(alipayTradeAppPayModel);
+            AlipayTradeAppPayModel alipayTradeAppPayModel = super.build();
             alipayTradeAppPayModel.setTimeoutExpress(instance.getTimeoutExpress());
             alipayTradeAppPayModel.setTotalAmount(instance.getTotalAmount());
             alipayTradeAppPayModel.setSellerId(instance.getSellerId());

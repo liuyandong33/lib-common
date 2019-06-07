@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class KoubeiMarketingDataDishDiagnoseBatchQueryModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingDataDishDiagnoseBatchQueryModel instance = new KoubeiMarketingDataDishDiagnoseBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingDataDishDiagnoseBatchQueryModel> {
+        @Override
         public KoubeiMarketingDataDishDiagnoseBatchQueryModel build() {
-            KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel = new KoubeiMarketingDataDishDiagnoseBatchQueryModel();
-            build(koubeiMarketingDataDishDiagnoseBatchQueryModel);
+            KoubeiMarketingDataDishDiagnoseBatchQueryModel koubeiMarketingDataDishDiagnoseBatchQueryModel = super.build();
             return koubeiMarketingDataDishDiagnoseBatchQueryModel;
         }
     }

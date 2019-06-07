@@ -71,13 +71,7 @@ public class AlipayCommerceLotteryPresentSendModel extends AlipayBasicModel {
         this.swetyWords = swetyWords;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayCommerceLotteryPresentSendModel instance = new AlipayCommerceLotteryPresentSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayCommerceLotteryPresentSendModel> {
         public Builder outOrderNo(String outOrderNo) {
             instance.setOutOrderNo(outOrderNo);
             return this;
@@ -103,9 +97,9 @@ public class AlipayCommerceLotteryPresentSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayCommerceLotteryPresentSendModel build() {
-            AlipayCommerceLotteryPresentSendModel alipayCommerceLotteryPresentSendModel = new AlipayCommerceLotteryPresentSendModel();
-            build(alipayCommerceLotteryPresentSendModel);
+            AlipayCommerceLotteryPresentSendModel alipayCommerceLotteryPresentSendModel = super.build();
             alipayCommerceLotteryPresentSendModel.setOutOrderNo(instance.getOutOrderNo());
             alipayCommerceLotteryPresentSendModel.setAlipayUserId(instance.getAlipayUserId());
             alipayCommerceLotteryPresentSendModel.setLotteryTypeId(instance.getLotteryTypeId());

@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayMarketingCashVoucherTemplateCreateModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCashVoucherTemplateCreateModel instance = new AlipayMarketingCashVoucherTemplateCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCashVoucherTemplateCreateModel> {
+        @Override
         public AlipayMarketingCashVoucherTemplateCreateModel build() {
-            AlipayMarketingCashVoucherTemplateCreateModel alipayMarketingCashVoucherTemplateCreateModel = new AlipayMarketingCashVoucherTemplateCreateModel();
-            build(alipayMarketingCashVoucherTemplateCreateModel);
+            AlipayMarketingCashVoucherTemplateCreateModel alipayMarketingCashVoucherTemplateCreateModel = super.build();
             return alipayMarketingCashVoucherTemplateCreateModel;
         }
     }

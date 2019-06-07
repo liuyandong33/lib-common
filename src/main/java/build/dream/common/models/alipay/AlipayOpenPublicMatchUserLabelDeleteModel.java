@@ -33,13 +33,7 @@ public class AlipayOpenPublicMatchUserLabelDeleteModel extends AlipayBasicModel 
         this.labelId = labelId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMatchUserLabelDeleteModel instance = new AlipayOpenPublicMatchUserLabelDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMatchUserLabelDeleteModel> {
         public Builder matchers(List<Matcher> matchers) {
             instance.setMatchers(matchers);
             return this;
@@ -50,9 +44,9 @@ public class AlipayOpenPublicMatchUserLabelDeleteModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMatchUserLabelDeleteModel build() {
-            AlipayOpenPublicMatchUserLabelDeleteModel alipayOpenPublicMatchUserLabelDeleteModel = new AlipayOpenPublicMatchUserLabelDeleteModel();
-            build(alipayOpenPublicMatchUserLabelDeleteModel);
+            AlipayOpenPublicMatchUserLabelDeleteModel alipayOpenPublicMatchUserLabelDeleteModel = super.build();
             alipayOpenPublicMatchUserLabelDeleteModel.setMatchers(instance.getMatchers());
             alipayOpenPublicMatchUserLabelDeleteModel.setLabelId(instance.getLabelId());
             return alipayOpenPublicMatchUserLabelDeleteModel;

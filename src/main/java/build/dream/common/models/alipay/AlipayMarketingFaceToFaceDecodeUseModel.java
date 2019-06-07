@@ -32,13 +32,7 @@ public class AlipayMarketingFaceToFaceDecodeUseModel extends AlipayBasicModel {
         this.senceNo = senceNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingFaceToFaceDecodeUseModel instance = new AlipayMarketingFaceToFaceDecodeUseModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingFaceToFaceDecodeUseModel> {
         public Builder dynamicId(String dynamicId) {
             instance.setDynamicId(dynamicId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayMarketingFaceToFaceDecodeUseModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingFaceToFaceDecodeUseModel build() {
-            AlipayMarketingFaceToFaceDecodeUseModel alipayMarketingFaceToFaceDecodeUseModel = new AlipayMarketingFaceToFaceDecodeUseModel();
-            build(alipayMarketingFaceToFaceDecodeUseModel);
+            AlipayMarketingFaceToFaceDecodeUseModel alipayMarketingFaceToFaceDecodeUseModel = super.build();
             alipayMarketingFaceToFaceDecodeUseModel.setDynamicId(instance.getDynamicId());
             alipayMarketingFaceToFaceDecodeUseModel.setSenceNo(instance.getSenceNo());
             return alipayMarketingFaceToFaceDecodeUseModel;

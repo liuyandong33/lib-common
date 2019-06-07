@@ -123,13 +123,7 @@ public class ZolozIdentificationUserWebInitializeModel extends AlipayBasicModel 
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final ZolozIdentificationUserWebInitializeModel instance = new ZolozIdentificationUserWebInitializeModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, ZolozIdentificationUserWebInitializeModel> {
         public Builder bizId(String bizId) {
             instance.setBizId(bizId);
             return this;
@@ -150,9 +144,9 @@ public class ZolozIdentificationUserWebInitializeModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public ZolozIdentificationUserWebInitializeModel build() {
-            ZolozIdentificationUserWebInitializeModel zolozIdentificationUserWebInitializeModel = new ZolozIdentificationUserWebInitializeModel();
-            super.build(zolozIdentificationUserWebInitializeModel);
+            ZolozIdentificationUserWebInitializeModel zolozIdentificationUserWebInitializeModel = super.build();
             zolozIdentificationUserWebInitializeModel.setAuthToken(instance.getAuthToken());
             zolozIdentificationUserWebInitializeModel.setBizId(instance.getBizId());
             zolozIdentificationUserWebInitializeModel.setIdentityParam(instance.getIdentityParam());

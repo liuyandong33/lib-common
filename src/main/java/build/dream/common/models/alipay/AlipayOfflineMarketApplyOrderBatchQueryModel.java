@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOfflineMarketApplyOrderBatchQueryModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOfflineMarketApplyOrderBatchQueryModel instance = new AlipayOfflineMarketApplyOrderBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOfflineMarketApplyOrderBatchQueryModel> {
+        @Override
         public AlipayOfflineMarketApplyOrderBatchQueryModel build() {
-            AlipayOfflineMarketApplyOrderBatchQueryModel alipayOfflineMarketApplyOrderBatchQueryModel = new AlipayOfflineMarketApplyOrderBatchQueryModel();
-            build(alipayOfflineMarketApplyOrderBatchQueryModel);
+            AlipayOfflineMarketApplyOrderBatchQueryModel alipayOfflineMarketApplyOrderBatchQueryModel = super.build();
             return alipayOfflineMarketApplyOrderBatchQueryModel;
         }
     }

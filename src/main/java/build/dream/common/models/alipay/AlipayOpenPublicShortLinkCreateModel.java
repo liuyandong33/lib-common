@@ -30,13 +30,7 @@ public class AlipayOpenPublicShortLinkCreateModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicShortLinkCreateModel instance = new AlipayOpenPublicShortLinkCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicShortLinkCreateModel> {
         public Builder sceneId(String sceneId) {
             instance.setSceneId(sceneId);
             return this;
@@ -47,9 +41,9 @@ public class AlipayOpenPublicShortLinkCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicShortLinkCreateModel build() {
-            AlipayOpenPublicShortLinkCreateModel alipayOpenPublicShortLinkCreateModel = new AlipayOpenPublicShortLinkCreateModel();
-            build(alipayOpenPublicShortLinkCreateModel);
+            AlipayOpenPublicShortLinkCreateModel alipayOpenPublicShortLinkCreateModel = super.build();
             alipayOpenPublicShortLinkCreateModel.setSceneId(instance.getSceneId());
             alipayOpenPublicShortLinkCreateModel.setRemark(instance.getRemark());
             return alipayOpenPublicShortLinkCreateModel;

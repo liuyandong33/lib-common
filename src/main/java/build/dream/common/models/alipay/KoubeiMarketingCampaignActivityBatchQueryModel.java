@@ -70,13 +70,7 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicM
         this.pageSize = pageSize;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignActivityBatchQueryModel instance = new KoubeiMarketingCampaignActivityBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignActivityBatchQueryModel> {
         public Builder queryCriterias(List<QueryCriteria> queryCriterias) {
             instance.setQueryCriterias(queryCriterias);
             return this;
@@ -102,9 +96,9 @@ public class KoubeiMarketingCampaignActivityBatchQueryModel extends AlipayBasicM
             return this;
         }
 
+        @Override
         public KoubeiMarketingCampaignActivityBatchQueryModel build() {
-            KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel = new KoubeiMarketingCampaignActivityBatchQueryModel();
-            build(koubeiMarketingCampaignActivityBatchQueryModel);
+            KoubeiMarketingCampaignActivityBatchQueryModel koubeiMarketingCampaignActivityBatchQueryModel = super.build();
             koubeiMarketingCampaignActivityBatchQueryModel.setQueryCriterias(instance.getQueryCriterias());
             koubeiMarketingCampaignActivityBatchQueryModel.setPageNumber(instance.getPageNumber());
             koubeiMarketingCampaignActivityBatchQueryModel.setOperatorId(instance.getOperatorId());

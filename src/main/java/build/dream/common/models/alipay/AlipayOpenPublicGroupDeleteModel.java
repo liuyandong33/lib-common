@@ -19,21 +19,15 @@ public class AlipayOpenPublicGroupDeleteModel extends AlipayBasicModel {
         this.groupId = groupId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicGroupDeleteModel instance = new AlipayOpenPublicGroupDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicGroupDeleteModel> {
         public Builder groupId(String groupId) {
             instance.setGroupId(groupId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicGroupDeleteModel build() {
-            AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel = new AlipayOpenPublicGroupDeleteModel();
-            build(alipayOpenPublicGroupDeleteModel);
+            AlipayOpenPublicGroupDeleteModel alipayOpenPublicGroupDeleteModel = super.build();
             alipayOpenPublicGroupDeleteModel.setGroupId(instance.getGroupId());
             return alipayOpenPublicGroupDeleteModel;
         }

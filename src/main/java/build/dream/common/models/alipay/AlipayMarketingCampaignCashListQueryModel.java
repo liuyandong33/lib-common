@@ -47,13 +47,7 @@ public class AlipayMarketingCampaignCashListQueryModel extends AlipayBasicModel 
         this.pageIndex = pageIndex;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCampaignCashListQueryModel instance = new AlipayMarketingCampaignCashListQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCampaignCashListQueryModel> {
         public Builder campStatus(String campStatus) {
             instance.setCampStatus(campStatus);
             return this;
@@ -69,9 +63,9 @@ public class AlipayMarketingCampaignCashListQueryModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public AlipayMarketingCampaignCashListQueryModel build() {
-            AlipayMarketingCampaignCashListQueryModel alipayMarketingCampaignCashListQueryModel = new AlipayMarketingCampaignCashListQueryModel();
-            build(alipayMarketingCampaignCashListQueryModel);
+            AlipayMarketingCampaignCashListQueryModel alipayMarketingCampaignCashListQueryModel = super.build();
             alipayMarketingCampaignCashListQueryModel.setCampStatus(instance.getCampStatus());
             alipayMarketingCampaignCashListQueryModel.setPageSize(instance.getPageSize());
             alipayMarketingCampaignCashListQueryModel.setPageIndex(instance.getPageIndex());

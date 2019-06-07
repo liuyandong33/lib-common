@@ -80,13 +80,7 @@ public class AlipayPassInstanceUpdateModel extends AlipayBasicModel {
         this.verifyType = verifyType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayPassInstanceUpdateModel instance = new AlipayPassInstanceUpdateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayPassInstanceUpdateModel> {
         public Builder serialNumber(String serialNumber) {
             instance.setSerialNumber(serialNumber);
             return this;
@@ -117,9 +111,9 @@ public class AlipayPassInstanceUpdateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayPassInstanceUpdateModel build() {
-            AlipayPassInstanceUpdateModel alipayPassInstanceUpdateModel = new AlipayPassInstanceUpdateModel();
-            build(alipayPassInstanceUpdateModel);
+            AlipayPassInstanceUpdateModel alipayPassInstanceUpdateModel = super.build();
             alipayPassInstanceUpdateModel.setSerialNumber(instance.getSerialNumber());
             alipayPassInstanceUpdateModel.setChannelId(instance.getChannelId());
             alipayPassInstanceUpdateModel.setTplParams(instance.getTplParams());

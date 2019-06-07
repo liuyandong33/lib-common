@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicTopicBatchQueryModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicTopicBatchQueryModel instance = new AlipayOpenPublicTopicBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicTopicBatchQueryModel> {
+        @Override
         public AlipayOpenPublicTopicBatchQueryModel build() {
-            AlipayOpenPublicTopicBatchQueryModel alipayOpenPublicTopicBatchQueryModel = new AlipayOpenPublicTopicBatchQueryModel();
-            build(alipayOpenPublicTopicBatchQueryModel);
+            AlipayOpenPublicTopicBatchQueryModel alipayOpenPublicTopicBatchQueryModel = super.build();
             return alipayOpenPublicTopicBatchQueryModel;
         }
     }

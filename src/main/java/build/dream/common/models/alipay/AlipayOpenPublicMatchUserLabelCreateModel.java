@@ -56,13 +56,7 @@ public class AlipayOpenPublicMatchUserLabelCreateModel extends AlipayBasicModel 
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMatchUserLabelCreateModel instance = new AlipayOpenPublicMatchUserLabelCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMatchUserLabelCreateModel> {
         public Builder matchers(List<Matcher> matchers) {
             instance.setMatchers(matchers);
             return this;
@@ -78,9 +72,9 @@ public class AlipayOpenPublicMatchUserLabelCreateModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMatchUserLabelCreateModel build() {
-            AlipayOpenPublicMatchUserLabelCreateModel alipayOpenPublicMatchUserLabelCreateModel = new AlipayOpenPublicMatchUserLabelCreateModel();
-            build(alipayOpenPublicMatchUserLabelCreateModel);
+            AlipayOpenPublicMatchUserLabelCreateModel alipayOpenPublicMatchUserLabelCreateModel = super.build();
             alipayOpenPublicMatchUserLabelCreateModel.setMatchers(instance.getMatchers());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelId(instance.getLabelId());
             alipayOpenPublicMatchUserLabelCreateModel.setLabelValue(instance.getLabelValue());

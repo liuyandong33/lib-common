@@ -55,13 +55,7 @@ public class AlipayTradeFastPayRefundQueryModel extends AlipayBasicModel {
         this.orgPid = orgPid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeFastPayRefundQueryModel instance = new AlipayTradeFastPayRefundQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeFastPayRefundQueryModel> {
         public Builder tradeNo(String tradeNo) {
             instance.setTradeNo(tradeNo);
             return this;
@@ -82,9 +76,9 @@ public class AlipayTradeFastPayRefundQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeFastPayRefundQueryModel build() {
-            AlipayTradeFastPayRefundQueryModel alipayTradeFastPayRefundQueryModel = new AlipayTradeFastPayRefundQueryModel();
-            build(alipayTradeFastPayRefundQueryModel);
+            AlipayTradeFastPayRefundQueryModel alipayTradeFastPayRefundQueryModel = super.build();
             alipayTradeFastPayRefundQueryModel.setTradeNo(instance.getTradeNo());
             alipayTradeFastPayRefundQueryModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeFastPayRefundQueryModel.setOutRequestNo(instance.getOutRequestNo());

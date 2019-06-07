@@ -80,13 +80,7 @@ public class AlipayOpenPublicAccountCreateModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicAccountCreateModel instance = new AlipayOpenPublicAccountCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicAccountCreateModel> {
         public Builder bindAccountNo(String bindAccountNo) {
             instance.setBindAccountNo(bindAccountNo);
             return this;
@@ -117,9 +111,9 @@ public class AlipayOpenPublicAccountCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicAccountCreateModel build() {
-            AlipayOpenPublicAccountCreateModel alipayOpenPublicAccountCreateModel = new AlipayOpenPublicAccountCreateModel();
-            build(alipayOpenPublicAccountCreateModel);
+            AlipayOpenPublicAccountCreateModel alipayOpenPublicAccountCreateModel = super.build();
             alipayOpenPublicAccountCreateModel.setBindAccountNo(instance.getBindAccountNo());
             alipayOpenPublicAccountCreateModel.setDisplayName(instance.getDisplayName());
             alipayOpenPublicAccountCreateModel.setAgreementId(instance.getAgreementId());

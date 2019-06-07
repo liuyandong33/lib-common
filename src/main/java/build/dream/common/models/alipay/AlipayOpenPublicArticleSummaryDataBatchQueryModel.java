@@ -32,13 +32,7 @@ public class AlipayOpenPublicArticleSummaryDataBatchQueryModel extends AlipayBas
         this.endDate = endDate;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicArticleSummaryDataBatchQueryModel instance = new AlipayOpenPublicArticleSummaryDataBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicArticleSummaryDataBatchQueryModel> {
         public Builder beginDate(String beginDate) {
             instance.setBeginDate(beginDate);
             return this;
@@ -49,9 +43,9 @@ public class AlipayOpenPublicArticleSummaryDataBatchQueryModel extends AlipayBas
             return this;
         }
 
+        @Override
         public AlipayOpenPublicArticleSummaryDataBatchQueryModel build() {
-            AlipayOpenPublicArticleSummaryDataBatchQueryModel alipayOpenPublicArticleSummaryDataBatchQueryModel = new AlipayOpenPublicArticleSummaryDataBatchQueryModel();
-            build(alipayOpenPublicArticleSummaryDataBatchQueryModel);
+            AlipayOpenPublicArticleSummaryDataBatchQueryModel alipayOpenPublicArticleSummaryDataBatchQueryModel = super.build();
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setBeginDate(instance.getBeginDate());
             alipayOpenPublicArticleSummaryDataBatchQueryModel.setEndDate(instance.getEndDate());
             return alipayOpenPublicArticleSummaryDataBatchQueryModel;

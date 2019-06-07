@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicSettingCategoryQueryModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicSettingCategoryQueryModel instance = new AlipayOpenPublicSettingCategoryQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicSettingCategoryQueryModel> {
+        @Override
         public AlipayOpenPublicSettingCategoryQueryModel build() {
-            AlipayOpenPublicSettingCategoryQueryModel alipayOpenPublicSettingCategoryQueryModel = new AlipayOpenPublicSettingCategoryQueryModel();
-            build(alipayOpenPublicSettingCategoryQueryModel);
+            AlipayOpenPublicSettingCategoryQueryModel alipayOpenPublicSettingCategoryQueryModel = super.build();
             return alipayOpenPublicSettingCategoryQueryModel;
         }
     }

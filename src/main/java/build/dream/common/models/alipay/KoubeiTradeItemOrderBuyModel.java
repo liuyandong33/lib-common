@@ -135,13 +135,7 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
         this.itemOrderDetails = itemOrderDetails;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiTradeItemOrderBuyModel instance = new KoubeiTradeItemOrderBuyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeItemOrderBuyModel> {
         public Builder outOrderNo(String outOrderNo) {
             instance.setOutOrderNo(outOrderNo);
             return this;
@@ -192,9 +186,9 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiTradeItemOrderBuyModel build() {
-            KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel = new KoubeiTradeItemOrderBuyModel();
-            build(koubeiTradeItemOrderBuyModel);
+            KoubeiTradeItemOrderBuyModel koubeiTradeItemOrderBuyModel = super.build();
             koubeiTradeItemOrderBuyModel.setOutOrderNo(instance.getOutOrderNo());
             koubeiTradeItemOrderBuyModel.setSubject(instance.getSubject());
             koubeiTradeItemOrderBuyModel.setBizProduct(instance.getBizProduct());

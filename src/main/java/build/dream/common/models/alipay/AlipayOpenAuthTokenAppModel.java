@@ -50,13 +50,7 @@ public class AlipayOpenAuthTokenAppModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAuthTokenAppModel instance = new AlipayOpenAuthTokenAppModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAuthTokenAppModel> {
         public Builder grantType(String grantType) {
             instance.setGrantType(grantType);
             return this;
@@ -72,9 +66,9 @@ public class AlipayOpenAuthTokenAppModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenAuthTokenAppModel build() {
-            AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel = new AlipayOpenAuthTokenAppModel();
-            build(alipayOpenAuthTokenAppModel);
+            AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel = super.build();
             alipayOpenAuthTokenAppModel.setGrantType(instance.getGrantType());
             alipayOpenAuthTokenAppModel.setCode(instance.getCode());
             alipayOpenAuthTokenAppModel.setRefreshToken(instance.getRefreshToken());

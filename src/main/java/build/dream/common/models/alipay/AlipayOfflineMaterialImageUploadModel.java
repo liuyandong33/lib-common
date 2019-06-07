@@ -55,4 +55,40 @@ public class AlipayOfflineMaterialImageUploadModel extends AlipayBasicModel {
     public void setImagePid(String imagePid) {
         this.imagePid = imagePid;
     }
+
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOfflineMaterialImageUploadModel> {
+        public Builder imageType(String imageType) {
+            instance.setImageType(imageType);
+            return this;
+        }
+
+        public Builder imageName(String imageName) {
+            instance.setImageName(imageName);
+            return this;
+        }
+
+        public Builder imageContent(String imageContent) {
+            instance.setImageContent(imageContent);
+            return this;
+        }
+
+        public Builder imagePid(String imagePid) {
+            instance.setImagePid(imagePid);
+            return this;
+        }
+
+        @Override
+        public AlipayOfflineMaterialImageUploadModel build() {
+            AlipayOfflineMaterialImageUploadModel alipayOfflineMaterialImageUploadModel = super.build();
+            alipayOfflineMaterialImageUploadModel.setImageType(instance.getImageType());
+            alipayOfflineMaterialImageUploadModel.setImageName(instance.getImageName());
+            alipayOfflineMaterialImageUploadModel.setImageContent(instance.getImageContent());
+            alipayOfflineMaterialImageUploadModel.setImagePid(instance.imagePid);
+            return alipayOfflineMaterialImageUploadModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

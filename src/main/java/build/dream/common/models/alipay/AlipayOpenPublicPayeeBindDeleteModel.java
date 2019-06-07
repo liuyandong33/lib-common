@@ -30,13 +30,7 @@ public class AlipayOpenPublicPayeeBindDeleteModel extends AlipayBasicModel {
         this.pid = pid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicPayeeBindDeleteModel instance = new AlipayOpenPublicPayeeBindDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPayeeBindDeleteModel> {
         public Builder loginId(String loginId) {
             instance.setLoginId(loginId);
             return this;
@@ -47,9 +41,9 @@ public class AlipayOpenPublicPayeeBindDeleteModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicPayeeBindDeleteModel build() {
-            AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel = new AlipayOpenPublicPayeeBindDeleteModel();
-            build(alipayOpenPublicPayeeBindDeleteModel);
+            AlipayOpenPublicPayeeBindDeleteModel alipayOpenPublicPayeeBindDeleteModel = super.build();
             alipayOpenPublicPayeeBindDeleteModel.setLoginId(instance.getLoginId());
             alipayOpenPublicPayeeBindDeleteModel.setPid(instance.getPid());
             return alipayOpenPublicPayeeBindDeleteModel;

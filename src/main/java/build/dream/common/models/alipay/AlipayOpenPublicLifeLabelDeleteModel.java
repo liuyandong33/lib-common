@@ -19,21 +19,15 @@ public class AlipayOpenPublicLifeLabelDeleteModel extends AlipayBasicModel {
         this.labelId = labelId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicLifeLabelDeleteModel instance = new AlipayOpenPublicLifeLabelDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicLifeLabelDeleteModel> {
         public Builder labelId(String labelId) {
             instance.setLabelId(labelId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicLifeLabelDeleteModel build() {
-            AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel = new AlipayOpenPublicLifeLabelDeleteModel();
-            build(alipayOpenPublicLifeLabelDeleteModel);
+            AlipayOpenPublicLifeLabelDeleteModel alipayOpenPublicLifeLabelDeleteModel = super.build();
             alipayOpenPublicLifeLabelDeleteModel.setLabelId(instance.getLabelId());
             return alipayOpenPublicLifeLabelDeleteModel;
         }

@@ -17,21 +17,15 @@ public class AlipayMarketingUseRulePidQueryModel extends AlipayBasicModel {
         this.pid = pid;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingUseRulePidQueryModel instance = new AlipayMarketingUseRulePidQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingUseRulePidQueryModel> {
         public Builder pid(String pid) {
             instance.setPid(pid);
             return this;
         }
 
+        @Override
         public AlipayMarketingUseRulePidQueryModel build() {
-            AlipayMarketingUseRulePidQueryModel alipayMarketingUseRulePidQueryModel = new AlipayMarketingUseRulePidQueryModel();
-            build(alipayMarketingUseRulePidQueryModel);
+            AlipayMarketingUseRulePidQueryModel alipayMarketingUseRulePidQueryModel = super.build();
             alipayMarketingUseRulePidQueryModel.setPid(instance.getPid());
             return alipayMarketingUseRulePidQueryModel;
         }

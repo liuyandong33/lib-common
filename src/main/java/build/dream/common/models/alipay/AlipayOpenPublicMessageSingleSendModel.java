@@ -29,13 +29,7 @@ public class AlipayOpenPublicMessageSingleSendModel extends AlipayBasicModel {
         this.template = template;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMessageSingleSendModel instance = new AlipayOpenPublicMessageSingleSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMessageSingleSendModel> {
         public Builder toUserId(String toUserId) {
             instance.setToUserId(toUserId);
             return this;
@@ -46,9 +40,9 @@ public class AlipayOpenPublicMessageSingleSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMessageSingleSendModel build() {
-            AlipayOpenPublicMessageSingleSendModel alipayOpenPublicMessageSingleSendModel = new AlipayOpenPublicMessageSingleSendModel();
-            build(alipayOpenPublicMessageSingleSendModel);
+            AlipayOpenPublicMessageSingleSendModel alipayOpenPublicMessageSingleSendModel = super.build();
             alipayOpenPublicMessageSingleSendModel.setToUserId(instance.getToUserId());
             alipayOpenPublicMessageSingleSendModel.setTemplate(instance.getTemplate());
             return alipayOpenPublicMessageSingleSendModel;

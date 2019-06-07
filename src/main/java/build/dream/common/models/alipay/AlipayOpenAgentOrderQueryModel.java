@@ -19,21 +19,15 @@ public class AlipayOpenAgentOrderQueryModel extends AlipayBasicModel {
         this.batchNo = batchNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentOrderQueryModel instance = new AlipayOpenAgentOrderQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentOrderQueryModel> {
         public Builder batchNo(String batchNo) {
             instance.setBatchNo(batchNo);
             return this;
         }
 
+        @Override
         public AlipayOpenAgentOrderQueryModel build() {
-            AlipayOpenAgentOrderQueryModel alipayOpenAgentOrderQueryModel = new AlipayOpenAgentOrderQueryModel();
-            build(alipayOpenAgentOrderQueryModel);
+            AlipayOpenAgentOrderQueryModel alipayOpenAgentOrderQueryModel = super.build();
             alipayOpenAgentOrderQueryModel.setBatchNo(instance.getBatchNo());
             return alipayOpenAgentOrderQueryModel;
         }

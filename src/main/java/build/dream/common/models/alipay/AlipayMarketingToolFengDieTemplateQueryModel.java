@@ -28,13 +28,7 @@ public class AlipayMarketingToolFengDieTemplateQueryModel extends AlipayBasicMod
         this.pageSize = pageSize;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingToolFengDieTemplateQueryModel instance = new AlipayMarketingToolFengDieTemplateQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingToolFengDieTemplateQueryModel> {
         public Builder pageNumber(String pageNumber) {
             instance.setPageNumber(pageNumber);
             return this;
@@ -45,9 +39,9 @@ public class AlipayMarketingToolFengDieTemplateQueryModel extends AlipayBasicMod
             return this;
         }
 
+        @Override
         public AlipayMarketingToolFengDieTemplateQueryModel build() {
-            AlipayMarketingToolFengDieTemplateQueryModel alipayMarketingToolFengDieTemplateQueryModel = new AlipayMarketingToolFengDieTemplateQueryModel();
-            build(alipayMarketingToolFengDieTemplateQueryModel);
+            AlipayMarketingToolFengDieTemplateQueryModel alipayMarketingToolFengDieTemplateQueryModel = super.build();
             alipayMarketingToolFengDieTemplateQueryModel.setPageNumber(instance.getPageNumber());
             alipayMarketingToolFengDieTemplateQueryModel.setPageSize(instance.getPageSize());
             return alipayMarketingToolFengDieTemplateQueryModel;

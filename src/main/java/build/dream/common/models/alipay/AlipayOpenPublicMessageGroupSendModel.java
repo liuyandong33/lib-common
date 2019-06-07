@@ -65,13 +65,7 @@ public class AlipayOpenPublicMessageGroupSendModel extends AlipayBasicModel {
         this.articles = articles;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMessageGroupSendModel instance = new AlipayOpenPublicMessageGroupSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMessageGroupSendModel> {
         public Builder groupId(String groupId) {
             instance.setGroupId(groupId);
             return this;
@@ -97,9 +91,9 @@ public class AlipayOpenPublicMessageGroupSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMessageGroupSendModel build() {
-            AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel = new AlipayOpenPublicMessageGroupSendModel();
-            build(alipayOpenPublicMessageGroupSendModel);
+            AlipayOpenPublicMessageGroupSendModel alipayOpenPublicMessageGroupSendModel = super.build();
             alipayOpenPublicMessageGroupSendModel.setGroupId(instance.getGroupId());
             alipayOpenPublicMessageGroupSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageGroupSendModel.setText(instance.getText());

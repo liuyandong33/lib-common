@@ -38,13 +38,7 @@ public class OrderQueryModel extends WeiXinPayBasicModel {
         ValidateUtils.isTrue(StringUtils.isNotBlank(transactionId) || StringUtils.isNotBlank(outTradeNo), "transactionId和outTradeNo不能同时为空！");
     }
 
-    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
-        private final OrderQueryModel instance = new OrderQueryModel();
-
-        public Builder() {
-            setWeiXinPayBasicModel(instance);
-        }
-
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder, OrderQueryModel> {
         public Builder transactionId(String transactionId) {
             instance.setTransactionId(transactionId);
             return this;
@@ -55,9 +49,9 @@ public class OrderQueryModel extends WeiXinPayBasicModel {
             return this;
         }
 
+        @Override
         public OrderQueryModel build() {
-            OrderQueryModel orderQueryModel = new OrderQueryModel();
-            build(orderQueryModel);
+            OrderQueryModel orderQueryModel = super.build();
             orderQueryModel.setTransactionId(instance.getTransactionId());
             orderQueryModel.setOutTradeNo(instance.getOutTradeNo());
             return orderQueryModel;

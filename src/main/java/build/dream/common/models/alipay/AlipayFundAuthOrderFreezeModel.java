@@ -184,13 +184,7 @@ public class AlipayFundAuthOrderFreezeModel extends AlipayBasicModel {
         this.enablePayChannels = enablePayChannels;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayFundAuthOrderFreezeModel instance = new AlipayFundAuthOrderFreezeModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayFundAuthOrderFreezeModel> {
         public Builder authCode(String authCode) {
             instance.setAuthCode(authCode);
             return this;
@@ -261,9 +255,9 @@ public class AlipayFundAuthOrderFreezeModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayFundAuthOrderFreezeModel build() {
-            AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel = new AlipayFundAuthOrderFreezeModel();
-            build(alipayFundAuthOrderFreezeModel);
+            AlipayFundAuthOrderFreezeModel alipayFundAuthOrderFreezeModel = super.build();
             alipayFundAuthOrderFreezeModel.setAuthCode(instance.getAuthCode());
             alipayFundAuthOrderFreezeModel.setAuthCodeType(instance.getAuthCodeType());
             alipayFundAuthOrderFreezeModel.setOutOrderNo(instance.getOutOrderNo());

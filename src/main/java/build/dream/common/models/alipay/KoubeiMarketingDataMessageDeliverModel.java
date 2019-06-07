@@ -44,13 +44,7 @@ public class KoubeiMarketingDataMessageDeliverModel extends AlipayBasicModel {
         this.extInfo = extInfo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingDataMessageDeliverModel instance = new KoubeiMarketingDataMessageDeliverModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingDataMessageDeliverModel> {
         public Builder msgType(String msgType) {
             instance.setMsgType(msgType);
             return this;
@@ -66,9 +60,9 @@ public class KoubeiMarketingDataMessageDeliverModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingDataMessageDeliverModel build() {
-            KoubeiMarketingDataMessageDeliverModel koubeiMarketingDataMessageDeliverModel = new KoubeiMarketingDataMessageDeliverModel();
-            build(koubeiMarketingDataMessageDeliverModel);
+            KoubeiMarketingDataMessageDeliverModel koubeiMarketingDataMessageDeliverModel = super.build();
             koubeiMarketingDataMessageDeliverModel.setMsgType(instance.getMsgType());
             koubeiMarketingDataMessageDeliverModel.setContent(instance.getContent());
             koubeiMarketingDataMessageDeliverModel.setExtInfo(instance.getExtInfo());

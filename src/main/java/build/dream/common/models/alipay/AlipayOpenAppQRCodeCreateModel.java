@@ -44,13 +44,7 @@ public class AlipayOpenAppQRCodeCreateModel extends AlipayBasicModel {
         this.describe = describe;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAppQRCodeCreateModel instance = new AlipayOpenAppQRCodeCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAppQRCodeCreateModel> {
         public Builder urlParam(String urlParam) {
             instance.setUrlParam(urlParam);
             return this;
@@ -66,9 +60,9 @@ public class AlipayOpenAppQRCodeCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenAppQRCodeCreateModel build() {
-            AlipayOpenAppQRCodeCreateModel alipayOpenAppQRCodeCreateModel = new AlipayOpenAppQRCodeCreateModel();
-            build(alipayOpenAppQRCodeCreateModel);
+            AlipayOpenAppQRCodeCreateModel alipayOpenAppQRCodeCreateModel = super.build();
             alipayOpenAppQRCodeCreateModel.setUrlParam(instance.getUrlParam());
             alipayOpenAppQRCodeCreateModel.setQueryParam(instance.getQueryParam());
             alipayOpenAppQRCodeCreateModel.setDescribe(instance.getDescribe());

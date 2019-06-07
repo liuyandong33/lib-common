@@ -61,13 +61,7 @@ public class AlipayMarketingVoucherTemplateListQueryModel extends AlipayBasicMod
         this.pageSize = pageSize;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingVoucherTemplateListQueryModel instance = new AlipayMarketingVoucherTemplateListQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingVoucherTemplateListQueryModel> {
         public Builder createStartTime(String createStartTime) {
             instance.setCreateStartTime(createStartTime);
             return this;
@@ -88,9 +82,9 @@ public class AlipayMarketingVoucherTemplateListQueryModel extends AlipayBasicMod
             return this;
         }
 
+        @Override
         public AlipayMarketingVoucherTemplateListQueryModel build() {
-            AlipayMarketingVoucherTemplateListQueryModel alipayMarketingVoucherTemplateListQueryModel = new AlipayMarketingVoucherTemplateListQueryModel();
-            build(alipayMarketingVoucherTemplateListQueryModel);
+            AlipayMarketingVoucherTemplateListQueryModel alipayMarketingVoucherTemplateListQueryModel = super.build();
             alipayMarketingVoucherTemplateListQueryModel.setCreateStartTime(instance.getCreateStartTime());
             alipayMarketingVoucherTemplateListQueryModel.setCreateEndTime(instance.getCreateEndTime());
             alipayMarketingVoucherTemplateListQueryModel.setPageNum(instance.getPageNum());

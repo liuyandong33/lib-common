@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenAgentMiniCreateModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentMiniCreateModel instance = new AlipayOpenAgentMiniCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentMiniCreateModel> {
+        @Override
         public AlipayOpenAgentMiniCreateModel build() {
-            AlipayOpenAgentMiniCreateModel alipayOpenAgentMiniCreateModel = new AlipayOpenAgentMiniCreateModel();
-            build(alipayOpenAgentMiniCreateModel);
+            AlipayOpenAgentMiniCreateModel alipayOpenAgentMiniCreateModel = super.build();
             return alipayOpenAgentMiniCreateModel;
         }
     }

@@ -45,13 +45,7 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
         this.name = name;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayUserAuthZhiMaOrgIdentityApplyModel instance = new AlipayUserAuthZhiMaOrgIdentityApplyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayUserAuthZhiMaOrgIdentityApplyModel> {
         public Builder certType(String certType) {
             instance.setCertType(certType);
             return this;
@@ -67,9 +61,9 @@ public class AlipayUserAuthZhiMaOrgIdentityApplyModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayUserAuthZhiMaOrgIdentityApplyModel build() {
-            AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel = new AlipayUserAuthZhiMaOrgIdentityApplyModel();
-            build(alipayUserAuthZhiMaOrgIdentityApplyModel);
+            AlipayUserAuthZhiMaOrgIdentityApplyModel alipayUserAuthZhiMaOrgIdentityApplyModel = super.build();
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertType(instance.getCertType());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setCertNo(instance.getCertNo());
             alipayUserAuthZhiMaOrgIdentityApplyModel.setName(instance.getName());

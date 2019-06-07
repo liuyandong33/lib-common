@@ -35,13 +35,7 @@ public class AlipayOpenPublicPersonalizedExtensionCreateModel extends AlipayBasi
         this.labelRules = labelRules;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicPersonalizedExtensionCreateModel instance = new AlipayOpenPublicPersonalizedExtensionCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPersonalizedExtensionCreateModel> {
         public Builder areas(List<Area> areas) {
             instance.setAreas(areas);
             return this;
@@ -52,9 +46,9 @@ public class AlipayOpenPublicPersonalizedExtensionCreateModel extends AlipayBasi
             return this;
         }
 
+        @Override
         public AlipayOpenPublicPersonalizedExtensionCreateModel build() {
-            AlipayOpenPublicPersonalizedExtensionCreateModel alipayOpenPublicPersonalizedExtensionCreateModel = new AlipayOpenPublicPersonalizedExtensionCreateModel();
-            build(alipayOpenPublicPersonalizedExtensionCreateModel);
+            AlipayOpenPublicPersonalizedExtensionCreateModel alipayOpenPublicPersonalizedExtensionCreateModel = super.build();
             alipayOpenPublicPersonalizedExtensionCreateModel.setAreas(instance.getAreas());
             alipayOpenPublicPersonalizedExtensionCreateModel.setLabelRules(instance.getLabelRules());
             return alipayOpenPublicPersonalizedExtensionCreateModel;

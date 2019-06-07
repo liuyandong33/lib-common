@@ -32,13 +32,7 @@ public class KoubeiMarketingToolPointsQueryModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingToolPointsQueryModel instance = new KoubeiMarketingToolPointsQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingToolPointsQueryModel> {
         public Builder activityAccount(String activityAccount) {
             instance.setActivityAccount(activityAccount);
             return this;
@@ -49,9 +43,9 @@ public class KoubeiMarketingToolPointsQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingToolPointsQueryModel build() {
-            KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel = new KoubeiMarketingToolPointsQueryModel();
-            build(koubeiMarketingToolPointsQueryModel);
+            KoubeiMarketingToolPointsQueryModel koubeiMarketingToolPointsQueryModel = super.build();
             koubeiMarketingToolPointsQueryModel.setActivityAccount(instance.getActivityAccount());
             koubeiMarketingToolPointsQueryModel.setUserId(instance.getUserId());
             return koubeiMarketingToolPointsQueryModel;

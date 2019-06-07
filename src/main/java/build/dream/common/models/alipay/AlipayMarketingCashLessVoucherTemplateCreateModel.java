@@ -188,13 +188,7 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
         this.notifyUri = notifyUri;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCashLessVoucherTemplateCreateModel instance = new AlipayMarketingCashLessVoucherTemplateCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCashLessVoucherTemplateCreateModel> {
         public Builder voucherType(String voucherType) {
             instance.setVoucherType(voucherType);
             return this;
@@ -266,9 +260,9 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
             return this;
         }
 
+        @Override
         public AlipayMarketingCashLessVoucherTemplateCreateModel build() {
-            AlipayMarketingCashLessVoucherTemplateCreateModel alipayMarketingCashLessVoucherTemplateCreateModel = new AlipayMarketingCashLessVoucherTemplateCreateModel();
-            build(alipayMarketingCashLessVoucherTemplateCreateModel);
+            AlipayMarketingCashLessVoucherTemplateCreateModel alipayMarketingCashLessVoucherTemplateCreateModel = super.build();
             alipayMarketingCashLessVoucherTemplateCreateModel.setVoucherType(instance.getVoucherType());
             alipayMarketingCashLessVoucherTemplateCreateModel.setBrandName(instance.getBrandName());
             alipayMarketingCashLessVoucherTemplateCreateModel.setPublishStartTime(instance.getPublishStartTime());

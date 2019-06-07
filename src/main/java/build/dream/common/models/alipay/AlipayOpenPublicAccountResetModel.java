@@ -81,13 +81,7 @@ public class AlipayOpenPublicAccountResetModel extends AlipayBasicModel {
         this.remark = remark;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicAccountResetModel instance = new AlipayOpenPublicAccountResetModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicAccountResetModel> {
         public Builder bindAccountNo(String bindAccountNo) {
             instance.setBindAccountNo(bindAccountNo);
             return this;
@@ -118,9 +112,9 @@ public class AlipayOpenPublicAccountResetModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicAccountResetModel build() {
-            AlipayOpenPublicAccountResetModel alipayOpenPublicAccountResetModel = new AlipayOpenPublicAccountResetModel();
-            build(alipayOpenPublicAccountResetModel);
+            AlipayOpenPublicAccountResetModel alipayOpenPublicAccountResetModel = super.build();
             alipayOpenPublicAccountResetModel.setBindAccountNo(instance.getBindAccountNo());
             alipayOpenPublicAccountResetModel.setDisplayName(instance.getDisplayName());
             alipayOpenPublicAccountResetModel.setAgreementId(instance.getAgreementId());

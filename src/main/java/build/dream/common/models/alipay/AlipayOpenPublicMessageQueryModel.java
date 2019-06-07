@@ -20,21 +20,15 @@ public class AlipayOpenPublicMessageQueryModel extends AlipayBasicModel {
         this.messageIds = messageIds;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMessageQueryModel instance = new AlipayOpenPublicMessageQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMessageQueryModel> {
         public Builder messageIds(List<String> messageIds) {
             instance.setMessageIds(messageIds);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMessageQueryModel build() {
-            AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel = new AlipayOpenPublicMessageQueryModel();
-            build(alipayOpenPublicMessageQueryModel);
+            AlipayOpenPublicMessageQueryModel alipayOpenPublicMessageQueryModel = super.build();
             alipayOpenPublicMessageQueryModel.setMessageIds(instance.getMessageIds());
             return alipayOpenPublicMessageQueryModel;
         }

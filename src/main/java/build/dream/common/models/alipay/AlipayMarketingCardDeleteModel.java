@@ -71,13 +71,7 @@ public class AlipayMarketingCardDeleteModel extends AlipayBasicModel {
         this.extInfo = extInfo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCardDeleteModel instance = new AlipayMarketingCardDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCardDeleteModel> {
         public Builder outSerialNo(String outSerialNo) {
             instance.setOutSerialNo(outSerialNo);
             return this;
@@ -103,9 +97,9 @@ public class AlipayMarketingCardDeleteModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingCardDeleteModel build() {
-            AlipayMarketingCardDeleteModel alipayMarketingCardDeleteModel = new AlipayMarketingCardDeleteModel();
-            build(alipayMarketingCardDeleteModel);
+            AlipayMarketingCardDeleteModel alipayMarketingCardDeleteModel = super.build();
             alipayMarketingCardDeleteModel.setOutSerialNo(instance.getOutSerialNo());
             alipayMarketingCardDeleteModel.setTargetCardNo(instance.getTargetCardNo());
             alipayMarketingCardDeleteModel.setTargetCardNoType(instance.getTargetCardNoType());

@@ -80,13 +80,7 @@ public class KoubeiTradeOrderPreCreateModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiTradeOrderPreCreateModel instance = new KoubeiTradeOrderPreCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeOrderPreCreateModel> {
         public Builder requestId(String requestId) {
             instance.setRequestId(requestId);
             return this;
@@ -107,9 +101,9 @@ public class KoubeiTradeOrderPreCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiTradeOrderPreCreateModel build() {
-            KoubeiTradeOrderPreCreateModel koubeiTradeOrderPreCreateModel = new KoubeiTradeOrderPreCreateModel();
-            build(koubeiTradeOrderPreCreateModel);
+            KoubeiTradeOrderPreCreateModel koubeiTradeOrderPreCreateModel = super.build();
             koubeiTradeOrderPreCreateModel.setRequestId(instance.getRequestId());
             koubeiTradeOrderPreCreateModel.setOutOrderNo(instance.getOutOrderNo());
             koubeiTradeOrderPreCreateModel.setShopId(instance.getShopId());

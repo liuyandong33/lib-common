@@ -312,13 +312,7 @@ public class AlipayTradePayModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private AlipayTradePayModel instance = new AlipayTradePayModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradePayModel> {
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
             return this;
@@ -399,9 +393,9 @@ public class AlipayTradePayModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradePayModel build() {
-            AlipayTradePayModel alipayTradePayModel = new AlipayTradePayModel();
-            build(alipayTradePayModel);
+            AlipayTradePayModel alipayTradePayModel = super.build();
             alipayTradePayModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradePayModel.setScene(instance.getScene());
             alipayTradePayModel.setAuthCode(instance.getAuthCode());

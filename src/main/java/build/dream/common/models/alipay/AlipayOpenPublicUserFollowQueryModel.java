@@ -19,21 +19,15 @@ public class AlipayOpenPublicUserFollowQueryModel extends AlipayBasicModel {
         this.userId = userId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicUserFollowQueryModel instance = new AlipayOpenPublicUserFollowQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicUserFollowQueryModel> {
         public Builder userId(String userId) {
             instance.setUserId(userId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicUserFollowQueryModel build() {
-            AlipayOpenPublicUserFollowQueryModel alipayOpenPublicUserFollowQueryModel = new AlipayOpenPublicUserFollowQueryModel();
-            build(alipayOpenPublicUserFollowQueryModel);
+            AlipayOpenPublicUserFollowQueryModel alipayOpenPublicUserFollowQueryModel = super.build();
             alipayOpenPublicUserFollowQueryModel.setUserId(instance.getUserId());
             return alipayOpenPublicUserFollowQueryModel;
         }

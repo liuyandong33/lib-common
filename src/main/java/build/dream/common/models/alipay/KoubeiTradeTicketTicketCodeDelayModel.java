@@ -72,13 +72,7 @@ public class KoubeiTradeTicketTicketCodeDelayModel extends AlipayBasicModel {
         this.orderNo = orderNo;
     }
 
-    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
-        private final KoubeiTradeTicketTicketCodeDelayModel instance = new KoubeiTradeTicketTicketCodeDelayModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeTicketTicketCodeDelayModel> {
         public Builder requestId(String requestId) {
             instance.setRequestId(requestId);
             return this;
@@ -104,9 +98,9 @@ public class KoubeiTradeTicketTicketCodeDelayModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiTradeTicketTicketCodeDelayModel build() {
-            KoubeiTradeTicketTicketCodeDelayModel koubeiTradeTicketTicketCodeDelayModel = new KoubeiTradeTicketTicketCodeDelayModel();
-            build(koubeiTradeTicketTicketCodeDelayModel);
+            KoubeiTradeTicketTicketCodeDelayModel koubeiTradeTicketTicketCodeDelayModel = super.build();
             koubeiTradeTicketTicketCodeDelayModel.setRequestId(instance.getRequestId());
             koubeiTradeTicketTicketCodeDelayModel.setEndDate(instance.getEndDate());
             koubeiTradeTicketTicketCodeDelayModel.setTicketCode(instance.getTicketCode());

@@ -19,21 +19,15 @@ public class AlipayMarketingCampaignCashDetailQueryModel extends AlipayBasicMode
         this.crowdNo = crowdNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCampaignCashDetailQueryModel instance = new AlipayMarketingCampaignCashDetailQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCampaignCashDetailQueryModel> {
         public Builder crowdNo(String crowdNo) {
             instance.setCrowdNo(crowdNo);
             return this;
         }
 
+        @Override
         public AlipayMarketingCampaignCashDetailQueryModel build() {
-            AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel = new AlipayMarketingCampaignCashDetailQueryModel();
-            build(alipayMarketingCampaignCashDetailQueryModel);
+            AlipayMarketingCampaignCashDetailQueryModel alipayMarketingCampaignCashDetailQueryModel = super.build();
             alipayMarketingCampaignCashDetailQueryModel.setCrowdNo(instance.getCrowdNo());
             return alipayMarketingCampaignCashDetailQueryModel;
         }

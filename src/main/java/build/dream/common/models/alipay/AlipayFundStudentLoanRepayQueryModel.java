@@ -32,13 +32,7 @@ public class AlipayFundStudentLoanRepayQueryModel extends AlipayBasicModel {
         this.certNo = certNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayFundStudentLoanRepayQueryModel instance = new AlipayFundStudentLoanRepayQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayFundStudentLoanRepayQueryModel> {
         public Builder logonId(String logonId) {
             instance.setLogonId(logonId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayFundStudentLoanRepayQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayFundStudentLoanRepayQueryModel build() {
-            AlipayFundStudentLoanRepayQueryModel alipayFundStudentLoanRepayQueryModel = new AlipayFundStudentLoanRepayQueryModel();
-            build(alipayFundStudentLoanRepayQueryModel);
+            AlipayFundStudentLoanRepayQueryModel alipayFundStudentLoanRepayQueryModel = super.build();
             alipayFundStudentLoanRepayQueryModel.setLogonId(instance.getLogonId());
             alipayFundStudentLoanRepayQueryModel.setCertNo(instance.getCertNo());
             return alipayFundStudentLoanRepayQueryModel;

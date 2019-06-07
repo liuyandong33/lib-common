@@ -19,21 +19,15 @@ public class AlipayMarketingToolFengDieActivityQueryModel extends AlipayBasicMod
         this.activityId = activityId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingToolFengDieActivityQueryModel instance = new AlipayMarketingToolFengDieActivityQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingToolFengDieActivityQueryModel> {
         public Builder activityId(String activityId) {
             instance.setActivityId(activityId);
             return this;
         }
 
+        @Override
         public AlipayMarketingToolFengDieActivityQueryModel build() {
-            AlipayMarketingToolFengDieActivityQueryModel alipayMarketingToolFengDieActivityQueryModel = new AlipayMarketingToolFengDieActivityQueryModel();
-            build(alipayMarketingToolFengDieActivityQueryModel);
+            AlipayMarketingToolFengDieActivityQueryModel alipayMarketingToolFengDieActivityQueryModel = super.build();
             alipayMarketingToolFengDieActivityQueryModel.setActivityId(instance.getActivityId());
             return alipayMarketingToolFengDieActivityQueryModel;
         }

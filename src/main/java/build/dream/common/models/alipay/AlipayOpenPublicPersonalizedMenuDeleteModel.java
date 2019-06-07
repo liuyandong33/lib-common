@@ -19,21 +19,15 @@ public class AlipayOpenPublicPersonalizedMenuDeleteModel extends AlipayBasicMode
         this.menuKey = menuKey;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicPersonalizedMenuDeleteModel instance = new AlipayOpenPublicPersonalizedMenuDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPersonalizedMenuDeleteModel> {
         public Builder menuKey(String menuKey) {
             instance.setMenuKey(menuKey);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicPersonalizedMenuDeleteModel build() {
-            AlipayOpenPublicPersonalizedMenuDeleteModel alipayOpenPublicPersonalizedMenuDeleteModel = new AlipayOpenPublicPersonalizedMenuDeleteModel();
-            build(alipayOpenPublicPersonalizedMenuDeleteModel);
+            AlipayOpenPublicPersonalizedMenuDeleteModel alipayOpenPublicPersonalizedMenuDeleteModel = super.build();
             alipayOpenPublicPersonalizedMenuDeleteModel.setMenuKey(instance.getMenuKey());
             return alipayOpenPublicPersonalizedMenuDeleteModel;
         }

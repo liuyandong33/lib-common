@@ -18,21 +18,15 @@ public class AlipayOfflineMarketShopBatchQueryModel extends AlipayBasicModel {
         this.pageNo = pageNo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOfflineMarketShopBatchQueryModel instance = new AlipayOfflineMarketShopBatchQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOfflineMarketShopBatchQueryModel> {
         public Builder pageNo(Integer pageNo) {
             instance.setPageNo(pageNo);
             return this;
         }
 
+        @Override
         public AlipayOfflineMarketShopBatchQueryModel build() {
-            AlipayOfflineMarketShopBatchQueryModel alipayOfflineMarketShopBatchQueryModel = new AlipayOfflineMarketShopBatchQueryModel();
-            build(alipayOfflineMarketShopBatchQueryModel);
+            AlipayOfflineMarketShopBatchQueryModel alipayOfflineMarketShopBatchQueryModel = super.build();
             alipayOfflineMarketShopBatchQueryModel.setPageNo(instance.getPageNo());
             return alipayOfflineMarketShopBatchQueryModel;
         }

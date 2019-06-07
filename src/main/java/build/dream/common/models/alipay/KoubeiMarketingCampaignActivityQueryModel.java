@@ -44,13 +44,7 @@ public class KoubeiMarketingCampaignActivityQueryModel extends AlipayBasicModel 
         this.operatorType = operatorType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingCampaignActivityQueryModel instance = new KoubeiMarketingCampaignActivityQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingCampaignActivityQueryModel> {
         public Builder campId(String campId) {
             instance.setCampId(campId);
             return this;
@@ -66,9 +60,9 @@ public class KoubeiMarketingCampaignActivityQueryModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public KoubeiMarketingCampaignActivityQueryModel build() {
-            KoubeiMarketingCampaignActivityQueryModel koubeiMarketingCampaignActivityQueryModel = new KoubeiMarketingCampaignActivityQueryModel();
-            build(koubeiMarketingCampaignActivityQueryModel);
+            KoubeiMarketingCampaignActivityQueryModel koubeiMarketingCampaignActivityQueryModel = super.build();
             koubeiMarketingCampaignActivityQueryModel.setCampId(instance.getCampId());
             koubeiMarketingCampaignActivityQueryModel.setOperatorId(instance.getOperatorId());
             koubeiMarketingCampaignActivityQueryModel.setOperatorType(instance.getOperatorType());

@@ -359,13 +359,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
         }
     }
 
-    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
-        private final UnifiedOrderModel instance = new UnifiedOrderModel();
-
-        public Builder() {
-            setWeiXinPayBasicModel(instance);
-        }
-
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder, UnifiedOrderModel> {
         public Builder deviceInfo(String deviceInfo) {
             instance.setDeviceInfo(deviceInfo);
             return this;
@@ -461,9 +455,9 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
             return this;
         }
 
+        @Override
         public UnifiedOrderModel build() {
-            UnifiedOrderModel unifiedOrderModel = new UnifiedOrderModel();
-            build(unifiedOrderModel);
+            UnifiedOrderModel unifiedOrderModel = super.build();
             unifiedOrderModel.setDeviceInfo(instance.getDeviceInfo());
             unifiedOrderModel.setSignType(instance.getSignType());
             unifiedOrderModel.setBody(instance.getBody());

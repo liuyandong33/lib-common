@@ -19,21 +19,15 @@ public class AlipayOpenPublicAdvertDeleteModel extends AlipayBasicModel {
         this.advertId = advertId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicAdvertDeleteModel instance = new AlipayOpenPublicAdvertDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicAdvertDeleteModel> {
         public Builder advertId(String advertId) {
             instance.setAdvertId(advertId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicAdvertDeleteModel build() {
-            AlipayOpenPublicAdvertDeleteModel alipayOpenPublicAdvertDeleteModel = new AlipayOpenPublicAdvertDeleteModel();
-            build(alipayOpenPublicAdvertDeleteModel);
+            AlipayOpenPublicAdvertDeleteModel alipayOpenPublicAdvertDeleteModel = super.build();
             alipayOpenPublicAdvertDeleteModel.setAdvertId(instance.getAdvertId());
             return alipayOpenPublicAdvertDeleteModel;
         }

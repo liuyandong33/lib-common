@@ -57,13 +57,7 @@ public class AlipayMarketingCashLessVoucherTemplateModifyModel extends AlipayBas
         this.ruleConf = ruleConf;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCashLessVoucherTemplateModifyModel instance = new AlipayMarketingCashLessVoucherTemplateModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCashLessVoucherTemplateModifyModel> {
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
             return this;
@@ -84,9 +78,9 @@ public class AlipayMarketingCashLessVoucherTemplateModifyModel extends AlipayBas
             return this;
         }
 
+        @Override
         public AlipayMarketingCashLessVoucherTemplateModifyModel build() {
-            AlipayMarketingCashLessVoucherTemplateModifyModel alipayMarketingCashLessVoucherTemplateModifyModel = new AlipayMarketingCashLessVoucherTemplateModifyModel();
-            build(alipayMarketingCashLessVoucherTemplateModifyModel);
+            AlipayMarketingCashLessVoucherTemplateModifyModel alipayMarketingCashLessVoucherTemplateModifyModel = super.build();
             alipayMarketingCashLessVoucherTemplateModifyModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCashLessVoucherTemplateModifyModel.setOutBizNo(instance.getOutBizNo());
             alipayMarketingCashLessVoucherTemplateModifyModel.setPublishEndTime(instance.getPublishEndTime());

@@ -44,13 +44,7 @@ public class AlipayOpenPublicGroupModifyModel extends AlipayBasicModel {
         this.labelRules = labelRules;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicGroupModifyModel instance = new AlipayOpenPublicGroupModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicGroupModifyModel> {
         public Builder groupId(String groupId) {
             instance.setGroupId(groupId);
             return this;
@@ -66,9 +60,9 @@ public class AlipayOpenPublicGroupModifyModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicGroupModifyModel build() {
-            AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel = new AlipayOpenPublicGroupModifyModel();
-            build(alipayOpenPublicGroupModifyModel);
+            AlipayOpenPublicGroupModifyModel alipayOpenPublicGroupModifyModel = super.build();
             alipayOpenPublicGroupModifyModel.setGroupId(instance.getGroupId());
             alipayOpenPublicGroupModifyModel.setName(instance.getName());
             alipayOpenPublicGroupModifyModel.setLabelRules(instance.getLabelRules());

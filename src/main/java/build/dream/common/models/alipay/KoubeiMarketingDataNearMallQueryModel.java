@@ -122,13 +122,7 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
         this.productId = productId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingDataNearMallQueryModel instance = new KoubeiMarketingDataNearMallQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingDataNearMallQueryModel> {
         public Builder radius(String radius) {
             instance.setRadius(radius);
             return this;
@@ -179,9 +173,9 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingDataNearMallQueryModel build() {
-            KoubeiMarketingDataNearMallQueryModel koubeiMarketingDataNearMallQueryModel = new KoubeiMarketingDataNearMallQueryModel();
-            build(koubeiMarketingDataNearMallQueryModel);
+            KoubeiMarketingDataNearMallQueryModel koubeiMarketingDataNearMallQueryModel = super.build();
             koubeiMarketingDataNearMallQueryModel.setRadius(instance.getRadius());
             koubeiMarketingDataNearMallQueryModel.setUserId(instance.getUserId());
             koubeiMarketingDataNearMallQueryModel.setCityId(instance.getCityId());

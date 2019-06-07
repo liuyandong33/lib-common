@@ -32,13 +32,7 @@ public class AlipayMarketingToolFengDieEditorQueryModel extends AlipayBasicModel
         this.redirectUrl = redirectUrl;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingToolFengDieEditorQueryModel instance = new AlipayMarketingToolFengDieEditorQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingToolFengDieEditorQueryModel> {
         public Builder activityId(String activityId) {
             instance.setActivityId(activityId);
             return this;
@@ -49,9 +43,9 @@ public class AlipayMarketingToolFengDieEditorQueryModel extends AlipayBasicModel
             return this;
         }
 
+        @Override
         public AlipayMarketingToolFengDieEditorQueryModel build() {
-            AlipayMarketingToolFengDieEditorQueryModel alipayMarketingToolFengDieEditorQueryModel = new AlipayMarketingToolFengDieEditorQueryModel();
-            build(alipayMarketingToolFengDieEditorQueryModel);
+            AlipayMarketingToolFengDieEditorQueryModel alipayMarketingToolFengDieEditorQueryModel = super.build();
             alipayMarketingToolFengDieEditorQueryModel.setActivityId(instance.getActivityId());
             alipayMarketingToolFengDieEditorQueryModel.setRedirectUrl(instance.getRedirectUrl());
             return alipayMarketingToolFengDieEditorQueryModel;

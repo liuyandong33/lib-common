@@ -46,13 +46,7 @@ public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel 
         this.requestId = requestId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCardActivateFormQueryModel instance = new AlipayMarketingCardActivateFormQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCardActivateFormQueryModel> {
         public Builder bizType(String bizType) {
             instance.setBizType(bizType);
             return this;
@@ -68,9 +62,9 @@ public class AlipayMarketingCardActivateFormQueryModel extends AlipayBasicModel 
             return this;
         }
 
+        @Override
         public AlipayMarketingCardActivateFormQueryModel build() {
-            AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel = new AlipayMarketingCardActivateFormQueryModel();
-            build(alipayMarketingCardActivateFormQueryModel);
+            AlipayMarketingCardActivateFormQueryModel alipayMarketingCardActivateFormQueryModel = super.build();
             alipayMarketingCardActivateFormQueryModel.setBizType(instance.getBizType());
             alipayMarketingCardActivateFormQueryModel.setTemplateId(instance.getTemplateId());
             alipayMarketingCardActivateFormQueryModel.setRequestId(instance.getRequestId());

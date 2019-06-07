@@ -140,13 +140,7 @@ public class ZolozAuthenticationCustomerFaceManageCreateModel extends AlipayBasi
         this.extInfo = extInfo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final ZolozAuthenticationCustomerFaceManageCreateModel instance = new ZolozAuthenticationCustomerFaceManageCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, ZolozAuthenticationCustomerFaceManageCreateModel> {
         public Builder faceType(String faceType) {
             instance.setFaceType(faceType);
             return this;
@@ -202,9 +196,9 @@ public class ZolozAuthenticationCustomerFaceManageCreateModel extends AlipayBasi
             return this;
         }
 
+        @Override
         public ZolozAuthenticationCustomerFaceManageCreateModel build() {
-            ZolozAuthenticationCustomerFaceManageCreateModel zolozAuthenticationCustomerFaceManageCreateModel = new ZolozAuthenticationCustomerFaceManageCreateModel();
-            build(zolozAuthenticationCustomerFaceManageCreateModel);
+            ZolozAuthenticationCustomerFaceManageCreateModel zolozAuthenticationCustomerFaceManageCreateModel = super.build();
             zolozAuthenticationCustomerFaceManageCreateModel.setFaceType(instance.getFaceType());
             zolozAuthenticationCustomerFaceManageCreateModel.setFaceVal(instance.getFaceVal());
             zolozAuthenticationCustomerFaceManageCreateModel.setValidTimes(instance.getValidTimes());

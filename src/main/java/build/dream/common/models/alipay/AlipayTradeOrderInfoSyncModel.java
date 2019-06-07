@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayTradeOrderInfoSyncModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeOrderInfoSyncModel instance = new AlipayTradeOrderInfoSyncModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeOrderInfoSyncModel> {
+        @Override
         public AlipayTradeOrderInfoSyncModel build() {
-            AlipayTradeOrderInfoSyncModel alipayTradeOrderInfoSyncModel = new AlipayTradeOrderInfoSyncModel();
-            build(alipayTradeOrderInfoSyncModel);
+            AlipayTradeOrderInfoSyncModel alipayTradeOrderInfoSyncModel = super.build();
             return alipayTradeOrderInfoSyncModel;
         }
     }

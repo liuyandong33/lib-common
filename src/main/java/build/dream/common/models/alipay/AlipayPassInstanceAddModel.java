@@ -59,13 +59,7 @@ public class AlipayPassInstanceAddModel extends AlipayBasicModel {
         this.recognitionInfo = recognitionInfo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayPassInstanceAddModel instance = new AlipayPassInstanceAddModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayPassInstanceAddModel> {
         public Builder tplId(String tplId) {
             instance.setTplId(tplId);
             return this;
@@ -86,9 +80,9 @@ public class AlipayPassInstanceAddModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayPassInstanceAddModel build() {
-            AlipayPassInstanceAddModel alipayPassInstanceAddModel = new AlipayPassInstanceAddModel();
-            build(alipayPassInstanceAddModel);
+            AlipayPassInstanceAddModel alipayPassInstanceAddModel = super.build();
             alipayPassInstanceAddModel.setTplId(instance.getTplId());
             alipayPassInstanceAddModel.setTplParams(instance.getTplParams());
             alipayPassInstanceAddModel.setRecognitionType(instance.getRecognitionType());

@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicLifeDebarkApplyModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicLifeDebarkApplyModel instance = new AlipayOpenPublicLifeDebarkApplyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicLifeDebarkApplyModel> {
+        @Override
         public AlipayOpenPublicLifeDebarkApplyModel build() {
-            AlipayOpenPublicLifeDebarkApplyModel alipayOpenPublicLifeDebarkApplyModel = new AlipayOpenPublicLifeDebarkApplyModel();
-            build(alipayOpenPublicLifeDebarkApplyModel);
+            AlipayOpenPublicLifeDebarkApplyModel alipayOpenPublicLifeDebarkApplyModel = super.build();
             return alipayOpenPublicLifeDebarkApplyModel;
         }
     }

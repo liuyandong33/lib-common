@@ -111,13 +111,7 @@ public class KoubeiMarketingDataMallShopItemsQueryModel extends AlipayBasicModel
         this.productVersion = productVersion;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final KoubeiMarketingDataMallShopItemsQueryModel instance = new KoubeiMarketingDataMallShopItemsQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingDataMallShopItemsQueryModel> {
         public Builder userId(String userId) {
             instance.setUserId(userId);
             return this;
@@ -163,9 +157,9 @@ public class KoubeiMarketingDataMallShopItemsQueryModel extends AlipayBasicModel
             return this;
         }
 
+        @Override
         public KoubeiMarketingDataMallShopItemsQueryModel build() {
-            KoubeiMarketingDataMallShopItemsQueryModel koubeiMarketingDataMallShopItemsQueryModel = new KoubeiMarketingDataMallShopItemsQueryModel();
-            build(koubeiMarketingDataMallShopItemsQueryModel);
+            KoubeiMarketingDataMallShopItemsQueryModel koubeiMarketingDataMallShopItemsQueryModel = super.build();
             koubeiMarketingDataMallShopItemsQueryModel.setUserId(instance.getUserId());
             koubeiMarketingDataMallShopItemsQueryModel.setMallId(instance.getMallId());
             koubeiMarketingDataMallShopItemsQueryModel.setCollectType(instance.getCollectType());

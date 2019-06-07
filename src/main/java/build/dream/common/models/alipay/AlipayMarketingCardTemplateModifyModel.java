@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayMarketingCardTemplateModifyModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCardTemplateModifyModel instance = new AlipayMarketingCardTemplateModifyModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCardTemplateModifyModel> {
+        @Override
         public AlipayMarketingCardTemplateModifyModel build() {
-            AlipayMarketingCardTemplateModifyModel alipayMarketingCardTemplateModifyModel = new AlipayMarketingCardTemplateModifyModel();
-            build(alipayMarketingCardTemplateModifyModel);
+            AlipayMarketingCardTemplateModifyModel alipayMarketingCardTemplateModifyModel = super.build();
             return alipayMarketingCardTemplateModifyModel;
         }
     }

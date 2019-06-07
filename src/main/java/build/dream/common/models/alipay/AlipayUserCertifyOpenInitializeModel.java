@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayUserCertifyOpenInitializeModel extends AlipayBasicModel {
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayUserCertifyOpenInitializeModel instance = new AlipayUserCertifyOpenInitializeModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayUserCertifyOpenInitializeModel> {
+        @Override
         public AlipayUserCertifyOpenInitializeModel build() {
-            AlipayUserCertifyOpenInitializeModel alipayUserCertifyOpenInitializeModel = new AlipayUserCertifyOpenInitializeModel();
-            build(alipayUserCertifyOpenInitializeModel);
+            AlipayUserCertifyOpenInitializeModel alipayUserCertifyOpenInitializeModel = super.build();
             return alipayUserCertifyOpenInitializeModel;
         }
     }

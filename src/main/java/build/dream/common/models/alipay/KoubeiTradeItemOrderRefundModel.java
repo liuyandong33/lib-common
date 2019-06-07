@@ -61,13 +61,7 @@ public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
         this.refundInfos = refundInfos;
     }
 
-    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
-        private final KoubeiTradeItemOrderRefundModel instance = new KoubeiTradeItemOrderRefundModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiTradeItemOrderRefundModel> {
         public Builder orderNo(String orderNo) {
             instance.setOrderNo(orderNo);
             return this;
@@ -88,9 +82,9 @@ public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiTradeItemOrderRefundModel build() {
-            KoubeiTradeItemOrderRefundModel koubeiTradeItemOrderRefundModel = new KoubeiTradeItemOrderRefundModel();
-            build(koubeiTradeItemOrderRefundModel);
+            KoubeiTradeItemOrderRefundModel koubeiTradeItemOrderRefundModel = super.build();
             koubeiTradeItemOrderRefundModel.setOrderNo(instance.getOrderNo());
             koubeiTradeItemOrderRefundModel.setOutRequestNo(instance.getOutRequestNo());
             koubeiTradeItemOrderRefundModel.setReason(instance.getReason());

@@ -19,21 +19,15 @@ public class AlipayMarketingVoucherTemplateDeleteModel extends AlipayBasicModel 
         this.templateId = templateId;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingVoucherTemplateDeleteModel instance = new AlipayMarketingVoucherTemplateDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingVoucherTemplateDeleteModel> {
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
             return this;
         }
 
+        @Override
         public AlipayMarketingVoucherTemplateDeleteModel build() {
-            AlipayMarketingVoucherTemplateDeleteModel alipayMarketingVoucherTemplateDeleteModel = new AlipayMarketingVoucherTemplateDeleteModel();
-            build(alipayMarketingVoucherTemplateDeleteModel);
+            AlipayMarketingVoucherTemplateDeleteModel alipayMarketingVoucherTemplateDeleteModel = super.build();
             alipayMarketingVoucherTemplateDeleteModel.setTemplateId(instance.getTemplateId());
             return alipayMarketingVoucherTemplateDeleteModel;
         }

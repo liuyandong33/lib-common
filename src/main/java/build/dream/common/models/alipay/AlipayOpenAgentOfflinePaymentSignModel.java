@@ -75,13 +75,7 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
         this.dateLimitation = dateLimitation;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenAgentOfflinePaymentSignModel instance = new AlipayOpenAgentOfflinePaymentSignModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenAgentOfflinePaymentSignModel> {
         public Builder batchNo(String batchNo) {
             instance.setBatchNo(batchNo);
             return this;
@@ -107,9 +101,9 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenAgentOfflinePaymentSignModel build() {
-            AlipayOpenAgentOfflinePaymentSignModel alipayOpenAgentOfflinePaymentSignModel = new AlipayOpenAgentOfflinePaymentSignModel();
-            build(alipayOpenAgentOfflinePaymentSignModel);
+            AlipayOpenAgentOfflinePaymentSignModel alipayOpenAgentOfflinePaymentSignModel = super.build();
             alipayOpenAgentOfflinePaymentSignModel.setBatchNo(instance.getBatchNo());
             alipayOpenAgentOfflinePaymentSignModel.setRate(instance.getRate());
             alipayOpenAgentOfflinePaymentSignModel.setBusinessLicenseNo(instance.getBusinessLicenseNo());

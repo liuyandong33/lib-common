@@ -79,13 +79,7 @@ public class AlipayOpenPublicMessageCustomSendModel extends AlipayBasicModel {
         this.eventType = eventType;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMessageCustomSendModel instance = new AlipayOpenPublicMessageCustomSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMessageCustomSendModel> {
         public Builder toUserId(String toUserId) {
             instance.setToUserId(toUserId);
             return this;
@@ -116,9 +110,9 @@ public class AlipayOpenPublicMessageCustomSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMessageCustomSendModel build() {
-            AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel = new AlipayOpenPublicMessageCustomSendModel();
-            build(alipayOpenPublicMessageCustomSendModel);
+            AlipayOpenPublicMessageCustomSendModel alipayOpenPublicMessageCustomSendModel = super.build();
             alipayOpenPublicMessageCustomSendModel.setToUserId(instance.getToUserId());
             alipayOpenPublicMessageCustomSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageCustomSendModel.setArticles(instance.getArticles());

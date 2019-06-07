@@ -41,13 +41,7 @@ public class AlipayTradeCancelModel extends AlipayBasicModel {
         ValidateUtils.isTrue(StringUtils.isNotBlank(outTradeNo) || StringUtils.isNotBlank(tradeNo), "参数outTradeNo和tradeNo不能同时为空！");
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayTradeCancelModel instance = new AlipayTradeCancelModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayTradeCancelModel> {
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
             return this;
@@ -58,9 +52,9 @@ public class AlipayTradeCancelModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayTradeCancelModel build() {
-            AlipayTradeCancelModel alipayTradeCancelModel = new AlipayTradeCancelModel();
-            build(alipayTradeCancelModel);
+            AlipayTradeCancelModel alipayTradeCancelModel = super.build();
             alipayTradeCancelModel.setOutTradeNo(instance.getOutTradeNo());
             alipayTradeCancelModel.setTradeNo(instance.getTradeNo());
             return alipayTradeCancelModel;

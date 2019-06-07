@@ -94,13 +94,7 @@ public class AlipayMarketingVoucherSendModel extends AlipayBasicModel {
         this.memo = memo;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingVoucherSendModel instance = new AlipayMarketingVoucherSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingVoucherSendModel> {
         public Builder templateId(String templateId) {
             instance.setTemplateId(templateId);
             return this;
@@ -136,9 +130,9 @@ public class AlipayMarketingVoucherSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingVoucherSendModel build() {
-            AlipayMarketingVoucherSendModel alipayMarketingVoucherSendModel = new AlipayMarketingVoucherSendModel();
-            build(alipayMarketingVoucherSendModel);
+            AlipayMarketingVoucherSendModel alipayMarketingVoucherSendModel = super.build();
             alipayMarketingVoucherSendModel.setTemplateId(instance.getTemplateId());
             alipayMarketingVoucherSendModel.setLoginId(instance.getLoginId());
             alipayMarketingVoucherSendModel.setTaobaoNick(instance.getTaobaoNick());

@@ -57,13 +57,7 @@ public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
         }
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicMessageTotalSendModel instance = new AlipayOpenPublicMessageTotalSendModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicMessageTotalSendModel> {
         public Builder msgType(String msgType) {
             instance.setMsgType(msgType);
             return this;
@@ -79,9 +73,9 @@ public class AlipayOpenPublicMessageTotalSendModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayOpenPublicMessageTotalSendModel build() {
-            AlipayOpenPublicMessageTotalSendModel alipayOpenPublicMessageTotalSendModel = new AlipayOpenPublicMessageTotalSendModel();
-            build(alipayOpenPublicMessageTotalSendModel);
+            AlipayOpenPublicMessageTotalSendModel alipayOpenPublicMessageTotalSendModel = super.build();
             alipayOpenPublicMessageTotalSendModel.setMsgType(instance.getMsgType());
             alipayOpenPublicMessageTotalSendModel.setArticles(instance.getArticles());
             alipayOpenPublicMessageTotalSendModel.setText(instance.getText());

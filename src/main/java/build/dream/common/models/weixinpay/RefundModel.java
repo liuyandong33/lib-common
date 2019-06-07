@@ -147,13 +147,7 @@ public class RefundModel extends WeiXinPayBasicModel {
         }
     }
 
-    public static class Builder extends WeiXinPayBasicModel.Builder<Builder> {
-        private RefundModel instance = new RefundModel();
-
-        public Builder() {
-            setWeiXinPayBasicModel(instance);
-        }
-
+    public static class Builder extends WeiXinPayBasicModel.Builder<Builder, RefundModel> {
         public Builder transactionId(String transactionId) {
             instance.setTransactionId(transactionId);
             return this;
@@ -209,9 +203,9 @@ public class RefundModel extends WeiXinPayBasicModel {
             return this;
         }
 
+        @Override
         public RefundModel build() {
-            RefundModel refundModel = new RefundModel();
-            build(refundModel);
+            RefundModel refundModel = super.build();
             refundModel.setTransactionId(instance.getTransactionId());
             refundModel.setOutTradeNo(instance.getOutTradeNo());
             refundModel.setOutRefundNo(instance.getOutRefundNo());

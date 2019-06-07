@@ -1,16 +1,10 @@
 package build.dream.common.models.alipay;
 
 public class AlipayOpenPublicTemplateMessageGetModel extends AlipayBasicModel {
-    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
-        private final AlipayOpenPublicTemplateMessageGetModel instance = new AlipayOpenPublicTemplateMessageGetModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicTemplateMessageGetModel> {
+        @Override
         public AlipayOpenPublicTemplateMessageGetModel build() {
-            AlipayOpenPublicTemplateMessageGetModel alipayOpenPublicTemplateMessageGetModel = new AlipayOpenPublicTemplateMessageGetModel();
-            build(alipayOpenPublicTemplateMessageGetModel);
+            AlipayOpenPublicTemplateMessageGetModel alipayOpenPublicTemplateMessageGetModel = super.build();
             return alipayOpenPublicTemplateMessageGetModel;
         }
     }

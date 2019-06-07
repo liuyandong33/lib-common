@@ -31,13 +31,7 @@ public class KoubeiMarketingDataTradeHabbitQueryModel extends AlipayBasicModel {
         this.storeIds = storeIds;
     }
 
-    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
-        private final KoubeiMarketingDataTradeHabbitQueryModel instance = new KoubeiMarketingDataTradeHabbitQueryModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, KoubeiMarketingDataTradeHabbitQueryModel> {
         public Builder bizDate(String bizDate) {
             instance.setBizDate(bizDate);
             return this;
@@ -48,9 +42,9 @@ public class KoubeiMarketingDataTradeHabbitQueryModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public KoubeiMarketingDataTradeHabbitQueryModel build() {
-            KoubeiMarketingDataTradeHabbitQueryModel koubeiMarketingDataTradeHabbitQueryModel = new KoubeiMarketingDataTradeHabbitQueryModel();
-            build(koubeiMarketingDataTradeHabbitQueryModel);
+            KoubeiMarketingDataTradeHabbitQueryModel koubeiMarketingDataTradeHabbitQueryModel = super.build();
             koubeiMarketingDataTradeHabbitQueryModel.setBizDate(instance.getBizDate());
             koubeiMarketingDataTradeHabbitQueryModel.setStoreIds(instance.getStoreIds());
             return koubeiMarketingDataTradeHabbitQueryModel;

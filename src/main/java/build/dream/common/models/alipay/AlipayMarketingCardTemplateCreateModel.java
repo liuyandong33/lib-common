@@ -213,13 +213,7 @@ public class AlipayMarketingCardTemplateCreateModel extends AlipayBasicModel {
         this.mdcodeNotifyConf = mdcodeNotifyConf;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayMarketingCardTemplateCreateModel instance = new AlipayMarketingCardTemplateCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayMarketingCardTemplateCreateModel> {
         public Builder requestId(String requestId) {
             instance.setRequestId(requestId);
             return this;
@@ -305,9 +299,9 @@ public class AlipayMarketingCardTemplateCreateModel extends AlipayBasicModel {
             return this;
         }
 
+        @Override
         public AlipayMarketingCardTemplateCreateModel build() {
-            AlipayMarketingCardTemplateCreateModel alipayMarketingCardTemplateCreateModel = new AlipayMarketingCardTemplateCreateModel();
-            build(alipayMarketingCardTemplateCreateModel);
+            AlipayMarketingCardTemplateCreateModel alipayMarketingCardTemplateCreateModel = super.build();
             alipayMarketingCardTemplateCreateModel.setRequestId(instance.getRequestId());
             alipayMarketingCardTemplateCreateModel.setCardType(instance.getCardType());
             alipayMarketingCardTemplateCreateModel.setBizNoPrefix(instance.getBizNoPrefix());

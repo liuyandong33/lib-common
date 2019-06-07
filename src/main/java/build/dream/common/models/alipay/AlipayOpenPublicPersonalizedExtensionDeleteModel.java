@@ -19,21 +19,15 @@ public class AlipayOpenPublicPersonalizedExtensionDeleteModel extends AlipayBasi
         this.extensionKey = extensionKey;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private final AlipayOpenPublicPersonalizedExtensionDeleteModel instance = new AlipayOpenPublicPersonalizedExtensionDeleteModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPersonalizedExtensionDeleteModel> {
         public Builder extensionKey(String extensionKey) {
             instance.setExtensionKey(extensionKey);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicPersonalizedExtensionDeleteModel build() {
-            AlipayOpenPublicPersonalizedExtensionDeleteModel alipayOpenPublicPersonalizedExtensionDeleteModel = new AlipayOpenPublicPersonalizedExtensionDeleteModel();
-            build(alipayOpenPublicPersonalizedExtensionDeleteModel);
+            AlipayOpenPublicPersonalizedExtensionDeleteModel alipayOpenPublicPersonalizedExtensionDeleteModel = super.build();
             alipayOpenPublicPersonalizedExtensionDeleteModel.setExtensionKey(instance.getExtensionKey());
             return alipayOpenPublicPersonalizedExtensionDeleteModel;
         }

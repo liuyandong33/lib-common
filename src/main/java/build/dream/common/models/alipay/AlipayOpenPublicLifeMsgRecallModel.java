@@ -19,21 +19,15 @@ public class AlipayOpenPublicLifeMsgRecallModel extends AlipayBasicModel {
         this.messageId = messageId;
     }
 
-    public static class Builder  extends AlipayBasicModel.Builder<Builder>{
-        private final AlipayOpenPublicLifeMsgRecallModel instance = new AlipayOpenPublicLifeMsgRecallModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicLifeMsgRecallModel> {
         public Builder messageId(String messageId) {
             instance.setMessageId(messageId);
             return this;
         }
 
+        @Override
         public AlipayOpenPublicLifeMsgRecallModel build() {
-            AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel = new AlipayOpenPublicLifeMsgRecallModel();
-            build(alipayOpenPublicLifeMsgRecallModel);
+            AlipayOpenPublicLifeMsgRecallModel alipayOpenPublicLifeMsgRecallModel = super.build();
             alipayOpenPublicLifeMsgRecallModel.setMessageId(instance.getMessageId());
             return alipayOpenPublicLifeMsgRecallModel;
         }

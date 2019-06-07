@@ -44,13 +44,7 @@ public class AlipayOpenPublicPersonalizedMenuCreateModel extends AlipayBasicMode
         this.type = type;
     }
 
-    public static class Builder extends AlipayBasicModel.Builder<Builder> {
-        private AlipayOpenPublicPersonalizedMenuCreateModel instance = new AlipayOpenPublicPersonalizedMenuCreateModel();
-
-        public Builder() {
-            setAlipayBasicModel(instance);
-        }
-
+    public static class Builder extends AlipayBasicModel.Builder<Builder, AlipayOpenPublicPersonalizedMenuCreateModel> {
         public Builder buttonObjects(List<ButtonObject> buttonObjects) {
             instance.setButtonObjects(buttonObjects);
             return this;
@@ -66,9 +60,9 @@ public class AlipayOpenPublicPersonalizedMenuCreateModel extends AlipayBasicMode
             return this;
         }
 
+        @Override
         public AlipayOpenPublicPersonalizedMenuCreateModel build() {
-            AlipayOpenPublicPersonalizedMenuCreateModel alipayOpenPublicPersonalizedMenuCreateModel = new AlipayOpenPublicPersonalizedMenuCreateModel();
-            super.build(alipayOpenPublicPersonalizedMenuCreateModel);
+            AlipayOpenPublicPersonalizedMenuCreateModel alipayOpenPublicPersonalizedMenuCreateModel = super.build();
             alipayOpenPublicPersonalizedMenuCreateModel.setButtonObjects(instance.getButtonObjects());
             alipayOpenPublicPersonalizedMenuCreateModel.setLabelRules(instance.getLabelRules());
             alipayOpenPublicPersonalizedMenuCreateModel.setType(instance.getType());
