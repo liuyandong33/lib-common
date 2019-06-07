@@ -92,9 +92,7 @@ public class ElemeToken extends BasicDomain {
         this.fetchTime = fetchTime;
     }
 
-    public static class Builder {
-        private final ElemeToken instance = new ElemeToken();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ElemeToken> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -130,48 +128,9 @@ public class ElemeToken extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ElemeToken build() {
-            ElemeToken elemeToken = new ElemeToken();
+            ElemeToken elemeToken = super.build();
             elemeToken.setTenantId(instance.getTenantId());
             elemeToken.setBranchId(instance.getBranchId());
             elemeToken.setAccessToken(instance.getAccessToken());
@@ -179,14 +138,6 @@ public class ElemeToken extends BasicDomain {
             elemeToken.setExpiresIn(instance.getExpiresIn());
             elemeToken.setTokenType(instance.getTokenType());
             elemeToken.setFetchTime(instance.getFetchTime());
-            elemeToken.setId(instance.getId());
-            elemeToken.setCreatedTime(instance.getCreatedTime());
-            elemeToken.setCreatedUserId(instance.getCreatedUserId());
-            elemeToken.setUpdatedTime(instance.getUpdatedTime());
-            elemeToken.setUpdatedUserId(instance.getUpdatedUserId());
-            elemeToken.setUpdatedRemark(instance.getUpdatedRemark());
-            elemeToken.setDeletedTime(instance.getDeletedTime());
-            elemeToken.setDeleted(instance.isDeleted());
             return elemeToken;
         }
     }

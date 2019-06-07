@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class WeiXinPublicAccount extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_public_account";
@@ -68,9 +67,7 @@ public class WeiXinPublicAccount extends BasicDomain {
         this.originalId = originalId;
     }
 
-    public static class Builder {
-        private final WeiXinPublicAccount instance = new WeiXinPublicAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinPublicAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -96,61 +93,14 @@ public class WeiXinPublicAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinPublicAccount build() {
-            WeiXinPublicAccount weiXinPublicAccount = new WeiXinPublicAccount();
+            WeiXinPublicAccount weiXinPublicAccount = super.build();
             weiXinPublicAccount.setTenantId(instance.getTenantId());
             weiXinPublicAccount.setName(instance.getName());
             weiXinPublicAccount.setAppId(instance.getAppId());
             weiXinPublicAccount.setAppSecret(instance.getAppSecret());
             weiXinPublicAccount.setOriginalId(instance.getOriginalId());
-            weiXinPublicAccount.setId(instance.getId());
-            weiXinPublicAccount.setCreatedTime(instance.getCreatedTime());
-            weiXinPublicAccount.setCreatedUserId(instance.getCreatedUserId());
-            weiXinPublicAccount.setUpdatedTime(instance.getUpdatedTime());
-            weiXinPublicAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinPublicAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinPublicAccount.setDeletedTime(instance.getDeletedTime());
-            weiXinPublicAccount.setDeleted(instance.isDeleted());
             return weiXinPublicAccount;
         }
     }

@@ -5,7 +5,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class GoodsSpecification extends BasicDomain {
     public static final String TABLE_NAME = "goods_specification";
@@ -94,9 +93,7 @@ public class GoodsSpecification extends BasicDomain {
         this.agentPrice = agentPrice;
     }
 
-    public static class Builder {
-        private final GoodsSpecification instance = new GoodsSpecification();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsSpecification> {
         public Builder name(String name) {
             instance.setName(name);
             return this;
@@ -132,48 +129,9 @@ public class GoodsSpecification extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsSpecification build() {
-            GoodsSpecification goodsSpecification = new GoodsSpecification();
+            GoodsSpecification goodsSpecification = super.build();
             goodsSpecification.setName(instance.getName());
             goodsSpecification.setGoodsId(instance.getGoodsId());
             goodsSpecification.setAllowTenantBuy(instance.isAllowTenantBuy());
@@ -181,14 +139,6 @@ public class GoodsSpecification extends BasicDomain {
             goodsSpecification.setRenewalTime(instance.getRenewalTime());
             goodsSpecification.setTenantPrice(instance.getTenantPrice());
             goodsSpecification.setAgentPrice(instance.getAgentPrice());
-            goodsSpecification.setId(instance.getId());
-            goodsSpecification.setCreatedTime(instance.getCreatedTime());
-            goodsSpecification.setCreatedUserId(instance.getCreatedUserId());
-            goodsSpecification.setUpdatedTime(instance.getUpdatedTime());
-            goodsSpecification.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsSpecification.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsSpecification.setDeletedTime(instance.getDeletedTime());
-            goodsSpecification.setDeleted(instance.isDeleted());
             return goodsSpecification;
         }
     }

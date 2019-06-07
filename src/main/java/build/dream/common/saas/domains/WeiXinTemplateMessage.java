@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class WeiXinTemplateMessage extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_template_message";
     /**
@@ -80,9 +77,7 @@ public class WeiXinTemplateMessage extends BasicDomain {
         this.weiXinTemplateMessageKeys = weiXinTemplateMessageKeys;
     }
 
-    public static class Builder {
-        private final WeiXinTemplateMessage instance = new WeiXinTemplateMessage();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinTemplateMessage> {
         public Builder appId(String appId) {
             instance.setAppId(appId);
             return this;
@@ -113,62 +108,15 @@ public class WeiXinTemplateMessage extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinTemplateMessage build() {
-            WeiXinTemplateMessage weiXinTemplateMessage = new WeiXinTemplateMessage();
+            WeiXinTemplateMessage weiXinTemplateMessage = super.build();
             weiXinTemplateMessage.setAppId(instance.getAppId());
             weiXinTemplateMessage.setAppSecret(instance.getAppSecret());
             weiXinTemplateMessage.setOriginalId(instance.getOriginalId());
             weiXinTemplateMessage.setTemplateMessageId(instance.getTemplateMessageId());
             weiXinTemplateMessage.setWeiXinTemplateMessageCode(instance.getWeiXinTemplateMessageCode());
             weiXinTemplateMessage.setWeiXinTemplateMessageKeys(instance.getWeiXinTemplateMessageKeys());
-            weiXinTemplateMessage.setId(instance.getId());
-            weiXinTemplateMessage.setCreatedTime(instance.getCreatedTime());
-            weiXinTemplateMessage.setCreatedUserId(instance.getCreatedUserId());
-            weiXinTemplateMessage.setUpdatedTime(instance.getUpdatedTime());
-            weiXinTemplateMessage.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinTemplateMessage.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinTemplateMessage.setDeletedTime(instance.getDeletedTime());
-            weiXinTemplateMessage.setDeleted(instance.isDeleted());
             return weiXinTemplateMessage;
         }
     }

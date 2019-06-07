@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class BackgroundPrivilege extends BasicDomain {
     public static final String TABLE_NAME = "background_privilege";
@@ -93,9 +92,7 @@ public class BackgroundPrivilege extends BasicDomain {
         this.remark = remark;
     }
 
-    public static class Builder {
-        private final BackgroundPrivilege instance = new BackgroundPrivilege();
-
+    public static class Builder extends BasicDomain.Builder<Builder, BackgroundPrivilege> {
         public Builder privilegeCode(String privilegeCode) {
             instance.setPrivilegeCode(privilegeCode);
             return this;
@@ -131,48 +128,9 @@ public class BackgroundPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public BackgroundPrivilege build() {
-            BackgroundPrivilege backgroundPrivilege = new BackgroundPrivilege();
+            BackgroundPrivilege backgroundPrivilege = super.build();
             backgroundPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
             backgroundPrivilege.setPrivilegeName(instance.getPrivilegeName());
             backgroundPrivilege.setServiceName(instance.getServiceName());
@@ -180,14 +138,6 @@ public class BackgroundPrivilege extends BasicDomain {
             backgroundPrivilege.setActionName(instance.getActionName());
             backgroundPrivilege.setParentId(instance.getParentId());
             backgroundPrivilege.setRemark(instance.getRemark());
-            backgroundPrivilege.setId(instance.getId());
-            backgroundPrivilege.setCreatedTime(instance.getCreatedTime());
-            backgroundPrivilege.setCreatedUserId(instance.getCreatedUserId());
-            backgroundPrivilege.setUpdatedTime(instance.getUpdatedTime());
-            backgroundPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
-            backgroundPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
-            backgroundPrivilege.setDeletedTime(instance.getDeletedTime());
-            backgroundPrivilege.setDeleted(instance.isDeleted());
             return backgroundPrivilege;
         }
     }

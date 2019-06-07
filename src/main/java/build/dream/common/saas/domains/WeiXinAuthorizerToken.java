@@ -2,7 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class WeiXinAuthorizerToken extends BasicDomain {
@@ -80,9 +79,7 @@ public class WeiXinAuthorizerToken extends BasicDomain {
         this.fetchTime = fetchTime;
     }
 
-    public static class Builder {
-        private final WeiXinAuthorizerToken instance = new WeiXinAuthorizerToken();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinAuthorizerToken> {
         public Builder componentAppId(String componentAppId) {
             instance.setComponentAppId(componentAppId);
             return this;
@@ -113,62 +110,15 @@ public class WeiXinAuthorizerToken extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinAuthorizerToken build() {
-            WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
+            WeiXinAuthorizerToken weiXinAuthorizerToken = super.build();
             weiXinAuthorizerToken.setComponentAppId(instance.getComponentAppId());
             weiXinAuthorizerToken.setAuthorizerAppId(instance.getAuthorizerAppId());
             weiXinAuthorizerToken.setAuthorizerAccessToken(instance.getAuthorizerAccessToken());
             weiXinAuthorizerToken.setExpiresIn(instance.getExpiresIn());
             weiXinAuthorizerToken.setAuthorizerAccessToken(instance.getAuthorizerAccessToken());
             weiXinAuthorizerToken.setFetchTime(instance.getFetchTime());
-            weiXinAuthorizerToken.setId(instance.getId());
-            weiXinAuthorizerToken.setCreatedTime(instance.getCreatedTime());
-            weiXinAuthorizerToken.setCreatedUserId(instance.getCreatedUserId());
-            weiXinAuthorizerToken.setUpdatedTime(instance.getUpdatedTime());
-            weiXinAuthorizerToken.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinAuthorizerToken.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinAuthorizerToken.setDeletedTime(instance.getDeletedTime());
-            weiXinAuthorizerToken.setDeleted(instance.isDeleted());
             return weiXinAuthorizerToken;
         }
     }

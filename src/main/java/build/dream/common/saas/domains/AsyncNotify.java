@@ -3,9 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class AsyncNotify extends BasicDomain {
     public static final String TABLE_NAME = "notify_record";
     /**
@@ -105,9 +102,7 @@ public class AsyncNotify extends BasicDomain {
         this.externalSystemNotifyRequestBody = externalSystemNotifyRequestBody;
     }
 
-    public static class Builder {
-        private final AsyncNotify instance = new AsyncNotify();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AsyncNotify> {
         public Builder uuid(String uuid) {
             instance.setUuid(uuid);
             return this;
@@ -148,48 +143,9 @@ public class AsyncNotify extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AsyncNotify build() {
-            AsyncNotify asyncNotify = new AsyncNotify();
+            AsyncNotify asyncNotify = super.build();
             asyncNotify.setUuid(instance.getUuid());
             asyncNotify.setTopic(instance.getTopic());
             asyncNotify.setAlipayPublicKey(instance.getAlipayPublicKey());
@@ -198,14 +154,6 @@ public class AsyncNotify extends BasicDomain {
             asyncNotify.setWeiXinPaySignType(instance.getWeiXinPaySignType());
             asyncNotify.setNotifyResult(instance.getNotifyResult());
             asyncNotify.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
-            asyncNotify.setId(instance.getId());
-            asyncNotify.setCreatedTime(instance.getCreatedTime());
-            asyncNotify.setCreatedUserId(instance.getCreatedUserId());
-            asyncNotify.setUpdatedTime(instance.getUpdatedTime());
-            asyncNotify.setUpdatedUserId(instance.getUpdatedUserId());
-            asyncNotify.setUpdatedRemark(instance.getUpdatedRemark());
-            asyncNotify.setDeletedTime(instance.getDeletedTime());
-            asyncNotify.setDeleted(instance.isDeleted());
             return asyncNotify;
         }
     }

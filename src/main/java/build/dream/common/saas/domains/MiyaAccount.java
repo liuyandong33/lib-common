@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class MiyaAccount extends BasicDomain {
     public static final String TABLE_NAME = "miya_account";
@@ -68,9 +67,7 @@ public class MiyaAccount extends BasicDomain {
         this.miyaBranchCode = miyaBranchCode;
     }
 
-    public static class Builder {
-        private final MiyaAccount instance = new MiyaAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, MiyaAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -96,61 +93,14 @@ public class MiyaAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public MiyaAccount build() {
-            MiyaAccount miyaAccount = new MiyaAccount();
+            MiyaAccount miyaAccount = super.build();
             miyaAccount.setTenantId(instance.getTenantId());
             miyaAccount.setBranchId(instance.getBranchId());
             miyaAccount.setMiyaMerchantCode(instance.getMiyaMerchantCode());
             miyaAccount.setMiyaKey(instance.getMiyaKey());
             miyaAccount.setMiyaBranchCode(instance.getMiyaBranchCode());
-            miyaAccount.setId(instance.getId());
-            miyaAccount.setCreatedTime(instance.getCreatedTime());
-            miyaAccount.setCreatedUserId(instance.getCreatedUserId());
-            miyaAccount.setUpdatedTime(instance.getUpdatedTime());
-            miyaAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            miyaAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            miyaAccount.setDeletedTime(instance.getDeletedTime());
-            miyaAccount.setDeleted(instance.isDeleted());
             return miyaAccount;
         }
     }

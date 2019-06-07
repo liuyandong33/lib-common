@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class ElemeBranchMapping extends BasicDomain {
     public static final String TABLE_NAME = "eleme_branch_mapping";
@@ -44,9 +43,7 @@ public class ElemeBranchMapping extends BasicDomain {
         this.shopId = shopId;
     }
 
-    public static class Builder {
-        private final ElemeBranchMapping instance = new ElemeBranchMapping();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ElemeBranchMapping> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -62,59 +59,12 @@ public class ElemeBranchMapping extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ElemeBranchMapping build() {
-            ElemeBranchMapping elemeBranchMapping = new ElemeBranchMapping();
+            ElemeBranchMapping elemeBranchMapping = super.build();
             elemeBranchMapping.setTenantId(instance.getTenantId());
             elemeBranchMapping.setBranchId(instance.getBranchId());
             elemeBranchMapping.setShopId(instance.getShopId());
-            elemeBranchMapping.setId(instance.getId());
-            elemeBranchMapping.setCreatedTime(instance.getCreatedTime());
-            elemeBranchMapping.setCreatedUserId(instance.getCreatedUserId());
-            elemeBranchMapping.setUpdatedTime(instance.getUpdatedTime());
-            elemeBranchMapping.setUpdatedUserId(instance.getUpdatedUserId());
-            elemeBranchMapping.setUpdatedRemark(instance.getUpdatedRemark());
-            elemeBranchMapping.setDeletedTime(instance.getDeletedTime());
-            elemeBranchMapping.setDeleted(instance.isDeleted());
             return elemeBranchMapping;
         }
     }

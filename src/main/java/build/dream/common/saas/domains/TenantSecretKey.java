@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class TenantSecretKey extends BasicDomain {
     public static final String TABLE_NAME = "tenant_secret_key";
@@ -68,9 +67,7 @@ public class TenantSecretKey extends BasicDomain {
         this.platformPublicKey = platformPublicKey;
     }
 
-    public static class Builder {
-        private final TenantSecretKey instance = new TenantSecretKey();
-
+    public static class Builder extends BasicDomain.Builder<Builder, TenantSecretKey> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -96,61 +93,14 @@ public class TenantSecretKey extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public TenantSecretKey build() {
-            TenantSecretKey tenantSecretKey = new TenantSecretKey();
+            TenantSecretKey tenantSecretKey = super.build();
             tenantSecretKey.setTenantId(instance.getTenantId());
             tenantSecretKey.setTenantCode(instance.getTenantCode());
             tenantSecretKey.setPublicKey(instance.getPublicKey());
             tenantSecretKey.setPrivateKey(instance.getPrivateKey());
             tenantSecretKey.setPlatformPublicKey(instance.getPlatformPublicKey());
-            tenantSecretKey.setId(instance.getId());
-            tenantSecretKey.setCreatedTime(instance.getCreatedTime());
-            tenantSecretKey.setCreatedUserId(instance.getCreatedUserId());
-            tenantSecretKey.setUpdatedTime(instance.getUpdatedTime());
-            tenantSecretKey.setUpdatedUserId(instance.getUpdatedUserId());
-            tenantSecretKey.setUpdatedRemark(instance.getUpdatedRemark());
-            tenantSecretKey.setDeletedTime(instance.getDeletedTime());
-            tenantSecretKey.setDeleted(instance.isDeleted());
             return tenantSecretKey;
         }
     }

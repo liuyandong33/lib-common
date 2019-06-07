@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AgentForm extends BasicDomain {
     /**
@@ -139,9 +138,7 @@ public class AgentForm extends BasicDomain {
         this.rejectReason = rejectReason;
     }
 
-    public static class Builder {
-        private final AgentForm instance = new AgentForm();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AgentForm> {
         public Builder name(String name) {
             instance.setName(name);
             return this;
@@ -197,48 +194,9 @@ public class AgentForm extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AgentForm build() {
-            AgentForm agentForm = new AgentForm();
+            AgentForm agentForm = super.build();
             agentForm.setName(instance.getName());
             agentForm.setStatus(instance.getStatus());
             agentForm.setProvinceCode(instance.getProvinceCode());
@@ -250,14 +208,6 @@ public class AgentForm extends BasicDomain {
             agentForm.setAddress(instance.getAddress());
             agentForm.setVerifyUserId(instance.getVerifyUserId());
             agentForm.setRejectReason(instance.getRejectReason());
-            agentForm.setId(instance.getId());
-            agentForm.setCreatedTime(instance.getCreatedTime());
-            agentForm.setCreatedUserId(instance.getCreatedUserId());
-            agentForm.setUpdatedTime(instance.getUpdatedTime());
-            agentForm.setUpdatedUserId(instance.getUpdatedUserId());
-            agentForm.setUpdatedRemark(instance.getUpdatedRemark());
-            agentForm.setDeletedTime(instance.getDeletedTime());
-            agentForm.setDeleted(instance.isDeleted());
             return agentForm;
         }
     }

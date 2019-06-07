@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class WeiXinAuthorizerInfo extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_authorizer_info";
@@ -201,9 +200,7 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
         this.componentAppId = componentAppId;
     }
 
-    public static class Builder {
-        private final WeiXinAuthorizerInfo instance = new WeiXinAuthorizerInfo();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinAuthorizerInfo> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -284,48 +281,9 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinAuthorizerInfo build() {
-            WeiXinAuthorizerInfo weiXinAuthorizerInfo = new WeiXinAuthorizerInfo();
+            WeiXinAuthorizerInfo weiXinAuthorizerInfo = super.build();
             weiXinAuthorizerInfo.setTenantId(instance.getTenantId());
             weiXinAuthorizerInfo.setAuthorizerType(instance.getAuthorizerType());
             weiXinAuthorizerInfo.setNickName(instance.getNickName());
@@ -342,14 +300,6 @@ public class WeiXinAuthorizerInfo extends BasicDomain {
             weiXinAuthorizerInfo.setAuthorizerAppId(instance.getAuthorizerAppId());
             weiXinAuthorizerInfo.setFuncInfo(instance.getFuncInfo());
             weiXinAuthorizerInfo.setComponentAppId(instance.getComponentAppId());
-            weiXinAuthorizerInfo.setId(instance.getId());
-            weiXinAuthorizerInfo.setCreatedTime(instance.getCreatedTime());
-            weiXinAuthorizerInfo.setCreatedUserId(instance.getCreatedUserId());
-            weiXinAuthorizerInfo.setUpdatedTime(instance.getUpdatedTime());
-            weiXinAuthorizerInfo.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinAuthorizerInfo.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinAuthorizerInfo.setDeletedTime(instance.getDeletedTime());
-            weiXinAuthorizerInfo.setDeleted(instance.isDeleted());
             return weiXinAuthorizerInfo;
         }
     }

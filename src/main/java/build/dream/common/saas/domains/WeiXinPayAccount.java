@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 /**
  * Created by liuyandong on 2017/7/20.
@@ -168,9 +167,7 @@ public class WeiXinPayAccount extends BasicDomain {
         this.acceptanceModel = acceptanceModel;
     }
 
-    public static class Builder {
-        private final WeiXinPayAccount instance = new WeiXinPayAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, WeiXinPayAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -236,48 +233,9 @@ public class WeiXinPayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public WeiXinPayAccount build() {
-            WeiXinPayAccount weiXinPayAccount = new WeiXinPayAccount();
+            WeiXinPayAccount weiXinPayAccount = super.build();
             weiXinPayAccount.setTenantId(instance.getTenantId());
             weiXinPayAccount.setBranchId(instance.getBranchId());
             weiXinPayAccount.setAppId(instance.getAppId());
@@ -291,14 +249,6 @@ public class WeiXinPayAccount extends BasicDomain {
             weiXinPayAccount.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             weiXinPayAccount.setRsaPublicKey(instance.getRsaPublicKey());
             weiXinPayAccount.setAcceptanceModel(instance.isAcceptanceModel());
-            weiXinPayAccount.setId(instance.getId());
-            weiXinPayAccount.setCreatedTime(instance.getCreatedTime());
-            weiXinPayAccount.setCreatedUserId(instance.getCreatedUserId());
-            weiXinPayAccount.setUpdatedTime(instance.getUpdatedTime());
-            weiXinPayAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            weiXinPayAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            weiXinPayAccount.setDeletedTime(instance.getDeletedTime());
-            weiXinPayAccount.setDeleted(instance.isDeleted());
             return weiXinPayAccount;
         }
     }

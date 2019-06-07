@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class UmPayAccount extends BasicDomain {
     public static final String TABLE_NAME = "um_pay_account";
@@ -56,9 +55,7 @@ public class UmPayAccount extends BasicDomain {
         this.merchantPrivateKey = merchantPrivateKey;
     }
 
-    public static class Builder {
-        private final UmPayAccount instance = new UmPayAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, UmPayAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -79,60 +76,13 @@ public class UmPayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public UmPayAccount build() {
-            UmPayAccount umPayAccount = new UmPayAccount();
+            UmPayAccount umPayAccount = super.build();
             umPayAccount.setTenantId(instance.getTenantId());
             umPayAccount.setBranchId(instance.getBranchId());
             umPayAccount.setUmPayId(instance.getUmPayId());
             umPayAccount.setMerchantPrivateKey(instance.getMerchantPrivateKey());
-            umPayAccount.setId(instance.getId());
-            umPayAccount.setCreatedTime(instance.getCreatedTime());
-            umPayAccount.setCreatedUserId(instance.getCreatedUserId());
-            umPayAccount.setUpdatedTime(instance.getUpdatedTime());
-            umPayAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            umPayAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            umPayAccount.setDeletedTime(instance.getDeletedTime());
-            umPayAccount.setDeleted(instance.isDeleted());
             return umPayAccount;
         }
     }

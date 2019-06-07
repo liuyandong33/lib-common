@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class NewLandAccount extends BasicDomain {
     public static final String TABLE_NAME = "new_land_account";
@@ -80,9 +79,7 @@ public class NewLandAccount extends BasicDomain {
         this.secretKey = secretKey;
     }
 
-    public static class Builder {
-        private final NewLandAccount instance = new NewLandAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, NewLandAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -113,62 +110,15 @@ public class NewLandAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public NewLandAccount build() {
-            NewLandAccount newLandAccount = new NewLandAccount();
+            NewLandAccount newLandAccount = super.build();
             newLandAccount.setTenantId(instance.getTenantId());
             newLandAccount.setBranchId(instance.getBranchId());
             newLandAccount.setMchId(instance.getMchId());
             newLandAccount.setTrmNo(instance.getTrmNo());
             newLandAccount.setOrgNo(instance.getOrgNo());
             newLandAccount.setSecretKey(instance.getSecretKey());
-            newLandAccount.setId(instance.getId());
-            newLandAccount.setCreatedTime(instance.getCreatedTime());
-            newLandAccount.setCreatedUserId(instance.getCreatedUserId());
-            newLandAccount.setUpdatedTime(instance.getUpdatedTime());
-            newLandAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            newLandAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            newLandAccount.setDeletedTime(instance.getDeletedTime());
-            newLandAccount.setDeleted(instance.isDeleted());
             return newLandAccount;
         }
     }

@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class Agent extends BasicDomain {
     public static final String TABLE_NAME = "agent";
     /**
@@ -32,9 +29,7 @@ public class Agent extends BasicDomain {
         this.name = name;
     }
 
-    public static class Builder {
-        private final Agent instance = new Agent();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Agent> {
         public Builder code(String code) {
             instance.setCode(code);
             return this;
@@ -45,58 +40,11 @@ public class Agent extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Agent build() {
-            Agent agent = new Agent();
+            Agent agent = super.build();
             agent.setCode(instance.getCode());
             agent.setName(instance.getName());
-            agent.setId(instance.getId());
-            agent.setCreatedTime(instance.getCreatedTime());
-            agent.setCreatedUserId(instance.getCreatedUserId());
-            agent.setUpdatedTime(instance.getUpdatedTime());
-            agent.setUpdatedUserId(instance.getUpdatedUserId());
-            agent.setUpdatedRemark(instance.getUpdatedRemark());
-            agent.setDeletedTime(instance.getDeletedTime());
-            agent.setDeleted(instance.isDeleted());
             return agent;
         }
     }

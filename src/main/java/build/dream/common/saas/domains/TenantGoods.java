@@ -56,9 +56,7 @@ public class TenantGoods extends BasicDomain {
         this.expireTime = expireTime;
     }
 
-    public static class Builder {
-        private final TenantGoods instance = new TenantGoods();
-
+    public static class Builder extends BasicDomain.Builder<Builder, TenantGoods> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -79,60 +77,13 @@ public class TenantGoods extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public TenantGoods build() {
-            TenantGoods tenantGoods = new TenantGoods();
+            TenantGoods tenantGoods = super.build();
             tenantGoods.setTenantId(instance.getTenantId());
             tenantGoods.setBranchId(instance.getBranchId());
             tenantGoods.setGoodsId(instance.getGoodsId());
             tenantGoods.setExpireTime(instance.getExpireTime());
-            tenantGoods.setId(instance.getId());
-            tenantGoods.setCreatedTime(instance.getCreatedTime());
-            tenantGoods.setCreatedUserId(instance.getCreatedUserId());
-            tenantGoods.setUpdatedTime(instance.getUpdatedTime());
-            tenantGoods.setUpdatedUserId(instance.getUpdatedUserId());
-            tenantGoods.setUpdatedRemark(instance.getUpdatedRemark());
-            tenantGoods.setDeletedTime(instance.getDeletedTime());
-            tenantGoods.setDeleted(instance.isDeleted());
             return tenantGoods;
         }
     }

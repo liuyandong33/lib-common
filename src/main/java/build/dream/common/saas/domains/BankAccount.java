@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class BankAccount extends BasicDomain {
     public static final String TABLE_NAME = "bank_account";
@@ -80,9 +79,7 @@ public class BankAccount extends BasicDomain {
         this.bankCode = bankCode;
     }
 
-    public static class Builder {
-        private final BankAccount instance = new BankAccount();
-
+    public static class Builder extends BasicDomain.Builder<Builder, BankAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -113,62 +110,15 @@ public class BankAccount extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public BankAccount build() {
-            BankAccount bankAccount = new BankAccount();
+            BankAccount bankAccount = super.build();
             bankAccount.setTenantId(instance.getTenantId());
             bankAccount.setBranchId(instance.getBranchId());
             bankAccount.setBankCardNumber(instance.getBankCardNumber());
             bankAccount.setCardholder(instance.getCardholder());
             bankAccount.setBankName(instance.getBankName());
             bankAccount.setBankCode(instance.getBankCode());
-            bankAccount.setId(instance.getId());
-            bankAccount.setCreatedTime(instance.getCreatedTime());
-            bankAccount.setCreatedUserId(instance.getCreatedUserId());
-            bankAccount.setUpdatedTime(instance.getUpdatedTime());
-            bankAccount.setUpdatedUserId(instance.getUpdatedUserId());
-            bankAccount.setUpdatedRemark(instance.getUpdatedRemark());
-            bankAccount.setDeletedTime(instance.getDeletedTime());
-            bankAccount.setDeleted(instance.isDeleted());
             return bankAccount;
         }
     }

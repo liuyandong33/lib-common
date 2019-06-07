@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class PosPrivilege extends BasicDomain {
     public static final String TABLE_NAME = "pos_privilege";
@@ -105,9 +104,7 @@ public class PosPrivilege extends BasicDomain {
         this.remark = remark;
     }
 
-    public static class Builder {
-        private final PosPrivilege instance = new PosPrivilege();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PosPrivilege> {
         public Builder privilegeCode(String privilegeCode) {
             instance.setPrivilegeCode(privilegeCode);
             return this;
@@ -148,48 +145,9 @@ public class PosPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PosPrivilege build() {
-            PosPrivilege posPrivilege = new PosPrivilege();
+            PosPrivilege posPrivilege = super.build();
             posPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
             posPrivilege.setPrivilegeName(instance.getPrivilegeName());
             posPrivilege.setAccessMode(instance.getAccessMode());
@@ -198,14 +156,6 @@ public class PosPrivilege extends BasicDomain {
             posPrivilege.setActionName(instance.getActionName());
             posPrivilege.setParentId(instance.getParentId());
             posPrivilege.setRemark(instance.getRemark());
-            posPrivilege.setId(instance.getId());
-            posPrivilege.setCreatedTime(instance.getCreatedTime());
-            posPrivilege.setCreatedUserId(instance.getCreatedUserId());
-            posPrivilege.setUpdatedTime(instance.getUpdatedTime());
-            posPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
-            posPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
-            posPrivilege.setDeletedTime(instance.getDeletedTime());
-            posPrivilege.setDeleted(instance.isDeleted());
             return posPrivilege;
         }
     }

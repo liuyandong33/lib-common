@@ -2,7 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class Activity extends BasicDomain {
@@ -68,9 +67,7 @@ public class Activity extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
-        private final Activity instance = new Activity();
-
+    public static class Builder extends BasicDomain.Builder<Builder, Activity> {
         public Builder name(String name) {
             instance.setName(name);
             return this;
@@ -96,61 +93,14 @@ public class Activity extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public Activity build() {
-            Activity activity = new Activity();
+            Activity activity = super.build();
             activity.setName(instance.getName());
             activity.setStartTime(instance.getStartTime());
             activity.setEndTime(instance.getEndTime());
             activity.setType(instance.getType());
             activity.setStatus(instance.getStatus());
-            activity.setId(instance.getId());
-            activity.setCreatedTime(instance.getCreatedTime());
-            activity.setCreatedUserId(instance.getCreatedUserId());
-            activity.setUpdatedTime(instance.getUpdatedTime());
-            activity.setUpdatedUserId(instance.getUpdatedUserId());
-            activity.setUpdatedRemark(instance.getUpdatedRemark());
-            activity.setDeletedTime(instance.getDeletedTime());
-            activity.setDeleted(instance.isDeleted());
             return activity;
         }
     }

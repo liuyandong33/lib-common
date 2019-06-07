@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AppPrivilege extends BasicDomain {
     public static final String TABLE_NAME = "app_privilege";
@@ -105,9 +104,7 @@ public class AppPrivilege extends BasicDomain {
         this.remark = remark;
     }
 
-    public static class Builder {
-        private final AppPrivilege instance = new AppPrivilege();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AppPrivilege> {
         public Builder privilegeCode(String privilegeCode) {
             instance.setPrivilegeCode(privilegeCode);
             return this;
@@ -148,48 +145,9 @@ public class AppPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AppPrivilege build() {
-            AppPrivilege appPrivilege = new AppPrivilege();
+            AppPrivilege appPrivilege = super.build();
             appPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
             appPrivilege.setPrivilegeName(instance.getPrivilegeName());
             appPrivilege.setAccessMode(instance.getAccessMode());
@@ -198,14 +156,6 @@ public class AppPrivilege extends BasicDomain {
             appPrivilege.setActionName(instance.getActionName());
             appPrivilege.setParentId(instance.getParentId());
             appPrivilege.setRemark(instance.getRemark());
-            appPrivilege.setId(instance.getId());
-            appPrivilege.setCreatedTime(instance.getCreatedTime());
-            appPrivilege.setCreatedUserId(instance.getCreatedUserId());
-            appPrivilege.setUpdatedTime(instance.getUpdatedTime());
-            appPrivilege.setUpdatedUserId(instance.getUpdatedUserId());
-            appPrivilege.setUpdatedRemark(instance.getUpdatedRemark());
-            appPrivilege.setDeletedTime(instance.getDeletedTime());
-            appPrivilege.setDeleted(instance.isDeleted());
             return appPrivilege;
         }
     }

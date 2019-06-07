@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class AlipayMaterialImage extends BasicDomain {
     public static final String TABLE_NAME = "alipay_material_image";
     /**
@@ -44,9 +41,7 @@ public class AlipayMaterialImage extends BasicDomain {
         this.imageUrl = imageUrl;
     }
 
-    public static class Builder {
-        private final AlipayMaterialImage instance = new AlipayMaterialImage();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AlipayMaterialImage> {
         public Builder alipayUserId(String alipayUserId) {
             instance.setAlipayUserId(alipayUserId);
             return this;
@@ -62,59 +57,12 @@ public class AlipayMaterialImage extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AlipayMaterialImage build() {
-            AlipayMaterialImage alipayMaterialImage = new AlipayMaterialImage();
+            AlipayMaterialImage alipayMaterialImage = super.build();
             alipayMaterialImage.setAlipayUserId(instance.getAlipayUserId());
             alipayMaterialImage.setImageId(instance.getImageId());
             alipayMaterialImage.setImageUrl(instance.getImageUrl());
-            alipayMaterialImage.setId(instance.getId());
-            alipayMaterialImage.setCreatedTime(instance.getCreatedTime());
-            alipayMaterialImage.setCreatedUserId(instance.getCreatedUserId());
-            alipayMaterialImage.setUpdatedTime(instance.getUpdatedTime());
-            alipayMaterialImage.setUpdatedUserId(instance.getUpdatedUserId());
-            alipayMaterialImage.setUpdatedRemark(instance.getUpdatedRemark());
-            alipayMaterialImage.setDeletedTime(instance.getDeletedTime());
-            alipayMaterialImage.setDeleted(instance.isDeleted());
             return alipayMaterialImage;
         }
     }

@@ -165,9 +165,7 @@ public class PaymentRecord extends BasicDomain {
         this.notifyUrl = notifyUrl;
     }
 
-    public static class Builder {
-        private final PaymentRecord instance = new PaymentRecord();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PaymentRecord> {
         public Builder orderType(Integer orderType) {
             instance.setOrderType(orderType);
             return this;
@@ -233,48 +231,9 @@ public class PaymentRecord extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PaymentRecord build() {
-            PaymentRecord paymentRecord = new PaymentRecord();
+            PaymentRecord paymentRecord = super.build();
             paymentRecord.setOrderType(instance.getOrderType());
             paymentRecord.setOrderNumber(instance.getOrderNumber());
             paymentRecord.setTotalAmount(instance.getTotalAmount());
@@ -288,14 +247,6 @@ public class PaymentRecord extends BasicDomain {
             paymentRecord.setPaidTime(instance.getPaidTime());
             paymentRecord.setNotifyResult(instance.getNotifyResult());
             paymentRecord.setNotifyUrl(instance.getNotifyUrl());
-            paymentRecord.setId(instance.getId());
-            paymentRecord.setCreatedTime(instance.getCreatedTime());
-            paymentRecord.setCreatedUserId(instance.getCreatedUserId());
-            paymentRecord.setUpdatedTime(instance.getUpdatedTime());
-            paymentRecord.setUpdatedUserId(instance.getUpdatedUserId());
-            paymentRecord.setUpdatedRemark(instance.getUpdatedRemark());
-            paymentRecord.setDeletedTime(instance.getDeletedTime());
-            paymentRecord.setDeleted(instance.isDeleted());
             return paymentRecord;
         }
     }

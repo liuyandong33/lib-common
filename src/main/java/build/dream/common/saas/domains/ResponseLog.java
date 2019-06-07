@@ -2,7 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class ResponseLog extends BasicDomain {
@@ -56,9 +55,7 @@ public class ResponseLog extends BasicDomain {
         this.headers = headers;
     }
 
-    public static class Builder {
-        private final ResponseLog instance = new ResponseLog();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ResponseLog> {
         public Builder uuid(String uuid) {
             instance.setUuid(uuid);
             return this;
@@ -79,60 +76,13 @@ public class ResponseLog extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ResponseLog build() {
-            ResponseLog responseLog = new ResponseLog();
+            ResponseLog responseLog = super.build();
             responseLog.setUuid(instance.getUuid());
             responseLog.setResponseTime(instance.getResponseTime());
             responseLog.setResponseContent(instance.getResponseContent());
             responseLog.setHeaders(instance.getHeaders());
-            responseLog.setId(instance.getId());
-            responseLog.setCreatedTime(instance.getCreatedTime());
-            responseLog.setCreatedUserId(instance.getCreatedUserId());
-            responseLog.setUpdatedTime(instance.getUpdatedTime());
-            responseLog.setUpdatedUserId(instance.getUpdatedUserId());
-            responseLog.setUpdatedRemark(instance.getUpdatedRemark());
-            responseLog.setDeletedTime(instance.getDeletedTime());
-            responseLog.setDeleted(instance.isDeleted());
             return responseLog;
         }
     }

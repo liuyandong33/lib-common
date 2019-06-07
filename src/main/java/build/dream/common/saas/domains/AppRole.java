@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AppRole extends BasicDomain {
     public static final String TABLE_NAME = "app_role";
@@ -44,9 +43,7 @@ public class AppRole extends BasicDomain {
         this.roleName = roleName;
     }
 
-    public static class Builder {
-        private final AppRole instance = new AppRole();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AppRole> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -62,59 +59,12 @@ public class AppRole extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AppRole build() {
-            AppRole appRole = new AppRole();
+            AppRole appRole = super.build();
             appRole.setTenantId(instance.getTenantId());
             appRole.setRoleCode(instance.getRoleCode());
             appRole.setRoleName(instance.getRoleName());
-            appRole.setId(instance.getId());
-            appRole.setCreatedTime(instance.getCreatedTime());
-            appRole.setCreatedUserId(instance.getCreatedUserId());
-            appRole.setUpdatedTime(instance.getUpdatedTime());
-            appRole.setUpdatedUserId(instance.getUpdatedUserId());
-            appRole.setUpdatedRemark(instance.getUpdatedRemark());
-            appRole.setDeletedTime(instance.getDeletedTime());
-            appRole.setDeleted(instance.isDeleted());
             return appRole;
         }
     }

@@ -3,9 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class GoodsType extends BasicDomain {
     public static final String TABLE_NAME = "goods_type";
     /**
@@ -69,9 +66,7 @@ public class GoodsType extends BasicDomain {
         this.disableSql = disableSql;
     }
 
-    public static class Builder {
-        private final GoodsType instance = new GoodsType();
-
+    public static class Builder extends BasicDomain.Builder<Builder, GoodsType> {
         public Builder name(String name) {
             instance.setName(name);
             return this;
@@ -97,61 +92,14 @@ public class GoodsType extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public GoodsType build() {
-            GoodsType goodsType = new GoodsType();
+            GoodsType goodsType = super.build();
             goodsType.setName(instance.getName());
             goodsType.setDescription(instance.getDescription());
             goodsType.setSingle(instance.isSingle());
             goodsType.setRenewSql(instance.getRenewSql());
             goodsType.setDisableSql(instance.getDisableSql());
-            goodsType.setId(instance.getId());
-            goodsType.setCreatedTime(instance.getCreatedTime());
-            goodsType.setCreatedUserId(instance.getCreatedUserId());
-            goodsType.setUpdatedTime(instance.getUpdatedTime());
-            goodsType.setUpdatedUserId(instance.getUpdatedUserId());
-            goodsType.setUpdatedRemark(instance.getUpdatedRemark());
-            goodsType.setDeletedTime(instance.getDeletedTime());
-            goodsType.setDeleted(instance.isDeleted());
             return goodsType;
         }
     }

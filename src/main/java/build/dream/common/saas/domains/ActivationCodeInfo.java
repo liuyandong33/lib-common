@@ -129,9 +129,7 @@ public class ActivationCodeInfo extends BasicDomain {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public static class Builder {
-        private final ActivationCodeInfo instance = new ActivationCodeInfo();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ActivationCodeInfo> {
         public Builder agentId(BigInteger agentId) {
             instance.setAgentId(agentId);
             return this;
@@ -182,48 +180,9 @@ public class ActivationCodeInfo extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ActivationCodeInfo build() {
-            ActivationCodeInfo activationCodeInfo = new ActivationCodeInfo();
+            ActivationCodeInfo activationCodeInfo = super.build();
             activationCodeInfo.setAgentId(instance.getAgentId());
             activationCodeInfo.setOrderId(instance.getOrderId());
             activationCodeInfo.setUseOrderId(instance.getUseOrderId());
@@ -234,14 +193,6 @@ public class ActivationCodeInfo extends BasicDomain {
             activationCodeInfo.setActivationCode(instance.getActivationCode());
             activationCodeInfo.setGoodsId(instance.getGoodsId());
             activationCodeInfo.setGoodsSpecificationId(instance.getGoodsSpecificationId());
-            activationCodeInfo.setId(instance.getId());
-            activationCodeInfo.setCreatedTime(instance.getCreatedTime());
-            activationCodeInfo.setCreatedUserId(instance.getCreatedUserId());
-            activationCodeInfo.setUpdatedTime(instance.getUpdatedTime());
-            activationCodeInfo.setUpdatedUserId(instance.getUpdatedUserId());
-            activationCodeInfo.setUpdatedRemark(instance.getUpdatedRemark());
-            activationCodeInfo.setDeletedTime(instance.getDeletedTime());
-            activationCodeInfo.setDeleted(instance.isDeleted());
             return activationCodeInfo;
         }
     }

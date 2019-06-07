@@ -155,9 +155,7 @@ public class SaleFlow extends BasicDomain {
         this.paidType = paidType;
     }
 
-    public static class Builder {
-        private final SaleFlow instance = new SaleFlow();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SaleFlow> {
         public Builder orderId(BigInteger orderId) {
             instance.setOrderId(orderId);
             return this;
@@ -218,48 +216,9 @@ public class SaleFlow extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SaleFlow build() {
-            SaleFlow saleFlow = new SaleFlow();
+            SaleFlow saleFlow = super.build();
             saleFlow.setOrderId(instance.getOrderId());
             saleFlow.setType(instance.getType());
             saleFlow.setTenantId(instance.getTenantId());
@@ -272,14 +231,6 @@ public class SaleFlow extends BasicDomain {
             saleFlow.setGoodsSpecificationName(instance.getGoodsSpecificationName());
             saleFlow.setQuantity(instance.getQuantity());
             saleFlow.setPaidType(instance.getPaidType());
-            saleFlow.setId(instance.getId());
-            saleFlow.setCreatedTime(instance.getCreatedTime());
-            saleFlow.setCreatedUserId(instance.getCreatedUserId());
-            saleFlow.setUpdatedTime(instance.getUpdatedTime());
-            saleFlow.setUpdatedUserId(instance.getUpdatedUserId());
-            saleFlow.setUpdatedRemark(instance.getUpdatedRemark());
-            saleFlow.setDeletedTime(instance.getDeletedTime());
-            saleFlow.setDeleted(instance.isDeleted());
             return saleFlow;
         }
     }

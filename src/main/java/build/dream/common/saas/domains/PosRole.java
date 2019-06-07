@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class PosRole extends BasicDomain {
     public static final String TABLE_NAME = "pos_role";
@@ -44,9 +43,7 @@ public class PosRole extends BasicDomain {
         this.roleName = roleName;
     }
 
-    public static class Builder {
-        private final PosRole instance = new PosRole();
-
+    public static class Builder extends BasicDomain.Builder<Builder, PosRole> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -62,59 +59,12 @@ public class PosRole extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public PosRole build() {
-            PosRole posRole = new PosRole();
+            PosRole posRole = super.build();
             posRole.setTenantId(instance.getTenantId());
             posRole.setRoleCode(instance.getRoleCode());
             posRole.setRoleName(instance.getRoleName());
-            posRole.setId(instance.getId());
-            posRole.setCreatedTime(instance.getCreatedTime());
-            posRole.setCreatedUserId(instance.getCreatedUserId());
-            posRole.setUpdatedTime(instance.getUpdatedTime());
-            posRole.setUpdatedUserId(instance.getUpdatedUserId());
-            posRole.setUpdatedRemark(instance.getUpdatedRemark());
-            posRole.setDeletedTime(instance.getDeletedTime());
-            posRole.setDeleted(instance.isDeleted());
             return posRole;
         }
     }

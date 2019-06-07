@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class AlipayOpenAuthToken extends BasicDomain {
     public static final String TABLE_NAME = "alipay_open_auth_token";
     /**
@@ -92,9 +89,7 @@ public class AlipayOpenAuthToken extends BasicDomain {
         this.appRefreshToken = appRefreshToken;
     }
 
-    public static class Builder {
-        private final AlipayOpenAuthToken instance = new AlipayOpenAuthToken();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AlipayOpenAuthToken> {
         public Builder appId(String appId) {
             instance.setAppId(appId);
             return this;
@@ -130,48 +125,9 @@ public class AlipayOpenAuthToken extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AlipayOpenAuthToken build() {
-            AlipayOpenAuthToken alipayOpenAuthToken = new AlipayOpenAuthToken();
+            AlipayOpenAuthToken alipayOpenAuthToken = super.build();
             alipayOpenAuthToken.setAppId(instance.getAppId());
             alipayOpenAuthToken.setAppAuthToken(instance.getAppAuthToken());
             alipayOpenAuthToken.setUserId(instance.getUserId());
@@ -179,14 +135,6 @@ public class AlipayOpenAuthToken extends BasicDomain {
             alipayOpenAuthToken.setExpiresIn(instance.getExpiresIn());
             alipayOpenAuthToken.setReExpiresIn(instance.getReExpiresIn());
             alipayOpenAuthToken.setAppRefreshToken(instance.getAppRefreshToken());
-            alipayOpenAuthToken.setId(instance.getId());
-            alipayOpenAuthToken.setCreatedTime(instance.getCreatedTime());
-            alipayOpenAuthToken.setCreatedUserId(instance.getCreatedUserId());
-            alipayOpenAuthToken.setUpdatedTime(instance.getUpdatedTime());
-            alipayOpenAuthToken.setUpdatedUserId(instance.getUpdatedUserId());
-            alipayOpenAuthToken.setUpdatedRemark(instance.getUpdatedRemark());
-            alipayOpenAuthToken.setDeletedTime(instance.getDeletedTime());
-            alipayOpenAuthToken.setDeleted(instance.isDeleted());
             return alipayOpenAuthToken;
         }
     }

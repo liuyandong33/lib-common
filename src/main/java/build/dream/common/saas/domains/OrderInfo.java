@@ -5,7 +5,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class OrderInfo extends BasicDomain {
     public static final String TABLE_NAME = "order_info";
@@ -130,9 +129,7 @@ public class OrderInfo extends BasicDomain {
         this.paidType = paidType;
     }
 
-    public static class Builder {
-        private final OrderInfo instance = new OrderInfo();
-
+    public static class Builder extends BasicDomain.Builder<Builder, OrderInfo> {
         public Builder orderNumber(String orderNumber) {
             instance.setOrderNumber(orderNumber);
             return this;
@@ -183,48 +180,9 @@ public class OrderInfo extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public OrderInfo build() {
-            OrderInfo orderInfo = new OrderInfo();
+            OrderInfo orderInfo = super.build();
             orderInfo.setOrderNumber(instance.getOrderNumber());
             orderInfo.setOrderType(instance.getOrderType());
             orderInfo.setOrderStatus(instance.getOrderStatus());
@@ -235,14 +193,6 @@ public class OrderInfo extends BasicDomain {
             orderInfo.setPayableAmount(instance.getPayableAmount());
             orderInfo.setPaidAmount(instance.getPaidAmount());
             orderInfo.setPaidType(instance.getPaidType());
-            orderInfo.setId(instance.getId());
-            orderInfo.setCreatedTime(instance.getCreatedTime());
-            orderInfo.setCreatedUserId(instance.getCreatedUserId());
-            orderInfo.setUpdatedTime(instance.getUpdatedTime());
-            orderInfo.setUpdatedUserId(instance.getUpdatedUserId());
-            orderInfo.setUpdatedRemark(instance.getUpdatedRemark());
-            orderInfo.setDeletedTime(instance.getDeletedTime());
-            orderInfo.setDeleted(instance.isDeleted());
             return orderInfo;
         }
     }

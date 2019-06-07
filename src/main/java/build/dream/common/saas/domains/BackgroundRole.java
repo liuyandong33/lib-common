@@ -43,9 +43,7 @@ public class BackgroundRole extends BasicDomain {
         this.roleName = roleName;
     }
 
-    public static class Builder {
-        private final BackgroundRole instance = new BackgroundRole();
-
+    public static class Builder extends BasicDomain.Builder<Builder, BackgroundRole> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -61,19 +59,12 @@ public class BackgroundRole extends BasicDomain {
             return this;
         }
 
+        @Override
         public BackgroundRole build() {
-            BackgroundRole backgroundRole = new BackgroundRole();
+            BackgroundRole backgroundRole = super.build();
             backgroundRole.setTenantId(instance.getTenantId());
             backgroundRole.setRoleCode(instance.getRoleCode());
             backgroundRole.setRoleName(instance.getRoleName());
-            backgroundRole.setId(instance.getId());
-            backgroundRole.setCreatedTime(instance.getCreatedTime());
-            backgroundRole.setCreatedUserId(instance.getCreatedUserId());
-            backgroundRole.setUpdatedTime(instance.getUpdatedTime());
-            backgroundRole.setUpdatedUserId(instance.getUpdatedUserId());
-            backgroundRole.setUpdatedRemark(instance.getUpdatedRemark());
-            backgroundRole.setDeletedTime(instance.getDeletedTime());
-            backgroundRole.setDeleted(instance.isDeleted());
             return backgroundRole;
         }
     }

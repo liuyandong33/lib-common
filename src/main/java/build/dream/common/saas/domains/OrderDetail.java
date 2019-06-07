@@ -5,7 +5,6 @@ import build.dream.common.constants.Constants;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class OrderDetail extends BasicDomain {
     public static final String TABLE_NAME = "order_detail";
@@ -142,9 +141,7 @@ public class OrderDetail extends BasicDomain {
         this.quantity = quantity;
     }
 
-    public static class Builder {
-        private final OrderDetail instance = new OrderDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, OrderDetail> {
         public Builder orderInfoId(BigInteger orderInfoId) {
             instance.setOrderInfoId(orderInfoId);
             return this;
@@ -200,48 +197,9 @@ public class OrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public OrderDetail build() {
-            OrderDetail orderDetail = new OrderDetail();
+            OrderDetail orderDetail = super.build();
             orderDetail.setOrderInfoId(instance.getOrderInfoId());
             orderDetail.setGoodsId(instance.getGoodsId());
             orderDetail.setGoodsName(instance.getGoodsName());
@@ -253,14 +211,6 @@ public class OrderDetail extends BasicDomain {
             orderDetail.setDiscountAmount(instance.getDiscountAmount());
             orderDetail.setPayableAmount(instance.getPayableAmount());
             orderDetail.setQuantity(instance.getQuantity());
-            orderDetail.setId(instance.getId());
-            orderDetail.setCreatedTime(instance.getCreatedTime());
-            orderDetail.setCreatedUserId(instance.getCreatedUserId());
-            orderDetail.setUpdatedTime(instance.getUpdatedTime());
-            orderDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            orderDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            orderDetail.setDeletedTime(instance.getDeletedTime());
-            orderDetail.setDeleted(instance.isDeleted());
             return orderDetail;
         }
     }

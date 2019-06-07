@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AgentContractPriceInfo extends BasicDomain {
     public static final String TABLE_NAME = "agent_contract_price_info";
@@ -57,9 +56,7 @@ public class AgentContractPriceInfo extends BasicDomain {
         this.contractPrice = contractPrice;
     }
 
-    public static class Builder {
-        private final AgentContractPriceInfo instance = new AgentContractPriceInfo();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AgentContractPriceInfo> {
         public Builder agentContractId(BigInteger agentContractId) {
             instance.setAgentContractId(agentContractId);
             return this;
@@ -80,60 +77,13 @@ public class AgentContractPriceInfo extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AgentContractPriceInfo build() {
-            AgentContractPriceInfo agentContractPriceInfo = new AgentContractPriceInfo();
+            AgentContractPriceInfo agentContractPriceInfo = super.build();
             agentContractPriceInfo.setAgentContractId(instance.getAgentContractId());
             agentContractPriceInfo.setGoodsId(instance.getGoodsId());
             agentContractPriceInfo.setGoodsSpecificationId(instance.getGoodsSpecificationId());
             agentContractPriceInfo.setContractPrice(instance.getContractPrice());
-            agentContractPriceInfo.setId(instance.getId());
-            agentContractPriceInfo.setCreatedTime(instance.getCreatedTime());
-            agentContractPriceInfo.setCreatedUserId(instance.getCreatedUserId());
-            agentContractPriceInfo.setUpdatedTime(instance.getUpdatedTime());
-            agentContractPriceInfo.setUpdatedUserId(instance.getUpdatedUserId());
-            agentContractPriceInfo.setUpdatedRemark(instance.getUpdatedRemark());
-            agentContractPriceInfo.setDeletedTime(instance.getDeletedTime());
-            agentContractPriceInfo.setDeleted(instance.isDeleted());
             return agentContractPriceInfo;
         }
     }

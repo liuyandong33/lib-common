@@ -4,7 +4,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class SystemUser extends BasicDomain {
     public static final String TABLE_NAME = "system_user";
@@ -177,9 +176,7 @@ public class SystemUser extends BasicDomain {
         this.enabled = enabled;
     }
 
-    public static class Builder {
-        private final SystemUser instance = new SystemUser();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SystemUser> {
         public Builder name(String name) {
             instance.setName(name);
             return this;
@@ -250,48 +247,9 @@ public class SystemUser extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SystemUser build() {
-            SystemUser systemUser = new SystemUser();
+            SystemUser systemUser = super.build();
             systemUser.setName(instance.getName());
             systemUser.setMobile(instance.getMobile());
             systemUser.setEmail(instance.getEmail());
@@ -306,14 +264,6 @@ public class SystemUser extends BasicDomain {
             systemUser.setAccountNonLocked(instance.isAccountNonLocked());
             systemUser.setCredentialsNonExpired(instance.isCredentialsNonExpired());
             systemUser.setEnabled(instance.isEnabled());
-            systemUser.setId(instance.getId());
-            systemUser.setCreatedTime(instance.getCreatedTime());
-            systemUser.setCreatedUserId(instance.getCreatedUserId());
-            systemUser.setUpdatedTime(instance.getUpdatedTime());
-            systemUser.setUpdatedUserId(instance.getUpdatedUserId());
-            systemUser.setUpdatedRemark(instance.getUpdatedRemark());
-            systemUser.setDeletedTime(instance.getDeletedTime());
-            systemUser.setDeleted(instance.isDeleted());
             return systemUser;
         }
     }

@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class OauthClientDetail extends BasicDomain {
     /**
      * 客户端ID，必须唯一，不能为空。用于唯一标识每一个客户端(client)。
@@ -177,9 +174,7 @@ public class OauthClientDetail extends BasicDomain {
         this.autoApproveScope = autoApproveScope;
     }
 
-    public static class Builder {
-        private final OauthClientDetail instance = new OauthClientDetail();
-
+    public static class Builder extends BasicDomain.Builder<Builder, OauthClientDetail> {
         public Builder clientId(String clientId) {
             instance.setClientId(clientId);
             return this;
@@ -235,48 +230,9 @@ public class OauthClientDetail extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public OauthClientDetail build() {
-            OauthClientDetail oauthClientDetail = new OauthClientDetail();
+            OauthClientDetail oauthClientDetail = super.build();
             oauthClientDetail.setClientId(instance.getClientId());
             oauthClientDetail.setClientSecret(instance.getClientSecret());
             oauthClientDetail.setResourceIds(instance.resourceIds);
@@ -288,14 +244,6 @@ public class OauthClientDetail extends BasicDomain {
             oauthClientDetail.setRefreshTokenValidity(instance.getRefreshTokenValidity());
             oauthClientDetail.setAdditionalInformation(instance.getAdditionalInformation());
             oauthClientDetail.setAutoApproveScope(instance.getAutoApproveScope());
-            oauthClientDetail.setId(instance.getId());
-            oauthClientDetail.setCreatedTime(instance.getCreatedTime());
-            oauthClientDetail.setCreatedUserId(instance.getCreatedUserId());
-            oauthClientDetail.setUpdatedTime(instance.getUpdatedTime());
-            oauthClientDetail.setUpdatedUserId(instance.getUpdatedUserId());
-            oauthClientDetail.setUpdatedRemark(instance.getUpdatedRemark());
-            oauthClientDetail.setDeletedTime(instance.getDeletedTime());
-            oauthClientDetail.setDeleted(instance.isDeleted());
             return oauthClientDetail;
         }
     }

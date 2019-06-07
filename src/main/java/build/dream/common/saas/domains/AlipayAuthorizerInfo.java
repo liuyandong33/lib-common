@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class AlipayAuthorizerInfo extends BasicDomain {
     /**
@@ -122,9 +121,7 @@ public class AlipayAuthorizerInfo extends BasicDomain {
         this.appRefreshToken = appRefreshToken;
     }
 
-    public static class Builder {
-        private final AlipayAuthorizerInfo instance = new AlipayAuthorizerInfo();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AlipayAuthorizerInfo> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
             return this;
@@ -170,48 +167,9 @@ public class AlipayAuthorizerInfo extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AlipayAuthorizerInfo build() {
-            AlipayAuthorizerInfo alipayAuthorizerInfo = new AlipayAuthorizerInfo();
+            AlipayAuthorizerInfo alipayAuthorizerInfo = super.build();
             alipayAuthorizerInfo.setTenantId(instance.getTenantId());
             alipayAuthorizerInfo.setBranchId(instance.getBranchId());
             alipayAuthorizerInfo.setAppId(instance.getAppId());
@@ -221,14 +179,6 @@ public class AlipayAuthorizerInfo extends BasicDomain {
             alipayAuthorizerInfo.setExpiresIn(instance.getExpiresIn());
             alipayAuthorizerInfo.setReExpiresIn(instance.getReExpiresIn());
             alipayAuthorizerInfo.setAppRefreshToken(instance.getAppRefreshToken());
-            alipayAuthorizerInfo.setId(instance.getId());
-            alipayAuthorizerInfo.setCreatedTime(instance.getCreatedTime());
-            alipayAuthorizerInfo.setCreatedUserId(instance.getCreatedUserId());
-            alipayAuthorizerInfo.setUpdatedTime(instance.getUpdatedTime());
-            alipayAuthorizerInfo.setUpdatedUserId(instance.getUpdatedUserId());
-            alipayAuthorizerInfo.setUpdatedRemark(instance.getUpdatedRemark());
-            alipayAuthorizerInfo.setDeletedTime(instance.getDeletedTime());
-            alipayAuthorizerInfo.setDeleted(instance.isDeleted());
             return alipayAuthorizerInfo;
         }
     }

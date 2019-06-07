@@ -68,9 +68,7 @@ public class AgentContract extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
-        private final AgentContract instance = new AgentContract();
-
+    public static class Builder extends BasicDomain.Builder<Builder, AgentContract> {
         public Builder contractNumber(String contractNumber) {
             instance.setContractNumber(contractNumber);
             return this;
@@ -96,61 +94,14 @@ public class AgentContract extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public AgentContract build() {
-            AgentContract agentContract = new AgentContract();
+            AgentContract agentContract = super.build();
             agentContract.setContractNumber(instance.getContractNumber());
             agentContract.setAgentId(instance.getAgentId());
             agentContract.setStartTime(instance.getStartTime());
             agentContract.setEndTime(instance.getEndTime());
             agentContract.setStatus(instance.getStatus());
-            agentContract.setId(instance.getId());
-            agentContract.setCreatedTime(instance.getCreatedTime());
-            agentContract.setCreatedUserId(instance.getCreatedUserId());
-            agentContract.setUpdatedTime(instance.getUpdatedTime());
-            agentContract.setUpdatedUserId(instance.getUpdatedUserId());
-            agentContract.setUpdatedRemark(instance.getUpdatedRemark());
-            agentContract.setDeletedTime(instance.getDeletedTime());
-            agentContract.setDeleted(instance.isDeleted());
             return agentContract;
         }
     }

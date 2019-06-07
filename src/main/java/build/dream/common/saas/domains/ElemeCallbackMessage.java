@@ -3,7 +3,6 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 public class ElemeCallbackMessage extends BasicDomain {
     public static final String TABLE_NAME = "eleme_callback_message";
@@ -98,9 +97,7 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.handleResult = handleResult;
     }
 
-    public static class Builder {
-        private final ElemeCallbackMessage instance = new ElemeCallbackMessage();
-
+    public static class Builder extends BasicDomain.Builder<Builder, ElemeCallbackMessage> {
         public Builder requestId(String requestId) {
             instance.setRequestId(requestId);
             return this;
@@ -151,48 +148,9 @@ public class ElemeCallbackMessage extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public ElemeCallbackMessage build() {
-            ElemeCallbackMessage elemeCallbackMessage = new ElemeCallbackMessage();
+            ElemeCallbackMessage elemeCallbackMessage = super.build();
             elemeCallbackMessage.setRequestId(instance.getRequestId());
             elemeCallbackMessage.setType(instance.getType());
             elemeCallbackMessage.setAppId(instance.getAppId());
@@ -203,14 +161,6 @@ public class ElemeCallbackMessage extends BasicDomain {
             elemeCallbackMessage.setUserId(instance.getUserId());
             elemeCallbackMessage.setUuid(instance.getUuid());
             elemeCallbackMessage.setHandleResult(instance.getHandleResult());
-            elemeCallbackMessage.setId(instance.getId());
-            elemeCallbackMessage.setCreatedTime(instance.getCreatedTime());
-            elemeCallbackMessage.setCreatedUserId(instance.getCreatedUserId());
-            elemeCallbackMessage.setUpdatedTime(instance.getUpdatedTime());
-            elemeCallbackMessage.setUpdatedUserId(instance.getUpdatedUserId());
-            elemeCallbackMessage.setUpdatedRemark(instance.getUpdatedRemark());
-            elemeCallbackMessage.setDeletedTime(instance.getDeletedTime());
-            elemeCallbackMessage.setDeleted(instance.isDeleted());
             return elemeCallbackMessage;
         }
     }

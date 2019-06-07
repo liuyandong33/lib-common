@@ -2,9 +2,6 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-import java.util.Date;
-
 public class SystemParameter extends BasicDomain {
     public static final String TABLE_NAME = "system_parameter";
     /**
@@ -32,9 +29,7 @@ public class SystemParameter extends BasicDomain {
         this.parameterValue = parameterValue;
     }
 
-    public static class Builder {
-        private final SystemParameter instance = new SystemParameter();
-
+    public static class Builder extends BasicDomain.Builder<Builder, SystemParameter> {
         public Builder parameterName(String parameterName) {
             instance.setParameterName(parameterName);
             return this;
@@ -45,58 +40,11 @@ public class SystemParameter extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
+        @Override
         public SystemParameter build() {
-            SystemParameter systemParameter = new SystemParameter();
+            SystemParameter systemParameter = super.build();
             systemParameter.setParameterName(instance.getParameterName());
             systemParameter.setParameterValue(instance.getParameterValue());
-            systemParameter.setId(instance.getId());
-            systemParameter.setCreatedTime(instance.getCreatedTime());
-            systemParameter.setCreatedUserId(instance.getCreatedUserId());
-            systemParameter.setUpdatedTime(instance.getUpdatedTime());
-            systemParameter.setUpdatedUserId(instance.getUpdatedUserId());
-            systemParameter.setUpdatedRemark(instance.getUpdatedRemark());
-            systemParameter.setDeletedTime(instance.getDeletedTime());
-            systemParameter.setDeleted(instance.isDeleted());
             return systemParameter;
         }
     }
