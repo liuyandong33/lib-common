@@ -142,10 +142,11 @@ public class OfflinePayRecord extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
-        private final OfflinePayRecord instance = new OfflinePayRecord();
+        private OfflinePayRecord instance;
 
         @Override
         protected OfflinePayRecord getInstance() {
+            instance = new OfflinePayRecord();
             return instance;
         }
 
