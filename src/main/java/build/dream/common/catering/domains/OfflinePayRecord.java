@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
 import java.math.BigInteger;
-import java.util.Date;
 
 @ShardingColumn(fieldName = OfflinePayRecord.FieldName.TENANT_ID, columnName = OfflinePayRecord.ColumnName.TENANT_ID)
 public class OfflinePayRecord extends BasicDomain {
@@ -29,6 +28,10 @@ public class OfflinePayRecord extends BasicDomain {
      * 订单号
      */
     private String orderNumber;
+    /**
+     * 支付场景，1-微信付款码支付，2-微信公众号支付，3-微信网页支付，4-微信APP支付，5-微信H5支付，6-微信小程序支付，7-支付宝手机网站支付，8-支付宝电脑网站支付支付，9-支付宝APP支付，10-支付宝当面付
+     */
+    private Integer paidScene;
     /**
      * 通道类型，1-微信支付，2-支付宝支付，3-京东支付
      */
@@ -90,6 +93,14 @@ public class OfflinePayRecord extends BasicDomain {
         this.orderNumber = orderNumber;
     }
 
+    public Integer getPaidScene() {
+        return paidScene;
+    }
+
+    public void setPaidScene(Integer paidScene) {
+        this.paidScene = paidScene;
+    }
+
     public Integer getChannelType() {
         return channelType;
     }
@@ -130,8 +141,13 @@ public class OfflinePayRecord extends BasicDomain {
         this.status = status;
     }
 
-    public static class Builder {
+    public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
         private final OfflinePayRecord instance = new OfflinePayRecord();
+
+        @Override
+        protected OfflinePayRecord getInstance() {
+            return instance;
+        }
 
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -155,6 +171,11 @@ public class OfflinePayRecord extends BasicDomain {
 
         public Builder orderNumber(String orderNumber) {
             instance.setOrderNumber(orderNumber);
+            return this;
+        }
+
+        public Builder paidScene(Integer paidScene) {
+            instance.setPaidScene(paidScene);
             return this;
         }
 
@@ -183,48 +204,8 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(BigInteger createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(BigInteger updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
         public OfflinePayRecord build() {
-            OfflinePayRecord offlinePayRecord = new OfflinePayRecord();
+            OfflinePayRecord offlinePayRecord = super.build();
             offlinePayRecord.setTenantId(instance.getTenantId());
             offlinePayRecord.setTenantCode(instance.getTenantCode());
             offlinePayRecord.setBranchId(instance.getBranchId());
@@ -235,14 +216,6 @@ public class OfflinePayRecord extends BasicDomain {
             offlinePayRecord.setTotalAmount(instance.getTotalAmount());
             offlinePayRecord.setAuthCode(instance.getAuthCode());
             offlinePayRecord.setStatus(instance.getStatus());
-            offlinePayRecord.setId(instance.getId());
-            offlinePayRecord.setCreatedTime(instance.getCreatedTime());
-            offlinePayRecord.setCreatedUserId(instance.getCreatedUserId());
-            offlinePayRecord.setUpdatedTime(instance.getUpdatedTime());
-            offlinePayRecord.setUpdatedUserId(instance.getUpdatedUserId());
-            offlinePayRecord.setUpdatedRemark(instance.getUpdatedRemark());
-            offlinePayRecord.setDeletedTime(instance.getDeletedTime());
-            offlinePayRecord.setDeleted(instance.isDeleted());
             return offlinePayRecord;
         }
     }

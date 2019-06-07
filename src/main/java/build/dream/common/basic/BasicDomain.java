@@ -5,6 +5,7 @@ import build.dream.common.annotations.Id;
 import build.dream.common.annotations.InsertIgnore;
 import build.dream.common.annotations.UpdateIgnore;
 import build.dream.common.constants.Constants;
+import build.dream.common.utils.ObjectUtils;
 
 import java.math.BigInteger;
 import java.util.Date;
@@ -119,62 +120,67 @@ public class BasicDomain implements IdDomain<BigInteger> {
         public static final String DELETED = "deleted";
     }
 
-    public static class Builder<T extends Builder<T>> {
-        private BasicDomain instance;
+    protected abstract static class Builder<BT extends Builder<BT, IT>, IT extends BasicDomain> {
+        private IT instance;
 
-        protected void setAlipayBasicModel(BasicDomain basicDomain) {
-            this.instance = basicDomain;
+        protected abstract IT getInstance();
+
+        public Builder() {
+            super();
+            instance = getInstance();
         }
 
-        public T id(BigInteger id) {
+        public BT id(BigInteger id) {
             instance.setId(id);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T createdTime(Date createdTime) {
+        public BT createdTime(Date createdTime) {
             instance.setCreatedTime(createdTime);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T createdUserId(BigInteger createdUserId) {
+        public BT createdUserId(BigInteger createdUserId) {
             instance.setCreatedUserId(createdUserId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T updatedTime(Date updatedTime) {
+        public BT updatedTime(Date updatedTime) {
             instance.setUpdatedTime(updatedTime);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T updatedUserId(BigInteger updatedUserId) {
+        public BT updatedUserId(BigInteger updatedUserId) {
             instance.setUpdatedUserId(updatedUserId);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T updatedRemark(String updatedRemark) {
+        public BT updatedRemark(String updatedRemark) {
             instance.setUpdatedRemark(updatedRemark);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T deletedTime(Date deletedTime) {
+        public BT deletedTime(Date deletedTime) {
             instance.setDeletedTime(deletedTime);
-            return (T) this;
+            return (BT) this;
         }
 
-        public T deleted(boolean deleted) {
+        public BT deleted(boolean deleted) {
             instance.setDeleted(deleted);
-            return (T) this;
+            return (BT) this;
         }
 
-        protected void build(BasicDomain basicDomain) {
-            basicDomain.setId(instance.getId());
-            basicDomain.setCreatedTime(instance.getCreatedTime());
-            basicDomain.setCreatedUserId(instance.getCreatedUserId());
-            basicDomain.setUpdatedTime(instance.getUpdatedTime());
-            basicDomain.setUpdatedUserId(instance.getUpdatedUserId());
-            basicDomain.setUpdatedRemark(instance.getUpdatedRemark());
-            basicDomain.setDeletedTime(instance.getDeletedTime());
-            basicDomain.setDeleted(instance.isDeleted());
+        protected IT build() {
+            IT object = (IT) ObjectUtils.newInstance(instance.getClass());
+            object.setId(instance.getId());
+            object.setCreatedTime(instance.getCreatedTime());
+            object.setCreatedUserId(instance.getCreatedUserId());
+            object.setUpdatedTime(instance.getUpdatedTime());
+            object.setUpdatedUserId(instance.getUpdatedUserId());
+            object.setUpdatedRemark(instance.getUpdatedRemark());
+            object.setDeletedTime(instance.getDeletedTime());
+            object.setDeleted(instance.isDeleted());
+            return object;
         }
     }
 }
