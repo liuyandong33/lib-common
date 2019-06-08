@@ -885,4 +885,19 @@ public class Constants {
      * 微信支付用户支付中常量
      */
     public static final String USERPAYING = "USERPAYING";
+
+    /**
+     * 线下支付操作日志类型
+     *
+     * @see #OFFLINE_PAY_LOG_TYPE_PAID: 支付
+     * @see #OFFLINE_PAY_LOG_TYPE_QUERY: 查询
+     * @see #OFFLINE_PAY_LOG_TYPE_REFUND: 退款
+     * @see #OFFLINE_PAY_LOG_TYPE_PAID_CALLBACK: 支付回调
+     * @see #OFFLINE_PAY_LOG_TYPE_REFUND_CALLBACK: 退款回调
+     */
+    public static final int OFFLINE_PAY_LOG_TYPE_PAID = 1;
+    public static final int OFFLINE_PAY_LOG_TYPE_QUERY = 2;
+    public static final int OFFLINE_PAY_LOG_TYPE_REFUND = 3;
+    public static final int OFFLINE_PAY_LOG_TYPE_PAID_CALLBACK = 4;
+    public static final int OFFLINE_PAY_LOG_TYPE_REFUND_CALLBACK = 5;
 }

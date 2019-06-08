@@ -52,10 +52,6 @@ public class OfflinePayRecord extends BasicDomain {
      * 支付状态，1-支付成功，2-支付中，3-支付失败
      */
     private Integer status;
-    /**
-     * 支付通道返回结果
-     */
-    private String channelResult;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -145,14 +141,6 @@ public class OfflinePayRecord extends BasicDomain {
         this.status = status;
     }
 
-    public String getChannelResult() {
-        return channelResult;
-    }
-
-    public void setChannelResult(String channelResult) {
-        this.channelResult = channelResult;
-    }
-
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -209,11 +197,6 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
-        public Builder channelResult(String channelResult) {
-            instance.setChannelResult(channelResult);
-            return this;
-        }
-
         public OfflinePayRecord build() {
             OfflinePayRecord offlinePayRecord = super.build();
             offlinePayRecord.setTenantId(instance.getTenantId());
@@ -227,7 +210,6 @@ public class OfflinePayRecord extends BasicDomain {
             offlinePayRecord.setTotalAmount(instance.getTotalAmount());
             offlinePayRecord.setAuthCode(instance.getAuthCode());
             offlinePayRecord.setStatus(instance.getStatus());
-            offlinePayRecord.setChannelResult(instance.getChannelResult());
             return offlinePayRecord;
         }
     }
@@ -247,7 +229,6 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String TOTAL_AMOUNT = "total_amount";
         public static final String AUTH_CODE = "auth_code";
         public static final String STATUS = "status";
-        public static final String CHANNEL_RESULT = "channel_result";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -261,6 +242,5 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String TOTAL_AMOUNT = "totalAmount";
         public static final String AUTH_CODE = "authCode";
         public static final String STATUS = "status";
-        public static final String CHANNEL_RESULT = "channelResult";
     }
 }

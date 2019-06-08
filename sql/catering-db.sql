@@ -1337,7 +1337,6 @@ CREATE TABLE require_goods_order_detail
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '要货单明细';
 
-
 DROP TABLE IF EXISTS offline_pay_record;
 CREATE TABLE offline_pay_record
 (
@@ -1347,11 +1346,12 @@ CREATE TABLE offline_pay_record
     branch_id BIGINT NOT NULL COMMENT '门店id',
     user_id BIGINT NOT NULL COMMENT 'user id',
     order_number VARCHAR(50) NOT NULL COMMENT '订单号',
+    paid_scene TINYINT NOT NULL COMMENT '支付场景，1-微信付款码支付，2-微信公众号支付，3-微信网页支付，4-微信APP支付，5-微信H5支付，6-微信小程序支付，7-支付宝手机网站支付，8-支付宝电脑网站支付支付，9-支付宝APP支付，10-支付宝当面付',
     channel_type TINYINT NOT NULL COMMENT '通道类型，1-微信支付，2-支付宝支付，3-京东支付',
     out_trade_no VARCHAR(50) NOT NULL COMMENT '外部订单号',
     total_amount INT NOT NULL COMMENT '支付金额，单位为分',
     auth_code VARCHAR(50) NOT NULL COMMENT '支付码',
-    `status` TINYINT NOT NULL COMMENT '状态，1-未支付，2-已支付',
+    `status` TINYINT NOT NULL COMMENT '支付状态，1-支付成功，2-支付中，3-支付失败',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -1360,6 +1360,25 @@ CREATE TABLE offline_pay_record
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '线下支付记录';
+
+DROP TABLE IF EXISTS offline_pay_log;
+CREATE TABLE offline_pay_log
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店id',
+    offline_pay_record_id BIGINT NOT NULL COMMENT 'offline_pay_record.id',
+    type TINYINT NOT NULL COMMENT '日志类型，1-支付，2-查询，3-退款，4-支付回调，5-退款回调',
+    channel_result TEXT NOT NULL COMMENT '支付通道返回结果',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '线下支付日志';
 
 DROP TABLE IF EXISTS wei_xin_menu;
 CREATE TABLE wei_xin_menu
