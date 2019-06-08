@@ -74,9 +74,11 @@ public class AlipayBasicModel extends BasicModel {
     private String authToken;
 
     @NotNull
+    @JsonIgnore
     private String appPrivateKey;
 
     @NotNull
+    @JsonIgnore
     private String alipayPublicKey;
 
     public String getAppId() {
