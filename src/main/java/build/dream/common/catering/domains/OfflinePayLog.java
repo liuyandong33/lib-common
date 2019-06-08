@@ -90,6 +90,11 @@ public class OfflinePayLog extends BasicDomain {
             return this;
         }
 
+        public Builder type(Integer type) {
+            instance.setType(type);
+            return this;
+        }
+
         public OfflinePayLog build() {
             OfflinePayLog offlinePayLog = super.build();
             offlinePayLog.setTenantId(instance.getTenantId());
