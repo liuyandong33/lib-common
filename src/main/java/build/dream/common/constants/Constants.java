@@ -871,15 +871,28 @@ public class Constants {
     public static final String ALIPAY_API_VERSION_1_0 = "1.0";
 
     /**
-     * 线下支付记录状态
+     * 线下支付记录支付状态
      *
-     * @see #OFFLINE_PAY_STATUS_PAID_SUCCESS: 支付成功
-     * @see #OFFLINE_PAY_STATUS_PAYING: 支付中
-     * @see #OFFLINE_PAY_STATUS_PAID_FAILURE: 支付失败
+     * @see #OFFLINE_PAY_PAID_STATUS_SUCCESS: 支付成功
+     * @see #OFFLINE_PAY_PAID_STATUS_PAYING: 支付中
+     * @see #OFFLINE_PAY_PAID_STATUS_FAILURE: 支付失败
      */
-    public static final int OFFLINE_PAY_STATUS_PAID_SUCCESS = 1;
-    public static final int OFFLINE_PAY_STATUS_PAYING = 2;
-    public static final int OFFLINE_PAY_STATUS_PAID_FAILURE = 3;
+    public static final int OFFLINE_PAY_PAID_STATUS_SUCCESS = 1;
+    public static final int OFFLINE_PAY_PAID_STATUS_PAYING = 2;
+    public static final int OFFLINE_PAY_PAID_STATUS_FAILURE = 3;
+
+    /**
+     * 线下支付记录退款状态
+     *
+     * @see #OFFLINE_PAY_REFUND_STATUS_NO_REFUND: 未申请退款
+     * @see #OFFLINE_PAY_REFUND_STATUS_APPLIED: 申请退款
+     * @see #OFFLINE_PAY_REFUND_STATUS_SUCCESS: 退款成功
+     * @see #OFFLINE_PAY_REFUND_STATUS_FAILURE: 退款失败
+     */
+    public static final int OFFLINE_PAY_REFUND_STATUS_NO_REFUND = 1;
+    public static final int OFFLINE_PAY_REFUND_STATUS_APPLIED = 2;
+    public static final int OFFLINE_PAY_REFUND_STATUS_SUCCESS = 3;
+    public static final int OFFLINE_PAY_REFUND_STATUS_FAILURE = 4;
 
     /**
      * 微信支付用户支付中常量

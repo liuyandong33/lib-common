@@ -51,7 +51,12 @@ public class OfflinePayRecord extends BasicDomain {
     /**
      * 支付状态，1-支付成功，2-支付中，3-支付失败
      */
-    private Integer status;
+    private Integer paidStatus;
+
+    /**
+     * 1-未申请退款，2-申请退款，3-退款成功，4-退款失败
+     */
+    private Integer refundStatus;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -133,12 +138,20 @@ public class OfflinePayRecord extends BasicDomain {
         this.authCode = authCode;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getPaidStatus() {
+        return paidStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setPaidStatus(Integer paidStatus) {
+        this.paidStatus = paidStatus;
+    }
+
+    public Integer getRefundStatus() {
+        return refundStatus;
+    }
+
+    public void setRefundStatus(Integer refundStatus) {
+        this.refundStatus = refundStatus;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
@@ -192,8 +205,13 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
-        public Builder status(Integer status) {
-            instance.setStatus(status);
+        public Builder paidStatus(Integer paidStatus) {
+            instance.setPaidStatus(paidStatus);
+            return this;
+        }
+
+        public Builder refundStatus(Integer refundStatus) {
+            instance.setRefundStatus(refundStatus);
             return this;
         }
 
@@ -209,7 +227,8 @@ public class OfflinePayRecord extends BasicDomain {
             offlinePayRecord.setOutTradeNo(instance.getOutTradeNo());
             offlinePayRecord.setTotalAmount(instance.getTotalAmount());
             offlinePayRecord.setAuthCode(instance.getAuthCode());
-            offlinePayRecord.setStatus(instance.getStatus());
+            offlinePayRecord.setPaidStatus(instance.getPaidStatus());
+            offlinePayRecord.setRefundStatus(instance.getRefundStatus());
             return offlinePayRecord;
         }
     }
@@ -228,7 +247,8 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String OUT_TRADE_NO = "out_trade_no";
         public static final String TOTAL_AMOUNT = "total_amount";
         public static final String AUTH_CODE = "auth_code";
-        public static final String STATUS = "status";
+        public static final String PAID_STATUS = "paid_status";
+        public static final String REFUND_STATUS = "refund_status";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -241,6 +261,7 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String OUT_TRADE_NO = "outTradeNo";
         public static final String TOTAL_AMOUNT = "totalAmount";
         public static final String AUTH_CODE = "authCode";
-        public static final String STATUS = "status";
+        public static final String PAID_STATUS = "paidStatus";
+        public static final String REFUND_STATUS = "refundStatus";
     }
 }
