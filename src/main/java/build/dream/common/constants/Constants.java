@@ -869,4 +869,8 @@ public class Constants {
      * 支付宝api版本号1.0
      */
     public static final String ALIPAY_API_VERSION_1_0 = "1.0";
+
+    public static final int OFFLINE_PAY_STATUS_PAID_SUCCESS = 1;
+    public static final int OFFLINE_PAY_STATUS_PAYING = 2;
+    public static final int OFFLINE_PAY_STATUS_PAID_FAILURE = 3;
 }

@@ -49,7 +49,7 @@ public class OfflinePayRecord extends BasicDomain {
      */
     private String authCode;
     /**
-     * 支付状态，1-未支付，2-已支付
+     * 支付状态，1-支付成功，2-支付中，3-支付失败
      */
     private Integer status;
     /**
