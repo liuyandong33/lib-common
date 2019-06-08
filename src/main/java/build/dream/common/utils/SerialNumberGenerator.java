@@ -29,6 +29,6 @@ public class SerialNumberGenerator {
     }
 
     public static String generatorTodaySequenceName(BigInteger tenantId, BigInteger branchId, String sequenceName) {
-        return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + tenantId + "@" + branchId + "_" + sequenceName;
+        return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + tenantId + "_" + branchId + "@" + sequenceName;
     }
 }
