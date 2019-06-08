@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.*;
 import build.dream.common.constants.Constants;
+import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.orm.IdGenerator;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;

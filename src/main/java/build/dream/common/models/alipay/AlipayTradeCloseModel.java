@@ -1,10 +1,13 @@
 package build.dream.common.models.alipay;
 
+import build.dream.common.annotations.AlipayAsyncNotify;
+import build.dream.common.notify.AlipayAsyncNotifyType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
+@AlipayAsyncNotify(type = AlipayAsyncNotifyType.ALIPAY_TRADE_CLOSE, uuidFieldName = "tradeNo")
 public class AlipayTradeCloseModel extends AlipayBasicModel {
     @NotNull
     @Length(max = 64)

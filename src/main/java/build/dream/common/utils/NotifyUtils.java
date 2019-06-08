@@ -2,14 +2,44 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.notify.SaveAsyncNotifyModel;
+import build.dream.common.notify.AlipayAsyncNotifyType;
 import build.dream.common.saas.domains.AsyncNotify;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
 
 public class NotifyUtils {
-    public static String obtainAlipayNotifyUrl() {
-        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayCallback");
+    public static String obtainAlipayNotifyUrl(AlipayAsyncNotifyType alipayAsyncNotifyType) {
+        switch (alipayAsyncNotifyType) {
+            case ALIPAY_TRADE_CLOSE:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradeCloseCallback");
+            case ALIPAY_TRADE_PRE_CREATE:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradePreCreateCallback");
+            case ALIPAY_TRADE_CREATE:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradeCreateCallback");
+            case ALIPAY_TRADE_PAY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradePayCallback");
+            case KOUBEI_TRADE_ITEM_ORDER_BUY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "koubeiTradeItemOrderBuyCallback");
+            case KOUBEI_TRADE_TICKET_TICKET_CODE_CANCEL:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "koubeiTradeTicketTicketCodeCancelCallback");
+            case ALIPAY_TRADE_PAGE_PAY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradePagePayCallback");
+            case ALIPAY_TRADE_WAP_PAY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradeWapPayCallback");
+            case ALIPAY_TRADE_APP_PAY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayTradeAppPayCallback");
+            case ALIPAY_FUND_AUTH_ORDER_FREEZE:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayFundAuthOrderFreezeCallback");
+            case ALIPAY_OFFLINE_MARKET_SHOP_MODIFY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayOfflineMarketShopModifyCallback");
+            case ALIPAY_OFFLINE_MARKET_SHOP_CREATE:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayOfflineMarketShopCreateCallback");
+            case ALIPAY_OPEN_SERVICE_MARKET_ORDER_NOTIFY:
+                return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "alipayOpenServiceMarketOrderNotifyCallback");
+            default:
+                return null;
+        }
     }
 
     public static String obtainWeiXinPayNotifyUrl() {

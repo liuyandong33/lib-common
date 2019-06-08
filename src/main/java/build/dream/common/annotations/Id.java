@@ -1,5 +1,6 @@
 package build.dream.common.annotations;
 
+import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.orm.IdGenerator;
 
 import java.lang.annotation.*;

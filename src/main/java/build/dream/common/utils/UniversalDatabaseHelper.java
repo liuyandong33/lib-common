@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.annotations.GenerationStrategy;
+import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.annotations.Id;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;

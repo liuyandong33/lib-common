@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.annotations.AlipayAsyncNotify;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
@@ -11,11 +12,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.util.ReflectionUtils;
 
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -71,7 +75,21 @@ public class AlipayUtils {
         sortedRequestParameters.put("timestamp", timestamp);
         sortedRequestParameters.put("version", version);
         if (StringUtils.isNotBlank(topic)) {
-            sortedRequestParameters.put("notify_url", NotifyUtils.obtainAlipayNotifyUrl());
+            Class<? extends AlipayBasicModel> alipayBasicModelClass = alipayBasicModel.getClass();
+            AlipayAsyncNotify alipayAsyncNotify = AnnotationUtils.findAnnotation(alipayBasicModel.getClass(), AlipayAsyncNotify.class);
+            if (alipayAsyncNotify != null) {
+                sortedRequestParameters.put("notify_url", NotifyUtils.obtainAlipayNotifyUrl(alipayAsyncNotify.type()));
+                Field field = ReflectionUtils.findField(alipayBasicModelClass, alipayAsyncNotify.uuidFieldName());
+                String uuid = ReflectionUtils.getField(field, alipayBasicModel).toString();
+
+                SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
+                        .uuid(uuid)
+                        .topic(topic)
+                        .alipayPublicKey(alipayBasicModel.getAlipayPublicKey())
+                        .alipaySignType(signType)
+                        .build();
+                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
+            }
         }
 
         if (StringUtils.isNotBlank(authToken)) {

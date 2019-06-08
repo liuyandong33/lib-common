@@ -1,4 +1,4 @@
-package build.dream.common.annotations;
+package build.dream.common.orm;
 
 public enum GenerationStrategy {
     /**

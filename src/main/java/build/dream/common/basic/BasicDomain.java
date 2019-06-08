@@ -1,6 +1,6 @@
 package build.dream.common.basic;
 
-import build.dream.common.annotations.GenerationStrategy;
+import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.annotations.Id;
 import build.dream.common.annotations.InsertIgnore;
 import build.dream.common.annotations.UpdateIgnore;
