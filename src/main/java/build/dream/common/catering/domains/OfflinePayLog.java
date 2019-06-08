@@ -29,6 +29,11 @@ public class OfflinePayLog extends BasicDomain {
      */
     private Integer type;
 
+    /**
+     * 支付平台返回结果
+     */
+    private String channelResult;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -69,6 +74,14 @@ public class OfflinePayLog extends BasicDomain {
         this.type = type;
     }
 
+    public String getChannelResult() {
+        return channelResult;
+    }
+
+    public void setChannelResult(String channelResult) {
+        this.channelResult = channelResult;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayLog> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -95,6 +108,11 @@ public class OfflinePayLog extends BasicDomain {
             return this;
         }
 
+        public Builder channelResult(String channelResult) {
+            instance.setChannelResult(channelResult);
+            return this;
+        }
+
         public OfflinePayLog build() {
             OfflinePayLog offlinePayLog = super.build();
             offlinePayLog.setTenantId(instance.getTenantId());
@@ -102,6 +120,7 @@ public class OfflinePayLog extends BasicDomain {
             offlinePayLog.setBranchId(instance.getBranchId());
             offlinePayLog.setOfflinePayRecordId(instance.getOfflinePayRecordId());
             offlinePayLog.setType(instance.getType());
+            offlinePayLog.setChannelResult(instance.getChannelResult());
             return offlinePayLog;
         }
     }
@@ -115,7 +134,8 @@ public class OfflinePayLog extends BasicDomain {
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
         public static final String OFFLINE_PAY_RECORD_ID = "offline_pay_record_id";
-        public static final String type = "type";
+        public static final String TYPE = "type";
+        public static final String CHANNEL_RESULT = "channel_result";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -123,6 +143,7 @@ public class OfflinePayLog extends BasicDomain {
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
         public static final String OFFLINE_PAY_RECORD_ID = "offlinePayRecordId";
-        public static final String type = "type";
+        public static final String TYPE = "type";
+        public static final String CHANNEL_RESULT = "channelResult";
     }
 }
