@@ -16,7 +16,7 @@ public class MiyaUtils {
         HEADERS.put("Content-Type", "text/xml");
     }
 
-    private static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
+    public static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
         String miyaAccountJson = CommonRedisUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(miyaAccountJson)) {
             return null;
@@ -85,10 +85,12 @@ public class MiyaUtils {
      */
     public static Map<String, String> orderPay(OrderPayModel orderPayModel) {
         orderPayModel.validateAndThrow();
-        String tenantId = orderPayModel.getTenantId();
-        String branchId = orderPayModel.getBranchId();
+        String a2 = orderPayModel.getA2();
+        String a3 = orderPayModel.getA3();
         String a4 = orderPayModel.getA4();
         String a5 = orderPayModel.getA5();
+        String a7 = orderPayModel.getA7();
+        String miyaKey = orderPayModel.getMiyaKey();
         String a10 = orderPayModel.getA10();
         String a11 = orderPayModel.getA11();
         String b1 = orderPayModel.getB1();
@@ -101,17 +103,14 @@ public class MiyaUtils {
         String b8 = orderPayModel.getB8();
         String b15 = orderPayModel.getB15();
 
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
-
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "A");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
         ApplicationHandler.ifNotBlankPut(requestDomainRequestParameters, "A10", a10);
         ApplicationHandler.ifNotBlankPut(requestDomainRequestParameters, "A11", a11);
 
@@ -126,7 +125,7 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B8", b8);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B15", b15);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -137,28 +136,28 @@ public class MiyaUtils {
      */
     public static Map<String, String> orderQuery(OrderQueryModel orderQueryModel) {
         orderQueryModel.validateAndThrow();
-        String tenantId = orderQueryModel.getTenantId();
-        String branchId = orderQueryModel.getBranchId();
+
+        String a2 = orderQueryModel.getA2();
+        String a3 = orderQueryModel.getA3();
         String a4 = orderQueryModel.getA4();
         String a5 = orderQueryModel.getA5();
+        String a7 = orderQueryModel.getA7();
+        String miyaKey = orderQueryModel.getMiyaKey();
         String b1 = orderQueryModel.getB1();
-
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
 
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "B");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
 
         Map<String, String> dataDomainRequestParameters = new HashMap<String, String>();
         dataDomainRequestParameters.put("B1", b1);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -169,26 +168,26 @@ public class MiyaUtils {
      */
     public static Map<String, String> refund(RefundModel refundModel) {
         refundModel.validateAndThrow();
-        String tenantId = refundModel.getTenantId();
-        String branchId = refundModel.getBranchId();
+
+        String a2 = refundModel.getA2();
+        String a3 = refundModel.getA3();
         String a4 = refundModel.getA4();
         String a5 = refundModel.getA5();
+        String a7 = refundModel.getA7();
+        String miyaKey = refundModel.getMiyaKey();
         String b1 = refundModel.getB1();
         String b2 = refundModel.getB2();
         String b4 = refundModel.getB4();
         String b5 = refundModel.getB5();
 
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
-
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "C");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
 
         Map<String, String> dataDomainRequestParameters = new HashMap<String, String>();
         dataDomainRequestParameters.put("B1", b1);
@@ -196,7 +195,7 @@ public class MiyaUtils {
         dataDomainRequestParameters.put("B4", b4);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B5", b5);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -207,30 +206,30 @@ public class MiyaUtils {
      */
     public static Map<String, String> refundQuery(RefundQueryModel refundQueryModel) {
         refundQueryModel.validateAndThrow();
-        String tenantId = refundQueryModel.getTenantId();
-        String branchId = refundQueryModel.getBranchId();
+
+        String a2 = refundQueryModel.getA2();
+        String a3 = refundQueryModel.getA3();
         String a4 = refundQueryModel.getA4();
         String a5 = refundQueryModel.getA5();
+        String a7 = refundQueryModel.getA7();
+        String miyaKey = refundQueryModel.getMiyaKey();
         String b1 = refundQueryModel.getB1();
         String b2 = refundQueryModel.getB2();
 
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
-
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "D");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
 
         Map<String, String> dataDomainRequestParameters = new HashMap<String, String>();
         dataDomainRequestParameters.put("B1", b1);
         dataDomainRequestParameters.put("B2", b2);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -241,28 +240,28 @@ public class MiyaUtils {
      */
     public static Map<String, String> cancelOrder(CancelOrderModel cancelOrderModel) {
         cancelOrderModel.validateAndThrow();
-        String tenantId = cancelOrderModel.getTenantId();
-        String branchId = cancelOrderModel.getBranchId();
+
+        String a2 = cancelOrderModel.getA2();
+        String a3 = cancelOrderModel.getA3();
         String a4 = cancelOrderModel.getA4();
         String a5 = cancelOrderModel.getA5();
+        String a7 = cancelOrderModel.getA7();
+        String miyaKey = cancelOrderModel.getMiyaKey();
         String b1 = cancelOrderModel.getB1();
-
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
 
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "E");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
 
         Map<String, String> dataDomainRequestParameters = new HashMap<String, String>();
         dataDomainRequestParameters.put("B1", b1);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -273,10 +272,13 @@ public class MiyaUtils {
      */
     public static Map<String, String> prepareOrder(PrepareOrderModel prepareOrderModel) {
         prepareOrderModel.validateAndThrow();
-        String tenantId = prepareOrderModel.getTenantId();
-        String branchId = prepareOrderModel.getBranchId();
+
+        String a2 = prepareOrderModel.getA2();
+        String a3 = prepareOrderModel.getA3();
         String a4 = prepareOrderModel.getA4();
         String a5 = prepareOrderModel.getA5();
+        String a7 = prepareOrderModel.getA7();
+        String miyaKey = prepareOrderModel.getMiyaKey();
         String a10 = prepareOrderModel.getA10();
         String a12 = prepareOrderModel.getA12();
         String b1 = prepareOrderModel.getB1();
@@ -285,17 +287,14 @@ public class MiyaUtils {
         String b5 = prepareOrderModel.getB5();
         String b13 = prepareOrderModel.getB13();
 
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
-
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "F");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
         ApplicationHandler.ifNotBlankPut(requestDomainRequestParameters, "A10", a10);
         requestDomainRequestParameters.put("A12", a12);
 
@@ -306,7 +305,7 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B5", b5);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B13", b13);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 
     /**
@@ -317,10 +316,13 @@ public class MiyaUtils {
      */
     public static Map<String, String> createOrder(CreateOrderModel createOrderModel) {
         createOrderModel.validateAndThrow();
-        String tenantId = createOrderModel.getTenantId();
-        String branchId = createOrderModel.getBranchId();
+
+        String a2 = createOrderModel.getA2();
+        String a3 = createOrderModel.getA3();
         String a4 = createOrderModel.getA4();
         String a5 = createOrderModel.getA5();
+        String a7 = createOrderModel.getA7();
+        String miyaKey = createOrderModel.getMiyaKey();
         String a11 = createOrderModel.getA11();
         String a12 = createOrderModel.getA12();
         String b1 = createOrderModel.getB1();
@@ -335,17 +337,14 @@ public class MiyaUtils {
         String b17 = createOrderModel.getB17();
         String b18 = createOrderModel.getB18();
 
-        MiyaAccount miyaAccount = obtainMiyaAccount(tenantId, branchId);
-        ValidateUtils.notNull(miyaAccount, "商户未配置米雅账号！");
-
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
-        requestDomainRequestParameters.put("A2", miyaAccount.getMiyaMerchantCode());
-        requestDomainRequestParameters.put("A3", miyaAccount.getMiyaBranchCode());
+        requestDomainRequestParameters.put("A2", a2);
+        requestDomainRequestParameters.put("A3", a3);
         requestDomainRequestParameters.put("A4", a4);
         requestDomainRequestParameters.put("A5", a5);
         requestDomainRequestParameters.put("A6", "G");
-        requestDomainRequestParameters.put("A7", "1.5");
+        requestDomainRequestParameters.put("A7", a7);
         requestDomainRequestParameters.put("A11", a11);
         requestDomainRequestParameters.put("A12", a12);
 
@@ -362,6 +361,6 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B17", b17);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B18", b18);
 
-        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaAccount.getMiyaKey());
+        return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 }

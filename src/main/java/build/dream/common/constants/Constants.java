@@ -930,4 +930,9 @@ public class Constants {
     public static final int TENANT_USED_CHANNEL_TYPE_MIYA = 2;
     public static final int TENANT_USED_CHANNEL_TYPE_NEW_LAND = 3;
     public static final int TENANT_USED_CHANNEL_TYPE_UMPAY = 4;
+
+    /**
+     * 米雅接口版本
+     */
+    public static final String MIYA_API_VERSION = "1.5";
 }

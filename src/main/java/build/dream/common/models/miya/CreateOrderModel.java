@@ -1,26 +1,11 @@
 package build.dream.common.models.miya;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class CreateOrderModel extends BasicModel {
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
-    @NotNull
-    @Length(max = 10)
-    private String a4;
-
-    @NotNull
-    @Length(max = 20)
-    private String a5;
-
+public class CreateOrderModel extends MiyaBasicModel {
     @NotNull
     @InList(value = {"JSAPI", "APP", "H5", "WXA"})
     private String a11;
@@ -65,38 +50,6 @@ public class CreateOrderModel extends BasicModel {
 
     @Length(max = 20)
     private String b18;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getA4() {
-        return a4;
-    }
-
-    public void setA4(String a4) {
-        this.a4 = a4;
-    }
-
-    public String getA5() {
-        return a5;
-    }
-
-    public void setA5(String a5) {
-        this.a5 = a5;
-    }
 
     public String getA11() {
         return a11;
@@ -202,29 +155,7 @@ public class CreateOrderModel extends BasicModel {
         this.b18 = b18;
     }
 
-    public static class Builder {
-        private final CreateOrderModel instance = new CreateOrderModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder a4(String a4) {
-            instance.setA4(a4);
-            return this;
-        }
-
-        public Builder a5(String a5) {
-            instance.setA5(a5);
-            return this;
-        }
-
+    public static class Builder extends MiyaBasicModel.Builder<Builder, CreateOrderModel> {
         public Builder a11(String a11) {
             instance.setA11(a11);
             return this;
@@ -291,11 +222,7 @@ public class CreateOrderModel extends BasicModel {
         }
 
         public CreateOrderModel build() {
-            CreateOrderModel createOrderModel = new CreateOrderModel();
-            createOrderModel.setTenantId(instance.getTenantId());
-            createOrderModel.setBranchId(instance.getBranchId());
-            createOrderModel.setA4(instance.getA4());
-            createOrderModel.setA5(instance.getA5());
+            CreateOrderModel createOrderModel = super.build();
             createOrderModel.setA11(instance.getA11());
             createOrderModel.setA12(instance.getA12());
             createOrderModel.setB1(instance.getB1());

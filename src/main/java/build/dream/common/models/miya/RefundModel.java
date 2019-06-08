@@ -1,25 +1,10 @@
 package build.dream.common.models.miya;
 
-import build.dream.common.models.BasicModel;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class RefundModel extends BasicModel {
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
-    @NotNull
-    @Length(max = 10)
-    private String a4;
-
-    @NotNull
-    @Length(max = 20)
-    private String a5;
-
+public class RefundModel extends MiyaBasicModel {
     @NotNull
     @Length(max = 32)
     private String b1;
@@ -34,38 +19,6 @@ public class RefundModel extends BasicModel {
 
     @Length(max = 20480)
     private String b5;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getA4() {
-        return a4;
-    }
-
-    public void setA4(String a4) {
-        this.a4 = a4;
-    }
-
-    public String getA5() {
-        return a5;
-    }
-
-    public void setA5(String a5) {
-        this.a5 = a5;
-    }
 
     public String getB1() {
         return b1;
@@ -99,29 +52,7 @@ public class RefundModel extends BasicModel {
         this.b5 = b5;
     }
 
-    public static class Builder {
-        private final RefundModel instance = new RefundModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder a4(String a4) {
-            instance.setA4(a4);
-            return this;
-        }
-
-        public Builder a5(String a5) {
-            instance.setA5(a5);
-            return this;
-        }
-
+    public static class Builder extends MiyaBasicModel.Builder<Builder, RefundModel> {
         public Builder b1(String b1) {
             instance.setB1(b1);
             return this;
@@ -142,12 +73,9 @@ public class RefundModel extends BasicModel {
             return this;
         }
 
+        @Override
         public RefundModel build() {
-            RefundModel refundModel = new RefundModel();
-            refundModel.setTenantId(instance.getTenantId());
-            refundModel.setBranchId(instance.getBranchId());
-            refundModel.setA4(instance.getA4());
-            refundModel.setA5(instance.getA5());
+            RefundModel refundModel = super.build();
             refundModel.setB1(instance.getB1());
             refundModel.setB2(instance.getB2());
             refundModel.setB4(instance.getB4());

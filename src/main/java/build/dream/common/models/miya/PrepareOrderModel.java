@@ -1,26 +1,11 @@
 package build.dream.common.models.miya;
 
 import build.dream.common.constraints.InList;
-import build.dream.common.models.BasicModel;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class PrepareOrderModel extends BasicModel {
-    @NotNull
-    private String tenantId;
-
-    @NotNull
-    private String branchId;
-
-    @NotNull
-    @Length(max = 10)
-    private String a4;
-
-    @NotNull
-    @Length(max = 20)
-    private String a5;
-
+public class PrepareOrderModel extends MiyaBasicModel {
     @Length(max = 30)
     private String a10;
 
@@ -44,38 +29,6 @@ public class PrepareOrderModel extends BasicModel {
 
     @Length(max = 100)
     private String b13;
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
-    }
-
-    public String getA4() {
-        return a4;
-    }
-
-    public void setA4(String a4) {
-        this.a4 = a4;
-    }
-
-    public String getA5() {
-        return a5;
-    }
-
-    public void setA5(String a5) {
-        this.a5 = a5;
-    }
 
     public String getA10() {
         return a10;
@@ -133,29 +86,7 @@ public class PrepareOrderModel extends BasicModel {
         this.b13 = b13;
     }
 
-    public static class Builder {
-        private final PrepareOrderModel instance = new PrepareOrderModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder a4(String a4) {
-            instance.setA4(a4);
-            return this;
-        }
-
-        public Builder a5(String a5) {
-            instance.setA5(a5);
-            return this;
-        }
-
+    public static class Builder extends MiyaBasicModel.Builder<Builder, PrepareOrderModel> {
         public Builder b1(String b1) {
             instance.setB1(b1);
             return this;
@@ -181,12 +112,11 @@ public class PrepareOrderModel extends BasicModel {
             return this;
         }
 
+        @Override
         public PrepareOrderModel build() {
-            PrepareOrderModel prepareOrderModel = new PrepareOrderModel();
-            prepareOrderModel.setTenantId(instance.getTenantId());
-            prepareOrderModel.setBranchId(instance.getBranchId());
-            prepareOrderModel.setA4(instance.getA4());
-            prepareOrderModel.setA5(instance.getA5());
+            PrepareOrderModel prepareOrderModel = super.build();
+            prepareOrderModel.setA10(instance.getA10());
+            prepareOrderModel.setA12(instance.getA12());
             prepareOrderModel.setB1(instance.getB1());
             prepareOrderModel.setB3(instance.getB3());
             prepareOrderModel.setB4(instance.getB4());
