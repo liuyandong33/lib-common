@@ -245,7 +245,7 @@ public class WeiXinPayUtils {
 
         String resultCode = microPayResult.get("result_code");
         String errCode = microPayResult.get("err_code");
-        ValidateUtils.isTrue((Constants.SUCCESS.equals(resultCode) || (Constants.FAIL.equals(resultCode) && "USERPAYING".equals(errCode))), microPayResult.get("err_code_des"));
+        ValidateUtils.isTrue((Constants.SUCCESS.equals(resultCode) || (Constants.FAIL.equals(resultCode) && Constants.USERPAYING.equals(errCode))), microPayResult.get("err_code_des"));
 
         return microPayResult;
     }

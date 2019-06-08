@@ -870,7 +870,19 @@ public class Constants {
      */
     public static final String ALIPAY_API_VERSION_1_0 = "1.0";
 
+    /**
+     * 线下支付记录状态
+     *
+     * @see #OFFLINE_PAY_STATUS_PAID_SUCCESS: 支付成功
+     * @see #OFFLINE_PAY_STATUS_PAYING: 支付中
+     * @see #OFFLINE_PAY_STATUS_PAID_FAILURE: 支付失败
+     */
     public static final int OFFLINE_PAY_STATUS_PAID_SUCCESS = 1;
     public static final int OFFLINE_PAY_STATUS_PAYING = 2;
     public static final int OFFLINE_PAY_STATUS_PAID_FAILURE = 3;
+
+    /**
+     * 微信支付用户支付中常量
+     */
+    public static final String USERPAYING = "USERPAYING";
 }
