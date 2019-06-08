@@ -3,7 +3,6 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aggregatepay.ScanCodePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
-import build.dream.common.models.jingdong.FkmPayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
 import build.dream.common.saas.domains.WeiXinPayAccount;
 import org.dom4j.DocumentException;
@@ -42,8 +41,6 @@ public class AggregatePayUtils {
             result = WeiXinPayUtils.microPay(microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
             AlipayTradePayModel alipayTradePayModel = AlipayTradePayModel.builder()
-//                    .tenantId(tenantId)
-//                    .branchId(branchId)
                     .topic(topic)
                     .outTradeNo(outTradeNo)
                     .authCode(authCode)
@@ -52,9 +49,6 @@ public class AggregatePayUtils {
                     .totalAmount(BigDecimal.valueOf(totalAmount).divide(Constants.BIG_DECIMAL_ONE_HUNDRED))
                     .build();
             result = AlipayUtils.alipayTradePay(alipayTradePayModel);
-        } else if (channelType == Constants.CHANNEL_TYPE_JING_DONG) {
-            FkmPayModel fkmPayModel = new FkmPayModel();
-            result = JingDongPayUtils.fkmPay(fkmPayModel);
         }
         return result;
     }

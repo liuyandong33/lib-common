@@ -34,6 +34,10 @@ public class Tenant extends BasicDomain {
      * 代理商ID
      */
     private BigInteger agentId;
+    /**
+     * 商户使用的支付通道类型，0-原生支付，3-米雅，4-新大陆，5-联动
+     */
+    private Integer usedChannelType;
 
     public String getCode() {
         return code;
@@ -91,6 +95,14 @@ public class Tenant extends BasicDomain {
         this.agentId = agentId;
     }
 
+    public Integer getUsedChannelType() {
+        return usedChannelType;
+    }
+
+    public void setUsedChannelType(Integer usedChannelType) {
+        this.usedChannelType = usedChannelType;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Tenant> {
         public Builder code(String code) {
             instance.setCode(code);
@@ -127,6 +139,11 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
+        public Builder usedChannelType(Integer usedChannelType) {
+            instance.setUsedChannelType(usedChannelType);
+            return this;
+        }
+
         @Override
         public Tenant build() {
             Tenant tenant = super.build();
@@ -137,6 +154,7 @@ public class Tenant extends BasicDomain {
             tenant.setTenantType(instance.getTenantType());
             tenant.setVipSharedType(instance.getVipSharedType());
             tenant.setAgentId(instance.getAgentId());
+            tenant.setUsedChannelType(instance.getUsedChannelType());
             return tenant;
         }
     }
@@ -153,6 +171,7 @@ public class Tenant extends BasicDomain {
         public static final String TENANT_TYPE = "tenant_type";
         public static final String VIP_SHARED_TYPE = "vip_shared_type";
         public static final String AGENT_ID = "agent_id";
+        public static final String USED_CHANNEL_TYPE = "used_channel_type";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -163,5 +182,6 @@ public class Tenant extends BasicDomain {
         public static final String TENANT_TYPE = "tenantType";
         public static final String VIP_SHARED_TYPE = "vipSharedType";
         public static final String AGENT_ID = "agentId";
+        public static final String USED_CHANNEL_TYPE = "usedChannelType";
     }
 }

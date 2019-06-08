@@ -355,14 +355,12 @@ public class Constants {
      * @see #CHANNEL_TYPE_MIYA: 米雅支付
      * @see #CHANNEL_TYPE_NEW_LAND: 新大陆
      * @see #CHANNEL_TYPE_UMPAY: 联动
-     * @see #CHANNEL_TYPE_JING_DONG: 京东
      */
     public static final int CHANNEL_TYPE_WEI_XIN = 1;
     public static final int CHANNEL_TYPE_ALIPAY = 2;
     public static final int CHANNEL_TYPE_MIYA = 3;
     public static final int CHANNEL_TYPE_NEW_LAND = 4;
     public static final int CHANNEL_TYPE_UMPAY = 5;
-    public static final int CHANNEL_TYPE_JING_DONG = 6;
 
     public static final String SCENE_BAR_CODE = "bar_code";
     public static final String SCENE_WAVE_CODE = "wave_code";
@@ -919,4 +917,17 @@ public class Constants {
     public static final int OFFLINE_PAY_LOG_TYPE_REFUND = 3;
     public static final int OFFLINE_PAY_LOG_TYPE_PAID_CALLBACK = 4;
     public static final int OFFLINE_PAY_LOG_TYPE_REFUND_CALLBACK = 5;
+
+    /**
+     * 商户使用的支付通道
+     *
+     * @see #TENANT_USED_CHANNEL_TYPE_NATIVE: 原生通道
+     * @see #TENANT_USED_CHANNEL_TYPE_MIYA: 米雅支付
+     * @see #TENANT_USED_CHANNEL_TYPE_NEW_LAND: 新大陆
+     * @see #TENANT_USED_CHANNEL_TYPE_UMPAY: 联动支付
+     */
+    public static final int TENANT_USED_CHANNEL_TYPE_NATIVE = 1;
+    public static final int TENANT_USED_CHANNEL_TYPE_MIYA = 2;
+    public static final int TENANT_USED_CHANNEL_TYPE_NEW_LAND = 3;
+    public static final int TENANT_USED_CHANNEL_TYPE_UMPAY = 4;
 }
