@@ -81,14 +81,7 @@ public class AlipayUtils {
                 sortedRequestParameters.put("notify_url", NotifyUtils.obtainAlipayNotifyUrl(alipayAsyncNotify.type()));
                 Field field = ReflectionUtils.findField(alipayBasicModelClass, alipayAsyncNotify.uuidFieldName());
                 String uuid = ReflectionUtils.getField(field, alipayBasicModel).toString();
-
-                SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
-                        .uuid(uuid)
-                        .topic(topic)
-                        .alipayPublicKey(alipayBasicModel.getAlipayPublicKey())
-                        .alipaySignType(signType)
-                        .build();
-                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
+                saveAsyncNotify(uuid, topic, alipayBasicModel.getAlipayPublicKey(), signType);
             }
         }
 
@@ -373,13 +366,7 @@ public class AlipayUtils {
 
     /***************************************************************支付API结束***************************************************************/
 
-    private static AlipayAuthorizerInfo saveAsyncNotify(String tenantId, String branchId, String uuid, String topic) {
-        AlipayAuthorizerInfo alipayAuthorizerInfo = obtainAlipayAuthorizerInfo(tenantId, branchId);
-        ValidateUtils.notNull(alipayAuthorizerInfo, "未检索到支付宝授权信息");
-        String appId = alipayAuthorizerInfo.getAppId();
-        String alipayPublicKey = ConfigurationUtils.getConfiguration(appId + "." + Constants.ALIPAY_PUBLIC_KEY);
-        String signType = ConfigurationUtils.getConfiguration(appId + "." + Constants.ALIPAY_SIGN_TYPE);
-
+    private static void saveAsyncNotify(String uuid, String topic, String alipayPublicKey, String signType) {
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
         if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
             SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
@@ -409,8 +396,6 @@ public class AlipayUtils {
             ApiRest saveAsyncNotifyResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveAsyncNotify", saveAsyncNotifyRequestParameters);
             ValidateUtils.isTrue(saveAsyncNotifyResult.isSuccessful(), saveAsyncNotifyResult.getError());
         }
-
-        return alipayAuthorizerInfo;
     }
 
     public static String generateAppToAppAuthorizeUrl(String appId, String redirectUri) {
