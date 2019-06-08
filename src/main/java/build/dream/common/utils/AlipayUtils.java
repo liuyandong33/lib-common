@@ -80,6 +80,7 @@ public class AlipayUtils {
             if (alipayAsyncNotify != null) {
                 sortedRequestParameters.put("notify_url", NotifyUtils.obtainAlipayNotifyUrl(alipayAsyncNotify.type()));
                 Field field = ReflectionUtils.findField(alipayBasicModelClass, alipayAsyncNotify.uuidFieldName());
+                ReflectionUtils.makeAccessible(field);
                 String uuid = ReflectionUtils.getField(field, alipayBasicModel).toString();
                 saveAsyncNotify(uuid, topic, alipayBasicModel.getAlipayPublicKey(), signType);
             }
