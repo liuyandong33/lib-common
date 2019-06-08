@@ -33,7 +33,7 @@ public class OfflinePayRecord extends BasicDomain {
      */
     private Integer paidScene;
     /**
-     * 通道类型，1-微信支付，2-支付宝支付，3-京东支付
+     * 通道类型，1-微信支付，2-支付宝支付，3-米雅，4-新大陆，5-联动，6-京东
      */
     private Integer channelType;
     /**
