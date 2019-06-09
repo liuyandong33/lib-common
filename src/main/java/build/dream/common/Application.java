@@ -15,6 +15,7 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -60,7 +61,8 @@ public class Application {
         String tableName = "assemble_activity";
         reverseJavaCode(url, driverClassName, user, password, tableName);
 
-        UnifiedOrderModel.builder().build();
+//        UnifiedOrderModel.builder().build();
+        System.out.println(Charset.forName("GB18030"));
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {

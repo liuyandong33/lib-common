@@ -24,9 +24,13 @@ public class Constants {
     public static final Charset CHARSET_UTF_8 = Charset.forName("UTF-8");
     public static final Charset CHARSET_GBK = Charset.forName("GBK");
     public static final Charset CHARSET_ISO_8859_1 = Charset.forName("ISO-8859-1");
+    public static final Charset CHARSET_GB2312 = Charset.forName("GB2312");
+    public static final Charset CHARSET_GB18030 = Charset.forName("GB18030");
     public static final String CHARSET_NAME_UTF_8 = "UTF-8";
     public static final String CHARSET_NAME_GBK = "GBK";
     public static final String CHARSET_NAME_ISO_8859_1 = "ISO-8859-1";
+    public static final String CHARSET_NAME_GB2312 = "GB2312";
+    public static final String CHARSET_NAME_GB18030 = "GB18030";
 
     public static final String FALSE = "false";
     public static final String TRUE = "true";
@@ -865,6 +869,7 @@ public class Constants {
      * 人民币Chinese Yuan
      */
     public static final String CNY = "CNY";
+    public static final String RMB = "RMB";
     /**
      * 支付宝api版本号1.0
      */
@@ -979,4 +984,18 @@ public class Constants {
     public static final String NEW_LAND_PAY_CHANNEL_ALIPAY = "ALIPAY";
     public static final String NEW_LAND_PAY_CHANNEL_WXPAY = "WXPAY";
     public static final String NEW_LAND_PAY_CHANNEL_YLPAY = "YLPAY";
+
+    public static final String HTML = "HTML";
+    public static final String UM_PAY_VERSION = "4.0";
+
+    /**
+     * 联动支付扫码类型
+     *
+     * @see #UM_PAY_SCAN_CODE_TYPE_WECHAT: 微信
+     * @see #UM_PAY_SCAN_CODE_TYPE_ALIPAY: 支付宝
+     */
+    public static final String UM_PAY_SCAN_CODE_TYPE_WECHAT = "WECHAT";
+    public static final String UM_PAY_SCAN_CODE_TYPE_ALIPAY = "ALIPAY";
+
+    public static final String UM_PAY_SERVICE_URL = "um.pay.service.url";
 }
