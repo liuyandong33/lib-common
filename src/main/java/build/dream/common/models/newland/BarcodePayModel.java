@@ -97,69 +97,7 @@ public class BarcodePayModel extends NewLandBasicModel {
         this.attach = attach;
     }
 
-    public static class Builder {
-        private final BarcodePayModel instance = new BarcodePayModel();
-
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
-        public Builder opSys(String opSys) {
-            instance.setOpSys(opSys);
-            return this;
-        }
-
-        public Builder characterSet(String characterSet) {
-            instance.setCharacterSet(characterSet);
-            return this;
-        }
-
-        public Builder latitude(String latitude) {
-            instance.setLatitude(latitude);
-            return this;
-        }
-
-        public Builder longitude(String longitude) {
-            instance.setLongitude(longitude);
-            return this;
-        }
-
-        public Builder oprId(String oprId) {
-            instance.setOprId(oprId);
-            return this;
-        }
-
-        public Builder trmTyp(String trmTyp) {
-            instance.setTrmTyp(trmTyp);
-            return this;
-        }
-
-        public Builder tradeNo(String tradeNo) {
-            instance.setTradeNo(tradeNo);
-            return this;
-        }
-
-        public Builder txnTime(String txnTime) {
-            instance.setTxnTime(txnTime);
-            return this;
-        }
-
-        public Builder addField(String addField) {
-            instance.setAddField(addField);
-            return this;
-        }
-
-        public Builder version(String version) {
-            instance.setVersion(version);
-            return this;
-        }
-
+    public static class Builder extends NewLandBasicModel.Builder<Builder, BarcodePayModel> {
         public Builder amount(Integer amount) {
             instance.setAmount(amount);
             return this;
@@ -200,20 +138,9 @@ public class BarcodePayModel extends NewLandBasicModel {
             return this;
         }
 
+        @Override
         public BarcodePayModel build() {
-            BarcodePayModel barcodePayModel = new BarcodePayModel();
-            barcodePayModel.setTenantId(instance.getTenantId());
-            barcodePayModel.setBranchId(instance.getBranchId());
-            barcodePayModel.setOpSys(instance.getOpSys());
-            barcodePayModel.setCharacterSet(instance.getCharacterSet());
-            barcodePayModel.setLatitude(instance.getLatitude());
-            barcodePayModel.setLongitude(instance.getLongitude());
-            barcodePayModel.setOprId(instance.getOprId());
-            barcodePayModel.setTrmTyp(instance.getTrmTyp());
-            barcodePayModel.setTradeNo(instance.getTradeNo());
-            barcodePayModel.setTxnTime(instance.getTxnTime());
-            barcodePayModel.setAddField(instance.getAddField());
-            barcodePayModel.setVersion(instance.getVersion());
+            BarcodePayModel barcodePayModel = super.build();
             barcodePayModel.setAmount(instance.getAmount());
             barcodePayModel.setTotalAmount(instance.getTotalAmount());
             barcodePayModel.setAuthCode(instance.getAuthCode());

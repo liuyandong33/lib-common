@@ -1,6 +1,7 @@
 package build.dream.common.models.newland;
 
 import build.dream.common.constants.Constants;
+import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import org.hibernate.validator.constraints.Length;
 
@@ -8,14 +9,24 @@ import javax.validation.constraints.NotNull;
 
 public class PubSigQryModel extends BasicModel {
     @NotNull
-    private String tenantId;
+    @Length(max = 15)
+    private String orgNo;
 
     @NotNull
-    private String branchId;
+    @Length(max = 15)
+    private String mercId;
+
+    @NotNull
+    @Length(max = 8)
+    private String trmNo;
 
     @NotNull
     @Length(min = 14, max = 14)
     private String txnTime;
+
+    @NotNull
+    @InList(value = {Constants.MD5})
+    private String signType = Constants.MD5;
 
     @Length(max = 256)
     private String attach;
@@ -23,20 +34,31 @@ public class PubSigQryModel extends BasicModel {
     @NotNull
     private String version = Constants.NEW_LAND_PAY_VERSION_1_0_0;
 
-    public String getTenantId() {
-        return tenantId;
+    @NotNull
+    private String secretKey;
+
+    public String getOrgNo() {
+        return orgNo;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setOrgNo(String orgNo) {
+        this.orgNo = orgNo;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public String getMercId() {
+        return mercId;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setMercId(String mercId) {
+        this.mercId = mercId;
+    }
+
+    public String getTrmNo() {
+        return trmNo;
+    }
+
+    public void setTrmNo(String trmNo) {
+        this.trmNo = trmNo;
     }
 
     public String getTxnTime() {
@@ -45,6 +67,14 @@ public class PubSigQryModel extends BasicModel {
 
     public void setTxnTime(String txnTime) {
         this.txnTime = txnTime;
+    }
+
+    public String getSignType() {
+        return signType;
+    }
+
+    public void setSignType(String signType) {
+        this.signType = signType;
     }
 
     public String getAttach() {
@@ -63,21 +93,39 @@ public class PubSigQryModel extends BasicModel {
         this.version = version;
     }
 
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
     public static class Builder {
         private final PubSigQryModel instance = new PubSigQryModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
+        public Builder orgNo(String orgNo) {
+            instance.setOrgNo(orgNo);
             return this;
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
+        public Builder mercId(String mercId) {
+            instance.setMercId(mercId);
+            return this;
+        }
+
+        public Builder trmNo(String trmNo) {
+            instance.setTrmNo(trmNo);
             return this;
         }
 
         public Builder txnTime(String txnTime) {
             instance.setTxnTime(txnTime);
+            return this;
+        }
+
+        public Builder signType(String signType) {
+            instance.setSignType(signType);
             return this;
         }
 
@@ -91,13 +139,21 @@ public class PubSigQryModel extends BasicModel {
             return this;
         }
 
+        public Builder secretKey(String secretKey) {
+            instance.setSecretKey(secretKey);
+            return this;
+        }
+
         public PubSigQryModel build() {
             PubSigQryModel pubSigQryModel = new PubSigQryModel();
-            pubSigQryModel.setTenantId(instance.getTenantId());
-            pubSigQryModel.setBranchId(instance.getBranchId());
+            pubSigQryModel.setOrgNo(instance.getOrgNo());
+            pubSigQryModel.setMercId(instance.getMercId());
+            pubSigQryModel.setTrmNo(instance.getTrmNo());
             pubSigQryModel.setTxnTime(instance.getTxnTime());
+            pubSigQryModel.setSignType(instance.getSignType());
             pubSigQryModel.setAttach(instance.getAttach());
             pubSigQryModel.setVersion(instance.getVersion());
+            pubSigQryModel.setSecretKey(instance.getSecretKey());
             return pubSigQryModel;
         }
     }

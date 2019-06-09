@@ -10,10 +10,16 @@ import javax.validation.constraints.NotNull;
 
 public class PubSigPayModel extends BasicModel {
     @NotNull
-    private String tenantId;
+    @Length(max = 15)
+    private String orgNo;
 
     @NotNull
-    private String branchId;
+    @Length(max = 15)
+    private String mercId;
+
+    @NotNull
+    @Length(max = 8)
+    private String trmNo;
 
     @NotNull
     @Length(min = 14, max = 14)
@@ -28,8 +34,10 @@ public class PubSigPayModel extends BasicModel {
     @Length(max = 50)
     private String openid;
 
+    @NotNull
     private Integer amount;
 
+    @NotNull
     private Integer totalAmount;
 
     @Length(max = 256)
@@ -44,20 +52,31 @@ public class PubSigPayModel extends BasicModel {
     @Length(max = 256)
     private String attach;
 
-    public String getTenantId() {
-        return tenantId;
+    @NotNull
+    private String secretKey;
+
+    public String getOrgNo() {
+        return orgNo;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setOrgNo(String orgNo) {
+        this.orgNo = orgNo;
     }
 
-    public String getBranchId() {
-        return branchId;
+    public String getMercId() {
+        return mercId;
     }
 
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setMercId(String mercId) {
+        this.mercId = mercId;
+    }
+
+    public String getTrmNo() {
+        return trmNo;
+    }
+
+    public void setTrmNo(String trmNo) {
+        this.trmNo = trmNo;
     }
 
     public String getTxnTime() {
@@ -140,6 +159,14 @@ public class PubSigPayModel extends BasicModel {
         this.attach = attach;
     }
 
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
     @Override
     public boolean validate() {
         return super.validate() && (StringUtils.isNotBlank(code) || StringUtils.isNotBlank(openid));
@@ -154,13 +181,18 @@ public class PubSigPayModel extends BasicModel {
     public static class Builder {
         private final PubSigPayModel instance = new PubSigPayModel();
 
-        public Builder tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
+        public Builder orgNo(String orgNo) {
+            instance.setOrgNo(orgNo);
             return this;
         }
 
-        public Builder branchId(String branchId) {
-            instance.setBranchId(branchId);
+        public Builder mercId(String mercId) {
+            instance.setMercId(mercId);
+            return this;
+        }
+
+        public Builder trmNo(String trmNo) {
+            instance.setTrmNo(trmNo);
             return this;
         }
 
@@ -214,10 +246,16 @@ public class PubSigPayModel extends BasicModel {
             return this;
         }
 
+        public Builder secretKey(String secretKey) {
+            instance.setSecretKey(secretKey);
+            return this;
+        }
+
         public PubSigPayModel build() {
             PubSigPayModel pubSigPayModel = new PubSigPayModel();
-            pubSigPayModel.setTenantId(instance.getTenantId());
-            pubSigPayModel.setBranchId(instance.getBranchId());
+            pubSigPayModel.setOrgNo(instance.getOrgNo());
+            pubSigPayModel.setMercId(instance.getMercId());
+            pubSigPayModel.setTrmNo(instance.getTrmNo());
             pubSigPayModel.setTxnTime(instance.getTxnTime());
             pubSigPayModel.setVersion(instance.getVersion());
             pubSigPayModel.setCode(instance.getCode());
@@ -228,6 +266,7 @@ public class PubSigPayModel extends BasicModel {
             pubSigPayModel.setSelOrderNo(instance.getSelOrderNo());
             pubSigPayModel.setGoodsTag(instance.getGoodsTag());
             pubSigPayModel.setAttach(instance.getAttach());
+            pubSigPayModel.setSecretKey(instance.getSecretKey());
             return pubSigPayModel;
         }
     }

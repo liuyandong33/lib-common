@@ -12,13 +12,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class NewLandUtils {
-    private static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
+    public static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
         String newLandAccountJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
-        NewLandAccount newLandAccount = null;
         if (StringUtils.isNotBlank(newLandAccountJson)) {
-            newLandAccount = GsonUtils.fromJson(newLandAccountJson, NewLandAccount.class);
+            return JacksonUtils.readValue(newLandAccountJson, NewLandAccount.class);
         }
-        return newLandAccount;
+        return null;
     }
 
     private static Map<String, String> buildHeaders(String charsetName) {
@@ -27,7 +26,7 @@ public class NewLandUtils {
         return headers;
     }
 
-    private static String generateSign(Map<String, String> requestParameters, String secretKey) {
+    private static String generateSign(Map<String, String> requestParameters, String secretKey, String signType) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.putAll(requestParameters);
 
@@ -36,24 +35,27 @@ public class NewLandUtils {
             stringBuilder.append(entry.getValue());
         }
         stringBuilder.append(secretKey);
-        return DigestUtils.md5Hex(stringBuilder.toString());
+        if (Constants.MD5.equals(signType)) {
+            return DigestUtils.md5Hex(stringBuilder.toString());
+        }
+        return null;
     }
 
-    private static Map<String, String> buildCommonRequestParameters(NewLandBasicModel newLandBasicModel, NewLandAccount newLandAccount) {
+    private static Map<String, String> buildCommonRequestParameters(NewLandBasicModel newLandBasicModel) {
         String opSys = newLandBasicModel.getOpSys();
         String characterSet = newLandBasicModel.getCharacterSet();
         String latitude = newLandBasicModel.getLatitude();
         String longitude = newLandBasicModel.getLongitude();
+        String orgNo = newLandBasicModel.getOrgNo();
+        String mercId = newLandBasicModel.getMercId();
+        String trmNo = newLandBasicModel.getTrmNo();
         String oprId = newLandBasicModel.getOprId();
         String trmTyp = newLandBasicModel.getTrmTyp();
         String tradeNo = newLandBasicModel.getTradeNo();
         String txnTime = newLandBasicModel.getTxnTime();
+        String signType = newLandBasicModel.getSignType();
         String addField = newLandBasicModel.getAddField();
         String version = newLandBasicModel.getVersion();
-
-        String orgNo = newLandAccount.getOrgNo();
-        String mchId = newLandAccount.getMchId();
-        String trmNo = newLandAccount.getTrmNo();
 
         Map<String, String> commonRequestParameters = new HashMap<String, String>();
         commonRequestParameters.put("opSys", opSys);
@@ -68,7 +70,7 @@ public class NewLandUtils {
         }
 
         commonRequestParameters.put("orgNo", orgNo);
-        commonRequestParameters.put("mercId", mchId);
+        commonRequestParameters.put("mercId", mercId);
         commonRequestParameters.put("trmNo", trmNo);
 
         if (StringUtils.isNotBlank(oprId)) {
@@ -82,7 +84,7 @@ public class NewLandUtils {
         commonRequestParameters.put("tradeNo", tradeNo);
         commonRequestParameters.put("txnTime", txnTime);
 
-        commonRequestParameters.put("signType", Constants.MD5);
+        commonRequestParameters.put("signType", signType);
 
         if (StringUtils.isNotBlank(addField)) {
             commonRequestParameters.put("addField", addField);
@@ -102,9 +104,7 @@ public class NewLandUtils {
         return charsetName;
     }
 
-    public static Map<String, String> callNewLandSystem(Map<String, String> requestParameters, String charsetName, String apiName, String secretKey) {
-        requestParameters.put("signValue", generateSign(requestParameters, secretKey));
-
+    public static Map<String, String> callNewLandSystem(Map<String, String> requestParameters, String charsetName, String apiName) {
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + apiName + ".json";
 
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(requestParameters), charsetName);
@@ -127,8 +127,8 @@ public class NewLandUtils {
     public static Map<String, String> barcodePay(BarcodePayModel barcodePayModel) {
         barcodePayModel.validateAndThrow();
 
-        String tenantId = barcodePayModel.getTenantId();
-        String branchId = barcodePayModel.getBranchId();
+        String signType = barcodePayModel.getSignType();
+        String secretKey = barcodePayModel.getSecretKey();
         Integer amount = barcodePayModel.getAmount();
         Integer totalAmount = barcodePayModel.getTotalAmount();
         String authCode = barcodePayModel.getAuthCode();
@@ -138,10 +138,7 @@ public class NewLandUtils {
         String goodsTag = barcodePayModel.getGoodsTag();
         String attach = barcodePayModel.getAttach();
 
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        Map<String, String> barcodePayRequestParameters = buildCommonRequestParameters(barcodePayModel, newLandAccount);
+        Map<String, String> barcodePayRequestParameters = buildCommonRequestParameters(barcodePayModel);
         barcodePayRequestParameters.put("amount", amount.toString());
         barcodePayRequestParameters.put("total_amount", totalAmount.toString());
         barcodePayRequestParameters.put("authCode", authCode);
@@ -162,7 +159,9 @@ public class NewLandUtils {
         if (StringUtils.isNotBlank(attach)) {
             barcodePayRequestParameters.put("attach", attach);
         }
-        return callNewLandSystem(barcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_BARCODE_PAY, obtainCharsetName(barcodePayModel.getCharacterSet()), newLandAccount.getSecretKey());
+
+        barcodePayRequestParameters.put("signValue", generateSign(barcodePayRequestParameters, secretKey, signType));
+        return callNewLandSystem(barcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_BARCODE_PAY, obtainCharsetName(barcodePayModel.getCharacterSet()));
     }
 
     /**
@@ -174,8 +173,8 @@ public class NewLandUtils {
     public static Map<String, String> barcodePosPay(BarcodePosPayModel barcodePosPayModel) {
         barcodePosPayModel.validateAndThrow();
 
-        String tenantId = barcodePosPayModel.getTenantId();
-        String branchId = barcodePosPayModel.getBranchId();
+        String signType = barcodePosPayModel.getSignType();
+        String secretKey = barcodePosPayModel.getSecretKey();
         Integer amount = barcodePosPayModel.getAmount();
         Integer totalAmount = barcodePosPayModel.getTotalAmount();
         String payChannel = barcodePosPayModel.getPayChannel();
@@ -184,10 +183,7 @@ public class NewLandUtils {
         String goodsTag = barcodePosPayModel.getGoodsTag();
         String attach = barcodePosPayModel.getAttach();
 
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        Map<String, String> barcodePosPayRequestParameters = buildCommonRequestParameters(barcodePosPayModel, newLandAccount);
+        Map<String, String> barcodePosPayRequestParameters = buildCommonRequestParameters(barcodePosPayModel);
         barcodePosPayRequestParameters.put("amount", amount.toString());
         barcodePosPayRequestParameters.put("total_amount", totalAmount.toString());
         barcodePosPayRequestParameters.put("payChannel", payChannel);
@@ -207,7 +203,8 @@ public class NewLandUtils {
         if (StringUtils.isNotBlank(attach)) {
             barcodePosPayRequestParameters.put("attach", attach);
         }
-        return callNewLandSystem(barcodePosPayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_BARCODE_POS_PAY, obtainCharsetName(barcodePosPayModel.getCharacterSet()), newLandAccount.getSecretKey());
+        barcodePosPayRequestParameters.put("signValue", generateSign(barcodePosPayRequestParameters, secretKey, signType));
+        return callNewLandSystem(barcodePosPayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_BARCODE_POS_PAY, obtainCharsetName(barcodePosPayModel.getCharacterSet()));
     }
 
     /**
@@ -219,20 +216,18 @@ public class NewLandUtils {
     public static Map<String, String> refundBarcodePay(RefundBarcodePayModel refundBarcodePayModel) {
         refundBarcodePayModel.validateAndThrow();
 
-        String tenantId = refundBarcodePayModel.getTenantId();
-        String branchId = refundBarcodePayModel.getBranchId();
+        String signType = refundBarcodePayModel.getSignType();
+        String secretKey = refundBarcodePayModel.getSecretKey();
         String orderNo = refundBarcodePayModel.getOrderNo();
         Integer txnAmt = refundBarcodePayModel.getTxnAmt();
 
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        Map<String, String> refundBarcodePayRequestParameters = buildCommonRequestParameters(refundBarcodePayModel, newLandAccount);
+        Map<String, String> refundBarcodePayRequestParameters = buildCommonRequestParameters(refundBarcodePayModel);
         refundBarcodePayRequestParameters.put("orderNo", orderNo);
         if (txnAmt != null) {
             refundBarcodePayRequestParameters.put("txnAmt", txnAmt.toString());
         }
-        return callNewLandSystem(refundBarcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_REFUND_BARCODE_PAY, obtainCharsetName(refundBarcodePayModel.getCharacterSet()), newLandAccount.getSecretKey());
+        refundBarcodePayRequestParameters.put("signValue", generateSign(refundBarcodePayRequestParameters, secretKey, signType));
+        return callNewLandSystem(refundBarcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_REFUND_BARCODE_PAY, obtainCharsetName(refundBarcodePayModel.getCharacterSet()));
     }
 
     /**
@@ -244,16 +239,14 @@ public class NewLandUtils {
     public static Map<String, String> qryBarcodePay(QryBarcodePayModel qryBarcodePayModel) {
         qryBarcodePayModel.validateAndThrow();
 
-        String tenantId = qryBarcodePayModel.getTenantId();
-        String branchId = qryBarcodePayModel.getBranchId();
+        String signType = qryBarcodePayModel.getSignType();
+        String secretKey = qryBarcodePayModel.getSecretKey();
         String qryNo = qryBarcodePayModel.getQryNo();
 
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        Map<String, String> qryBarcodePayRequestParameters = buildCommonRequestParameters(qryBarcodePayModel, newLandAccount);
+        Map<String, String> qryBarcodePayRequestParameters = buildCommonRequestParameters(qryBarcodePayModel);
         qryBarcodePayRequestParameters.put("qryNo", qryNo);
-        return callNewLandSystem(qryBarcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_QRY_BARCODE_PAY, obtainCharsetName(qryBarcodePayModel.getCharacterSet()), newLandAccount.getSecretKey());
+        qryBarcodePayRequestParameters.put("signValue", generateSign(qryBarcodePayRequestParameters, secretKey, signType));
+        return callNewLandSystem(qryBarcodePayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_SDK_QRY_BARCODE_PAY, obtainCharsetName(qryBarcodePayModel.getCharacterSet()));
     }
 
     /**
@@ -265,32 +258,29 @@ public class NewLandUtils {
     public static Map<String, String> pubSigQry(PubSigQryModel pubSigQryModel) {
         pubSigQryModel.validateAndThrow();
 
-        String tenantId = pubSigQryModel.getTenantId();
-        String branchId = pubSigQryModel.getBranchId();
+        String orgNo = pubSigQryModel.getOrgNo();
+        String mercId = pubSigQryModel.getMercId();
+        String trmNo = pubSigQryModel.getTrmNo();
         String txnTime = pubSigQryModel.getTxnTime();
+        String signType = pubSigQryModel.getSignType();
         String attach = pubSigQryModel.getAttach();
         String version = pubSigQryModel.getVersion();
-
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        String orgNo = newLandAccount.getOrgNo();
-        String mchId = newLandAccount.getMchId();
-        String trmNo = newLandAccount.getTrmNo();
+        String secretKey = pubSigQryModel.getSecretKey();
 
         Map<String, String> pubSigQryRequestParameters = new HashMap<String, String>();
         pubSigQryRequestParameters.put("orgNo", orgNo);
-        pubSigQryRequestParameters.put("mercId", mchId);
+        pubSigQryRequestParameters.put("mercId", mercId);
         pubSigQryRequestParameters.put("trmNo", trmNo);
         pubSigQryRequestParameters.put("txnTime", txnTime);
+        pubSigQryRequestParameters.put("signType", signType);
 
         if (StringUtils.isNotBlank(attach)) {
             pubSigQryRequestParameters.put("attach", attach);
         }
         pubSigQryRequestParameters.put("version", version);
 
-        pubSigQryRequestParameters.put("signType", Constants.MD5);
-        return callNewLandSystem(pubSigQryRequestParameters, Constants.NEW_LAND_PAY_API_NAME_PUB_SIG_QRY, Constants.CHARSET_NAME_UTF_8, newLandAccount.getSecretKey());
+        pubSigQryRequestParameters.put("signValue", generateSign(pubSigQryRequestParameters, secretKey, signType));
+        return callNewLandSystem(pubSigQryRequestParameters, Constants.NEW_LAND_PAY_API_NAME_PUB_SIG_QRY, Constants.CHARSET_NAME_UTF_8);
     }
 
     /**
@@ -301,8 +291,10 @@ public class NewLandUtils {
      */
     public static Map<String, String> pubSigPay(PubSigPayModel pubSigPayModel) {
         pubSigPayModel.validateAndThrow();
-        String tenantId = pubSigPayModel.getTenantId();
-        String branchId = pubSigPayModel.getBranchId();
+
+        String orgNo = pubSigPayModel.getOrgNo();
+        String mercId = pubSigPayModel.getMercId();
+        String trmNo = pubSigPayModel.getTrmNo();
         String txnTime = pubSigPayModel.getTxnTime();
         String version = pubSigPayModel.getVersion();
         String code = pubSigPayModel.getCode();
@@ -313,17 +305,11 @@ public class NewLandUtils {
         String selOrderNo = pubSigPayModel.getSelOrderNo();
         String goodsTag = pubSigPayModel.getGoodsTag();
         String attach = pubSigPayModel.getAttach();
-
-        NewLandAccount newLandAccount = obtainNewLandAccount(tenantId, branchId);
-        ValidateUtils.notNull(newLandAccount, "未配置新大陆支付账号！");
-
-        String orgNo = newLandAccount.getOrgNo();
-        String mchId = newLandAccount.getMchId();
-        String trmNo = newLandAccount.getTrmNo();
+        String secretKey = pubSigPayModel.getSecretKey();
 
         Map<String, String> pubSigPayRequestParameters = new HashMap<String, String>();
         pubSigPayRequestParameters.put("orgNo", orgNo);
-        pubSigPayRequestParameters.put("mercId", mchId);
+        pubSigPayRequestParameters.put("mercId", mercId);
         pubSigPayRequestParameters.put("trmNo", trmNo);
         pubSigPayRequestParameters.put("txnTime", txnTime);
         pubSigPayRequestParameters.put("version", version);
@@ -354,8 +340,7 @@ public class NewLandUtils {
         if (StringUtils.isNotBlank(attach)) {
             pubSigPayRequestParameters.put("attach", attach);
         }
-
-        pubSigPayRequestParameters.put("signType", Constants.MD5);
-        return callNewLandSystem(pubSigPayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_PUB_SIG_PAY, Constants.CHARSET_NAME_UTF_8, newLandAccount.getSecretKey());
+        pubSigPayRequestParameters.put("signValue", generateSign(pubSigPayRequestParameters, secretKey, Constants.MD5));
+        return callNewLandSystem(pubSigPayRequestParameters, Constants.NEW_LAND_PAY_API_NAME_PUB_SIG_PAY, Constants.CHARSET_NAME_UTF_8);
     }
 }
