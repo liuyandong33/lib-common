@@ -626,9 +626,6 @@ public class Constants {
     public static final String NEW_LAND_PAY_API_NAME_SDK_QRY_BARCODE_PAY = "sdkQryBarcodePay";
     public static final String NEW_LAND_PAY_API_NAME_PUB_SIG_QRY = "pubSigQry";
     public static final String NEW_LAND_PAY_API_NAME_PUB_SIG_PAY = "pubSigPay";
-    public static final String ALIPAY = "ALIPAY";
-    public static final String WXPAY = "WXPAY";
-    public static final String YLPAY = "YLPAY";
 
     // 星期相关常量
     public static final String MONDAY = "MONDAY";
@@ -971,4 +968,15 @@ public class Constants {
     public static final String NEW_LAND_TRM_TYP_APP_SCAN_CODE = "A";
     public static final String NEW_LAND_TRM_TYP_PC = "C";
     public static final String NEW_LAND_TRM_TYP_TABLE_CARD_SCAN_CODE = "T";
+
+    /**
+     * 新大陆支付渠道
+     *
+     * @see #NEW_LAND_PAY_CHANNEL_ALIPAY: 支付宝
+     * @see #NEW_LAND_PAY_CHANNEL_WXPAY: 微信
+     * @see #NEW_LAND_PAY_CHANNEL_YLPAY: 银联
+     */
+    public static final String NEW_LAND_PAY_CHANNEL_ALIPAY = "ALIPAY";
+    public static final String NEW_LAND_PAY_CHANNEL_WXPAY = "WXPAY";
+    public static final String NEW_LAND_PAY_CHANNEL_YLPAY = "YLPAY";
 }
