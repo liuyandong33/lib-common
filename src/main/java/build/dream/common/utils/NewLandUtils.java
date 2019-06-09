@@ -7,6 +7,7 @@ import build.dream.common.saas.domains.NewLandAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -14,10 +15,14 @@ import java.util.TreeMap;
 public class NewLandUtils {
     public static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
         String newLandAccountJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
-        if (StringUtils.isNotBlank(newLandAccountJson)) {
-            return JacksonUtils.readValue(newLandAccountJson, NewLandAccount.class);
+        if (StringUtils.isBlank(newLandAccountJson)) {
+            return null;
         }
-        return null;
+        return JacksonUtils.readValue(newLandAccountJson, NewLandAccount.class);
+    }
+
+    public static NewLandAccount obtainNewLandAccount(BigInteger tenantId, BigInteger branchId) {
+        return obtainNewLandAccount(tenantId.toString(), branchId.toString());
     }
 
     private static Map<String, String> buildHeaders(String charsetName) {

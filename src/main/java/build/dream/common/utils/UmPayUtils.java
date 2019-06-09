@@ -3,17 +3,32 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.umpay.*;
+import build.dream.common.saas.domains.UmPayAccount;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class UmPayUtils {
+    public static UmPayAccount obtainUmPayAccount(String tenantId, String branchId) {
+        String umPayAccountJson = CommonRedisUtils.hget(Constants.KEY_UM_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        if (StringUtils.isBlank(umPayAccountJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(umPayAccountJson, UmPayAccount.class);
+    }
+
+    public static UmPayAccount obtainUmPayAccount(BigInteger tenantId, BigInteger branchId) {
+        return obtainUmPayAccount(tenantId.toString(), branchId.toString());
+    }
+
     private static String generateSign(Map<String, String> requestParameters, String merchantPrivateKey, String signType) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.putAll(requestParameters);

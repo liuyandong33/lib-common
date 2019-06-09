@@ -7,6 +7,7 @@ import build.dream.common.saas.domains.MiyaAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.BigInteger;
 import java.util.*;
 
 public class MiyaUtils {
@@ -22,6 +23,10 @@ public class MiyaUtils {
             return null;
         }
         return JacksonUtils.readValue(miyaAccountJson, MiyaAccount.class);
+    }
+
+    public static MiyaAccount obtainMiyaAccount(BigInteger tenantId, BigInteger branchId) {
+        return obtainMiyaAccount(tenantId.toString(), branchId.toString());
     }
 
     private static String generateSign(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
