@@ -32,7 +32,7 @@ public class PubSigQryModel extends BasicModel {
     private String attach;
 
     @NotNull
-    private String version = Constants.NEW_LAND_PAY_VERSION_1_0_0;
+    private String version = Constants.NEW_LAND_API_VERSION_1_0_0;
 
     @NotNull
     private String secretKey;

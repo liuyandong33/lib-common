@@ -26,7 +26,7 @@ public class PubSigPayModel extends BasicModel {
     private String txnTime;
 
     @NotNull
-    private String version = Constants.NEW_LAND_PAY_VERSION_1_0_0;
+    private String version = Constants.NEW_LAND_API_VERSION_1_0_0;
 
     @Length(max = 50)
     private String code;

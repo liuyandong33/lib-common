@@ -626,7 +626,6 @@ public class Constants {
     public static final String NEW_LAND_PAY_API_NAME_SDK_QRY_BARCODE_PAY = "sdkQryBarcodePay";
     public static final String NEW_LAND_PAY_API_NAME_PUB_SIG_QRY = "pubSigQry";
     public static final String NEW_LAND_PAY_API_NAME_PUB_SIG_PAY = "pubSigPay";
-    public static final String NEW_LAND_PAY_VERSION_1_0_0 = "V1.0.0";
     public static final String ALIPAY = "ALIPAY";
     public static final String WXPAY = "WXPAY";
     public static final String YLPAY = "YLPAY";
@@ -935,4 +934,41 @@ public class Constants {
      * 米雅接口版本
      */
     public static final String MIYA_API_VERSION = "1.5";
+
+    public static final String NEW_LAND_API_VERSION_1_0_0 = "V1.0.0";
+
+    /**
+     * 新大陆接口操作系统
+     *
+     * @see #NEW_LAND_OP_SYS_ANDROID_SDK: android sdk
+     * @see #NEW_LAND_OP_SYS_IOS_SDK: ios sdk
+     * @see #NEW_LAND_OP_SYS_WINDOWS_SDK: windows sdk
+     * @see #NEW_LAND_OP_SYS_ZHI_LIAN: 直连
+     */
+    public static final String NEW_LAND_OP_SYS_ANDROID_SDK = "0";
+    public static final String NEW_LAND_OP_SYS_IOS_SDK = "1";
+    public static final String NEW_LAND_OP_SYS_WINDOWS_SDK = "2";
+    public static final String NEW_LAND_OP_SYS_ZHI_LIAN = "3";
+
+    /**
+     * 新大陆接口字符集
+     *
+     * @see #NEW_LAND_CHARACTER_SET_GBK: GBK
+     * @see #NEW_LAND_CHARACTER_SET_UTF_8: UTF-8
+     */
+    public static final String NEW_LAND_CHARACTER_SET_GBK = "00";
+    public static final String NEW_LAND_CHARACTER_SET_UTF_8 = "01";
+
+    /**
+     * 新大陆设备类型
+     *
+     * @see #NEW_LAND_TRM_TYP_INTELLIGENCE_POS: 智能 POS
+     * @see #NEW_LAND_TRM_TYP_APP_SCAN_CODE: app 扫码
+     * @see #NEW_LAND_TRM_TYP_PC: PC 端
+     * @see #NEW_LAND_TRM_TYP_TABLE_CARD_SCAN_CODE: 台牌扫码
+     */
+    public static final String NEW_LAND_TRM_TYP_INTELLIGENCE_POS = "P";
+    public static final String NEW_LAND_TRM_TYP_APP_SCAN_CODE = "A";
+    public static final String NEW_LAND_TRM_TYP_PC = "C";
+    public static final String NEW_LAND_TRM_TYP_TABLE_CARD_SCAN_CODE = "T";
 }

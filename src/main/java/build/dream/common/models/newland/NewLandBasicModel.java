@@ -12,12 +12,12 @@ import java.lang.reflect.Type;
 
 public class NewLandBasicModel extends BasicModel {
     @NotNull
-    @InList(value = {"0", "1", "2", "3"})
+    @InList(value = {Constants.NEW_LAND_OP_SYS_ANDROID_SDK, Constants.NEW_LAND_OP_SYS_IOS_SDK, Constants.NEW_LAND_OP_SYS_WINDOWS_SDK, Constants.NEW_LAND_OP_SYS_ZHI_LIAN})
     private String opSys;
 
     @NotNull
-    @InList(value = {"00", "01"})
-    private String characterSet = "00";
+    @InList(value = {Constants.NEW_LAND_CHARACTER_SET_GBK, Constants.NEW_LAND_CHARACTER_SET_UTF_8})
+    private String characterSet = Constants.NEW_LAND_CHARACTER_SET_UTF_8;
 
     @Length(max = 15)
     private String latitude;
@@ -40,7 +40,7 @@ public class NewLandBasicModel extends BasicModel {
     @Length(max = 6)
     private String oprId;
 
-    @InList(value = {"P", "A", "C", "T"})
+    @InList(value = {Constants.NEW_LAND_TRM_TYP_INTELLIGENCE_POS, Constants.NEW_LAND_TRM_TYP_APP_SCAN_CODE, Constants.NEW_LAND_TRM_TYP_PC, Constants.NEW_LAND_TRM_TYP_TABLE_CARD_SCAN_CODE})
     private String trmTyp;
 
     @NotNull
@@ -59,7 +59,7 @@ public class NewLandBasicModel extends BasicModel {
     private String addField;
 
     @NotNull
-    private String version = Constants.NEW_LAND_PAY_VERSION_1_0_0;
+    private String version = Constants.NEW_LAND_API_VERSION_1_0_0;
 
     @NotNull
     private String secretKey;
