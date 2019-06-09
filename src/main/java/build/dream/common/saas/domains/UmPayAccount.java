@@ -110,7 +110,7 @@ public class UmPayAccount extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
         public static final String BRANCH_ID = "branch_id";
-        public static final String UM_PAY_ID = "um_pay_id";
+        public static final String MER_ID = "mer_id";
         public static final String PRIVATE_KEY = "private_key";
         public static final String PLATFORM_PUBLIC_KEY = "platform_public_key";
     }
@@ -118,7 +118,7 @@ public class UmPayAccount extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String BRANCH_ID = "branchId";
-        public static final String UM_PAY_ID = "umPayId";
+        public static final String MER_ID = "merId";
         public static final String PRIVATE_KEY = "privateKey";
         public static final String PLATFORM_PUBLIC_KEY = "platformPublicKey";
     }

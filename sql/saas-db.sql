@@ -399,7 +399,7 @@ CREATE TABLE um_pay_account
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-    um_pay_id VARCHAR(20) NOT NULL COMMENT 'um pay id',
+    mer_id VARCHAR(20) NOT NULL COMMENT '联动商户ID',
     private_key VARCHAR(2000) NOT NULL COMMENT '商户私钥',
     platform_public_key VARCHAR(2000) NOT NULL COMMENT '联动平台公钥',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
