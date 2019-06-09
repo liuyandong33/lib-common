@@ -18,7 +18,7 @@ public class BarcodePayModel extends NewLandBasicModel {
     private String authCode;
 
     @NotNull
-    @InList(value = {Constants.ALIPAY, Constants.WXPAY, Constants.YLPAY})
+    @InList(value = {Constants.NEW_LAND_PAY_CHANNEL_ALIPAY, Constants.NEW_LAND_PAY_CHANNEL_WXPAY, Constants.NEW_LAND_PAY_CHANNEL_YLPAY})
     private String payChannel;
 
     @Length(max = 512)
