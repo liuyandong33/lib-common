@@ -32,7 +32,7 @@ public class UmPayBasicModel extends BasicModel {
     private String version = Constants.UM_PAY_VERSION;
 
     @NotNull
-    private String merchantPrivateKey;
+    private String privateKey;
 
     @NotNull
     private String platformPublicKey;
@@ -77,12 +77,12 @@ public class UmPayBasicModel extends BasicModel {
         this.version = version;
     }
 
-    public String getMerchantPrivateKey() {
-        return merchantPrivateKey;
+    public String getPrivateKey() {
+        return privateKey;
     }
 
-    public void setMerchantPrivateKey(String merchantPrivateKey) {
-        this.merchantPrivateKey = merchantPrivateKey;
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
     }
 
     public String getPlatformPublicKey() {
@@ -130,8 +130,8 @@ public class UmPayBasicModel extends BasicModel {
             return (BT) this;
         }
 
-        public BT merchantPrivateKey(String merchantPrivateKey) {
-            instance.setMerchantPrivateKey(merchantPrivateKey);
+        public BT privateKey(String privateKey) {
+            instance.setPrivateKey(privateKey);
             return (BT) this;
         }
 
@@ -147,7 +147,7 @@ public class UmPayBasicModel extends BasicModel {
             model.setSignType(instance.getSignType());
             model.setResFormat(instance.getResFormat());
             model.setVersion(instance.getVersion());
-            model.setMerchantPrivateKey(instance.getMerchantPrivateKey());
+            model.setPrivateKey(instance.getPrivateKey());
             model.setPlatformPublicKey(instance.getPlatformPublicKey());
             return model;
         }

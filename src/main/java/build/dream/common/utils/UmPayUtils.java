@@ -75,7 +75,7 @@ public class UmPayUtils {
         String signType = activeScanCodeOrderModel.getSignType();
         String resFormat = activeScanCodeOrderModel.getResFormat();
         String version = activeScanCodeOrderModel.getVersion();
-        String merchantPrivateKey = activeScanCodeOrderModel.getMerchantPrivateKey();
+        String privateKey = activeScanCodeOrderModel.getPrivateKey();
         String platformPublicKey = activeScanCodeOrderModel.getPlatformPublicKey();
 
         String topic = activeScanCodeOrderModel.getTopic();
@@ -114,7 +114,7 @@ public class UmPayUtils {
             activeScanCodeOrderParameters.put("expire_time", String.valueOf(expireTime));
         }
         activeScanCodeOrderParameters.put("scancode_type", scanCodeType);
-        activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, merchantPrivateKey, signType));
+        activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, privateKey, signType));
         activeScanCodeOrderParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -136,7 +136,7 @@ public class UmPayUtils {
         String signType = passiveScanCodePayModel.getSignType();
         String resFormat = passiveScanCodePayModel.getResFormat();
         String version = passiveScanCodePayModel.getVersion();
-        String merchantPrivateKey = passiveScanCodePayModel.getMerchantPrivateKey();
+        String privateKey = passiveScanCodePayModel.getPrivateKey();
         String platformPublicKey = passiveScanCodePayModel.getPlatformPublicKey();
 
         String topic = passiveScanCodePayModel.getTopic();
@@ -179,7 +179,7 @@ public class UmPayUtils {
         passiveScanCodePayParameters.put("auth_code", authCode);
         passiveScanCodePayParameters.put("use_desc", useDesc);
         passiveScanCodePayParameters.put("scancode_type", scanCodeType);
-        passiveScanCodePayParameters.put("sign", generateSign(passiveScanCodePayParameters, merchantPrivateKey, signType));
+        passiveScanCodePayParameters.put("sign", generateSign(passiveScanCodePayParameters, privateKey, signType));
         passiveScanCodePayParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -202,7 +202,7 @@ public class UmPayUtils {
         String signType = publicNumberAndVerticalCodeModel.getSignType();
         String resFormat = publicNumberAndVerticalCodeModel.getResFormat();
         String version = publicNumberAndVerticalCodeModel.getVersion();
-        String merchantPrivateKey = publicNumberAndVerticalCodeModel.getMerchantPrivateKey();
+        String privateKey = publicNumberAndVerticalCodeModel.getPrivateKey();
         String platformPublicKey = publicNumberAndVerticalCodeModel.getPlatformPublicKey();
 
         String topic = publicNumberAndVerticalCodeModel.getTopic();
@@ -240,7 +240,7 @@ public class UmPayUtils {
         ApplicationHandler.ifNotBlankPut(publicNumberAndVerticalCodeParameters, "goods_id", goodsId);
         publicNumberAndVerticalCodeParameters.put("goods_inf", goodsInf);
         publicNumberAndVerticalCodeParameters.put("is_public_number", isPublicNumber);
-        publicNumberAndVerticalCodeParameters.put("sign", generateSign(publicNumberAndVerticalCodeParameters, merchantPrivateKey, signType));
+        publicNumberAndVerticalCodeParameters.put("sign", generateSign(publicNumberAndVerticalCodeParameters, privateKey, signType));
         publicNumberAndVerticalCodeParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -263,7 +263,7 @@ public class UmPayUtils {
         String signType = merOrderInfoQueryModel.getSignType();
         String resFormat = merOrderInfoQueryModel.getResFormat();
         String version = merOrderInfoQueryModel.getVersion();
-        String merchantPrivateKey = merOrderInfoQueryModel.getMerchantPrivateKey();
+        String privateKey = merOrderInfoQueryModel.getPrivateKey();
         String platformPublicKey = merOrderInfoQueryModel.getPlatformPublicKey();
 
         String orderType = merOrderInfoQueryModel.getOrderType();
@@ -284,7 +284,7 @@ public class UmPayUtils {
         ApplicationHandler.ifNotBlankPut(merOrderInfoQueryParameters, "trade_no", tradeNo);
         merOrderInfoQueryParameters.put("mer_date", merDate);
 
-        merOrderInfoQueryParameters.put("sign", generateSign(merOrderInfoQueryParameters, merchantPrivateKey, signType));
+        merOrderInfoQueryParameters.put("sign", generateSign(merOrderInfoQueryParameters, privateKey, signType));
         merOrderInfoQueryParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -307,7 +307,7 @@ public class UmPayUtils {
         String signType = merCancelModel.getSignType();
         String resFormat = merCancelModel.getResFormat();
         String version = merCancelModel.getVersion();
-        String merchantPrivateKey = merCancelModel.getMerchantPrivateKey();
+        String privateKey = merCancelModel.getPrivateKey();
         String platformPublicKey = merCancelModel.getPlatformPublicKey();
 
         String orderId = merCancelModel.getOrderId();
@@ -326,7 +326,7 @@ public class UmPayUtils {
         merCancelParameters.put("mer_date", merDate);
         merCancelParameters.put("amount", String.valueOf(amount));
 
-        merCancelParameters.put("sign", generateSign(merCancelParameters, merchantPrivateKey, signType));
+        merCancelParameters.put("sign", generateSign(merCancelParameters, privateKey, signType));
         merCancelParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -349,7 +349,7 @@ public class UmPayUtils {
         String signType = merRefundModel.getSignType();
         String resFormat = merRefundModel.getResFormat();
         String version = merRefundModel.getVersion();
-        String merchantPrivateKey = merRefundModel.getMerchantPrivateKey();
+        String privateKey = merRefundModel.getPrivateKey();
         String platformPublicKey = merRefundModel.getPlatformPublicKey();
 
         String refundNo = merRefundModel.getRefundNo();
@@ -372,7 +372,7 @@ public class UmPayUtils {
         merRefundParameters.put("refund_amount", String.valueOf(refundAmount));
         merRefundParameters.put("org_amount", String.valueOf(orgAmount));
 
-        merRefundParameters.put("sign", generateSign(merRefundParameters, merchantPrivateKey, signType));
+        merRefundParameters.put("sign", generateSign(merRefundParameters, privateKey, signType));
         merRefundParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -395,7 +395,7 @@ public class UmPayUtils {
         String signType = merRefundQueryModel.getSignType();
         String resFormat = merRefundQueryModel.getResFormat();
         String version = merRefundQueryModel.getVersion();
-        String merchantPrivateKey = merRefundQueryModel.getMerchantPrivateKey();
+        String privateKey = merRefundQueryModel.getPrivateKey();
         String platformPublicKey = merRefundQueryModel.getPlatformPublicKey();
 
         String refundNo = merRefundQueryModel.getRefundNo();
@@ -410,7 +410,7 @@ public class UmPayUtils {
 
         merRefundQueryParameters.put("refund_no", refundNo);
 
-        merRefundQueryParameters.put("sign", generateSign(merRefundQueryParameters, merchantPrivateKey, signType));
+        merRefundQueryParameters.put("sign", generateSign(merRefundQueryParameters, privateKey, signType));
         merRefundQueryParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -433,7 +433,7 @@ public class UmPayUtils {
         String signType = refundInfoReplenishModel.getSignType();
         String resFormat = refundInfoReplenishModel.getResFormat();
         String version = refundInfoReplenishModel.getVersion();
-        String merchantPrivateKey = refundInfoReplenishModel.getMerchantPrivateKey();
+        String privateKey = refundInfoReplenishModel.getPrivateKey();
         String platformPublicKey = refundInfoReplenishModel.getPlatformPublicKey();
 
         String refundNo = refundInfoReplenishModel.getRefundNo();
@@ -456,7 +456,7 @@ public class UmPayUtils {
         ApplicationHandler.ifNotBlankPut(refundInfoReplenishParameters, "gate_id", gateId);
         ApplicationHandler.ifNotBlankPut(refundInfoReplenishParameters, "card_branch_name", cardBranchName);
 
-        refundInfoReplenishParameters.put("sign", generateSign(refundInfoReplenishParameters, merchantPrivateKey, signType));
+        refundInfoReplenishParameters.put("sign", generateSign(refundInfoReplenishParameters, privateKey, signType));
         refundInfoReplenishParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
@@ -478,7 +478,7 @@ public class UmPayUtils {
         String merId = downloadSettleFileModel.getMerId();
         String version = downloadSettleFileModel.getVersion();
         String settleDate = downloadSettleFileModel.getSettleDate();
-        String merchantPrivateKey = downloadSettleFileModel.getMerchantPrivateKey();
+        String privateKey = downloadSettleFileModel.getPrivateKey();
         String platformPublicKey = downloadSettleFileModel.getPlatformPublicKey();
 
         String service = "download_settle_file";
@@ -489,7 +489,7 @@ public class UmPayUtils {
 
         downloadSettleFileParameters.put("settle_date", settleDate);
 
-        downloadSettleFileParameters.put("sign", generateSign(downloadSettleFileParameters, merchantPrivateKey, signType));
+        downloadSettleFileParameters.put("sign", generateSign(downloadSettleFileParameters, privateKey, signType));
         downloadSettleFileParameters.put("sign_type", signType);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);

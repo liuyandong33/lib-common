@@ -28,7 +28,7 @@ public class DownloadSettleFileModel extends BasicModel {
     private String settleDate;
 
     @NotNull
-    private String merchantPrivateKey;
+    private String privateKey;
 
     @NotNull
     private String platformPublicKey;
@@ -65,12 +65,12 @@ public class DownloadSettleFileModel extends BasicModel {
         this.settleDate = settleDate;
     }
 
-    public String getMerchantPrivateKey() {
-        return merchantPrivateKey;
+    public String getPrivateKey() {
+        return privateKey;
     }
 
-    public void setMerchantPrivateKey(String merchantPrivateKey) {
-        this.merchantPrivateKey = merchantPrivateKey;
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
     }
 
     public String getPlatformPublicKey() {
@@ -104,8 +104,8 @@ public class DownloadSettleFileModel extends BasicModel {
             return this;
         }
 
-        public Builder merchantPrivateKey(String merchantPrivateKey) {
-            instance.setMerchantPrivateKey(merchantPrivateKey);
+        public Builder privateKey(String privateKey) {
+            instance.setPrivateKey(privateKey);
             return this;
         }
 
@@ -120,6 +120,8 @@ public class DownloadSettleFileModel extends BasicModel {
             downloadSettleFileModel.setMerId(instance.getMerId());
             downloadSettleFileModel.setVersion(instance.getVersion());
             downloadSettleFileModel.setSettleDate(instance.getSettleDate());
+            downloadSettleFileModel.setPrivateKey(instance.getPrivateKey());
+            downloadSettleFileModel.setPlatformPublicKey(instance.getPlatformPublicKey());
             return downloadSettleFileModel;
         }
     }

@@ -17,11 +17,13 @@ public class UmPayAccount extends BasicDomain {
     /**
      * 联动支付ID
      */
-    private String umPayId;
+    private String merId;
     /**
      * 联动支付私钥
      */
-    private String merchantPrivateKey;
+    private String privateKey;
+
+    private String platformPublicKey;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -39,20 +41,28 @@ public class UmPayAccount extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public String getUmPayId() {
-        return umPayId;
+    public String getMerId() {
+        return merId;
     }
 
-    public void setUmPayId(String umPayId) {
-        this.umPayId = umPayId;
+    public void setMerId(String merId) {
+        this.merId = merId;
     }
 
-    public String getMerchantPrivateKey() {
-        return merchantPrivateKey;
+    public String getPrivateKey() {
+        return privateKey;
     }
 
-    public void setMerchantPrivateKey(String merchantPrivateKey) {
-        this.merchantPrivateKey = merchantPrivateKey;
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    public String getPlatformPublicKey() {
+        return platformPublicKey;
+    }
+
+    public void setPlatformPublicKey(String platformPublicKey) {
+        this.platformPublicKey = platformPublicKey;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, UmPayAccount> {
@@ -66,13 +76,18 @@ public class UmPayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder umPayId(String umPayId) {
-            instance.setUmPayId(umPayId);
+        public Builder merId(String merId) {
+            instance.setMerId(merId);
             return this;
         }
 
-        public Builder merchantPrivateKey(String merchantPrivateKey) {
-            instance.setMerchantPrivateKey(merchantPrivateKey);
+        public Builder privateKey(String privateKey) {
+            instance.setPrivateKey(privateKey);
+            return this;
+        }
+
+        public Builder platformPublicKey(String platformPublicKey) {
+            instance.setPlatformPublicKey(platformPublicKey);
             return this;
         }
 
@@ -81,8 +96,9 @@ public class UmPayAccount extends BasicDomain {
             UmPayAccount umPayAccount = super.build();
             umPayAccount.setTenantId(instance.getTenantId());
             umPayAccount.setBranchId(instance.getBranchId());
-            umPayAccount.setUmPayId(instance.getUmPayId());
-            umPayAccount.setMerchantPrivateKey(instance.getMerchantPrivateKey());
+            umPayAccount.setMerId(instance.getMerId());
+            umPayAccount.setPrivateKey(instance.getPrivateKey());
+            umPayAccount.setPlatformPublicKey(instance.getPlatformPublicKey());
             return umPayAccount;
         }
     }
@@ -95,13 +111,15 @@ public class UmPayAccount extends BasicDomain {
         public static final String TENANT_ID = "tenant_id";
         public static final String BRANCH_ID = "branch_id";
         public static final String UM_PAY_ID = "um_pay_id";
-        public static final String MERCHANT_PRIVATE_KEY = "merchant_private_key";
+        public static final String PRIVATE_KEY = "private_key";
+        public static final String PLATFORM_PUBLIC_KEY = "platform_public_key";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String BRANCH_ID = "branchId";
         public static final String UM_PAY_ID = "umPayId";
-        public static final String MERCHANT_PRIVATE_KEY = "merchantPrivateKey";
+        public static final String PRIVATE_KEY = "privateKey";
+        public static final String PLATFORM_PUBLIC_KEY = "platformPublicKey";
     }
 }
