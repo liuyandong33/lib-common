@@ -7,44 +7,91 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-public class ActiveScanCodeOrderModel extends UmPayBasicModel {
+public class PassiveScanCodePayModel extends UmPayBasicModel {
     @NotNull
     private String topic;
 
+    /**
+     * 商品号
+     */
     @Length(max = 8)
     private String goodsId;
 
+    /**
+     * 商品描述信息
+     */
     @NotNull
     @Length(max = 64)
     private String goodsInf;
 
+    /**
+     * 商户唯一订单号，订单号码支持数字、英文字母、-、_、*、+、#，其他字符将不支持。
+     */
     @NotNull
     @Length(max = 32)
     private String orderId;
 
+    /**
+     * 商户订单日期，商户生成订单的日期，格式YYYYMMDD
+     */
     @NotNull
     @Length(min = 8, max = 8)
     private String merDate;
 
+    /**
+     * 付款金额，是人民币，且以分为单位
+     */
     @NotNull
     private Integer amount;
 
+    /**
+     * 付款币种，取值范围：RMB
+     */
     @NotNull
     @InList(value = {Constants.RMB})
     private String amtType = Constants.RMB;
 
+    /**
+     * 商户私有域，联动优势支付平台原样返回，用于商户的私有信息。
+     */
     @Length(max = 128)
     private String merPriv;
 
+    /**
+     * 用户IP地址，用户在创建交易时，该用户当前所使用机器的IP。用作防钓鱼校验
+     */
     @Length(max = 16)
     private String userIp;
 
+    /**
+     * 业务扩展信息
+     */
     @Length(max = 128)
     private String expand;
 
+    /**
+     * 订单过期时长，单位为分钟，默认1440分钟（24小时）
+     */
     @Min(value = 1)
     private Integer expireTime;
 
+    /**
+     * 授权码，支付时从用户终端获取的用户标识(例如微信条形码编码)
+     */
+    @NotNull
+    @Length(max = 32)
+    private String authCode;
+
+    /**
+     * 用途说明
+     */
+    @NotNull
+    @Length(max = 128)
+    private String useDesc;
+
+    /**
+     * 扫码类型
+     */
     @NotNull
     @InList(value = {Constants.UM_PAY_SCAN_CODE_TYPE_WECHAT, Constants.UM_PAY_SCAN_CODE_TYPE_ALIPAY})
     private String scanCodeType;
@@ -137,6 +184,22 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
         this.expireTime = expireTime;
     }
 
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    public String getUseDesc() {
+        return useDesc;
+    }
+
+    public void setUseDesc(String useDesc) {
+        this.useDesc = useDesc;
+    }
+
     public String getScanCodeType() {
         return scanCodeType;
     }
@@ -145,7 +208,7 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
         this.scanCodeType = scanCodeType;
     }
 
-    public static class Builder extends UmPayBasicModel.Builder<Builder, ActiveScanCodeOrderModel> {
+    public static class Builder extends UmPayBasicModel.Builder<Builder, PassiveScanCodePayModel> {
         public Builder topic(String topic) {
             instance.setTopic(topic);
             return this;
@@ -207,21 +270,23 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
         }
 
         @Override
-        public ActiveScanCodeOrderModel build() {
-            ActiveScanCodeOrderModel activeScanCodeOrderModel = super.build();
-            activeScanCodeOrderModel.setTopic(instance.getTopic());
-            activeScanCodeOrderModel.setGoodsId(instance.getGoodsId());
-            activeScanCodeOrderModel.setGoodsInf(instance.getGoodsInf());
-            activeScanCodeOrderModel.setOrderId(instance.getOrderId());
-            activeScanCodeOrderModel.setMerDate(instance.getMerDate());
-            activeScanCodeOrderModel.setAmount(instance.getAmount());
-            activeScanCodeOrderModel.setAmtType(instance.getAmtType());
-            activeScanCodeOrderModel.setMerPriv(instance.getMerPriv());
-            activeScanCodeOrderModel.setUserIp(instance.getUserIp());
-            activeScanCodeOrderModel.setExpand(instance.getExpand());
-            activeScanCodeOrderModel.setExpireTime(instance.getExpireTime());
-            activeScanCodeOrderModel.setScanCodeType(instance.getScanCodeType());
-            return activeScanCodeOrderModel;
+        public PassiveScanCodePayModel build() {
+            PassiveScanCodePayModel passiveScanCodePayModel = super.build();
+            passiveScanCodePayModel.setTopic(instance.getTopic());
+            passiveScanCodePayModel.setGoodsId(instance.getGoodsId());
+            passiveScanCodePayModel.setGoodsInf(instance.getGoodsInf());
+            passiveScanCodePayModel.setOrderId(instance.getOrderId());
+            passiveScanCodePayModel.setMerDate(instance.getMerDate());
+            passiveScanCodePayModel.setAmount(instance.getAmount());
+            passiveScanCodePayModel.setAmtType(instance.getAmtType());
+            passiveScanCodePayModel.setMerPriv(instance.getMerPriv());
+            passiveScanCodePayModel.setUserIp(instance.getUserIp());
+            passiveScanCodePayModel.setExpand(instance.getExpand());
+            passiveScanCodePayModel.setExpireTime(instance.getExpireTime());
+            passiveScanCodePayModel.setAuthCode(instance.getAuthCode());
+            passiveScanCodePayModel.setUseDesc(instance.getUseDesc());
+            passiveScanCodePayModel.setScanCodeType(instance.getScanCodeType());
+            return passiveScanCodePayModel;
         }
     }
 
