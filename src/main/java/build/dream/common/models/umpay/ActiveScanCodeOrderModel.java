@@ -2,10 +2,12 @@ package build.dream.common.models.umpay;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
+import build.dream.common.utils.CustomDateUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class ActiveScanCodeOrderModel extends UmPayBasicModel {
     @NotNull
@@ -24,7 +26,7 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
 
     @NotNull
     @Length(min = 8, max = 8)
-    private String merDate;
+    private String merDate = CustomDateUtils.format(new Date(), "yyyyMMdd");
 
     @NotNull
     private Integer amount;
