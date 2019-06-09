@@ -15,6 +15,7 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -32,11 +33,21 @@ public class WeiXinPayUtils {
      */
     public static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
         String weiXinPayAccountJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
-        WeiXinPayAccount weiXinPayAccount = null;
-        if (StringUtils.isNotBlank(weiXinPayAccountJson)) {
-            weiXinPayAccount = GsonUtils.fromJson(weiXinPayAccountJson, WeiXinPayAccount.class);
+        if (StringUtils.isBlank(weiXinPayAccountJson)) {
+            return null;
         }
-        return weiXinPayAccount;
+        return JacksonUtils.readValue(weiXinPayAccountJson, WeiXinPayAccount.class);
+    }
+
+    /**
+     * 获取微信支付账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
+    public static WeiXinPayAccount obtainWeiXinPayAccount(BigInteger tenantId, BigInteger branchId) {
+        return obtainWeiXinPayAccount(tenantId.toString(), branchId.toString());
     }
 
     /**
