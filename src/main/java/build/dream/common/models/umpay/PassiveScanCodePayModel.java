@@ -264,6 +264,16 @@ public class PassiveScanCodePayModel extends UmPayBasicModel {
             return this;
         }
 
+        public Builder authCode(String authCode) {
+            instance.setAuthCode(authCode);
+            return this;
+        }
+
+        public Builder useDesc(String useDesc) {
+            instance.setUseDesc(useDesc);
+            return this;
+        }
+
         public Builder scanCodeType(String scanCodeType) {
             instance.setScanCodeType(scanCodeType);
             return this;
