@@ -523,7 +523,6 @@ public class WeiXinBill {
             weiXinBill.setRateRemark(instance.getRateRemark());
             return weiXinBill;
         }
-
     }
 
     public static Builder builder() {
