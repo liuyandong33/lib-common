@@ -2,18 +2,26 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
+import build.dream.common.models.umpay.ActiveScanCodeOrderModel;
 import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.DatabaseUtils;
 import build.dream.common.utils.NamingStrategyUtils;
+import build.dream.common.utils.UmPayUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.*;
 import java.util.Date;
@@ -36,7 +44,7 @@ public class Application {
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DECIMAL, BigDecimal.class.getSimpleName());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
         /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
@@ -57,7 +65,23 @@ public class Application {
         String user = "root";
         String password = "root";
         String tableName = "assemble_activity";
-        reverseJavaCode(url, driverClassName, user, password, tableName);
+//        reverseJavaCode(url, driverClassName, user, password, tableName);
+
+        ActiveScanCodeOrderModel activeScanCodeOrderModel = ActiveScanCodeOrderModel.builder()
+                .merId("60000100")
+                .privateKey("MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMboog7ZX3znQzD6bJlNBK9JTjpM/4R8+GzK1+ko66BWGELCgFqZhLeRs8sO44OqNvTwzO42F+Yy+a1AJzb7jLMYyjr1JYqitji+iTCs205JhPNpLyHbH4TbFZVKLvUuTNamNTJ2J/PuS/hztgQOBt3Uy/bxotxIVNHXQGJWvPaxAgMBAAECgYA740cH2YLahHbChGO2NG44qIWZIB2+sjHJ77jaRqvK9qEPWKh0nsxKyN+tP6pYtiMd1HKfNkIz2R07gJlOAKb3rY7w8w9aOLeafAQ6OpGBjBVUBGZjYFseK32XZyOxm5vXv87mOvc7tV7awBzQS3rKBftKrABMuYpkbHe/nnFKwQJBAOcX5nhSHiFwifPEeZ2y1FFZz8SmougxgpAM0qw8mQvf1LGhqf5uKJI2g1jLeci0zC9gCMFVuKte7sYwiK9mPoUCQQDcWLndgMos3dm26MDUx3uBcklZJl1WRuzGSfSH5yQLatYbuRQyok2Os1JZP4ocfaQ9nR5onwVIR1ZXU3gCjx09AkEAs6oZPKJbWpQsLKEsDDbkavrwVWtYbD1RzLyrbc0PD/RNYGzXxT/Pux02sOpBHJGzzYFUTTtf/5wm9170ZamQIQJBAKpnp54IqtIV4/hTekVT3EzYkKb0R3ygrx4ONaEgfTyjK+AWuusJn8c7IPVKcUnlVK4do1WvnUsveDNips371dUCQDYpYmpDELYilNu6DR+6a9uXcVJLFmfQAbnsIkyzoiSLiAnWdjBGhG5BBgRKdzjZsF1GRcLmZiYj7KrPtHB8BRE=")
+                .platformCertificate("MIIDNDCCAp2gAwIBAgICLVkwDQYJKoZIhvcNAQEFBQAwPTEOMAwGA1UEBhMFQ0hJTkExKzApBgNVBAMTIkNISU5BVEVMRUNPTSBDRVJUSUZJQ0FURSBBVVRIT1JJVFkwHhcNMDEwMzIxMTA0NzEzWhcNMDMwMzIxMTA0NzEzWjBcMQswCQYDVQQGEwJDTjERMA8GA1UEChMItPPBrLXn0MUxETAPBgNVBAgTCFNoZW55YW5nMRQwEgYDVQQDEwsxOTIuMTY4LjIuMjERMA8GA1UEBxMIU2hlbnlhbmcwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMZYC7inporVKJCo0pPWdOBjADxzPRF1719G2YskDHVDEuqt6sBRWX+65dXs1AVKROKmi6jdzAQSlp7z3brsB4skHMo9sqdQgPolgZvCersKJFHgTbjjNyCoTyOjwOeRsfcqSJaiehQwPW4fLpNQW/lbvOuFrP8Tn0xWZvOunVPDAgMBAAGjggEiMIIBHjAJBgNVHRMEAjAAMEYGA1UdHwQ/MD0wO6A5oDeGNWxkYXA6Ly8yMDIuMTAzLjY1LjE4L291PWNhLG91PXN5c3RlbSxvdT1jYTEsbz1jdCxjPUNOMC8GCCsGAQUFBwEBBCMwITAfBggrBgEFBQcwAYYTLDIwMi4xMDMuNjUuMTg6OTAwMzAPBghghkgBhvhDDAQDAgEBMBIGCGCGSAGG+EMOBAYWBDI3RjkwGQYIYIZIAYb4QxAEDRYLMTkyLjE2OC4yLjIwEAYIYIZIAYb4QxEEBBYCTlQwGgYIYIZIAYb4QxkEDhYMOTe9ybfRt/7O8cb3MBkGCGCGSAGG+EMbBA0WCzE5Mi4xNjguMi4yMA8GCGCGSAGG+EMaBAMCAQMwDQYJKoZIhvcNAQEFBQADgYEAckkH/Vem5+kXPSGgkowjPwv47XXNbD0hGRMTVXm5PC2kY/wNApQh3lv7Tf5k3UQEoFBACxf6XJtuxf6S0uKBS4ySMKdpbMbOUvtwu6ycQUQTRAs1EBgoh1zyuafU2D3iyHQM8etHxaSePXZOZXFkkvBJemyPz23HAyIn5SKQ2Es=")
+                .topic("")
+                .goodsInf("订单支付")
+                .orderId("aaaaaaaa")
+                .amount(1)
+                .scanCodeType(Constants.UM_PAY_SCAN_CODE_TYPE_WECHAT)
+                .build();
+        Map<String, String> result = UmPayUtils.activeScanCodeOrder(activeScanCodeOrderModel);
+        int a = 100;
+
+        String aa = UmPayUtils.encrypt("aaa", activeScanCodeOrderModel.getPlatformCertificate());
+        System.out.println(aa);
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {

@@ -401,7 +401,7 @@ CREATE TABLE um_pay_account
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     mer_id VARCHAR(20) NOT NULL COMMENT '联动商户ID',
     private_key VARCHAR(2000) NOT NULL COMMENT '商户私钥',
-    platform_public_key VARCHAR(2000) NOT NULL COMMENT '联动平台公钥',
+    platform_certificate VARCHAR(2000) NOT NULL COMMENT '联动平台证书',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

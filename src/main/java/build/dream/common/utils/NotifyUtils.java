@@ -72,7 +72,8 @@ public class NotifyUtils {
      * @return
      */
     public static String obtainUmPayNotifyUrl() {
-        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "umPayCallback");
+//        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "umPayCallback");
+        return "https://www.baidu.com";
     }
 
     /**

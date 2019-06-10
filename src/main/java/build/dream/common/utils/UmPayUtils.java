@@ -11,12 +11,21 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import javax.crypto.Cipher;
+import java.io.IOException;
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.util.*;
 
 public class UmPayUtils {
+    /**
+     * 获取联动支付账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
     public static UmPayAccount obtainUmPayAccount(String tenantId, String branchId) {
         String umPayAccountJson = CommonRedisUtils.hget(Constants.KEY_UM_PAY_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(umPayAccountJson)) {
@@ -25,25 +34,76 @@ public class UmPayUtils {
         return JacksonUtils.readValue(umPayAccountJson, UmPayAccount.class);
     }
 
+    /**
+     * 获取联动支付账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
     public static UmPayAccount obtainUmPayAccount(BigInteger tenantId, BigInteger branchId) {
         return obtainUmPayAccount(tenantId.toString(), branchId.toString());
     }
 
-    private static String generateSign(Map<String, String> requestParameters, String merchantPrivateKey, String signType) {
-        Map<String, String> sortedMap = new TreeMap<String, String>();
-        sortedMap.putAll(requestParameters);
-        sortedMap.remove("sign_type");
+    /**
+     * 签名
+     *
+     * @param requestParameters
+     * @param privateKey
+     * @param signType
+     * @return
+     */
+    public static String generateSign(Map<String, String> requestParameters, String privateKey, String signType) {
+        Map<String, String> sortedMap = new TreeMap<String, String>(requestParameters);
 
-        StringBuilder stringBuilder = new StringBuilder();
+        List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            stringBuilder.append(entry.getValue());
+            pairs.add(entry.getKey() + "=" + entry.getValue());
         }
 
-        byte[] data = stringBuilder.toString().getBytes(Constants.CHARSET_UTF_8);
+        byte[] data = StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_GBK);
         if (Constants.RSA.equals(signType)) {
-            return Base64.encodeBase64String(SignatureUtils.sign(data, Base64.decodeBase64(merchantPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA));
+            return Base64.encodeBase64String(SignatureUtils.sign(data, Base64.decodeBase64(privateKey), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA));
         }
         return null;
+    }
+
+    /**
+     * 验签
+     *
+     * @param resultMap
+     * @param platformCertificate
+     * @return
+     */
+    public static boolean verifySign(Map<String, String> resultMap, String platformCertificate) {
+        Map<String, String> sortedMap = new TreeMap<String, String>(resultMap);
+        String sign = sortedMap.remove("sign");
+        String signType = sortedMap.remove("sign_type");
+
+        List<String> pairs = new ArrayList<String>();
+        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            pairs.add(entry.getKey() + "=" + entry.getValue());
+        }
+
+        byte[] data = StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_GBK);
+
+        Certificate certificate = CertificateUtils.restoreCertificate(platformCertificate, CertificateUtils.CERTIFICATE_TYPE_X_509);
+        if (Constants.RSA.equals(signType)) {
+            return SignatureUtils.verifySign(data, certificate, Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA);
+        }
+        return false;
+    }
+
+    private static String encrypt(String data, String platformCertificate) {
+        try {
+            Certificate certificate = CertificateUtils.restoreCertificate(platformCertificate, CertificateUtils.CERTIFICATE_TYPE_X_509);
+            PublicKey publicKey = certificate.getPublicKey();
+            Cipher cipher = Cipher.getInstance(publicKey.getAlgorithm());
+            cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+            return Base64.encodeBase64String(cipher.doFinal(data.getBytes(Constants.CHARSET_GBK)));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static Map<String, String> parseResult(String result) {
@@ -67,8 +127,8 @@ public class UmPayUtils {
      * @param activeScanCodeOrderModel
      * @return
      */
-    public static Map<String, String> activeScanCodeOrder(ActiveScanCodeOrderModel activeScanCodeOrderModel) {
-        activeScanCodeOrderModel.validateAndThrow();
+    public static Map<String, String> activeScanCodeOrder(ActiveScanCodeOrderModel activeScanCodeOrderModel) throws IOException {
+//        activeScanCodeOrderModel.validateAndThrow();
 
         String charset = activeScanCodeOrderModel.getCharset();
         String merId = activeScanCodeOrderModel.getMerId();
@@ -76,7 +136,7 @@ public class UmPayUtils {
         String resFormat = activeScanCodeOrderModel.getResFormat();
         String version = activeScanCodeOrderModel.getVersion();
         String privateKey = activeScanCodeOrderModel.getPrivateKey();
-        String platformPublicKey = activeScanCodeOrderModel.getPlatformPublicKey();
+        String platformCertificate = activeScanCodeOrderModel.getPlatformCertificate();
 
         String topic = activeScanCodeOrderModel.getTopic();
         String goodsId = activeScanCodeOrderModel.getGoodsId();
@@ -117,10 +177,12 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, privateKey, signType));
         activeScanCodeOrderParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, activeScanCodeOrderParameters);
+        String url = "http://pay.soopay.net/spay/pay/payservice.do";
+        WebResponse webResponse = WebUtils.doPostWithRequestParameters(url, activeScanCodeOrderParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -137,7 +199,7 @@ public class UmPayUtils {
         String resFormat = passiveScanCodePayModel.getResFormat();
         String version = passiveScanCodePayModel.getVersion();
         String privateKey = passiveScanCodePayModel.getPrivateKey();
-        String platformPublicKey = passiveScanCodePayModel.getPlatformPublicKey();
+        String platformCertificate = passiveScanCodePayModel.getPlatformCertificate();
 
         String topic = passiveScanCodePayModel.getTopic();
         String goodsId = passiveScanCodePayModel.getGoodsId();
@@ -203,7 +265,7 @@ public class UmPayUtils {
         String resFormat = publicNumberAndVerticalCodeModel.getResFormat();
         String version = publicNumberAndVerticalCodeModel.getVersion();
         String privateKey = publicNumberAndVerticalCodeModel.getPrivateKey();
-        String platformPublicKey = publicNumberAndVerticalCodeModel.getPlatformPublicKey();
+        String platformCertificate = publicNumberAndVerticalCodeModel.getPlatformCertificate();
 
         String topic = publicNumberAndVerticalCodeModel.getTopic();
         String orderId = publicNumberAndVerticalCodeModel.getOrderId();
@@ -264,7 +326,7 @@ public class UmPayUtils {
         String resFormat = merOrderInfoQueryModel.getResFormat();
         String version = merOrderInfoQueryModel.getVersion();
         String privateKey = merOrderInfoQueryModel.getPrivateKey();
-        String platformPublicKey = merOrderInfoQueryModel.getPlatformPublicKey();
+        String platformCertificate = merOrderInfoQueryModel.getPlatformCertificate();
 
         String orderType = merOrderInfoQueryModel.getOrderType();
         String orderId = merOrderInfoQueryModel.getOrderId();
@@ -308,7 +370,7 @@ public class UmPayUtils {
         String resFormat = merCancelModel.getResFormat();
         String version = merCancelModel.getVersion();
         String privateKey = merCancelModel.getPrivateKey();
-        String platformPublicKey = merCancelModel.getPlatformPublicKey();
+        String platformCertificate = merCancelModel.getPlatformCertificate();
 
         String orderId = merCancelModel.getOrderId();
         String merDate = merCancelModel.getMerDate();
@@ -350,7 +412,7 @@ public class UmPayUtils {
         String resFormat = merRefundModel.getResFormat();
         String version = merRefundModel.getVersion();
         String privateKey = merRefundModel.getPrivateKey();
-        String platformPublicKey = merRefundModel.getPlatformPublicKey();
+        String platformCertificate = merRefundModel.getPlatformCertificate();
 
         String refundNo = merRefundModel.getRefundNo();
         String orderId = merRefundModel.getOrderId();
@@ -396,7 +458,7 @@ public class UmPayUtils {
         String resFormat = merRefundQueryModel.getResFormat();
         String version = merRefundQueryModel.getVersion();
         String privateKey = merRefundQueryModel.getPrivateKey();
-        String platformPublicKey = merRefundQueryModel.getPlatformPublicKey();
+        String platformCertificate = merRefundQueryModel.getPlatformCertificate();
 
         String refundNo = merRefundQueryModel.getRefundNo();
 
@@ -434,7 +496,7 @@ public class UmPayUtils {
         String resFormat = refundInfoReplenishModel.getResFormat();
         String version = refundInfoReplenishModel.getVersion();
         String privateKey = refundInfoReplenishModel.getPrivateKey();
-        String platformPublicKey = refundInfoReplenishModel.getPlatformPublicKey();
+        String platformCertificate = refundInfoReplenishModel.getPlatformCertificate();
 
         String refundNo = refundInfoReplenishModel.getRefundNo();
         String cardHolder = refundInfoReplenishModel.getCardHolder();
@@ -451,8 +513,8 @@ public class UmPayUtils {
         refundInfoReplenishParameters.put("version", version);
 
         refundInfoReplenishParameters.put("refund_no", refundNo);
-        refundInfoReplenishParameters.put("card_holder", cardHolder);
-        refundInfoReplenishParameters.put("card_id", cardId);
+        refundInfoReplenishParameters.put("card_holder", encrypt(cardHolder, platformCertificate));
+        refundInfoReplenishParameters.put("card_id", encrypt(cardId, platformCertificate));
         ApplicationHandler.ifNotBlankPut(refundInfoReplenishParameters, "gate_id", gateId);
         ApplicationHandler.ifNotBlankPut(refundInfoReplenishParameters, "card_branch_name", cardBranchName);
 
@@ -479,7 +541,7 @@ public class UmPayUtils {
         String version = downloadSettleFileModel.getVersion();
         String settleDate = downloadSettleFileModel.getSettleDate();
         String privateKey = downloadSettleFileModel.getPrivateKey();
-        String platformPublicKey = downloadSettleFileModel.getPlatformPublicKey();
+        String platformCertificate = downloadSettleFileModel.getPlatformCertificate();
 
         String service = "download_settle_file";
         Map<String, String> downloadSettleFileParameters = new HashMap<String, String>();

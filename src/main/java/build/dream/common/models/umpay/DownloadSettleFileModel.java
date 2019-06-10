@@ -31,7 +31,7 @@ public class DownloadSettleFileModel extends BasicModel {
     private String privateKey;
 
     @NotNull
-    private String platformPublicKey;
+    private String platformCertificate;
 
     public String getSignType() {
         return signType;
@@ -73,12 +73,12 @@ public class DownloadSettleFileModel extends BasicModel {
         this.privateKey = privateKey;
     }
 
-    public String getPlatformPublicKey() {
-        return platformPublicKey;
+    public String getPlatformCertificate() {
+        return platformCertificate;
     }
 
-    public void setPlatformPublicKey(String platformPublicKey) {
-        this.platformPublicKey = platformPublicKey;
+    public void setPlatformCertificate(String platformCertificate) {
+        this.platformCertificate = platformCertificate;
     }
 
     public static class Builder {
@@ -109,8 +109,8 @@ public class DownloadSettleFileModel extends BasicModel {
             return this;
         }
 
-        public Builder platformPublicKey(String platformPublicKey) {
-            instance.setPlatformPublicKey(platformPublicKey);
+        public Builder platformCertificate(String platformCertificate) {
+            instance.setPlatformCertificate(platformCertificate);
             return this;
         }
 
@@ -121,7 +121,7 @@ public class DownloadSettleFileModel extends BasicModel {
             downloadSettleFileModel.setVersion(instance.getVersion());
             downloadSettleFileModel.setSettleDate(instance.getSettleDate());
             downloadSettleFileModel.setPrivateKey(instance.getPrivateKey());
-            downloadSettleFileModel.setPlatformPublicKey(instance.getPlatformPublicKey());
+            downloadSettleFileModel.setPlatformCertificate(instance.getPlatformCertificate());
             return downloadSettleFileModel;
         }
     }

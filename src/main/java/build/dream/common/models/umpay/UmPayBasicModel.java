@@ -35,7 +35,7 @@ public class UmPayBasicModel extends BasicModel {
     private String privateKey;
 
     @NotNull
-    private String platformPublicKey;
+    private String platformCertificate;
 
     public String getCharset() {
         return charset;
@@ -85,12 +85,12 @@ public class UmPayBasicModel extends BasicModel {
         this.privateKey = privateKey;
     }
 
-    public String getPlatformPublicKey() {
-        return platformPublicKey;
+    public String getPlatformCertificate() {
+        return platformCertificate;
     }
 
-    public void setPlatformPublicKey(String platformPublicKey) {
-        this.platformPublicKey = platformPublicKey;
+    public void setPlatformCertificate(String platformCertificate) {
+        this.platformCertificate = platformCertificate;
     }
 
     protected abstract static class Builder<BT extends Builder<BT, MT>, MT extends UmPayBasicModel> {
@@ -135,8 +135,8 @@ public class UmPayBasicModel extends BasicModel {
             return (BT) this;
         }
 
-        public BT platformPublicKey(String platformPublicKey) {
-            instance.setPlatformPublicKey(platformPublicKey);
+        public BT platformCertificate(String platformCertificate) {
+            instance.setPlatformCertificate(platformCertificate);
             return (BT) this;
         }
 
@@ -148,7 +148,7 @@ public class UmPayBasicModel extends BasicModel {
             model.setResFormat(instance.getResFormat());
             model.setVersion(instance.getVersion());
             model.setPrivateKey(instance.getPrivateKey());
-            model.setPlatformPublicKey(instance.getPlatformPublicKey());
+            model.setPlatformCertificate(instance.getPlatformCertificate());
             return model;
         }
     }

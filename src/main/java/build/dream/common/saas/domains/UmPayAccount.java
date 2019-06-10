@@ -23,7 +23,7 @@ public class UmPayAccount extends BasicDomain {
      */
     private String privateKey;
 
-    private String platformPublicKey;
+    private String platformCertificate;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -57,12 +57,12 @@ public class UmPayAccount extends BasicDomain {
         this.privateKey = privateKey;
     }
 
-    public String getPlatformPublicKey() {
-        return platformPublicKey;
+    public String getPlatformCertificate() {
+        return platformCertificate;
     }
 
-    public void setPlatformPublicKey(String platformPublicKey) {
-        this.platformPublicKey = platformPublicKey;
+    public void setPlatformCertificate(String platformCertificate) {
+        this.platformCertificate = platformCertificate;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, UmPayAccount> {
@@ -86,8 +86,8 @@ public class UmPayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder platformPublicKey(String platformPublicKey) {
-            instance.setPlatformPublicKey(platformPublicKey);
+        public Builder platformCertificate(String platformCertificate) {
+            instance.setPlatformCertificate(platformCertificate);
             return this;
         }
 
@@ -98,7 +98,7 @@ public class UmPayAccount extends BasicDomain {
             umPayAccount.setBranchId(instance.getBranchId());
             umPayAccount.setMerId(instance.getMerId());
             umPayAccount.setPrivateKey(instance.getPrivateKey());
-            umPayAccount.setPlatformPublicKey(instance.getPlatformPublicKey());
+            umPayAccount.setPlatformCertificate(instance.getPlatformCertificate());
             return umPayAccount;
         }
     }
@@ -112,7 +112,7 @@ public class UmPayAccount extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String MER_ID = "mer_id";
         public static final String PRIVATE_KEY = "private_key";
-        public static final String PLATFORM_PUBLIC_KEY = "platform_public_key";
+        public static final String PLATFORM_CERTIFICATE = "platform_certificate";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -120,6 +120,6 @@ public class UmPayAccount extends BasicDomain {
         public static final String BRANCH_ID = "branchId";
         public static final String MER_ID = "merId";
         public static final String PRIVATE_KEY = "privateKey";
-        public static final String PLATFORM_PUBLIC_KEY = "platformPublicKey";
+        public static final String PLATFORM_CERTIFICATE = "platformCertificate";
     }
 }
