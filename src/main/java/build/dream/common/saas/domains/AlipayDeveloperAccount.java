@@ -2,18 +2,8 @@ package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
-public class AlipayAccount extends BasicDomain {
-    public static final String TABLE_NAME = "alipay_account";
-    /**
-     * 商户ID
-     */
-    private BigInteger tenantId;
-    /**
-     * 门店ID
-     */
-    private BigInteger branchId;
+public class AlipayDeveloperAccount extends BasicDomain {
+    public static final String TABLE_NAME = "alipay_developer_account";
     /**
      * 支付宝账号
      */
@@ -42,22 +32,6 @@ public class AlipayAccount extends BasicDomain {
      * 签名方式，只能为RSA或RSA2
      */
     private String signType;
-
-    public BigInteger getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(BigInteger tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
-    }
 
     public String getAccount() {
         return account;
@@ -115,17 +89,7 @@ public class AlipayAccount extends BasicDomain {
         this.signType = signType;
     }
 
-    public static class Builder extends BasicDomain.Builder<Builder, AlipayAccount> {
-        public Builder tenantId(BigInteger tenantId) {
-            instance.setTenantId(tenantId);
-            return this;
-        }
-
-        public Builder branchId(BigInteger branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
+    public static class Builder extends BasicDomain.Builder<Builder, AlipayDeveloperAccount> {
         public Builder account(String account) {
             instance.setAccount(account);
             return this;
@@ -161,18 +125,17 @@ public class AlipayAccount extends BasicDomain {
             return this;
         }
 
-        public AlipayAccount build() {
-            AlipayAccount alipayAccount = super.build();
-            alipayAccount.setTenantId(instance.getTenantId());
-            alipayAccount.setBranchId(instance.getBranchId());
-            alipayAccount.setAccount(instance.getAccount());
-            alipayAccount.setAppId(instance.getAppId());
-            alipayAccount.setPartnerId(instance.getPartnerId());
-            alipayAccount.setAlipayPublicKey(instance.getAlipayPublicKey());
-            alipayAccount.setAppPublicKey(instance.getAppPublicKey());
-            alipayAccount.setAppPrivateKey(instance.getAppPrivateKey());
-            alipayAccount.setSignType(instance.getSignType());
-            return alipayAccount;
+        @Override
+        public AlipayDeveloperAccount build() {
+            AlipayDeveloperAccount alipayDeveloperAccount = super.build();
+            alipayDeveloperAccount.setAccount(instance.getAccount());
+            alipayDeveloperAccount.setAppId(instance.getAppId());
+            alipayDeveloperAccount.setPartnerId(instance.getPartnerId());
+            alipayDeveloperAccount.setAlipayPublicKey(instance.getAlipayPublicKey());
+            alipayDeveloperAccount.setAppPublicKey(instance.getAppPublicKey());
+            alipayDeveloperAccount.setAppPrivateKey(instance.getAppPrivateKey());
+            alipayDeveloperAccount.setSignType(instance.getSignType());
+            return alipayDeveloperAccount;
         }
     }
 
@@ -181,8 +144,6 @@ public class AlipayAccount extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String TENANT_ID = "tenant_id";
-        public static final String BRANCH_ID = "branch_id";
         public static final String ACCOUNT = "account";
         public static final String APP_ID = "app_id";
         public static final String PARTNER_ID = "partner_id";
@@ -193,8 +154,6 @@ public class AlipayAccount extends BasicDomain {
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
-        public static final String TENANT_ID = "tenantId";
-        public static final String BRANCH_ID = "branchId";
         public static final String ACCOUNT = "account";
         public static final String APP_ID = "appId";
         public static final String PARTNER_ID = "partnerId";
