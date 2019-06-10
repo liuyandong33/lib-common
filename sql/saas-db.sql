@@ -102,12 +102,10 @@ CREATE TABLE wei_xin_pay_account
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信支付账号';
 
-DROP TABLE IF EXISTS alipay_account;
-CREATE TABLE alipay_account
+DROP TABLE IF EXISTS alipay_developer_account;
+CREATE TABLE alipay_developer_account
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    branch_id BIGINT NOT NULL COMMENT '门店ID',
     account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
     app_id VARCHAR(50) NOT NULL COMMENT '支付宝appid',
     partner_id VARCHAR(50) NOT NULL COMMENT '支付宝合作者ID',
