@@ -128,7 +128,7 @@ public class UmPayUtils {
      * @return
      */
     public static Map<String, String> activeScanCodeOrder(ActiveScanCodeOrderModel activeScanCodeOrderModel) throws IOException {
-//        activeScanCodeOrderModel.validateAndThrow();
+        activeScanCodeOrderModel.validateAndThrow();
 
         String charset = activeScanCodeOrderModel.getCharset();
         String merId = activeScanCodeOrderModel.getMerId();
@@ -247,7 +247,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, passiveScanCodePayParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -308,7 +310,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, publicNumberAndVerticalCodeParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -352,7 +356,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, merOrderInfoQueryParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -394,7 +400,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, merCancelParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -440,7 +448,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, merRefundParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -478,7 +488,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, merRefundQueryParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -524,7 +536,9 @@ public class UmPayUtils {
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, refundInfoReplenishParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        Map<String, String> resultMap = parseResult(result);
+        ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
+        return resultMap;
     }
 
     /**
@@ -533,8 +547,8 @@ public class UmPayUtils {
      * @param downloadSettleFileModel
      * @return
      */
-    public static Map<String, String> downloadSettleFile(DownloadSettleFileModel downloadSettleFileModel) {
-        downloadSettleFileModel.validateAndThrow();
+    public static Map<String, String> downloadSettleFile(DownloadSettleFileModel downloadSettleFileModel) throws IOException {
+//        downloadSettleFileModel.validateAndThrow();
 
         String signType = downloadSettleFileModel.getSignType();
         String merId = downloadSettleFileModel.getMerId();
@@ -554,9 +568,58 @@ public class UmPayUtils {
         downloadSettleFileParameters.put("sign", generateSign(downloadSettleFileParameters, privateKey, signType));
         downloadSettleFileParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, downloadSettleFileParameters);
+        String url = "http://pay.soopay.net/spay/pay/payservice.do";
+        WebResponse webResponse = WebUtils.doPostWithRequestParameters(url, downloadSettleFileParameters);
         String result = webResponse.getResult();
-        return parseResult(result);
+        String[] lines = result.split("\r\n");
+        Map<String, String> header = new HashMap<String, String>();
+        Map<String, String> footer = new HashMap<String, String>();
+        List<Map<String, String>> tradeInfos = new ArrayList<Map<String, String>>();
+
+        for (int index = 0; index < lines.length; index++) {
+            String[] array = lines[index].split(",");
+            if (index == 0) {
+                header.put("merId", array[1]);
+                header.put("settleDate", array[2]);
+                header.put("version", array[3]);
+                header.put("retCode", array[4]);
+                header.put("retMsg", array[5]);
+                continue;
+            }
+
+            if (index == lines.length - 1) {
+                footer.put("merId", array[1]);
+                footer.put("settleDate", array[2]);
+                footer.put("numbers", array[3]);
+                footer.put("totalAmount", array[4]);
+                continue;
+            }
+
+            Map<String, String> tradeInfo = new HashMap<String, String>();
+            tradeInfo.put("merId", array[0]);
+            tradeInfo.put("goodsId", array[1]);
+            tradeInfo.put("mobileId", array[2]);
+            tradeInfo.put("orderId", array[3]);
+            tradeInfo.put("merDate", array[4]);
+            tradeInfo.put("payDate", array[5]);
+            tradeInfo.put("amount", array[6]);
+            tradeInfo.put("amtType", array[7]);
+            tradeInfo.put("gateId", array[8]);
+            tradeInfo.put("settleDate", array[9]);
+            tradeInfo.put("transType", array[10]);
+            tradeInfo.put("transState", array[11]);
+            tradeInfo.put("bankCheck", array[12]);
+            tradeInfo.put("productId", array[13]);
+            tradeInfo.put("refundNo", array[14]);
+            tradeInfo.put("transTime", array[15]);
+
+            tradeInfos.add(tradeInfo);
+        }
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("header", header);
+        data.put("footer", footer);
+        data.put("tradeInfos", tradeInfos);
+        return null;
     }
 }
