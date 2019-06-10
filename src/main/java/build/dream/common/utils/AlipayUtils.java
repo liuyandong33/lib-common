@@ -443,21 +443,8 @@ public class AlipayUtils {
      * @param alipayOpenAuthTokenAppModel
      * @return
      */
-    public static AlipayAuthorizerInfo alipayOpenAuthTokenApp(AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel) {
-        String appId = alipayOpenAuthTokenAppModel.getAppId();
-        AlipayAccount alipayAccount = obtainAlipayAccount(appId);
-        ValidateUtils.notNull(alipayAccount, "未配置支付宝账号！");
-        Map<String, Object> resultMap = callAlipayApi(alipayOpenAuthTokenAppModel, "alipay.open.auth.token.app");
-
-        AlipayAuthorizerInfo alipayAuthorizerInfo = new AlipayAuthorizerInfo();
-        alipayAuthorizerInfo.setAppId(appId);
-        alipayAuthorizerInfo.setAppAuthToken(MapUtils.getString(resultMap, "app_auth_token"));
-        alipayAuthorizerInfo.setUserId(MapUtils.getString(resultMap, "user_id"));
-        alipayAuthorizerInfo.setAuthAppId(MapUtils.getString(resultMap, "auth_app_id"));
-        alipayAuthorizerInfo.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
-        alipayAuthorizerInfo.setReExpiresIn(MapUtils.getIntValue(resultMap, "re_expires_in"));
-        alipayAuthorizerInfo.setAppRefreshToken(MapUtils.getString(resultMap, "app_refresh_token"));
-        return alipayAuthorizerInfo;
+    public static Map<String, Object> alipayOpenAuthTokenApp(AlipayOpenAuthTokenAppModel alipayOpenAuthTokenAppModel) {
+        return callAlipayApi(alipayOpenAuthTokenAppModel, "alipay.open.auth.token.app");
     }
 
     /**
