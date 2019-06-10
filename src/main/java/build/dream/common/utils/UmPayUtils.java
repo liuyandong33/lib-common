@@ -97,7 +97,7 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("service", service);
         activeScanCodeOrderParameters.put("charset", charset);
         activeScanCodeOrderParameters.put("mer_id", merId);
-        activeScanCodeOrderParameters.put("notify_url", "");
+        activeScanCodeOrderParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
         activeScanCodeOrderParameters.put("res_format", resFormat);
         activeScanCodeOrderParameters.put("version", version);
 
@@ -160,7 +160,7 @@ public class UmPayUtils {
         passiveScanCodePayParameters.put("service", service);
         passiveScanCodePayParameters.put("charset", charset);
         passiveScanCodePayParameters.put("mer_id", merId);
-        passiveScanCodePayParameters.put("notify_url", "");
+        passiveScanCodePayParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
         passiveScanCodePayParameters.put("res_format", resFormat);
         passiveScanCodePayParameters.put("version", version);
 
@@ -223,7 +223,7 @@ public class UmPayUtils {
         publicNumberAndVerticalCodeParameters.put("service", service);
         publicNumberAndVerticalCodeParameters.put("charset", charset);
         publicNumberAndVerticalCodeParameters.put("mer_id", merId);
-        publicNumberAndVerticalCodeParameters.put("notify_url", "");
+        publicNumberAndVerticalCodeParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
         publicNumberAndVerticalCodeParameters.put("res_format", resFormat);
         publicNumberAndVerticalCodeParameters.put("version", version);
 

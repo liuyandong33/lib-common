@@ -9,6 +9,12 @@ import org.apache.commons.lang.StringUtils;
 import java.math.BigInteger;
 
 public class NotifyUtils {
+    /**
+     * 获取支付宝回调地址
+     *
+     * @param alipayAsyncNotifyType
+     * @return
+     */
     public static String obtainAlipayNotifyUrl(AlipayAsyncNotifyType alipayAsyncNotifyType) {
         switch (alipayAsyncNotifyType) {
             case ALIPAY_TRADE_CLOSE:
@@ -42,16 +48,31 @@ public class NotifyUtils {
         }
     }
 
+    /**
+     * 获取微信支付回调地址
+     *
+     * @return
+     */
     public static String obtainWeiXinPayNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinPayCallback");
     }
 
+    /**
+     * 获取微信退款回调地址
+     *
+     * @return
+     */
     public static String obtainWeiXinRefundNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinRefundCallback");
     }
 
-    public static String obtainJingDongPayNotifyUrl() {
-        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "jingDongPayCallback");
+    /**
+     * 获取联动支付回调地址
+     *
+     * @return
+     */
+    public static String obtainUmPayNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "umPayCallback");
     }
 
     /**
