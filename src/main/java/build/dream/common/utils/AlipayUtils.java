@@ -20,6 +20,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,13 +40,30 @@ public class AlipayUtils {
         return false;
     }
 
-    public static AlipayAccount obtainAlipayAccount(String appId) {
-        String alipayAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, appId);
-        AlipayAccount alipayAccount = null;
-        if (StringUtils.isNotBlank(alipayAccountJson)) {
-            alipayAccount = GsonUtils.fromJson(alipayAccountJson, AlipayAccount.class);
+    /**
+     * 获取支付宝账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
+    public static AlipayAccount obtainAlipayAccount(String tenantId, String branchId) {
+        String alipayAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, tenantId + "_" + branchId);
+        if (StringUtils.isBlank(alipayAccountJson)) {
+            return null;
         }
-        return alipayAccount;
+        return JacksonUtils.readValue(alipayAccountJson, AlipayAccount.class);
+    }
+
+    /**
+     * 获取支付宝账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
+    public static AlipayAccount obtainAlipayAccount(BigInteger tenantId, BigInteger branchId) {
+        return obtainAlipayAccount(tenantId.toString(), branchId.toString());
     }
 
     public static String buildRequestBody(AlipayBasicModel alipayBasicModel, String method) {
