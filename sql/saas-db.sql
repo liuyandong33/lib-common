@@ -846,7 +846,7 @@ CREATE TABLE new_land_account
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
-    mch_id VARCHAR(50) NOT NULL COMMENT '新大陆支付商户号',
+    merc_id VARCHAR(50) NOT NULL COMMENT '新大陆支付商户号',
     trm_no VARCHAR(50) NOT NULL COMMENT '新大陆支付设备号',
     org_no VARCHAR(50) NOT NULL COMMENT '新大陆支付机构号',
     secret_key VARCHAR(50) NOT NULL COMMENT '新大陆支付密钥',
