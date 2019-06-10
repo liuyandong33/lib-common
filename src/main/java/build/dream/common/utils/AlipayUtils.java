@@ -2,12 +2,13 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.AlipayAsyncNotify;
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.AlipayAccount;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.alipay.*;
 import build.dream.common.models.notify.SaveAsyncNotifyModel;
-import build.dream.common.saas.domains.AlipayAccount;
 import build.dream.common.saas.domains.AlipayAuthorizerInfo;
+import build.dream.common.saas.domains.AlipayDeveloperAccount;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
@@ -38,6 +39,20 @@ public class AlipayUtils {
             return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA);
         }
         return false;
+    }
+
+    /**
+     * 获取支付宝开发者账号
+     *
+     * @param appId
+     * @return
+     */
+    public static AlipayDeveloperAccount obtainAlipayDeveloperAccount(String appId) {
+        String alipayDeveloperAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_DEVELOPER_ACCOUNTS, appId);
+        if (StringUtils.isBlank(alipayDeveloperAccountJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(alipayDeveloperAccountJson, AlipayDeveloperAccount.class);
     }
 
     /**
