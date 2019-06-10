@@ -12,7 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.crypto.Cipher;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
@@ -127,7 +126,7 @@ public class UmPayUtils {
      * @param activeScanCodeOrderModel
      * @return
      */
-    public static Map<String, String> activeScanCodeOrder(ActiveScanCodeOrderModel activeScanCodeOrderModel) throws IOException {
+    public static Map<String, String> activeScanCodeOrder(ActiveScanCodeOrderModel activeScanCodeOrderModel) {
         activeScanCodeOrderModel.validateAndThrow();
 
         String charset = activeScanCodeOrderModel.getCharset();
@@ -177,8 +176,8 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, privateKey, signType));
         activeScanCodeOrderParameters.put("sign_type", signType);
 
-        String url = "http://pay.soopay.net/spay/pay/payservice.do";
-        WebResponse webResponse = WebUtils.doPostWithRequestParameters(url, activeScanCodeOrderParameters);
+        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, activeScanCodeOrderParameters);
         String result = webResponse.getResult();
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -547,8 +546,8 @@ public class UmPayUtils {
      * @param downloadSettleFileModel
      * @return
      */
-    public static Map<String, String> downloadSettleFile(DownloadSettleFileModel downloadSettleFileModel) throws IOException {
-//        downloadSettleFileModel.validateAndThrow();
+    public static Map<String, String> downloadSettleFile(DownloadSettleFileModel downloadSettleFileModel) {
+        downloadSettleFileModel.validateAndThrow();
 
         String signType = downloadSettleFileModel.getSignType();
         String merId = downloadSettleFileModel.getMerId();
@@ -568,8 +567,8 @@ public class UmPayUtils {
         downloadSettleFileParameters.put("sign", generateSign(downloadSettleFileParameters, privateKey, signType));
         downloadSettleFileParameters.put("sign_type", signType);
 
-        String url = "http://pay.soopay.net/spay/pay/payservice.do";
-        WebResponse webResponse = WebUtils.doPostWithRequestParameters(url, downloadSettleFileParameters);
+        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, downloadSettleFileParameters);
         String result = webResponse.getResult();
         String[] lines = result.split("\r\n");
         Map<String, String> header = new HashMap<String, String>();
