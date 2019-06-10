@@ -106,12 +106,14 @@ DROP TABLE IF EXISTS alipay_developer_account;
 CREATE TABLE alipay_developer_account
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
     account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
     app_id VARCHAR(50) NOT NULL COMMENT '支付宝appid',
     partner_id VARCHAR(50) NOT NULL COMMENT '支付宝合作者ID',
     alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
-    application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
-    application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
+    app_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
+    app_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
     sign_type ENUM('RSA', 'RSA2') NOT NULL COMMENT '签名方式',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
