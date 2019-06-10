@@ -9,14 +9,15 @@ import java.util.SimpleTimeZone;
 
 public class CustomDateUtils {
     public static Date parse(String source, String pattern) {
-        Date date = null;
+        return parse(new SimpleDateFormat(pattern), source);
+    }
+
+    public static Date parse(SimpleDateFormat simpleDateFormat, String source) {
         try {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-            date = simpleDateFormat.parse(source);
+            return simpleDateFormat.parse(source);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return date;
     }
 
     public static String format(Date date, String pattern) {

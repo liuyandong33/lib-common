@@ -2,6 +2,9 @@ package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
+import build.dream.common.beans.WeiXinBill;
+import build.dream.common.beans.WeiXinBillSummary;
+import build.dream.common.beans.WeiXinDownloadBillResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.models.weixinpay.*;
@@ -16,10 +19,8 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class WeiXinPayUtils {
     private static final String WEI_XIN_PAY_API_URL = "https://api.mch.weixin.qq.com";
@@ -141,6 +142,22 @@ public class WeiXinPayUtils {
      */
     public static Map<String, String> callWeiXinPaySystem(String url, String finalData) {
         return callWeiXinPaySystem(url, finalData, null, null);
+    }
+
+    /**
+     * 调用微信系统
+     *
+     * @param url
+     * @param finalData
+     * @return
+     */
+    public static String callWeiXinPaySystemOriginal(String url, String finalData) {
+        try {
+            WebResponse webResponse = OutUtils.doPostWithRequestBody(url, finalData);
+            return webResponse.getResult();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -574,7 +591,7 @@ public class WeiXinPayUtils {
      * @param downloadBillModel
      * @return
      */
-    public static Map<String, String> downloadBill(DownloadBillModel downloadBillModel) {
+    public static WeiXinDownloadBillResponse downloadBill(DownloadBillModel downloadBillModel) {
         downloadBillModel.validateAndThrow();
 
         String appId = downloadBillModel.getAppId();
@@ -606,17 +623,67 @@ public class WeiXinPayUtils {
         downloadBillRequestParameters.put("sign", sign);
 
         String finalData = generateFinalData(downloadBillRequestParameters);
-        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/downloadbill", finalData);
+        String downloadBillResult = callWeiXinPaySystemOriginal(WEI_XIN_PAY_API_URL + "/pay/downloadbill", finalData);
+        downloadBillResult.replaceAll("`", "");
+        String[] bills = downloadBillResult.split("\r\n");
 
-        String returnCode = refundResult.get("return_code");
-        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+        List<WeiXinBill> weiXinBills = new ArrayList<WeiXinBill>();
+        WeiXinDownloadBillResponse weiXinDownloadBillResponse = new WeiXinDownloadBillResponse();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN);
+        for (int index = 1; index < bills.length; index++) {
+            if (index == bills.length - 2) {
+                continue;
+            }
 
-        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+            if (index == bills.length - 1) {
+                String[] billSummaryArray = bills[index].split(",");
+                WeiXinBillSummary weiXinBillSummary = WeiXinBillSummary.builder()
+                        .totalTrade(Integer.valueOf(billSummaryArray[0]))
+                        .settlementTotalAmount(Double.valueOf(billSummaryArray[1]))
+                        .refundAmount(Double.valueOf(billSummaryArray[2]))
+                        .cashRefundAmount(Double.valueOf(billSummaryArray[3]))
+                        .totalServiceFee(Double.valueOf(billSummaryArray[4]))
+                        .totalAmount(Double.valueOf(billSummaryArray[5]))
+                        .totalRefundFee(Double.valueOf(billSummaryArray[6]))
+                        .build();
+                weiXinDownloadBillResponse.setSummary(weiXinBillSummary);
+                continue;
+            }
 
-        String resultCode = refundResult.get("result_code");
-        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
-
-        return refundResult;
+            String[] billInfoArray = bills[index].split(",");
+            WeiXinBill weiXinBill = WeiXinBill.builder()
+                    .tradeTime(CustomDateUtils.parse(simpleDateFormat, billInfoArray[0]))
+                    .appId(billInfoArray[1])
+                    .mchId(billInfoArray[2])
+                    .subMchId(billInfoArray[3])
+                    .deviceInfo(billInfoArray[4])
+                    .transactionId(billInfoArray[5])
+                    .outTradeNo(billInfoArray[6])
+                    .openId(billInfoArray[7])
+                    .tradeType(billInfoArray[8])
+                    .tradeState(billInfoArray[9])
+                    .bankType(billInfoArray[10])
+                    .feeType(billInfoArray[11])
+                    .settlementTotalFee(Double.valueOf(billInfoArray[12]))
+                    .couponFee(Double.valueOf(billInfoArray[13]))
+                    .refundId(billInfoArray[14])
+                    .outRefundNo(billInfoArray[15])
+                    .settlementRefundFee(Double.valueOf(billInfoArray[16]))
+                    .cashRefundFee(Double.valueOf(billInfoArray[17]))
+                    .refundType(billInfoArray[18])
+                    .refundState(billInfoArray[19])
+                    .goodsName(billInfoArray[20])
+                    .dataPacket(billInfoArray[21])
+                    .serviceFee(Double.valueOf(billInfoArray[22]))
+                    .rate(billInfoArray[23])
+                    .totalFee(Double.valueOf(billInfoArray[24]))
+                    .refundFee(Double.valueOf(billInfoArray[25]))
+                    .rateRemark(billInfoArray[26])
+                    .build();
+            weiXinBills.add(weiXinBill);
+        }
+        weiXinDownloadBillResponse.setBills(weiXinBills);
+        return weiXinDownloadBillResponse;
     }
 
     /**
