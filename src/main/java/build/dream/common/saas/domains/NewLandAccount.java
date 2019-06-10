@@ -17,7 +17,7 @@ public class NewLandAccount extends BasicDomain {
     /**
      * 新大陆支付商户号
      */
-    private String mchId;
+    private String mercId;
     /**
      * 新大陆支付设备号
      */
@@ -47,12 +47,12 @@ public class NewLandAccount extends BasicDomain {
         this.branchId = branchId;
     }
 
-    public String getMchId() {
-        return mchId;
+    public String getMercId() {
+        return mercId;
     }
 
-    public void setMchId(String mchId) {
-        this.mchId = mchId;
+    public void setMercId(String mercId) {
+        this.mercId = mercId;
     }
 
     public String getTrmNo() {
@@ -90,8 +90,8 @@ public class NewLandAccount extends BasicDomain {
             return this;
         }
 
-        public Builder mchId(String mchId) {
-            instance.setMchId(mchId);
+        public Builder mercId(String mercId) {
+            instance.setMercId(mercId);
             return this;
         }
 
@@ -115,7 +115,7 @@ public class NewLandAccount extends BasicDomain {
             NewLandAccount newLandAccount = super.build();
             newLandAccount.setTenantId(instance.getTenantId());
             newLandAccount.setBranchId(instance.getBranchId());
-            newLandAccount.setMchId(instance.getMchId());
+            newLandAccount.setMercId(instance.getMercId());
             newLandAccount.setTrmNo(instance.getTrmNo());
             newLandAccount.setOrgNo(instance.getOrgNo());
             newLandAccount.setSecretKey(instance.getSecretKey());
@@ -130,7 +130,7 @@ public class NewLandAccount extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String TENANT_ID = "tenant_id";
         public static final String BRANCH_ID = "branch_id";
-        public static final String MCH_ID = "mch_id";
+        public static final String MERC_ID = "merc_id";
         public static final String TRM_NO = "trm_no";
         public static final String ORG_NO = "org_no";
         public static final String SECRET_KEY = "secret_key";
@@ -139,7 +139,7 @@ public class NewLandAccount extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String TENANT_ID = "tenantId";
         public static final String BRANCH_ID = "branchId";
-        public static final String MCH_ID = "mchId";
+        public static final String MERC_ID = "mercId";
         public static final String TRM_NO = "trmNo";
         public static final String ORG_NO = "orgNo";
         public static final String SECRET_KEY = "secretKey";
