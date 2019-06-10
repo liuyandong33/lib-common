@@ -1,7 +1,6 @@
 package build.dream.common.saas.domains;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.constants.Constants;
 
 import java.math.BigInteger;
 
@@ -27,10 +26,6 @@ public class AlipayAccount extends BasicDomain {
      * PID
      */
     private String partnerId;
-    /**
-     * 支付宝门店ID
-     */
-    private String storeId = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 支付宝公钥
      */
@@ -86,14 +81,6 @@ public class AlipayAccount extends BasicDomain {
 
     public void setPartnerId(String partnerId) {
         this.partnerId = partnerId;
-    }
-
-    public String getStoreId() {
-        return storeId;
-    }
-
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
     }
 
     public String getAlipayPublicKey() {
@@ -154,11 +141,6 @@ public class AlipayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder storeId(String storeId) {
-            instance.setStoreId(storeId);
-            return this;
-        }
-
         public Builder alipayPublicKey(String alipayPublicKey) {
             instance.setAlipayPublicKey(alipayPublicKey);
             return this;
@@ -204,7 +186,6 @@ public class AlipayAccount extends BasicDomain {
         public static final String ACCOUNT = "account";
         public static final String APP_ID = "app_id";
         public static final String PARTNER_ID = "partner_id";
-        public static final String STORE_ID = "store_id";
         public static final String ALIPAY_PUBLIC_KEY = "alipay_public_key";
         public static final String APPLICATION_PUBLIC_KEY = "application_public_key";
         public static final String APPLICATION_PRIVATE_KEY = "application_private_key";
@@ -217,7 +198,6 @@ public class AlipayAccount extends BasicDomain {
         public static final String ACCOUNT = "account";
         public static final String APP_ID = "appId";
         public static final String PARTNER_ID = "partnerId";
-        public static final String STORE_ID = "storeId";
         public static final String ALIPAY_PUBLIC_KEY = "alipayPublicKey";
         public static final String APPLICATION_PUBLIC_KEY = "applicationPublicKey";
         public static final String APPLICATION_PRIVATE_KEY = "applicationPrivateKey";

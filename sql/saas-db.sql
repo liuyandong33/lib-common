@@ -111,7 +111,6 @@ CREATE TABLE alipay_account
     account VARCHAR(50) NOT NULL COMMENT '支付宝账号',
     app_id VARCHAR(50) NOT NULL COMMENT '支付宝appid',
     partner_id VARCHAR(50) NOT NULL COMMENT '支付宝合作者ID',
-    store_id VARCHAR(50) NOT NULL COMMENT '支付宝门店ID',
     alipay_public_key VARCHAR(500) NOT NULL COMMENT '支付宝公钥',
     application_public_key VARCHAR(500) NOT NULL COMMENT '应用公钥',
     application_private_key VARCHAR(2000) NOT NULL COMMENT '应用私钥',
