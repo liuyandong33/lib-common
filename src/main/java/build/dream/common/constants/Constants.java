@@ -998,4 +998,22 @@ public class Constants {
     public static final String UM_PAY_SCAN_CODE_TYPE_ALIPAY = "ALIPAY";
 
     public static final String UM_PAY_SERVICE_URL = "um.pay.service.url";
+
+    /**
+     * 微信下载对账单类型
+     *
+     * @see #DOWNLOAD_BILL_BILL_TYPE_ALL: 返回当日所有订单信息，默认值
+     * @see #DOWNLOAD_BILL_BILL_TYPE_SUCCESS: 返回当日成功支付的订单
+     * @see #DOWNLOAD_BILL_BILL_TYPE_REFUND: 返回当日退款订单
+     * @see #DOWNLOAD_BILL_BILL_TYPE_RECHARGE_REFUND: 返回当日充值退款订单
+     */
+    public static final String DOWNLOAD_BILL_BILL_TYPE_ALL = "ALL";
+    public static final String DOWNLOAD_BILL_BILL_TYPE_SUCCESS = "SUCCESS";
+    public static final String DOWNLOAD_BILL_BILL_TYPE_REFUND = "REFUND";
+    public static final String DOWNLOAD_BILL_BILL_TYPE_RECHARGE_REFUND = "RECHARGE_REFUND";
+
+    /**
+     * 微信下载对账单压缩类型
+     */
+    public static final String DOWNLOAD_BILL_TAR_TYPE_GZIP = "GZIP";
 }

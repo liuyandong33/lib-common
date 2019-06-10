@@ -513,6 +513,113 @@ public class WeiXinPayUtils {
     }
 
     /**
+     * 查询退款
+     *
+     * @param refundQueryModel
+     * @return
+     */
+    public static Map<String, String> refundQuery(RefundQueryModel refundQueryModel) {
+        refundQueryModel.validateAndThrow();
+
+        String appId = refundQueryModel.getAppId();
+        String mchId = refundQueryModel.getMchId();
+        String apiSecretKey = refundQueryModel.getApiSecretKey();
+        String subAppId = refundQueryModel.getSubAppId();
+        String subMchId = refundQueryModel.getSubMchId();
+        boolean acceptanceModel = refundQueryModel.isAcceptanceModel();
+        String transactionId = refundQueryModel.getTransactionId();
+        String outTradeNo = refundQueryModel.getOutTradeNo();
+        String outRefundNo = refundQueryModel.getOutRefundNo();
+        String refundId = refundQueryModel.getRefundId();
+        Integer offset = refundQueryModel.getOffset();
+
+        Map<String, String> refundQueryRequestParameters = new HashMap<String, String>();
+        refundQueryRequestParameters.put("appid", appId);
+        refundQueryRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "sub_appid", subAppId);
+            refundQueryRequestParameters.put("sub_mch_id", subMchId);
+        }
+
+        refundQueryRequestParameters.put("nonce_str", RandomStringUtils.randomAlphanumeric(32));
+        ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "transaction_id", transactionId);
+        ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "out_trade_no", outTradeNo);
+        ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "out_refund_no", outRefundNo);
+        ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "refund_id", refundId);
+        if (offset != null) {
+            refundQueryRequestParameters.put("offset", String.valueOf(offset));
+        }
+
+        String sign = generateSign(refundQueryRequestParameters, apiSecretKey, Constants.MD5);
+        refundQueryRequestParameters.put("sign", sign);
+
+        String finalData = generateFinalData(refundQueryRequestParameters);
+        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/refundquery", finalData);
+
+        String returnCode = refundResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = refundResult.get("result_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+
+        return refundResult;
+    }
+
+    /**
+     * 下载对账单
+     *
+     * @param downloadBillModel
+     * @return
+     */
+    public static Map<String, String> downloadBill(DownloadBillModel downloadBillModel) {
+        downloadBillModel.validateAndThrow();
+
+        String appId = downloadBillModel.getAppId();
+        String mchId = downloadBillModel.getMchId();
+        String apiSecretKey = downloadBillModel.getApiSecretKey();
+        String subAppId = downloadBillModel.getSubAppId();
+        String subMchId = downloadBillModel.getSubMchId();
+        boolean acceptanceModel = downloadBillModel.isAcceptanceModel();
+        String nonceStr = downloadBillModel.getNonceStr();
+        String billDate = downloadBillModel.getBillDate();
+        String billType = downloadBillModel.getBillType();
+        String tarType = downloadBillModel.getTarType();
+
+        Map<String, String> downloadBillRequestParameters = new HashMap<String, String>();
+        downloadBillRequestParameters.put("appid", appId);
+        downloadBillRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(downloadBillRequestParameters, "sub_appid", subAppId);
+            ApplicationHandler.ifNotBlankPut(downloadBillRequestParameters, "sub_mch_id", subMchId);
+        }
+
+        downloadBillRequestParameters.put("nonce_str", nonceStr);
+        downloadBillRequestParameters.put("bill_date", billDate);
+        downloadBillRequestParameters.put("bill_type", billType);
+        ApplicationHandler.ifNotBlankPut(downloadBillRequestParameters, "tar_type", tarType);
+
+        String sign = generateSign(downloadBillRequestParameters, apiSecretKey, Constants.MD5);
+        downloadBillRequestParameters.put("sign", sign);
+
+        String finalData = generateFinalData(downloadBillRequestParameters);
+        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/downloadbill", finalData);
+
+        String returnCode = refundResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = refundResult.get("result_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+
+        return refundResult;
+    }
+
+    /**
      * 根据支付场景获取交易类型
      *
      * @param paidScene
