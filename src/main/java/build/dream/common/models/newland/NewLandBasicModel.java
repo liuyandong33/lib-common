@@ -9,11 +9,14 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 public class NewLandBasicModel extends BasicModel {
     @NotNull
     @InList(value = {Constants.NEW_LAND_OP_SYS_ANDROID_SDK, Constants.NEW_LAND_OP_SYS_IOS_SDK, Constants.NEW_LAND_OP_SYS_WINDOWS_SDK, Constants.NEW_LAND_OP_SYS_ZHI_LIAN})
-    private String opSys;
+    private String opSys = Constants.NEW_LAND_OP_SYS_ZHI_LIAN;
 
     @NotNull
     @InList(value = {Constants.NEW_LAND_CHARACTER_SET_GBK, Constants.NEW_LAND_CHARACTER_SET_UTF_8})
@@ -45,15 +48,15 @@ public class NewLandBasicModel extends BasicModel {
 
     @NotNull
     @Length(max = 64)
-    private String tradeNo;
+    private String tradeNo = UUID.randomUUID().toString();
 
     @NotNull
     @Length(min = 14, max = 14)
-    private String txnTime;
+    private String txnTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 
     @NotNull
     @InList(value = {Constants.MD5})
-    private String signType;
+    private String signType = Constants.MD5;
 
     @Length(max = 256)
     private String addField;
