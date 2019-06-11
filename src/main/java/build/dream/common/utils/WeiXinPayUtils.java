@@ -687,6 +687,74 @@ public class WeiXinPayUtils {
     }
 
     /**
+     * 刷脸支付
+     *
+     * @param facePayModel
+     * @return
+     */
+    public static Map<String, String> facePay(FacePayModel facePayModel) {
+        facePayModel.validateAndThrow();
+
+        String appId = facePayModel.getAppId();
+        String mchId = facePayModel.getMchId();
+        String apiSecretKey = facePayModel.getApiSecretKey();
+        String subAppId = facePayModel.getSubAppId();
+        String subMchId = facePayModel.getSubMchId();
+        boolean acceptanceModel = facePayModel.isAcceptanceModel();
+
+        String deviceInfo = facePayModel.getDeviceInfo();
+        String nonceStr = facePayModel.getNonceStr();
+        String body = facePayModel.getBody();
+        String detail = facePayModel.getDetail();
+        String attach = facePayModel.getAttach();
+        String outTradeNo = facePayModel.getOutTradeNo();
+        Integer totalFee = facePayModel.getTotalFee();
+        String feeType = facePayModel.getFeeType();
+        String spbillCreateIp = facePayModel.getSpbillCreateIp();
+        String goodsTag = facePayModel.getGoodsTag();
+        String openId = facePayModel.getOpenId();
+        String faceCode = facePayModel.getFaceCode();
+
+        Map<String, String> facePayRequestParameters = new HashMap<String, String>();
+        facePayRequestParameters.put("appid", appId);
+        facePayRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(facePayRequestParameters, "sub_appid", subAppId);
+            facePayRequestParameters.put("sub_mch_id", subMchId);
+        }
+
+        facePayRequestParameters.put("device_info", deviceInfo);
+        facePayRequestParameters.put("nonce_str", nonceStr);
+        facePayRequestParameters.put("body", body);
+        ApplicationHandler.ifNotBlankPut(facePayRequestParameters, "detail", detail);
+        ApplicationHandler.ifNotBlankPut(facePayRequestParameters, "attach", attach);
+        facePayRequestParameters.put("out_trade_no", outTradeNo);
+        facePayRequestParameters.put("total_fee", String.valueOf(totalFee));
+        ApplicationHandler.ifNotBlankPut(facePayRequestParameters, "fee_type", feeType);
+        facePayRequestParameters.put("spbill_create_ip", spbillCreateIp);
+        ApplicationHandler.ifNotBlankPut(facePayRequestParameters, "goods_tag", goodsTag);
+        facePayRequestParameters.put("openid", openId);
+        facePayRequestParameters.put("face_code", faceCode);
+
+        String sign = generateSign(facePayRequestParameters, apiSecretKey, Constants.MD5);
+        facePayRequestParameters.put("sign", sign);
+
+        String finalData = generateFinalData(facePayRequestParameters);
+        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/facepay", finalData);
+
+        String returnCode = refundResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = refundResult.get("result_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+
+        return refundResult;
+    }
+
+    /**
      * 根据支付场景获取交易类型
      *
      * @param paidScene

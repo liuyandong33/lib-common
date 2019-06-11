@@ -3,18 +3,12 @@ package build.dream.common.models.weixinpay;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
-import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
 public class MicroPayModel extends WeiXinPayBasicModel {
-    private static final String[] FEE_TYPES = {"CNY"};
-    private static final String[] LIMIT_PAYS = {"no_credit"};
-
     @Length(max = 32)
     private String deviceInfo;
 
@@ -39,6 +33,7 @@ public class MicroPayModel extends WeiXinPayBasicModel {
     @NotNull
     private Integer totalFee;
 
+    @InList(value = {Constants.CNY})
     private String feeType;
 
     @NotNull
@@ -48,6 +43,7 @@ public class MicroPayModel extends WeiXinPayBasicModel {
     @Length(max = 32)
     private String goodsTag;
 
+    @InList(value = {"no_credit"})
     private String limitPay;
 
     @Length(min = 14, max = 14)
@@ -176,23 +172,6 @@ public class MicroPayModel extends WeiXinPayBasicModel {
 
     public SceneInfoModel getSceneInfoModel() {
         return sceneInfoModel;
-    }
-
-
-    @Override
-    public boolean validate() {
-        return super.validate() && (StringUtils.isNotBlank(feeType) ? ArrayUtils.contains(FEE_TYPES, feeType) : true) && (StringUtils.isNotBlank(limitPay) ? ArrayUtils.contains(LIMIT_PAYS, limitPay) : true);
-    }
-
-    @Override
-    public void validateAndThrow() {
-        super.validateAndThrow();
-        if (StringUtils.isNotBlank(feeType)) {
-            ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
-        }
-        if (StringUtils.isNotBlank(limitPay)) {
-            ApplicationHandler.inArray(LIMIT_PAYS, limitPay, "limitPay");
-        }
     }
 
     public void setSceneInfoModel(SceneInfoModel sceneInfoModel) {
