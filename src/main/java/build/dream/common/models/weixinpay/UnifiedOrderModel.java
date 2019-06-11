@@ -32,7 +32,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Length(max = 32)
     private String outTradeNo;
 
-    @InList(value = Constants.CNY)
+    @InList(value = {Constants.CNY})
     private String feeType;
 
     @NotNull
