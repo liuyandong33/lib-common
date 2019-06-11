@@ -1019,4 +1019,11 @@ public class Constants {
      * 微信下载对账单压缩类型
      */
     public static final String DOWNLOAD_BILL_TAR_TYPE_GZIP = "GZIP";
+
+    /**
+     * 微信支付指定支付方式
+     *
+     * @see #LIMIT_PAY_NO_CREDIT 指定不能使用信用卡支付
+     */
+    public static final String LIMIT_PAY_NO_CREDIT = "no_credit";
 }

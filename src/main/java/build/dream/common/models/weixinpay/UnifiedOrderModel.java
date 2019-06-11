@@ -4,15 +4,13 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
-import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
 public class UnifiedOrderModel extends WeiXinPayBasicModel {
-    private static final String[] FEE_TYPES = {"CNY"};
-    private static final String[] LIMIT_PAYS = {"no_credit"};
     @Length(max = 32)
     private String deviceInfo;
 
@@ -34,6 +32,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Length(max = 32)
     private String outTradeNo;
 
+    @InList(value = Constants.CNY)
     private String feeType;
 
     @NotNull
@@ -61,6 +60,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Length(max = 32)
     private String productId;
 
+    @InList(value = {Constants.LIMIT_PAY_NO_CREDIT})
     private String limitPay;
 
     @Length(max = 128)
@@ -226,12 +226,6 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        if (StringUtils.isNotBlank(feeType)) {
-            ApplicationHandler.inArray(FEE_TYPES, feeType, "feeType");
-        }
-        if (StringUtils.isNotBlank(limitPay)) {
-            ApplicationHandler.inArray(LIMIT_PAYS, limitPay, "limitPay");
-        }
         if (sceneInfoModel != null) {
             ApplicationHandler.isTrue(sceneInfoModel.validate(), "sceneInfo");
         }
@@ -239,8 +233,11 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
 
     public static class SceneInfoModel extends BasicModel {
         @SerializedName(value = "store_info", alternate = "storeInfo")
+        @JsonProperty(value = "store_info")
         private StoreInfoModel storeInfoModel;
+
         @SerializedName(value = "h5_info", alternate = "h5Info")
+        @JsonProperty(value = "h5_info")
         private H5InfoModel h5InfoModel;
 
         public StoreInfoModel getStoreInfoModel() {
@@ -285,7 +282,9 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
         private String name;
 
         @Length(max = 6)
+
         @SerializedName(value = "area_code", alternate = "areaCode")
+        @JsonProperty(value = "area_code")
         private String areaCode;
 
         @Length(max = 128)
@@ -327,11 +326,15 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     public static class H5InfoModel extends BasicModel {
         @NotNull
         private String type;
+
         @NotNull
         @SerializedName(value = "wap_url", alternate = "wapUrl")
+        @JsonProperty(value = "wap_url")
         private String wapUrl;
+
         @NotNull
         @SerializedName(value = "wap_name", alternate = "wapName")
+        @JsonProperty(value = "wap_name")
         private String wapName;
 
         public String getType() {
