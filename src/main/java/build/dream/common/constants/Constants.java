@@ -1026,4 +1026,6 @@ public class Constants {
      * @see #LIMIT_PAY_NO_CREDIT 指定不能使用信用卡支付
      */
     public static final String LIMIT_PAY_NO_CREDIT = "no_credit";
+
+    public static final String KEY_BATCH_PROCESSING_INFOS = "_batch_processing_infos";
 }
