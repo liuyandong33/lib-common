@@ -76,13 +76,17 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
             String driverClassName = ConfigurationUtils.getConfiguration(Constants.SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME);
             ValidateUtils.notBlank(driverClassName, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
+            String applicationName = ConfigurationUtils.getConfiguration(Constants.SPRING_APPLICATION_NAME);
+            ValidateUtils.notBlank(applicationName, "雪花ID生成器初始化失败（未检索到相关配置）！");
+
             Class.forName(driverClassName);
 
             connection = DriverManager.getConnection(url, username, password);
-            preparedStatement = connection.prepareStatement("SELECT * FROM snowflake_id_config WHERE ip_address = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM snowflake_id_config WHERE ip_address = ? AND application_name = ?");
 
             String ipAddress = InetAddress.getLocalHost().getHostAddress();
             preparedStatement.setString(1, ipAddress);
+            preparedStatement.setString(2, applicationName);
             resultSet = preparedStatement.executeQuery();
             ValidateUtils.isTrue(resultSet.next(), "雪花ID生成器初始化失败（未检索到相关配置）！");
             String workerId = resultSet.getString("worker_id");

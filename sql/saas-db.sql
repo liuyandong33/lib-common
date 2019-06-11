@@ -975,6 +975,7 @@ CREATE TABLE snowflake_id_config
     worker_id INT NOT NULL COMMENT 'work id',
     data_center_id INT NOT NULL COMMENT 'data center id',
     ip_address VARCHAR(50) NOT NULL COMMENT 'IP地址',
+    application_name VARCHAR(50) NOT NULL COMMENT '应用名称',
     description VARCHAR(50) NOT NULL COMMENT '描述'
 ) COMMENT '雪花ID配置';
 
