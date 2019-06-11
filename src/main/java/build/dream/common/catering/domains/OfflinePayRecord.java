@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 @ShardingColumn(fieldName = OfflinePayRecord.FieldName.TENANT_ID, columnName = OfflinePayRecord.ColumnName.TENANT_ID)
 public class OfflinePayRecord extends BasicDomain {
-    public static final String TABLE_NAME = "goods_attribute";
+    public static final String TABLE_NAME = "offline_pay_record";
     /**
      * 商户ID
      */
@@ -25,10 +25,6 @@ public class OfflinePayRecord extends BasicDomain {
      */
     private BigInteger userId;
     /**
-     * 订单号
-     */
-    private String orderNumber;
-    /**
      * 支付场景，1-微信付款码支付，2-微信公众号支付，3-微信网页支付，4-微信APP支付，5-微信H5支付，6-微信小程序支付，7-支付宝手机网站支付，8-支付宝电脑网站支付支付，9-支付宝APP支付，10-支付宝当面付
      */
     private Integer paidScene;
@@ -37,9 +33,21 @@ public class OfflinePayRecord extends BasicDomain {
      */
     private Integer channelType;
     /**
+     * 支付平台订单号
+     */
+    private String tradeNo;
+    /**
      * 外部订单号
      */
     private String outTradeNo;
+    /**
+     * 支付平台退款单号
+     */
+    private String refundNo;
+    /**
+     * 退款单号
+     */
+    private String outRefundNo;
     /**
      * 支付金额，单位为分
      */
@@ -90,14 +98,6 @@ public class OfflinePayRecord extends BasicDomain {
         this.userId = userId;
     }
 
-    public String getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(String orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
     public Integer getPaidScene() {
         return paidScene;
     }
@@ -114,12 +114,36 @@ public class OfflinePayRecord extends BasicDomain {
         this.channelType = channelType;
     }
 
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo;
+    }
+
     public String getOutTradeNo() {
         return outTradeNo;
     }
 
     public void setOutTradeNo(String outTradeNo) {
         this.outTradeNo = outTradeNo;
+    }
+
+    public String getRefundNo() {
+        return refundNo;
+    }
+
+    public void setRefundNo(String refundNo) {
+        this.refundNo = refundNo;
+    }
+
+    public String getOutRefundNo() {
+        return outRefundNo;
+    }
+
+    public void setOutRefundNo(String outRefundNo) {
+        this.outRefundNo = outRefundNo;
     }
 
     public Integer getTotalAmount() {
@@ -175,11 +199,6 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
-        public Builder orderNumber(String orderNumber) {
-            instance.setOrderNumber(orderNumber);
-            return this;
-        }
-
         public Builder paidScene(Integer paidScene) {
             instance.setPaidScene(paidScene);
             return this;
@@ -190,8 +209,23 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
+        public Builder tradeNo(String tradeNo) {
+            instance.setTradeNo(tradeNo);
+            return this;
+        }
+
         public Builder outTradeNo(String outTradeNo) {
             instance.setOutTradeNo(outTradeNo);
+            return this;
+        }
+
+        public Builder refundNo(String refundNo) {
+            instance.setRefundNo(refundNo);
+            return this;
+        }
+
+        public Builder outRefundNo(String outRefundNo) {
+            instance.setOutRefundNo(outRefundNo);
             return this;
         }
 
@@ -221,10 +255,12 @@ public class OfflinePayRecord extends BasicDomain {
             offlinePayRecord.setTenantCode(instance.getTenantCode());
             offlinePayRecord.setBranchId(instance.getBranchId());
             offlinePayRecord.setUserId(instance.getUserId());
-            offlinePayRecord.setOrderNumber(instance.getOrderNumber());
             offlinePayRecord.setPaidScene(instance.getPaidScene());
             offlinePayRecord.setChannelType(instance.getChannelType());
+            offlinePayRecord.setTradeNo(instance.getTradeNo());
             offlinePayRecord.setOutTradeNo(instance.getOutTradeNo());
+            offlinePayRecord.setRefundNo(instance.getRefundNo());
+            offlinePayRecord.setOutRefundNo(instance.getOutRefundNo());
             offlinePayRecord.setTotalAmount(instance.getTotalAmount());
             offlinePayRecord.setAuthCode(instance.getAuthCode());
             offlinePayRecord.setPaidStatus(instance.getPaidStatus());
@@ -242,9 +278,11 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
         public static final String USER_ID = "user_id";
-        public static final String ORDER_NUMBER = "order_number";
         public static final String CHANNEL_TYPE = "channel_type";
+        public static final String TRADE_NO = "trade_no";
         public static final String OUT_TRADE_NO = "out_trade_no";
+        public static final String REFUND_NO = "refund_no";
+        public static final String OUT_REFUND_NO = "out_refund_no";
         public static final String TOTAL_AMOUNT = "total_amount";
         public static final String AUTH_CODE = "auth_code";
         public static final String PAID_STATUS = "paid_status";
@@ -256,9 +294,11 @@ public class OfflinePayRecord extends BasicDomain {
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
         public static final String USER_ID = "userId";
-        public static final String ORDER_NUMBER = "orderNumber";
         public static final String CHANNEL_TYPE = "channelType";
+        public static final String TRADE_NO = "tradeNo";
         public static final String OUT_TRADE_NO = "outTradeNo";
+        public static final String REFUND_NO = "refundNo";
+        public static final String OUT_REFUND_NO = "outRefundNo";
         public static final String TOTAL_AMOUNT = "totalAmount";
         public static final String AUTH_CODE = "authCode";
         public static final String PAID_STATUS = "paidStatus";
