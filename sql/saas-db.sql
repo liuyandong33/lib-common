@@ -9,7 +9,7 @@ CREATE TABLE tenant
     tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
     vip_shared_type TINYINT NOT NULL COMMENT '会员共享类型，1-全部共享，2-全部独立，3-分组共享',
     agent_id BIGINT NOT NULL COMMENT '代理商ID',
-    use_channel_type TINYINT NOT NULL COMMENT '商户使用的支付通道类型，1-原生支付，2-米雅，3-新大陆，4-联动',
+    used_channel_type TINYINT NOT NULL COMMENT '商户使用的支付通道类型，1-原生支付，2-米雅，3-新大陆，4-联动',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
