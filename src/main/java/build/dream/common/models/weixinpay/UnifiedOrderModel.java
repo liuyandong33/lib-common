@@ -18,7 +18,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
 
     @NotNull
     @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
-    private String signType;
+    private String signType = Constants.MD5;
 
     @NotNull
     @Length(max = 128)

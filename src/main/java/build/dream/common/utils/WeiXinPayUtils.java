@@ -755,6 +755,57 @@ public class WeiXinPayUtils {
     }
 
     /**
+     * 查询订单
+     *
+     * @param facePayQueryModel
+     * @return
+     */
+    public static Map<String, String> facePayQuery(FacePayQueryModel facePayQueryModel) {
+        facePayQueryModel.validateAndThrow();
+
+        String appId = facePayQueryModel.getAppId();
+        String mchId = facePayQueryModel.getMchId();
+        String apiSecretKey = facePayQueryModel.getApiSecretKey();
+        String subAppId = facePayQueryModel.getSubAppId();
+        String subMchId = facePayQueryModel.getSubMchId();
+        boolean acceptanceModel = facePayQueryModel.isAcceptanceModel();
+
+        String transactionId = facePayQueryModel.getTransactionId();
+        String outTradeNo = facePayQueryModel.getOutTradeNo();
+        String nonceStr = facePayQueryModel.getNonceStr();
+        String signType = facePayQueryModel.getSignType();
+
+        Map<String, String> facePayQueryRequestParameters = new HashMap<String, String>();
+        facePayQueryRequestParameters.put("appid", appId);
+        facePayQueryRequestParameters.put("mch_id", mchId);
+
+        if (acceptanceModel) {
+            ApplicationHandler.ifNotBlankPut(facePayQueryRequestParameters, "sub_appid", subAppId);
+            facePayQueryRequestParameters.put("sub_mch_id", subMchId);
+        }
+        ApplicationHandler.ifNotBlankPut(facePayQueryRequestParameters, "transaction_id", transactionId);
+        ApplicationHandler.ifNotBlankPut(facePayQueryRequestParameters, "out_trade_no", outTradeNo);
+        facePayQueryRequestParameters.put("nonce_str", nonceStr);
+
+        String sign = generateSign(facePayQueryRequestParameters, apiSecretKey, Constants.MD5);
+        facePayQueryRequestParameters.put("sign", sign);
+        facePayQueryRequestParameters.put("sign_type", signType);
+
+        String finalData = generateFinalData(facePayQueryRequestParameters);
+        Map<String, String> refundResult = callWeiXinPaySystem(WEI_XIN_PAY_API_URL + "/pay/facepayquery", finalData);
+
+        String returnCode = refundResult.get("return_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
+
+        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+
+        String resultCode = refundResult.get("result_code");
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
+
+        return refundResult;
+    }
+
+    /**
      * 根据支付场景获取交易类型
      *
      * @param paidScene
