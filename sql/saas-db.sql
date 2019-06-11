@@ -998,3 +998,41 @@ CREATE TABLE async_notify
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '异步通知';
+
+DROP TABLE IF EXISTS sequence_today;
+CREATE TABLE sequence_today
+(
+    `name` VARCHAR(50) PRIMARY KEY NOT NULL COMMENT '序列名称',
+    seq_date DATE NOT NULL COMMENT '日期',
+    current_value INT(11) UNSIGNED NOT NULL COMMENT '当前值',
+    increment INT(11) UNSIGNED DEFAULT '1' NOT NULL COMMENT '每次增长的值'
+);
+
+DROP FUNCTION IF EXISTS current_value_today;
+DELIMITER $$
+CREATE FUNCTION current_value_today(sequence_name VARCHAR(50)) RETURNS INT(11)
+BEGIN
+    DECLARE `value` INT;
+    DECLARE `_current_date` DATE;
+    DECLARE _seq_date DATE;
+    SET `value` = 0;
+    SET _current_date = CURRENT_DATE();
+    SELECT current_value, seq_date INTO `value`, _seq_date FROM sequence_today WHERE `name` = sequence_name;
+    IF `value` = 0 THEN
+        SET `value` = 1;
+        INSERT INTO sequence_today(`name`, seq_date, current_value) VALUES(sequence_name, _current_date, `value`);
+    ELSEIF _seq_date <> _current_date THEN
+        SET `value` = 1;
+        UPDATE sequence_today SET current_value = `value`, seq_date = _current_date WHERE `name` = sequence_name;
+    END IF;
+    RETURN `value`;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION next_value_today(sequence_name VARCHAR(50)) RETURNS INT(11)
+BEGIN
+    UPDATE sequence_today SET current_value = current_value + increment WHERE `name` = sequence_name AND seq_date = CURRENT_DATE();
+    RETURN current_value_today(sequence_name);
+END$$
+DELIMITER ;
