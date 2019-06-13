@@ -216,6 +216,7 @@ public class Constants {
      * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_SETTLED: 订单完成
      * @see #MEI_TUAN_CALLBACK_TYPE_ORDER_SHIPPING_STATUS: 配送状态
      * @see #MEI_TUAN_CALLBACK_TYPE_POI_STATUS: 门店状态变化
+     * @see #MEI_TUAN_CALLBACK_TYPE_PART_ORDER_REFUND: 订单部分退款
      * @see #MEI_TUAN_CALLBACK_TYPE_BINDING_STORE: 门店绑定
      */
     public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_EFFECTIVE = 1;
