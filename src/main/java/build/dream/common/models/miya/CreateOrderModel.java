@@ -64,7 +64,7 @@ public class CreateOrderModel extends MiyaBasicModel {
      */
     @NotNull
     @Length(max = 100)
-    private String b13;
+    private String topic;
 
     /**
      * 用户ip，用户终端 ip。微信 H5、APP支付必填
@@ -154,12 +154,12 @@ public class CreateOrderModel extends MiyaBasicModel {
         this.b12 = b12;
     }
 
-    public String getB13() {
-        return b13;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setB13(String b13) {
-        this.b13 = b13;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getB14() {
@@ -235,8 +235,8 @@ public class CreateOrderModel extends MiyaBasicModel {
             return this;
         }
 
-        public Builder b13(String b13) {
-            instance.setB13(b13);
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
             return this;
         }
 
@@ -270,7 +270,7 @@ public class CreateOrderModel extends MiyaBasicModel {
             createOrderModel.setB5(instance.getB5());
             createOrderModel.setB11(instance.getB11());
             createOrderModel.setB12(instance.getB12());
-            createOrderModel.setB13(instance.getB13());
+            createOrderModel.setTopic(instance.getTopic());
             createOrderModel.setB14(instance.getB14());
             createOrderModel.setB16(instance.getB16());
             createOrderModel.setB17(instance.getB17());

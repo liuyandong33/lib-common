@@ -30,6 +30,10 @@ public class AsyncNotify extends BasicDomain {
      */
     private String weiXinPaySignType = Constants.VARCHAR_DEFAULT_VALUE;
     /**
+     * 米雅key
+     */
+    private String miyaKey = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
      * 回调结果，1-未回调 2-回调成功，3-回调失败
      */
     private Integer notifyResult;
@@ -44,6 +48,14 @@ public class AsyncNotify extends BasicDomain {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getAlipayPublicKey() {
@@ -78,12 +90,12 @@ public class AsyncNotify extends BasicDomain {
         this.weiXinPaySignType = weiXinPaySignType;
     }
 
-    public String getTopic() {
-        return topic;
+    public String getMiyaKey() {
+        return miyaKey;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMiyaKey(String miyaKey) {
+        this.miyaKey = miyaKey;
     }
 
     public Integer getNotifyResult() {
@@ -133,6 +145,11 @@ public class AsyncNotify extends BasicDomain {
             return this;
         }
 
+        public Builder miyaKey(String miyaKey) {
+            instance.setMiyaKey(miyaKey);
+            return this;
+        }
+
         public Builder notifyResult(Integer notifyResult) {
             instance.setNotifyResult(notifyResult);
             return this;
@@ -152,6 +169,7 @@ public class AsyncNotify extends BasicDomain {
             asyncNotify.setAlipaySignType(instance.getAlipaySignType());
             asyncNotify.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
             asyncNotify.setWeiXinPaySignType(instance.getWeiXinPaySignType());
+            asyncNotify.setMiyaKey(instance.getMiyaKey());
             asyncNotify.setNotifyResult(instance.getNotifyResult());
             asyncNotify.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
             return asyncNotify;
@@ -169,6 +187,7 @@ public class AsyncNotify extends BasicDomain {
         public static final String ALIPAY_SIGN_TYPE = "alipay_sign_type";
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "wei_xin_pay_api_secret_key";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "wei_xin_pay_sign_type";
+        public static final String MIYA_KEY = "miya_key";
         public static final String NOTIFY_RESULT = "notify_result";
         public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "external_system_notify_request_body";
     }
@@ -180,6 +199,7 @@ public class AsyncNotify extends BasicDomain {
         public static final String ALIPAY_SIGN_TYPE = "alipaySignType";
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "weiXinPayApiSecretKey";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "weiXinPaySignType";
+        public static final String MIYA_KEY = "miyaKey";
         public static final String NOTIFY_RESULT = "notifyResult";
         public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "externalSystemNotifyRequestBody";
     }

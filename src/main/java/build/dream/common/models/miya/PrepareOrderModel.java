@@ -49,7 +49,7 @@ public class PrepareOrderModel extends MiyaBasicModel {
      * 通知地址，接收异步通知回调地址
      */
     @Length(max = 100)
-    private String b13;
+    private String topic;
 
     public String getA10() {
         return a10;
@@ -99,12 +99,12 @@ public class PrepareOrderModel extends MiyaBasicModel {
         this.b5 = b5;
     }
 
-    public String getB13() {
-        return b13;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setB13(String b13) {
-        this.b13 = b13;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public static class Builder extends MiyaBasicModel.Builder<Builder, PrepareOrderModel> {
@@ -128,8 +128,8 @@ public class PrepareOrderModel extends MiyaBasicModel {
             return this;
         }
 
-        public Builder b13(String b13) {
-            instance.setB13(b13);
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
             return this;
         }
 
@@ -142,7 +142,7 @@ public class PrepareOrderModel extends MiyaBasicModel {
             prepareOrderModel.setB3(instance.getB3());
             prepareOrderModel.setB4(instance.getB4());
             prepareOrderModel.setB5(instance.getB5());
-            prepareOrderModel.setB13(instance.getB13());
+            prepareOrderModel.setTopic(instance.getTopic());
             return prepareOrderModel;
         }
     }

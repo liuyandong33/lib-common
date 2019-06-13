@@ -7,6 +7,7 @@ import build.dream.common.saas.domains.AsyncNotify;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
+import java.util.concurrent.TimeUnit;
 
 public class NotifyUtils {
     /**
@@ -64,6 +65,10 @@ public class NotifyUtils {
      */
     public static String obtainWeiXinRefundNotifyUrl() {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "weiXinRefundCallback");
+    }
+
+    public static String obtainMiyaNotifyUrl() {
+        return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "miyaCallback");
     }
 
     /**
@@ -127,6 +132,38 @@ public class NotifyUtils {
             DatabaseHelper.update(asyncNotify);
         }
 
+        return asyncNotify;
+    }
+
+    public static AsyncNotify saveWeiXinPayAsyncNotify(String uuid, String topic, String apiSecretKey, String signType) {
+        AsyncNotify asyncNotify = AsyncNotify.builder()
+                .uuid(uuid)
+                .topic(topic)
+                .weiXinPayApiSecretKey(apiSecretKey)
+                .weiXinPaySignType(signType)
+                .build();
+        CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
+        return asyncNotify;
+    }
+
+    private static AsyncNotify saveAlipayAsyncNotify(String uuid, String topic, String alipayPublicKey, String signType) {
+        AsyncNotify asyncNotify = AsyncNotify.builder()
+                .uuid(uuid)
+                .topic(topic)
+                .alipayPublicKey(alipayPublicKey)
+                .alipaySignType(signType)
+                .build();
+        CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
+        return asyncNotify;
+    }
+
+    public static AsyncNotify saveMiyaAsyncNotify(String uuid, String topic, String miyaKey) {
+        AsyncNotify asyncNotify = AsyncNotify.builder()
+                .uuid(uuid)
+                .topic(topic)
+                .miyaKey(miyaKey)
+                .build();
+        CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
         return asyncNotify;
     }
 }
