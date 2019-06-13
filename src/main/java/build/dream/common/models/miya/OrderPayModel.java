@@ -6,39 +6,79 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class OrderPayModel extends MiyaBasicModel {
+    /**
+     * 发票号
+     */
     @Length(max = 30)
     private String a10;
 
+    /**
+     * 重码分类
+     * 默认 A，前两位付款码重复，且长度一样的需分类
+     * A: 支付宝(28)，微信(10-15)，翼支付（51-59），手 Q(91-99)，大众点评(18)，招行（95）(20 位)，百度钱包（31），工行（62351）19 位飞凡（80-89），华润银行（62236）18 位，银联钱包 （62） 19 位
+     * B: 京东(18)，易付宝（80-89）
+     */
     @InList(value = {"A", "B"})
     private String a11;
 
+    /**
+     * 商户订单号，商户侧生成的订单号，不可重复
+     */
     @NotNull
     @Length(max = 32)
     private String b1;
 
+    /**
+     * 支付码，扫描顾客手机 APP 上的条码获取的值
+     */
     @NotNull
     @Length(max = 32)
     private String b2;
 
+    /**
+     * 手机小票标题，顾客手机小票显示的标题
+     */
     @Length(max = 64)
     private String b3;
 
+    /**
+     * 金额，单位分，1 分为 1,1 元为 100
+     */
     @NotNull
     @Length(max = 12)
     private String b4;
 
+    /**
+     * 商品信息
+     */
     @Length(max = 2048)
     private String b5;
 
+    /**
+     * 花呗分期信息
+     * 格式为分期数:值;卖家承担手续费百分比:值。
+     * hb_fq_num 可选，最大长度 5，使用花呗分期要进行的分期数
+     * hb_fq_seller_percent 可选，最大长度 3 使用花呗分期需要卖家承担的手续费比例的百分值，传入 100 代表 100%
+     * hb_fq_num:10;hb_fq_seller_percent:100
+     */
     @Length(max = 64)
     private String b6;
 
+    /**
+     * 支付宝不可优惠金额，单位分
+     */
     @Length(max = 12)
     private String b7;
 
+    /**
+     * 支付宝禁用渠道，promotion-禁用所有优惠;voucher-禁用营销券，多个渠道以,分隔。从商户侧传入
+     */
     @Length(max = 64)
     private String b8;
 
+    /**
+     * 整单流水号，整单流水号，用于支付宝防拆单
+     */
     @Length(max = 32)
     private String b15;
 

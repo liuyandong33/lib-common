@@ -6,48 +6,87 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class CreateOrderModel extends MiyaBasicModel {
+    /**
+     * 支付方式， JSAPI、APP、H5、WXA(小程序)
+     */
     @NotNull
     @InList(value = {"JSAPI", "APP", "H5", "WXA"})
     private String a11;
 
+    /**
+     * 支付渠道，1-微信 3-支付宝
+     */
     @NotNull
     @InList(value = {"1", "3"})
     private String a12;
 
+    /**
+     * 商户订单号，商户侧生成的订单号，不可重复
+     */
     @NotNull
     @Length(max = 32)
     private String b1;
 
+    /**
+     * 手机小票标题，顾客手机小票显示的标题
+     */
     @NotNull
     @Length(max = 64)
     private String b3;
 
+    /**
+     * 金额，单位分，1分为1，1元为 100
+     */
     @NotNull
     @Length(max = 12)
     private String b4;
 
+    /**
+     * 商品信息
+     */
     @Length(max = 20480)
     private String b5;
 
+    /**
+     * 微信 openid 或支付宝 userid。支付宝必填，微信 openid 和 sub_openid 不能同时为空，JSAPI、WXA 必传
+     */
     @Length(max = 64)
     private String b11;
 
+    /**
+     * 微信 sub_openid, JSAPI、WXA 必传
+     */
     @Length(max = 100)
     private String b12;
 
+    /**
+     * 通知地址，接收异步通知回调地址
+     */
     @NotNull
     @Length(max = 100)
     private String b13;
 
+    /**
+     * 用户ip，用户终端 ip。微信 H5、APP支付必填
+     */
     @Length(max = 100)
     private String b14;
 
+    /**
+     * 商户微信 APPID
+     */
     @Length(max = 32)
     private String b16;
 
+    /**
+     * 订单开始时间，格式 yyyy-MM-dd HH:mm:ss
+     */
     @Length(max = 20)
     private String b17;
 
+    /**
+     * 订单过期时间，格式 yyyy-MM-dd HH:mm:ss
+     */
     @Length(max = 20)
     private String b18;
 

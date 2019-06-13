@@ -6,27 +6,48 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class PrepareOrderModel extends MiyaBasicModel {
+    /**
+     * 发票号
+     */
     @Length(max = 30)
     private String a10;
 
+    /**
+     * 支付平台类型，1-微信 3-支付宝
+     */
     @NotNull
     @InList(value = {"1", "3"})
     private String a12;
 
+    /**
+     * 商户订单号，商户侧生成的订单号，不可重复
+     */
     @NotNull
     @Length(max = 32)
     private String b1;
 
+    /**
+     * 手机小票标题，顾客手机小票显示的标题
+     */
     @Length(max = 64)
     private String b3;
 
+    /**
+     * 金额，单位分，1分为1，1元为100
+     */
     @NotNull
     @Length(max = 12)
     private String b4;
 
+    /**
+     * 商品信息
+     */
     @Length(max = 20480)
     private String b5;
 
+    /**
+     * 通知地址，接收异步通知回调地址
+     */
     @Length(max = 100)
     private String b13;
 

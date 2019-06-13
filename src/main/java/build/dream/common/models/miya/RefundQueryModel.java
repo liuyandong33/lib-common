@@ -5,10 +5,16 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class RefundQueryModel extends MiyaBasicModel {
+    /**
+     * 原商户订单号，原下单支付商户侧生成的订单号
+     */
     @NotNull
     @Length(max = 32)
     private String b1;
 
+    /**
+     * 退款单号，原商户侧生成的退款订单号
+     */
     @NotNull
     @Length(max = 32)
     private String b2;

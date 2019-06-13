@@ -5,6 +5,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class CancelOrderModel extends MiyaBasicModel {
+    /**
+     * 商户订单号，原下单支付商户侧生成的订单号
+     */
     @NotNull
     @Length(max = 32)
     private String b1;

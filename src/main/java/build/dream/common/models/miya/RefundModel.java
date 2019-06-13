@@ -5,18 +5,30 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotNull;
 
 public class RefundModel extends MiyaBasicModel {
+    /**
+     * 原商户订单号，原下单支付商户侧生成的订单号
+     */
     @NotNull
     @Length(max = 32)
     private String b1;
 
+    /**
+     * 退款单号，商户生成的退款单号，同笔订单内不可重复
+     */
     @NotNull
     @Length(max = 32)
     private String b2;
 
+    /**
+     * 退款金额，单位分， 1分为1，1元为 100
+     */
     @NotNull
     @Length(max = 12)
     private String b4;
 
+    /**
+     * 商品信息
+     */
     @Length(max = 20480)
     private String b5;
 
