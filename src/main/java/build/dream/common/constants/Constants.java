@@ -225,7 +225,8 @@ public class Constants {
     public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_SETTLED = 5;
     public static final Integer MEI_TUAN_CALLBACK_TYPE_ORDER_SHIPPING_STATUS = 6;
     public static final Integer MEI_TUAN_CALLBACK_TYPE_POI_STATUS = 7;
-    public static final Integer MEI_TUAN_CALLBACK_TYPE_BINDING_STORE = 8;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_PART_REFUND = 8;
+    public static final Integer MEI_TUAN_CALLBACK_TYPE_BINDING_STORE = 9;
 
     /**
      * 饿了么账号类型
