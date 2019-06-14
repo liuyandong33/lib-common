@@ -36,7 +36,7 @@ public class DietOrderDeliveryRecord extends BasicDomain {
      * noMoreDelivery-商家不再配送
      * reject-物流拒单
      */
-    private String state;
+    private String elemeState;
 
     /**
      * 子状态
@@ -61,7 +61,7 @@ public class DietOrderDeliveryRecord extends BasicDomain {
      * systemError-系统异常
      * noSubstate-无配送子状态
      */
-    private String subState;
+    private String elemeSubState;
 
     /**
      * 美团配送状态
@@ -117,20 +117,20 @@ public class DietOrderDeliveryRecord extends BasicDomain {
         this.dietOrderId = dietOrderId;
     }
 
-    public String getState() {
-        return state;
+    public String getElemeState() {
+        return elemeState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setElemeState(String elemeState) {
+        this.elemeState = elemeState;
     }
 
-    public String getSubState() {
-        return subState;
+    public String getElemeSubState() {
+        return elemeSubState;
     }
 
-    public void setSubState(String subState) {
-        this.subState = subState;
+    public void setElemeSubState(String elemeSubState) {
+        this.elemeSubState = elemeSubState;
     }
 
     public Integer getMeiTuanShippingStatus() {
@@ -178,13 +178,13 @@ public class DietOrderDeliveryRecord extends BasicDomain {
             return this;
         }
 
-        public Builder state(String state) {
-            instance.setState(state);
+        public Builder elemeState(String elemeState) {
+            instance.setElemeState(elemeState);
             return this;
         }
 
-        public Builder subState(String subState) {
-            instance.setSubState(subState);
+        public Builder elemeSubState(String elemeSubState) {
+            instance.setElemeSubState(elemeSubState);
             return this;
         }
 
@@ -210,8 +210,8 @@ public class DietOrderDeliveryRecord extends BasicDomain {
             dietOrderDeliveryRecord.setTenantCode(instance.getTenantCode());
             dietOrderDeliveryRecord.setBranchId(instance.getBranchId());
             dietOrderDeliveryRecord.setDietOrderId(instance.getDietOrderId());
-            dietOrderDeliveryRecord.setState(instance.getState());
-            dietOrderDeliveryRecord.setSubState(instance.getSubState());
+            dietOrderDeliveryRecord.setElemeState(instance.getElemeState());
+            dietOrderDeliveryRecord.setElemeSubState(instance.getElemeSubState());
             dietOrderDeliveryRecord.setMeiTuanShippingStatus(instance.getMeiTuanShippingStatus());
             dietOrderDeliveryRecord.setDeliverName(instance.getDeliverName());
             dietOrderDeliveryRecord.setDeliverPhone(instance.getDeliverPhone());
@@ -228,8 +228,8 @@ public class DietOrderDeliveryRecord extends BasicDomain {
         public static final String TENANT_CODE = "tenant_code";
         public static final String BRANCH_ID = "branch_id";
         public static final String DIET_ORDER_ID = "diet_order_id";
-        public static final String STATE = "state";
-        public static final String SUB_STATE = "sub_state";
+        public static final String ELEME_STATE = "eleme_state";
+        public static final String ELEME_SUB_STATE = "eleme_sub_state";
         public static final String MEI_TUAN_SHIPPING_STATUS = "mei_tuan_shipping_status";
         public static final String DELIVER_NAME = "deliver_name";
         public static final String DELIVER_PHONE = "deliver_phone";
@@ -240,8 +240,8 @@ public class DietOrderDeliveryRecord extends BasicDomain {
         public static final String TENANT_CODE = "tenantCode";
         public static final String BRANCH_ID = "branchId";
         public static final String DIET_ORDER_ID = "dietOrderId";
-        public static final String STATE = "state";
-        public static final String SUB_STATE = "subState";
+        public static final String ELEME_STATE = "elemeState";
+        public static final String ELEME_SUB_STATE = "elemeSubState";
         public static final String DELIVER_NAME = "deliverName";
         public static final String DELIVER_PHONE = "deliverPhone";
         public static final String MEI_TUAN_SHIPPING_STATUS = "meiTuanShippingStatus";
