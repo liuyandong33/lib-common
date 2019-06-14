@@ -64,6 +64,18 @@ public class DietOrderDeliveryRecord extends BasicDomain {
     private String subState;
 
     /**
+     * 美团配送状态
+     * 0-配送单发往配送
+     * 5-已经分配骑手，等待骑手接单
+     * 10-配送单已确认(骑手接单)
+     * 15-骑手已到店
+     * 20-骑手已取餐
+     * 40-骑手已送达
+     * 100-配送单已取消
+     */
+    private Integer meiTuanShippingStatus;
+
+    /**
      * 配送员姓名
      */
     private String deliverName;
@@ -119,6 +131,14 @@ public class DietOrderDeliveryRecord extends BasicDomain {
 
     public void setSubState(String subState) {
         this.subState = subState;
+    }
+
+    public Integer getMeiTuanShippingStatus() {
+        return meiTuanShippingStatus;
+    }
+
+    public void setMeiTuanShippingStatus(Integer meiTuanShippingStatus) {
+        this.meiTuanShippingStatus = meiTuanShippingStatus;
     }
 
     public String getDeliverName() {
@@ -178,6 +198,11 @@ public class DietOrderDeliveryRecord extends BasicDomain {
             return this;
         }
 
+        public Builder meiTuanShippingStatus(Integer meiTuanShippingStatus) {
+            instance.setMeiTuanShippingStatus(meiTuanShippingStatus);
+            return this;
+        }
+
         @Override
         public DietOrderDeliveryRecord build() {
             DietOrderDeliveryRecord dietOrderDeliveryRecord = super.build();
@@ -187,6 +212,7 @@ public class DietOrderDeliveryRecord extends BasicDomain {
             dietOrderDeliveryRecord.setDietOrderId(instance.getDietOrderId());
             dietOrderDeliveryRecord.setState(instance.getState());
             dietOrderDeliveryRecord.setSubState(instance.getSubState());
+            dietOrderDeliveryRecord.setMeiTuanShippingStatus(instance.getMeiTuanShippingStatus());
             dietOrderDeliveryRecord.setDeliverName(instance.getDeliverName());
             dietOrderDeliveryRecord.setDeliverPhone(instance.getDeliverPhone());
             return dietOrderDeliveryRecord;
@@ -204,6 +230,7 @@ public class DietOrderDeliveryRecord extends BasicDomain {
         public static final String DIET_ORDER_ID = "diet_order_id";
         public static final String STATE = "state";
         public static final String SUB_STATE = "sub_state";
+        public static final String MEI_TUAN_SHIPPING_STATUS = "mei_tuan_shipping_status";
         public static final String DELIVER_NAME = "deliver_name";
         public static final String DELIVER_PHONE = "deliver_phone";
     }
@@ -217,5 +244,6 @@ public class DietOrderDeliveryRecord extends BasicDomain {
         public static final String SUB_STATE = "subState";
         public static final String DELIVER_NAME = "deliverName";
         public static final String DELIVER_PHONE = "deliverPhone";
+        public static final String MEI_TUAN_SHIPPING_STATUS = "meiTuanShippingStatus";
     }
 }
