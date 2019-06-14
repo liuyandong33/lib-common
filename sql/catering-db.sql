@@ -1566,3 +1566,24 @@ CREATE TABLE vip_point_book
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '会员积分记录';
+
+DROP TABLE IF EXISTS diet_order_delivery_record;
+CREATE TABLE diet_order_delivery_record
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    diet_order_id BIGINT NOT NULL COMMENT 'diet_order.id',
+    state VARCHAR(50) NOT NULL COMMENT 'tobeAssignedMerchant-待分配（物流系统已生成运单，待分配配送商），tobeAssignedCourier-待分配（配送系统已接单，待分配配送员），tobeFetched-待取餐（已分配给配送员，配送员未取餐），delivering-配送中（配送员已取餐，正在配送），completed-配送成功（配送员配送完成），cancelled-配送取消（商家可以重新发起配送），exception-配送异常，arrived-已到店(配送员已到店)，selfDelivery-商家自行配送，noMoreDelivery-商家不再配送，reject-物流拒单',
+    sub_state VARCHAR(50) NOT NULL COMMENT 'merchantReason-商家取消，carrierReason-配送商取消，userReason-用户取消，systemReason-物流系统取消，merchantCallLateError-呼叫配送晚，merchantFoodError-餐厅出餐问题，merchantInterruptDeliveryError-商户中断配送，userNotAnswerError-用户不接电话，userReturnOrderError-用户退单，userAddressError-用户地址错误，deliveryOutOfService-超出服务范围，carrierRemarkExceptionError-骑手标记异常，systemMarkedError-系统自动标记异常--订单超过3小时未送达，otherError-其他异常，deliveryTimeout-配送超时，系统标记异常，onlinePayError-只支持在线订单，consumerLocationTooFarError-超出服务范围，merchantPushTooLateError-请求配送过晚无法呼叫，systemError-系统异常，noSubstate-无配送子状态',
+    deliver_name VARCHAR(20) NOT NULL COMMENT '配送员姓名',
+    deliver_phone VARCHAR(20) NOT NULL COMMENT '配送员手机号',
+    created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME DEFAULT NOW() ON UPDATE NOW() NOT NULL COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '订单配送状态';

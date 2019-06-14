@@ -101,4 +101,76 @@ public class DietOrderConstants {
     public static final String REJECT = "reject";
     public static final String CANCEL_REFUND = "cancelRefund";
     public static final String CANCEL_REFUND_COMPLAINT = "cancelRefundComplaint";
+
+    /**
+     * 配送单主状态
+     *
+     * @see #DELIVERY_STATE_TOBE_ASSIGNED_MERCHANT：待分配（物流系统已生成运单，待分配配送商）
+     * @see #DELIVERY_STATE_TOBE_ASSIGNED_COURIER：待分配（配送系统已接单，待分配配送员）
+     * @see #DELIVERY_STATE_TOBE_FETCHED：待取餐（已分配给配送员，配送员未取餐）
+     * @see #DELIVERY_STATE_DELIVERING：配送中（配送员已取餐，正在配送）
+     * @see #DELIVERY_STATE_COMPLETED：配送成功（配送员配送完成）
+     * @see #DELIVERY_STATE_CANCELLED：配送取消（商家可以重新发起配送）
+     * @see #DELIVERY_STATE_EXCEPTION：配送异常
+     * @see #DELIVERY_STATE_ARRIVED：已到店(配送员已到店)
+     * @see #DELIVERY_STATE_SELF_DELIVERY：商家自行配送
+     * @see #DELIVERY_STATE_NO_MORE_DELIVERY：商家不再配送
+     * @see #DELIVERY_STATE_REJECT：物流拒单
+     */
+    public static final String DELIVERY_STATE_TOBE_ASSIGNED_MERCHANT = "tobeAssignedMerchant";
+    public static final String DELIVERY_STATE_TOBE_ASSIGNED_COURIER = "tobeAssignedCourier";
+    public static final String DELIVERY_STATE_TOBE_FETCHED = "tobeFetched";
+    public static final String DELIVERY_STATE_DELIVERING = "delivering";
+    public static final String DELIVERY_STATE_COMPLETED = "completed";
+    public static final String DELIVERY_STATE_CANCELLED = "cancelled";
+    public static final String DELIVERY_STATE_EXCEPTION = "exception";
+    public static final String DELIVERY_STATE_ARRIVED = "cancelled";
+    public static final String DELIVERY_STATE_SELF_DELIVERY = "selfDelivery";
+    public static final String DELIVERY_STATE_NO_MORE_DELIVERY = "noMoreDelivery";
+    public static final String DELIVERY_STATE_REJECT = "reject";
+
+    /**
+     * 配送单子状态
+     *
+     * @see #DELIVERY_SUB_STATE_MERCHANT_REASON：商家取消
+     * @see #DELIVERY_SUB_STATE_CARRIER_REASON：配送商取消
+     * @see #DELIVERY_SUB_STATE_USER_REASON：用户取消
+     * @see #DELIVERY_SUB_STATE_SYSTEM_REASON：物流系统取消
+     * @see #DELIVERY_SUB_STATE_MERCHANT_CALL_LATE_ERROR：呼叫配送晚
+     * @see #DELIVERY_SUB_STATE_MERCHANT_FOOD_ERROR：餐厅出餐问题
+     * @see #DELIVERY_SUB_STATE_MERCHANT_INTERRUPT_DELIVERY_ERROR：商户中断配送
+     * @see #DELIVERY_SUB_STATE_USER_NOT_ANSWER_ERROR：用户不接电话
+     * @see #DELIVERY_SUB_STATE_USER_RETURN_ORDER_ERROR：用户退单
+     * @see #DELIVERY_SUB_STATE_USER_ADDRESS_ERROR：用户地址错误
+     * @see #DELIVERY_SUB_STATE_DELIVERY_OUT_OF_SERVICE：超出服务范围
+     * @see #DELIVERY_SUB_STATE_CARRIER_REMARK_EXCEPTION_ERROR：骑手标记异常
+     * @see #DELIVERY_SUB_STATE_SYSTEM_MARKED_ERROR：系统自动标记异常--订单超过3小时未送达
+     * @see #DELIVERY_SUB_STATE_OTHER_ERROR：其他异常
+     * @see #DELIVERY_SUB_STATE_DELIVERY_TIMEOUT：配送超时，系统标记异常
+     * @see #DELIVERY_SUB_STATE_ONLINE_PAY_ERROR：只支持在线订单
+     * @see #DELIVERY_SUB_STATE_CONSUMER_LOCATION_TOO_FAR_ERROR：超出服务范围
+     * @see #DELIVERY_SUB_STATE_MERCHANT_PUSH_TOO_LATE_ERROR：请求配送过晚无法呼叫
+     * @see #DELIVERY_SUB_STATE_SYSTEM_ERROR：系统异常
+     * @see #DELIVERY_SUB_STATE_NO_SUB_STATE：无配送子状态
+     */
+    public static final String DELIVERY_SUB_STATE_MERCHANT_REASON = "merchantReason";
+    public static final String DELIVERY_SUB_STATE_CARRIER_REASON = "carrierReason";
+    public static final String DELIVERY_SUB_STATE_USER_REASON = "userReason";
+    public static final String DELIVERY_SUB_STATE_SYSTEM_REASON = "systemReason";
+    public static final String DELIVERY_SUB_STATE_MERCHANT_CALL_LATE_ERROR = "merchantCallLateError";
+    public static final String DELIVERY_SUB_STATE_MERCHANT_FOOD_ERROR = "merchantFoodError";
+    public static final String DELIVERY_SUB_STATE_MERCHANT_INTERRUPT_DELIVERY_ERROR = "merchantInterruptDeliveryError";
+    public static final String DELIVERY_SUB_STATE_USER_NOT_ANSWER_ERROR = "userNotAnswerError";
+    public static final String DELIVERY_SUB_STATE_USER_RETURN_ORDER_ERROR = "userReturnOrderError";
+    public static final String DELIVERY_SUB_STATE_USER_ADDRESS_ERROR = "userAddressError";
+    public static final String DELIVERY_SUB_STATE_DELIVERY_OUT_OF_SERVICE = "deliveryOutOfService";
+    public static final String DELIVERY_SUB_STATE_CARRIER_REMARK_EXCEPTION_ERROR = "carrierRemarkExceptionError";
+    public static final String DELIVERY_SUB_STATE_SYSTEM_MARKED_ERROR = "systemMarkedError";
+    public static final String DELIVERY_SUB_STATE_OTHER_ERROR = "otherError";
+    public static final String DELIVERY_SUB_STATE_DELIVERY_TIMEOUT = "deliveryTimeout";
+    public static final String DELIVERY_SUB_STATE_ONLINE_PAY_ERROR = "onlinePayError";
+    public static final String DELIVERY_SUB_STATE_CONSUMER_LOCATION_TOO_FAR_ERROR = "consumerLocationTooFarError";
+    public static final String DELIVERY_SUB_STATE_MERCHANT_PUSH_TOO_LATE_ERROR = "merchantPushTooLateError";
+    public static final String DELIVERY_SUB_STATE_SYSTEM_ERROR = "systemError";
+    public static final String DELIVERY_SUB_STATE_NO_SUB_STATE = "noSubstate";
 }
