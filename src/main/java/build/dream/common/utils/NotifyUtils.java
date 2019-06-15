@@ -95,6 +95,26 @@ public class NotifyUtils {
     }
 
     /**
+     * 保存微信退款异步通知
+     *
+     * @param uuid
+     * @param topic
+     * @param apiSecretKey
+     * @param signType
+     * @return
+     */
+    public static AsyncNotify saveWeiXinRefundAsyncNotify(String uuid, String topic, String apiSecretKey, String signType) {
+        AsyncNotify asyncNotify = AsyncNotify.builder()
+                .uuid(uuid)
+                .topic(topic)
+                .weiXinPayApiSecretKey(apiSecretKey)
+                .weiXinPaySignType(signType)
+                .build();
+        CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
+        return asyncNotify;
+    }
+
+    /**
      * 保存支付宝异步通知
      *
      * @param uuid

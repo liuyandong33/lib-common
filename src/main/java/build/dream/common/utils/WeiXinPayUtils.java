@@ -383,7 +383,8 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
 
         // 保存异步通知
-        saveAsyncNotify(outTradeNo, topic, apiSecretKey, signType);
+//        saveAsyncNotify(outTradeNo, topic, apiSecretKey, signType);
+        NotifyUtils.saveWeiXinPayAsyncNotify(outTradeNo, topic, apiSecretKey, signType);
 
         Map<String, String> data = new HashMap<String, String>();
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
@@ -509,7 +510,8 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
         if (StringUtils.isNotBlank(topic)) {
             refundRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_WEI_XIN_REFUND, "out_refund_no"));
-            saveAsyncNotify(outRefundNo, topic, apiSecretKey, Constants.MD5);
+//            saveAsyncNotify(outRefundNo, topic, apiSecretKey, Constants.MD5);
+            NotifyUtils.saveWeiXinRefundAsyncNotify(outRefundNo, topic, apiSecretKey, Constants.MD5);
         }
 
         String sign = generateSign(refundRequestParameters, apiSecretKey, Constants.MD5);
