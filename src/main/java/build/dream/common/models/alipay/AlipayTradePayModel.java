@@ -3,7 +3,6 @@ package build.dream.common.models.alipay;
 import build.dream.common.annotations.AlipayAsyncNotify;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
-import build.dream.common.notify.AlipayAsyncNotifyType;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.GsonUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
-@AlipayAsyncNotify(type = AlipayAsyncNotifyType.ALIPAY_TRADE_PAY, uuidFieldName = "outTradeNo")
+@AlipayAsyncNotify(uuidKey = "out_trade_no")
 public class AlipayTradePayModel extends AlipayBasicModel {
     private static final String[] SCENES = {Constants.SCENE_BAR_CODE, Constants.SCENE_WAVE_CODE};
     @NotNull
