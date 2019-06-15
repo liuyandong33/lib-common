@@ -262,11 +262,6 @@ public class Constants {
     // 网络错误错误信息
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
 
-    public static final Integer NOTIFY_TYPE_WEI_XIN_PAY = 1;
-    public static final Integer NOTIFY_TYPE_ALIPAY = 2;
-    public static final Integer NOTIFY_TYPE_UM_PAY = 3;
-    public static final Integer NOTIFY_TYPE_WEI_XIN_REFUND = 4;
-
     /**
      * 回调结果
      *
@@ -1030,4 +1025,21 @@ public class Constants {
     public static final String LIMIT_PAY_NO_CREDIT = "no_credit";
 
     public static final String KEY_BATCH_PROCESSING_INFOS = "_batch_processing_infos";
+
+    /**
+     * 回调类型
+     *
+     * @see #NOTIFY_TYPE_WEI_XIN_PAY：微信支付
+     * @see #NOTIFY_TYPE_WEI_XIN_REFUND：微信退款
+     * @see #NOTIFY_TYPE_ALIPAY：支付宝
+     * @see #NOTIFY_TYPE_MIYA：米雅
+     * @see #NOTIFY_TYPE_NEW_LAND：新大陆
+     * @see #NOTIFY_TYPE_UM_PAY：联动支付
+     */
+    public static final String NOTIFY_TYPE_WEI_XIN_PAY = "weiXinPay";
+    public static final String NOTIFY_TYPE_WEI_XIN_REFUND = "weiXinRefund";
+    public static final String NOTIFY_TYPE_ALIPAY = "alipay";
+    public static final String NOTIFY_TYPE_MIYA = "miya";
+    public static final String NOTIFY_TYPE_NEW_LAND = "newLand";
+    public static final String NOTIFY_TYPE_UM_PAY = "umPay";
 }

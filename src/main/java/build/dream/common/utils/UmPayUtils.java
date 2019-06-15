@@ -156,7 +156,7 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("service", service);
         activeScanCodeOrderParameters.put("charset", charset);
         activeScanCodeOrderParameters.put("mer_id", merId);
-        activeScanCodeOrderParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
+        activeScanCodeOrderParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_UM_PAY, "order_id"));
         activeScanCodeOrderParameters.put("res_format", resFormat);
         activeScanCodeOrderParameters.put("version", version);
 
@@ -175,6 +175,8 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("scancode_type", scanCodeType);
         activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, privateKey, signType));
         activeScanCodeOrderParameters.put("sign_type", signType);
+
+        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, activeScanCodeOrderParameters);
@@ -221,7 +223,7 @@ public class UmPayUtils {
         passiveScanCodePayParameters.put("service", service);
         passiveScanCodePayParameters.put("charset", charset);
         passiveScanCodePayParameters.put("mer_id", merId);
-        passiveScanCodePayParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
+        passiveScanCodePayParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_UM_PAY, "order_id"));
         passiveScanCodePayParameters.put("res_format", resFormat);
         passiveScanCodePayParameters.put("version", version);
 
@@ -242,6 +244,8 @@ public class UmPayUtils {
         passiveScanCodePayParameters.put("scancode_type", scanCodeType);
         passiveScanCodePayParameters.put("sign", generateSign(passiveScanCodePayParameters, privateKey, signType));
         passiveScanCodePayParameters.put("sign_type", signType);
+
+        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, passiveScanCodePayParameters);
@@ -286,7 +290,7 @@ public class UmPayUtils {
         publicNumberAndVerticalCodeParameters.put("service", service);
         publicNumberAndVerticalCodeParameters.put("charset", charset);
         publicNumberAndVerticalCodeParameters.put("mer_id", merId);
-        publicNumberAndVerticalCodeParameters.put("notify_url", NotifyUtils.obtainUmPayNotifyUrl());
+        publicNumberAndVerticalCodeParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_UM_PAY, "order_id"));
         publicNumberAndVerticalCodeParameters.put("res_format", resFormat);
         publicNumberAndVerticalCodeParameters.put("version", version);
 
@@ -305,6 +309,8 @@ public class UmPayUtils {
         publicNumberAndVerticalCodeParameters.put("is_public_number", isPublicNumber);
         publicNumberAndVerticalCodeParameters.put("sign", generateSign(publicNumberAndVerticalCodeParameters, privateKey, signType));
         publicNumberAndVerticalCodeParameters.put("sign_type", signType);
+
+        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, publicNumberAndVerticalCodeParameters);

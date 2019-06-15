@@ -18,9 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
-import org.springframework.util.ReflectionUtils;
 
-import java.lang.reflect.Field;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -108,14 +106,9 @@ public class AlipayUtils {
         sortedRequestParameters.put("timestamp", timestamp);
         sortedRequestParameters.put("version", version);
         if (StringUtils.isNotBlank(topic)) {
-            Class<? extends AlipayBasicModel> alipayBasicModelClass = alipayBasicModel.getClass();
             AlipayAsyncNotify alipayAsyncNotify = AnnotationUtils.findAnnotation(alipayBasicModel.getClass(), AlipayAsyncNotify.class);
             if (alipayAsyncNotify != null) {
-                sortedRequestParameters.put("notify_url", NotifyUtils.obtainAlipayNotifyUrl(alipayAsyncNotify.type()));
-                Field field = ReflectionUtils.findField(alipayBasicModelClass, alipayAsyncNotify.uuidFieldName());
-                ReflectionUtils.makeAccessible(field);
-                String uuid = ReflectionUtils.getField(field, alipayBasicModel).toString();
-                saveAsyncNotify(uuid, topic, alipayBasicModel.getAlipayPublicKey(), signType);
+                sortedRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_ALIPAY, alipayAsyncNotify.uuidKey()));
             }
         }
 

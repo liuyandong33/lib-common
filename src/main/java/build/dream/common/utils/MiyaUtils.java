@@ -310,7 +310,7 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B5", b5);
         if (StringUtils.isNotBlank(topic)) {
             NotifyUtils.saveMiyaAsyncNotify(b1, topic, miyaKey);
-            dataDomainRequestParameters.put("B13", NotifyUtils.obtainMiyaNotifyUrl());
+            dataDomainRequestParameters.put("B13", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_MIYA, "C5"));
         }
         return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
@@ -362,7 +362,7 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B5", b5);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B11", b11);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B12", b12);
-        dataDomainRequestParameters.put("B13", NotifyUtils.obtainMiyaNotifyUrl());
+        dataDomainRequestParameters.put("B13", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_MIYA, "C5"));
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B14", b14);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B16", b16);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B17", b17);

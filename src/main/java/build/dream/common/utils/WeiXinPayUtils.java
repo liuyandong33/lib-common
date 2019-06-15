@@ -335,7 +335,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "time_expire", timeExpire);
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "goods_tag", goodsTag);
 
-        unifiedOrderRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinPayNotifyUrl());
+        unifiedOrderRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_WEI_XIN_PAY, "out_trade_no"));
         unifiedOrderRequestParameters.put("trade_type", tradeType);
 
         ApplicationHandler.ifNotBlankPut(unifiedOrderRequestParameters, "product_id", productId);
@@ -508,7 +508,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundDesc);
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
         if (StringUtils.isNotBlank(topic)) {
-            refundRequestParameters.put("notify_url", NotifyUtils.obtainWeiXinRefundNotifyUrl());
+            refundRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_WEI_XIN_REFUND, "out_refund_no"));
             saveAsyncNotify(outRefundNo, topic, apiSecretKey, Constants.MD5);
         }
 
