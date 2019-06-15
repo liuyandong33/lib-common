@@ -33,6 +33,16 @@ public class AsyncNotify extends BasicDomain {
      * 米雅key
      */
     private String miyaKey = Constants.VARCHAR_DEFAULT_VALUE;
+
+    /**
+     * 联动支付私钥
+     */
+    private String umPayPrivateKey = Constants.VARCHAR_DEFAULT_VALUE;
+
+    /**
+     * 联动支付平台证书
+     */
+    private String umPayPlatformCertificate = Constants.VARCHAR_DEFAULT_VALUE;
     /**
      * 回调结果，1-未回调 2-回调成功，3-回调失败
      */
@@ -98,6 +108,22 @@ public class AsyncNotify extends BasicDomain {
         this.miyaKey = miyaKey;
     }
 
+    public String getUmPayPrivateKey() {
+        return umPayPrivateKey;
+    }
+
+    public void setUmPayPrivateKey(String umPayPrivateKey) {
+        this.umPayPrivateKey = umPayPrivateKey;
+    }
+
+    public String getUmPayPlatformCertificate() {
+        return umPayPlatformCertificate;
+    }
+
+    public void setUmPayPlatformCertificate(String umPayPlatformCertificate) {
+        this.umPayPlatformCertificate = umPayPlatformCertificate;
+    }
+
     public Integer getNotifyResult() {
         return notifyResult;
     }
@@ -150,6 +176,16 @@ public class AsyncNotify extends BasicDomain {
             return this;
         }
 
+        public Builder umPayPrivateKey(String umPayPrivateKey) {
+            instance.setUmPayPrivateKey(umPayPrivateKey);
+            return this;
+        }
+
+        public Builder umPayPlatformCertificate(String umPayPlatformCertificate) {
+            instance.setUmPayPlatformCertificate(umPayPlatformCertificate);
+            return this;
+        }
+
         public Builder notifyResult(Integer notifyResult) {
             instance.setNotifyResult(notifyResult);
             return this;
@@ -170,6 +206,8 @@ public class AsyncNotify extends BasicDomain {
             asyncNotify.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
             asyncNotify.setWeiXinPaySignType(instance.getWeiXinPaySignType());
             asyncNotify.setMiyaKey(instance.getMiyaKey());
+            asyncNotify.setUmPayPrivateKey(instance.getUmPayPrivateKey());
+            asyncNotify.setUmPayPlatformCertificate(instance.getUmPayPlatformCertificate());
             asyncNotify.setNotifyResult(instance.getNotifyResult());
             asyncNotify.setExternalSystemNotifyRequestBody(instance.getExternalSystemNotifyRequestBody());
             return asyncNotify;
@@ -188,6 +226,8 @@ public class AsyncNotify extends BasicDomain {
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "wei_xin_pay_api_secret_key";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "wei_xin_pay_sign_type";
         public static final String MIYA_KEY = "miya_key";
+        public static final String UM_PAY_PRIVATE_KEY = "um_pay_private_key";
+        public static final String UM_PAY_PLATFORM_CERTIFICATE = "um_pay_platform_certificate";
         public static final String NOTIFY_RESULT = "notify_result";
         public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "external_system_notify_request_body";
     }
@@ -200,6 +240,8 @@ public class AsyncNotify extends BasicDomain {
         public static final String WEI_XIN_PAY_API_SECRET_KEY = "weiXinPayApiSecretKey";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "weiXinPaySignType";
         public static final String MIYA_KEY = "miyaKey";
+        public static final String UM_PAY_PRIVATE_KEY = "umPayPrivateKey";
+        public static final String UM_PAY_PLATFORM_CERTIFICATE = "umPayPlatformCertificate";
         public static final String NOTIFY_RESULT = "notifyResult";
         public static final String EXTERNAL_SYSTEM_NOTIFY_REQUEST_BODY = "externalSystemNotifyRequestBody";
     }
