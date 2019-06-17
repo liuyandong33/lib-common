@@ -1,10 +1,14 @@
 package build.dream.common.catering.domains;
 
 import build.dream.common.annotations.ShardingColumn;
+import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
+import build.dream.common.utils.JacksonUtils;
 
 import java.math.BigInteger;
+import java.sql.Time;
+import java.util.List;
 
 @ShardingColumn(fieldName = Branch.FieldName.TENANT_ID, columnName = Branch.ColumnName.TENANT_ID)
 public class Branch extends BasicDomain {
@@ -109,6 +113,11 @@ public class Branch extends BasicDomain {
      * 营业时间
      */
     private String businessTimes;
+    /**
+     * 是否正在营业
+     */
+    @Transient
+    private boolean opened;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -307,7 +316,23 @@ public class Branch extends BasicDomain {
     }
 
     public void setBusinessTimes(String businessTimes) {
+        List<BusinessTime> businessTimeList = JacksonUtils.readValueAsList(businessTimes, BusinessTime.class);
+        Time now = new Time(System.currentTimeMillis());
+        for (BusinessTime businessTime : businessTimeList) {
+            if (businessTime.getStartTime().before(now) && businessTime.getEndTime().after(now)) {
+                this.opened = true;
+                break;
+            }
+        }
         this.businessTimes = businessTimes;
+    }
+
+    public boolean isOpened() {
+        return opened;
+    }
+
+    public void setOpened(boolean opened) {
+        this.opened = opened;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Branch> {
@@ -436,6 +461,11 @@ public class Branch extends BasicDomain {
             return this;
         }
 
+        public Builder opened(boolean opened) {
+            instance.setOpened(opened);
+            return this;
+        }
+
         @Override
         public Branch build() {
             Branch branch = super.build();
@@ -464,6 +494,7 @@ public class Branch extends BasicDomain {
             branch.setPoiName(instance.getPoiName());
             branch.setVipGroupId(instance.getVipGroupId());
             branch.setBusinessTimes(instance.getBusinessTimes());
+            branch.setOpened(instance.isOpened());
             return branch;
         }
     }
@@ -526,5 +557,6 @@ public class Branch extends BasicDomain {
         public static final String POI_NAME = "poiName";
         public static final String VIP_GROUP_ID = "vipGroupId";
         public static final String BUSINESS_TIMES = "businessTimes";
+        public static final String OPENED = "opened";
     }
 }
