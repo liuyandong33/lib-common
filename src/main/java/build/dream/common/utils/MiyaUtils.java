@@ -29,7 +29,15 @@ public class MiyaUtils {
         return obtainMiyaAccount(tenantId.toString(), branchId.toString());
     }
 
-    private static String generateSign(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
+    /**
+     * 生成签名
+     *
+     * @param requestDomainRequestParameters
+     * @param dataDomainRequestParameters
+     * @param miyaKey
+     * @return
+     */
+    public static String generateSign(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.putAll(requestDomainRequestParameters);
         sortedMap.putAll(dataDomainRequestParameters);
@@ -42,6 +50,26 @@ public class MiyaUtils {
             }
         }
         return DigestUtils.md5Hex("&" + StringUtils.join(pairs, "&") + "&KEY=" + miyaKey).toUpperCase();
+    }
+
+    /**
+     * 验证签名
+     *
+     * @param params
+     * @param sign
+     * @param miyaKey
+     * @return
+     */
+    public static boolean verifySign(Map<String, String> params, String sign, String miyaKey) {
+        Map<String, String> sortedMap = new TreeMap<String, String>(params);
+        List<String> pairs = new ArrayList<String>();
+        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            String value = entry.getValue();
+            if (StringUtils.isNotBlank(value)) {
+                pairs.add(entry.getKey() + "=" + value);
+            }
+        }
+        return DigestUtils.md5Hex("&" + StringUtils.join(pairs, "&") + "&KEY=" + miyaKey).toUpperCase().equals(sign);
     }
 
     private static String buildRequestBody(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters) {
