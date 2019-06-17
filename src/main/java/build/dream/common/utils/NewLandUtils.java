@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.NewLandOrgInfo;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.newland.*;
@@ -23,6 +24,14 @@ public class NewLandUtils {
 
     public static NewLandAccount obtainNewLandAccount(BigInteger tenantId, BigInteger branchId) {
         return obtainNewLandAccount(tenantId.toString(), branchId.toString());
+    }
+
+    private static NewLandOrgInfo obtainNewLandOrgInfo(String orgNo) {
+        String newLandOrgInfoJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ORG_INFOS, orgNo);
+        if (StringUtils.isBlank(newLandOrgInfoJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(newLandOrgInfoJson, NewLandOrgInfo.class);
     }
 
     private static Map<String, String> buildHeaders(String charsetName) {
