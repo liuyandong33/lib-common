@@ -56,12 +56,12 @@ public class MiyaUtils {
      * 验证签名
      *
      * @param params
-     * @param sign
      * @param miyaKey
      * @return
      */
-    public static boolean verifySign(Map<String, String> params, String sign, String miyaKey) {
+    public static boolean verifySign(Map<String, String> params, String miyaKey) {
         Map<String, String> sortedMap = new TreeMap<String, String>(params);
+        String sign = sortedMap.remove("C30");
         List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
             String value = entry.getValue();
@@ -107,6 +107,7 @@ public class MiyaUtils {
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
         Map<String, String> result = XmlUtils.xmlStringToMap(webResponse.getResult());
         ValidateUtils.isTrue(Constants.SUCCESS.equals(result.get("C1")), result.get("C4"));
+        ValidateUtils.isTrue(verifySign(result, miyaKey), "签名验证未通过！");
         return result;
     }
 
