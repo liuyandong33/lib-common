@@ -1588,3 +1588,14 @@ CREATE TABLE diet_order_delivery_record
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '订单配送记录';
+
+DROP TABLE IF EXISTS business_time;
+CREATE TABLE business_time
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    start_time TIME NOT NULL COMMENT '开始时间',
+    end_time TIME NOT NULL COMMENT '结束时间'
+) COMMENT '餐厅营业时间';
