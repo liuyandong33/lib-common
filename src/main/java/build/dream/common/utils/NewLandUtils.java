@@ -26,7 +26,7 @@ public class NewLandUtils {
         return obtainNewLandAccount(tenantId.toString(), branchId.toString());
     }
 
-    private static NewLandOrgInfo obtainNewLandOrgInfo(String orgNo) {
+    public static NewLandOrgInfo obtainNewLandOrgInfo(String orgNo) {
         String newLandOrgInfoJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ORG_INFOS, orgNo);
         if (StringUtils.isBlank(newLandOrgInfoJson)) {
             return null;
