@@ -452,7 +452,6 @@ CREATE TABLE pos_privilege
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
     privilege_name VARCHAR(20) NOT NULL COMMENT '权限名称',
-    access_mode TINYINT NOT NULL COMMENT '访问方式，1-GET，2-POST，3-签名GET，4-签名POST',
     service_name VARCHAR(50) NOT NULL COMMENT '服务名称',
     controller_name VARCHAR(50) NOT NULL COMMENT 'controller name',
     action_name VARCHAR(50) NOT NULL COMMENT 'action name',

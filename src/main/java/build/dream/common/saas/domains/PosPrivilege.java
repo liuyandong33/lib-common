@@ -16,10 +16,6 @@ public class PosPrivilege extends BasicDomain {
      */
     private String privilegeName;
     /**
-     * 访问方式，1-GET，2-POST，3-签名GET，4-签名POST
-     */
-    private Integer accessMode;
-    /**
      * 服务名称
      */
     private String serviceName = Constants.VARCHAR_DEFAULT_VALUE;
@@ -54,14 +50,6 @@ public class PosPrivilege extends BasicDomain {
 
     public void setPrivilegeName(String privilegeName) {
         this.privilegeName = privilegeName;
-    }
-
-    public Integer getAccessMode() {
-        return accessMode;
-    }
-
-    public void setAccessMode(Integer accessMode) {
-        this.accessMode = accessMode;
     }
 
     public String getServiceName() {
@@ -115,11 +103,6 @@ public class PosPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder accessMode(Integer accessMode) {
-            instance.setAccessMode(accessMode);
-            return this;
-        }
-
         public Builder serviceName(String serviceName) {
             instance.setServiceName(serviceName);
             return this;
@@ -150,7 +133,6 @@ public class PosPrivilege extends BasicDomain {
             PosPrivilege posPrivilege = super.build();
             posPrivilege.setPrivilegeCode(instance.getPrivilegeCode());
             posPrivilege.setPrivilegeName(instance.getPrivilegeName());
-            posPrivilege.setAccessMode(instance.getAccessMode());
             posPrivilege.setServiceName(instance.getServiceName());
             posPrivilege.setControllerName(instance.getControllerName());
             posPrivilege.setActionName(instance.getActionName());
@@ -167,7 +149,6 @@ public class PosPrivilege extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String PRIVILEGE_CODE = "privilege_code";
         public static final String PRIVILEGE_NAME = "privilege_name";
-        public static final String ACCESS_MODE = "access_mode";
         public static final String SERVICE_NAME = "service_name";
         public static final String CONTROLLER_NAME = "controller_name";
         public static final String ACTION_NAME = "action_name";
@@ -178,7 +159,6 @@ public class PosPrivilege extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String PRIVILEGE_CODE = "privilegeCode";
         public static final String PRIVILEGE_NAME = "privilegeName";
-        public static final String ACCESS_MODE = "accessMode";
         public static final String SERVICE_NAME = "serviceName";
         public static final String CONTROLLER_NAME = "controllerName";
         public static final String ACTION_NAME = "actionName";
