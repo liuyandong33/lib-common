@@ -1183,10 +1183,10 @@ public class ApplicationHandler {
 
     public static boolean isAjax(HttpServletRequest httpServletRequest) {
         String headerValue = getRequestHeader(httpServletRequest, HttpHeaders.X_REQUESTED_WITH);
-        if (StringUtils.isNotBlank(headerValue)) {
-            return headerValue.equalsIgnoreCase(Constants.XML_HTTP_REQUEST);
+        if (StringUtils.isBlank(headerValue)) {
+            return false;
         }
-        return false;
+        return headerValue.equalsIgnoreCase(Constants.XML_HTTP_REQUEST);
     }
 
     public static void registerConverters() {
