@@ -8,6 +8,7 @@ import build.dream.common.utils.JacksonUtils;
 
 import java.math.BigInteger;
 import java.sql.Time;
+import java.util.Calendar;
 import java.util.List;
 
 @ShardingColumn(fieldName = Branch.FieldName.TENANT_ID, columnName = Branch.ColumnName.TENANT_ID)
@@ -317,9 +318,27 @@ public class Branch extends BasicDomain {
 
     public void setBusinessTimes(String businessTimes) {
         List<BusinessTime> businessTimeList = JacksonUtils.readValueAsList(businessTimes, BusinessTime.class);
+        Calendar calendar = Calendar.getInstance();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int prime = 0;
+        if (dayOfWeek == 1) {
+            prime = 17;
+        } else if (dayOfWeek == 2) {
+            prime = 2;
+        } else if (dayOfWeek == 3) {
+            prime = 3;
+        } else if (dayOfWeek == 4) {
+            prime = 5;
+        } else if (dayOfWeek == 5) {
+            prime = 7;
+        } else if (dayOfWeek == 6) {
+            prime = 11;
+        } else if (dayOfWeek == 7) {
+            prime = 13;
+        }
         Time now = new Time(System.currentTimeMillis());
         for (BusinessTime businessTime : businessTimeList) {
-            if (businessTime.getStartTime().before(now) && businessTime.getEndTime().after(now)) {
+            if (businessTime.getStartTime().before(now) && businessTime.getEndTime().after(now) && businessTime.getWeekSign() % prime == 0) {
                 this.opened = true;
                 break;
             }

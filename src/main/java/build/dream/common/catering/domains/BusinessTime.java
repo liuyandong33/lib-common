@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.sql.Time;
 
 public class BusinessTime {
+    public static final String TABLE_NAME = "business_time";
     private BigInteger id;
 
     /**
@@ -20,6 +21,11 @@ public class BusinessTime {
      * 门店ID
      */
     private BigInteger branchId;
+
+    /**
+     * 星期标记，素数原理
+     */
+    private Integer weekSign;
 
     /**
      * 开始时间
@@ -61,6 +67,14 @@ public class BusinessTime {
 
     public void setBranchId(BigInteger branchId) {
         this.branchId = branchId;
+    }
+
+    public Integer getWeekSign() {
+        return weekSign;
+    }
+
+    public void setWeekSign(Integer weekSign) {
+        this.weekSign = weekSign;
     }
 
     public Time getStartTime() {
