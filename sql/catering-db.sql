@@ -1596,6 +1596,7 @@ CREATE TABLE business_time
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
     tenant_code VARCHAR(20) NOT NULL COMMENT '商户编码',
     branch_id BIGINT NOT NULL COMMENT '门店ID',
+    week_sign INT NOT NULL COMMENT '星期标记，素数原理',
     start_time TIME NOT NULL COMMENT '开始时间',
     end_time TIME NOT NULL COMMENT '结束时间'
 ) COMMENT '餐厅营业时间';
