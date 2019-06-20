@@ -119,7 +119,33 @@ public class DadaUtils {
         return callDadaApi(addOrderModel, "/api/order/addOrder");
     }
 
+    /**
+     * 重新发布订单
+     *
+     * @param reAddOrderModel
+     * @return
+     */
     public static Map<String, Object> reAddOrder(ReAddOrderModel reAddOrderModel) {
         return callDadaApi(reAddOrderModel, "/api/order/reAddOrder");
+    }
+
+    /**
+     * 增加小费
+     *
+     * @param addTipModel
+     * @return
+     */
+    public static Map<String, Object> addTip(AddTipModel addTipModel) {
+        return callDadaApi(addTipModel, "/api/order/addTip");
+    }
+
+    /**
+     * 订单详情查询
+     *
+     * @param orderQueryModel
+     * @return
+     */
+    public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) {
+        return callDadaApi(orderQueryModel, "/api/order/status/query");
     }
 }
