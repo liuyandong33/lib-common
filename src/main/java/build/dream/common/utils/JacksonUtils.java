@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,6 +24,7 @@ public class JacksonUtils {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
             if (serializationInclusion != null) {
                 objectMapper.setSerializationInclusion(serializationInclusion);
