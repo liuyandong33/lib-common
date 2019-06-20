@@ -129,7 +129,7 @@ public class AddMerchantModel extends DadaBasicModel {
             addMerchantModel.setMobile(instance.getMobile());
             addMerchantModel.setCityName(instance.getCityName());
             addMerchantModel.setEnterpriseName(instance.getEnterpriseName());
-            addMerchantModel.setEnterpriseName(instance.getEnterpriseName());
+            addMerchantModel.setEnterpriseAddress(instance.getEnterpriseAddress());
             addMerchantModel.setContactName(instance.getContactName());
             addMerchantModel.setContactPhone(instance.getContactPhone());
             addMerchantModel.setEmail(instance.getEmail());
