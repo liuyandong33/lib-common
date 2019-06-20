@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 public class DadaBasicModel extends BasicModel {
     @NotNull
     @JsonIgnore
-    private String appKey = "";
+    private String appKey = ConfigurationUtils.getConfiguration(Constants.DADA_APP_KEY);
 
     @NotNull
     @JsonIgnore

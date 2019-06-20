@@ -40,7 +40,7 @@ public class DadaUtils {
         }
         sortedMap.put("body", body);
 
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.DATA_APP_SECRET);
+        String appSecret = ConfigurationUtils.getConfiguration(Constants.DADA_APP_SECRET);
         StringBuilder stringBuilder = new StringBuilder(appSecret);
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
             stringBuilder.append(entry.getKey()).append(entry.getValue());
@@ -50,7 +50,7 @@ public class DadaUtils {
         String signature = DigestUtils.md5Hex(stringBuilder.toString()).toUpperCase();
         sortedMap.put("signature", signature);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.DATA_DOMAIN) + path;
+        String url = ConfigurationUtils.getConfiguration(Constants.DADA_DOMAIN) + path;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(sortedMap));
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
