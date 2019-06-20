@@ -1044,4 +1044,8 @@ public class Constants {
     public static final String NOTIFY_TYPE_MIYA = "miya";
     public static final String NOTIFY_TYPE_NEW_LAND = "newLand";
     public static final String NOTIFY_TYPE_UM_PAY = "umPay";
+
+    public static final String DATA_APP_KEY = "data.app.key";
+    public static final String DATA_APP_SECRET = "data.app.secret";
+    public static final String DATA_DOMAIN = "data.domain";
 }
