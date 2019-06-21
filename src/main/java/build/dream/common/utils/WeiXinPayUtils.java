@@ -60,12 +60,7 @@ public class WeiXinPayUtils {
      * @return
      */
     public static String generateSign(Map<String, String> callWeiXinSystemRequestParameters, String weiXinPayKey, String signType) {
-        Map<String, String> sortedCallWeiXinSystemRequestParameters = null;
-        if (callWeiXinSystemRequestParameters instanceof TreeMap) {
-            sortedCallWeiXinSystemRequestParameters = callWeiXinSystemRequestParameters;
-        } else {
-            sortedCallWeiXinSystemRequestParameters = new TreeMap<String, String>(callWeiXinSystemRequestParameters);
-        }
+        Map<String, String> sortedCallWeiXinSystemRequestParameters = new TreeMap<String, String>(callWeiXinSystemRequestParameters);
         Set<Map.Entry<String, String>> entries = sortedCallWeiXinSystemRequestParameters.entrySet();
         StringBuilder stringSignTemp = new StringBuilder();
         for (Map.Entry<String, String> entry : entries) {
@@ -93,10 +88,9 @@ public class WeiXinPayUtils {
      * @return
      */
     public static boolean checkSign(Map<String, String> weiXinSystemResult, String weiXinPayKey, String signType) {
-        Map<String, String> sortedWeiXinSystemResult = new TreeMap<String, String>();
-        sortedWeiXinSystemResult.putAll(weiXinSystemResult);
-        String sign = sortedWeiXinSystemResult.remove("sign");
-        return sign.equals(generateSign(sortedWeiXinSystemResult, weiXinPayKey, signType));
+        Map<String, String> params = new HashMap<String, String>(weiXinSystemResult);
+        String sign = params.remove("sign");
+        return sign.equals(generateSign(params, weiXinPayKey, signType));
     }
 
     /**
