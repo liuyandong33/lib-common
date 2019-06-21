@@ -13,8 +13,8 @@ import build.dream.common.models.BasicModel;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.util.ReflectionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -36,15 +36,8 @@ public class AspectUtils {
     }
 
     private static Method obtainTargetMethod(ProceedingJoinPoint proceedingJoinPoint) {
-        Object[] args = proceedingJoinPoint.getArgs();
-        int length = args.length;
-        Class<?>[] argTypes = new Class[length];
-        for (int index = 0; index < length; index++) {
-            argTypes[index] = args[index].getClass();
-        }
-        Class<?> targetClass = proceedingJoinPoint.getTarget().getClass();
-        String methodName = proceedingJoinPoint.getSignature().getName();
-        return ReflectionUtils.findMethod(targetClass, methodName, argTypes);
+        MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
+        return methodSignature.getMethod();
     }
 
     public static String callApiRestAction(ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) {
