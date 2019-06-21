@@ -120,6 +120,11 @@ public class Branch extends BasicDomain {
     @Transient
     private boolean opened;
 
+    /**
+     * 达达门店ID
+     */
+    private String dadaOriginShopId = Constants.VARCHAR_DEFAULT_VALUE;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -354,6 +359,14 @@ public class Branch extends BasicDomain {
         this.opened = opened;
     }
 
+    public String getDadaOriginShopId() {
+        return dadaOriginShopId;
+    }
+
+    public void setDadaOriginShopId(String dadaOriginShopId) {
+        this.dadaOriginShopId = dadaOriginShopId;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Branch> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -485,6 +498,11 @@ public class Branch extends BasicDomain {
             return this;
         }
 
+        public Builder dadaOriginShopId(String dadaOriginShopId) {
+            instance.setDadaOriginShopId(dadaOriginShopId);
+            return this;
+        }
+
         @Override
         public Branch build() {
             Branch branch = super.build();
@@ -514,6 +532,7 @@ public class Branch extends BasicDomain {
             branch.setVipGroupId(instance.getVipGroupId());
             branch.setBusinessTimes(instance.getBusinessTimes());
             branch.setOpened(instance.isOpened());
+            branch.setDadaOriginShopId(instance.getDadaOriginShopId());
             return branch;
         }
     }
@@ -548,6 +567,7 @@ public class Branch extends BasicDomain {
         public static final String POI_NAME = "poi_name";
         public static final String VIP_GROUP_ID = "vip_group_id";
         public static final String BUSINESS_TIMES = "business_times";
+        public static final String DADA_ORIGIN_SHOP_ID = "dada_origin_shop_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -577,5 +597,6 @@ public class Branch extends BasicDomain {
         public static final String VIP_GROUP_ID = "vipGroupId";
         public static final String BUSINESS_TIMES = "businessTimes";
         public static final String OPENED = "opened";
+        public static final String DADA_ORIGIN_SHOP_ID = "dadaOriginShopId";
     }
 }
