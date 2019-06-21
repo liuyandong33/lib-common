@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class MimeMappingUtils {
     private static Map<String, String> MIME_MAPPINGS = null;
+    private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
 
     public static Map<String, String> obtainMimeMappings() {
         if (MapUtils.isEmpty(MIME_MAPPINGS)) {
@@ -1029,7 +1030,7 @@ public class MimeMappingUtils {
     public static String obtainMimeTypeByExtension(String extension) {
         String mimeType = obtainMimeMappings().get(extension);
         if (StringUtils.isBlank(mimeType)) {
-            mimeType = "application/octet-stream";
+            return APPLICATION_OCTET_STREAM;
         }
         return mimeType;
     }
@@ -1043,9 +1044,5 @@ public class MimeMappingUtils {
             extension = fileName;
         }
         return obtainMimeTypeByExtension(extension);
-    }
-
-    public static String obtainMimeType() {
-        return "application/octet-stream";
     }
 }
