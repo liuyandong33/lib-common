@@ -1,5 +1,7 @@
 package build.dream.common.models.data;
 
+import build.dream.common.constants.Constants;
+import build.dream.common.utils.NotifyUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
@@ -73,7 +75,10 @@ public class ReAddOrderModel extends DadaBasicModel {
      * 回调URL
      */
     @NotNull
-    private String callback;
+    private String callback = NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_DADA_ORDER_CALLBACK, "order_id");
+
+    @NotNull
+    private String topic;
 
     /**
      * 收货人手机号（手机号和座机号必填一项）
@@ -242,6 +247,14 @@ public class ReAddOrderModel extends DadaBasicModel {
         this.callback = callback;
     }
 
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
     public String getReceiverPhone() {
         return receiverPhone;
     }
@@ -405,6 +418,11 @@ public class ReAddOrderModel extends DadaBasicModel {
             return this;
         }
 
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
+            return this;
+        }
+
         public Builder receiverPhone(String receiverPhone) {
             instance.setReceiverPhone(receiverPhone);
             return this;
@@ -488,6 +506,7 @@ public class ReAddOrderModel extends DadaBasicModel {
             reAddOrderModel.setReceiverLat(instance.getReceiverLat());
             reAddOrderModel.setReceiverLng(instance.getReceiverLng());
             reAddOrderModel.setCallback(instance.getCallback());
+            reAddOrderModel.setTopic(instance.getTopic());
             reAddOrderModel.setReceiverPhone(instance.getReceiverPhone());
             reAddOrderModel.setReceiverTel(instance.getReceiverTel());
             reAddOrderModel.setTips(instance.getTips());
