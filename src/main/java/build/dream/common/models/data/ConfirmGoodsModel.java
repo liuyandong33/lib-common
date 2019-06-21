@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class OrderQueryModel extends DadaBasicModel {
+public class ConfirmGoodsModel extends DadaBasicModel {
     @NotNull
     @JsonProperty(value = "order_id")
     private String orderId;
@@ -17,7 +17,7 @@ public class OrderQueryModel extends DadaBasicModel {
         this.orderId = orderId;
     }
 
-    public static class Builder extends DadaBasicModel.Builder<Builder, OrderQueryModel> {
+    public static class Builder extends DadaBasicModel.Builder<Builder, ConfirmGoodsModel> {
         public Builder orderId(String orderId) {
             instance.setOrderId(orderId);
             return this;
@@ -25,10 +25,10 @@ public class OrderQueryModel extends DadaBasicModel {
 
 
         @Override
-        public OrderQueryModel build() {
-            OrderQueryModel orderQueryModel = super.build();
-            orderQueryModel.setOrderId(instance.getOrderId());
-            return orderQueryModel;
+        public ConfirmGoodsModel build() {
+            ConfirmGoodsModel confirmGoodsModel = super.build();
+            confirmGoodsModel.setOrderId(instance.getOrderId());
+            return confirmGoodsModel;
         }
     }
 
