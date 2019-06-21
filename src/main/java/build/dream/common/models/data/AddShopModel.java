@@ -1,11 +1,12 @@
 package build.dream.common.models.data;
 
 import build.dream.common.constraints.InList;
+import build.dream.common.models.BasicModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotNull;
 
-public class AddShopModel extends DadaBasicModel {
+public class AddShopModel extends BasicModel {
     /**
      * 门店名称
      */
@@ -192,7 +193,9 @@ public class AddShopModel extends DadaBasicModel {
         this.password = password;
     }
 
-    public static class Builder extends DadaBasicModel.Builder<Builder, AddShopModel> {
+    public static class Builder {
+        private final AddShopModel instance = new AddShopModel();
+
         public Builder stationName(String stationName) {
             instance.setStationName(stationName);
             return this;
@@ -258,9 +261,8 @@ public class AddShopModel extends DadaBasicModel {
             return this;
         }
 
-        @Override
         public AddShopModel build() {
-            AddShopModel addShopModel = super.build();
+            AddShopModel addShopModel = new AddShopModel();
             addShopModel.setStationName(instance.getStationName());
             addShopModel.setBusiness(instance.getBusiness());
             addShopModel.setCityName(instance.getCityName());

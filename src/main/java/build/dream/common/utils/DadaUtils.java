@@ -8,6 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,6 +19,63 @@ public class DadaUtils {
         HEADERS.put("Content-Type", "application/json;charset=UTF-8");
     }
 
+    /**
+     * 生成签名
+     *
+     * @param callDadaApiRequestParameters
+     * @param appSecret
+     * @return
+     */
+    public static String generateSignature(Map<String, String> callDadaApiRequestParameters, String appSecret) {
+        Map<String, String> sortedMap = new TreeMap<String, String>(callDadaApiRequestParameters);
+        StringBuilder stringBuilder = new StringBuilder(appSecret);
+        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
+            stringBuilder.append(entry.getKey()).append(entry.getValue());
+        }
+        stringBuilder.append(appSecret);
+        return DigestUtils.md5Hex(stringBuilder.toString()).toUpperCase();
+    }
+
+    /**
+     * 调用达达api
+     *
+     * @param appKey
+     * @param timestamp
+     * @param format
+     * @param v
+     * @param sourceId
+     * @param body
+     * @param appSecret
+     * @param path
+     * @return
+     */
+    public static Map<String, Object> callDadaApi(String appKey, String timestamp, String format, String v, String sourceId, String body, String appSecret, String path) {
+        Map<String, String> callDadaApiRequestParameters = new HashMap<String, String>();
+        callDadaApiRequestParameters.put("app_key", appKey);
+        callDadaApiRequestParameters.put("timestamp", timestamp);
+        callDadaApiRequestParameters.put("format", format);
+        callDadaApiRequestParameters.put("v", v);
+        callDadaApiRequestParameters.put("source_id", sourceId);
+        callDadaApiRequestParameters.put("body", body);
+        String signature = generateSignature(callDadaApiRequestParameters, appSecret);
+        callDadaApiRequestParameters.put("signature", signature);
+
+        String url = ConfigurationUtils.getConfiguration(Constants.DADA_DOMAIN) + path;
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(callDadaApiRequestParameters));
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int code = MapUtils.getIntValue(resultMap, "code");
+        ValidateUtils.isTrue(code == 0, MapUtils.getString(resultMap, "msg"));
+        return resultMap;
+    }
+
+    /**
+     * 调用达达api
+     *
+     * @param dadaBasicModel
+     * @param path
+     * @return
+     */
     public static Map<String, Object> callDadaApi(DadaBasicModel dadaBasicModel, String path) {
         dadaBasicModel.validateAndThrow();
 
@@ -26,37 +84,35 @@ public class DadaUtils {
         String format = dadaBasicModel.getFormat();
         String v = dadaBasicModel.getV();
         String sourceId = dadaBasicModel.getSourceId();
-
-        Map<String, String> sortedMap = new TreeMap<String, String>();
-        sortedMap.put("app_key", appKey);
-        sortedMap.put("timestamp", timestamp);
-        sortedMap.put("format", format);
-        sortedMap.put("v", v);
-        sortedMap.put("source_id", sourceId);
-
+        String appSecret = dadaBasicModel.getAppSecret();
         String body = JacksonUtils.writeValueAsString(dadaBasicModel, JsonInclude.Include.NON_NULL);
         if ("{}".equals(body)) {
             body = "";
         }
-        sortedMap.put("body", body);
+        return callDadaApi(appKey, timestamp, format, v, sourceId, body, appSecret, path);
+    }
 
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.DADA_APP_SECRET);
-        StringBuilder stringBuilder = new StringBuilder(appSecret);
-        for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
-            stringBuilder.append(entry.getKey()).append(entry.getValue());
+    /**
+     * 调用达达api
+     *
+     * @param dadaCommonParamsModel
+     * @param body
+     * @param path
+     * @return
+     */
+    public static Map<String, Object> callDadaApi(DadaCommonParamsModel dadaCommonParamsModel, String body, String path) {
+        dadaCommonParamsModel.validateAndThrow();
+
+        String appKey = dadaCommonParamsModel.getAppKey();
+        String timestamp = dadaCommonParamsModel.getTimestamp();
+        String format = dadaCommonParamsModel.getFormat();
+        String v = dadaCommonParamsModel.getV();
+        String sourceId = dadaCommonParamsModel.getSourceId();
+        String appSecret = dadaCommonParamsModel.getAppSecret();
+        if ("{}".equals(body)) {
+            body = "";
         }
-        stringBuilder.append(appSecret);
-
-        String signature = DigestUtils.md5Hex(stringBuilder.toString()).toUpperCase();
-        sortedMap.put("signature", signature);
-
-        String url = ConfigurationUtils.getConfiguration(Constants.DADA_DOMAIN) + path;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(sortedMap));
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        int code = MapUtils.getIntValue(resultMap, "code");
-        ValidateUtils.isTrue(code == 0, MapUtils.getString(resultMap, "msg"));
-        return resultMap;
+        return callDadaApi(appKey, timestamp, format, v, sourceId, body, appSecret, path);
     }
 
     /**
@@ -82,11 +138,15 @@ public class DadaUtils {
     /**
      * 新增门店
      *
-     * @param addShopModel
+     * @param dadaCommonParamsModel
+     * @param addShopModels
      * @return
      */
-    public static Map<String, Object> addShop(AddShopModel addShopModel) {
-        return callDadaApi(addShopModel, "/api/shop/add");
+    public static Map<String, Object> addShop(DadaCommonParamsModel dadaCommonParamsModel, List<AddShopModel> addShopModels) {
+        for (AddShopModel addShopModel : addShopModels) {
+            addShopModel.validateAndThrow();
+        }
+        return callDadaApi(dadaCommonParamsModel, JacksonUtils.writeValueAsString(addShopModels), "/api/shop/add");
     }
 
     /**

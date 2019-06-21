@@ -17,6 +17,10 @@ public class DadaBasicModel extends BasicModel {
 
     @NotNull
     @JsonIgnore
+    private String appSecret = ConfigurationUtils.getConfiguration(Constants.DADA_APP_SECRET);
+
+    @NotNull
+    @JsonIgnore
     private String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
 
     @NotNull
@@ -37,6 +41,14 @@ public class DadaBasicModel extends BasicModel {
 
     public void setAppKey(String appKey) {
         this.appKey = appKey;
+    }
+
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
     }
 
     public String getTimestamp() {
@@ -88,6 +100,11 @@ public class DadaBasicModel extends BasicModel {
             return (BT) this;
         }
 
+        public BT appSecret(String appSecret) {
+            instance.setAppSecret(appSecret);
+            return (BT) this;
+        }
+
         public BT timestamp(String timestamp) {
             instance.setTimestamp(timestamp);
             return (BT) this;
@@ -111,6 +128,7 @@ public class DadaBasicModel extends BasicModel {
         protected MT build() {
             MT model = ObjectUtils.newInstance(modelClass);
             model.setAppKey(instance.getAppKey());
+            model.setAppSecret(instance.getAppSecret());
             model.setTimestamp(instance.getTimestamp());
             model.setFormat(instance.getFormat());
             model.setV(instance.getV());
