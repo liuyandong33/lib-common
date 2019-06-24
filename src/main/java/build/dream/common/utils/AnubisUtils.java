@@ -9,7 +9,6 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,7 +102,6 @@ public class AnubisUtils {
      *
      * @param orderModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> order(OrderModel orderModel) {
         NotifyUtils.saveAnubisOrderAsyncNotify(orderModel.getPartnerOrderCode(), orderModel.getTopic());
@@ -115,7 +113,6 @@ public class AnubisUtils {
      *
      * @param orderCancelModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> orderCancel(OrderCancelModel orderCancelModel) {
         return callAnubisApi(orderCancelModel, "/order/cancel");
@@ -126,7 +123,6 @@ public class AnubisUtils {
      *
      * @param orderQueryModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) {
         return callAnubisApi(orderQueryModel, "/order/query");
@@ -137,7 +133,6 @@ public class AnubisUtils {
      *
      * @param orderComplaintModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> orderComplaint(OrderComplaintModel orderComplaintModel) {
         return callAnubisApi(orderComplaintModel, "/order/complaint");
@@ -148,7 +143,6 @@ public class AnubisUtils {
      *
      * @param chainStoreModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> chainStore(ChainStoreModel chainStoreModel) {
         return callAnubisApi(chainStoreModel, "/chain_store");
@@ -159,7 +153,6 @@ public class AnubisUtils {
      *
      * @param chainStoreQueryModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> chainStoreQuery(ChainStoreQueryModel chainStoreQueryModel) {
         return callAnubisApi(chainStoreQueryModel, "/chain_store/query");
@@ -170,7 +163,6 @@ public class AnubisUtils {
      *
      * @param chainStoreUpdateModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> chainStoreUpdate(ChainStoreUpdateModel chainStoreUpdateModel) {
         return callAnubisApi(chainStoreUpdateModel, "/chain_store/update");
@@ -181,7 +173,6 @@ public class AnubisUtils {
      *
      * @param chainStoreDeliveryQueryModel
      * @return
-     * @throws IOException
      */
     public static Map<String, Object> chainStoreDeliveryQuery(ChainStoreDeliveryQueryModel chainStoreDeliveryQueryModel) {
         return callAnubisApi(chainStoreDeliveryQueryModel, "/chain_store/delivery/query");
