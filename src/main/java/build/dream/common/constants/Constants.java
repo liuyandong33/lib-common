@@ -1045,6 +1045,7 @@ public class Constants {
     public static final String NOTIFY_TYPE_NEW_LAND = "newLand";
     public static final String NOTIFY_TYPE_UM_PAY = "umPay";
     public static final String NOTIFY_TYPE_DADA_ORDER_CALLBACK = "dadaOrderCallback";
+    public static final String NOTIFY_TYPE_ANUBIS_ORDER_CALLBACK = "anubisOrderCallback";
 
     public static final String DADA_APP_KEY = "dada.app.key";
     public static final String DADA_APP_SECRET = "dada.app.secret";

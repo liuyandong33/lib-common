@@ -187,4 +187,20 @@ public class NotifyUtils {
         CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
         return asyncNotify;
     }
+
+    /**
+     * 保存达达订单异步通知
+     *
+     * @param uuid
+     * @param topic
+     * @return
+     */
+    public static AsyncNotify saveAnubisOrderAsyncNotify(String uuid, String topic) {
+        AsyncNotify asyncNotify = AsyncNotify.builder()
+                .uuid(uuid)
+                .topic(topic)
+                .build();
+        CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
+        return asyncNotify;
+    }
 }

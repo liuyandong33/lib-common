@@ -1,7 +1,11 @@
 package build.dream.common.models.anubis;
 
+import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
+import build.dream.common.utils.NotifyUtils;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
@@ -20,82 +24,107 @@ public class OrderModel extends AnubisBasicModel {
     private static final Integer[] ORDER_PAYMENT_METHODS = {1};
     @Length(max = 255)
     @SerializedName(value = "partner_remark", alternate = "partnerRemark")
+    @JsonProperty(value = "partner_remark")
     private String partnerRemark;
 
     @NotNull
     @Length(max = 128)
     @SerializedName(value = "partner_order_code", alternate = "partnerOrderCode")
+    @JsonProperty(value = "partner_order_code")
     private String partnerOrderCode;
 
     @NotNull
     @Length(max = 255)
     @SerializedName(value = "notify_url", alternate = "notifyUrl")
-    private String notifyUrl;
+    @JsonProperty(value = "notify_url")
+    private String notifyUrl = NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_ANUBIS_ORDER_CALLBACK, "partner_order_code");
+
+    @NotNull
+    @JsonIgnore
+    private String topic;
 
     @NotNull
     @SerializedName(value = "order_type", alternate = "orderType")
+    @JsonProperty(value = "order_type")
     private Integer orderType;
 
     @SerializedName(value = "chain_store_code", alternate = "chainStoreCode")
+    @JsonProperty(value = "chain_store_code")
     private String chainStoreCode;
 
     @NotNull
     @SerializedName(value = "transport_info", alternate = "transportInfo")
+    @JsonProperty(value = "transport_info")
     private TransportInfo transportInfo;
 
     @SerializedName(value = "order_add_time", alternate = "orderAddTime")
+    @JsonProperty(value = "order_add_time")
     private Long orderAddTime;
 
     @NotNull
     @SerializedName(value = "order_total_amount", alternate = "orderTotalAmount")
+    @JsonProperty(value = "order_total_amount")
     private BigDecimal orderTotalAmount;
 
     @NotNull
     @SerializedName(value = "order_actual_amount", alternate = "orderActualAmount")
+    @JsonProperty(value = "order_actual_amount")
     private BigDecimal orderActualAmount;
 
     @SerializedName(value = "order_weight", alternate = "orderWeight")
+    @JsonProperty(value = "order_weight")
     private BigDecimal orderWeight;
 
     @Length(max = 255)
     @SerializedName(value = "order_remark", alternate = "orderRemark")
+    @JsonProperty(value = "order_remark")
     private String orderRemark;
 
     @SerializedName(value = "is_invoiced", alternate = "isInvoiced")
+    @JsonProperty(value = "is_invoiced")
     private Integer isInvoiced;
 
     @Length(max = 128)
     private String invoice;
 
     @SerializedName(value = "order_payment_status", alternate = "orderPaymentStatus")
+    @JsonProperty(value = "order_payment_status")
     private Integer orderPaymentStatus;
 
     @SerializedName(value = "order_payment_method", alternate = "orderPaymentMethod")
+    @JsonProperty(value = "order_payment_method")
     private Integer orderPaymentMethod;
 
     @SerializedName(value = "is_agent_payment", alternate = "isAgentPayment")
+    @JsonProperty(value = "is_agent_payment")
     private Integer isAgentPayment;
 
     @SerializedName(value = "require_payment_pay", alternate = "requirePaymentPay")
+    @JsonProperty(value = "require_payment_pay")
     private BigDecimal requirePaymentPay;
 
     @SerializedName(value = "require_receive_time", alternate = "requireReceiveTime")
+    @JsonProperty(value = "require_receive_time")
     private Long requireReceiveTime;
 
     @NotNull
     @SerializedName(value = "goods_count", alternate = "goodsCount")
+    @JsonProperty(value = "goods_count")
     private Integer goodsCount;
 
     @NotNull
     @SerializedName(value = "receiver_info", alternate = "receiverInfo")
+    @JsonProperty(value = "receiver_info")
     private ReceiverInfo receiverInfo;
 
     @NotEmpty
     @SerializedName(value = "items_json", alternate = "items")
+    @JsonProperty(value = "items_json")
     private List<Item> items;
 
     @Length(max = 6)
     @SerializedName(value = "serial_number", alternate = "serialNumber")
+    @JsonProperty(value = "serial_number")
     private String serialNumber;
 
     public String getPartnerRemark() {
@@ -120,6 +149,14 @@ public class OrderModel extends AnubisBasicModel {
 
     public void setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl;
+    }
+
+    public String getTopic() {
+        return topic;
+    }
+
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public Integer getOrderType() {
@@ -668,5 +705,155 @@ public class OrderModel extends AnubisBasicModel {
                 Validate.notNull(agentPurchasePrice);
             }
         }
+    }
+
+    public static class Builder extends AnubisBasicModel.Builder<Builder, OrderModel> {
+        public Builder partnerRemark(String partnerRemark) {
+            instance.setPartnerRemark(partnerRemark);
+            return this;
+        }
+
+        public Builder partnerOrderCode(String partnerOrderCode) {
+            instance.setPartnerOrderCode(partnerOrderCode);
+            return this;
+        }
+
+        public Builder notifyUrl(String notifyUrl) {
+            instance.setNotifyUrl(notifyUrl);
+            return this;
+        }
+
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
+            return this;
+        }
+
+        public Builder orderType(Integer orderType) {
+            instance.setOrderType(orderType);
+            return this;
+        }
+
+        public Builder chainStoreCode(String chainStoreCode) {
+            instance.setChainStoreCode(chainStoreCode);
+            return this;
+        }
+
+        public Builder transportInfo(TransportInfo transportInfo) {
+            instance.setTransportInfo(transportInfo);
+            return this;
+        }
+
+        public Builder orderAddTime(Long orderAddTime) {
+            instance.setOrderAddTime(orderAddTime);
+            return this;
+        }
+
+        public Builder orderTotalAmount(BigDecimal orderTotalAmount) {
+            instance.setOrderTotalAmount(orderTotalAmount);
+            return this;
+        }
+
+        public Builder orderActualAmount(BigDecimal orderActualAmount) {
+            instance.setOrderActualAmount(orderActualAmount);
+            return this;
+        }
+
+        public Builder orderWeight(BigDecimal orderWeight) {
+            instance.setOrderWeight(orderWeight);
+            return this;
+        }
+
+        public Builder orderRemark(String orderRemark) {
+            instance.setOrderRemark(orderRemark);
+            return this;
+        }
+
+        public Builder isInvoiced(Integer isInvoiced) {
+            instance.setIsInvoiced(isInvoiced);
+            return this;
+        }
+
+        public Builder invoice(String invoice) {
+            instance.setInvoice(invoice);
+            return this;
+        }
+
+        public Builder orderPaymentStatus(Integer orderPaymentStatus) {
+            instance.setOrderPaymentStatus(orderPaymentStatus);
+            return this;
+        }
+
+        public Builder orderPaymentMethod(Integer orderPaymentMethod) {
+            instance.setOrderPaymentMethod(orderPaymentMethod);
+            return this;
+        }
+
+        public Builder isAgentPayment(Integer isAgentPayment) {
+            instance.setIsAgentPayment(isAgentPayment);
+            return this;
+        }
+
+        public Builder requirePaymentPay(BigDecimal requirePaymentPay) {
+            instance.setRequirePaymentPay(requirePaymentPay);
+            return this;
+        }
+
+        public Builder requireReceiveTime(Long requireReceiveTime) {
+            instance.setRequireReceiveTime(requireReceiveTime);
+            return this;
+        }
+
+        public Builder goodsCount(Integer goodsCount) {
+            instance.setGoodsCount(goodsCount);
+            return this;
+        }
+
+        public Builder receiverInfo(ReceiverInfo receiverInfo) {
+            instance.setReceiverInfo(receiverInfo);
+            return this;
+        }
+
+        public Builder items(List<Item> items) {
+            instance.setItems(items);
+            return this;
+        }
+
+        public Builder serialNumber(String serialNumber) {
+            instance.setSerialNumber(serialNumber);
+            return this;
+        }
+
+        @Override
+        public OrderModel build() {
+            OrderModel orderModel = super.build();
+            orderModel.setPartnerRemark(instance.getPartnerRemark());
+            orderModel.setPartnerOrderCode(instance.getPartnerOrderCode());
+            orderModel.setNotifyUrl(instance.getNotifyUrl());
+            orderModel.setTopic(instance.getTopic());
+            orderModel.setOrderType(instance.getOrderType());
+            orderModel.setChainStoreCode(instance.getChainStoreCode());
+            orderModel.setTransportInfo(instance.getTransportInfo());
+            orderModel.setOrderAddTime(instance.getOrderAddTime());
+            orderModel.setOrderTotalAmount(instance.getOrderTotalAmount());
+            orderModel.setOrderActualAmount(instance.getOrderActualAmount());
+            orderModel.setOrderWeight(instance.getOrderWeight());
+            orderModel.setOrderRemark(instance.getOrderRemark());
+            orderModel.setIsInvoiced(instance.getIsInvoiced());
+            orderModel.setInvoice(instance.getInvoice());
+            orderModel.setOrderPaymentStatus(instance.getOrderPaymentStatus());
+            orderModel.setOrderPaymentMethod(instance.getOrderPaymentMethod());
+            orderModel.setIsAgentPayment(instance.getIsAgentPayment());
+            orderModel.setRequirePaymentPay(instance.getRequirePaymentPay());
+            orderModel.setRequireReceiveTime(instance.getRequireReceiveTime());
+            orderModel.setGoodsCount(instance.getGoodsCount());
+            orderModel.setReceiverInfo(instance.getReceiverInfo());
+            orderModel.setItems(instance.getItems());
+            orderModel.setSerialNumber(instance.getSerialNumber());
+            return orderModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }

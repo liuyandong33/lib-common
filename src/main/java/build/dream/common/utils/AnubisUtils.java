@@ -106,6 +106,7 @@ public class AnubisUtils {
      * @throws IOException
      */
     public static Map<String, Object> order(OrderModel orderModel) {
+        NotifyUtils.saveAnubisOrderAsyncNotify(orderModel.getPartnerOrderCode(), orderModel.getTopic());
         return callAnubisApi(orderModel, "/order");
     }
 
