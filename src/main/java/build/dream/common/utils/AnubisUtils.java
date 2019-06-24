@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class AnubisUtils {
     private static final String ANUBIS_SERVICE_URL = "https://open-anubis.ele.me/anubis-webapi/v2";
-    public static final Map<String, String> HEADERS = new HashMap<String, String>();
+    private static final Map<String, String> HEADERS = new HashMap<String, String>();
 
     static {
         HEADERS.put("Content-Type", "application/json;charset=utf-8");
