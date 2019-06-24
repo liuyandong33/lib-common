@@ -19,6 +19,42 @@ public class Tenant extends BasicDomain {
      */
     private String business;
     /**
+     * 省编码
+     */
+    private String provinceCode;
+    /**
+     * 省名称
+     */
+    private String provinceName;
+    /**
+     * 市编码
+     */
+    private String cityCode;
+    /**
+     * 市名称
+     */
+    private String cityName;
+    /**
+     * 区编码
+     */
+    private String districtCode;
+    /**
+     * 区名称
+     */
+    private String districtName;
+    /**
+     * 门店详细地址
+     */
+    private String address;
+    /**
+     * 联系人
+     */
+    private String linkman;
+    /**
+     * 联系电话
+     */
+    private String contactPhone;
+    /**
      * 分区码
      */
     private String partitionCode;
@@ -65,6 +101,78 @@ public class Tenant extends BasicDomain {
 
     public void setBusiness(String business) {
         this.business = business;
+    }
+
+    public String getProvinceCode() {
+        return provinceCode;
+    }
+
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public String getCityCode() {
+        return cityCode;
+    }
+
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getDistrictCode() {
+        return districtCode;
+    }
+
+    public void setDistrictCode(String districtCode) {
+        this.districtCode = districtCode;
+    }
+
+    public String getDistrictName() {
+        return districtName;
+    }
+
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
     }
 
     public String getPartitionCode() {
@@ -131,6 +239,51 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
+        public Builder provinceCode(String provinceCode) {
+            instance.setProvinceCode(provinceCode);
+            return this;
+        }
+
+        public Builder provinceName(String provinceName) {
+            instance.setProvinceName(provinceName);
+            return this;
+        }
+
+        public Builder cityCode(String cityCode) {
+            instance.setCityCode(cityCode);
+            return this;
+        }
+
+        public Builder cityName(String cityName) {
+            instance.setCityName(cityName);
+            return this;
+        }
+
+        public Builder districtCode(String districtCode) {
+            instance.setDistrictCode(districtCode);
+            return this;
+        }
+
+        public Builder districtName(String districtName) {
+            instance.setDistrictName(districtName);
+            return this;
+        }
+
+        public Builder address(String address) {
+            instance.setAddress(address);
+            return this;
+        }
+
+        public Builder linkman(String linkman) {
+            instance.setLinkman(linkman);
+            return this;
+        }
+
+        public Builder contactPhone(String contactPhone) {
+            instance.setContactPhone(contactPhone);
+            return this;
+        }
+
         public Builder partitionCode(String partitionCode) {
             instance.setPartitionCode(partitionCode);
             return this;
@@ -167,6 +320,15 @@ public class Tenant extends BasicDomain {
             tenant.setCode(instance.getCode());
             tenant.setName(instance.getName());
             tenant.setBusiness(instance.getBusiness());
+            tenant.setProvinceCode(instance.getProvinceCode());
+            tenant.setProvinceName(instance.getProvinceName());
+            tenant.setCityCode(instance.getCityCode());
+            tenant.setCityName(instance.getCityName());
+            tenant.setDistrictCode(instance.getDistrictCode());
+            tenant.setDistrictName(instance.getDistrictName());
+            tenant.setAddress(instance.getAddress());
+            tenant.setLinkman(instance.getLinkman());
+            tenant.setContactPhone(instance.getContactPhone());
             tenant.setPartitionCode(instance.getPartitionCode());
             tenant.setTenantType(instance.getTenantType());
             tenant.setVipSharedType(instance.getVipSharedType());
@@ -185,6 +347,15 @@ public class Tenant extends BasicDomain {
         public static final String CODE = "code";
         public static final String NAME = "name";
         public static final String BUSINESS = "business";
+        public static final String PROVINCE_CODE = "province_code";
+        public static final String PROVINCE_NAME = "province_name";
+        public static final String CITY_CODE = "city_code";
+        public static final String CITY_NAME = "city_name";
+        public static final String DISTRICT_CODE = "district_code";
+        public static final String DISTRICT_NAME = "district_name";
+        public static final String ADDRESS = "address";
+        public static final String LINKMAN = "linkman";
+        public static final String CONTACT_PHONE = "contact_phone";
         public static final String PARTITION_CODE = "partition_code";
         public static final String TENANT_TYPE = "tenant_type";
         public static final String VIP_SHARED_TYPE = "vip_shared_type";
@@ -197,6 +368,15 @@ public class Tenant extends BasicDomain {
         public static final String CODE = "code";
         public static final String NAME = "name";
         public static final String BUSINESS = "business";
+        public static final String PROVINCE_CODE = "provinceCode";
+        public static final String PROVINCE_NAME = "provinceName";
+        public static final String CITY_CODE = "cityCode";
+        public static final String CITY_NAME = "cityName";
+        public static final String DISTRICT_CODE = "districtCode";
+        public static final String DISTRICT_NAME = "districtName";
+        public static final String ADDRESS = "address";
+        public static final String LINKMAN = "linkman";
+        public static final String CONTACT_PHONE = "contactPhone";
         public static final String PARTITION_CODE = "partitionCode";
         public static final String TENANT_TYPE = "tenantType";
         public static final String VIP_SHARED_TYPE = "vipSharedType";
