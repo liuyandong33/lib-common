@@ -186,4 +186,14 @@ public class AnubisUtils {
     public static Map<String, Object> chainStoreDeliveryQuery(ChainStoreDeliveryQueryModel chainStoreDeliveryQueryModel) {
         return callAnubisApi(chainStoreDeliveryQueryModel, "/chain_store/delivery/query");
     }
+
+    /**
+     * 订单骑手位置
+     *
+     * @param orderCarrierModel
+     * @return
+     */
+    public static Map<String, Object> orderCarrier(OrderCarrierModel orderCarrierModel) {
+        return callAnubisApi(orderCarrierModel, "/order/carrier");
+    }
 }
