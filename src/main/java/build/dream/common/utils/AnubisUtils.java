@@ -3,14 +3,13 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.anubis.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,91 +21,81 @@ public class AnubisUtils {
         HEADERS.put("Content-Type", "application/json;charset=utf-8");
     }
 
-    public static String generateSignature(String appId, String data, int salt, String accessToken) throws UnsupportedEncodingException {
+    public static String generateSignature(String appId, String data, int salt, String accessToken) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("app_id=" + appId);
         stringBuilder.append("access_token=" + accessToken);
-        stringBuilder.append("data=" + URLEncoder.encode(data, Constants.CHARSET_NAME_UTF_8));
+        stringBuilder.append("data=" + UrlUtils.encode(data, Constants.CHARSET_NAME_UTF_8));
         stringBuilder.append("salt=" + salt);
         return DigestUtils.md5Hex(stringBuilder.toString());
     }
 
-    public static boolean verifySignature(String appId, String data, int salt, String accessToken, String signature) throws IOException {
+    public static boolean verifySignature(String appId, String data, int salt, String accessToken, String signature) {
         return signature.equals(generateSignature(appId, data, salt, accessToken));
     }
 
-    public static String obtainAccessToken(String appId, String appSecret) throws IOException {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_ANUBIS_TOKENS, appId);
-        boolean isRetrieveAccessToken = false;
-        String accessToken = null;
-        if (StringUtils.isNotBlank(tokenJson)) {
-            Map<String, Object> tokenMap = JacksonUtils.readValueAsMap(tokenJson, String.class, Object.class);
-            long expireTime = MapUtils.getLongValue(tokenMap, "expire_time");
-            if (System.currentTimeMillis() >= expireTime) {
-                isRetrieveAccessToken = true;
-            } else {
-                accessToken = MapUtils.getString(tokenMap, "access_token");
-            }
-        } else {
-            isRetrieveAccessToken = true;
-        }
-
-        if (isRetrieveAccessToken) {
-            int salt = RandomUtils.nextInt(1000, 9999);
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("app_id=" + appId);
-            stringBuilder.append("&salt=" + salt);
-            stringBuilder.append("&secret_key=" + appSecret);
-            String signature = DigestUtils.md5Hex(URLEncoder.encode(stringBuilder.toString(), Constants.CHARSET_NAME_UTF_8));
-            Map<String, String> requestParameters = new HashMap<String, String>();
-            requestParameters.put("appId", appId);
-            requestParameters.put("salt", String.valueOf(salt));
-            requestParameters.put("signature", signature);
-
-            String url = ANUBIS_SERVICE_URL + "/get_access_token";
-            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-            String result = webResponse.getResult();
-            Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-            int code = MapUtils.getIntValue(resultMap, "code");
-            ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
-
-            Map<String, Object> tokenMap = MapUtils.getMap(resultMap, "data");
-            CommonRedisUtils.hset(Constants.KEY_ANUBIS_TOKENS, appId, GsonUtils.toJson(tokenMap));
-            accessToken = MapUtils.getString(tokenMap, "access_token");
-        }
-        return accessToken;
-    }
-
-    public static String obtainAccessToken() throws IOException {
-        String appId = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_ID);
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_SECRET);
-        return obtainAccessToken(appId, appSecret);
-    }
-
-    public static Map<String, Object> callAnubisSystem(String url, String appId, String appSecret, Object data) throws IOException {
+    public static String getAccessToken(String appId, String appSecret) {
         int salt = RandomUtils.nextInt(1000, 9999);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("app_id=" + appId);
+        stringBuilder.append("&salt=" + salt);
+        stringBuilder.append("&secret_key=" + appSecret);
+        String signature = DigestUtils.md5Hex(UrlUtils.encode(stringBuilder.toString(), Constants.CHARSET_NAME_UTF_8));
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("appId", appId);
+        requestParameters.put("salt", String.valueOf(salt));
+        requestParameters.put("signature", signature);
+
+        String url = ANUBIS_SERVICE_URL + "/get_access_token";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
+        String result = webResponse.getResult();
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        int code = MapUtils.getIntValue(resultMap, "code");
+        ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
+
+        Map<String, Object> tokenMap = MapUtils.getMap(resultMap, "data");
+        CommonRedisUtils.hset(Constants.KEY_ANUBIS_TOKENS, appId, GsonUtils.toJson(tokenMap));
+        return MapUtils.getString(tokenMap, "access_token");
+    }
+
+    public static String obtainAccessToken(String appId, String appSecret) {
+        String tokenJson = CommonRedisUtils.hget(Constants.KEY_ANUBIS_TOKENS, appId);
+        if (StringUtils.isBlank(tokenJson)) {
+            return getAccessToken(appId, appSecret);
+        }
+
+        Map<String, Object> tokenMap = JacksonUtils.readValueAsMap(tokenJson, String.class, Object.class);
+        long expireTime = MapUtils.getLongValue(tokenMap, "expire_time");
+        if (System.currentTimeMillis() >= expireTime) {
+            return getAccessToken(appId, appSecret);
+        }
+
+        return MapUtils.getString(tokenMap, "access_token");
+    }
+
+    public static Map<String, Object> callAnubisApi(AnubisBasicModel anubisBasicModel, String path) {
+        anubisBasicModel.validateAndThrow();
+
+        String appId = anubisBasicModel.getAppId();
+        String appSecret = anubisBasicModel.getAppSecret();
+        int salt = anubisBasicModel.getSalt();
+
         String accessToken = obtainAccessToken(appId, appSecret);
-        String signature = generateSignature(appId, GsonUtils.toJson(data, false), salt, accessToken);
+        String signature = generateSignature(appId, JacksonUtils.writeValueAsString(anubisBasicModel, JsonInclude.Include.NON_NULL), salt, accessToken);
 
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("appId", appId);
-        requestBody.put("data", data);
+        requestBody.put("data", anubisBasicModel);
         requestBody.put("salt", salt);
         requestBody.put("signature", signature);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(requestBody));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(ANUBIS_SERVICE_URL + path, HEADERS, JacksonUtils.writeValueAsString(requestBody, JsonInclude.Include.NON_NULL));
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         int code = MapUtils.getIntValue(resultMap, "code");
         ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
         return resultMap;
-    }
-
-    public static Map<String, Object> callAnubisSystem(String url, Object data) throws IOException {
-        String appId = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_ID);
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_SECRET);
-        return callAnubisSystem(url, appId, appSecret, data);
     }
 
     /**
@@ -116,10 +105,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> order(OrderModel orderModel) throws IOException {
-        orderModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/order";
-        return callAnubisSystem(url, orderModel);
+    public static Map<String, Object> order(OrderModel orderModel) {
+        return callAnubisApi(orderModel, "/order");
     }
 
     /**
@@ -129,10 +116,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> orderCancel(OrderCancelModel orderCancelModel) throws IOException {
-        orderCancelModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/order/cancel";
-        return callAnubisSystem(url, orderCancelModel);
+    public static Map<String, Object> orderCancel(OrderCancelModel orderCancelModel) {
+        return callAnubisApi(orderCancelModel, "/order/cancel");
     }
 
     /**
@@ -142,10 +127,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) throws IOException {
-        orderQueryModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/order/query";
-        return callAnubisSystem(url, orderQueryModel);
+    public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) {
+        return callAnubisApi(orderQueryModel, "/order/query");
     }
 
     /**
@@ -155,10 +138,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> orderComplaint(OrderComplaintModel orderComplaintModel) throws IOException {
-        orderComplaintModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/order/complaint";
-        return callAnubisSystem(url, orderComplaintModel);
+    public static Map<String, Object> orderComplaint(OrderComplaintModel orderComplaintModel) {
+        return callAnubisApi(orderComplaintModel, "/order/complaint");
     }
 
     /**
@@ -168,10 +149,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> chainStore(ChainStoreModel chainStoreModel) throws IOException {
-        chainStoreModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/chain_store";
-        return callAnubisSystem(url, chainStoreModel);
+    public static Map<String, Object> chainStore(ChainStoreModel chainStoreModel) {
+        return callAnubisApi(chainStoreModel, "/chain_store");
     }
 
     /**
@@ -181,10 +160,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> chainStoreQuery(ChainStoreQueryModel chainStoreQueryModel) throws IOException {
-        chainStoreQueryModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/chain_store/query";
-        return callAnubisSystem(url, chainStoreQueryModel);
+    public static Map<String, Object> chainStoreQuery(ChainStoreQueryModel chainStoreQueryModel) {
+        return callAnubisApi(chainStoreQueryModel, "/chain_store/query");
     }
 
     /**
@@ -194,10 +171,8 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> chainStoreUpdate(ChainStoreUpdateModel chainStoreUpdateModel) throws IOException {
-        chainStoreUpdateModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/chain_store/update";
-        return callAnubisSystem(url, chainStoreUpdateModel);
+    public static Map<String, Object> chainStoreUpdate(ChainStoreUpdateModel chainStoreUpdateModel) {
+        return callAnubisApi(chainStoreUpdateModel, "/chain_store/update");
     }
 
     /**
@@ -207,9 +182,7 @@ public class AnubisUtils {
      * @return
      * @throws IOException
      */
-    public static Map<String, Object> chainStoreDeliveryQuery(ChainStoreDeliveryQueryModel chainStoreDeliveryQueryModel) throws IOException {
-        chainStoreDeliveryQueryModel.validateAndThrow();
-        String url = ANUBIS_SERVICE_URL + "/chain_store/delivery/query";
-        return callAnubisSystem(url, chainStoreDeliveryQueryModel);
+    public static Map<String, Object> chainStoreDeliveryQuery(ChainStoreDeliveryQueryModel chainStoreDeliveryQueryModel) {
+        return callAnubisApi(chainStoreDeliveryQueryModel, "/chain_store/delivery/query");
     }
 }

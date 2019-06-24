@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class OrderModel extends BasicModel {
+public class OrderModel extends AnubisBasicModel {
     private static final Integer[] BOOLEAN_ITEMS = {0, 1};
     private static final Integer[] ORDER_TYPES = {1};
     private static final Integer[] ORDER_PAYMENT_STATUSES = {0, 1};

@@ -1,6 +1,5 @@
 package build.dream.common.models.anubis;
 
-import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang.ArrayUtils;
@@ -8,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class ChainStoreUpdateModel extends BasicModel {
+public class ChainStoreUpdateModel extends AnubisBasicModel {
     private static final Integer[] POSITION_SOURCES = {1, 2, 3};
     private static final Integer[] SERVICE_CODES = {1, 2, 3};
     @NotNull
@@ -115,5 +114,59 @@ public class ChainStoreUpdateModel extends BasicModel {
         super.validateAndThrow();
         ApplicationHandler.inArray(POSITION_SOURCES, positionSource, "positionSource");
         ApplicationHandler.inArray(SERVICE_CODES, serviceCode, "serviceCode");
+    }
+
+    public static class Builder extends AnubisBasicModel.Builder<Builder, ChainStoreUpdateModel> {
+        public Builder chainStoreCode(String chainStoreCode) {
+            instance.setChainStoreCode(chainStoreCode);
+            return this;
+        }
+
+        public Builder chainStoreName(String chainStoreName) {
+            instance.setChainStoreName(chainStoreName);
+            return this;
+        }
+
+        public Builder contactPhone(String contactPhone) {
+            instance.setContactPhone(contactPhone);
+            return this;
+        }
+
+        public Builder positionSource(Integer positionSource) {
+            instance.setPositionSource(positionSource);
+            return this;
+        }
+
+        public Builder longitude(Double longitude) {
+            instance.setLongitude(longitude);
+            return this;
+        }
+
+        public Builder latitude(Double latitude) {
+            instance.setLatitude(latitude);
+            return this;
+        }
+
+        public Builder serviceCode(Integer serviceCode) {
+            instance.setServiceCode(serviceCode);
+            return this;
+        }
+
+        @Override
+        public ChainStoreUpdateModel build() {
+            ChainStoreUpdateModel chainStoreUpdateModel = super.build();
+            chainStoreUpdateModel.setChainStoreCode(instance.getChainStoreCode());
+            chainStoreUpdateModel.setChainStoreName(instance.getChainStoreName());
+            chainStoreUpdateModel.setContactPhone(instance.getContactPhone());
+            chainStoreUpdateModel.setPositionSource(instance.getPositionSource());
+            chainStoreUpdateModel.setLongitude(instance.getLongitude());
+            chainStoreUpdateModel.setLatitude(instance.getLatitude());
+            chainStoreUpdateModel.setServiceCode(instance.getServiceCode());
+            return chainStoreUpdateModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 }
