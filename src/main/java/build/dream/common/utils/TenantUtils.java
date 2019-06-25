@@ -22,9 +22,10 @@ public class TenantUtils {
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
-    public static void updateTenantInfo(BigInteger tenantId, Tuple2<String, String>... fields) {
+    public static void updateTenantInfo(BigInteger tenantId, BigInteger userId, Tuple2<String, String>... fields) {
         Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>();
         updateTenantInfoRequestParameters.put("id", tenantId.toString());
+        updateTenantInfoRequestParameters.put("userId", userId.toString());
         for (Tuple2<String, String> field : fields) {
             updateTenantInfoRequestParameters.put(field._1(), field._2());
         }
@@ -32,9 +33,10 @@ public class TenantUtils {
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
 
-    public static void updateTenantInfo(BigInteger tenantId, Map<String, String> fields) {
+    public static void updateTenantInfo(BigInteger tenantId, BigInteger userId, Map<String, String> fields) {
         Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>(fields);
         updateTenantInfoRequestParameters.put("id", tenantId.toString());
+        updateTenantInfoRequestParameters.put("userId", userId.toString());
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "tenant", "updateTenantInfo", updateTenantInfoRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
