@@ -55,6 +55,10 @@ public class Tenant extends BasicDomain {
      */
     private String contactPhone;
     /**
+     * 邮箱地址
+     */
+    private String email;
+    /**
      * 分区码
      */
     private String partitionCode;
@@ -175,6 +179,14 @@ public class Tenant extends BasicDomain {
         this.contactPhone = contactPhone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPartitionCode() {
         return partitionCode;
     }
@@ -284,6 +296,11 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
+        public Builder email(String email) {
+            instance.setEmail(email);
+            return this;
+        }
+
         public Builder partitionCode(String partitionCode) {
             instance.setPartitionCode(partitionCode);
             return this;
@@ -329,6 +346,7 @@ public class Tenant extends BasicDomain {
             tenant.setAddress(instance.getAddress());
             tenant.setLinkman(instance.getLinkman());
             tenant.setContactPhone(instance.getContactPhone());
+            tenant.setEmail(instance.getEmail());
             tenant.setPartitionCode(instance.getPartitionCode());
             tenant.setTenantType(instance.getTenantType());
             tenant.setVipSharedType(instance.getVipSharedType());
@@ -356,6 +374,7 @@ public class Tenant extends BasicDomain {
         public static final String ADDRESS = "address";
         public static final String LINKMAN = "linkman";
         public static final String CONTACT_PHONE = "contact_phone";
+        public static final String EMAIL = "email";
         public static final String PARTITION_CODE = "partition_code";
         public static final String TENANT_TYPE = "tenant_type";
         public static final String VIP_SHARED_TYPE = "vip_shared_type";
@@ -377,6 +396,7 @@ public class Tenant extends BasicDomain {
         public static final String ADDRESS = "address";
         public static final String LINKMAN = "linkman";
         public static final String CONTACT_PHONE = "contactPhone";
+        public static final String EMAIL = "email";
         public static final String PARTITION_CODE = "partitionCode";
         public static final String TENANT_TYPE = "tenantType";
         public static final String VIP_SHARED_TYPE = "vipSharedType";

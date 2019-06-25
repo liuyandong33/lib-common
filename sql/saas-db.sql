@@ -14,6 +14,7 @@ CREATE TABLE tenant
     address VARCHAR(255) NOT NULL COMMENT '门店详细地址',
     linkman VARCHAR(20) NOT NULL COMMENT '联系人',
     contact_phone VARCHAR(20) NOT NULL COMMENT '联系电话',
+    email VARCHAR(50) NOT NULL COMMENT '邮箱地址',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     tenant_type TINYINT NOT NULL COMMENT '商户类型，1-标准版商户，2-单机版商户',
     vip_shared_type TINYINT NOT NULL COMMENT '会员共享类型，1-全部共享，2-全部独立，3-分组共享',
