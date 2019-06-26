@@ -645,7 +645,7 @@ public class WebUtils {
             Object value = entry.getValue();
             if (value instanceof String) {
                 outputStream.write(("Content-Disposition: form-data; name=\"" + key + "\"" + ENTER_NEW_LINE + ENTER_NEW_LINE).getBytes(charsetName));
-                outputStream.write((value.toString()).getBytes(charsetName));
+                outputStream.write(value.toString().getBytes(charsetName));
             } else if (value instanceof MultipartFile || value instanceof File) {
                 InputStream inputStream = null;
                 String fileName = null;

@@ -24,8 +24,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AspectUtils {
     private static ConcurrentHashMap<Class<?>, Object> serviceMap = new ConcurrentHashMap<Class<?>, Object>();
-    private static final String APPLICATION_FORM_URLENCODED_UTF8_VALUE = "application/x-www-form-urlencoded;charset=UTF-8";
-    private static final String APPLICATION_JSON_UTF8_VALUE = "application/json;charset=UTF-8";
     private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
 
     private static Object obtainService(Class<?> serviceClass) {
@@ -57,15 +55,15 @@ public class AspectUtils {
             Method targetMethod = obtainTargetMethod(proceedingJoinPoint);
             OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
             if (onlyAllowedApplicationJsonUtf8 != null) {
-                ValidateUtils.isTrue(APPLICATION_JSON_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+                ValidateUtils.isTrue(Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
             OnlyAllowedApplicationFormUrlencodedUtf8 onlyAllowedApplicationFormUrlencodedUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationFormUrlencodedUtf8.class);
             if (onlyAllowedApplicationFormUrlencodedUtf8 != null) {
-                ValidateUtils.isTrue(APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+                ValidateUtils.isTrue(Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
-            if (APPLICATION_JSON_UTF8_VALUE.equals(contentType)) {
+            if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
                 if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
                     String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
                     ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
@@ -77,7 +75,7 @@ public class AspectUtils {
                 } else {
                     apiRest = callApiRestAction(proceedingJoinPoint);
                 }
-            } else if (APPLICATION_FORM_URLENCODED_UTF8_VALUE.equals(contentType)) {
+            } else if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
                 if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
                     apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
                 } else {

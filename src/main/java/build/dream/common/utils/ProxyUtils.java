@@ -42,7 +42,7 @@ public class ProxyUtils {
     public static HttpHeaders obtainApplicationFormUrlEncodedHttpHeaders() {
         if (MapUtils.isEmpty(applicationFormUrlEncodedHttpHeaders)) {
             applicationFormUrlEncodedHttpHeaders = new HttpHeaders();
-            applicationFormUrlEncodedHttpHeaders.add(Constants.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=" + Constants.CHARSET_NAME_UTF_8);
+            applicationFormUrlEncodedHttpHeaders.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8);
         }
         return applicationFormUrlEncodedHttpHeaders;
     }

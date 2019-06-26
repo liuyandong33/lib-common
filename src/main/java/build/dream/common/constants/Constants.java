@@ -1,6 +1,7 @@
 package build.dream.common.constants;
 
 import build.dream.common.utils.CustomDateUtils;
+import build.dream.common.utils.WebUtils;
 
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -1050,4 +1051,8 @@ public class Constants {
     public static final String DADA_APP_KEY = "dada.app.key";
     public static final String DADA_APP_SECRET = "dada.app.secret";
     public static final String DADA_DOMAIN = "dada.domain";
+
+    public static final String CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8 = "application/x-www-form-urlencoded;charset=UTF-8";
+    public static final String CONTENT_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
+    public static final String CONTENT_TYPE_MULTIPART_FORM_DATA = "multipart/form-data;boundary=" + WebUtils.BOUNDARY;
 }
