@@ -63,26 +63,37 @@ public class AspectUtils {
                 ValidateUtils.isTrue(Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
-            if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
-                if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-                    String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-                    ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
-                    if (applicationJsonUtf8Encrypted != null) {
-                        publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
-                        requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
-                    }
-                    apiRest = callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
-                } else {
-                    apiRest = callApiRestAction(proceedingJoinPoint);
-                }
-            } else if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
+            String method = httpServletRequest.getMethod();
+            if (Constants.REQUEST_METHOD_GET.equals(method)) {
                 if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
                     apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
                 } else {
                     apiRest = callApiRestAction(proceedingJoinPoint);
                 }
+            } else if (Constants.REQUEST_METHOD_POST.equals(method)) {
+                if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
+                    if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+                        String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
+                        ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
+                        if (applicationJsonUtf8Encrypted != null) {
+                            publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
+                            requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
+                        }
+                        apiRest = callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
+                    } else {
+                        apiRest = callApiRestAction(proceedingJoinPoint);
+                    }
+                } else if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
+                    if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+                        apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
+                    } else {
+                        apiRest = callApiRestAction(proceedingJoinPoint);
+                    }
+                } else {
+                    throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+                }
             } else {
-                throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+                throw new CustomException(ErrorConstants.INVALID_REQUEST);
             }
         } catch (InvocationTargetException e) {
             throwable = e.getTargetException();
