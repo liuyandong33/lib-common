@@ -214,7 +214,7 @@ public class WebUtils {
             if (headers == null) {
                 headers = new HashMap<String, String>();
             }
-            headers.put(HttpHeaders.CONTENT_TYPE, "multipart/form-data;boundary=" + BOUNDARY);
+            headers.put(HttpHeaders.CONTENT_TYPE, "multipart/form-data;boundary=" + BOUNDARY + ";charset=" + charsetName);
             setRequestProperties(httpURLConnection, headers, charsetName);
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoOutput(true);

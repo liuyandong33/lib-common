@@ -1054,5 +1054,5 @@ public class Constants {
 
     public static final String CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8 = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String CONTENT_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
-    public static final String CONTENT_TYPE_MULTIPART_FORM_DATA = "multipart/form-data;boundary=" + WebUtils.BOUNDARY;
+    public static final String CONTENT_TYPE_MULTIPART_FORM_DATA_UTF8 = "multipart/form-data;boundary=" + WebUtils.BOUNDARY + ";charset=UTF-8";
 }
