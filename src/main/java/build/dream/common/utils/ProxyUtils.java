@@ -68,7 +68,7 @@ public class ProxyUtils {
     public static HttpHeaders obtainApplicationJsonUtf8HttpHeaders() {
         if (MapUtils.isEmpty(applicationJsonUtf8HttpHeaders)) {
             applicationJsonUtf8HttpHeaders = new HttpHeaders();
-            applicationJsonUtf8HttpHeaders.add(Constants.CONTENT_TYPE, "application/json;charset=" + Constants.CHARSET_NAME_UTF_8);
+            applicationJsonUtf8HttpHeaders.add(Constants.CONTENT_TYPE, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
         }
         return applicationJsonUtf8HttpHeaders;
     }
