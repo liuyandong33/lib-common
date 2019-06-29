@@ -1,6 +1,9 @@
 package build.dream.common.models.jddj;
 
+import javax.validation.constraints.NotNull;
+
 public class GetByOrderNoForOaosModel extends JDDJBasicModel {
+    @NotNull
     private String orderNo;
 
     public String getOrderNo() {

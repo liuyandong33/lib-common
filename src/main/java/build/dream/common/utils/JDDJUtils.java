@@ -182,4 +182,64 @@ public class JDDJUtils {
     public static Map<String, Object> getByOrderNoForOaos(GetByOrderNoForOaosModel getByOrderNoForOaosModel) {
         return callJDDJApi(getByOrderNoForOaosModel, "/djapi/orderTrace/getByOrderNoForOaos");
     }
+
+    /**
+     * 新版根据订单号查询订单跟踪接口
+     *
+     * @param getByOrderNoForOaosNewModel
+     * @return
+     */
+    public static Map<String, Object> getByOrderNoForOaosNew(GetByOrderNoForOaosNewModel getByOrderNoForOaosNewModel) {
+        return callJDDJApi(getByOrderNoForOaosNewModel, "/djapi/orderTrace/getByOrderNoForOaosNew");
+    }
+
+    /**
+     * 商家确认收到拒收退回（或取消）的商品接口
+     *
+     * @param confirmReceiveGoodsModel
+     * @return
+     */
+    public static Map<String, Object> confirmReceiveGoods(ConfirmReceiveGoodsModel confirmReceiveGoodsModel) {
+        return callJDDJApi(confirmReceiveGoodsModel, "/djapi/order/confirmReceiveGoods");
+    }
+
+    /**
+     * 取货失败后催配送员抢单接口
+     *
+     * @param urgeDispatchingModel
+     * @return
+     */
+    public static Map<String, Object> urgeDispatching(UrgeDispatchingModel urgeDispatchingModel) {
+        return callJDDJApi(urgeDispatchingModel, "/djapi/bm/urgeDispatching");
+    }
+
+    /**
+     * 订单商家加小费接口
+     *
+     * @param addTipsModel
+     * @return
+     */
+    public static Map<String, Object> addTips(AddTipsModel addTipsModel) {
+        return callJDDJApi(addTipsModel, "/djapi/order/addTips");
+    }
+
+    /**
+     * 应结金额接口
+     *
+     * @param orderShoudSettlementServiceModel
+     * @return
+     */
+    public static Map<String, Object> orderShoudSettlementService(OrderShoudSettlementServiceModel orderShoudSettlementServiceModel) {
+        return callJDDJApi(orderShoudSettlementServiceModel, "/djapi/bill/orderShoudSettlementService");
+    }
+
+    /**
+     * 订单自提码核验接口
+     *
+     * @param checkSelfPickCodeModel
+     * @return
+     */
+    public static Map<String, Object> checkSelfPickCode(CheckSelfPickCodeModel checkSelfPickCodeModel) {
+        return callJDDJApi(checkSelfPickCodeModel, "/djapi/ocs/checkSelfPickCode");
+    }
 }
