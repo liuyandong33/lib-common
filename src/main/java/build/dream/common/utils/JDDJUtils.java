@@ -112,4 +112,44 @@ public class JDDJUtils {
     public static Map<String, Object> adjustOrder(AdjustOrderModel adjustOrderModel) {
         return callJDDJApi(adjustOrderModel, "/djapi/orderAdjust/adjustOrder");
     }
+
+    /**
+     * 拣货完成且众包配送接口
+     *
+     * @param orderJDZBDeliveryModel
+     * @return
+     */
+    public static Map<String, Object> orderJDZBDelivery(OrderJDZBDeliveryModel orderJDZBDeliveryModel) {
+        return callJDDJApi(orderJDZBDeliveryModel, "/djapi/bm/open/api/order/OrderJDZBDelivery");
+    }
+
+    /**
+     * 拣货完成且达达同城配送接口
+     *
+     * @param orderDDTCDeliveryModel
+     * @return
+     */
+    public static Map<String, Object> orderDDTCDelivery(OrderDDTCDeliveryModel orderDDTCDeliveryModel) {
+        return callJDDJApi(orderDDTCDeliveryModel, "/djapi/bm/open/api/order/OrderDDTCDelivery");
+    }
+
+    /**
+     * 拣货完成且商家自送接口
+     *
+     * @param orderSerllerDeliveryModel
+     * @return
+     */
+    public static Map<String, Object> orderSerllerDelivery(OrderSerllerDeliveryModel orderSerllerDeliveryModel) {
+        return callJDDJApi(orderSerllerDeliveryModel, "/djapi/bm/open/api/order/OrderSerllerDelivery");
+    }
+
+    /**
+     * 订单达达配送转商家自送接口
+     *
+     * @param modifySellerDeliveryModel
+     * @return
+     */
+    public static Map<String, Object> modifySellerDelivery(ModifySellerDeliveryModel modifySellerDeliveryModel) {
+        return callJDDJApi(modifySellerDeliveryModel, "/djapi/order/modifySellerDelivery");
+    }
 }
