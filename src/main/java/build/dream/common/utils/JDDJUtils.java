@@ -2,8 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.jddj.JDDJBasicModel;
-import build.dream.common.models.jddj.OrderQueryModel;
+import build.dream.common.models.jddj.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 
@@ -62,5 +61,55 @@ public class JDDJUtils {
      */
     public static Map<String, Object> orderQuery(OrderQueryModel orderQueryModel) {
         return callJDDJApi(orderQueryModel, "/djapi/order/es/query");
+    }
+
+    /**
+     * 订单取消且退款接口
+     *
+     * @param cancelAndRefundModel
+     * @return
+     */
+    public static Map<String, Object> cancelAndRefund(CancelAndRefundModel cancelAndRefundModel) {
+        return callJDDJApi(cancelAndRefundModel, "/djapi/orderStatus/cancelAndRefund");
+    }
+
+    /**
+     * 商家确认接单接口
+     *
+     * @param orderAcceptOperateModel
+     * @return
+     */
+    public static Map<String, Object> orderAcceptOperate(OrderAcceptOperateModel orderAcceptOperateModel) {
+        return callJDDJApi(orderAcceptOperateModel, "/djapi/ocs/orderAcceptOperate");
+    }
+
+    /**
+     * 订单已打印接口
+     *
+     * @param printOrderModel
+     * @return
+     */
+    public static Map<String, Object> printOrder(PrintOrderModel printOrderModel) {
+        return callJDDJApi(printOrderModel, "/djapi/bm/open/api/order/printOrder");
+    }
+
+    /**
+     * 商家审核用户取消申请接口
+     *
+     * @param orderCancelOperateModel
+     * @return
+     */
+    public static Map<String, Object> orderCancelOperate(OrderCancelOperateModel orderCancelOperateModel) {
+        return callJDDJApi(orderCancelOperateModel, "/djapi/bm/open/api/order/printOrder");
+    }
+
+    /**
+     * 订单调整接口
+     *
+     * @param adjustOrderModel
+     * @return
+     */
+    public static Map<String, Object> adjustOrder(AdjustOrderModel adjustOrderModel) {
+        return callJDDJApi(adjustOrderModel, "/djapi/orderAdjust/adjustOrder");
     }
 }

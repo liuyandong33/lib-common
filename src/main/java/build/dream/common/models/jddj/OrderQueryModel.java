@@ -378,4 +378,178 @@ public class OrderQueryModel extends JDDJBasicModel {
     public void setDeliveryStationNoIsv(String deliveryStationNoIsv) {
         this.deliveryStationNoIsv = deliveryStationNoIsv;
     }
+
+    public static class Builder extends JDDJBasicModel.Builder<Builder, OrderQueryModel> {
+        public Builder pageNo(Long pageNo) {
+            instance.setPageNo(pageNo);
+            return this;
+        }
+
+        public Builder pageSize(Integer pageSize) {
+            instance.setPageSize(pageSize);
+            return this;
+        }
+
+        public Builder orderId(Long orderId) {
+            instance.setOrderId(orderId);
+            return this;
+        }
+
+        public Builder buyerFullName(String buyerFullName) {
+            instance.setBuyerFullName(buyerFullName);
+            return this;
+        }
+
+        public Builder buyerFullNameLike(String buyerFullNameLike) {
+            instance.setBuyerFullNameLike(buyerFullNameLike);
+            return this;
+        }
+
+        public Builder buyerMobile(String buyerMobile) {
+            instance.setBuyerMobile(buyerMobile);
+            return this;
+        }
+
+        public Builder orderPayType(Integer orderPayType) {
+            instance.setOrderPayType(orderPayType);
+            return this;
+        }
+
+        public Builder buyerPin(String buyerPin) {
+            instance.setBuyerPin(buyerPin);
+            return this;
+        }
+
+        public Builder orderStartTimeBegin(Date orderStartTimeBegin) {
+            instance.setOrderStartTimeBegin(orderStartTimeBegin);
+            return this;
+        }
+
+        public Builder orderStartTimeEnd(Date orderStartTimeEnd) {
+            instance.setOrderStartTimeEnd(orderStartTimeEnd);
+            return this;
+        }
+
+        public Builder orderPurchaseTimeBegin(Date orderPurchaseTimeBegin) {
+            instance.setOrderPurchaseTimeBegin(orderPurchaseTimeBegin);
+            return this;
+        }
+
+        public Builder orderPurchaseTimeEnd(Date orderPurchaseTimeEnd) {
+            instance.setOrderPurchaseTimeEnd(orderPurchaseTimeEnd);
+            return this;
+        }
+
+        public Builder deliveryConfirmTimeBegin(Date deliveryConfirmTimeBegin) {
+            instance.setDeliveryConfirmTimeBegin(deliveryConfirmTimeBegin);
+            return this;
+        }
+
+        public Builder deliveryConfirmTimeEnd(Date deliveryConfirmTimeEnd) {
+            instance.setDeliveryConfirmTimeEnd(deliveryConfirmTimeEnd);
+            return this;
+        }
+
+        public Builder orderCloseTimeBegin(Date orderCloseTimeBegin) {
+            instance.setOrderCloseTimeBegin(orderCloseTimeBegin);
+            return this;
+        }
+
+        public Builder orderCloseTimeEnd(Date orderCloseTimeEnd) {
+            instance.setOrderCloseTimeEnd(orderCloseTimeEnd);
+            return this;
+        }
+
+        public Builder orderCancelTimeBegin(Date orderCancelTimeBegin) {
+            instance.setOrderCancelTimeBegin(orderCancelTimeBegin);
+            return this;
+        }
+
+        public Builder orderCancelTimeEnd(Date orderCancelTimeEnd) {
+            instance.setOrderCancelTimeEnd(orderCancelTimeEnd);
+            return this;
+        }
+
+        public Builder orderStatus(Integer orderStatus) {
+            instance.setOrderStatus(orderStatus);
+            return this;
+        }
+
+        public Builder orderStatusList(Set orderStatusList) {
+            instance.setOrderStatusList(orderStatusList);
+            return this;
+        }
+
+        public Builder buyerCityList(Set buyerCityList) {
+            instance.setBuyerCityList(buyerCityList);
+            return this;
+        }
+
+        public Builder deliveryBillNo(String deliveryBillNo) {
+            instance.setDeliveryBillNo(deliveryBillNo);
+            return this;
+        }
+
+        public Builder businessTypeList(List businessTypeList) {
+            instance.setBusinessTypeList(businessTypeList);
+            return this;
+        }
+
+        public Builder orderType(String orderType) {
+            instance.setOrderType(orderType);
+            return this;
+        }
+
+        public Builder orderTakeSelfCode(String orderTakeSelfCode) {
+            instance.setOrderTakeSelfCode(orderTakeSelfCode);
+            return this;
+        }
+
+        public Builder deliveryStationNo(String deliveryStationNo) {
+            instance.setDeliveryStationNo(deliveryStationNo);
+            return this;
+        }
+
+        public Builder deliveryStationNoIsv(String deliveryStationNoIsv) {
+            instance.setDeliveryStationNoIsv(deliveryStationNoIsv);
+            return this;
+        }
+
+        @Override
+        public OrderQueryModel build() {
+            OrderQueryModel orderQueryModel = super.build();
+            orderQueryModel.setPageNo(instance.getPageNo());
+            orderQueryModel.setPageSize(instance.getPageSize());
+            orderQueryModel.setOrderId(instance.getOrderId());
+            orderQueryModel.setBuyerFullName(instance.getBuyerFullName());
+            orderQueryModel.setBuyerFullNameLike(instance.getBuyerFullNameLike());
+            orderQueryModel.setBuyerMobile(instance.getBuyerMobile());
+            orderQueryModel.setOrderPayType(instance.getOrderPayType());
+            orderQueryModel.setBuyerPin(instance.getBuyerPin());
+            orderQueryModel.setOrderStartTimeBegin(instance.getOrderStartTimeBegin());
+            orderQueryModel.setOrderStartTimeEnd(instance.getOrderStartTimeEnd());
+            orderQueryModel.setOrderPurchaseTimeBegin(instance.getOrderPurchaseTimeBegin());
+            orderQueryModel.setOrderPurchaseTimeEnd(instance.getOrderPurchaseTimeEnd());
+            orderQueryModel.setDeliveryConfirmTimeBegin(instance.getDeliveryConfirmTimeBegin());
+            orderQueryModel.setDeliveryConfirmTimeEnd(instance.getDeliveryConfirmTimeEnd());
+            orderQueryModel.setOrderCloseTimeBegin(instance.getOrderCloseTimeBegin());
+            orderQueryModel.setOrderCloseTimeEnd(instance.getOrderCloseTimeEnd());
+            orderQueryModel.setOrderCancelTimeBegin(instance.getOrderCancelTimeBegin());
+            orderQueryModel.setOrderCancelTimeEnd(instance.getOrderCancelTimeEnd());
+            orderQueryModel.setOrderStatus(instance.getOrderStatus());
+            orderQueryModel.setOrderStatusList(instance.getOrderStatusList());
+            orderQueryModel.setBuyerCityList(instance.getBuyerCityList());
+            orderQueryModel.setDeliveryBillNo(instance.getDeliveryBillNo());
+            orderQueryModel.setBusinessTypeList(instance.getBusinessTypeList());
+            orderQueryModel.setOrderType(instance.getOrderType());
+            orderQueryModel.setOrderTakeSelfCode(instance.getOrderTakeSelfCode());
+            orderQueryModel.setDeliveryStationNo(instance.getDeliveryStationNo());
+            orderQueryModel.setDeliveryStationNoIsv(instance.getDeliveryStationNoIsv());
+            return orderQueryModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
