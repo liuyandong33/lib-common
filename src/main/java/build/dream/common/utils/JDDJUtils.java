@@ -152,4 +152,34 @@ public class JDDJUtils {
     public static Map<String, Object> modifySellerDelivery(ModifySellerDeliveryModel modifySellerDeliveryModel) {
         return callJDDJApi(modifySellerDeliveryModel, "/djapi/order/modifySellerDelivery");
     }
+
+    /**
+     * 商家审核配送员取货失败接口
+     *
+     * @param receiveFailedAuditModel
+     * @return
+     */
+    public static Map<String, Object> receiveFailedAudit(ReceiveFailedAuditModel receiveFailedAuditModel) {
+        return callJDDJApi(receiveFailedAuditModel, "/djapi/order/receiveFailedAudit");
+    }
+
+    /**
+     * 订单妥投接口
+     *
+     * @param deliveryEndOrderModel
+     * @return
+     */
+    public static Map<String, Object> deliveryEndOrder(DeliveryEndOrderModel deliveryEndOrderModel) {
+        return callJDDJApi(deliveryEndOrderModel, "/djapi/ocs/deliveryEndOrder");
+    }
+
+    /**
+     * 根据订单号查询订单跟踪接口
+     *
+     * @param getByOrderNoForOaosModel
+     * @return
+     */
+    public static Map<String, Object> getByOrderNoForOaos(GetByOrderNoForOaosModel getByOrderNoForOaosModel) {
+        return callJDDJApi(getByOrderNoForOaosModel, "/djapi/orderTrace/getByOrderNoForOaos");
+    }
 }
