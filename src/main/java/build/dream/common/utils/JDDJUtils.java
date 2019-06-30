@@ -282,4 +282,24 @@ public class JDDJUtils {
     public static Map<String, Object> getSkuStatus(GetSkuStatusModel getSkuStatusModel) {
         return callJDDJApi(getSkuStatusModel, "/djapi/pms/getSkuStatus");
     }
+
+    /**
+     * 根据到家商品编码批量更新商家商品编码接口
+     *
+     * @param batchUpdateOutSkuIdModel
+     * @return
+     */
+    public static Map<String, Object> batchUpdateOutSkuId(BatchUpdateOutSkuIdModel batchUpdateOutSkuIdModel) {
+        return callJDDJApi(batchUpdateOutSkuIdModel, "/djapi/pms/sku/batchUpdateOutSkuId");
+    }
+
+    /**
+     * 查询商家已上传商品信息列表接口
+     *
+     * @param querySkuInfosModel
+     * @return
+     */
+    public static Map<String, Object> querySkuInfos(QuerySkuInfosModel querySkuInfosModel) {
+        return callJDDJApi(querySkuInfosModel, "/djapi/pms/querySkuInfos");
+    }
 }
