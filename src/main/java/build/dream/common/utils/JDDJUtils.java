@@ -272,4 +272,14 @@ public class JDDJUtils {
     public static Map<String, Object> updateSku(UpdateSkuModel updateSkuModel) {
         return callJDDJApi(updateSkuModel, "/djapi/pms/updateSku");
     }
+
+    /**
+     * 新版查询商品创建状态接口
+     *
+     * @param getSkuStatusModel
+     * @return
+     */
+    public static Map<String, Object> getSkuStatus(GetSkuStatusModel getSkuStatusModel) {
+        return callJDDJApi(getSkuStatusModel, "/djapi/pms/getSkuStatus");
+    }
 }
