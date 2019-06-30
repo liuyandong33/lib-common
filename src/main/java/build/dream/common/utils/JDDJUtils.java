@@ -242,4 +242,34 @@ public class JDDJUtils {
     public static Map<String, Object> checkSelfPickCode(CheckSelfPickCodeModel checkSelfPickCodeModel) {
         return callJDDJApi(checkSelfPickCodeModel, "/djapi/ocs/checkSelfPickCode");
     }
+
+    /**
+     * 新版新增商品信息接口
+     *
+     * @param addSkuModel
+     * @return
+     */
+    public static Map<String, Object> addSku(AddSkuModel addSkuModel) {
+        return callJDDJApi(addSkuModel, "/djapi/pms/addSku");
+    }
+
+    /**
+     * 根据商品UPC码批量新增商品接口
+     *
+     * @param batchAddSkuModel
+     * @return
+     */
+    public static Map<String, Object> batchAddSku(BatchAddSkuModel batchAddSkuModel) {
+        return callJDDJApi(batchAddSkuModel, "/djapi/pms/batchAddSku");
+    }
+
+    /**
+     * 新版根据商家商品编码修改商品信息接口
+     *
+     * @param updateSkuModel
+     * @return
+     */
+    public static Map<String, Object> updateSku(UpdateSkuModel updateSkuModel) {
+        return callJDDJApi(updateSkuModel, "/djapi/pms/updateSku");
+    }
 }
