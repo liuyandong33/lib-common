@@ -125,6 +125,21 @@ public class Branch extends BasicDomain {
      */
     private String dadaOriginShopId = Constants.VARCHAR_DEFAULT_VALUE;
 
+    /**
+     * 京东到家商家ID
+     */
+    private String jddjVenderId;
+
+    /**
+     * 京东到家授权应用app key
+     */
+    private String jddjAppKey;
+
+    /**
+     * 京东到家授权应用app secret
+     */
+    private String jddjAppSecret;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -367,6 +382,30 @@ public class Branch extends BasicDomain {
         this.dadaOriginShopId = dadaOriginShopId;
     }
 
+    public String getJddjVenderId() {
+        return jddjVenderId;
+    }
+
+    public void setJddjVenderId(String jddjVenderId) {
+        this.jddjVenderId = jddjVenderId;
+    }
+
+    public String getJddjAppKey() {
+        return jddjAppKey;
+    }
+
+    public void setJddjAppKey(String jddjAppKey) {
+        this.jddjAppKey = jddjAppKey;
+    }
+
+    public String getJddjAppSecret() {
+        return jddjAppSecret;
+    }
+
+    public void setJddjAppSecret(String jddjAppSecret) {
+        this.jddjAppSecret = jddjAppSecret;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Branch> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -503,6 +542,21 @@ public class Branch extends BasicDomain {
             return this;
         }
 
+        public Builder jddjVenderId(String jddjVenderId) {
+            instance.setJddjVenderId(jddjVenderId);
+            return this;
+        }
+
+        public Builder jddjAppKey(String jddjAppKey) {
+            instance.setJddjAppKey(jddjAppKey);
+            return this;
+        }
+
+        public Builder jddjAppSecret(String jddjAppSecret) {
+            instance.setJddjAppSecret(jddjAppSecret);
+            return this;
+        }
+
         @Override
         public Branch build() {
             Branch branch = super.build();
@@ -533,6 +587,9 @@ public class Branch extends BasicDomain {
             branch.setBusinessTimes(instance.getBusinessTimes());
             branch.setOpened(instance.isOpened());
             branch.setDadaOriginShopId(instance.getDadaOriginShopId());
+            branch.setJddjVenderId(instance.getJddjVenderId());
+            branch.setJddjAppKey(instance.getJddjAppKey());
+            branch.setJddjAppSecret(instance.getJddjAppSecret());
             return branch;
         }
     }
@@ -568,6 +625,9 @@ public class Branch extends BasicDomain {
         public static final String VIP_GROUP_ID = "vip_group_id";
         public static final String BUSINESS_TIMES = "business_times";
         public static final String DADA_ORIGIN_SHOP_ID = "dada_origin_shop_id";
+        public static final String JDDJ_VENDER_ID = "jddj_vender_id";
+        public static final String JDDJ_APP_KEY = "jddj_app_key";
+        public static final String JDDJ_APP_SECRET = "jddj_app_secret";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -598,5 +658,8 @@ public class Branch extends BasicDomain {
         public static final String BUSINESS_TIMES = "businessTimes";
         public static final String OPENED = "opened";
         public static final String DADA_ORIGIN_SHOP_ID = "dadaOriginShopId";
+        public static final String JDDJ_VENDER_ID = "jddjVenderId";
+        public static final String JDDJ_APP_KEY = "jddjAppKey";
+        public static final String JDDJ_APP_SECRET = "jddjAppSecret";
     }
 }
