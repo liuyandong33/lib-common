@@ -60,7 +60,7 @@ public class DadaUtils {
         String signature = generateSignature(callDadaApiRequestParameters, appSecret);
         callDadaApiRequestParameters.put("signature", signature);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.DADA_DOMAIN) + path;
+        String url = ConfigurationUtils.getConfiguration(Constants.DADA_API_DOMAIN) + path;
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(callDadaApiRequestParameters));
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);

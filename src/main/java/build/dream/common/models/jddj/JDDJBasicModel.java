@@ -2,7 +2,6 @@ package build.dream.common.models.jddj;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
-import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.ObjectUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -15,19 +14,15 @@ import java.util.Date;
 public class JDDJBasicModel extends BasicModel {
     @NotNull
     @JsonIgnore
-    private String tenantId;
+    private String venderId;
 
     @NotNull
     @JsonIgnore
-    private String branchId;
+    private String appKey;
 
     @NotNull
     @JsonIgnore
-    private String appKey = ConfigurationUtils.getConfiguration(Constants.JDDJ_APP_KEY);
-
-    @NotNull
-    @JsonIgnore
-    private String appSecret = ConfigurationUtils.getConfiguration(Constants.JDDJ_APP_SECRET);
+    private String appSecret;
 
     @NotNull
     @JsonIgnore
@@ -41,20 +36,12 @@ public class JDDJBasicModel extends BasicModel {
     @JsonIgnore
     private String v = "1.0";
 
-    public String getTenantId() {
-        return tenantId;
+    public String getVenderId() {
+        return venderId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public String getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(String branchId) {
-        this.branchId = branchId;
+    public void setVenderId(String venderId) {
+        this.venderId = venderId;
     }
 
     public String getAppKey() {
@@ -109,13 +96,8 @@ public class JDDJBasicModel extends BasicModel {
             instance = ObjectUtils.newInstance(modelClass);
         }
 
-        public BT tenantId(String tenantId) {
-            instance.setTenantId(tenantId);
-            return (BT) this;
-        }
-
-        public BT branchId(String branchId) {
-            instance.setBranchId(branchId);
+        public BT venderId(String venderId) {
+            instance.setVenderId(venderId);
             return (BT) this;
         }
 
@@ -146,8 +128,7 @@ public class JDDJBasicModel extends BasicModel {
 
         public MT build() {
             MT model = ObjectUtils.newInstance(modelClass);
-            model.setTenantId(instance.getTenantId());
-            model.setBranchId(instance.getBranchId());
+            model.setVenderId(instance.getVenderId());
             model.setAppKey(instance.getAppKey());
             model.setAppSecret(instance.getAppSecret());
             model.setTimestamp(instance.getTimestamp());

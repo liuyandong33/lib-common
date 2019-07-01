@@ -1050,14 +1050,12 @@ public class Constants {
 
     public static final String DADA_APP_KEY = "dada.app.key";
     public static final String DADA_APP_SECRET = "dada.app.secret";
-    public static final String DADA_DOMAIN = "dada.domain";
+    public static final String DADA_API_DOMAIN = "dada.api.domain";
 
     public static final String CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8 = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String CONTENT_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
     public static final String CONTENT_TYPE_MULTIPART_FORM_DATA_UTF8 = "multipart/form-data;boundary=" + WebUtils.BOUNDARY + ";charset=UTF-8";
 
-    public static final String JDDJ_APP_KEY = "jddj.app.key";
-    public static final String JDDJ_APP_SECRET = "jddj.app.secret";
     public static final String JDDJ_API_DOMAIN = "jddj.api.domain";
 
     /**

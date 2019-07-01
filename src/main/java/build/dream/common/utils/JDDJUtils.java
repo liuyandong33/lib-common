@@ -3,16 +3,24 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jddj.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class JDDJUtils {
-    public static String obtainToken(String tenantId, String branchId) {
-        return null;
+    public static String obtainToken(String venderId) {
+        String token = CommonRedisUtils.hget(Constants.KEY_JDDJ_TOKENS, venderId);
+        if (StringUtils.isBlank(token)) {
+            return null;
+        }
+
+        Map<String, Object> tokenMap = JacksonUtils.readValueAsMap(token, String.class, Object.class);
+        return MapUtils.getString(tokenMap, "token");
     }
 
     private static String generateSign(Map<String, String> requestParameters, String appSecret) {
@@ -26,8 +34,7 @@ public class JDDJUtils {
     }
 
     public static Map<String, Object> callJDDJApi(JDDJBasicModel jddjBasicModel, String path) {
-        String tenantId = jddjBasicModel.getTenantId();
-        String branchId = jddjBasicModel.getBranchId();
+        String venderId = jddjBasicModel.getVenderId();
         String appKey = jddjBasicModel.getAppKey();
         String appSecret = jddjBasicModel.getAppSecret();
         String timestamp = jddjBasicModel.getTimestamp();
@@ -35,12 +42,12 @@ public class JDDJUtils {
         String v = jddjBasicModel.getV();
 
         Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("token", obtainToken(tenantId, branchId));
+        requestParameters.put("token", obtainToken(venderId));
         requestParameters.put("app_key", appKey);
         requestParameters.put("timestamp", timestamp);
         requestParameters.put("format", format);
         requestParameters.put("v", v);
-        requestParameters.put("jd_param_json", JacksonUtils.writeValueAsString(jddjBasicModel));
+        requestParameters.put("jd_param_json", JacksonUtils.writeValueAsString(jddjBasicModel, JsonInclude.Include.NON_NULL));
         requestParameters.put("sign", generateSign(requestParameters, appSecret));
 
         String url = ConfigurationUtils.getConfiguration(Constants.JDDJ_API_DOMAIN) + path;
