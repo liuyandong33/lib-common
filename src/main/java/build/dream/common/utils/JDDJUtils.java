@@ -60,6 +60,38 @@ public class JDDJUtils {
         return resultMap;
     }
 
+    public static String buildResult(String code, String msg, String data) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("code", code);
+        result.put("msg", msg);
+        result.put("data", data);
+        return JacksonUtils.writeValueAsString(result);
+    }
+
+    public static String buildSuccessResult() {
+        return buildResult("0", "success", "");
+    }
+
+    public static String buildSuccessResult(String msg) {
+        return buildResult("0", msg, "");
+    }
+
+    public static String buildSuccessResult(String msg, String data) {
+        return buildResult("0", msg, data);
+    }
+
+    public static String buildFailureResult() {
+        return buildResult("-1", "failure", "");
+    }
+
+    public static String buildFailureResult(String msg) {
+        return buildResult("-1", msg, "");
+    }
+
+    public static String buildFailureResult(String msg, String data) {
+        return buildResult("-1", msg, data);
+    }
+
     /**
      * 订单列表查询接口
      *
