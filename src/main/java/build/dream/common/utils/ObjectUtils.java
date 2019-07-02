@@ -5,14 +5,15 @@ import org.apache.commons.lang3.SerializationUtils;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class ObjectUtils extends org.apache.commons.lang3.ObjectUtils {
     public static boolean isNotNull(Object object) {
-        return !isNull(object);
+        return Objects.nonNull(object);
     }
 
     public static boolean isNull(Object object) {
-        return object == null;
+        return Objects.isNull(object);
     }
 
     public static byte[] serialize(Serializable object) {
