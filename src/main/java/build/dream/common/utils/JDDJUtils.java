@@ -33,6 +33,12 @@ public class JDDJUtils {
         return DigestUtils.md5Hex(stringBuilder.toString()).toUpperCase();
     }
 
+    public static boolean verifySign(Map<String, String> parameters, String appSecret) {
+        Map<String, String> params = new HashMap<String, String>(parameters);
+        String sign = params.remove("sign");
+        return sign.equals(generateSign(params, appSecret));
+    }
+
     public static Map<String, Object> callJDDJApi(JDDJBasicModel jddjBasicModel, String path) {
         String venderId = jddjBasicModel.getVenderId();
         String appKey = jddjBasicModel.getAppKey();

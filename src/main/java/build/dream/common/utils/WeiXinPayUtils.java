@@ -87,7 +87,7 @@ public class WeiXinPayUtils {
      * @param signType
      * @return
      */
-    public static boolean checkSign(Map<String, String> weiXinSystemResult, String weiXinPayKey, String signType) {
+    public static boolean verifySign(Map<String, String> weiXinSystemResult, String weiXinPayKey, String signType) {
         Map<String, String> params = new HashMap<String, String>(weiXinSystemResult);
         String sign = params.remove("sign");
         return sign.equals(generateSign(params, weiXinPayKey, signType));
@@ -263,7 +263,7 @@ public class WeiXinPayUtils {
         String returnCode = microPayResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), microPayResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(microPayResult, apiSecretKey, signType), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(microPayResult, apiSecretKey, signType), "微信系统返回结果签名校验未通过！");
 
         String resultCode = microPayResult.get("result_code");
         String errCode = microPayResult.get("err_code");
@@ -371,7 +371,7 @@ public class WeiXinPayUtils {
         String returnCode = unifiedOrderResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), unifiedOrderResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(unifiedOrderResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(unifiedOrderResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         String resultCode = unifiedOrderResult.get("result_code");
 
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
@@ -449,7 +449,7 @@ public class WeiXinPayUtils {
         String returnCode = result.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), result.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(result, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(result, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = result.get("result_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), result.get("err_code_des"));
@@ -517,7 +517,7 @@ public class WeiXinPayUtils {
         String returnCode = refundResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = refundResult.get("result_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
@@ -573,7 +573,7 @@ public class WeiXinPayUtils {
         String returnCode = refundResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = refundResult.get("result_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
@@ -742,7 +742,7 @@ public class WeiXinPayUtils {
         String returnCode = refundResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = refundResult.get("result_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
@@ -793,7 +793,7 @@ public class WeiXinPayUtils {
         String returnCode = refundResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), refundResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(refundResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
 
         String resultCode = refundResult.get("result_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), refundResult.get("err_code_des"));
@@ -868,7 +868,7 @@ public class WeiXinPayUtils {
         String returnCode = addRecommendConfResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addRecommendConfResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addRecommendConfResult, apiSecretKey, signType), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(addRecommendConfResult, apiSecretKey, signType), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addRecommendConfResult.get("result_code")), addRecommendConfResult.get("err_code_des"));
         return addRecommendConfResult;
     }
@@ -906,7 +906,7 @@ public class WeiXinPayUtils {
         String returnCode = addSubDevConfigResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubDevConfigResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addSubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(addSubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubDevConfigResult.get("result_code")), addSubDevConfigResult.get("err_code_des"));
         return addSubDevConfigResult;
     }
@@ -939,7 +939,7 @@ public class WeiXinPayUtils {
         String returnCode = querySubDevConfigResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), querySubDevConfigResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(querySubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(querySubDevConfigResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(querySubDevConfigResult.get("result_code")), querySubDevConfigResult.get("err_code_des"));
         return querySubDevConfigResult;
     }
@@ -1009,7 +1009,7 @@ public class WeiXinPayUtils {
         String returnCode = addSubMchResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), addSubMchResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(addSubMchResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(addSubMchResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(addSubMchResult.get("result_code")), addSubMchResult.get("result_msg"));
         return addSubMchResult;
     }
@@ -1050,7 +1050,7 @@ public class WeiXinPayUtils {
         String returnCode = modifyMchInfoResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), modifyMchInfoResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(modifyMchInfoResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(modifyMchInfoResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(modifyMchInfoResult.get("result_code")), modifyMchInfoResult.get("result_msg"));
         return modifyMchInfoResult;
     }
@@ -1098,7 +1098,7 @@ public class WeiXinPayUtils {
         String returnCode = modifyMchInfoResult.get("return_code");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(returnCode), modifyMchInfoResult.get("return_msg"));
 
-        ValidateUtils.isTrue(checkSign(modifyMchInfoResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
+        ValidateUtils.isTrue(verifySign(modifyMchInfoResult, apiSecretKey, Constants.MD5), "微信系统返回结果签名校验未通过！");
         ValidateUtils.isTrue(Constants.SUCCESS.equals(modifyMchInfoResult.get("result_code")), modifyMchInfoResult.get("result_msg"));
         return modifyMchInfoResult;
     }
