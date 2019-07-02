@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jddj.*;
@@ -8,6 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -37,6 +39,26 @@ public class JDDJUtils {
         Map<String, String> params = new HashMap<String, String>(parameters);
         String sign = params.remove("sign");
         return sign.equals(generateSign(params, appSecret));
+    }
+
+    public static JDDJVenderInfo obtainJDDJVenderInfo(String appKey) {
+        String venderInfoJson = CommonRedisUtils.hget(Constants.KEY_JDDJ_VENDER_INFOS, appKey);
+        if (StringUtils.isBlank(venderInfoJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(venderInfoJson, JDDJVenderInfo.class);
+    }
+
+    public static JDDJVenderInfo obtainJDDJVenderInfo(String tenantId, String branchId) {
+        String venderInfoJson = CommonRedisUtils.hget(Constants.KEY_JDDJ_VENDER_INFOS, tenantId + "_" + branchId);
+        if (StringUtils.isBlank(venderInfoJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(venderInfoJson, JDDJVenderInfo.class);
+    }
+
+    public static JDDJVenderInfo obtainJDDJVenderInfo(BigInteger tenantId, BigInteger branchId) {
+        return obtainJDDJVenderInfo(tenantId.toString(), branchId.toString());
     }
 
     public static Map<String, Object> callJDDJApi(JDDJBasicModel jddjBasicModel, String path) {
