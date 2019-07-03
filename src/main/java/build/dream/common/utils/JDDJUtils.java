@@ -390,4 +390,44 @@ public class JDDJUtils {
     public static Map<String, Object> createStore(CreateStoreModel createStoreModel) {
         return callJDDJApi(createStoreModel, "/djapi/store/createStore");
     }
+
+    /**
+     * 修改门店基础信息接口
+     *
+     * @param updateStoreInfo4OpenModel
+     * @return
+     */
+    public static Map<String, Object> updateStoreInfo4Open(UpdateStoreInfo4OpenModel updateStoreInfo4OpenModel) {
+        return callJDDJApi(updateStoreInfo4OpenModel, "/djapi/store/updateStoreInfo4Open");
+    }
+
+    /**
+     * 根据到家门店编码查询门店基本信息接口
+     *
+     * @param getStoreInfoByStationNoModel
+     * @return
+     */
+    public static Map<String, Object> getStoreInfoByStationNo(GetStoreInfoByStationNoModel getStoreInfoByStationNoModel) {
+        return callJDDJApi(getStoreInfoByStationNoModel, "/djapi/storeapi/getStoreInfoByStationNo");
+    }
+
+    /**
+     * 根据订单号查询商家门店评价信息接口
+     *
+     * @param getCommentByOrderIdModel
+     * @return
+     */
+    public static Map<String, Object> getCommentByOrderId(GetCommentByOrderIdModel getCommentByOrderIdModel) {
+        return callJDDJApi(getCommentByOrderIdModel, "/djapi/commentOutApi/getCommentByOrderId");
+    }
+
+    /**
+     * 商家门店评价信息回复接口
+     *
+     * @param orgReplyCommentModel
+     * @return
+     */
+    public static Map<String, Object> orgReplyComment(OrgReplyCommentModel orgReplyCommentModel) {
+        return callJDDJApi(orgReplyCommentModel, "/djapi/commentOutApi/orgReplyComment");
+    }
 }
