@@ -430,4 +430,38 @@ public class JDDJUtils {
     public static Map<String, Object> orgReplyComment(OrgReplyCommentModel orgReplyCommentModel) {
         return callJDDJApi(orgReplyCommentModel, "/djapi/commentOutApi/orgReplyComment");
     }
+
+    /**
+     * 获取到家所有城市信息列表接口
+     *
+     * @param allCitiesModel
+     * @return
+     */
+    public static Map<String, Object> allCities(AllCitiesModel allCitiesModel) {
+        return callJDDJApi(allCitiesModel, "/djapi/address/allcities");
+    }
+
+    /**
+     * 获取商家服务城市列表
+     *
+     * @param queryVenderServiceAreaModel
+     * @return
+     */
+    public static Map<String, Object> queryVenderServiceArea(QueryVenderServiceAreaModel queryVenderServiceAreaModel) {
+        return callJDDJApi(queryVenderServiceAreaModel, "/djapi/venderApiService/queryVenderServiceArea");
+    }
+
+    /**
+     * 根据城市编码查询区域信息列表接口
+     *
+     * @param getNextLevelByTypeModel
+     * @return
+     */
+    public static Map<String, Object> getNextLevelByType(GetNextLevelByTypeModel getNextLevelByTypeModel) {
+        return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
+    }
+
+    public static Map<String, Object> updateStoreFreightConfig(GetNextLevelByTypeModel getNextLevelByTypeModel) {
+        return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
+    }
 }
