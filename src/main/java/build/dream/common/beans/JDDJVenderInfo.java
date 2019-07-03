@@ -6,7 +6,6 @@ public class JDDJVenderInfo {
     private BigInteger tenantId;
     private String tenantCode;
     private String partitionCode;
-    private BigInteger branchId;
     private String venderId;
     private String appKey;
     private String appSecret;
@@ -33,14 +32,6 @@ public class JDDJVenderInfo {
 
     public void setPartitionCode(String partitionCode) {
         this.partitionCode = partitionCode;
-    }
-
-    public BigInteger getBranchId() {
-        return branchId;
-    }
-
-    public void setBranchId(BigInteger branchId) {
-        this.branchId = branchId;
     }
 
     public String getVenderId() {
@@ -85,11 +76,6 @@ public class JDDJVenderInfo {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
-            instance.setBranchId(branchId);
-            return this;
-        }
-
         public Builder venderId(String venderId) {
             instance.setVenderId(venderId);
             return this;
@@ -110,7 +96,6 @@ public class JDDJVenderInfo {
             jddjVenderInfo.setTenantId(instance.getTenantId());
             jddjVenderInfo.setTenantCode(instance.getTenantCode());
             jddjVenderInfo.setPartitionCode(instance.getPartitionCode());
-            jddjVenderInfo.setBranchId(instance.getBranchId());
             jddjVenderInfo.setVenderId(instance.getVenderId());
             jddjVenderInfo.setAppKey(instance.getAppKey());
             jddjVenderInfo.setAppSecret(instance.getAppSecret());
