@@ -18,6 +18,12 @@
                             #{item}
                         </foreach>
                     </when>
+                    <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(searchCondition.operationSymbol, 'IS NULL')">
+                        ${searchCondition.columnName} IS NULL
+                    </when>
+                    <when test="@org.apache.commons.lang.StringUtils@equalsIgnoreCase(searchCondition.operationSymbol, 'IS NOT NULL')">
+                        ${searchCondition.columnName} IS NOT NULL
+                    </when>
                     <otherwise>
                         ${searchCondition.columnName} ${searchCondition.operationSymbol} #{searchCondition.searchParameter}
                     </otherwise>
