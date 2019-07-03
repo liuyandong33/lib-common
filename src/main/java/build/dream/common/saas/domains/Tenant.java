@@ -83,6 +83,21 @@ public class Tenant extends BasicDomain {
      */
     private BigInteger dadaSourceId;
 
+    /**
+     * 京东到家商家ID
+     */
+    private String jddjVenderId;
+
+    /**
+     * 京东到家授权应用app key
+     */
+    private String jddjAppKey;
+
+    /**
+     * 京东到家授权应用app secret
+     */
+    private String jddjAppSecret;
+
     public String getCode() {
         return code;
     }
@@ -235,6 +250,30 @@ public class Tenant extends BasicDomain {
         this.dadaSourceId = dadaSourceId;
     }
 
+    public String getJddjVenderId() {
+        return jddjVenderId;
+    }
+
+    public void setJddjVenderId(String jddjVenderId) {
+        this.jddjVenderId = jddjVenderId;
+    }
+
+    public String getJddjAppKey() {
+        return jddjAppKey;
+    }
+
+    public void setJddjAppKey(String jddjAppKey) {
+        this.jddjAppKey = jddjAppKey;
+    }
+
+    public String getJddjAppSecret() {
+        return jddjAppSecret;
+    }
+
+    public void setJddjAppSecret(String jddjAppSecret) {
+        this.jddjAppSecret = jddjAppSecret;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Tenant> {
         public Builder code(String code) {
             instance.setCode(code);
@@ -331,6 +370,21 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
+        public Builder jddjVenderId(String jddjVenderId) {
+            instance.setJddjVenderId(jddjVenderId);
+            return this;
+        }
+
+        public Builder jddjAppKey(String jddjAppKey) {
+            instance.setJddjAppKey(jddjAppKey);
+            return this;
+        }
+
+        public Builder jddjAppSecret(String jddjAppSecret) {
+            instance.setJddjAppSecret(jddjAppSecret);
+            return this;
+        }
+
         @Override
         public Tenant build() {
             Tenant tenant = super.build();
@@ -353,6 +407,9 @@ public class Tenant extends BasicDomain {
             tenant.setAgentId(instance.getAgentId());
             tenant.setUsedChannelType(instance.getUsedChannelType());
             tenant.setDadaSourceId(instance.getDadaSourceId());
+            tenant.setJddjVenderId(instance.getJddjVenderId());
+            tenant.setJddjAppKey(instance.getJddjAppKey());
+            tenant.setJddjAppSecret(instance.getJddjAppSecret());
             return tenant;
         }
     }
@@ -381,6 +438,9 @@ public class Tenant extends BasicDomain {
         public static final String AGENT_ID = "agent_id";
         public static final String USED_CHANNEL_TYPE = "used_channel_type";
         public static final String DADA_SOURCE_ID = "dada_source_id";
+        public static final String JDDJ_VENDER_ID = "jddj_vender_id";
+        public static final String JDDJ_APP_KEY = "jddj_app_key";
+        public static final String JDDJ_APP_SECRET = "jddj_app_secret";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -403,5 +463,8 @@ public class Tenant extends BasicDomain {
         public static final String AGENT_ID = "agentId";
         public static final String USED_CHANNEL_TYPE = "usedChannelType";
         public static final String DADA_SOURCE_ID = "dadaSourceId";
+        public static final String JDDJ_VENDER_ID = "jddjVenderId";
+        public static final String JDDJ_APP_KEY = "jddjAppKey";
+        public static final String JDDJ_APP_SECRET = "jddjAppSecret";
     }
 }
