@@ -369,4 +369,25 @@ public class JDDJUtils {
     public static Map<String, Object> querySkuInfos(QuerySkuInfosModel querySkuInfosModel) {
         return callJDDJApi(querySkuInfosModel, "/djapi/pms/querySkuInfos");
     }
+
+    /**************************************门店类接口开始**************************************/
+    /**
+     * 获取到家门店编码列表接口
+     *
+     * @param getStationsByVenderIdModel
+     * @return
+     */
+    public static Map<String, Object> getStationsByVenderId(GetStationsByVenderIdModel getStationsByVenderIdModel) {
+        return callJDDJApi(getStationsByVenderIdModel, "/djapi/store/getStationsByVenderId");
+    }
+
+    /**
+     * 新增不带资质的门店信息接口
+     *
+     * @param createStoreModel
+     * @return
+     */
+    public static Map<String, Object> createStore(CreateStoreModel createStoreModel) {
+        return callJDDJApi(createStoreModel, "/djapi/store/createStore");
+    }
 }
