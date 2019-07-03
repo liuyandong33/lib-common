@@ -1094,5 +1094,6 @@ public class Constants {
     public static final int DJSW_TYPE_DELIVERY_CARRIER_MODIFY = 15;
 
     public static final String KEY_JDDJ_TOKENS = "_jddj_tokens";
+    public static final String KEY_JDDJ_CODES = "_jddj_codes";
     public static final String KEY_JDDJ_VENDER_INFOS = "_jddj_vender_infos";
 }
