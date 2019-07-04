@@ -43,11 +43,11 @@ public class JDDJUtils {
     /**
      * 获取京东到家商家信息
      *
-     * @param key: appKey 获取商户ID
+     * @param appKey
      * @return
      */
-    public static JDDJVenderInfo obtainJDDJVenderInfo(String key) {
-        String venderInfoJson = CommonRedisUtils.hget(Constants.KEY_JDDJ_VENDER_INFOS, key);
+    public static JDDJVenderInfo obtainJDDJVenderInfo(String appKey) {
+        String venderInfoJson = CommonRedisUtils.hget(Constants.KEY_JDDJ_VENDER_INFOS, appKey);
         if (StringUtils.isBlank(venderInfoJson)) {
             return null;
         }
