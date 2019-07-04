@@ -147,7 +147,7 @@ public class SearchModel {
         }
 
         public Builder addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
-            instance.searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+            instance.addSearchCondition(columnName, operationSymbol, searchParameter);
             return this;
         }
 
@@ -162,7 +162,7 @@ public class SearchModel {
         }
 
         public Builder addNamedParameter(String name, Object value) {
-            instance.namedParameters.put(name, value);
+            instance.addNamedParameter(name, value);
             return this;
         }
 

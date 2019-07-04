@@ -81,7 +81,7 @@ public class UpdateModel {
         }
 
         public Builder addSearchCondition(String columnName, String operationSymbol, Object searchParameter) {
-            instance.searchConditions.add(new SearchCondition(columnName, operationSymbol, searchParameter));
+            instance.addSearchCondition(columnName, operationSymbol, searchParameter);
             return this;
         }
 
@@ -96,7 +96,7 @@ public class UpdateModel {
         }
 
         public Builder addNamedParameter(String name, Object value) {
-            instance.namedParameters.put(name, value);
+            instance.addNamedParameter(name, value);
             return this;
         }
 
@@ -106,7 +106,7 @@ public class UpdateModel {
         }
 
         public Builder addContentValue(String columnName, Object value, int symbolType) {
-            instance.contentValues.add(new ContentValue(columnName, value, symbolType));
+            instance.addContentValue(columnName, value, symbolType);
             return this;
         }
 
