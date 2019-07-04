@@ -5,7 +5,9 @@ public class CommonParamsModel {
     private String appRequestTime;
     private String format;
     private String appKey;
+    private String appSecret;
     private String versionNo;
+    private String signInfo;
     private String accessToken;
 
     public String getAppMethod() {
@@ -40,12 +42,28 @@ public class CommonParamsModel {
         this.appKey = appKey;
     }
 
+    public String getAppSecret() {
+        return appSecret;
+    }
+
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
+
     public String getVersionNo() {
         return versionNo;
     }
 
     public void setVersionNo(String versionNo) {
         this.versionNo = versionNo;
+    }
+
+    public String getSignInfo() {
+        return signInfo;
+    }
+
+    public void setSignInfo(String signInfo) {
+        this.signInfo = signInfo;
     }
 
     public String getAccessToken() {
@@ -79,8 +97,18 @@ public class CommonParamsModel {
             return this;
         }
 
+        public Builder appSecret(String appSecret) {
+            instance.setAppSecret(appSecret);
+            return this;
+        }
+
         public Builder versionNo(String versionNo) {
             instance.setVersionNo(versionNo);
+            return this;
+        }
+
+        public Builder signInfo(String signInfo) {
+            instance.setSignInfo(signInfo);
             return this;
         }
 
@@ -95,7 +123,9 @@ public class CommonParamsModel {
             commonParamsModel.setAppRequestTime(instance.getAppRequestTime());
             commonParamsModel.setFormat(instance.getFormat());
             commonParamsModel.setAppKey(instance.getAppKey());
+            commonParamsModel.setAppSecret(instance.getAppSecret());
             commonParamsModel.setVersionNo(instance.getVersionNo());
+            commonParamsModel.setSignInfo(instance.getSignInfo());
             commonParamsModel.setAccessToken(instance.getAccessToken());
             return commonParamsModel;
         }

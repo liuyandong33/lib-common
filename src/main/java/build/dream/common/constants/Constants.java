@@ -1112,4 +1112,8 @@ public class Constants {
     public static final String KEY_JDDJ_TOKENS = "_jddj_tokens";
     public static final String KEY_JDDJ_CODES = "_jddj_codes";
     public static final String KEY_JDDJ_VENDER_INFOS = "_jddj_vender_infos";
+
+    public static final String SU_NING_APP_KEY = "su.ning.app.key";
+    public static final String SU_NING_APP_SECRET = "su.ning.app.secret";
+    public static final String SU_NING_VERSION_NO = "v1.2";
 }
