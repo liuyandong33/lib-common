@@ -13,7 +13,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
@@ -33,17 +32,17 @@ public class WeiXinUtils {
         return COMPONENT_LOGIN_PAGE_URL + "?component_appid=" + componentAppId + "&pre_auth_code=" + preAuthCode + "&redirect_uri=" + URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8) + "&auth_type=" + authType;
     }
 
-    public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) throws IOException {
+    public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) {
         return generateAuthorizeUrl(appId, scope, redirectUri, state, null);
     }
 
-    public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state, String componentAppId) throws IOException {
+    public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state, String componentAppId) {
         if (StringUtils.isBlank(scope)) {
             scope = Constants.SNSAPI_BASE;
         }
         StringBuilder authorizeUrl = new StringBuilder(WEI_XIN_AUTHORIZE_URL);
         authorizeUrl.append("?").append("appid=").append(appId);
-        authorizeUrl.append("&redirect_uri=").append(URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
+        authorizeUrl.append("&redirect_uri=").append(UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));
         authorizeUrl.append("&response_type=code");
         authorizeUrl.append("&scope=").append(scope);
         authorizeUrl.append("&connect_redirect=1");
