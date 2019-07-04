@@ -1,8 +1,11 @@
 package build.dream.common.saas.domains;
 
+import build.dream.common.annotations.Table;
 import build.dream.common.basic.BasicDomain;
 
+@Table(name = "jddj_token")
 public class JDDJToken extends BasicDomain {
+    public static final String TABLE_NAME = "jddj_token";
     /**
      * token
      */
