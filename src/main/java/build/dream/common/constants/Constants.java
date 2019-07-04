@@ -1076,6 +1076,14 @@ public class Constants {
      * @see #DJSW_TYPE_ORDER_ADD_TIPS: 订单商家小费消息
      * @see #DJSW_TYPE_ORDER_ACCOUNTING: 订单应结消息
      * @see #DJSW_TYPE_DELIVERY_CARRIER_MODIFY: 订单转自送消息
+     * @see #DJSW_TYPE_STORE_CRUD: 新增或修改门店消息
+     * @see #DJSW_TYPE_ORDER_COMMENT_PUSH: 新增或修改门店评价消息
+     * @see #DJSW_TYPE_ORG_COMMENT_AUDIT: 商家回复评价审核完成消息
+     * @see #DJSW_TYPE_QUERY_MERCHANT_MEMBER_INFO: 查询商家会员信息接口
+     * @see #DJSW_TYPE_MEMBER_CREATE_CARD: 商家会员买卡成功消息
+     * @see #DJSW_TYPE_MEMBER_RENEW_CARD: 商家会员续费成功消息
+     * @see #DJSW_TYPE_ORDER_PAYMENT_SUCCESS: 超级会员码订单支付成功消息
+     * @see #DJSW_TYPE_OFFLINE_VIP_POINTS_CHANGE: 线下会员积分消息
      */
     public static final int DJSW_TYPE_NEW_ORDER = 1;
     public static final int DJSW_TYPE_ORDER_ADJUST = 2;
@@ -1092,6 +1100,14 @@ public class Constants {
     public static final int DJSW_TYPE_ORDER_ADD_TIPS = 13;
     public static final int DJSW_TYPE_ORDER_ACCOUNTING = 14;
     public static final int DJSW_TYPE_DELIVERY_CARRIER_MODIFY = 15;
+    public static final int DJSW_TYPE_STORE_CRUD = 16;
+    public static final int DJSW_TYPE_ORDER_COMMENT_PUSH = 17;
+    public static final int DJSW_TYPE_ORG_COMMENT_AUDIT = 18;
+    public static final int DJSW_TYPE_QUERY_MERCHANT_MEMBER_INFO = 19;
+    public static final int DJSW_TYPE_MEMBER_CREATE_CARD = 20;
+    public static final int DJSW_TYPE_MEMBER_RENEW_CARD = 21;
+    public static final int DJSW_TYPE_ORDER_PAYMENT_SUCCESS = 22;
+    public static final int DJSW_TYPE_OFFLINE_VIP_POINTS_CHANGE = 23;
 
     public static final String KEY_JDDJ_TOKENS = "_jddj_tokens";
     public static final String KEY_JDDJ_CODES = "_jddj_codes";
