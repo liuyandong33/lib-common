@@ -4,6 +4,7 @@ import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jddj.*;
+import build.dream.common.saas.domains.JDDJToken;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -20,8 +21,8 @@ public class JDDJUtils {
             return null;
         }
 
-        Map<String, Object> tokenMap = JacksonUtils.readValueAsMap(token, String.class, Object.class);
-        return MapUtils.getString(tokenMap, "token");
+        JDDJToken jddjToken = JacksonUtils.readValue(token, JDDJToken.class);
+        return jddjToken.getToken();
     }
 
     private static String generateSign(Map<String, String> requestParameters, String appSecret) {
