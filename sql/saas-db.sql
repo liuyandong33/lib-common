@@ -1057,7 +1057,7 @@ CREATE TABLE jddj_token
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     token VARCHAR(50) NOT NULL COMMENT 'token',
     expires_in INT NOT NULL COMMENT '有效时间',
-    `time` INT NOT NULL COMMENT '过期时间',
+    `time` BIGINT NOT NULL COMMENT '过期时间',
     uid VARCHAR(20) NOT NULL COMMENT 'uid',
     user_nick VARCHAR(20) NOT NULL COMMENT '用户昵称',
     vender_id VARCHAR(20) NOT NULL COMMENT '商家ID',
