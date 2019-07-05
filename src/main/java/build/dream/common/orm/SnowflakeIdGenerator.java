@@ -94,6 +94,7 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
 
             this.workerId = Long.parseLong(workerId);
             this.dataCenterId = Long.parseLong(dataCenterId);
+            this.sequence = 0L;
         } catch (Exception e) {
             if (e instanceof CustomException) {
                 CustomException customException = (CustomException) e;
