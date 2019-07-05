@@ -21,6 +21,7 @@ import java.util.Map;
 public class SuningUtils {
     private static final String SU_NING_AUTHORIZE_URL = "https://open.suning.com/api/oauth/authorize";
     private static final String SU_NING_OAUTH_TOKEN_URL = "https://open.suning.com/api/oauth/token";
+    private static final String SU_NING_API_URL = "https://openpre.cnsuning.com/api/http/sopRequest";
 
     /**
      * 构建请求头
@@ -174,7 +175,7 @@ public class SuningUtils {
                 .build();
         generateSignInfo(commonParamsModel, body);
         Map<String, String> headers = buildHeaders(commonParamsModel);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody("", headers, body);
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(SU_NING_API_URL + "/" + appMethod, headers, body);
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
