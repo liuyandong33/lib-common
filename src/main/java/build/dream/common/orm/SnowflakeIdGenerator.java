@@ -3,6 +3,7 @@ package build.dream.common.orm;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.utils.ConfigurationUtils;
+import build.dream.common.utils.CustomDateUtils;
 import build.dream.common.utils.DatabaseUtils;
 import build.dream.common.utils.ValidateUtils;
 
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
     // 开始时间2019-01-01 00:00:00
-    private long twepoch = 1546272000000L;
+    private long twepoch = CustomDateUtils.parse("2019-01-01 00:00:00", Constants.DEFAULT_DATE_PATTERN).getTime();
 
     private long workerIdBits = 5L;
     private long dataCenterIdBits = 5L;
