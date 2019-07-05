@@ -27,7 +27,7 @@ class SnowflakeIdWorker(val workerId: Long, val dataCenterId: Long, var sequence
     protected[snowflake] def nextId(): Long = synchronized {
         var timestamp = timeGen()
         if (timestamp < lastTimestamp) {
-            throw new RuntimeException("Clock moved backwards.  Refusing to generate id for %d milliseconds".format(lastTimestamp - timestamp))
+            throw new RuntimeException("Clock moved backwards. Refusing to generate id for %d milliseconds".format(lastTimestamp - timestamp))
         }
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) & sequenceMask
