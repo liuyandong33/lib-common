@@ -455,7 +455,13 @@ public class JDDJUtils {
         return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
     }
 
-    public static Map<String, Object> updateStoreFreightConfig(GetNextLevelByTypeModel getNextLevelByTypeModel) {
-        return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
+    /**
+     * 根据门店编码修改运费起送价、满免以及商家自送运费接口
+     *
+     * @param updateStoreFreightConfigModel
+     * @return
+     */
+    public static Map<String, Object> updateStoreFreightConfig(UpdateStoreFreightConfigModel updateStoreFreightConfigModel) {
+        return callJDDJApi(updateStoreFreightConfigModel, "/djapi/freight/updateStoreFreightConfig");
     }
 }
