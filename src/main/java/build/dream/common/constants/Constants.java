@@ -597,8 +597,8 @@ public class Constants {
      * 钉钉开放平台相关配置
      */
     public static final String KEY_DINGTALK_TOKENS = "_dingtalk_tokens";
-    public static final String DINGTALK_CORP_ID = "dingtalk.corp.id";
-    public static final String DINGTALK_CORP_SECRET = "dingtalk.corp.secret";
+    public static final String DINGTALK_APP_KEY = "dingtalk.app.key";
+    public static final String DINGTALK_APP_SECRET = "dingtalk.app.secret";
 
     // 支付方式编码，会员积分
     public static final String PAYMENT_CODE_HYJF = "HYJF";

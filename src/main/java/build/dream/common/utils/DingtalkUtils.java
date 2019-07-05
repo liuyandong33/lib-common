@@ -4,6 +4,7 @@ import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.dingtalk.CreateChatModel;
 import build.dream.common.models.dingtalk.ListDepartmentsModel;
+import build.dream.common.models.dingtalk.ListUserByPageModel;
 import build.dream.common.models.dingtalk.SendModel;
 import net.sf.json.JSONObject;
 import org.apache.commons.collections.MapUtils;
@@ -21,8 +22,8 @@ public class DingtalkUtils {
         HEADERS.put("Content-Type", "application/json;charset=UTF-8");
     }
 
-    private static String obtainAccessToken(String corpId) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_DINGTALK_TOKENS, corpId);
+    private static String obtainAccessToken(String appKey) {
+        String tokenJson = CommonRedisUtils.hget(Constants.KEY_DINGTALK_TOKENS, appKey);
         if (StringUtils.isBlank(tokenJson)) {
             return null;
         }
@@ -35,10 +36,10 @@ public class DingtalkUtils {
         return null;
     }
 
-    private static String getToken(String corpId, String corpSecret) {
+    private static String getToken(String appKey, String appSecret) {
         Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
-        obtainAccessTokenRequestParameters.put("corpid", corpId);
-        obtainAccessTokenRequestParameters.put("corpsecret", corpSecret);
+        obtainAccessTokenRequestParameters.put("appkey", appKey);
+        obtainAccessTokenRequestParameters.put("appsecret", appSecret);
         String url = DINGTALK_SERVICE_URL + "/gettoken";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
         JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
@@ -50,14 +51,14 @@ public class DingtalkUtils {
         tokenMap.put("access_token", accessToken);
         tokenMap.put("expires_in", resultJsonObject.getLong("expires_in"));
         tokenMap.put("fetch_time", System.currentTimeMillis());
-        CommonRedisUtils.hset(Constants.KEY_DINGTALK_TOKENS, corpId, GsonUtils.toJson(tokenMap));
+//        CommonRedisUtils.hset(Constants.KEY_DINGTALK_TOKENS, appKey, GsonUtils.toJson(tokenMap));
         return accessToken;
     }
 
-    public static String obtainAccessToken(String corpId, String corpSecret) {
-        String accessToken = obtainAccessToken(corpId);
+    public static String obtainAccessToken(String appKey, String appSecret) {
+        String accessToken = obtainAccessToken(appKey);
         if (StringUtils.isBlank(accessToken)) {
-            accessToken = getToken(corpId, corpSecret);
+            accessToken = getToken(appKey, appSecret);
         }
         return accessToken;
     }
@@ -65,23 +66,20 @@ public class DingtalkUtils {
     /**
      * 发送群消息
      *
-     * @param corpId
-     * @param corpSecret
      * @param sendModel
      * @return
      */
-    public static Map<String, Object> send(String corpId, String corpSecret, SendModel sendModel) {
-        String sender = sendModel.getSender();
+    public static Map<String, Object> send(SendModel sendModel) {
+        sendModel.validateAndThrow();
+
+        String appKey = sendModel.getAppKey();
+        String appSecret = sendModel.getAppSecret();
         String chatId = sendModel.getChatId();
-        String content = sendModel.getContent();
+        Map<String, Object> msg = sendModel.getMsg();
         Map<String, Object> sendRequestBody = new HashMap<String, Object>();
-        sendRequestBody.put("sender", sender);
-        sendRequestBody.put("chatId", chatId);
-        sendRequestBody.put("msgtype", "text");
-        Map<String, Object> textMap = new HashMap<String, Object>();
-        textMap.put("content", content);
-        sendRequestBody.put("text", textMap);
-        String url = DINGTALK_SERVICE_URL + "/chat/send?access_token=" + obtainAccessToken(corpId, corpSecret);
+        sendRequestBody.put("chatid", chatId);
+        sendRequestBody.put("msg", msg);
+        String url = DINGTALK_SERVICE_URL + "/chat/send?access_token=" + obtainAccessToken(appKey, appSecret);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendRequestBody));
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
@@ -94,24 +92,39 @@ public class DingtalkUtils {
     /**
      * 发送群消息
      *
-     * @param sendModel
+     * @param content
      * @return
      */
-    public static Map<String, Object> send(SendModel sendModel) {
-        String corpId = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_ID);
-        String corpSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_SECRET);
-        return send(corpId, corpSecret, sendModel);
+    public static Map<String, Object> send(String content) {
+        String appKey = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_KEY);
+        String appSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_SECRET);
+
+        Map<String, Object> text = new HashMap<String, Object>();
+        text.put("content", content);
+
+        Map<String, Object> msg = new HashMap<String, Object>();
+        msg.put("msgtype", "text");
+        msg.put("text", text);
+
+        SendModel sendModel = SendModel.builder()
+                .appKey(appKey)
+                .appSecret(appSecret)
+                .msg(msg)
+                .build();
+        return send(sendModel);
     }
 
     /**
      * 创建会话
      *
-     * @param corpId
-     * @param corpSecret
      * @param createChatModel
      * @return
      */
-    public static Map<String, Object> createChat(String corpId, String corpSecret, CreateChatModel createChatModel) {
+    public static Map<String, Object> createChat(CreateChatModel createChatModel) {
+        createChatModel.validateAndThrow();
+
+        String appKey = createChatModel.getAppKey();
+        String appSecret = createChatModel.getAppSecret();
         String name = createChatModel.getName();
         String owner = createChatModel.getOwner();
         List<String> userIdList = createChatModel.getUserIdList();
@@ -130,56 +143,8 @@ public class DingtalkUtils {
         createChatRequestBody.put("mentionAllAuthority", mentionAllAuthority);
         createChatRequestBody.put("managementType", managementType);
 
-        String url = DINGTALK_SERVICE_URL + "/chat/create?access_token=" + obtainAccessToken(corpId, corpSecret);
+        String url = DINGTALK_SERVICE_URL + "/chat/create?access_token=" + obtainAccessToken(appKey, appSecret);
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(createChatRequestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        int errcode = MapUtils.getIntValue(resultMap, "errcode");
-        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
-
-        return resultMap;
-    }
-
-    /**
-     * 创建会话
-     *
-     * @param createChatModel
-     * @return
-     */
-    public static Map<String, Object> createChat(CreateChatModel createChatModel) {
-        String corpId = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_ID);
-        String corpSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_SECRET);
-        return createChat(corpId, corpSecret, createChatModel);
-    }
-
-    /**
-     * 获取部门列表
-     *
-     * @param corpId
-     * @param corpSecret
-     * @param listDepartmentsModel
-     * @return
-     */
-    public static Map<String, Object> listDepartments(String corpId, String corpSecret, ListDepartmentsModel listDepartmentsModel) {
-        String lang = listDepartmentsModel.getLang();
-        Boolean fetchChild = listDepartmentsModel.getFetchChild();
-        String id = listDepartmentsModel.getId();
-
-        Map<String, String> listDepartmentsRequestParameters = new HashMap<String, String>();
-        listDepartmentsRequestParameters.put("access_token", obtainAccessToken(corpId, corpSecret));
-        if (StringUtils.isNotBlank(lang)) {
-            listDepartmentsRequestParameters.put("lang", lang);
-        }
-
-        if (fetchChild != null) {
-            listDepartmentsRequestParameters.put("fetch_child", fetchChild.toString());
-        }
-
-        if (StringUtils.isNotBlank(id)) {
-            listDepartmentsRequestParameters.put("id", id);
-        }
-
-        String url = DINGTALK_SERVICE_URL + "/department/list?access_token=" + obtainAccessToken(corpId, corpSecret);
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listDepartmentsRequestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
@@ -194,8 +159,71 @@ public class DingtalkUtils {
      * @return
      */
     public static Map<String, Object> listDepartments(ListDepartmentsModel listDepartmentsModel) {
-        String corpId = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_ID);
-        String corpSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_CORP_SECRET);
-        return listDepartments(corpId, corpSecret, listDepartmentsModel);
+        listDepartmentsModel.validateAndThrow();
+
+        String appKey = listDepartmentsModel.getAppKey();
+        String appSecret = listDepartmentsModel.getAppSecret();
+        String lang = listDepartmentsModel.getLang();
+        Boolean fetchChild = listDepartmentsModel.getFetchChild();
+        String id = listDepartmentsModel.getId();
+
+        Map<String, String> listDepartmentsRequestParameters = new HashMap<String, String>();
+        listDepartmentsRequestParameters.put("access_token", obtainAccessToken(appKey, appSecret));
+        if (StringUtils.isNotBlank(lang)) {
+            listDepartmentsRequestParameters.put("lang", lang);
+        }
+
+        if (fetchChild != null) {
+            listDepartmentsRequestParameters.put("fetch_child", fetchChild.toString());
+        }
+
+        if (StringUtils.isNotBlank(id)) {
+            listDepartmentsRequestParameters.put("id", id);
+        }
+
+        String url = DINGTALK_SERVICE_URL + "/department/list";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listDepartmentsRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+
+        return resultMap;
+    }
+
+    /**
+     * 获取部门用户详情
+     *
+     * @param listUserByPageModel
+     * @return
+     */
+    public static Map<String, Object> listUserByPage(ListUserByPageModel listUserByPageModel) {
+        listUserByPageModel.validateAndThrow();
+
+        String appKey = listUserByPageModel.getAppKey();
+        String appSecret = listUserByPageModel.getAppSecret();
+        String lang = listUserByPageModel.getLang();
+        String departmentId = listUserByPageModel.getDepartmentId();
+        Integer offset = listUserByPageModel.getOffset();
+        Integer size = listUserByPageModel.getSize();
+        String order = listUserByPageModel.getOrder();
+
+        Map<String, String> listUserByPageRequestParameters = new HashMap<String, String>();
+        listUserByPageRequestParameters.put("access_token", obtainAccessToken(appKey, appSecret));
+        if (StringUtils.isNotBlank(lang)) {
+            listUserByPageRequestParameters.put("lang", lang);
+        }
+        listUserByPageRequestParameters.put("department_id", departmentId);
+        listUserByPageRequestParameters.put("offset", offset.toString());
+        listUserByPageRequestParameters.put("size", size.toString());
+        if (StringUtils.isNotBlank(order)) {
+            listUserByPageRequestParameters.put("order", order);
+        }
+        String url = DINGTALK_SERVICE_URL + "/user/listbypage";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listUserByPageRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+
+        return resultMap;
     }
 }
