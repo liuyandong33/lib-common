@@ -1116,6 +1116,5 @@ public class Constants {
     public static final String SU_NING_APP_KEY = "su.ning.app.key";
     public static final String SU_NING_APP_SECRET = "su.ning.app.secret";
     public static final String SU_NING_VERSION_NO = "v1.2";
-
-    public static final String KEY_SU_NING_TOKENS= "_su_ning_tokens";
+    public static final String KEY_SU_NING_TOKENS = "_su_ning_tokens";
 }
