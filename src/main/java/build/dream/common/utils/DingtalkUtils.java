@@ -92,10 +92,11 @@ public class DingtalkUtils {
     /**
      * 发送群消息
      *
+     * @param chatId
      * @param content
      * @return
      */
-    public static Map<String, Object> send(String content) {
+    public static Map<String, Object> send(String chatId, String content) {
         String appKey = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_KEY);
         String appSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_SECRET);
 
@@ -109,6 +110,7 @@ public class DingtalkUtils {
         SendModel sendModel = SendModel.builder()
                 .appKey(appKey)
                 .appSecret(appSecret)
+                .chatId(chatId)
                 .msg(msg)
                 .build();
         return send(sendModel);

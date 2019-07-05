@@ -1,7 +1,5 @@
 package build.dream.common.models.dingtalk;
 
-import build.dream.common.models.BasicModel;
-
 import javax.validation.constraints.NotNull;
 import java.util.Map;
 
