@@ -114,7 +114,7 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
     public synchronized BigInteger nextId() {
         long timestamp = timeGen();
         if (timestamp < lastTimestamp) {
-            throw new RuntimeException("Clock moved backwards.  Refusing to generate id for " + (lastTimestamp - timestamp) + " milliseconds");
+            throw new RuntimeException("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - timestamp) + " milliseconds");
         }
         if (lastTimestamp == timestamp) {
             sequence = (sequence + 1) & sequenceMask;
