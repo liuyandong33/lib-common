@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -20,19 +21,23 @@ public class JacksonUtils {
         if (serializationInclusion != null) {
             key += "@@@" + serializationInclusion.name();
         }
-        if (!objectMapperMap.contains(key)) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-            if (serializationInclusion != null) {
-                objectMapper.setSerializationInclusion(serializationInclusion);
-            }
-
-            objectMapperMap.put(key, objectMapper);
+        ObjectMapper objectMapper = objectMapperMap.get(key);
+        if (Objects.nonNull(objectMapper)) {
+            return objectMapper;
         }
-        return objectMapperMap.get(key);
+
+        objectMapper = new ObjectMapper();
+        objectMapper.setDateFormat(new SimpleDateFormat(datePattern));
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+        if (serializationInclusion != null) {
+            objectMapper.setSerializationInclusion(serializationInclusion);
+        }
+
+        objectMapperMap.put(key, objectMapper);
+        return objectMapper;
     }
 
     public static String writeValueAsString(Object object) {
