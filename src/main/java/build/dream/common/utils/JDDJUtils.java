@@ -455,7 +455,64 @@ public class JDDJUtils {
         return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
     }
 
-    public static Map<String, Object> updateStoreFreightConfig(GetNextLevelByTypeModel getNextLevelByTypeModel) {
-        return callJDDJApi(getNextLevelByTypeModel, "/djapi/address/getNextLevelByType");
+    /**
+     * 根据门店编码修改运费起送价、满免以及商家自送运费接口
+     *
+     * @param updateStoreFreightConfigModel
+     * @return
+     */
+    public static Map<String, Object> updateStoreFreightConfig(UpdateStoreFreightConfigModel updateStoreFreightConfigModel) {
+        return callJDDJApi(updateStoreFreightConfigModel, "/djapi/freight/updateStoreFreightConfig");
+    }
+
+    /**
+     * 修改门店运费起送价及满免接口
+     * TODO model未实现
+     *
+     * @param updateStoreFreightConfigNewModel
+     * @return
+     */
+    public static Map<String, Object> updateStoreFreightConfigNew(UpdateStoreFreightConfigNewModel updateStoreFreightConfigNewModel) {
+        return callJDDJApi(updateStoreFreightConfigNewModel, "/djapi/freight/updateStoreFreightConfigNew");
+    }
+
+    /**
+     * 获取门店配送范围接口
+     *
+     * @param getDeliveryRangeByStationNoModel
+     * @return
+     */
+    public static Map<String, Object> getDeliveryRangeByStationNo(GetDeliveryRangeByStationNoModel getDeliveryRangeByStationNoModel) {
+        return callJDDJApi(getDeliveryRangeByStationNoModel, "/djapi/store/getDeliveryRangeByStationNo");
+    }
+
+    /**
+     * 根据到家门店编码修改商家自动接单接口
+     *
+     * @param updateStoreConfig4OpenModel
+     * @return
+     */
+    public static Map<String, Object> updateStoreConfig4Open(UpdateStoreConfig4OpenModel updateStoreConfig4OpenModel) {
+        return callJDDJApi(updateStoreConfig4OpenModel, "/djapi/store/updateStoreConfig4Open");
+    }
+
+    /**
+     * 查询商家中心账号信息接口
+     *
+     * @param searchUserModel
+     * @return
+     */
+    public static Map<String, Object> searchUser(SearchUserModel searchUserModel) {
+        return callJDDJApi(searchUserModel, "/djapi/privilege/searchUser");
+    }
+
+    /**
+     * 修改商家中心账号状态接口
+     *
+     * @param updateUserModel
+     * @return
+     */
+    public static Map<String, Object> updateUser(UpdateUserModel updateUserModel) {
+        return callJDDJApi(updateUserModel, "/djapi/privilege/updateUser");
     }
 }
