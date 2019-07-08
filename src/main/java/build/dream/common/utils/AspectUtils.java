@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AspectUtils {
@@ -27,10 +28,14 @@ public class AspectUtils {
     private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
 
     private static Object obtainService(Class<?> serviceClass) {
-        if (!serviceMap.contains(serviceClass)) {
-            serviceMap.put(serviceClass, ApplicationHandler.getBean(serviceClass));
+        Object service = serviceMap.get(serviceClass);
+        if (Objects.nonNull(service)) {
+            return service;
         }
-        return serviceMap.get(serviceClass);
+
+        service = ApplicationHandler.getBean(serviceClass);
+        serviceMap.put(serviceClass, ApplicationHandler.getBean(serviceClass));
+        return service;
     }
 
     private static Method obtainTargetMethod(ProceedingJoinPoint proceedingJoinPoint) {

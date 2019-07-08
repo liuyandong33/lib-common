@@ -16,7 +16,7 @@ public class CommonRedisUtils {
     private static RedisTemplate<String, String> redisTemplate = null;
 
     private static RedisTemplate<String, String> obtainRedisTemplate() {
-        if (redisTemplate == null) {
+        if (Objects.isNull(redisTemplate)) {
             redisTemplate = RedisHelper.obtainCommonStringRedisTemplate();
         }
         return redisTemplate;

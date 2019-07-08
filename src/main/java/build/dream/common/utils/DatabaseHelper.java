@@ -7,6 +7,7 @@ import scala.Tuple3;
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class DatabaseHelper {
@@ -14,14 +15,18 @@ public class DatabaseHelper {
     private static ConcurrentHashMap<Class<?>, Object> mapperMap = new ConcurrentHashMap<Class<?>, Object>();
 
     private static Object obtainMapper(Class<?> mapperClass) {
-        if (!mapperMap.contains(mapperClass)) {
-            mapperMap.put(mapperClass, ApplicationHandler.getBean(mapperClass));
+        Object mapper = mapperMap.get(mapperClass);
+        if (Objects.nonNull(mapper)) {
+            return mapper;
         }
-        return mapperMap.get(mapperClass);
+
+        mapper = ApplicationHandler.getBean(mapperClass);
+        mapperMap.put(mapperClass, ApplicationHandler.getBean(mapperClass));
+        return mapper;
     }
 
     public static UniversalMapper obtainUniversalMapper() {
-        if (universalMapper == null) {
+        if (Objects.isNull(universalMapper)) {
             universalMapper = ApplicationHandler.getBean(UniversalMapper.class);
         }
         return universalMapper;
