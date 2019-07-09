@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.Tenant;
+import org.apache.commons.lang.StringUtils;
 import scala.Tuple2;
 
 import java.math.BigInteger;
@@ -12,13 +13,17 @@ import java.util.Map;
 public class TenantUtils {
     public static Tenant obtainTenantInfo(BigInteger tenantId) {
         String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
-        ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
+        if (StringUtils.isBlank(tenantInfoJson)) {
+            return null;
+        }
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
     public static Tenant obtainTenantInfo(String tenantCode) {
         String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_code_" + tenantCode);
-        ValidateUtils.notNull(tenantInfoJson, "商户信息不存在！");
+        if (StringUtils.isBlank(tenantInfoJson)) {
+            return null;
+        }
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 

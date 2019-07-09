@@ -583,6 +583,8 @@ public class Constants {
      */
     public static final String KEY_TENANT_INFOS = "_tenant_infos";
 
+    public static final String KEY_USER_INFOS = "_user_infos";
+
     /**
      * 极光推送相关配置
      */
