@@ -67,6 +67,54 @@ public class UpdateModel {
         contentValues.add(new ContentValue(columnName, value, symbolType));
     }
 
+    public void in(String columnName, Object... values) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_IN, values));
+    }
+
+    public void notIn(String columnName, Object... values) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_NOT_IN, values));
+    }
+
+    public void like(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_LIKE, value));
+    }
+
+    public void notLike(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_NOT_LIKE, value));
+    }
+
+    public void equal(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_EQUAL, value));
+    }
+
+    public void notEqual(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_NOT_EQUAL, value));
+    }
+
+    public void lessThan(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_LESS_THAN, value));
+    }
+
+    public void lessThanEqual(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_LESS_THAN_EQUAL, value));
+    }
+
+    public void greaterThan(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_GREATER_THAN, value));
+    }
+
+    public void greaterThanEqual(String columnName, Object value) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_GREATER_THAN_EQUAL, value));
+    }
+
+    public void isNull(String columnName) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_IS_NULL, null));
+    }
+
+    public void isNotNull(String columnName) {
+        searchConditions.add(new SearchCondition(columnName, Constants.SQL_OPERATION_SYMBOL_IS_NOT_NULL, null));
+    }
+
     public static class Builder {
         private final UpdateModel instance = new UpdateModel();
 
@@ -107,6 +155,66 @@ public class UpdateModel {
 
         public Builder addContentValue(String columnName, Object value, int symbolType) {
             instance.addContentValue(columnName, value, symbolType);
+            return this;
+        }
+
+        public Builder in(String columnName, Object... values) {
+            instance.in(columnName, values);
+            return this;
+        }
+
+        public Builder notIn(String columnName, Object... values) {
+            instance.notIn(columnName, values);
+            return this;
+        }
+
+        public Builder like(String columnName, Object value) {
+            instance.like(columnName, value);
+            return this;
+        }
+
+        public Builder notLike(String columnName, Object value) {
+            instance.notLike(columnName, value);
+            return this;
+        }
+
+        public Builder equal(String columnName, Object value) {
+            instance.equal(columnName, value);
+            return this;
+        }
+
+        public Builder notEqual(String columnName, Object value) {
+            instance.notEqual(columnName, value);
+            return this;
+        }
+
+        public Builder lessThan(String columnName, Object value) {
+            instance.lessThan(columnName, value);
+            return this;
+        }
+
+        public Builder lessThanEqual(String columnName, Object value) {
+            instance.lessThanEqual(columnName, value);
+            return this;
+        }
+
+        public Builder greaterThan(String columnName, Object value) {
+            instance.greaterThan(columnName, value);
+            return this;
+        }
+
+        public Builder greaterThanEqual(String columnName, Object value) {
+            instance.greaterThanEqual(columnName, value);
+            return this;
+        }
+
+        public Builder isNull(String columnName) {
+            instance.isNull(columnName);
+            return this;
+        }
+
+        public Builder isNotNull(String columnName) {
+            instance.isNotNull(columnName);
             return this;
         }
 
