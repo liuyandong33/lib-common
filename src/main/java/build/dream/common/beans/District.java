@@ -1,17 +1,9 @@
 package build.dream.common.beans;
 
 public class District {
-    private Long pid;
     private String name;
-    private Long id;
-
-    public Long getPid() {
-        return pid;
-    }
-
-    public void setPid(Long pid) {
-        this.pid = pid;
-    }
+    private String pid;
+    private String id;
 
     public String getName() {
         return name;
@@ -21,11 +13,19 @@ public class District {
         this.name = name;
     }
 
-    public Long getId() {
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 }

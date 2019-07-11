@@ -12,9 +12,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DistrictUtils {
-    private static final Map<Long, District> DISTRICT_MAP;
+    private static final Map<String, District> DISTRICT_MAP;
     private static final List<District> DISTRICTS;
-    private static final Map<Long, List<District>> DISTRICTS_MAP;
+    private static final Map<String, List<District>> DISTRICTS_MAP;
 
     static {
         String districtsJson = null;
@@ -25,17 +25,17 @@ public class DistrictUtils {
         }
         DISTRICTS = JacksonUtils.readValueAsList(districtsJson, District.class);
         DISTRICTS_MAP = DISTRICTS.stream().collect(Collectors.groupingBy(District::getPid));
-        DISTRICT_MAP = new HashMap<Long, District>();
+        DISTRICT_MAP = new HashMap<String, District>();
         for (District district : DISTRICTS) {
             DISTRICT_MAP.put(district.getId(), district);
         }
     }
 
-    public static District obtainDistrictById(Long id) {
+    public static District obtainDistrictById(String id) {
         return DISTRICT_MAP.get(id);
     }
 
-    public static List<District> obtainDistrictsByPid(Long pid) {
+    public static List<District> obtainDistrictsByPid(String pid) {
         return DISTRICTS_MAP.get(pid);
     }
 }
