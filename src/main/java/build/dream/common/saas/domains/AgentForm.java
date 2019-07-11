@@ -10,6 +10,14 @@ public class AgentForm extends BasicDomain {
      */
     private String name;
     /**
+     * 手机号码
+     */
+    private String mobile;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
      * 状态，1-未审核，2-已审核，3-已驳回
      */
     private Integer status;
@@ -56,6 +64,22 @@ public class AgentForm extends BasicDomain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getStatus() {
@@ -144,6 +168,16 @@ public class AgentForm extends BasicDomain {
             return this;
         }
 
+        public Builder mobile(String mobile) {
+            instance.setMobile(mobile);
+            return this;
+        }
+
+        public Builder email(String email) {
+            instance.setEmail(email);
+            return this;
+        }
+
         public Builder status(Integer status) {
             instance.setStatus(status);
             return this;
@@ -198,6 +232,8 @@ public class AgentForm extends BasicDomain {
         public AgentForm build() {
             AgentForm agentForm = super.build();
             agentForm.setName(instance.getName());
+            agentForm.setMobile(instance.getMobile());
+            agentForm.setEmail(instance.getEmail());
             agentForm.setStatus(instance.getStatus());
             agentForm.setProvinceCode(instance.getProvinceCode());
             agentForm.setProvinceName(instance.getProvinceName());
@@ -218,6 +254,8 @@ public class AgentForm extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String NAME = "name";
+        public static final String MOBILE = "mobile";
+        public static final String EMAIL = "email";
         public static final String STATUS = "status";
         public static final String PROVINCE_CODE = "province_code";
         public static final String PROVINCE_NAME = "province_name";
@@ -232,6 +270,8 @@ public class AgentForm extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String NAME = "name";
+        public static final String MOBILE = "mobile";
+        public static final String EMAIL = "email";
         public static final String STATUS = "status";
         public static final String PROVINCE_CODE = "provinceCode";
         public static final String PROVINCE_NAME = "provinceName";
