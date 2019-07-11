@@ -17,6 +17,12 @@ public class SmsUtils {
     private static final String DY_SMS_API_URL = "http://dysmsapi.aliyuncs.com";
 
     public static Map<String, Object> sendSms(SendSmsModel sendSmsModel) {
+        String phoneNumbers = sendSmsModel.getPhoneNumbers();
+        String signName = sendSmsModel.getSignName();
+        String templateCode = sendSmsModel.getTemplateCode();
+        String templateParam = sendSmsModel.getTemplateParam();
+        String outId = sendSmsModel.getOutId();
+
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("AccessKeyId", ACCESS_KEY_ID);
         requestParameters.put("Timestamp", new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date()));
@@ -27,11 +33,13 @@ public class SmsUtils {
         requestParameters.put("Action", "SendSms");
         requestParameters.put("Version", "2017-05-25");
         requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("PhoneNumbers", sendSmsModel.getPhoneNumbers());
-        requestParameters.put("SignName", sendSmsModel.getSignName());
-        requestParameters.put("TemplateCode", sendSmsModel.getTemplateCode());
-        requestParameters.put("TemplateParam", sendSmsModel.getTemplateParam());
-        requestParameters.put("OutId", sendSmsModel.getOutId());
+        requestParameters.put("PhoneNumbers", phoneNumbers);
+        requestParameters.put("SignName", signName);
+        requestParameters.put("TemplateCode", templateCode);
+        requestParameters.put("TemplateParam", templateParam);
+        if (StringUtils.isNotBlank(outId)) {
+            requestParameters.put("OutId", outId);
+        }
         requestParameters.put("Signature", generateSignature(requestParameters, ACCESS_SECRET));
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(DY_SMS_API_URL, requestParameters);
