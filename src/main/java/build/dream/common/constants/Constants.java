@@ -1127,4 +1127,15 @@ public class Constants {
     public static final String SU_NING_APP_SECRET = "su.ning.app.secret";
     public static final String SU_NING_VERSION_NO = "v1.2";
     public static final String KEY_SU_NING_TOKENS = "_su_ning_tokens";
+
+    /**
+     * 代理商申请单状态
+     *
+     * @see #AGENT_FORM_STATUS_NOT_AUDIT: 未审核
+     * @see #AGENT_FORM_STATUS_NOT_AUDITED: 已审核
+     * @see #AGENT_FORM_STATUS_NOT_REJECTED: 已驳回
+     */
+    public static final int AGENT_FORM_STATUS_NOT_AUDIT = 1;
+    public static final int AGENT_FORM_STATUS_NOT_AUDITED = 2;
+    public static final int AGENT_FORM_STATUS_NOT_REJECTED = 3;
 }
