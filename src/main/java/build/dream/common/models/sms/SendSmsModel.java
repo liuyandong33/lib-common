@@ -58,4 +58,47 @@ public class SendSmsModel extends BasicModel {
     public void setOutId(String outId) {
         this.outId = outId;
     }
+
+    public static class Builder {
+        private final SendSmsModel instance = new SendSmsModel();
+
+        public Builder phoneNumbers(String phoneNumbers) {
+            instance.setPhoneNumbers(phoneNumbers);
+            return this;
+        }
+
+        public Builder signName(String signName) {
+            instance.setSignName(signName);
+            return this;
+        }
+
+        public Builder templateCode(String templateCode) {
+            instance.setTemplateCode(templateCode);
+            return this;
+        }
+
+        public Builder templateParam(String templateParam) {
+            instance.setTemplateCode(templateParam);
+            return this;
+        }
+
+        public Builder outId(String outId) {
+            instance.setOutId(outId);
+            return this;
+        }
+
+        public SendSmsModel build() {
+            SendSmsModel sendSmsModel = new SendSmsModel();
+            sendSmsModel.setPhoneNumbers(instance.getPhoneNumbers());
+            sendSmsModel.setSignName(instance.getSignName());
+            sendSmsModel.setTemplateCode(instance.getTemplateCode());
+            sendSmsModel.setTemplateParam(instance.getTemplateParam());
+            sendSmsModel.setOutId(instance.getOutId());
+            return sendSmsModel;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
