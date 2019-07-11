@@ -42,6 +42,7 @@ public class Constants {
     public static final String PRODUCTION_PROPERTIES = "development.properties";
     public static final String TEST_PROPERTIES = "test.properties";
     public static final String DEVELOPMENT_PROPERTIES = "development.properties";
+    public static final String DISTRICTS_JSON = "districts.json";
 
     public static final String HTTP = "http://";
     public static final String HTTPS = "https://";
