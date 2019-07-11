@@ -14,7 +14,7 @@ public class AgentForm extends BasicDomain {
      */
     private String mobile;
     /**
-     * 邮箱
+     * 邮箱地址
      */
     private String email;
     /**
