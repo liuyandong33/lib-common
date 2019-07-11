@@ -10,6 +10,10 @@ public class AgentForm extends BasicDomain {
      */
     private String name;
     /**
+     * 联系人
+     */
+    private String linkman;
+    /**
      * 手机号码
      */
     private String mobile;
@@ -64,6 +68,14 @@ public class AgentForm extends BasicDomain {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
     }
 
     public String getMobile() {
@@ -168,6 +180,11 @@ public class AgentForm extends BasicDomain {
             return this;
         }
 
+        public Builder linkman(String linkman) {
+            instance.setLinkman(linkman);
+            return this;
+        }
+
         public Builder mobile(String mobile) {
             instance.setMobile(mobile);
             return this;
@@ -232,6 +249,7 @@ public class AgentForm extends BasicDomain {
         public AgentForm build() {
             AgentForm agentForm = super.build();
             agentForm.setName(instance.getName());
+            agentForm.setLinkman(instance.getLinkman());
             agentForm.setMobile(instance.getMobile());
             agentForm.setEmail(instance.getEmail());
             agentForm.setStatus(instance.getStatus());
@@ -254,6 +272,7 @@ public class AgentForm extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String NAME = "name";
+        public static final String LINKMAN = "linkman";
         public static final String MOBILE = "mobile";
         public static final String EMAIL = "email";
         public static final String STATUS = "status";
@@ -270,6 +289,7 @@ public class AgentForm extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String NAME = "name";
+        public static final String LINKMAN = "linkman";
         public static final String MOBILE = "mobile";
         public static final String EMAIL = "email";
         public static final String STATUS = "status";

@@ -724,6 +724,7 @@ CREATE TABLE agent
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `code` VARCHAR(20) NOT NULL COMMENT '商户编码',
     `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
+    `linkman` VARCHAR(20) NOT NULL COMMENT '联系人',
     mobile VARCHAR(20) NOT NULL COMMENT '手机号码',
     email VARCHAR(20) NOT NULL COMMENT '邮箱',
     province_code VARCHAR(10) NOT NULL COMMENT '省编码',
@@ -947,6 +948,7 @@ CREATE TABLE agent_form
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     `name` VARCHAR(20) NOT NULL COMMENT '商户名称',
+    `linkman` VARCHAR(20) NOT NULL COMMENT '联系人',
     mobile VARCHAR(20) NOT NULL COMMENT '手机号码',
     email VARCHAR(20) NOT NULL COMMENT '邮箱地址',
     `status` TINYINT NOT NULL COMMENT '状态，1-未审核，2-已审核，3-已驳回',
