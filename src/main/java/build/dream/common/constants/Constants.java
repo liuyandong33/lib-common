@@ -583,7 +583,15 @@ public class Constants {
      */
     public static final String KEY_TENANT_INFOS = "_tenant_infos";
 
+    /**
+     * 用户信息Redis key
+     */
     public static final String KEY_USER_INFOS = "_user_infos";
+
+    /**
+     * 代理商信息 Redis key
+     */
+    public static final String KEY_AGENT_INFOS = "_agent_infos";
 
     /**
      * 极光推送相关配置
