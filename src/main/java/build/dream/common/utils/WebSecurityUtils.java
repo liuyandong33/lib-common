@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.auth.AbstractUserDetails;
+import build.dream.common.auth.AgentUserDetails;
 import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.auth.VipUserDetails;
 import build.dream.common.constants.Constants;
@@ -42,15 +43,15 @@ public class WebSecurityUtils {
     }
 
     public static TenantUserDetails obtainTenantUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        TenantUserDetails tenantUserDetails = (TenantUserDetails) authentication.getPrincipal();
-        return tenantUserDetails;
+        return (TenantUserDetails) obtainUserDetails();
     }
 
     public static VipUserDetails obtainVipUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        VipUserDetails vipUserDetails = (VipUserDetails) authentication.getPrincipal();
-        return vipUserDetails;
+        return (VipUserDetails) obtainUserDetails();
+    }
+
+    public static AgentUserDetails obtainAgentUserDetails() {
+        return (AgentUserDetails) obtainUserDetails();
     }
 
     public static AbstractUserDetails obtainUserDetails() {
