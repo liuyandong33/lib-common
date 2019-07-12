@@ -421,6 +421,7 @@ public class Constants {
     public static final BigDecimal BIG_DECIMAL_MINUS_EIGHT = BigDecimal.valueOf(-8L);
     public static final BigDecimal BIG_DECIMAL_MINUS_NINE = BigDecimal.valueOf(-9L);
     public static final BigDecimal BIG_DECIMAL_MINUS_TEN = BigDecimal.valueOf(-10L);
+    public static final BigDecimal BIG_DECIMAL_ZERO = BigDecimal.valueOf(0);
     public static final BigDecimal BIG_DECIMAL_ONE = BigDecimal.valueOf(1L);
     public static final BigDecimal BIG_DECIMAL_TWO = BigDecimal.valueOf(2L);
     public static final BigDecimal BIG_DECIMAL_THREE = BigDecimal.valueOf(3L);
@@ -474,6 +475,7 @@ public class Constants {
     public static final BigInteger BIG_INTEGER_MINUS_EIGHT = BigInteger.valueOf(-8L);
     public static final BigInteger BIG_INTEGER_MINUS_NINE = BigInteger.valueOf(-9L);
     public static final BigInteger BIG_INTEGER_MINUS_TEN = BigInteger.valueOf(-10L);
+    public static final BigInteger BIG_INTEGER_ZERO = BigInteger.valueOf(0);
     public static final BigInteger BIG_INTEGER_ONE = BigInteger.valueOf(1L);
     public static final BigInteger BIG_INTEGER_TWO = BigInteger.valueOf(2L);
     public static final BigInteger BIG_INTEGER_THREE = BigInteger.valueOf(3L);
