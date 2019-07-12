@@ -11,8 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import java.util.*;
 
 public class SmsUtils {
-    private static final String ACCESS_KEY_ID = "LTAI13Q9MtL90vHh";
-    private static final String ACCESS_SECRET = "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt";
+    private static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
+    private static final String ACCESS_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
     private static final String DY_SMS_API_URL = "http://dysmsapi.aliyuncs.com";
 
     public static Map<String, Object> sendSms(SendSmsModel sendSmsModel) {
