@@ -321,8 +321,20 @@ public class RedisUtils {
      * @param key
      * @param fields
      */
-    public static void hmget(RedisTemplate<String, String> redisTemplate, String key, String... fields) {
-        obtainHashOperations(redisTemplate).multiGet(key, Arrays.asList(fields));
+    public static List<String> hmget(RedisTemplate<String, String> redisTemplate, String key, String... fields) {
+        return obtainHashOperations(redisTemplate).multiGet(key, Arrays.asList(fields));
+    }
+
+    /**
+     * HMGET
+     *
+     * @param redisTemplate
+     * @param key
+     * @param fields
+     * @return
+     */
+    public static List<String> hmget(RedisTemplate<String, String> redisTemplate, String key, Collection<String> fields) {
+        return obtainHashOperations(redisTemplate).multiGet(key, fields);
     }
 
     /**

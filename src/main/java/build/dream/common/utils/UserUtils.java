@@ -1,14 +1,13 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.SystemUser;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserUtils {
     public static SystemUser obtainUserInfo(String userId) {
@@ -23,12 +22,10 @@ public class UserUtils {
         return obtainUserInfo(userId.toString());
     }
 
-    public static List<Map<String, Object>> batchGetUsers(List<BigInteger> userIds) {
-        Map<String, String> batchGetUsersRequestParameters = new HashMap<String, String>();
-        batchGetUsersRequestParameters.put("userIds", StringUtils.join(userIds, ","));
-
-        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "user", "batchGetUsers", batchGetUsersRequestParameters);
-        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        return (List<Map<String, Object>>) apiRest.getData();
+    public static List<SystemUser> batchGetUsers(List<BigInteger> userIds) {
+        List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
+        List<SystemUser> systemUsers = new ArrayList<SystemUser>();
+        userInfos.forEach(userInfo -> systemUsers.add(JacksonUtils.readValue(userInfo, SystemUser.class)));
+        return systemUsers;
     }
 }

@@ -16,7 +16,7 @@ public class PartitionRedisUtils {
     private static RedisTemplate<String, String> redisTemplate = null;
 
     private static RedisTemplate<String, String> obtainRedisTemplate() {
-        if (redisTemplate == null) {
+        if (Objects.isNull(redisTemplate)) {
             redisTemplate = RedisHelper.obtainPartitionStringRedisTemplate();
         }
         return redisTemplate;
@@ -312,8 +312,19 @@ public class PartitionRedisUtils {
      * @param key
      * @param fields
      */
-    public static void hmget(String key, String... fields) {
-        RedisUtils.hmget(obtainRedisTemplate(), key, fields);
+    public static List<String> hmget(String key, String... fields) {
+        return RedisUtils.hmget(obtainRedisTemplate(), key, fields);
+    }
+
+    /**
+     * HMGET
+     *
+     * @param key
+     * @param fields
+     * @return
+     */
+    public static List<String> hmget(String key, Collection<String> fields) {
+        return RedisUtils.hmget(obtainRedisTemplate(), key, fields);
     }
 
     /**
