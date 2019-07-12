@@ -19,6 +19,8 @@ public class SendSmsModel extends BasicModel {
 
     private String outId;
 
+    private String smsUpExtendCode;
+
     public String getPhoneNumbers() {
         return phoneNumbers;
     }
@@ -59,6 +61,14 @@ public class SendSmsModel extends BasicModel {
         this.outId = outId;
     }
 
+    public String getSmsUpExtendCode() {
+        return smsUpExtendCode;
+    }
+
+    public void setSmsUpExtendCode(String smsUpExtendCode) {
+        this.smsUpExtendCode = smsUpExtendCode;
+    }
+
     public static class Builder {
         private final SendSmsModel instance = new SendSmsModel();
 
@@ -78,12 +88,17 @@ public class SendSmsModel extends BasicModel {
         }
 
         public Builder templateParam(String templateParam) {
-            instance.setTemplateCode(templateParam);
+            instance.setTemplateParam(templateParam);
             return this;
         }
 
         public Builder outId(String outId) {
             instance.setOutId(outId);
+            return this;
+        }
+
+        public Builder smsUpExtendCode(String smsUpExtendCode) {
+            instance.setSmsUpExtendCode(smsUpExtendCode);
             return this;
         }
 
@@ -94,6 +109,7 @@ public class SendSmsModel extends BasicModel {
             sendSmsModel.setTemplateCode(instance.getTemplateCode());
             sendSmsModel.setTemplateParam(instance.getTemplateParam());
             sendSmsModel.setOutId(instance.getOutId());
+            sendSmsModel.setSmsUpExtendCode(instance.getSmsUpExtendCode());
             return sendSmsModel;
         }
     }

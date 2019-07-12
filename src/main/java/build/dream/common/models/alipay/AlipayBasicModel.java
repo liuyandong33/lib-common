@@ -22,9 +22,9 @@ public class AlipayBasicModel extends BasicModel {
     private String appId;
 
     @NotNull
-    @InList(value = {Constants.JSON})
+    @InList(value = {Constants.UPPER_CASE_JSON})
     @JsonIgnore
-    private String format = Constants.JSON;
+    private String format = Constants.UPPER_CASE_JSON;
 
     @Length(max = 256)
     @JsonIgnore

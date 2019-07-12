@@ -32,7 +32,7 @@ public class AliyunPushUtils {
 
     private static Map<String, String> buildCommonRequestParameters() {
         Map<String, String> commonRequestParameters = new HashMap<String, String>();
-        commonRequestParameters.put("Format", Constants.JSON);
+        commonRequestParameters.put("Format", Constants.UPPER_CASE_JSON);
         commonRequestParameters.put("RegionId", "cn-hangzhou");
         commonRequestParameters.put("Version", "2018-03-24");
         commonRequestParameters.put("SignatureMethod", "HMAC-SHA1");

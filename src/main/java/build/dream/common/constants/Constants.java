@@ -33,8 +33,10 @@ public class Constants {
     public static final String CHARSET_NAME_GB2312 = "GB2312";
     public static final String CHARSET_NAME_GB18030 = "GB18030";
 
-    public static final String FALSE = "false";
-    public static final String TRUE = "true";
+    public static final String UPPER_CASE_TRUE = "TRUE";
+    public static final String UPPER_CASE_FALSE = "FALSE";
+    public static final String LOWER_CASE_TRUE = "true";
+    public static final String LOWER_CASE_FALSE = "false";
 
     /**
      * 配置文件名称常量
@@ -344,7 +346,8 @@ public class Constants {
     // RSA
     public static final String RSA = "RSA";
     // JSON
-    public static final String JSON = "JSON";
+    public static final String UPPER_CASE_JSON = "JSON";
+    public static final String LOWER_CASE_JSON = "json";
     // utf-8
     public static final String UTF_8 = "utf-8";
 
