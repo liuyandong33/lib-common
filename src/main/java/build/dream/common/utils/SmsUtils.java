@@ -16,6 +16,7 @@ public class SmsUtils {
     private static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
     private static final String ACCESS_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
     private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
+    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
     private static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
     private static final String DY_SMS_API_URL = "https://dysmsapi.aliyuncs.com";
 
@@ -114,5 +115,25 @@ public class SmsUtils {
      */
     public static boolean verifyVerificationCode(String phoneNumber, String code) {
         return code.equals(CommonRedisUtils.get(phoneNumber));
+    }
+
+    /**
+     * 发送代理商账号
+     *
+     * @param phoneNumber
+     * @param agentCode
+     * @param password
+     */
+    public static void sendAgentAccount(String phoneNumber, String agentCode, String password) {
+        Map<String, Object> templateParamMap = new HashMap<String, Object>();
+        templateParamMap.put("agentCode", agentCode);
+        templateParamMap.put("password", password);
+        SendSmsModel sendSmsModel = SendSmsModel.builder()
+                .phoneNumbers(phoneNumber)
+                .signName(SIGN_NAME)
+                .templateCode(AGENT_ACCOUNT_TEMPLATE_CODE)
+                .templateParam(JacksonUtils.writeValueAsString(templateParamMap))
+                .build();
+        sendSms(sendSmsModel);
     }
 }
