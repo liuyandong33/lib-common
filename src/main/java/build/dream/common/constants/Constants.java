@@ -727,6 +727,8 @@ public class Constants {
 
     public static final String ALIYUN_ACCESS_KEY_ID = "aliyun.access.key.id";
     public static final String ALIYUN_ACCESS_KEY_SECRET = "aliyun.access.key.secret";
+    public static final String ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE = "aliyun.sms.api.verification.code.template.code";
+    public static final String ALIYUN_SMS_API_SIGN_NAME = "aliyun.sms.api.sign.name";
 
     public static final String PLATFORM_PUBLIC_KEY = "platform.public.key";
     public static final String PLATFORM_PRIVATE_KEY = "platform.private.key";
