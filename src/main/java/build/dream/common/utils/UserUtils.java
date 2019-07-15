@@ -22,6 +22,10 @@ public class UserUtils {
         return obtainUserInfo(userId.toString());
     }
 
+    public static void cacheUserInfo(SystemUser systemUser) {
+        CommonRedisUtils.hset(Constants.KEY_USER_INFOS, systemUser.getId().toString(), JacksonUtils.writeValueAsString(systemUser));
+    }
+
     public static List<SystemUser> batchGetUsers(List<BigInteger> userIds) {
         List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
         List<SystemUser> systemUsers = new ArrayList<SystemUser>();
