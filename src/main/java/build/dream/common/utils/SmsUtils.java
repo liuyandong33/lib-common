@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SmsUtils {
     private static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
-    private static final String ACCESS_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
+    private static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
     private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
     private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
     private static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
@@ -54,7 +54,7 @@ public class SmsUtils {
         if (StringUtils.isNotBlank(smsUpExtendCode)) {
             requestParameters.put("SmsUpExtendCode", smsUpExtendCode);
         }
-        requestParameters.put("Signature", generateSignature(requestParameters, ACCESS_SECRET));
+        requestParameters.put("Signature", generateSignature(requestParameters, ACCESS_KEY_SECRET));
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(DY_SMS_API_URL, requestParameters);
 
