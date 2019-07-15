@@ -604,10 +604,7 @@ public class Constants {
      */
     public static final String JPUSH_APP_KEY = "jpush.app.key";
     public static final String JPUSH_MASTER_SECRET = "jpush.master.secret";
-    public static final String JPUSH_API_SERVICE_URL = "jpush.api.service.url";
-    public static final String JPUSH_DEVICE_SERVICE_URL = "jpush.device.service.url";
-    public static final String JPUSH_PUSH_URI = "/push";
-    public static final String JPUSH_DEVICES_URI = "/devices";
+    public static final String JPUSH_PUSH_SERVICE_URL = "jpush.push.service.url";
 
     /**
      * 钉钉开放平台相关配置
