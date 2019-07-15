@@ -1,13 +1,16 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.Tenant;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import scala.Tuple2;
 
 import java.math.BigInteger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TenantUtils {
@@ -58,5 +61,44 @@ public class TenantUtils {
         String tenantInfo = JacksonUtils.writeValueAsString(tenant);
         CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);
         CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_code_" + tenant.getCode(), tenantInfo);
+    }
+
+    public static void rejoinCacheTenantInfos(List<Tenant> tenants) {
+        Map<String, String> tenantInfos = new HashMap<String, String>();
+        Map<String, String> jddjVenderInfos = new HashMap<String, String>();
+        for (Tenant tenant : tenants) {
+            BigInteger tenantId = tenant.getId();
+            String tenantCode = tenant.getCode();
+            String tenantInfo = JacksonUtils.writeValueAsString(tenant);
+            tenantInfos.put("_id_" + tenantId, tenantInfo);
+            tenantInfos.put("_code_" + tenantCode, tenantInfo);
+
+            String jddjVenderId = tenant.getJddjVenderId();
+            String jddjAppKey = tenant.getJddjAppKey();
+            String jddjAppSecret = tenant.getJddjAppSecret();
+
+            if (StringUtils.isBlank(jddjVenderId) || StringUtils.isBlank(jddjAppKey) || StringUtils.isBlank(jddjAppSecret)) {
+                continue;
+            }
+
+            JDDJVenderInfo jddjVenderInfo = JDDJVenderInfo.builder()
+                    .tenantId(tenantId)
+                    .tenantCode(tenantCode)
+                    .partitionCode(tenant.getPartitionCode())
+                    .venderId(jddjVenderId)
+                    .appKey(jddjAppKey)
+                    .appSecret(jddjAppSecret)
+                    .build();
+            jddjVenderInfos.put(jddjAppKey, JacksonUtils.writeValueAsString(jddjVenderInfo));
+        }
+        CommonRedisUtils.del(Constants.KEY_TENANT_INFOS);
+        if (MapUtils.isNotEmpty(tenantInfos)) {
+            CommonRedisUtils.hmset(Constants.KEY_TENANT_INFOS, tenantInfos);
+        }
+
+        CommonRedisUtils.del(Constants.KEY_JDDJ_VENDER_INFOS);
+        if (MapUtils.isNotEmpty(jddjVenderInfos)) {
+            CommonRedisUtils.hmset(Constants.KEY_JDDJ_VENDER_INFOS, jddjVenderInfos);
+        }
     }
 }

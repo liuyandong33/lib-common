@@ -2,11 +2,14 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.SystemUser;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserUtils {
@@ -31,5 +34,17 @@ public class UserUtils {
         List<SystemUser> systemUsers = new ArrayList<SystemUser>();
         userInfos.forEach(userInfo -> systemUsers.add(JacksonUtils.readValue(userInfo, SystemUser.class)));
         return systemUsers;
+    }
+
+    public static void rejoinCacheUserInfos(List<SystemUser> systemUsers) {
+        Map<String, String> userInfos = new HashMap<String, String>();
+        for (SystemUser systemUser : systemUsers) {
+            userInfos.put(systemUser.getId().toString(), JacksonUtils.writeValueAsString(systemUser));
+        }
+
+        CommonRedisUtils.del(Constants.KEY_USER_INFOS);
+        if (MapUtils.isNotEmpty(userInfos)) {
+            CommonRedisUtils.hmset(Constants.KEY_USER_INFOS, userInfos);
+        }
     }
 }
