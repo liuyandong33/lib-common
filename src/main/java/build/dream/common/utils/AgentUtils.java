@@ -22,4 +22,10 @@ public class AgentUtils {
         }
         return JacksonUtils.readValue(agentInfoJson, Agent.class);
     }
+
+    public static void cacheAgentInfo(Agent agent) {
+        String agentInfo = JacksonUtils.writeValueAsString(agent);
+        CommonRedisUtils.hset(Constants.KEY_AGENT_INFOS, "_id_" + agent.getId(), agentInfo);
+        CommonRedisUtils.hset(Constants.KEY_AGENT_INFOS, "_code_" + agent.getCode(), agentInfo);
+    }
 }

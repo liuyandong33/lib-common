@@ -53,4 +53,10 @@ public class TenantUtils {
     public static String obtainPrivateKey() {
         return WebSecurityUtils.obtainTenantUserDetails().getPrivateKey();
     }
+
+    public static void cacheTenantInfo(Tenant tenant) {
+        String tenantInfo = JacksonUtils.writeValueAsString(tenant);
+        CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);
+        CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_code_" + tenant.getCode(), tenantInfo);
+    }
 }
