@@ -121,12 +121,12 @@ public class SmsUtils {
      * 发送代理商账号
      *
      * @param phoneNumber
-     * @param agentCode
+     * @param code
      * @param password
      */
-    public static void sendAgentAccount(String phoneNumber, String agentCode, String password) {
+    public static void sendAgentAccount(String phoneNumber, String code, String password) {
         Map<String, Object> templateParamMap = new HashMap<String, Object>();
-        templateParamMap.put("agentCode", agentCode);
+        templateParamMap.put("code", code);
         templateParamMap.put("password", password);
         SendSmsModel sendSmsModel = SendSmsModel.builder()
                 .phoneNumbers(phoneNumber)
