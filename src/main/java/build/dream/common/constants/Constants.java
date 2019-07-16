@@ -1144,4 +1144,10 @@ public class Constants {
     public static final int AGENT_FORM_STATUS_NOT_AUDIT = 1;
     public static final int AGENT_FORM_STATUS_NOT_AUDITED = 2;
     public static final int AGENT_FORM_STATUS_NOT_REJECTED = 3;
+
+    public static final String CLOOPEN_ACCOUNT_SID = "cloopen.account.sid";
+    public static final String CLOOPEN_AUTH_TOKEN = "cloopen.auth.token";
+    public static final String CLOOPEN_APP_ID = "cloopen.app.id";
+    public static final String CLOOPEN_VERIFICATION_CODE_TEMPLATE_ID = "cloopen.verification.code.template.id";
+    public static final String CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID = "cloopen.agent.account.template.id";
 }

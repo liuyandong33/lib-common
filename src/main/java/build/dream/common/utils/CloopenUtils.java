@@ -1,8 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
+import build.dream.common.constants.Constants;
+import build.dream.common.models.cloopen.SendSmsModel;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.RandomStringUtils;
@@ -11,16 +12,28 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class CloopenUtils {
+    private static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_ACCOUNT_SID);
+    private static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_AUTH_TOKEN);
+    private static final String APP_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_APP_ID);
+    private static final String VERIFICATION_CODE_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_VERIFICATION_CODE_TEMPLATE_ID);
+    private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID);
     private static final String BASE_URL = "https://app.cloopen.com:8883";
 
-    public static Map<String, Object> sendSms(String accountSid, String authToken, String appId, String to, String templateId, List<String> datas) {
-        Date now = new Date();
+    public static Map<String, Object> sendSms(SendSmsModel sendSmsModel) {
+        sendSmsModel.validateAndThrow();
 
-        String timestamp = CustomDateUtils.format(now, "yyyyMMddHHmmss");
-        String sig = DigestUtils.md2Hex(accountSid + authToken + timestamp).toUpperCase();
-        String url = BASE_URL + "/" + CustomDateUtils.format(now, "yyyy-MM-dd") + "/Accounts/" + accountSid + "/SMS/TemplateSMS?sig=" + sig;
+        String accountSid = sendSmsModel.getAccountSid();
+        String authToken = sendSmsModel.getAuthToken();
+        String appId = sendSmsModel.getAppId();
+        String to = sendSmsModel.getTo();
+        String templateId = sendSmsModel.getTemplateId();
+        List<String> datas = sendSmsModel.getDatas();
 
-        String authorization = Base64.encodeBase64String(StringUtils.getBytesUtf8(accountSid + "," + timestamp));
+        String timestamp = CustomDateUtils.format(new Date(), "yyyyMMddHHmmss");
+        String sig = DigestUtils.md5Hex(accountSid + authToken + timestamp).toUpperCase();
+        String url = BASE_URL + "/2013-12-26/Accounts/" + accountSid + "/SMS/TemplateSMS?sig=" + sig;
+
+        String authorization = Base64.encodeBase64String((accountSid + ":" + timestamp).getBytes(Constants.CHARSET_UTF_8));
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Accept", "application/json");
@@ -33,7 +46,7 @@ public class CloopenUtils {
         body.put("templateId", templateId);
         body.put("datas", datas);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, headers, GsonUtils.toJson(body));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, headers, JacksonUtils.writeValueAsString(body));
         String result = webResponse.getResult();
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         String statusCode = MapUtils.getString(resultMap, "statusCode");
@@ -42,48 +55,55 @@ public class CloopenUtils {
     }
 
     /**
-     * 发送短信验证码
+     * 发送验证码
      *
      * @param phoneNumber
-     * @return
      */
-    public static String sendAuthCode(String phoneNumber, long timeout) {
-        String accountSid = "";
-        String authToken = "";
-        String appId = "";
-        String to = "";
-        String templateId = "";
+    public static void sendVerificationCode(String phoneNumber) {
+        String code = RandomStringUtils.randomNumeric(6);
         List<String> datas = new ArrayList<String>();
-
-        String authCode = RandomStringUtils.randomNumeric(6);
-        datas.add(authCode);
-        datas.add(String.valueOf(timeout));
-
-        CommonRedisUtils.setex(phoneNumber, authCode, timeout, TimeUnit.MINUTES);
-
-        sendSms(accountSid, authToken, appId, to, templateId, datas);
-        return authCode;
-    }
-
-    /**
-     * 发送短信验证码
-     *
-     * @param phoneNumber
-     * @return
-     */
-    public static String sendAuthCode(String phoneNumber) {
-        return sendAuthCode(phoneNumber, 15);
+        datas.add(code);
+        SendSmsModel sendSmsModel = SendSmsModel.builder()
+                .accountSid(ACCOUNT_SID)
+                .authToken(AUTH_TOKEN)
+                .appId(APP_ID)
+                .to(phoneNumber)
+                .templateId(VERIFICATION_CODE_TEMPLATE_ID)
+                .datas(datas)
+                .build();
+        sendSms(sendSmsModel);
+        CommonRedisUtils.setex(phoneNumber, code, 5, TimeUnit.MINUTES);
     }
 
     /**
      * 验证验证码
      *
      * @param phoneNumber
-     * @param authCode
+     * @param code
      * @return
      */
-    public static boolean verifyAuthCode(String phoneNumber, String authCode) {
-        String cachedAuthCode = CommonRedisUtils.get(phoneNumber);
-        return authCode.equals(cachedAuthCode);
+    public static boolean verifyVerificationCode(String phoneNumber, String code) {
+        return code.equals(CommonRedisUtils.get(phoneNumber));
+    }
+
+    /**
+     * 发送代理商账号
+     *
+     * @param phoneNumber
+     * @param code
+     * @param password
+     */
+    public static void sendAgentAccount(String phoneNumber, String code, String password) {
+        List<String> datas = new ArrayList<String>();
+        datas.add(code);
+        datas.add(password);
+        SendSmsModel sendSmsModel = SendSmsModel.builder()
+                .accountSid(ACCOUNT_SID)
+                .authToken(AUTH_TOKEN)
+                .appId(APP_ID)
+                .to(phoneNumber)
+                .templateId(AGENT_ACCOUNT_TEMPLATE_ID)
+                .build();
+        sendSms(sendSmsModel);
     }
 }
