@@ -103,6 +103,7 @@ public class CloopenUtils {
                 .appId(APP_ID)
                 .to(phoneNumber)
                 .templateId(AGENT_ACCOUNT_TEMPLATE_ID)
+                .datas(datas)
                 .build();
         sendSms(sendSmsModel);
     }
