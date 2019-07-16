@@ -1145,11 +1145,11 @@ public class Constants {
     public static final int AGENT_FORM_STATUS_NOT_AUDITED = 2;
     public static final int AGENT_FORM_STATUS_NOT_REJECTED = 3;
 
-    public static final String CLOOPEN_ACCOUNT_SID = "cloopen.account.sid";
-    public static final String CLOOPEN_AUTH_TOKEN = "cloopen.auth.token";
-    public static final String CLOOPEN_APP_ID = "cloopen.app.id";
-    public static final String CLOOPEN_VERIFICATION_CODE_TEMPLATE_ID = "cloopen.verification.code.template.id";
-    public static final String CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID = "cloopen.agent.account.template.id";
+    public static final String RONG_LIAN_ACCOUNT_SID = "rong.lian.account.sid";
+    public static final String RONG_LIAN_AUTH_TOKEN = "rong.lian.auth.token";
+    public static final String RONG_LIAN_APP_ID = "rong.lian.app.id";
+    public static final String RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID = "rong.lian.verification.code.template.id";
+    public static final String RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID = "rong.lian.agent.account.template.id";
 
     public static final String SMS_CHANNEL_ALIYUN = "ALIYUN";
     public static final String SMS_CHANNEL_RONG_LIAN = "RONG_LIAN";

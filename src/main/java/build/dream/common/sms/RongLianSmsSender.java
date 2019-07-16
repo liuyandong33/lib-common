@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RongLianSmsSender implements SmsSender {
-    private static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_ACCOUNT_SID);
-    private static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_AUTH_TOKEN);
-    private static final String APP_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_APP_ID);
-    private static final String VERIFICATION_CODE_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_VERIFICATION_CODE_TEMPLATE_ID);
-    private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID);
+    private static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_ACCOUNT_SID);
+    private static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_AUTH_TOKEN);
+    private static final String APP_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_APP_ID);
+    private static final String VERIFICATION_CODE_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID);
+    private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID);
 
     @Override
     public void sendVerificationCode(String phoneNumber, String code, int timeout) {
