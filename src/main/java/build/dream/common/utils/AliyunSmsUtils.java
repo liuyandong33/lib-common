@@ -6,18 +6,13 @@ import build.dream.common.models.sms.SendSmsModel;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class AliyunSmsUtils {
     private static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
     private static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
-    private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
-    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
-    private static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
     private static final String DY_SMS_API_URL = "https://dysmsapi.aliyuncs.com";
 
     /**
@@ -87,55 +82,5 @@ public class AliyunSmsUtils {
         stringBuilder.append("&");
         stringBuilder.append(UrlUtils.encode(StringUtils.join(requestParameterPairs, "&"), Constants.CHARSET_NAME_UTF_8));
         return Base64.encodeBase64String(HmacUtils.hmacSha1(accessSecret + "&", stringBuilder.toString()));
-    }
-
-    /**
-     * 发送验证码
-     *
-     * @param phoneNumber
-     */
-    public static void sendVerificationCode(String phoneNumber) {
-        String code = RandomStringUtils.randomNumeric(6);
-        Map<String, Object> templateParamMap = new HashMap<String, Object>();
-        templateParamMap.put("code", code);
-        SendSmsModel sendSmsModel = SendSmsModel.builder()
-                .phoneNumbers(phoneNumber)
-                .signName(SIGN_NAME)
-                .templateCode(VERIFICATION_CODE_TEMPLATE_CODE)
-                .templateParam(JacksonUtils.writeValueAsString(templateParamMap))
-                .build();
-        sendSms(sendSmsModel);
-        CommonRedisUtils.setex(phoneNumber, code, 5, TimeUnit.MINUTES);
-    }
-
-    /**
-     * 验证验证码
-     *
-     * @param phoneNumber
-     * @param code
-     * @return
-     */
-    public static boolean verifyVerificationCode(String phoneNumber, String code) {
-        return code.equals(CommonRedisUtils.get(phoneNumber));
-    }
-
-    /**
-     * 发送代理商账号
-     *
-     * @param phoneNumber
-     * @param code
-     * @param password
-     */
-    public static void sendAgentAccount(String phoneNumber, String code, String password) {
-        Map<String, Object> templateParamMap = new HashMap<String, Object>();
-        templateParamMap.put("code", code);
-        templateParamMap.put("password", password);
-        SendSmsModel sendSmsModel = SendSmsModel.builder()
-                .phoneNumbers(phoneNumber)
-                .signName(SIGN_NAME)
-                .templateCode(AGENT_ACCOUNT_TEMPLATE_CODE)
-                .templateParam(JacksonUtils.writeValueAsString(templateParamMap))
-                .build();
-        sendSms(sendSmsModel);
     }
 }
