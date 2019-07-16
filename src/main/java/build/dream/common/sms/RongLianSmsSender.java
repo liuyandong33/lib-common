@@ -36,7 +36,7 @@ public class RongLianSmsSender implements SmsSender {
         List<String> datas = new ArrayList<String>();
         datas.add(code);
         datas.add(password);
-        build.dream.common.models.cloopen.SendSmsModel sendSmsModel = build.dream.common.models.cloopen.SendSmsModel.builder()
+        SendSmsModel sendSmsModel = SendSmsModel.builder()
                 .accountSid(ACCOUNT_SID)
                 .authToken(AUTH_TOKEN)
                 .appId(APP_ID)
