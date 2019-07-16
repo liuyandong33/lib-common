@@ -1150,4 +1150,8 @@ public class Constants {
     public static final String CLOOPEN_APP_ID = "cloopen.app.id";
     public static final String CLOOPEN_VERIFICATION_CODE_TEMPLATE_ID = "cloopen.verification.code.template.id";
     public static final String CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID = "cloopen.agent.account.template.id";
+
+    public static final String SMS_CHANNEL_ALIYUN = "ALIYUN";
+    public static final String SMS_CHANNEL_RONG_LIAN = "RONG_LIAN";
+    public static final String SMS_CHANNEL = "sms.channel";
 }
