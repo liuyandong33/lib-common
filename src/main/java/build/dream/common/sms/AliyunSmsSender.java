@@ -18,9 +18,10 @@ public class AliyunSmsSender implements SmsSender {
     private static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
 
     @Override
-    public void sendVerificationCode(String phoneNumber, String code) {
+    public void sendVerificationCode(String phoneNumber, String code, int timeout) {
         Map<String, Object> templateParamMap = new HashMap<String, Object>();
         templateParamMap.put("code", code);
+        templateParamMap.put("timeout", timeout);
         SendSmsModel sendSmsModel = SendSmsModel.builder()
                 .phoneNumbers(phoneNumber)
                 .signName(SIGN_NAME)

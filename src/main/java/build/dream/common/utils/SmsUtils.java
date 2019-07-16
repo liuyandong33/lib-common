@@ -42,7 +42,7 @@ public class SmsUtils {
     public static void sendVerificationCode(String phoneNumber) {
         validateSmsChannelConfig();
         String code = RandomStringUtils.randomNumeric(6);
-        SMS_SENDER.sendVerificationCode(phoneNumber, code);
+        SMS_SENDER.sendVerificationCode(phoneNumber, code, 5);
         CommonRedisUtils.setex(phoneNumber, code, 5, TimeUnit.MINUTES);
     }
 

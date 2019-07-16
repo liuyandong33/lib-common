@@ -7,7 +7,7 @@ public interface SmsSender {
      * @param phoneNumber
      * @param code
      */
-    void sendVerificationCode(String phoneNumber, String code);
+    void sendVerificationCode(String phoneNumber, String code, int timeout);
 
     /**
      * 发送代理商账号

@@ -16,9 +16,10 @@ public class RongLianSmsSender implements SmsSender {
     private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.CLOOPEN_AGENT_ACCOUNT_TEMPLATE_ID);
 
     @Override
-    public void sendVerificationCode(String phoneNumber, String code) {
+    public void sendVerificationCode(String phoneNumber, String code, int timeout) {
         List<String> datas = new ArrayList<String>();
         datas.add(code);
+        datas.add(String.valueOf(timeout));
         SendSmsModel sendSmsModel = SendSmsModel.builder()
                 .accountSid(ACCOUNT_SID)
                 .authToken(AUTH_TOKEN)
