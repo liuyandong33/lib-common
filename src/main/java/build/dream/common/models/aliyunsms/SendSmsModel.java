@@ -1,4 +1,4 @@
-package build.dream.common.models.sms;
+package build.dream.common.models.aliyunsms;
 
 import build.dream.common.models.BasicModel;
 

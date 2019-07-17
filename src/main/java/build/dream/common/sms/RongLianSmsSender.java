@@ -1,7 +1,7 @@
 package build.dream.common.sms;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.models.cloopen.SendSmsModel;
+import build.dream.common.models.ronglian.SendSmsModel;
 import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.RongLianUtils;
 

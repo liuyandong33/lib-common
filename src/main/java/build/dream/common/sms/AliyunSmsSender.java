@@ -1,7 +1,7 @@
 package build.dream.common.sms;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.models.sms.SendSmsModel;
+import build.dream.common.models.aliyunsms.SendSmsModel;
 import build.dream.common.utils.AliyunSmsUtils;
 import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.JacksonUtils;

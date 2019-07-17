@@ -1,4 +1,4 @@
-package build.dream.common.models.cloopen;
+package build.dream.common.models.ronglian;
 
 import build.dream.common.models.BasicModel;
 
