@@ -17,7 +17,7 @@ public class OSSUtils {
         policyMap.put("expiration", simpleDateFormat.format(expiration));
         policyMap.put("conditions", conditions);
 
-        String policy = Base64.encodeBase64String(GsonUtils.toJson(policyMap).getBytes(Constants.CHARSET_UTF_8));
+        String policy = Base64.encodeBase64String(JacksonUtils.writeValueAsString(policyMap).getBytes(Constants.CHARSET_UTF_8));
         String signature = Base64.encodeBase64String(HmacUtils.hmacSha1(accessKey.getBytes(Constants.CHARSET_UTF_8), policy.getBytes(Constants.CHARSET_UTF_8)));
 
         Map<String, String> data = new HashMap<String, String>();
@@ -26,7 +26,7 @@ public class OSSUtils {
         data.put("signature", signature);
         data.put("dir", dir);
         data.put("host", host);
-        data.put("callback", Base64.encodeBase64String(GsonUtils.toJson(callback).getBytes(Constants.CHARSET_UTF_8)));
+        data.put("callback", Base64.encodeBase64String(JacksonUtils.writeValueAsString(callback).getBytes(Constants.CHARSET_UTF_8)));
         return data;
     }
 }
