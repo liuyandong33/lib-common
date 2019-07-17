@@ -3,20 +3,19 @@ package build.dream.common.utils;
 import build.dream.common.crypto.BCrypt;
 
 import java.security.SecureRandom;
+import java.util.Objects;
 
 public class BCryptUtils {
     public static String encode(CharSequence rawPassword, int strength, SecureRandom secureRandom) {
-        String salt;
-        if (strength > 0) {
-            if (secureRandom != null) {
-                salt = BCrypt.gensalt(strength, secureRandom);
-            } else {
-                salt = BCrypt.gensalt(strength);
-            }
-        } else {
-            salt = BCrypt.gensalt();
+        if (strength <= 0) {
+            return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt());
         }
-        return BCrypt.hashpw(rawPassword.toString(), salt);
+
+        if (Objects.isNull(secureRandom)) {
+            return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(strength));
+        }
+
+        return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(strength, secureRandom));
     }
 
     public static String encode(CharSequence rawPassword, int strength) {
