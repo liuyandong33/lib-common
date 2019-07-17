@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class AliyunSmsSender implements SmsSender {
     /**
-     * 阿里云配置
+     * 阿里云短信服务配置
      */
     private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
     private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
