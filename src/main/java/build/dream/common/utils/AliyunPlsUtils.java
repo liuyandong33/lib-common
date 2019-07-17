@@ -29,6 +29,12 @@ public class AliyunPlsUtils {
         return commonRequestParameters;
     }
 
+    /**
+     * 调用阿里云隐私号保护api
+     *
+     * @param requestParameters
+     * @return
+     */
     public static Map<String, Object> callAliyunPlsApi(Map<String, String> requestParameters) {
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
 
