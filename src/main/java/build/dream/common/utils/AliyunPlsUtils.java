@@ -26,7 +26,7 @@ public class AliyunPlsUtils {
 
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "SendSms");
+        requestParameters.put("Action", "BindAxb");
         requestParameters.put("Format", Constants.LOWER_CASE_JSON);
         requestParameters.put("RegionId", "cn-hangzhou");
         requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
@@ -38,7 +38,6 @@ public class AliyunPlsUtils {
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PhoneNoB", phoneNoB);
         requestParameters.put("PoolKey", poolKey);
-        requestParameters.put("Action", "BindAxb");
 
         ApplicationHandler.ifNotBlankPut(requestParameters, "ExpectCity", expectCity);
 
@@ -84,7 +83,7 @@ public class AliyunPlsUtils {
 
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "SendSms");
+        requestParameters.put("Action", "BindAxn");
         requestParameters.put("Format", Constants.LOWER_CASE_JSON);
         requestParameters.put("RegionId", "cn-hangzhou");
         requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
@@ -95,7 +94,6 @@ public class AliyunPlsUtils {
         requestParameters.put("Expiration", expiration);
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PoolKey", poolKey);
-        requestParameters.put("Action", "BindAxn");
 
         ApplicationHandler.ifNotBlankPut(requestParameters, "ExpectCity", expectCity);
 
@@ -149,7 +147,7 @@ public class AliyunPlsUtils {
 
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "SendSms");
+        requestParameters.put("Action", "BindAxnExtension");
         requestParameters.put("Format", Constants.LOWER_CASE_JSON);
         requestParameters.put("RegionId", "cn-hangzhou");
         requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
@@ -160,7 +158,6 @@ public class AliyunPlsUtils {
         requestParameters.put("Expiration", expiration);
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PoolKey", poolKey);
-        requestParameters.put("Action", "BindAxnExtension");
 
         ApplicationHandler.ifNotBlankPut(requestParameters, "ExpectCity", expectCity);
         ApplicationHandler.ifNotBlankPut(requestParameters, "Extension", extension);
