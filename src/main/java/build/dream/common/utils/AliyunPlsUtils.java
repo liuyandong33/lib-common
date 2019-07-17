@@ -5,12 +5,19 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunpls.BindAxbModel;
 import build.dream.common.models.aliyunpls.BindAxnExtensionModel;
 import build.dream.common.models.aliyunpls.BindAxnModel;
+import build.dream.common.models.aliyunpls.UnbindSubscriptionModel;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
 public class AliyunPlsUtils {
+    /**
+     * 添加AXB号码的绑定关系
+     *
+     * @param bindAxbModel
+     * @return
+     */
     public static Map<String, Object> bindAxb(BindAxbModel bindAxbModel) {
         bindAxbModel.validateAndThrow();
 
@@ -67,6 +74,12 @@ public class AliyunPlsUtils {
         return resultMap;
     }
 
+    /**
+     * 添加AXN号码的绑定关系
+     *
+     * @param bindAxnModel
+     * @return
+     */
     public static Map<String, Object> bindAxn(BindAxnModel bindAxnModel) {
         bindAxnModel.validateAndThrow();
 
@@ -131,6 +144,12 @@ public class AliyunPlsUtils {
         return resultMap;
     }
 
+    /**
+     * 添加AXN分机号码的绑定关系
+     *
+     * @param bindAxnExtensionModel
+     * @return
+     */
     public static Map<String, Object> bindAxnExtension(BindAxnExtensionModel bindAxnExtensionModel) {
         bindAxnExtensionModel.validateAndThrow();
 
@@ -180,6 +199,48 @@ public class AliyunPlsUtils {
 
         if (StringUtils.isNotBlank(phoneNoX)) {
             requestParameters.put("PhoneNoX", phoneNoX);
+        }
+
+        requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String code = MapUtils.getString(resultMap, "Code");
+        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
+        return resultMap;
+    }
+
+    /**
+     * 解除号码的绑定关系
+     *
+     * @param unbindSubscriptionModel
+     * @return
+     */
+    public static Map<String, Object> UnbindSubscription(UnbindSubscriptionModel unbindSubscriptionModel) {
+        unbindSubscriptionModel.validateAndThrow();
+
+        String poolKey = unbindSubscriptionModel.getPoolKey();
+        String secretNo = unbindSubscriptionModel.getSecretNo();
+        String subsId = unbindSubscriptionModel.getSubsId();
+        String productType = unbindSubscriptionModel.getProductType();
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
+        requestParameters.put("Action", "UnbindSubscription");
+        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
+        requestParameters.put("RegionId", "cn-hangzhou");
+        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
+        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
+        requestParameters.put("SignatureVersion", "1.0");
+        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
+        requestParameters.put("Version", "2017-05-25");
+        requestParameters.put("PoolKey", poolKey);
+        requestParameters.put("SecretNo", secretNo);
+        requestParameters.put("SubsId", subsId);
+
+        if (StringUtils.isNotBlank(productType)) {
+            requestParameters.put("ProductType", productType);
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
