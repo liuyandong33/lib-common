@@ -320,8 +320,8 @@ public class BCrypt {
     }
 
     private void init_key() {
-        P = (int[]) P_orig.clone();
-        S = (int[]) S_orig.clone();
+        P = P_orig.clone();
+        S = S_orig.clone();
     }
 
     private void key(byte key[]) {
