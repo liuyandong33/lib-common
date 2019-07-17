@@ -71,6 +71,6 @@ public class LogUtils {
             stackInfo.put("lineNumber", stackTraceElement.getLineNumber());
             stackInfos.add(stackInfo);
         }
-        return GsonUtils.toJson(stackInfos);
+        return JacksonUtils.writeValueAsString(stackInfos);
     }
 }
