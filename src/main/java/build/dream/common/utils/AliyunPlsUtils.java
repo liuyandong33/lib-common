@@ -10,6 +10,35 @@ import java.util.*;
 
 public class AliyunPlsUtils {
     /**
+     * 构造公共请求参数
+     *
+     * @param action：API 的名称
+     * @return
+     */
+    public static Map<String, String> buildCommonRequestParameters(String action) {
+        Map<String, String> commonRequestParameters = new HashMap<String, String>();
+        commonRequestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
+        commonRequestParameters.put("Action", action);
+        commonRequestParameters.put("Format", Constants.LOWER_CASE_JSON);
+        commonRequestParameters.put("RegionId", "cn-hangzhou");
+        commonRequestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
+        commonRequestParameters.put("SignatureNonce", UUID.randomUUID().toString());
+        commonRequestParameters.put("SignatureVersion", "1.0");
+        commonRequestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
+        commonRequestParameters.put("Version", "2017-05-25");
+        return commonRequestParameters;
+    }
+
+    public static Map<String, Object> callAliyunPlsApi(Map<String, String> requestParameters) {
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String code = MapUtils.getString(resultMap, "Code");
+        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
+        return resultMap;
+    }
+
+    /**
      * 添加AXB号码的绑定关系
      *
      * @param bindAxbModel
@@ -28,16 +57,7 @@ public class AliyunPlsUtils {
         String outOrderId = bindAxbModel.getOutOrderId();
         String phoneNoX = bindAxbModel.getPhoneNoX();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "BindAxb");
-        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
-        requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
-        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
-        requestParameters.put("SignatureVersion", "1.0");
-        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
-        requestParameters.put("Version", "2017-05-25");
+        Map<String, String> requestParameters = new HashMap<String, String>(buildCommonRequestParameters("BindAxb"));
         requestParameters.put("Expiration", expiration);
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PhoneNoB", phoneNoB);
@@ -62,13 +82,7 @@ public class AliyunPlsUtils {
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
-
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        String code = MapUtils.getString(resultMap, "Code");
-        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
-        return resultMap;
+        return callAliyunPlsApi(requestParameters);
     }
 
     /**
@@ -91,16 +105,7 @@ public class AliyunPlsUtils {
         String phoneNoB = bindAxnModel.getPhoneNoB();
         String phoneNoX = bindAxnModel.getPhoneNoX();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "BindAxn");
-        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
-        requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
-        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
-        requestParameters.put("SignatureVersion", "1.0");
-        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
-        requestParameters.put("Version", "2017-05-25");
+        Map<String, String> requestParameters = new HashMap<String, String>(buildCommonRequestParameters("BindAxn"));
         requestParameters.put("Expiration", expiration);
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PoolKey", poolKey);
@@ -132,13 +137,7 @@ public class AliyunPlsUtils {
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
-
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        String code = MapUtils.getString(resultMap, "Code");
-        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
-        return resultMap;
+        return callAliyunPlsApi(requestParameters);
     }
 
     /**
@@ -161,16 +160,7 @@ public class AliyunPlsUtils {
         String phoneNoB = bindAxnExtensionModel.getPhoneNoB();
         String phoneNoX = bindAxnExtensionModel.getPhoneNoX();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "BindAxnExtension");
-        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
-        requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
-        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
-        requestParameters.put("SignatureVersion", "1.0");
-        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
-        requestParameters.put("Version", "2017-05-25");
+        Map<String, String> requestParameters = new HashMap<String, String>(buildCommonRequestParameters("BindAxnExtension"));
         requestParameters.put("Expiration", expiration);
         requestParameters.put("PhoneNoA", phoneNoA);
         requestParameters.put("PoolKey", poolKey);
@@ -199,13 +189,7 @@ public class AliyunPlsUtils {
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
-
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        String code = MapUtils.getString(resultMap, "Code");
-        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
-        return resultMap;
+        return callAliyunPlsApi(requestParameters);
     }
 
     /**
@@ -222,16 +206,7 @@ public class AliyunPlsUtils {
         String subsId = unbindSubscriptionModel.getSubsId();
         String productType = unbindSubscriptionModel.getProductType();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "UnbindSubscription");
-        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
-        requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
-        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
-        requestParameters.put("SignatureVersion", "1.0");
-        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
-        requestParameters.put("Version", "2017-05-25");
+        Map<String, String> requestParameters = new HashMap<String, String>(buildCommonRequestParameters("UnbindSubscription"));
         requestParameters.put("PoolKey", poolKey);
         requestParameters.put("SecretNo", secretNo);
         requestParameters.put("SubsId", subsId);
@@ -241,13 +216,7 @@ public class AliyunPlsUtils {
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
-
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        String code = MapUtils.getString(resultMap, "Code");
-        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
-        return resultMap;
+        return callAliyunPlsApi(requestParameters);
     }
 
     /**
@@ -270,16 +239,7 @@ public class AliyunPlsUtils {
         String phoneNoB = updateSubscriptionModel.getPhoneNoB();
         String productType = updateSubscriptionModel.getProductType();
 
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
-        requestParameters.put("Action", "UpdateSubscription");
-        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
-        requestParameters.put("RegionId", "cn-hangzhou");
-        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
-        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
-        requestParameters.put("SignatureVersion", "1.0");
-        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
-        requestParameters.put("Version", "2017-05-25");
+        Map<String, String> requestParameters = new HashMap<String, String>(buildCommonRequestParameters("UpdateSubscription"));
         requestParameters.put("OperateType", operateType);
         requestParameters.put("PhoneNoX", phoneNoX);
         requestParameters.put("PoolKey", poolKey);
@@ -310,12 +270,6 @@ public class AliyunPlsUtils {
         }
 
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
-
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        String code = MapUtils.getString(resultMap, "Code");
-        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
-        return resultMap;
+        return callAliyunPlsApi(requestParameters);
     }
 }
