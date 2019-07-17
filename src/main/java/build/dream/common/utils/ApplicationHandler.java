@@ -1128,12 +1128,12 @@ public class ApplicationHandler {
                 if (writeMethod == null) {
                     continue;
                 }
-                ReflectionUtils.makeAccessible(writeMethod);
                 Object value = properties.get(propertyDescriptor.getName());
                 if (value == null && ArrayUtils.contains(Constants.BASIC_DATA_TYPES, propertyDescriptor.getPropertyType())) {
                     continue;
                 }
 
+                ReflectionUtils.makeAccessible(writeMethod);
                 ReflectionUtils.invokeMethod(writeMethod, t, value);
             }
             return t;
