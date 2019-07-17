@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import build.dream.common.crypto.BCrypt;
 
 import java.security.SecureRandom;
 
