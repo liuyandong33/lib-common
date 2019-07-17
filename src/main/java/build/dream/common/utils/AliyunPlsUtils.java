@@ -2,10 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.aliyunpls.BindAxbModel;
-import build.dream.common.models.aliyunpls.BindAxnExtensionModel;
-import build.dream.common.models.aliyunpls.BindAxnModel;
-import build.dream.common.models.aliyunpls.UnbindSubscriptionModel;
+import build.dream.common.models.aliyunpls.*;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -217,7 +214,7 @@ public class AliyunPlsUtils {
      * @param unbindSubscriptionModel
      * @return
      */
-    public static Map<String, Object> UnbindSubscription(UnbindSubscriptionModel unbindSubscriptionModel) {
+    public static Map<String, Object> unbindSubscription(UnbindSubscriptionModel unbindSubscriptionModel) {
         unbindSubscriptionModel.validateAndThrow();
 
         String poolKey = unbindSubscriptionModel.getPoolKey();
@@ -238,6 +235,75 @@ public class AliyunPlsUtils {
         requestParameters.put("PoolKey", poolKey);
         requestParameters.put("SecretNo", secretNo);
         requestParameters.put("SubsId", subsId);
+
+        if (StringUtils.isNotBlank(productType)) {
+            requestParameters.put("ProductType", productType);
+        }
+
+        requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_PLS_API_URL, requestParameters);
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String code = MapUtils.getString(resultMap, "Code");
+        ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
+        return resultMap;
+    }
+
+    /**
+     * 修改绑定关系
+     *
+     * @param updateSubscriptionModel
+     * @return
+     */
+    public static Map<String, Object> updateSubscription(UpdateSubscriptionModel updateSubscriptionModel) {
+        updateSubscriptionModel.validateAndThrow();
+
+        String operateType = updateSubscriptionModel.getOperateType();
+        String phoneNoX = updateSubscriptionModel.getPhoneNoX();
+        String poolKey = updateSubscriptionModel.getPoolKey();
+        String subsId = updateSubscriptionModel.getSubsId();
+        String callRestrict = updateSubscriptionModel.getCallRestrict();
+        String expiration = updateSubscriptionModel.getExpiration();
+        String groupId = updateSubscriptionModel.getGroupId();
+        String phoneNoA = updateSubscriptionModel.getPhoneNoA();
+        String phoneNoB = updateSubscriptionModel.getPhoneNoB();
+        String productType = updateSubscriptionModel.getProductType();
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
+        requestParameters.put("Action", "UpdateSubscription");
+        requestParameters.put("Format", Constants.LOWER_CASE_JSON);
+        requestParameters.put("RegionId", "cn-hangzhou");
+        requestParameters.put("SignatureMethod", Constants.HMAC_SHA1);
+        requestParameters.put("SignatureNonce", UUID.randomUUID().toString());
+        requestParameters.put("SignatureVersion", "1.0");
+        requestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
+        requestParameters.put("Version", "2017-05-25");
+        requestParameters.put("OperateType", operateType);
+        requestParameters.put("PhoneNoX", phoneNoX);
+        requestParameters.put("PoolKey", poolKey);
+        requestParameters.put("SubsId", subsId);
+
+        if (StringUtils.isNotBlank(callRestrict)) {
+            requestParameters.put("CallRestrict", callRestrict);
+        }
+
+        if (StringUtils.isNotBlank(expiration)) {
+            requestParameters.put("Expiration", expiration);
+        }
+
+        if (StringUtils.isNotBlank(groupId)) {
+            requestParameters.put("GroupId", groupId);
+        }
+
+        if (StringUtils.isNotBlank(phoneNoA)) {
+            requestParameters.put("PhoneNoA", phoneNoA);
+        }
+
+        if (StringUtils.isNotBlank(phoneNoB)) {
+            requestParameters.put("PhoneNoB", phoneNoB);
+        }
 
         if (StringUtils.isNotBlank(productType)) {
             requestParameters.put("ProductType", productType);
