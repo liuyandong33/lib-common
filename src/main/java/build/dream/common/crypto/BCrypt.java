@@ -202,8 +202,7 @@ public class BCrypt {
     private int P[];
     private int S[];
 
-    private static void encode_base64(byte d[], int len, StringBuilder rs)
-            throws IllegalArgumentException {
+    private static void encode_base64(byte d[], int len, StringBuilder rs) throws IllegalArgumentException {
         int off = 0;
         int c1, c2;
 
@@ -278,7 +277,6 @@ public class BCrypt {
             out.write(o);
             ++olen;
         }
-
         return out.toByteArray();
     }
 
