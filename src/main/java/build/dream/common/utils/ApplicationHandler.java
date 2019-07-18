@@ -8,6 +8,7 @@ import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
+import build.dream.common.functions.NoThrowFunction;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
@@ -1210,5 +1211,13 @@ public class ApplicationHandler {
             map.put(tuple2._1(), tuple2._2());
         }
         return map;
+    }
+
+    public static <T> T noThrowCallMethod(NoThrowFunction<T> noThrowFunction) {
+        try {
+            return noThrowFunction.call();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
