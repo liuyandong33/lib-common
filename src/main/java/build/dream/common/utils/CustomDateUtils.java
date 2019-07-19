@@ -13,11 +13,7 @@ public class CustomDateUtils {
     }
 
     public static Date parse(SimpleDateFormat simpleDateFormat, String source) {
-        try {
-            return simpleDateFormat.parse(source);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return ApplicationHandler.callNoThrowMethod(() -> simpleDateFormat.parse(source));
     }
 
     public static String format(Date date, String pattern) {
