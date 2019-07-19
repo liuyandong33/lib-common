@@ -82,13 +82,7 @@ public class JacksonUtils {
     }
 
     public static String writeValueAsString(Object object, String datePattern, JsonInclude.Include serializationInclusion, Module module) {
-        String jsonString = null;
-        try {
-            jsonString = obtainObjectMapper(datePattern, serializationInclusion, module).writeValueAsString(object);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return jsonString;
+        return ApplicationHandler.callNoThrowMethod(() -> obtainObjectMapper(datePattern, serializationInclusion, module).writeValueAsString(object));
     }
 
     public static <T> T readValue(String content, Class<T> clazz) {
@@ -96,13 +90,7 @@ public class JacksonUtils {
     }
 
     public static <T> T readValue(String content, Class<T> clazz, String datePattern) {
-        T t = null;
-        try {
-            t = obtainObjectMapper(datePattern, null, null).readValue(content, clazz);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return t;
+        return ApplicationHandler.callNoThrowMethod(() -> obtainObjectMapper(datePattern, null, null).readValue(content, clazz));
     }
 
     public static <T> List<T> readValueAsList(String content, Class<T> elementClass) {
@@ -110,14 +98,10 @@ public class JacksonUtils {
     }
 
     public static <T> List<T> readValueAsList(String content, Class<T> elementClass, String datePattern) {
-        List<T> list = null;
-        try {
+        return ApplicationHandler.callNoThrowMethod(() -> {
             ObjectMapper objectMapper = obtainObjectMapper(datePattern, null, null);
-            list = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(List.class, elementClass));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return list;
+            return objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(List.class, elementClass));
+        });
     }
 
     public static <T> Set<T> readValueAsSet(String content, Class<T> elementClass) {
@@ -125,14 +109,10 @@ public class JacksonUtils {
     }
 
     public static <T> Set<T> readValueAsSet(String content, Class<T> elementClass, String datePattern) {
-        Set<T> set = null;
-        try {
+        return ApplicationHandler.callNoThrowMethod(() -> {
             ObjectMapper objectMapper = obtainObjectMapper(datePattern, null, null);
-            set = objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return set;
+            return objectMapper.readValue(content, objectMapper.getTypeFactory().constructCollectionType(Set.class, elementClass));
+        });
     }
 
     public static <K, V> Map<K, V> readValueAsMap(String content, Class<K> keyClass, Class<V> valueClass) {
@@ -140,13 +120,9 @@ public class JacksonUtils {
     }
 
     public static <K, V> Map<K, V> readValueAsMap(String content, Class<K> keyClass, Class<V> valueClass, String datePattern) {
-        Map<K, V> map = null;
-        try {
+        return ApplicationHandler.callNoThrowMethod(() -> {
             ObjectMapper objectMapper = obtainObjectMapper(datePattern, null, null);
-            map = objectMapper.readValue(content, objectMapper.getTypeFactory().constructMapType(Map.class, keyClass, valueClass));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return map;
+            return objectMapper.readValue(content, objectMapper.getTypeFactory().constructMapType(Map.class, keyClass, valueClass));
+        });
     }
 }

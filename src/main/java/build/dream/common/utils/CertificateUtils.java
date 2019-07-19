@@ -27,12 +27,10 @@ public class CertificateUtils {
      * @return
      */
     public static Certificate restoreCertificate(byte[] certificateBytes, String type) {
-        try {
+        return ApplicationHandler.callNoThrowMethod(() -> {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(certificateBytes);
             CertificateFactory certificateFactory = CertificateFactory.getInstance(type);
             return certificateFactory.generateCertificate(byteArrayInputStream);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 }
