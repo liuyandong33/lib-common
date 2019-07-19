@@ -1,15 +1,44 @@
 package build.dream.common.models.web;
 
+import build.dream.common.constants.Constants;
+
 import java.net.Proxy;
 import java.util.Map;
 
 public class DoGetWithRequestParametersModel {
+    /**
+     * 请求地址
+     */
     private String requestUrl;
+
+    /**
+     * 读取超时时间
+     */
     private int readTimeout;
+
+    /**
+     * 建立连接超时时间
+     */
     private int connectTimeout;
+
+    /**
+     * 请求头
+     */
     private Map<String, String> headers;
+
+    /**
+     * 请求参数
+     */
     private Map<String, String> requestParameters;
-    private String charsetName;
+
+    /**
+     * 字符集
+     */
+    private String charsetName = Constants.CHARSET_NAME_UTF_8;
+
+    /**
+     * 代理
+     */
     private Proxy proxy;
 
     public String getRequestUrl() {
