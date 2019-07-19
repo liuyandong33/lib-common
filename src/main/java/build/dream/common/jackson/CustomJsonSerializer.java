@@ -11,13 +11,13 @@ public class CustomJsonSerializer extends JsonSerializer<BigInteger> {
     private static final BigInteger JS_LONG_MAX_VALUE = BigInteger.valueOf(999999999999999L);
 
     @Override
-    public void serialize(BigInteger value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
+    public void serialize(BigInteger value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         if (value.compareTo(JS_LONG_MAX_VALUE) > 0) {
-            gen.writeString(value.toString());
+            jsonGenerator.writeString(value.toString());
             return;
         }
 
-        gen.writeNumber(value);
+        jsonGenerator.writeNumber(value);
     }
 
     @Override
