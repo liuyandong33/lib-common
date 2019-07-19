@@ -229,7 +229,14 @@ public class ApplicationHandler {
      * @return
      */
     public static String getRequestUrl(HttpServletRequest httpServletRequest) {
-        return httpServletRequest.getRequestURL().toString();
+        String proto = httpServletRequest.getHeader("X-Forwarded-Proto");
+        String schema = httpServletRequest.getScheme();
+
+        String url = httpServletRequest.getRequestURL().toString();
+        if (StringUtils.isNotBlank(proto) && StringUtils.isNotBlank(schema) && !proto.equals(schema)) {
+            url = proto + url.substring(url.indexOf("://"));
+        }
+        return url;
     }
 
     /**
