@@ -1106,17 +1106,15 @@ public class ApplicationHandler {
             LogUtils.error(errorMessage, className, methodName, e, requestParameters);
             apiRest = new ApiRest(e);
         }
-        return GsonUtils.toJson(apiRest);
+        return JacksonUtils.writeValueAsString(apiRest);
     }
 
     public static <T> T clone(Class<T> beanClass, Object originalBean) {
-        try {
+        return callNoThrowMethod(() -> {
             T t = beanClass.newInstance();
             BeanUtils.copyProperties(t, originalBean);
             return t;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     public static Map<String, Object> toMap(Object object) {
@@ -1136,7 +1134,7 @@ public class ApplicationHandler {
     }
 
     public static <T> T buildObject(Class<T> beanClass, Map<String, Object> properties) {
-        try {
+        return callNoThrowMethod(() -> {
             T t = beanClass.newInstance();
             BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
@@ -1154,9 +1152,7 @@ public class ApplicationHandler {
                 ReflectionUtils.invokeMethod(writeMethod, t, value);
             }
             return t;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     public static BigInteger obtainUserId() {
