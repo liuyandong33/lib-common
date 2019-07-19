@@ -201,6 +201,15 @@ public class ApplicationHandler {
      * @return
      */
     public static String getRemoteAddress(HttpServletRequest httpServletRequest) {
+        String remoteAddress = httpServletRequest.getHeader("X-Real-IP");
+        if (StringUtils.isNotBlank(remoteAddress)) {
+            return remoteAddress;
+        }
+
+        remoteAddress = httpServletRequest.getHeader("X-Forwarded-For");
+        if (StringUtils.isNotBlank(remoteAddress)) {
+            return remoteAddress;
+        }
         return httpServletRequest.getRemoteAddr();
     }
 
