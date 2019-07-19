@@ -9,6 +9,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
 import build.dream.common.functions.NoThrowFunction;
+import build.dream.common.functions.NoThrowNoReturnFunction;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
@@ -1213,9 +1214,17 @@ public class ApplicationHandler {
         return map;
     }
 
-    public static <T> T noThrowCallMethod(NoThrowFunction<T> noThrowFunction) {
+    public static <T> T callNoThrowMethod(NoThrowFunction<T> noThrowFunction) {
         try {
             return noThrowFunction.call();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void callNoThrowNoReturnMethod(NoThrowNoReturnFunction noThrowNoReturnFunction) {
+        try {
+            noThrowNoReturnFunction.call();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
