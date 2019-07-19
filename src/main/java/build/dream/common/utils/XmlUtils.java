@@ -13,22 +13,18 @@ import java.util.Map;
 
 public class XmlUtils {
     public static Map<String, String> xmlStringToMap(String xmlString) {
-        try {
+        return ApplicationHandler.noThrowCallMethod(() -> {
             Document document = DocumentHelper.parseText(xmlString);
             return xmlDocumentToMap(document);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     public static Map<String, String> xmlInputStreamToMap(InputStream inputStream) {
-        try {
+        return ApplicationHandler.noThrowCallMethod(() -> {
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(inputStream);
             return xmlDocumentToMap(document);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        });
     }
 
     private static Map<String, String> xmlDocumentToMap(Document document) {
