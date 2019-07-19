@@ -8,12 +8,13 @@ import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.orm.SnowflakeIdGenerator;
 import build.dream.common.utils.ObjectUtils;
 
+import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.util.Date;
 
-public class BasicDomain implements IdDomain<BigInteger> {
+public class BasicDomain implements IdDomain<BigInteger>, Serializable, Cloneable {
     @Id(strategy = GenerationStrategy.GENERATOR, idGeneratorClass = SnowflakeIdGenerator.class)
     @UpdateIgnore
     private BigInteger id;
