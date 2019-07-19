@@ -275,11 +275,10 @@ public class ApplicationHandler {
      */
     public static String obtainRequestUrl(HttpServletRequest httpServletRequest) {
         String queryString = httpServletRequest.getQueryString();
-        String url = httpServletRequest.getRequestURL().toString();
-        if (StringUtils.isNotBlank(queryString)) {
-            url = url + "?" + queryString;
+        if (StringUtils.isBlank(queryString)) {
+            return getRequestUrl(httpServletRequest);
         }
-        return url;
+        return getRequestUrl(httpServletRequest) + "?" + queryString;
     }
 
     /**
