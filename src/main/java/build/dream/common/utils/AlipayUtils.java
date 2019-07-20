@@ -33,7 +33,9 @@ public class AlipayUtils {
         byte[] data = originalString.getBytes(Charset.forName(charset));
         if (Constants.RSA.equals(signType)) {
             return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA1_WITH_RSA);
-        } else if (Constants.RSA2.equals(signType)) {
+        }
+
+        if (Constants.RSA2.equals(signType)) {
             return SignatureUtils.verifySign(data, Base64.decodeBase64(alipayPublicKey), Base64.decodeBase64(sign), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA);
         }
         return false;
