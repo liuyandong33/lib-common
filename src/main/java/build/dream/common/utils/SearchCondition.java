@@ -5,6 +5,10 @@ public class SearchCondition {
     private String operationSymbol;
     private Object searchParameter;
 
+    public SearchCondition() {
+
+    }
+
     public SearchCondition(String columnName, String operationSymbol, Object searchParameter) {
         this.columnName = columnName;
         this.operationSymbol = operationSymbol;
