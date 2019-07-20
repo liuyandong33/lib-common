@@ -1,6 +1,6 @@
 package build.dream.common.functions;
 
 @FunctionalInterface
-public interface NoThrowFunction<T> {
+public interface SuppressThrowFunction<T> {
     T call() throws Exception;
 }

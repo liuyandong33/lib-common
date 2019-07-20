@@ -8,8 +8,8 @@ import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
-import build.dream.common.functions.NoThrowFunction;
-import build.dream.common.functions.NoThrowNoReturnFunction;
+import build.dream.common.functions.SuppressThrowFunction;
+import build.dream.common.functions.SuppressThrowNoReturnFunction;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
@@ -1110,7 +1110,7 @@ public class ApplicationHandler {
     }
 
     public static <T> T clone(Class<T> beanClass, Object originalBean) {
-        return callNoThrowMethod(() -> {
+        return callMethodSuppressThrow(() -> {
             T t = beanClass.newInstance();
             BeanUtils.copyProperties(t, originalBean);
             return t;
@@ -1134,7 +1134,7 @@ public class ApplicationHandler {
     }
 
     public static <T> T buildObject(Class<T> beanClass, Map<String, Object> properties) {
-        return callNoThrowMethod(() -> {
+        return callMethodSuppressThrow(() -> {
             T t = beanClass.newInstance();
             BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
@@ -1225,17 +1225,17 @@ public class ApplicationHandler {
         return map;
     }
 
-    public static <T> T callNoThrowMethod(NoThrowFunction<T> noThrowFunction) {
+    public static <T> T callMethodSuppressThrow(SuppressThrowFunction<T> suppressThrowFunction) {
         try {
-            return noThrowFunction.call();
+            return suppressThrowFunction.call();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void callNoThrowNoReturnMethod(NoThrowNoReturnFunction noThrowNoReturnFunction) {
+    public static void callMethodSuppressThrow(SuppressThrowNoReturnFunction suppressThrowNoReturnFunction) {
         try {
-            noThrowNoReturnFunction.call();
+            suppressThrowNoReturnFunction.call();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

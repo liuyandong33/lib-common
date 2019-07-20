@@ -13,14 +13,14 @@ import java.util.Map;
 
 public class XmlUtils {
     public static Map<String, String> xmlStringToMap(String xmlString) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             Document document = DocumentHelper.parseText(xmlString);
             return xmlDocumentToMap(document);
         });
     }
 
     public static Map<String, String> xmlInputStreamToMap(InputStream inputStream) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             SAXReader saxReader = new SAXReader();
             Document document = saxReader.read(inputStream);
             return xmlDocumentToMap(document);

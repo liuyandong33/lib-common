@@ -31,7 +31,7 @@ public class OutUtils {
     }
 
     public static WebResponse doGetWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             DoGetWithRequestParametersModel doGetWithRequestParametersModel = DoGetWithRequestParametersModel.builder()
                     .requestUrl(url)
@@ -55,7 +55,7 @@ public class OutUtils {
     }
 
     public static WebResponse doPostWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters, SSLSocketFactory sslSocketFactory) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             DoPostWithRequestParametersModel doPostWithRequestParametersModel = DoPostWithRequestParametersModel.builder()
                     .requestUrl(url)
@@ -88,7 +88,7 @@ public class OutUtils {
     }
 
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, SSLSocketFactory sslSocketFactory) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             DoPostWithRequestBodyModel doPostWithRequestBodyModel = DoPostWithRequestBodyModel.builder()
                     .requestUrl(url)
@@ -109,7 +109,7 @@ public class OutUtils {
     }
 
     public static WebResponse doPostWithRequestBody(String url, Map<String, String> headers, String requestBody, String charsetName, String certificate, String password, String certificateType, TrustManager[] trustManagers) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             SSLSocketFactory sslSocketFactory = null;
             if (StringUtils.isNotBlank(certificate) && StringUtils.isNotBlank(password)) {
@@ -134,7 +134,7 @@ public class OutUtils {
     }
 
     public static WebResponse doPostWithRequestParametersAndFiles(String url, Map<String, String> headers, Map<String, Object> requestParameters, SSLSocketFactory sslSocketFactory) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             DoPostWithRequestParametersAndFilesModel doPostWithRequestParametersAndFilesModel = DoPostWithRequestParametersAndFilesModel.builder()
                     .requestUrl(url)
@@ -151,7 +151,7 @@ public class OutUtils {
     }
 
     public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String url, Map<String, String> headers, Map<String, String> requestParameters) throws IOException {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ValidateUtils.notNull(proxy, "未配置代理服务器！");
             DoGetOrdinaryWithRequestParametersModel doGetOrdinaryWithRequestParametersModel = DoGetOrdinaryWithRequestParametersModel.builder()
                     .requestUrl(url)

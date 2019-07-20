@@ -1,6 +1,6 @@
 package build.dream.common.functions;
 
 @FunctionalInterface
-public interface NoThrowNoReturnFunction {
+public interface SuppressThrowNoReturnFunction {
     void call() throws Exception;
 }

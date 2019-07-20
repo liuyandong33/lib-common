@@ -27,7 +27,7 @@ public class CertificateUtils {
      * @return
      */
     public static Certificate restoreCertificate(byte[] certificateBytes, String type) {
-        return ApplicationHandler.callNoThrowMethod(() -> {
+        return ApplicationHandler.callMethodSuppressThrow(() -> {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(certificateBytes);
             CertificateFactory certificateFactory = CertificateFactory.getInstance(type);
             return certificateFactory.generateCertificate(byteArrayInputStream);
