@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -31,7 +32,7 @@ public class PropertyUtils {
     }
 
     public static Properties getProperties() throws IOException {
-        if (properties == null) {
+        if (Objects.isNull(properties)) {
             loadProperties();
         }
         return properties;
