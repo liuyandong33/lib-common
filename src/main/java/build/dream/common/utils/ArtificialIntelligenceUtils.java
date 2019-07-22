@@ -8,8 +8,9 @@ import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.http.MediaType;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ArtificialIntelligenceUtils {
     private static String calculateSignature(String accessKey, String method, String accept, String body, String contentType, String date) {
@@ -20,18 +21,11 @@ public class ArtificialIntelligenceUtils {
         return signature;
     }
 
-    private static String obtainGMTDate() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z", Locale.UK);
-        simpleDateFormat.setTimeZone(new SimpleTimeZone(0, Constants.GMT));
-
-        return simpleDateFormat.format(new Date());
-    }
-
     public static Map<String, Object> imageTag(String accessId, String accessKey, int type, String imageUrl, String content) {
         String method = Constants.REQUEST_METHOD_POST;
         String accept = MediaType.APPLICATION_JSON_VALUE;
         String contentType = MediaType.APPLICATION_JSON_VALUE;
-        String date = obtainGMTDate();
+        String date = CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date());
 
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("type", type);
