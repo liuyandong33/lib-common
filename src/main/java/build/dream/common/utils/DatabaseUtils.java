@@ -15,6 +15,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -54,17 +55,17 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                if (field.getAnnotation(Transient.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                     continue;
                 }
 
-                if (field.getAnnotation(InsertIgnore.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(InsertIgnore.class))) {
                     continue;
                 }
 
                 String fieldName = field.getName();
                 Id id = field.getAnnotation(Id.class);
-                if (id != null) {
+                if (Objects.nonNull(id)) {
                     DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, id);
                     GenerationStrategy generationStrategy = id.strategy();
@@ -131,17 +132,17 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                if (field.getAnnotation(Transient.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                     continue;
                 }
 
-                if (field.getAnnotation(InsertIgnore.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(InsertIgnore.class))) {
                     continue;
                 }
 
                 String fieldName = field.getName();
                 Id id = field.getAnnotation(Id.class);
-                if (id != null) {
+                if (Objects.nonNull(id)) {
                     if (!DOMAIN_CLASS_ID_FIELD_MAP.containsKey(domainClass)) {
                         DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     }
@@ -186,7 +187,7 @@ public class DatabaseUtils {
 
     public static String obtainColumnName(Field field) {
         Column column = field.getAnnotation(Column.class);
-        if (column != null) {
+        if (Objects.nonNull(column)) {
             return column.name();
         }
         return NamingStrategyUtils.camelCaseToUnderscore(field.getName());
@@ -215,18 +216,18 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                if (field.getAnnotation(Transient.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                     continue;
                 }
 
                 Id id = field.getAnnotation(Id.class);
-                if (id != null) {
+                if (Objects.nonNull(id)) {
                     DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, field);
                     DOMAIN_CLASS_ID_ANNOTATION_MAP.put(domainClass, id);
                     continue;
                 }
 
-                if (field.getAnnotation(UpdateIgnore.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(UpdateIgnore.class))) {
                     continue;
                 }
 
@@ -249,7 +250,7 @@ public class DatabaseUtils {
         updateSql.append("}");
 
         ShardingColumn shardingColumn = AnnotationUtils.findAnnotation(domainClass, ShardingColumn.class);
-        if (shardingColumn != null) {
+        if (Objects.nonNull(shardingColumn)) {
             updateSql.append(" AND ");
             updateSql.append(shardingColumn.columnName());
             updateSql.append(" = ");
@@ -270,7 +271,7 @@ public class DatabaseUtils {
                     continue;
                 }
 
-                if (field.getAnnotation(Transient.class) != null) {
+                if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                     continue;
                 }
 
@@ -278,7 +279,7 @@ public class DatabaseUtils {
 
                 String underscoreName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
                 Column column = field.getAnnotation(Column.class);
-                if (column != null) {
+                if (Objects.nonNull(column)) {
                     alias.add(column.name() + " AS " + underscoreName);
                 } else {
                     alias.add(underscoreName);
@@ -302,7 +303,7 @@ public class DatabaseUtils {
         String tableName = DOMAIN_CLASS_TABLE_NAME_MAP.get(domainClass);
         if (StringUtils.isBlank(tableName)) {
             Table table = AnnotationUtils.findAnnotation(domainClass, Table.class);
-            if (table != null) {
+            if (Objects.nonNull(table)) {
                 tableName = table.name();
             } else {
                 String simpleName = domainClass.getSimpleName();
@@ -318,7 +319,7 @@ public class DatabaseUtils {
     }
 
     public static void closeConnection(Connection connection) {
-        if (connection != null) {
+        if (Objects.nonNull(connection)) {
             try {
                 connection.close();
             } catch (SQLException e) {
@@ -327,7 +328,7 @@ public class DatabaseUtils {
     }
 
     public static void closeStatement(Statement statement) {
-        if (statement != null) {
+        if (Objects.nonNull(statement)) {
             try {
                 statement.close();
             } catch (SQLException e) {
@@ -336,7 +337,7 @@ public class DatabaseUtils {
     }
 
     public static void closeResultSet(ResultSet resultSet) {
-        if (resultSet != null) {
+        if (Objects.nonNull(resultSet)) {
             try {
                 resultSet.close();
             } catch (SQLException e) {
@@ -372,11 +373,11 @@ public class DatabaseUtils {
 
     public static Field obtainIdField(Class<?> domainClass) {
         Field idField = DOMAIN_CLASS_ID_FIELD_MAP.get(domainClass);
-        if (idField != null) {
+        if (Objects.nonNull(idField)) {
             return idField;
         }
-        idField = ReflectionUtils.findField(domainClass, field -> field.getAnnotation(Id.class) != null);
-        if (idField != null) {
+        idField = ReflectionUtils.findField(domainClass, field -> Objects.nonNull(field.getAnnotation(Id.class)));
+        if (Objects.nonNull(idField)) {
             DOMAIN_CLASS_ID_FIELD_MAP.put(domainClass, idField);
         }
         return idField;
@@ -388,11 +389,11 @@ public class DatabaseUtils {
 
     public static Id obtainIdAnnotation(Class<?> domainClass) {
         Id idAnnotation = DOMAIN_CLASS_ID_ANNOTATION_MAP.get(domainClass);
-        if (idAnnotation != null) {
+        if (Objects.nonNull(idAnnotation)) {
             return idAnnotation;
         }
         Field idField = obtainIdField(domainClass);
-        if (idField == null) {
+        if (Objects.isNull(idField)) {
             return null;
         }
         idAnnotation = idField.getAnnotation(Id.class);
@@ -406,13 +407,13 @@ public class DatabaseUtils {
 
     public static IdGenerator obtainIdGenerator(Class<? extends IdGenerator> idGeneratorClass) {
         IdGenerator idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
-        if (idGenerator != null) {
+        if (Objects.nonNull(idGenerator)) {
             return idGenerator;
         }
         INSTANTIATE_ID_GENERATOR_REENTRANT_LOCK.lock();
         try {
             idGenerator = ID_GENERATOR_CLASS_ID_GENERATOR_MAP.get(idGeneratorClass);
-            if (idGenerator == null) {
+            if (Objects.isNull(idGenerator)) {
                 idGenerator = idGeneratorClass.newInstance();
                 ID_GENERATOR_CLASS_ID_GENERATOR_MAP.put(idGeneratorClass, idGenerator);
             }
