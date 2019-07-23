@@ -4,7 +4,9 @@ import build.dream.common.constants.Constants;
 import build.dream.common.sms.SmsSender;
 import build.dream.common.sms.SmsSenderFactory;
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.time.DateUtils;
 
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class SmsUtils {
@@ -22,7 +24,15 @@ public class SmsUtils {
     }
 
     private static void validateSendTimes(String phoneNumber) {
+        String today = CustomDateUtils.format(new Date(), "yyyyMMdd");
+        String key = "_sms_count_" + today + "_" + phoneNumber;
+        long count = CommonRedisUtils.incrby(key, 1);
+        if (count == 1) {
+            Date date = DateUtils.addDays(CustomDateUtils.parse(today + "000000", "yyyyMMddHHmmss"), 1);
+            CommonRedisUtils.expireAt(key, date);
+        }
 
+        ValidateUtils.isTrue(count <= 50, "手机号【" + phoneNumber + "】今日发送短信已经超过50条！");
     }
 
     /**
@@ -32,6 +42,7 @@ public class SmsUtils {
      */
     public static void sendVerificationCode(String phoneNumber) {
         validateSmsChannelConfig();
+        validateSendTimes(phoneNumber);
         String code = RandomStringUtils.randomNumeric(6);
         SMS_SENDER.sendVerificationCode(phoneNumber, code, 5);
         CommonRedisUtils.setex(phoneNumber, code, 5, TimeUnit.MINUTES);
@@ -57,6 +68,7 @@ public class SmsUtils {
      */
     public static void sendAgentAccount(String phoneNumber, String code, String password) {
         validateSmsChannelConfig();
+        validateSendTimes(phoneNumber);
         SMS_SENDER.sendAgentAccount(phoneNumber, code, password);
     }
 }
