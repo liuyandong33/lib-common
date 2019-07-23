@@ -142,6 +142,7 @@ public class AliyunPushUtils {
      */
     public static Map<String, Object> queryDevicesByAccount(QueryDevicesByAccountModel queryDevicesByAccountModel) {
         queryDevicesByAccountModel.validateAndThrow();
+
         String account = queryDevicesByAccountModel.getAccount();
 
         Map<String, String> requestParameters = buildCommonRequestParameters();
