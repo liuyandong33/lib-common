@@ -170,7 +170,7 @@ public class SuningUtils {
                 .format("json")
                 .appKey(ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY))
                 .appSecret(ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_SECRET))
-                .versionNo(Constants.SU_NING_VERSION_NO)
+                .versionNo(Constants.SU_NING_VERSION_NO_V_1_2)
                 .accessToken(obtainAccessToken(tenantId, branchId))
                 .build();
         generateSignInfo(commonParamsModel, body);

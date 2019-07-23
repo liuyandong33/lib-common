@@ -21,6 +21,10 @@ public class SmsUtils {
         ValidateUtils.isTrue(Constants.SMS_CHANNEL_ALIYUN.equals(SMS_CHANNEL) || Constants.SMS_CHANNEL_RONG_LIAN.equals(SMS_CHANNEL), "未配置短信通道");
     }
 
+    private static void validateSendTimes(String phoneNumber) {
+
+    }
+
     /**
      * 发送验证码
      *
