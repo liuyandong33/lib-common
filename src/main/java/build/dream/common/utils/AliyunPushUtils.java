@@ -2,8 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.aliyunpush.PushMessageToAndroidModel;
-import build.dream.common.models.aliyunpush.PushMessageToIosModel;
+import build.dream.common.models.aliyunpush.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
@@ -18,18 +17,42 @@ public class AliyunPushUtils {
     public static final String TAG = "TAG";
     public static final String ALL = "ALL";
 
-    private static final String CLOUD_PUSH_SERVICE_URL = "http://cloudpush.aliyuncs.com";
 
-    private static String calculateSignature(String accessKeySecret, Map<String, String> requestParameters) {
+    /**
+     * 生成签名
+     *
+     * @param accessKeySecret
+     * @param requestParameters
+     * @return
+     */
+    private static String generateSignature(String accessKeySecret, Map<String, String> requestParameters) {
         Map<String, String> sortedRequestParameters = new TreeMap<String, String>(requestParameters);
         List<String> pairs = new ArrayList<String>();
         for (Map.Entry<String, String> entry : sortedRequestParameters.entrySet()) {
             pairs.add(UrlUtils.encode(entry.getKey(), Constants.CHARSET_NAME_UTF_8) + "=" + UrlUtils.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
         }
-        String signature = Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret.getBytes(Constants.CHARSET_UTF_8), StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_UTF_8)));
-        return signature;
+        return Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, StringUtils.join(pairs, "&")));
     }
 
+    /**
+     * 调用阿里云推送api
+     *
+     * @param requestParameters
+     * @return
+     */
+    public static Map<String, Object> callAliyunPushApi(Map<String, String> requestParameters) {
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.CLOUD_PUSH_API_URL, requestParameters);
+        String result = webResponse.getResult();
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        return resultMap;
+    }
+
+    /**
+     * 构建公共参数
+     *
+     * @return
+     */
     private static Map<String, String> buildCommonRequestParameters() {
         Map<String, String> commonRequestParameters = new HashMap<String, String>();
         commonRequestParameters.put("Format", Constants.UPPER_CASE_JSON);
@@ -45,10 +68,21 @@ public class AliyunPushUtils {
         return commonRequestParameters;
     }
 
-    private static Map<String, Object> pushMessage(int deviceType, String accessKeyId, String accessKeySecret, String appKey, String target, String targetValue, String title, String body) {
+    /**
+     * 推送消息
+     *
+     * @param deviceType
+     * @param appKey
+     * @param target
+     * @param targetValue
+     * @param title
+     * @param body
+     * @return
+     */
+    private static Map<String, Object> pushMessage(int deviceType, String appKey, String target, String targetValue, String title, String body) {
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         if (deviceType == Constants.DEVICE_TYPE_ANDROID) {
             requestParameters.put("Action", "PushMessageToAndroid");
         } else if (deviceType == Constants.DEVICE_TYPE_IOS) {
@@ -59,116 +93,149 @@ public class AliyunPushUtils {
         requestParameters.put("TargetValue", targetValue);
         requestParameters.put("Title", title);
         requestParameters.put("Body", body);
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        return callAliyunPushApi(requestParameters);
     }
 
+    /**
+     * 推消息给Android设备
+     *
+     * @param pushMessageToAndroidModel
+     * @return
+     */
     public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) {
         pushMessageToAndroidModel.validateAndThrow();
-        String accessKeyId = null;
-        String accessKeySecret = null;
-        return pushMessage(Constants.DEVICE_TYPE_ANDROID, accessKeyId, accessKeySecret, pushMessageToAndroidModel.getAppKey(), pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
+        return pushMessage(Constants.DEVICE_TYPE_ANDROID, pushMessageToAndroidModel.getAppKey(), pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
     }
 
+    /**
+     * 推消息给iOS设备
+     *
+     * @param pushMessageToIosModel
+     * @return
+     */
     public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) {
         pushMessageToIosModel.validateAndThrow();
-        String accessKeyId = null;
-        String accessKeySecret = null;
-        return pushMessage(Constants.DEVICE_TYPE_IOS, accessKeyId, accessKeySecret, pushMessageToIosModel.getAppKey(), pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
+        return pushMessage(Constants.DEVICE_TYPE_IOS, pushMessageToIosModel.getAppKey(), pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
     }
 
-    public static Map<String, Object> listSummaryApps(String accessKeyId, String accessKeySecret) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
-        requestParameters.put("Action", "SummaryAppInfos");
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+    /**
+     * APP概览列表
+     *
+     * @param listSummaryAppsModel
+     * @return
+     */
+    public static Map<String, Object> listSummaryApps(ListSummaryAppsModel listSummaryAppsModel) {
+        listSummaryAppsModel.validateAndThrow();
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
+        requestParameters.put("Action", "ListSummaryApps");
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        return callAliyunPushApi(requestParameters);
     }
 
-    public static Map<String, Object> queryDevicesByAccount(String accessKeyId, String accessKeySecret, String account) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+    /**
+     * 通过账户查询设备列表
+     *
+     * @param queryDevicesByAccountModel
+     * @return
+     */
+    public static Map<String, Object> queryDevicesByAccount(QueryDevicesByAccountModel queryDevicesByAccountModel) {
+        queryDevicesByAccountModel.validateAndThrow();
+        String account = queryDevicesByAccountModel.getAccount();
+
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         requestParameters.put("Action", "QueryDevicesByAccount");
         requestParameters.put("Account", account);
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        return callAliyunPushApi(requestParameters);
     }
 
-    public static Map<String, Object> bindAlias(String accessKeyId, String accessKeySecret, String deviceId, String aliasName) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+    /**
+     * 绑定别名
+     *
+     * @param bindAliasModel
+     * @return
+     */
+    public static Map<String, Object> bindAlias(BindAliasModel bindAliasModel) {
+        bindAliasModel.validateAndThrow();
+
+        String deviceId = bindAliasModel.getDeviceId();
+        String aliasName = bindAliasModel.getAliasName();
+
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         requestParameters.put("Action", "BindAlias");
         requestParameters.put("DeviceId", deviceId);
         requestParameters.put("AliasName", aliasName);
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        return callAliyunPushApi(requestParameters);
     }
 
-    public static Map<String, Object> queryAliases(String accessKeyId, String accessKeySecret, String deviceId) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+    /**
+     * 查询别名
+     *
+     * @param queryAliasesModel
+     * @return
+     */
+    public static Map<String, Object> queryAliases(QueryAliasesModel queryAliasesModel) {
+        queryAliasesModel.validateAndThrow();
+
+        String deviceId = queryAliasesModel.getDeviceId();
+
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         requestParameters.put("Action", "QueryAliases");
         requestParameters.put("DeviceId", deviceId);
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        return callAliyunPushApi(requestParameters);
     }
 
-    public static Map<String, Object> queryDevicesByAlias(String accessKeyId, String accessKeySecret, String alias) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+    /**
+     * 通过别名查询设备列表
+     *
+     * @param queryDevicesByAliasModel
+     * @return
+     */
+    public static Map<String, Object> queryDevicesByAlias(QueryDevicesByAliasModel queryDevicesByAliasModel) {
+        queryDevicesByAliasModel.validateAndThrow();
+
+        String alias = queryDevicesByAliasModel.getAlias();
+
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         requestParameters.put("Action", "QueryDevicesByAlias");
         requestParameters.put("Alias", alias);
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        return callAliyunPushApi(requestParameters);
     }
 
-    public static Map<String, Object> unbindAlias(String accessKeyId, String accessKeySecret, String deviceId, boolean unbindAll, String aliasName) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.putAll(buildCommonRequestParameters());
-        requestParameters.put("AccessKeyId", accessKeyId);
+    /**
+     * 解绑别名
+     *
+     * @param unbindAliasModel
+     * @return
+     */
+    public static Map<String, Object> unbindAlias(UnbindAliasModel unbindAliasModel) {
+        unbindAliasModel.validateAndThrow();
+
+        String deviceId = unbindAliasModel.getDeviceId();
+        boolean unbindAll = unbindAliasModel.isUnbindAll();
+        String aliasName = unbindAliasModel.getAliasName();
+
+        Map<String, String> requestParameters = buildCommonRequestParameters();
+        requestParameters.put("AccessKeyId", AliyunUtils.ACCESS_KEY_ID);
         requestParameters.put("Action", "UnbindAlias");
         requestParameters.put("DeviceId", deviceId);
         requestParameters.put("UnbindAll", String.valueOf(unbindAll));
         if (!unbindAll) {
             requestParameters.put("AliasName", aliasName);
         }
-        requestParameters.put("Signature", calculateSignature(accessKeySecret, requestParameters));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(CLOUD_PUSH_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        return callAliyunPushApi(requestParameters);
     }
 }

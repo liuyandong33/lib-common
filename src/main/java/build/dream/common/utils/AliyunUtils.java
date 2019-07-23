@@ -15,6 +15,7 @@ public class AliyunUtils {
     public static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
     public static final String DY_SMS_API_URL = "https://dysmsapi.aliyuncs.com";
     public static final String DY_PLS_API_URL = "https://dyplsapi.aliyuncs.com";
+    public static final String CLOUD_PUSH_API_URL = "http://cloudpush.aliyuncs.com";
 
     /**
      * 生成签名
