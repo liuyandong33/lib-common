@@ -7,7 +7,6 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class AliyunPushUtils {
@@ -60,8 +59,7 @@ public class AliyunPushUtils {
         commonRequestParameters.put("Version", "2018-03-24");
         commonRequestParameters.put("SignatureMethod", "HMAC-SHA1");
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.ISO8601_DATE_PATTERN);
-        commonRequestParameters.put("Timestamp", simpleDateFormat.format(new Date()));
+        commonRequestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
 
         commonRequestParameters.put("SignatureVersion", "1.0");
         commonRequestParameters.put("SignatureNonce", UUID.randomUUID().toString());
