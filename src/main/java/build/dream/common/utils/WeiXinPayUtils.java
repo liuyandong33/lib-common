@@ -70,13 +70,14 @@ public class WeiXinPayUtils {
         }
         stringSignTemp.append("key=");
         stringSignTemp.append(weiXinPayKey);
-        String sign = null;
         if (Constants.MD5.equals(signType)) {
-            sign = DigestUtils.md5Hex(stringSignTemp.toString()).toUpperCase();
-        } else if (Constants.HMAC_SHA256.equals(signType)) {
-            sign = HmacUtils.hmacSha256Hex(weiXinPayKey, stringSignTemp.toString()).toUpperCase();
+            return DigestUtils.md5Hex(stringSignTemp.toString()).toUpperCase();
         }
-        return sign;
+
+        if (Constants.HMAC_SHA256.equals(signType)) {
+            return HmacUtils.hmacSha256Hex(weiXinPayKey, stringSignTemp.toString()).toUpperCase();
+        }
+        return null;
     }
 
     /**
