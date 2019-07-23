@@ -16,6 +16,7 @@ import org.springframework.util.StringUtils;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RedisHelper {
     public static RedisConnectionFactory createRedisConnectionFactory(RedisProperties redisProperties) {
@@ -23,12 +24,12 @@ public class RedisHelper {
         LettuceClientConfiguration lettuceClientConfiguration = getLettuceClientConfiguration(clientResources, redisProperties);
 
         RedisSentinelConfiguration redisSentinelConfiguration = getSentinelConfig(redisProperties);
-        if (redisSentinelConfiguration != null) {
+        if (Objects.nonNull(redisSentinelConfiguration)) {
             return new LettuceConnectionFactory(redisSentinelConfiguration, lettuceClientConfiguration);
         }
 
         RedisClusterConfiguration redisClusterConfiguration = getClusterConfiguration(redisProperties);
-        if (redisClusterConfiguration != null) {
+        if (Objects.nonNull(redisClusterConfiguration)) {
             return new LettuceConnectionFactory(getClusterConfiguration(redisProperties), lettuceClientConfiguration);
         }
 
@@ -48,14 +49,14 @@ public class RedisHelper {
         }
 
         Duration timeout = redisProperties.getTimeout();
-        if (timeout != null) {
+        if (Objects.nonNull(timeout)) {
             builder.commandTimeout(timeout);
         }
 
         RedisProperties.Lettuce lettuce = redisProperties.getLettuce();
-        if (lettuce != null) {
+        if (Objects.nonNull(lettuce)) {
             Duration shutdownTimeout = lettuce.getShutdownTimeout();
-            if (shutdownTimeout != null && !shutdownTimeout.isZero()) {
+            if (Objects.nonNull(shutdownTimeout) && !shutdownTimeout.isZero()) {
                 builder.shutdownTimeout(shutdownTimeout);
             }
         }
@@ -64,18 +65,19 @@ public class RedisHelper {
 
     private static RedisSentinelConfiguration getSentinelConfig(RedisProperties redisProperties) {
         RedisProperties.Sentinel sentinelProperties = redisProperties.getSentinel();
-        if (sentinelProperties != null) {
-            RedisSentinelConfiguration redisSentinelConfiguration = new RedisSentinelConfiguration();
-            redisSentinelConfiguration.master(sentinelProperties.getMaster());
-            redisSentinelConfiguration.setSentinels(createSentinels(sentinelProperties));
-
-            String password = redisProperties.getPassword();
-            if (password != null) {
-                redisSentinelConfiguration.setPassword(RedisPassword.of(password));
-            }
-            return redisSentinelConfiguration;
+        if (Objects.isNull(sentinelProperties)) {
+            return null;
         }
-        return null;
+
+        RedisSentinelConfiguration redisSentinelConfiguration = new RedisSentinelConfiguration();
+        redisSentinelConfiguration.master(sentinelProperties.getMaster());
+        redisSentinelConfiguration.setSentinels(createSentinels(sentinelProperties));
+
+        String password = redisProperties.getPassword();
+        if (Objects.nonNull(password)) {
+            redisSentinelConfiguration.setPassword(RedisPassword.of(password));
+        }
+        return redisSentinelConfiguration;
     }
 
     private static List<RedisNode> createSentinels(RedisProperties.Sentinel sentinel) {
@@ -94,17 +96,17 @@ public class RedisHelper {
 
     private static RedisClusterConfiguration getClusterConfiguration(RedisProperties redisProperties) {
         RedisProperties.Cluster clusterProperties = redisProperties.getCluster();
-        if (clusterProperties == null) {
+        if (Objects.isNull(clusterProperties)) {
             return null;
         }
         RedisClusterConfiguration redisClusterConfiguration = new RedisClusterConfiguration(clusterProperties.getNodes());
         Integer maxRedirects = clusterProperties.getMaxRedirects();
-        if (maxRedirects != null) {
+        if (Objects.nonNull(maxRedirects)) {
             redisClusterConfiguration.setMaxRedirects(maxRedirects);
         }
 
         String password = redisProperties.getPassword();
-        if (password != null) {
+        if (Objects.nonNull(password)) {
             redisClusterConfiguration.setPassword(RedisPassword.of(password));
         }
         return redisClusterConfiguration;
@@ -120,7 +122,7 @@ public class RedisHelper {
     }
 
     private static LettuceClientConfiguration.LettuceClientConfigurationBuilder createBuilder(RedisProperties.Pool pool) {
-        if (pool == null) {
+        if (Objects.isNull(pool)) {
             return LettuceClientConfiguration.builder();
         }
         return new PoolBuilderFactory().createBuilder(pool);
@@ -136,8 +138,10 @@ public class RedisHelper {
             config.setMaxTotal(properties.getMaxActive());
             config.setMaxIdle(properties.getMaxIdle());
             config.setMinIdle(properties.getMinIdle());
-            if (properties.getMaxWait() != null) {
-                config.setMaxWaitMillis(properties.getMaxWait().toMillis());
+
+            Duration maxWait = properties.getMaxWait();
+            if (Objects.nonNull(maxWait)) {
+                config.setMaxWaitMillis(maxWait.toMillis());
             }
             return config;
         }
