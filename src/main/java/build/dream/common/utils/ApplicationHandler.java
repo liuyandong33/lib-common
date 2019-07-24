@@ -239,13 +239,16 @@ public class ApplicationHandler {
      */
     public static String getRequestUrl(HttpServletRequest httpServletRequest) {
         String proto = httpServletRequest.getHeader("X-Forwarded-Proto");
-        String schema = httpServletRequest.getScheme();
-
-        String url = httpServletRequest.getRequestURL().toString();
-        if (StringUtils.isNotBlank(proto) && StringUtils.isNotBlank(schema) && !proto.equals(schema)) {
-            url = proto + url.substring(url.indexOf("://"));
+        if (StringUtils.isBlank(proto)) {
+            proto = httpServletRequest.getScheme();
         }
-        return url;
+
+        String host = httpServletRequest.getHeader("X-Forwarded-Host");
+        if (StringUtils.isBlank(host)) {
+            host = httpServletRequest.getServerName();
+        }
+
+        return proto + "://" + host + getRequestUri(httpServletRequest);
     }
 
     /**
