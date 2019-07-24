@@ -1154,4 +1154,12 @@ public class Constants {
     public static final String SMS_CHANNEL_ALIYUN = "ALIYUN";
     public static final String SMS_CHANNEL_RONG_LIAN = "RONG_LIAN";
     public static final String SMS_CHANNEL = "sms.channel";
+
+    public static final String COMMON_REDIS_HOST = "common.redis.host";
+    public static final String COMMON_REDIS_PORT = "common.redis.port";
+    public static final String COMMON_REDIS_PASSWORD = "common.redis.password";
+
+    public static final String PARTITION_REDIS_HOST = "partition.redis.host";
+    public static final String PARTITION_REDIS_PORT = "partition.redis.port";
+    public static final String PARTITION_REDIS_PASSWORD = "partition.redis.password";
 }
