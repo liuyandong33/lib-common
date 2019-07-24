@@ -7,7 +7,6 @@ public class PushMessageToAndroidModel extends BasicModel {
     private String target;
     private String targetValue;
     private String title;
-
     private String body;
 
     public String getAppKey() {
