@@ -10,11 +10,11 @@ import org.apache.commons.lang.StringUtils;
 import java.util.*;
 
 public class AliyunPushUtils {
-    public static final String DEVICE = "DEVICE";
-    public static final String ACCOUNT = "ACCOUNT";
-    public static final String ALIAS = "ALIAS";
-    public static final String TAG = "TAG";
-    public static final String ALL = "ALL";
+    public static final String TARGET_DEVICE = "DEVICE";
+    public static final String TARGET_ACCOUNT = "ACCOUNT";
+    public static final String TARGET_ALIAS = "ALIAS";
+    public static final String TARGET_TAG = "TAG";
+    public static final String TARGET_ALL = "ALL";
 
 
     /**
@@ -99,23 +99,23 @@ public class AliyunPushUtils {
     /**
      * 推消息给Android设备
      *
-     * @param pushMessageToAndroidModel
+     * @param pushMessageModel
      * @return
      */
-    public static Map<String, Object> pushMessageToAndroid(PushMessageToAndroidModel pushMessageToAndroidModel) {
-        pushMessageToAndroidModel.validateAndThrow();
-        return pushMessage(Constants.DEVICE_TYPE_ANDROID, pushMessageToAndroidModel.getAppKey(), pushMessageToAndroidModel.getTarget(), pushMessageToAndroidModel.getTargetValue(), pushMessageToAndroidModel.getTitle(), pushMessageToAndroidModel.getBody());
+    public static Map<String, Object> pushMessageToAndroid(PushMessageModel pushMessageModel) {
+        pushMessageModel.validateAndThrow();
+        return pushMessage(Constants.DEVICE_TYPE_ANDROID, pushMessageModel.getAppKey(), pushMessageModel.getTarget(), pushMessageModel.getTargetValue(), pushMessageModel.getTitle(), pushMessageModel.getBody());
     }
 
     /**
      * 推消息给iOS设备
      *
-     * @param pushMessageToIosModel
+     * @param pushMessageModel
      * @return
      */
-    public static Map<String, Object> pushMessageToIos(PushMessageToIosModel pushMessageToIosModel) {
-        pushMessageToIosModel.validateAndThrow();
-        return pushMessage(Constants.DEVICE_TYPE_IOS, pushMessageToIosModel.getAppKey(), pushMessageToIosModel.getTarget(), pushMessageToIosModel.getTargetValue(), pushMessageToIosModel.getTitle(), pushMessageToIosModel.getBody());
+    public static Map<String, Object> pushMessageToIos(PushMessageModel pushMessageModel) {
+        pushMessageModel.validateAndThrow();
+        return pushMessage(Constants.DEVICE_TYPE_IOS, pushMessageModel.getAppKey(), pushMessageModel.getTarget(), pushMessageModel.getTargetValue(), pushMessageModel.getTitle(), pushMessageModel.getBody());
     }
 
     /**

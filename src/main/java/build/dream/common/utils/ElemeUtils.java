@@ -1,18 +1,22 @@
 package build.dream.common.utils;
 
+import build.dream.common.aliyunpush.AliyunPushMessageThread;
 import build.dream.common.beans.WebResponse;
+import build.dream.common.catering.domains.Pos;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
+import build.dream.common.models.aliyunpush.PushMessageModel;
 import build.dream.common.saas.domains.ElemeToken;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.math.BigInteger;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by liuyandong on 2017/3/13.
@@ -143,5 +147,32 @@ public class ElemeUtils {
         }
 
         throw new CustomException(MapUtils.getString(errorMap, "message"));
+    }
+
+    public static void pushMessageToAndroid(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Integer type, String uuid, int count, int interval) {
+        SearchModel searchModel = SearchModel.builder()
+                .autoSetDeletedFalse()
+                .equal(Pos.ColumnName.TENANT_ID, tenantId)
+                .equal(Pos.ColumnName.BRANCH_ID, branchId)
+                .build();
+        List<Pos> poses = DatabaseHelper.findAll(Pos.class, searchModel);
+        if (CollectionUtils.isEmpty(poses)) {
+            return;
+        }
+
+        List<BigInteger> posIds = poses.stream().map(Pos::getId).collect(Collectors.toList());
+
+        Map<String, Object> bodyMap = new HashMap<String, Object>();
+        bodyMap.put("orderId", orderId);
+        bodyMap.put("type", type);
+        bodyMap.put("uuid", uuid);
+        PushMessageModel pushMessageModel = PushMessageModel.builder()
+                .appKey("")
+                .target(AliyunPushUtils.TARGET_DEVICE)
+                .targetValue(StringUtils.join(posIds, ","))
+                .title("饿了么订单消息")
+                .body(JacksonUtils.writeValueAsString(bodyMap))
+                .build();
+        new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
     }
 }
