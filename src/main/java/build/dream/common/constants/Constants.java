@@ -1162,4 +1162,10 @@ public class Constants {
     public static final String PARTITION_REDIS_HOST = "partition.redis.host";
     public static final String PARTITION_REDIS_PORT = "partition.redis.port";
     public static final String PARTITION_REDIS_PASSWORD = "partition.redis.password";
+    public static final String SERVER_SSL_PROTOCOL = "server.ssl.protocol";
+    public static final String SERVER_SSL_KEY_STORE = "server.ssl.key-store";
+    public static final String SERVER_SSL_KEY_STORE_PASSWORD = "server.ssl.key-store-password";
+    public static final String SERVER_SSL_KEY_STORE_TYPE = "server.ssl.key-store-type";
+    public static final String SERVER_SSL_KEY_ALIAS = "server.ssl.key-alias";
+    public static final String SERVER_HTTP_PORT = "server.http.port";
 }
