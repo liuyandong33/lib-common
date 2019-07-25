@@ -1168,4 +1168,7 @@ public class Constants {
     public static final String SERVER_SSL_KEY_STORE_TYPE = "server.ssl.key-store-type";
     public static final String SERVER_SSL_KEY_ALIAS = "server.ssl.key-alias";
     public static final String SERVER_HTTP_PORT = "server.http.port";
+
+    public static final String RESOURCE_ID_CATERING = "catering";
+    public static final String RESOURCE_ID_RETAIL = "retail";
 }
