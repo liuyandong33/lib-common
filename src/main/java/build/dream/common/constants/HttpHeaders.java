@@ -277,4 +277,8 @@ public class HttpHeaders {
     public static final String WWW_AUTHENTICATE = "WWW-Authenticate";
 
     public static final String X_REQUESTED_WITH = "X-Requested-With";
+
+    public static final String X_FORWARDED_PROTO = "x-forwarded-proto";
+    public static final String X_FORWARDED_HOST = "x-forwarded-host";
+    public static final String X_FORWARDED_PREFIX = "x-forwarded-prefix";
 }

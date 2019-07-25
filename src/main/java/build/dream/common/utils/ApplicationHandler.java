@@ -238,17 +238,20 @@ public class ApplicationHandler {
      * @return
      */
     public static String getRequestUrl(HttpServletRequest httpServletRequest) {
-        String proto = httpServletRequest.getHeader("X-Forwarded-Proto");
+        String proto = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PROTO);
         if (StringUtils.isBlank(proto)) {
             proto = httpServletRequest.getScheme();
         }
 
-        String host = httpServletRequest.getHeader("X-Forwarded-Host");
+        String host = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_HOST);
         if (StringUtils.isBlank(host)) {
             host = httpServletRequest.getServerName();
         }
 
-        return proto + "://" + host + getRequestUri(httpServletRequest);
+        String prefix = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PREFIX);
+
+        String requestUri = getRequestUri(httpServletRequest);
+        return StringUtils.isBlank(prefix) ? proto + "://" + host + requestUri : proto + "://" + host + prefix + requestUri;
     }
 
     /**
@@ -278,10 +281,8 @@ public class ApplicationHandler {
      */
     public static String obtainRequestUrl(HttpServletRequest httpServletRequest) {
         String queryString = httpServletRequest.getQueryString();
-        if (StringUtils.isBlank(queryString)) {
-            return getRequestUrl(httpServletRequest);
-        }
-        return getRequestUrl(httpServletRequest) + "?" + queryString;
+        String requestUrl = getRequestUrl(httpServletRequest);
+        return StringUtils.isBlank(queryString) ? requestUrl : requestUrl + "?" + queryString;
     }
 
     /**
