@@ -1162,4 +1162,7 @@ public class Constants {
     public static final String PARTITION_REDIS_HOST = "partition.redis.host";
     public static final String PARTITION_REDIS_PORT = "partition.redis.port";
     public static final String PARTITION_REDIS_PASSWORD = "partition.redis.password";
+
+    public static final String RESOURCE_ID_CATERING = "catering";
+    public static final String RESOURCE_ID_RETAIL = "retail";
 }
