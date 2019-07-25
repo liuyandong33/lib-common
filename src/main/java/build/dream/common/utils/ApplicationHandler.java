@@ -201,12 +201,12 @@ public class ApplicationHandler {
      * @return
      */
     public static String getRemoteAddress(HttpServletRequest httpServletRequest) {
-        String remoteAddress = httpServletRequest.getHeader("X-Real-IP");
+        String remoteAddress = httpServletRequest.getHeader(HttpHeaders.X_REAL_IP);
         if (StringUtils.isNotBlank(remoteAddress)) {
             return remoteAddress;
         }
 
-        remoteAddress = httpServletRequest.getHeader("X-Forwarded-For");
+        remoteAddress = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_FOR);
         if (StringUtils.isNotBlank(remoteAddress)) {
             return remoteAddress;
         }
