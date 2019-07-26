@@ -48,8 +48,6 @@ public class AspectUtils {
 
         ApiRest apiRest = null;
         Throwable throwable = null;
-        String datePattern = apiRestAction.datePattern();
-        byte[] publicKey = null;
         try {
             String contentType = httpServletRequest.getContentType();
 
@@ -59,44 +57,20 @@ public class AspectUtils {
 
             Method targetMethod = obtainTargetMethod(proceedingJoinPoint);
             OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
-            if (onlyAllowedApplicationJsonUtf8 != null) {
+            if (Objects.nonNull(onlyAllowedApplicationJsonUtf8)) {
                 ValidateUtils.isTrue(Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
             OnlyAllowedApplicationFormUrlencodedUtf8 onlyAllowedApplicationFormUrlencodedUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationFormUrlencodedUtf8.class);
-            if (onlyAllowedApplicationFormUrlencodedUtf8 != null) {
+            if (Objects.nonNull(onlyAllowedApplicationFormUrlencodedUtf8)) {
                 ValidateUtils.isTrue(Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType), ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
             }
 
             String method = httpServletRequest.getMethod();
             if (Constants.REQUEST_METHOD_GET.equals(method)) {
-                if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-                    apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
-                } else {
-                    apiRest = callApiRestAction(proceedingJoinPoint);
-                }
+                apiRest = callApiRestAction(httpServletRequest, proceedingJoinPoint, apiRestAction);
             } else if (Constants.REQUEST_METHOD_POST.equals(method)) {
-                if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
-                    if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-                        String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-                        ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
-                        if (applicationJsonUtf8Encrypted != null) {
-                            publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
-                            requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
-                        }
-                        apiRest = callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
-                    } else {
-                        apiRest = callApiRestAction(proceedingJoinPoint);
-                    }
-                } else if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
-                    if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-                        apiRest = callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
-                    } else {
-                        apiRest = callApiRestAction(proceedingJoinPoint);
-                    }
-                } else {
-                    throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
-                }
+                apiRest = callApiRestAction(httpServletRequest, proceedingJoinPoint, apiRestAction, targetMethod, contentType);
             } else {
                 throw new CustomException(ErrorConstants.INVALID_REQUEST);
             }
@@ -106,7 +80,7 @@ public class AspectUtils {
             throwable = t;
         }
 
-        if (throwable != null) {
+        if (Objects.nonNull(throwable)) {
             LogUtils.error(apiRestAction.error(), proceedingJoinPoint.getTarget().getClass().getName(), proceedingJoinPoint.getSignature().getName(), throwable);
             if (throwable instanceof CustomException) {
                 CustomException customException = (CustomException) throwable;
@@ -116,6 +90,7 @@ public class AspectUtils {
             }
         }
 
+        String datePattern = apiRestAction.datePattern();
         // 处理压缩
         if (apiRestAction.zipped()) {
             apiRest.zipData(datePattern);
@@ -123,10 +98,7 @@ public class AspectUtils {
 
         // 处理加密
         if (apiRestAction.encrypted()) {
-            if (publicKey == null) {
-                publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
-            }
-            apiRest.encryptData(publicKey, datePattern);
+            apiRest.encryptData(Base64.decodeBase64(ApplicationHandler.obtainPublicKey()), datePattern);
         }
 
         // 处理签名
@@ -237,5 +209,45 @@ public class AspectUtils {
         } else {
             return (ApiRest) result;
         }
+    }
+
+    private static ApiRest callApiRestAction(HttpServletRequest httpServletRequest, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction, Method targetMethod, String contentType) throws Throwable {
+        if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
+            return callApiRestAction(httpServletRequest, proceedingJoinPoint, apiRestAction, targetMethod);
+        } else if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
+            return callApiRestAction(httpServletRequest, proceedingJoinPoint, apiRestAction);
+        } else {
+            throw new CustomException(ErrorConstants.INVALID_CONTENT_TYPE_ERROR);
+        }
+    }
+
+    private static ApiRest callApiRestAction(HttpServletRequest httpServletRequest, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction) throws Throwable {
+        Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
+        Class<?> serviceClass = apiRestAction.serviceClass();
+        String serviceMethodName = apiRestAction.serviceMethodName();
+        String datePattern = apiRestAction.datePattern();
+
+        if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+            return AspectUtils.callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
+        }
+        return AspectUtils.callApiRestAction(proceedingJoinPoint);
+    }
+
+    private static ApiRest callApiRestAction(HttpServletRequest httpServletRequest, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction, Method targetMethod) throws Throwable {
+        Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
+        Class<?> serviceClass = apiRestAction.serviceClass();
+        String serviceMethodName = apiRestAction.serviceMethodName();
+        String datePattern = apiRestAction.datePattern();
+
+        if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
+            String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
+            ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
+            if (Objects.nonNull(applicationJsonUtf8Encrypted)) {
+                byte[] publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
+                requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
+            }
+            return AspectUtils.callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
+        }
+        return AspectUtils.callApiRestAction(proceedingJoinPoint);
     }
 }
