@@ -11,8 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class AliyunUtils {
-    public static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
-    public static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
+    public static final String ACCESS_KEY_ID = "LTAI13Q9MtL90vHh";
+    public static final String ACCESS_KEY_SECRET = "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt";
     public static final String DY_SMS_API_URL = "https://dysmsapi.aliyuncs.com";
     public static final String DY_PLS_API_URL = "https://dyplsapi.aliyuncs.com";
     public static final String CLOUD_PUSH_API_URL = "http://cloudpush.aliyuncs.com";

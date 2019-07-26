@@ -1,5 +1,6 @@
 package build.dream.common.constants;
 
+import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.CustomDateUtils;
 import build.dream.common.utils.WebUtils;
 
@@ -605,6 +606,10 @@ public class Constants {
     public static final String JPUSH_APP_KEY = "jpush.app.key";
     public static final String JPUSH_MASTER_SECRET = "jpush.master.secret";
     public static final String JPUSH_PUSH_SERVICE_URL = "jpush.push.service.url";
+    public static final String JPUSH_SMS_SERVICE_URL = "jpush.sms.service.url";
+    public static final String JPUSH_SMS_SIGN_ID = "jpush.sms.sign.id";
+    public static final String JPUSH_SMS_API_VERIFICATION_CODE_TEMP_ID = "jpush.sms.api.verification.code.temp.id";
+    public static final String JPUSH_SMS_API_AGENT_ACCOUNT_TEMP_ID = "jpush.sms.api.agent.account.temp.id";
 
     /**
      * 钉钉开放平台相关配置
@@ -1151,8 +1156,10 @@ public class Constants {
     public static final String RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID = "rong.lian.verification.code.template.id";
     public static final String RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID = "rong.lian.agent.account.template.id";
 
+    public static final String VERIFICATION_CODE_TIMEOUT = "verification.code.timeout";
     public static final String SMS_CHANNEL_ALIYUN = "ALIYUN";
     public static final String SMS_CHANNEL_RONG_LIAN = "RONG_LIAN";
+    public static final String SMS_CHANNEL_JPUSH = "JPUSH";
     public static final String SMS_CHANNEL = "sms.channel";
 
     public static final String COMMON_REDIS_HOST = "common.redis.host";

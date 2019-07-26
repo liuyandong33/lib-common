@@ -1,20 +1,20 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.sms.SmsSender;
-import build.dream.common.sms.SmsSenderFactory;
-import org.apache.commons.lang.RandomStringUtils;
+import build.dream.common.sms.SmsHelper;
+import build.dream.common.sms.SmsHelperFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
 
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class SmsUtils {
     /**
      * 短信通道配置
      */
     private static final String SMS_CHANNEL = ConfigurationUtils.getConfiguration(Constants.SMS_CHANNEL);
-    private static final SmsSender SMS_SENDER = SmsSenderFactory.buildSmsSender(SMS_CHANNEL);
+    private static final SmsHelper SMS_HELPER = SmsHelperFactory.buildSmsSender(SMS_CHANNEL);
+    private static final String VERIFICATION_CODE_TIMEOUT = ConfigurationUtils.getConfiguration(Constants.VERIFICATION_CODE_TIMEOUT);
 
     /**
      * 验证短信通道配置
@@ -35,6 +35,13 @@ public class SmsUtils {
         ValidateUtils.isTrue(count <= 50, "手机号【" + phoneNumber + "】今日发送短信已经超过50条！");
     }
 
+    public static int obtainVerificationCodeTimeout() {
+        if (StringUtils.isNotBlank(VERIFICATION_CODE_TIMEOUT)) {
+            return Integer.parseInt(VERIFICATION_CODE_TIMEOUT);
+        }
+        return 5;
+    }
+
     /**
      * 发送验证码
      *
@@ -43,9 +50,7 @@ public class SmsUtils {
     public static void sendVerificationCode(String phoneNumber) {
         validateSmsChannelConfig();
         validateSendTimes(phoneNumber);
-        String code = RandomStringUtils.randomNumeric(6);
-        SMS_SENDER.sendVerificationCode(phoneNumber, code, 5);
-        CommonRedisUtils.setex(phoneNumber, code, 5, TimeUnit.MINUTES);
+        SMS_HELPER.sendVerificationCode(phoneNumber);
     }
 
     /**
@@ -56,7 +61,7 @@ public class SmsUtils {
      * @return
      */
     public static boolean verifyVerificationCode(String phoneNumber, String code) {
-        return code.equals(CommonRedisUtils.get(phoneNumber));
+        return SMS_HELPER.verifyVerificationCode(phoneNumber, code);
     }
 
     /**
@@ -69,6 +74,6 @@ public class SmsUtils {
     public static void sendAgentAccount(String phoneNumber, String code, String password) {
         validateSmsChannelConfig();
         validateSendTimes(phoneNumber);
-        SMS_SENDER.sendAgentAccount(phoneNumber, code, password);
+        SMS_HELPER.sendAgentAccount(phoneNumber, code, password);
     }
 }

@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AliyunSmsUtils {
+    public static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
+
     /**
      * 发送短信
      *

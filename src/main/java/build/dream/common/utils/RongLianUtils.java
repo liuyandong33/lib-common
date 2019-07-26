@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RongLianUtils {
+    public static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_ACCOUNT_SID);
+    public static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_AUTH_TOKEN);
+    public static final String APP_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_APP_ID);
     private static final String BASE_URL = "https://app.cloopen.com:8883";
 
     public static Map<String, Object> sendSms(SendSmsModel sendSmsModel) {

@@ -56,7 +56,7 @@ public class AliyunPushUtils {
         Map<String, String> commonRequestParameters = new HashMap<String, String>();
         commonRequestParameters.put("Format", Constants.UPPER_CASE_JSON);
         commonRequestParameters.put("RegionId", "cn-hangzhou");
-        commonRequestParameters.put("Version", "2018-03-24");
+        commonRequestParameters.put("Version", "2016-08-01");
         commonRequestParameters.put("SignatureMethod", "HMAC-SHA1");
 
         commonRequestParameters.put("Timestamp", CustomDateUtils.buildISO8601SimpleDateFormat().format(new Date()));
@@ -91,7 +91,7 @@ public class AliyunPushUtils {
         requestParameters.put("TargetValue", targetValue);
         requestParameters.put("Title", title);
         requestParameters.put("Body", body);
-        requestParameters.put("Signature", generateSignature(AliyunUtils.ACCESS_KEY_SECRET, requestParameters));
+        requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
 
         return callAliyunPushApi(requestParameters);
     }
@@ -103,7 +103,7 @@ public class AliyunPushUtils {
      * @return
      */
     public static Map<String, Object> pushMessageToAndroid(PushMessageModel pushMessageModel) {
-        pushMessageModel.validateAndThrow();
+//        pushMessageModel.validateAndThrow();
         return pushMessage(Constants.DEVICE_TYPE_ANDROID, pushMessageModel.getAppKey(), pushMessageModel.getTarget(), pushMessageModel.getTargetValue(), pushMessageModel.getTitle(), pushMessageModel.getBody());
     }
 
