@@ -23,6 +23,11 @@ public class SmsUtils {
         ValidateUtils.isTrue(Constants.SMS_CHANNEL_ALIYUN.equals(SMS_CHANNEL) || Constants.SMS_CHANNEL_RONG_LIAN.equals(SMS_CHANNEL), "未配置短信通道");
     }
 
+    /**
+     * 验证短信发送次数
+     *
+     * @param phoneNumber
+     */
     private static void validateSendTimes(String phoneNumber) {
         String today = CustomDateUtils.format(new Date(), "yyyyMMdd");
         String key = "_sms_count_" + today + "_" + phoneNumber;
@@ -35,6 +40,11 @@ public class SmsUtils {
         ValidateUtils.isTrue(count <= 50, "手机号【" + phoneNumber + "】今日发送短信已经超过50条！");
     }
 
+    /**
+     * 获取验证码有效期
+     *
+     * @return
+     */
     public static int obtainVerificationCodeTimeout() {
         if (StringUtils.isNotBlank(VERIFICATION_CODE_TIMEOUT)) {
             return Integer.parseInt(VERIFICATION_CODE_TIMEOUT);
