@@ -50,11 +50,6 @@ public class AspectUtils {
         Throwable throwable = null;
         try {
             String contentType = httpServletRequest.getContentType();
-
-            Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
-            Class<?> serviceClass = apiRestAction.serviceClass();
-            String serviceMethodName = apiRestAction.serviceMethodName();
-
             Method targetMethod = obtainTargetMethod(proceedingJoinPoint);
             OnlyAllowedApplicationJsonUtf8 onlyAllowedApplicationJsonUtf8 = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedApplicationJsonUtf8.class);
             if (Objects.nonNull(onlyAllowedApplicationJsonUtf8)) {
