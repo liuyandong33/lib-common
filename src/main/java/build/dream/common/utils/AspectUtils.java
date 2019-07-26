@@ -223,9 +223,9 @@ public class AspectUtils {
         String datePattern = apiRestAction.datePattern();
 
         if (modelClass != BasicModel.class && serviceClass != Object.class && StringUtils.isNotBlank(serviceMethodName)) {
-            return AspectUtils.callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
+            return callApiRestAction(ApplicationHandler.getRequestParameters(httpServletRequest), modelClass, serviceClass, serviceMethodName, datePattern);
         }
-        return AspectUtils.callApiRestAction(proceedingJoinPoint);
+        return callApiRestAction(proceedingJoinPoint);
     }
 
     private static ApiRest callApiRestAction(HttpServletRequest httpServletRequest, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction, Method targetMethod) throws Throwable {
@@ -241,8 +241,8 @@ public class AspectUtils {
                 byte[] publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
                 requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
             }
-            return AspectUtils.callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
+            return callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
         }
-        return AspectUtils.callApiRestAction(proceedingJoinPoint);
+        return callApiRestAction(proceedingJoinPoint);
     }
 }
