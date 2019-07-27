@@ -208,7 +208,7 @@ public class ApplicationHandler {
 
         String xForwardedFor = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_FOR);
         if (StringUtils.isNotBlank(xForwardedFor)) {
-            return xForwardedFor;
+            return StringUtils.trim(xForwardedFor.split(",")[0]);
         }
         return httpServletRequest.getRemoteAddr();
     }
@@ -240,7 +240,7 @@ public class ApplicationHandler {
     public static String getRequestUrl(HttpServletRequest httpServletRequest) {
         String proto = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PROTO);
         if (StringUtils.isBlank(proto)) {
-            proto = httpServletRequest.getScheme();
+            proto = StringUtils.trim(httpServletRequest.getScheme().split(",")[0]);
         }
 
         String host = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_HOST);
