@@ -232,26 +232,64 @@ public class ApplicationHandler {
     }
 
     /**
+     * 获取请求协议
+     *
+     * @return
+     */
+    public static String obtainProtocol() {
+        return obtainProtocol(getHttpServletRequest());
+    }
+
+    /**
+     * 获取请求协议
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String obtainProtocol(HttpServletRequest httpServletRequest) {
+        String protocol = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PROTO);
+        if (StringUtils.isBlank(protocol)) {
+            return httpServletRequest.getScheme();
+        }
+        return StringUtils.trim(protocol.split(",")[0]);
+    }
+
+    /**
+     * 获取请求域名
+     *
+     * @return
+     */
+    public static String obtainHost() {
+        return obtainHost(getHttpServletRequest());
+    }
+
+    /**
+     * 获取请求域名
+     *
+     * @param httpServletRequest
+     * @return
+     */
+    public static String obtainHost(HttpServletRequest httpServletRequest) {
+        String host = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_HOST);
+        if (StringUtils.isBlank(host)) {
+            return httpServletRequest.getServerName();
+        }
+        return host;
+    }
+
+    /**
      * 获取请求的url
      *
      * @param httpServletRequest
      * @return
      */
     public static String getRequestUrl(HttpServletRequest httpServletRequest) {
-        String proto = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PROTO);
-        if (StringUtils.isBlank(proto)) {
-            proto = StringUtils.trim(httpServletRequest.getScheme().split(",")[0]);
-        }
-
-        String host = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_HOST);
-        if (StringUtils.isBlank(host)) {
-            host = httpServletRequest.getServerName();
-        }
-
+        String protocol = obtainProtocol(httpServletRequest);
+        String host = obtainHost(httpServletRequest);
         String prefix = httpServletRequest.getHeader(HttpHeaders.X_FORWARDED_PREFIX);
 
         String requestUri = getRequestUri(httpServletRequest);
-        return StringUtils.isBlank(prefix) ? proto + "://" + host + requestUri : proto + "://" + host + prefix + requestUri;
+        return StringUtils.isBlank(prefix) ? protocol + "://" + host + requestUri : protocol + "://" + host + prefix + requestUri;
     }
 
     /**
