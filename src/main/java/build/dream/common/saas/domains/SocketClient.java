@@ -3,6 +3,7 @@ package build.dream.common.saas.domains;
 import build.dream.common.basic.BasicDomain;
 
 public class SocketClient extends BasicDomain {
+    public static final String TABLE_NAME = "socket_client";
     /**
      * session id
      */
