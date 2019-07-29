@@ -1,9 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.annotations.ApiRestAction;
-import build.dream.common.annotations.ApplicationJsonUtf8Encrypted;
-import build.dream.common.annotations.OnlyAllowedApplicationFormUrlencodedUtf8;
-import build.dream.common.annotations.OnlyAllowedApplicationJsonUtf8;
+import build.dream.common.annotations.*;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
@@ -62,6 +59,16 @@ public class AspectUtils {
             }
 
             String method = httpServletRequest.getMethod();
+            OnlyAllowedRequestMethodGet onlyAllowedRequestMethodGet = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedRequestMethodGet.class);
+            if (Objects.nonNull(onlyAllowedRequestMethodGet)) {
+                ValidateUtils.isTrue(Constants.REQUEST_METHOD_GET.equals(method), ErrorConstants.INVALID_REQUEST_METHOD_ERROR);
+            }
+
+            OnlyAllowedRequestMethodPost onlyAllowedRequestMethodPost = AnnotationUtils.findAnnotation(targetMethod, OnlyAllowedRequestMethodPost.class);
+            if (Objects.nonNull(onlyAllowedRequestMethodPost)) {
+                ValidateUtils.isTrue(Constants.REQUEST_METHOD_POST.equals(method), ErrorConstants.INVALID_REQUEST_METHOD_ERROR);
+            }
+
             if (Constants.REQUEST_METHOD_GET.equals(method)) {
                 apiRest = callApiRestAction(httpServletRequest, proceedingJoinPoint, apiRestAction);
             } else if (Constants.REQUEST_METHOD_POST.equals(method)) {

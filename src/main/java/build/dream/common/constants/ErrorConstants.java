@@ -54,6 +54,7 @@ public class ErrorConstants {
     public static final String ERROR_CODE_INVALID_SIGNATURE = "0014";
     public static final String ERROR_CODE_UNAUTHORIZED = "0015";
     public static final String ERROR_CODE_INVALID_CONTENT_TYPE = "0016";
+    public static final String ERROR_CODE_INVALID_REQUEST_METHOD = "0017";
 
     public static final Error UNKNOWN_ERROR = new Error(ERROR_CODE_UNKNOWN_ERROR, "未知错误！");
     public static final Error INVALID_PARAMETER_ERROR = new Error(ERROR_CODE_INVALID_PARAMETER, "参数错误！");
@@ -72,4 +73,5 @@ public class ErrorConstants {
     public static final Error INVALID_SIGNATURE_ERROR = new Error(ERROR_CODE_INVALID_SIGNATURE, "签名错误！");
     public static final Error UNAUTHORIZED_ERROR = new Error(ERROR_CODE_UNAUTHORIZED, "Full authentication is required to access this resource！");
     public static final Error INVALID_CONTENT_TYPE_ERROR = new Error(ERROR_CODE_INVALID_CONTENT_TYPE, "Content-Type 错误！");
+    public static final Error INVALID_REQUEST_METHOD_ERROR = new Error(ERROR_CODE_INVALID_REQUEST_METHOD, "请求方法错误！");
 }
