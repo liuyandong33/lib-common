@@ -4,7 +4,10 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
-import build.dream.common.utils.*;
+import build.dream.common.utils.JacksonUtils;
+import build.dream.common.utils.RSAUtils;
+import build.dream.common.utils.SignatureUtils;
+import build.dream.common.utils.ZipUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
@@ -163,7 +166,7 @@ public class ApiRest {
     }
 
     public String toJson(String datePattern) {
-        return GsonUtils.toJson(this, datePattern);
+        return JacksonUtils.writeValueAsString(this, datePattern);
     }
 
     public void sign(String privateKey) {
@@ -177,7 +180,7 @@ public class ApiRest {
             if (this.data instanceof String) {
                 sortedMap.put("data", data.toString());
             } else {
-                sortedMap.put("data", GsonUtils.toJson(data, datePattern));
+                sortedMap.put("data", JacksonUtils.writeValueAsString(data, datePattern));
             }
         }
         if (StringUtils.isNotBlank(className)) {
@@ -187,7 +190,7 @@ public class ApiRest {
             sortedMap.put("message", message);
         }
         if (error != null) {
-            sortedMap.put("error", GsonUtils.toJson(error));
+            sortedMap.put("error", JacksonUtils.writeValueAsString(error));
         }
         sortedMap.put("id", id);
         sortedMap.put("timestamp", timestamp);
@@ -216,7 +219,7 @@ public class ApiRest {
         if (data instanceof String) {
             data = ZipUtils.zipText(data.toString());
         } else {
-            data = ZipUtils.zipText(GsonUtils.toJson(data, datePattern));
+            data = ZipUtils.zipText(JacksonUtils.writeValueAsString(data, datePattern));
         }
         zipped = true;
     }
@@ -230,7 +233,7 @@ public class ApiRest {
         if (data instanceof String) {
             bytes = data.toString().getBytes(Constants.CHARSET_UTF_8);
         } else {
-            bytes = GsonUtils.toJson(data, datePattern).getBytes(Constants.CHARSET_UTF_8);
+            bytes = JacksonUtils.writeValueAsString(data, datePattern).getBytes(Constants.CHARSET_UTF_8);
         }
         data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(bytes, publicKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
         encrypted = true;

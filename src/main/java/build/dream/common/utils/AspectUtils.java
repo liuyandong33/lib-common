@@ -107,7 +107,7 @@ public class AspectUtils {
         if (apiRestAction.signed()) {
             apiRest.sign(PLATFORM_PRIVATE_KEY, datePattern);
         }
-        return GsonUtils.toJson(apiRest, datePattern);
+        return JacksonUtils.writeValueAsString(apiRest, datePattern);
     }
 
     /**
