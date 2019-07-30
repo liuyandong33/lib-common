@@ -8,13 +8,14 @@ import build.dream.common.utils.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * Created by liuyandong on 2017/3/20.
  */
-public class ApiRest {
+public class ApiRest implements Serializable, Cloneable {
     private boolean successful;
     private Object data;
     private String className;
