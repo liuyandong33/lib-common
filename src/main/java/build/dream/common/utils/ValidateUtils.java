@@ -77,11 +77,11 @@ public class ValidateUtils {
             JsonSchemaValidateUtils.validateAndThrow(JacksonUtils.writeValueAsString(model), jsonSchema.value());
         }
         Validator validator = obtainValidator();
-        List<Field> allFields = obtainAllFields(model.getClass());
-        String modelClassName = model.getClass().getName();
+        List<Field> allFields = obtainAllFields(modelClass);
+        String modelClassName = modelClass.getName();
         for (Field field : allFields) {
             String fieldName = field.getName();
-            Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, field.getName()).iterator();
+            Iterator<ConstraintViolation<Object>> iterator = validator.validateProperty(model, fieldName).iterator();
             if (iterator.hasNext()) {
                 ConstraintViolation<Object> constraintViolation = iterator.next();
                 String message = constraintViolation.getMessage();
@@ -89,7 +89,7 @@ public class ValidateUtils {
                     Locale locale = LocaleContextHolder.getLocale();
                     String annotationSimpleName = constraintViolation.getConstraintDescriptor().getAnnotation().annotationType().getSimpleName();
                     String defaultMessage = ApplicationHandler.obtainParameterErrorMessage(fieldName);
-                    message = obtainMessageSource().getMessage(modelClassName + "." + field.getName() + "." + annotationSimpleName, null, defaultMessage, locale);
+                    message = obtainMessageSource().getMessage(modelClassName + "." + fieldName + "." + annotationSimpleName, null, defaultMessage, locale);
                 }
                 throw new CustomException(message, ErrorConstants.ERROR_CODE_INVALID_PARAMETER);
             }
