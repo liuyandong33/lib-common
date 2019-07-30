@@ -881,18 +881,14 @@ public class ApplicationHandler {
 
     public static String obtainBrowserPlatform() {
         String userAgent = obtainHttpHeader(HttpHeaders.USER_AGENT);
-        String browserPlatform = null;
         if (StringUtils.isBlank(userAgent)) {
-            browserPlatform = Constants.BROWSER_PLATFORM_OTHER;
-        } else {
-            userAgent = userAgent.toLowerCase();
-            if (userAgent.contains("iphone") || userAgent.contains("android")) {
-                browserPlatform = Constants.BROWSER_PLATFORM_PHONE;
-            } else {
-                browserPlatform = Constants.BROWSER_PLATFORM_PC;
-            }
+            return Constants.BROWSER_PLATFORM_OTHER;
         }
-        return browserPlatform;
+        userAgent = userAgent.toLowerCase();
+        if (userAgent.contains("iphone") || userAgent.contains("android")) {
+            return Constants.BROWSER_PLATFORM_PHONE;
+        }
+        return Constants.BROWSER_PLATFORM_PC;
     }
 
     public static void redirect(String url) throws IOException {
