@@ -827,14 +827,12 @@ public class ApplicationHandler {
     }
 
     public static String obtainParameterErrorMessage(String parameterName) {
-        String message = null;
         String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
-        if (Constants.DEVELOPMENT.equals(deploymentEnvironment) || Constants.TEST.equals(deploymentEnvironment) || Constants.BETA.equals(deploymentEnvironment)) {
-            message = String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
-        } else {
-            message = Constants.API_PARAMETER_ERROR_MESSAGE;
+        if (Constants.WWW.equals(deploymentEnvironment)) {
+            return Constants.API_PARAMETER_ERROR_MESSAGE;
         }
-        return message;
+
+        return String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
     }
 
     public static String obtainRequestMethod() {
@@ -865,20 +863,20 @@ public class ApplicationHandler {
 
     public static String obtainBrowserType() {
         String userAgent = obtainHttpHeader(HttpHeaders.USER_AGENT);
-        String browserType = null;
         if (StringUtils.isBlank(userAgent)) {
-            browserType = Constants.BROWSER_TYPE_OTHER;
-        } else {
-            userAgent = userAgent.toLowerCase();
-            if (userAgent.contains("alipay")) {
-                browserType = Constants.BROWSER_TYPE_ALIPAY;
-            } else if (userAgent.contains("micromessenger")) {
-                browserType = Constants.BROWSER_TYPE_WEI_XIN;
-            } else {
-                browserType = Constants.BROWSER_TYPE_OTHER;
-            }
+            return Constants.BROWSER_TYPE_OTHER;
         }
-        return browserType;
+
+        userAgent = userAgent.toLowerCase();
+        if (userAgent.contains("alipay")) {
+            return Constants.BROWSER_TYPE_ALIPAY;
+        }
+
+        if (userAgent.contains("micromessenger")) {
+            return Constants.BROWSER_TYPE_WEI_XIN;
+        }
+
+        return Constants.BROWSER_TYPE_OTHER;
     }
 
     public static String obtainBrowserPlatform() {
