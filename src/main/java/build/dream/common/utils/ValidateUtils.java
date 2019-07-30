@@ -23,14 +23,14 @@ public class ValidateUtils {
     private static MessageSource messageSource;
 
     private static Validator obtainValidator() {
-        if (validator == null) {
+        if (Objects.isNull(validator)) {
             validator = ApplicationHandler.obtainValidator();
         }
         return validator;
     }
 
     private static MessageSource obtainMessageSource() {
-        if (messageSource == null) {
+        if (Objects.isNull(messageSource)) {
             messageSource = ApplicationHandler.obtainMessageSource();
         }
         return messageSource;
@@ -56,7 +56,7 @@ public class ValidateUtils {
     public static boolean validate(Object model) {
         Class<?> modelClass = model.getClass();
         JsonSchema jsonSchema = AnnotationUtils.findAnnotation(modelClass, JsonSchema.class);
-        if (jsonSchema != null) {
+        if (Objects.nonNull(jsonSchema)) {
             return ValidateUtils.isRightJson(JacksonUtils.writeValueAsString(model), jsonSchema.value());
         }
         Validator validator = obtainValidator();
@@ -73,9 +73,11 @@ public class ValidateUtils {
     public static void validateAndThrow(Object model) {
         Class<?> modelClass = model.getClass();
         JsonSchema jsonSchema = AnnotationUtils.findAnnotation(modelClass, JsonSchema.class);
-        if (jsonSchema != null) {
+        if (Objects.nonNull(jsonSchema)) {
             JsonSchemaValidateUtils.validateAndThrow(JacksonUtils.writeValueAsString(model), jsonSchema.value());
+            return;
         }
+        
         Validator validator = obtainValidator();
         List<Field> allFields = obtainAllFields(modelClass);
         String modelClassName = modelClass.getName();
@@ -115,19 +117,19 @@ public class ValidateUtils {
     }
 
     public static void notNull(Object object, String message) {
-        if (object == null) {
+        if (Objects.isNull(object)) {
             throw new CustomException(message);
         }
     }
 
     public static void notNull(Object object, String message, String code) {
-        if (object == null) {
+        if (Objects.isNull(object)) {
             throw new CustomException(message, code);
         }
     }
 
     public static void notNull(Object object, Error error) {
-        if (object == null) {
+        if (Objects.isNull(object)) {
             throw new CustomException(error);
         }
     }
@@ -333,7 +335,7 @@ public class ValidateUtils {
     public static void noNullElements(Object[] array, String message) {
         notNull(array, message);
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
+            if (Objects.isNull(array[i])) {
                 throw new CustomException(message);
             }
         }
@@ -342,7 +344,7 @@ public class ValidateUtils {
     public static void noNullElements(Object[] array, String message, String code) {
         notNull(array, message, code);
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
+            if (Objects.isNull(array[i])) {
                 throw new CustomException(message);
             }
         }
@@ -351,7 +353,7 @@ public class ValidateUtils {
     public static void noNullElements(Object[] array, Error error) {
         notNull(array, error);
         for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
+            if (Objects.isNull(array[i])) {
                 throw new CustomException(error);
             }
         }
@@ -360,7 +362,7 @@ public class ValidateUtils {
     public static void noNullElements(Collection collection, String message) {
         notNull(collection, message);
         for (Iterator it = collection.iterator(); it.hasNext(); ) {
-            if (it.next() == null) {
+            if (Objects.isNull(it.next())) {
                 throw new CustomException(message);
             }
         }
@@ -369,7 +371,7 @@ public class ValidateUtils {
     public static void noNullElements(Collection collection, String message, String code) {
         notNull(collection, message, code);
         for (Iterator it = collection.iterator(); it.hasNext(); ) {
-            if (it.next() == null) {
+            if (Objects.isNull(it.next())) {
                 throw new CustomException(message, code);
             }
         }
@@ -378,7 +380,7 @@ public class ValidateUtils {
     public static void noNullElements(Collection collection, Error error) {
         notNull(collection, error);
         for (Iterator it = collection.iterator(); it.hasNext(); ) {
-            if (it.next() == null) {
+            if (Objects.isNull(it.next())) {
                 throw new CustomException(error);
             }
         }

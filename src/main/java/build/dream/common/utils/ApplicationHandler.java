@@ -393,14 +393,14 @@ public class ApplicationHandler {
             if (Modifier.isStatic(modifiers) || Modifier.isFinal(modifiers) || Modifier.isNative(modifiers)) {
                 continue;
             }
-            if (field.getAnnotation(InstantiateObjectIgnore.class) != null) {
+            if (Objects.nonNull(field.getAnnotation(InstantiateObjectIgnore.class))) {
                 continue;
             }
 
             InstantiateObjectKey instantiateObjectKey = field.getAnnotation(InstantiateObjectKey.class);
 
             String parameterName = null;
-            if (instantiateObjectKey == null) {
+            if (Objects.isNull(instantiateObjectKey)) {
                 parameterName = field.getName();
             } else {
                 parameterName = instantiateObjectKey.name();
@@ -489,7 +489,7 @@ public class ApplicationHandler {
         DateFormat dateFormat = field.getAnnotation(DateFormat.class);
         String datePattern = null;
 
-        if (dateFormat != null) {
+        if (Objects.nonNull(dateFormat)) {
             datePattern = dateFormat.pattern();
         } else {
             datePattern = defaultDatePattern;
@@ -796,7 +796,7 @@ public class ApplicationHandler {
     }
 
     public static void ifNotNullPut(Map<String, Object> targetMap, String key, Object value) {
-        if (value != null) {
+        if (Objects.nonNull(value)) {
             targetMap.put(key, value);
         }
     }
@@ -1127,7 +1127,7 @@ public class ApplicationHandler {
         String controllerClassName = null;
         String actionMethodName = null;
         HandlerMethod handlerMethod = obtainHandlerMethod();
-        if (handlerMethod != null) {
+        if (Objects.nonNull(handlerMethod)) {
             controllerClassName = handlerMethod.getBeanType().getName();
             actionMethodName = handlerMethod.getMethod().getName();
         }
@@ -1176,11 +1176,11 @@ public class ApplicationHandler {
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
                 Method writeMethod = propertyDescriptor.getWriteMethod();
-                if (writeMethod == null) {
+                if (Objects.isNull(writeMethod)) {
                     continue;
                 }
                 Object value = properties.get(propertyDescriptor.getName());
-                if (value == null && ArrayUtils.contains(Constants.BASIC_DATA_TYPES, propertyDescriptor.getPropertyType())) {
+                if (Objects.isNull(value) && ArrayUtils.contains(Constants.BASIC_DATA_TYPES, propertyDescriptor.getPropertyType())) {
                     continue;
                 }
 
