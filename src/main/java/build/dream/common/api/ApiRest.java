@@ -235,8 +235,16 @@ public class ApiRest implements Serializable, Cloneable {
         zipped = false;
     }
 
+    public void encryptData(String publicKey) {
+        encryptData(Base64.decodeBase64(publicKey), Constants.DEFAULT_DATE_PATTERN);
+    }
+
     public void encryptData(String publicKey, String datePattern) {
         encryptData(Base64.decodeBase64(publicKey), datePattern);
+    }
+
+    public void encryptData(byte[] publicKey) {
+        encryptData(publicKey, Constants.DEFAULT_DATE_PATTERN);
     }
 
     public void encryptData(byte[] publicKey, String datePattern) {
@@ -250,12 +258,20 @@ public class ApiRest implements Serializable, Cloneable {
         encrypted = true;
     }
 
-    public void decryptData(String publicKey, String datePattern) {
-        decryptData(Base64.decodeBase64(publicKey), datePattern);
+    public void decryptData(String privateKey) {
+        decryptData(privateKey, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public void decryptData(byte[] publicKey, String datePattern) {
-        byte[] bytes = RSAUtils.decryptByPublicKey(Base64.decodeBase64(data.toString()), publicKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING);
+    public void decryptData(String privateKey, String datePattern) {
+        decryptData(Base64.decodeBase64(privateKey), datePattern);
+    }
+
+    public void decryptData(byte[] privateKey) {
+        decryptData(privateKey, Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public void decryptData(byte[] privateKey, String datePattern) {
+        byte[] bytes = RSAUtils.decryptByPrivateKey(Base64.decodeBase64(data.toString()), privateKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING);
         String str = new String(bytes, Constants.CHARSET_UTF_8);
         if (zipped) {
             data = str;
