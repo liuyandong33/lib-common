@@ -4,10 +4,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
-import build.dream.common.utils.JacksonUtils;
-import build.dream.common.utils.RSAUtils;
-import build.dream.common.utils.SignatureUtils;
-import build.dream.common.utils.ZipUtils;
+import build.dream.common.utils.*;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
@@ -30,29 +27,29 @@ public class ApiRest {
     private boolean encrypted;
 
     public ApiRest() {
-        this.id = UUID.randomUUID().toString();
-        this.successful = false;
-        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
+        id = UUID.randomUUID().toString();
+        successful = false;
+        timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(Throwable throwable) {
-        this.id = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
         if (throwable instanceof CustomException) {
             CustomException customException = (CustomException) throwable;
-            this.error = new Error(customException.getCode(), customException.getMessage());
+            error = new Error(customException.getCode(), customException.getMessage());
         } else {
-            this.error = ErrorConstants.UNKNOWN_ERROR;
+            error = ErrorConstants.UNKNOWN_ERROR;
         }
-        this.successful = false;
-        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
+        successful = false;
+        timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public ApiRest(Object data, String message) {
         this.data = data;
         this.message = message;
-        this.id = UUID.randomUUID().toString();
-        this.successful = true;
-        this.timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
+        id = UUID.randomUUID().toString();
+        successful = true;
+        timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
     }
 
     public void setSuccessful(boolean successful) {
@@ -145,8 +142,12 @@ public class ApiRest {
 
     public static ApiRest fromJson(String jsonString, String datePattern) {
         ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class, datePattern);
+        if (apiRest.isEncrypted()) {
+            apiRest.decryptData(ApplicationHandler.obtainPublicKey(), datePattern);
+        }
+
         if (apiRest.isZipped()) {
-            apiRest.setData(JacksonUtils.readValue(ZipUtils.unzipText(apiRest.data.toString()), Object.class, datePattern));
+            apiRest.unzipData(datePattern);
         }
         if (StringUtils.isNotBlank(apiRest.className)) {
             Class<?> clazz = null;
@@ -173,15 +174,11 @@ public class ApiRest {
         sign(privateKey, Constants.DEFAULT_DATE_PATTERN);
     }
 
-    public void sign(String privateKey, String datePattern) {
+    private String concat(String datePattern) {
         Map<String, String> sortedMap = new TreeMap<String, String>();
         sortedMap.put("successful", String.valueOf(successful));
-        if (this.data != null) {
-            if (this.data instanceof String) {
-                sortedMap.put("data", data.toString());
-            } else {
-                sortedMap.put("data", JacksonUtils.writeValueAsString(data, datePattern));
-            }
+        if (Objects.nonNull(data)) {
+            sortedMap.put("data", JacksonUtils.writeValueAsString(data, datePattern));
         }
         if (StringUtils.isNotBlank(className)) {
             sortedMap.put("className", className);
@@ -189,7 +186,7 @@ public class ApiRest {
         if (StringUtils.isNotBlank(message)) {
             sortedMap.put("message", message);
         }
-        if (error != null) {
+        if (Objects.nonNull(error)) {
             sortedMap.put("error", JacksonUtils.writeValueAsString(error));
         }
         sortedMap.put("id", id);
@@ -204,11 +201,15 @@ public class ApiRest {
             }
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        try {
-            this.signature = Base64.encodeBase64String(SignatureUtils.sign(StringUtils.join(pairs, "&").getBytes(Constants.CHARSET_NAME_UTF_8), Base64.decodeBase64(privateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
-        } catch (Exception e) {
-            throw new CustomException("签名失败！");
-        }
+        return StringUtils.join(pairs, "&");
+    }
+
+    public void sign(String privateKey, String datePattern) {
+        signature = Base64.encodeBase64String(SignatureUtils.sign(concat(datePattern).getBytes(Constants.CHARSET_UTF_8), Base64.decodeBase64(privateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
+    }
+
+    public boolean verifySign(String publicKey, String datePattern) {
+        return SignatureUtils.verifySign(concat(datePattern).getBytes(Constants.CHARSET_UTF_8), Base64.decodeBase64(publicKey), Base64.decodeBase64(signature), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA);
     }
 
     public void zipData() {
@@ -224,6 +225,15 @@ public class ApiRest {
         zipped = true;
     }
 
+    public void unzipData() {
+        unzipData(Constants.DEFAULT_DATE_PATTERN);
+    }
+
+    public void unzipData(String datePattern) {
+        data = JacksonUtils.readValue(ZipUtils.unzipText(data.toString()), Object.class, datePattern);
+        zipped = false;
+    }
+
     public void encryptData(String publicKey, String datePattern) {
         encryptData(Base64.decodeBase64(publicKey), datePattern);
     }
@@ -237,6 +247,21 @@ public class ApiRest {
         }
         data = Base64.encodeBase64String(RSAUtils.encryptByPublicKey(bytes, publicKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING));
         encrypted = true;
+    }
+
+    public void decryptData(String publicKey, String datePattern) {
+        decryptData(Base64.decodeBase64(publicKey), datePattern);
+    }
+
+    public void decryptData(byte[] publicKey, String datePattern) {
+        byte[] bytes = RSAUtils.decryptByPublicKey(Base64.decodeBase64(data.toString()), publicKey, RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING);
+        String str = new String(bytes, Constants.CHARSET_UTF_8);
+        if (zipped) {
+            data = str;
+        } else {
+            data = JacksonUtils.readValue(str, Object.class, datePattern);
+        }
+        encrypted = false;
     }
 
     public static class Builder {
