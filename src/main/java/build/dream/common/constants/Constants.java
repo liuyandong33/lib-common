@@ -1,6 +1,5 @@
 package build.dream.common.constants;
 
-import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.CustomDateUtils;
 import build.dream.common.utils.WebUtils;
 
@@ -1178,4 +1177,8 @@ public class Constants {
 
     public static final String RESOURCE_ID_CATERING = "catering";
     public static final String RESOURCE_ID_RETAIL = "retail";
+
+    public static final String POS_TYPE_ANDROID = "android";
+    public static final String POS_TYPE_IOS = "ios";
+    public static final String POS_TYPE_WINDOWS = "windows";
 }

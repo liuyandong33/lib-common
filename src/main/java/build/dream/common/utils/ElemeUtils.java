@@ -160,19 +160,52 @@ public class ElemeUtils {
             return;
         }
 
-        List<BigInteger> posIds = poses.stream().map(Pos::getId).collect(Collectors.toList());
+        List<Pos> androidPoses = new ArrayList<Pos>();
+        List<Pos> iosPosPoses = new ArrayList<Pos>();
+        List<Pos> windowsPoses = new ArrayList<Pos>();
+        for (Pos pos : poses) {
+            String posType = pos.getType();
+            if (Constants.POS_TYPE_ANDROID.equals(posType)) {
+                androidPoses.add(pos);
+            } else if (Constants.POS_TYPE_IOS.equals(posType)) {
+                iosPosPoses.add(pos);
+            } else if (Constants.POS_TYPE_WINDOWS.equals(posType)) {
+                windowsPoses.add(pos);
+            }
+        }
 
         Map<String, Object> bodyMap = new HashMap<String, Object>();
         bodyMap.put("orderId", orderId);
         bodyMap.put("type", type);
         bodyMap.put("uuid", uuid);
-        PushMessageModel pushMessageModel = PushMessageModel.builder()
-                .appKey("")
-                .target(AliyunPushUtils.TARGET_DEVICE)
-                .targetValue(StringUtils.join(posIds, ","))
-                .title("饿了么订单消息")
-                .body(JacksonUtils.writeValueAsString(bodyMap))
-                .build();
-        new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
+        String body = JacksonUtils.writeValueAsString(bodyMap);
+
+        if (CollectionUtils.isNotEmpty(androidPoses)) {
+            List<String> androidPosDeviceIds = androidPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
+            PushMessageModel pushMessageModel = PushMessageModel.builder()
+                    .appKey("")
+                    .target(AliyunPushUtils.TARGET_DEVICE)
+                    .targetValue(StringUtils.join(androidPosDeviceIds, ","))
+                    .title("饿了么订单消息")
+                    .body(body)
+                    .build();
+            new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
+        }
+
+        if (CollectionUtils.isNotEmpty(iosPosPoses)) {
+            List<String> iosPosDeviceIds = iosPosPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
+            PushMessageModel pushMessageModel = PushMessageModel.builder()
+                    .appKey("")
+                    .target(AliyunPushUtils.TARGET_DEVICE)
+                    .targetValue(StringUtils.join(iosPosDeviceIds, ","))
+                    .title("饿了么订单消息")
+                    .body(body)
+                    .build();
+            new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
+        }
+
+        if (CollectionUtils.isNotEmpty(windowsPoses)) {
+
+        }
     }
 }
