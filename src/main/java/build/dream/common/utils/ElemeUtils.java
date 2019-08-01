@@ -12,6 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.IOException;
 import java.math.BigInteger;
@@ -204,8 +205,12 @@ public class ElemeUtils {
             new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
         }
 
+        MqttMessage mqttMessage = new MqttMessage(body.getBytes(Constants.CHARSET_UTF_8));
+        mqttMessage.setQos(0);
         if (CollectionUtils.isNotEmpty(windowsPoses)) {
-
+            for (Pos pos : windowsPoses) {
+                MQTTUtils.publish("_eleme_message/p2p/" + pos.getDeviceId(), mqttMessage);
+            }
         }
     }
 }

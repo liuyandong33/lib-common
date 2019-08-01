@@ -1,7 +1,10 @@
 package build.dream.common.utils;
 
 import build.dream.common.mqtt.ConnectionOptionWrapper;
-import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.UUID;
@@ -78,7 +81,7 @@ public class MQTTUtils {
         };
     }
 
-    public static void publish(String topic, MqttMessage mqttMessage) throws MqttException {
-        mqttClient.publish(topic, mqttMessage);
+    public static void publish(String topic, MqttMessage mqttMessage) {
+        ApplicationHandler.callMethodSuppressThrow(() -> mqttClient.publish(topic, mqttMessage));
     }
 }
