@@ -1181,4 +1181,6 @@ public class Constants {
     public static final String POS_TYPE_ANDROID = "android";
     public static final String POS_TYPE_IOS = "ios";
     public static final String POS_TYPE_WINDOWS = "windows";
+
+    public static final String KEY_WNS_ACCESS_TOKENS = "_wns_access_tokens";
 }
