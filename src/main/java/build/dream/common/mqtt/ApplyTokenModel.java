@@ -70,4 +70,54 @@ public class ApplyTokenModel extends BasicModel {
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
     }
+
+    public static class Builder {
+        private final ApplyTokenModel instance = new ApplyTokenModel();
+
+        public Builder actions(String actions) {
+            instance.setActions(actions);
+            return this;
+        }
+
+        public Builder resources(String resources) {
+            instance.setResources(resources);
+            return this;
+        }
+
+        public Builder expireTime(Long expireTime) {
+            instance.setExpireTime(expireTime);
+            return this;
+        }
+
+        public Builder proxyType(String proxyType) {
+            instance.setProxyType(proxyType);
+            return this;
+        }
+
+        public Builder serviceName(String serviceName) {
+            instance.setServiceName(serviceName);
+            return this;
+        }
+
+        public Builder instanceId(String instanceId) {
+            instance.setInstanceId(instanceId);
+            return this;
+        }
+
+        public ApplyTokenModel build() {
+            ApplyTokenModel applyTokenModel = new ApplyTokenModel();
+            applyTokenModel.setActions(instance.getActions());
+            applyTokenModel.setResources(instance.getResources());
+            applyTokenModel.setExpireTime(instance.getExpireTime());
+            applyTokenModel.setProxyType(instance.getProxyType());
+            applyTokenModel.setServiceName(instance.getServiceName());
+            applyTokenModel.setInstanceId(instance.getInstanceId());
+            return applyTokenModel;
+        }
+
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }

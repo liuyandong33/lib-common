@@ -9,12 +9,15 @@ import build.dream.common.mqtt.ConnectionOptionWrapper;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class MqttUtils {
@@ -106,15 +109,29 @@ public class MqttUtils {
         Map<String, String> applyTokenRequestParameters = new HashMap<String, String>();
         applyTokenRequestParameters.put("actions", actions);
         applyTokenRequestParameters.put("resources", resources);
-        applyTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
         applyTokenRequestParameters.put("expireTime", expireTime.toString());
-        applyTokenRequestParameters.put("proxyType", proxyType);
         applyTokenRequestParameters.put("serviceName", serviceName);
         applyTokenRequestParameters.put("instanceId", instanceId);
-        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlta"));
+        applyTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+        applyTokenRequestParameters.put("proxyType", proxyType);
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         return resultMap;
+    }
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
+        ApplyTokenModel applyTokenModel = ApplyTokenModel.builder()
+                .actions("R")
+                .resources("_eleme_message")
+                .expireTime(DateUtils.addHours(new Date(), 2).getTime())
+                .proxyType("MQTT")
+                .serviceName("mq")
+                .instanceId("post-cn-45918p55a02")
+                .build();
+
+        Map<String, Object> result = applyToken(applyTokenModel);
+        int a = 100;
     }
 }
