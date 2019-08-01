@@ -8,6 +8,7 @@ import build.dream.common.models.mqtt.ApplyTokenModel;
 import build.dream.common.models.mqtt.QueryTokenModel;
 import build.dream.common.models.mqtt.RevokeTokenModel;
 import build.dream.common.mqtt.ConnectionOptionWrapper;
+import build.dream.common.mqtt.MqttInfo;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections.MapUtils;
@@ -34,6 +35,19 @@ public class MqttUtils {
         ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "mqtt", "obtainMqttConfig", obtainMqttConfigRequestParameters);
         ValidateUtils.notNull(apiRest, apiRest.getError());
         return (MqttConfig) apiRest.getData();
+    }
+
+    public static MqttInfo obtainMqttInfo() {
+        MqttConfig mqttConfig = obtainMqttConfig();
+
+        String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
+
+        MqttInfo mqttInfo = new MqttInfo();
+        mqttInfo.setEndPoint(mqttConfig.getEndPoint());
+        mqttInfo.setClientId(clientId);
+        mqttInfo.setUserName("Signature|" + mqttConfig.getAccessKeyId() + "|" + mqttConfig.getInstanceId());
+        mqttInfo.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(mqttConfig.getAccessKeySecret(), clientId)));
+        return mqttInfo;
     }
 
     public static void mqttConnect() {
