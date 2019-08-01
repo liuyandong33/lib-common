@@ -1,5 +1,8 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
+import build.dream.common.catering.domains.MqttConfig;
+import build.dream.common.constants.Constants;
 import build.dream.common.mqtt.ConnectionOptionWrapper;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
@@ -7,6 +10,8 @@ import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class MQTTUtils {
@@ -83,5 +88,17 @@ public class MQTTUtils {
 
     public static void publish(String topic, MqttMessage mqttMessage) {
         ApplicationHandler.callMethodSuppressThrow(() -> mqttClient.publish(topic, mqttMessage));
+    }
+
+    public static MqttConfig obtainMqttConfig() {
+        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+
+        Map<String, String> obtainMqttConfigRequestParameters = new HashMap<String, String>();
+        obtainMqttConfigRequestParameters.put("partitionCode", partitionCode);
+        obtainMqttConfigRequestParameters.put("serviceName", serviceName);
+        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "mqtt", "obtainMqttConfig", obtainMqttConfigRequestParameters);
+        ValidateUtils.notNull(apiRest, apiRest.getError());
+        return (MqttConfig) apiRest.getData();
     }
 }
