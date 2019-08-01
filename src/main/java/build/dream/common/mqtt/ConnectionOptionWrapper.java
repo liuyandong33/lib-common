@@ -19,23 +19,22 @@ public class ConnectionOptionWrapper {
      *
      * @param instanceId  MQ4IOT 实例 ID，购买后控制台获取
      * @param accessKeyId 账号 accessKeyId，从账号系统控制台获取
-     * @param clientId    MQ4IOT clientId，由业务系统分配
      * @param tokenData   客户端使用的 Token 参数，仅在 Token 鉴权模式下需要设置
      */
-    public ConnectionOptionWrapper(String instanceId, String accessKeyId, String clientId, Map<String, String> tokenData) {
+    public ConnectionOptionWrapper(String instanceId, String accessKeyId, Map<String, String> tokenData) {
         if (tokenData != null) {
             this.tokenData.putAll(tokenData);
         }
         mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setUserName("Token|" + accessKeyId + "|" + instanceId);
-        StringBuilder builder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (Map.Entry<String, String> entry : tokenData.entrySet()) {
-            builder.append(entry.getKey()).append("|").append(entry.getValue()).append("|");
+            stringBuilder.append(entry.getKey()).append("|").append(entry.getValue()).append("|");
         }
-        if (builder.length() > 0) {
-            builder.setLength(builder.length() - 1);
+        if (stringBuilder.length() > 0) {
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1);
         }
-        mqttConnectOptions.setPassword(builder.toString().toCharArray());
+        mqttConnectOptions.setPassword(stringBuilder.toString().toCharArray());
         mqttConnectOptions.setCleanSession(true);
         mqttConnectOptions.setKeepAliveInterval(90);
         mqttConnectOptions.setAutomaticReconnect(true);
