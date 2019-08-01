@@ -205,9 +205,9 @@ public class ElemeUtils {
             new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
         }
 
-        MqttMessage mqttMessage = new MqttMessage(body.getBytes(Constants.CHARSET_UTF_8));
-        mqttMessage.setQos(0);
         if (CollectionUtils.isNotEmpty(windowsPoses)) {
+            MqttMessage mqttMessage = new MqttMessage(body.getBytes(Constants.CHARSET_UTF_8));
+            mqttMessage.setQos(0);
             for (Pos pos : windowsPoses) {
                 MQTTUtils.publish("_eleme_message/p2p/" + pos.getDeviceId(), mqttMessage);
             }
