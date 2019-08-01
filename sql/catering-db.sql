@@ -961,6 +961,7 @@ CREATE TABLE pos
     type VARCHAR(10) NOT NULL COMMENT 'pos 类型，安卓-android，苹果-ios',
     version VARCHAR(10) NOT NULL COMMENT 'pos 版本号',
     online TINYINT NOT NULL COMMENT '是否在线，1-在线，0-不在线',
+    mqtt_client_id VARCHAR(100) NOT NULL COMMENT 'MQTT Client Id',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

@@ -45,6 +45,11 @@ public class Pos extends BasicDomain {
      */
     private boolean online;
 
+    /**
+     * MQTT Client Id
+     */
+    private String mqttClientId;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -117,6 +122,14 @@ public class Pos extends BasicDomain {
         this.online = online;
     }
 
+    public String getMqttClientId() {
+        return mqttClientId;
+    }
+
+    public void setMqttClientId(String mqttClientId) {
+        this.mqttClientId = mqttClientId;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Pos> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -163,6 +176,11 @@ public class Pos extends BasicDomain {
             return this;
         }
 
+        public Builder mqttClientId(String mqttClientId) {
+            instance.setMqttClientId(mqttClientId);
+            return this;
+        }
+
         @Override
         public Pos build() {
             Pos pos = super.build();
@@ -175,6 +193,7 @@ public class Pos extends BasicDomain {
             pos.setType(instance.getType());
             pos.setVersion(instance.getVersion());
             pos.setOnline(instance.isOnline());
+            pos.setMqttClientId(instance.getMqttClientId());
             return pos;
         }
     }
@@ -193,6 +212,7 @@ public class Pos extends BasicDomain {
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
+        public static final String MQTT_CLIENT_ID = "mqtt_client_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -205,5 +225,6 @@ public class Pos extends BasicDomain {
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
+        public static final String MQTT_CLIENT_ID = "mqttClientId";
     }
 }
