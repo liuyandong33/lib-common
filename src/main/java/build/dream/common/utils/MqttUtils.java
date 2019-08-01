@@ -4,20 +4,20 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.catering.domains.MqttConfig;
 import build.dream.common.constants.Constants;
-import build.dream.common.mqtt.ApplyTokenModel;
+import build.dream.common.models.mqtt.ApplyTokenModel;
+import build.dream.common.models.mqtt.QueryTokenModel;
+import build.dream.common.models.mqtt.RevokeTokenModel;
 import build.dream.common.mqtt.ConnectionOptionWrapper;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateUtils;
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class MqttUtils {
@@ -98,7 +98,15 @@ public class MqttUtils {
         return Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, StringUtils.join(pairs, "&")));
     }
 
-    public static Map<String, Object> applyToken(ApplyTokenModel applyTokenModel) {
+    /**
+     * 申请 Token 接口
+     *
+     * @param applyTokenModel
+     * @return
+     */
+    public static String applyToken(ApplyTokenModel applyTokenModel) {
+        applyTokenModel.validateAndThrow();
+
         String actions = applyTokenModel.getActions();
         String resources = applyTokenModel.getResources();
         Long expireTime = applyTokenModel.getExpireTime();
@@ -112,26 +120,56 @@ public class MqttUtils {
         applyTokenRequestParameters.put("expireTime", expireTime.toString());
         applyTokenRequestParameters.put("serviceName", serviceName);
         applyTokenRequestParameters.put("instanceId", instanceId);
-        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlta"));
+        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
         applyTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
         applyTokenRequestParameters.put("proxyType", proxyType);
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        return resultMap;
+        boolean success = MapUtils.getBooleanValue(resultMap, "success");
+        ValidateUtils.isTrue(success, MapUtils.getString(resultMap, "message"));
+        return MapUtils.getString(resultMap, "tokenData");
     }
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
-        ApplyTokenModel applyTokenModel = ApplyTokenModel.builder()
-                .actions("R")
-                .resources("_eleme_message")
-                .expireTime(DateUtils.addHours(new Date(), 2).getTime())
-                .proxyType("MQTT")
-                .serviceName("mq")
-                .instanceId("post-cn-45918p55a02")
-                .build();
+    /**
+     * 校验 Token 接口
+     *
+     * @param queryTokenModel
+     * @return
+     */
+    public static boolean queryToken(QueryTokenModel queryTokenModel) {
+        queryTokenModel.validateAndThrow();
 
-        Map<String, Object> result = applyToken(applyTokenModel);
-        int a = 100;
+        String token = queryTokenModel.getToken();
+
+        Map<String, String> queryTokenRequestParameters = new HashMap<String, String>();
+        queryTokenRequestParameters.put("token", token);
+        queryTokenRequestParameters.put("signature", generateSignature(queryTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
+        queryTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/query", queryTokenRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        return MapUtils.getBooleanValue(resultMap, "success");
+    }
+
+    /**
+     * 吊销 Token 接口
+     *
+     * @param revokeTokenModel
+     * @return
+     */
+    public static boolean revokeToken(RevokeTokenModel revokeTokenModel) {
+        revokeTokenModel.validateAndThrow();
+
+        String token = revokeTokenModel.getToken();
+
+        Map<String, String> revokeTokenRequestParameters = new HashMap<String, String>();
+        revokeTokenRequestParameters.put("token", token);
+        revokeTokenRequestParameters.put("signature", generateSignature(revokeTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
+        revokeTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+
+        WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/revoke", revokeTokenRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        return MapUtils.getBooleanValue(resultMap, "success");
     }
 }

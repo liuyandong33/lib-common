@@ -1,4 +1,4 @@
-package build.dream.common.mqtt;
+package build.dream.common.models.mqtt;
 
 import build.dream.common.models.BasicModel;
 
