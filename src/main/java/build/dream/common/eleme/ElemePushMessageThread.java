@@ -5,7 +5,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunpush.PushMessageModel;
 import build.dream.common.utils.AliyunPushUtils;
 import build.dream.common.utils.CommonRedisUtils;
-import build.dream.common.utils.MQTTUtils;
+import build.dream.common.utils.MqttUtils;
 import build.dream.common.utils.ThreadUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
@@ -88,7 +88,7 @@ public class ElemePushMessageThread implements Runnable {
                 MqttMessage mqttMessage = new MqttMessage(message.getBytes(Constants.CHARSET_UTF_8));
                 mqttMessage.setQos(0);
                 for (Pos pos : windowsPoses) {
-                    MQTTUtils.publish("_eleme_message/p2p/" + pos.getMqttClientId(), mqttMessage);
+                    MqttUtils.publish("_eleme_message/p2p/" + pos.getMqttClientId(), mqttMessage);
                 }
             }
 
