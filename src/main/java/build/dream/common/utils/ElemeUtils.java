@@ -1,23 +1,19 @@
 package build.dream.common.utils;
 
-import build.dream.common.aliyunpush.AliyunPushMessageThread;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.catering.domains.Pos;
 import build.dream.common.constants.Constants;
+import build.dream.common.eleme.ElemePushMessageThread;
 import build.dream.common.exceptions.CustomException;
-import build.dream.common.models.aliyunpush.PushMessageModel;
 import build.dream.common.saas.domains.ElemeToken;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Created by liuyandong on 2017/3/13.
@@ -150,7 +146,7 @@ public class ElemeUtils {
         throw new CustomException(MapUtils.getString(errorMap, "message"));
     }
 
-    public static void pushMessageToAndroid(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Integer type, String uuid, int count, int interval) {
+    public static void pushMessage(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Integer type, String uuid, int count, int interval) {
         SearchModel searchModel = SearchModel.builder()
                 .autoSetDeletedFalse()
                 .equal(Pos.ColumnName.TENANT_ID, tenantId)
@@ -161,56 +157,11 @@ public class ElemeUtils {
             return;
         }
 
-        List<Pos> androidPoses = new ArrayList<Pos>();
-        List<Pos> iosPosPoses = new ArrayList<Pos>();
-        List<Pos> windowsPoses = new ArrayList<Pos>();
-        for (Pos pos : poses) {
-            String posType = pos.getType();
-            if (Constants.POS_TYPE_ANDROID.equals(posType)) {
-                androidPoses.add(pos);
-            } else if (Constants.POS_TYPE_IOS.equals(posType)) {
-                iosPosPoses.add(pos);
-            } else if (Constants.POS_TYPE_WINDOWS.equals(posType)) {
-                windowsPoses.add(pos);
-            }
-        }
-
         Map<String, Object> bodyMap = new HashMap<String, Object>();
         bodyMap.put("orderId", orderId);
         bodyMap.put("type", type);
         bodyMap.put("uuid", uuid);
         String body = JacksonUtils.writeValueAsString(bodyMap);
-
-        if (CollectionUtils.isNotEmpty(androidPoses)) {
-            List<String> androidPosDeviceIds = androidPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
-            PushMessageModel pushMessageModel = PushMessageModel.builder()
-                    .appKey("")
-                    .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(StringUtils.join(androidPosDeviceIds, ","))
-                    .title("饿了么订单消息")
-                    .body(body)
-                    .build();
-            new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
-        }
-
-        if (CollectionUtils.isNotEmpty(iosPosPoses)) {
-            List<String> iosPosDeviceIds = iosPosPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
-            PushMessageModel pushMessageModel = PushMessageModel.builder()
-                    .appKey("")
-                    .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(StringUtils.join(iosPosDeviceIds, ","))
-                    .title("饿了么订单消息")
-                    .body(body)
-                    .build();
-            new AliyunPushMessageThread(pushMessageModel, uuid, count, interval).start();
-        }
-
-        if (CollectionUtils.isNotEmpty(windowsPoses)) {
-            MqttMessage mqttMessage = new MqttMessage(body.getBytes(Constants.CHARSET_UTF_8));
-            mqttMessage.setQos(0);
-            for (Pos pos : windowsPoses) {
-                MQTTUtils.publish("_eleme_message/p2p/" + pos.getDeviceId(), mqttMessage);
-            }
-        }
+        new ElemePushMessageThread(poses, body, uuid, count, interval).start();
     }
 }
