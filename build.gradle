@@ -88,7 +88,7 @@ dependencies {
 
     compile("mysql:mysql-connector-java:6.0.6")
 
-    compile 'com.aliyun.openservices:ons-client:1.7.9.Final'
+//    compile 'com.aliyun.openservices:ons-client:1.7.9.Final'
 
     compile 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
 }
