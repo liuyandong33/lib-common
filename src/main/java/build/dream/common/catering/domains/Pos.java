@@ -29,7 +29,7 @@ public class Pos extends BasicDomain {
      */
     private BigInteger userId;
     /**
-     * 阿里云推送服务设备ID
+     * 设备ID，mac地址
      */
     private String deviceId;
     /**
@@ -44,6 +44,11 @@ public class Pos extends BasicDomain {
      * 是否在线
      */
     private boolean online;
+
+    /**
+     * 阿里云推送服务设备ID
+     */
+    private String cloudPushDeviceId;
 
     /**
      * MQTT Client Id
@@ -127,6 +132,14 @@ public class Pos extends BasicDomain {
         this.online = online;
     }
 
+    public String getCloudPushDeviceId() {
+        return cloudPushDeviceId;
+    }
+
+    public void setCloudPushDeviceId(String cloudPushDeviceId) {
+        this.cloudPushDeviceId = cloudPushDeviceId;
+    }
+
     public String getMqttClientId() {
         return mqttClientId;
     }
@@ -189,6 +202,11 @@ public class Pos extends BasicDomain {
             return this;
         }
 
+        public Builder cloudPushDeviceId(String cloudPushDeviceId) {
+            instance.setCloudPushDeviceId(cloudPushDeviceId);
+            return this;
+        }
+
         public Builder mqttClientId(String mqttClientId) {
             instance.setMqttClientId(mqttClientId);
             return this;
@@ -211,6 +229,7 @@ public class Pos extends BasicDomain {
             pos.setType(instance.getType());
             pos.setVersion(instance.getVersion());
             pos.setOnline(instance.isOnline());
+            pos.setCloudPushDeviceId(instance.getCloudPushDeviceId());
             pos.setMqttClientId(instance.getMqttClientId());
             pos.setMqttToken(instance.getMqttToken());
             return pos;
@@ -231,6 +250,7 @@ public class Pos extends BasicDomain {
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
+        public static final String CLOUD_PUSH_DEVICE_ID = "cloud_push_device_id";
         public static final String MQTT_CLIENT_ID = "mqtt_client_id";
         public static final String mqtt_token = "mqtt_token";
     }
@@ -245,6 +265,7 @@ public class Pos extends BasicDomain {
         public static final String TYPE = "type";
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
+        public static final String CLOUD_PUSH_DEVICE_ID = "cloudPushDeviceId";
         public static final String MQTT_CLIENT_ID = "mqttClientId";
         public static final String mqtt_token = "mqttToken";
     }
