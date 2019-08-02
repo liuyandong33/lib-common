@@ -962,6 +962,7 @@ CREATE TABLE pos
     version VARCHAR(10) NOT NULL COMMENT 'pos 版本号',
     online TINYINT NOT NULL COMMENT '是否在线，1-在线，0-不在线',
     mqtt_client_id VARCHAR(100) NOT NULL COMMENT 'MQTT Client Id',
+    mqtt_token VARCHAR(1000) NOT NULL COMMENT 'MQTT Token',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
