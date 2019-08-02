@@ -26,7 +26,7 @@ public class MqttInfo {
     /**
      * 需要订阅的topic
      */
-    private List<String> topics;
+    private String topic;
 
     public String getEndPoint() {
         return endPoint;
@@ -60,11 +60,11 @@ public class MqttInfo {
         this.password = password;
     }
 
-    public List<String> getTopics() {
-        return topics;
+    public String getTopic() {
+        return topic;
     }
 
-    public void setTopics(List<String> topics) {
-        this.topics = topics;
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 }
