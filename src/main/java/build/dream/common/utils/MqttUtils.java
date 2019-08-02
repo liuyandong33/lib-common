@@ -48,8 +48,8 @@ public class MqttUtils {
         MqttInfo mqttInfo = new MqttInfo();
         mqttInfo.setEndPoint(mqttConfig.getEndPoint());
         mqttInfo.setClientId(clientId);
-        mqttInfo.setUserName("Signature|" + mqttConfig.getAccessKeyId() + "|" + mqttConfig.getInstanceId());
-        mqttInfo.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(mqttConfig.getAccessKeySecret(), clientId)));
+        mqttInfo.setUserName("Signature|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());
+        mqttInfo.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(AliyunUtils.ACCESS_KEY_SECRET, clientId)));
         return mqttInfo;
     }
 
@@ -63,7 +63,7 @@ public class MqttUtils {
         MqttInfo mqttInfo = new MqttInfo();
         mqttInfo.setEndPoint(mqttConfig.getEndPoint());
         mqttInfo.setClientId(clientId);
-        mqttInfo.setUserName("Token|" + mqttConfig.getAccessKeyId() + "|" + mqttConfig.getInstanceId());
+        mqttInfo.setUserName("Token|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());
 
         StringBuilder password = new StringBuilder();
         for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
@@ -79,13 +79,11 @@ public class MqttUtils {
             MqttConfig mqttConfig = obtainMqttConfig();
             String instanceId = mqttConfig.getInstanceId();
             String endPoint = mqttConfig.getEndPoint();
-            String accessKeyId = mqttConfig.getAccessKeyId();
-            String accessKeySecret = mqttConfig.getAccessKeySecret();
             String groupId = mqttConfig.getGroupId();
             String topic = mqttConfig.getTopic();
             String clientId = groupId + "@@@" + UUID.randomUUID().toString();
 
-            ConnectionOptionWrapper connectionOptionWrapper = new ConnectionOptionWrapper(instanceId, accessKeyId, accessKeySecret, clientId);
+            ConnectionOptionWrapper connectionOptionWrapper = new ConnectionOptionWrapper(instanceId, AliyunUtils.ACCESS_KEY_ID, AliyunUtils.ACCESS_KEY_SECRET, clientId);
             MemoryPersistence memoryPersistence = new MemoryPersistence();
             mqttClient = new MqttClient("tcp://" + endPoint + ":1883", clientId, memoryPersistence);
             mqttClient.setTimeToWait(5000);
@@ -158,8 +156,8 @@ public class MqttUtils {
         applyTokenRequestParameters.put("expireTime", expireTime.toString());
         applyTokenRequestParameters.put("serviceName", serviceName);
         applyTokenRequestParameters.put("instanceId", instanceId);
-        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
-        applyTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+        applyTokenRequestParameters.put("signature", generateSignature(applyTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+        applyTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
         applyTokenRequestParameters.put("proxyType", proxyType);
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
@@ -182,8 +180,8 @@ public class MqttUtils {
 
         Map<String, String> queryTokenRequestParameters = new HashMap<String, String>();
         queryTokenRequestParameters.put("token", token);
-        queryTokenRequestParameters.put("signature", generateSignature(queryTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
-        queryTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+        queryTokenRequestParameters.put("signature", generateSignature(queryTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+        queryTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/query", queryTokenRequestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
@@ -203,8 +201,8 @@ public class MqttUtils {
 
         Map<String, String> revokeTokenRequestParameters = new HashMap<String, String>();
         revokeTokenRequestParameters.put("token", token);
-        revokeTokenRequestParameters.put("signature", generateSignature(revokeTokenRequestParameters, "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt"));
-        revokeTokenRequestParameters.put("accessKey", "LTAI13Q9MtL90vHh");
+        revokeTokenRequestParameters.put("signature", generateSignature(revokeTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
+        revokeTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
 
         WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/revoke", revokeTokenRequestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);

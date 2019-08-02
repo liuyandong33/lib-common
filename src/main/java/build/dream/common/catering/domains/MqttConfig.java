@@ -14,16 +14,6 @@ public class MqttConfig extends BasicDomain {
     private String endPoint;
 
     /**
-     * access key id
-     */
-    private String accessKeyId;
-
-    /**
-     * access key secret
-     */
-    private String accessKeySecret;
-
-    /**
      * group id
      */
     private String groupId;
@@ -57,22 +47,6 @@ public class MqttConfig extends BasicDomain {
 
     public void setEndPoint(String endPoint) {
         this.endPoint = endPoint;
-    }
-
-    public String getAccessKeyId() {
-        return accessKeyId;
-    }
-
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
-    }
-
-    public String getAccessKeySecret() {
-        return accessKeySecret;
-    }
-
-    public void setAccessKeySecret(String accessKeySecret) {
-        this.accessKeySecret = accessKeySecret;
     }
 
     public String getGroupId() {
@@ -118,16 +92,6 @@ public class MqttConfig extends BasicDomain {
             return this;
         }
 
-        public Builder accessKeyId(String accessKeyId) {
-            instance.setAccessKeyId(accessKeyId);
-            return this;
-        }
-
-        public Builder accessKeySecret(String accessKeySecret) {
-            instance.setAccessKeySecret(accessKeySecret);
-            return this;
-        }
-
         public Builder groupId(String groupId) {
             instance.setGroupId(groupId);
             return this;
@@ -153,8 +117,6 @@ public class MqttConfig extends BasicDomain {
             MqttConfig mqttConfig = super.build();
             mqttConfig.setInstanceId(instance.getInstanceId());
             mqttConfig.setEndPoint(instance.getEndPoint());
-            mqttConfig.setAccessKeyId(instance.getAccessKeyId());
-            mqttConfig.setAccessKeySecret(instance.getAccessKeySecret());
             mqttConfig.setGroupId(instance.getGroupId());
             mqttConfig.setTopic(instance.getTopic());
             mqttConfig.setPartitionCode(instance.getPartitionCode());
@@ -170,8 +132,6 @@ public class MqttConfig extends BasicDomain {
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String INSTANCE_ID = "instance_id";
         public static final String END_POINT = "end_point";
-        public static final String ACCESS_KEY_ID = "access_key_id";
-        public static final String ACCESS_KEY_SECRET = "access_key_secret";
         public static final String GROUP_ID = "group_id";
         public static final String TOPIC = "topic";
         public static final String PARTITION_CODE = "partition_code";
@@ -181,8 +141,6 @@ public class MqttConfig extends BasicDomain {
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String INSTANCE_ID = "instanceId";
         public static final String END_POINT = "endPoint";
-        public static final String ACCESS_KEY_ID = "accessKeyId";
-        public static final String ACCESS_KEY_SECRET = "accessKeySecret";
         public static final String GROUP_ID = "groupId";
         public static final String TOPIC = "topic";
         public static final String PARTITION_CODE = "partitionCode";
