@@ -8,6 +8,7 @@ import build.dream.common.utils.CommonRedisUtils;
 import build.dream.common.utils.MqttUtils;
 import build.dream.common.utils.ThreadUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.util.ArrayList;
@@ -50,7 +51,7 @@ public class ElemePushMessageThread implements Runnable {
             androidPushMessageModel = PushMessageModel.builder()
                     .appKey("")
                     .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(org.apache.commons.lang3.StringUtils.join(androidPosDeviceIds, ","))
+                    .targetValue(StringUtils.join(androidPosDeviceIds, ","))
                     .title("饿了么订单消息")
                     .body(message)
                     .build();
@@ -61,7 +62,7 @@ public class ElemePushMessageThread implements Runnable {
             iosPushMessageModel = PushMessageModel.builder()
                     .appKey("")
                     .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(org.apache.commons.lang3.StringUtils.join(iosPosDeviceIds, ","))
+                    .targetValue(StringUtils.join(iosPosDeviceIds, ","))
                     .title("饿了么订单消息")
                     .body(message)
                     .build();
