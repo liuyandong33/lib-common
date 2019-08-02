@@ -50,6 +50,11 @@ public class Pos extends BasicDomain {
      */
     private String mqttClientId;
 
+    /**
+     * MQTT Token
+     */
+    private String mqttToken;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -130,6 +135,14 @@ public class Pos extends BasicDomain {
         this.mqttClientId = mqttClientId;
     }
 
+    public String getMqttToken() {
+        return mqttToken;
+    }
+
+    public void setMqttToken(String mqttToken) {
+        this.mqttToken = mqttToken;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Pos> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -181,6 +194,11 @@ public class Pos extends BasicDomain {
             return this;
         }
 
+        public Builder mqttToken(String mqttToken) {
+            instance.setMqttToken(mqttToken);
+            return this;
+        }
+
         @Override
         public Pos build() {
             Pos pos = super.build();
@@ -194,6 +212,7 @@ public class Pos extends BasicDomain {
             pos.setVersion(instance.getVersion());
             pos.setOnline(instance.isOnline());
             pos.setMqttClientId(instance.getMqttClientId());
+            pos.setMqttToken(instance.getMqttToken());
             return pos;
         }
     }
@@ -213,6 +232,7 @@ public class Pos extends BasicDomain {
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
         public static final String MQTT_CLIENT_ID = "mqtt_client_id";
+        public static final String mqtt_token = "mqtt_token";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -226,5 +246,6 @@ public class Pos extends BasicDomain {
         public static final String VERSION = "version";
         public static final String ONLINE = "online";
         public static final String MQTT_CLIENT_ID = "mqttClientId";
+        public static final String mqtt_token = "mqttToken";
     }
 }
