@@ -1183,4 +1183,6 @@ public class Constants {
     public static final String POS_TYPE_WINDOWS = "windows";
 
     public static final String KEY_WNS_ACCESS_TOKENS = "_wns_access_tokens";
+
+    public static final String WPOS_MQTT_TOPIC = "wpos.mqtt.topic";
 }

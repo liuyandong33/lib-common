@@ -88,7 +88,7 @@ public class ElemePushMessageThread implements Runnable {
                 MqttMessage mqttMessage = new MqttMessage(message.getBytes(Constants.CHARSET_UTF_8));
                 mqttMessage.setQos(0);
                 for (Pos pos : windowsPoses) {
-                    MqttUtils.publish("_eleme_message/p2p/" + pos.getMqttClientId(), mqttMessage);
+                    MqttUtils.publish(MqttUtils.WPOS_MQTT_TOPIC + "/p2p/" + pos.getMqttClientId(), mqttMessage);
                 }
             }
 
