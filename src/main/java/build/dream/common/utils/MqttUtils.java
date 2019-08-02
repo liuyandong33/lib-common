@@ -39,8 +39,10 @@ public class MqttUtils {
     }
 
     public static MqttInfo obtainMqttInfo() {
-        MqttConfig mqttConfig = obtainMqttConfig();
+        return obtainMqttInfo(obtainMqttConfig());
+    }
 
+    public static MqttInfo obtainMqttInfo(MqttConfig mqttConfig) {
         String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
 
         MqttInfo mqttInfo = new MqttInfo();
@@ -51,9 +53,11 @@ public class MqttUtils {
         return mqttInfo;
     }
 
-    public static MqttInfo obtainMqttInfo(Map<String, String> tokenInfos) {
-        MqttConfig mqttConfig = obtainMqttConfig();
+    public static MqttInfo obtainMqttInfo(Map<String, String> tokenMap) {
+        return obtainMqttInfo(obtainMqttConfig(), tokenMap);
+    }
 
+    public static MqttInfo obtainMqttInfo(MqttConfig mqttConfig, Map<String, String> tokenMap) {
         String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
 
         MqttInfo mqttInfo = new MqttInfo();
@@ -62,8 +66,8 @@ public class MqttUtils {
         mqttInfo.setUserName("Token|" + mqttConfig.getAccessKeyId() + "|" + mqttConfig.getInstanceId());
 
         StringBuilder password = new StringBuilder();
-        for (Map.Entry<String, String> tokenInfo : tokenInfos.entrySet()) {
-            password.append(tokenInfo.getKey()).append("|").append(tokenInfo.getValue()).append("|");
+        for (Map.Entry<String, String> entry : tokenMap.entrySet()) {
+            password.append(entry.getKey()).append("|").append(entry.getValue()).append("|");
         }
         password.deleteCharAt(password.length() - 1);
         mqttInfo.setPassword(password.toString());
