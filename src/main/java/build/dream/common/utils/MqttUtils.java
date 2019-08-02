@@ -50,6 +50,11 @@ public class MqttUtils {
         mqttInfo.setClientId(clientId);
         mqttInfo.setUserName("Signature|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());
         mqttInfo.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(AliyunUtils.ACCESS_KEY_SECRET, clientId)));
+
+        List<String> topics = new ArrayList<String>();
+        topics.add(mqttConfig.getTopic());
+
+        mqttInfo.setTopics(topics);
         return mqttInfo;
     }
 
@@ -71,6 +76,11 @@ public class MqttUtils {
         }
         password.deleteCharAt(password.length() - 1);
         mqttInfo.setPassword(password.toString());
+
+        List<String> topics = new ArrayList<String>();
+        topics.add(mqttConfig.getTopic());
+
+        mqttInfo.setTopics(topics);
         return mqttInfo;
     }
 

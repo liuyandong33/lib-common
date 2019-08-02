@@ -1,13 +1,32 @@
 package build.dream.common.mqtt;
 
+import java.util.List;
+
 public class MqttInfo {
+    /**
+     * 连接点
+     */
     private String endPoint;
 
+    /**
+     * Client Id
+     */
     private String clientId;
 
+    /**
+     * 用户名
+     */
     private String userName;
 
+    /**
+     * 密码
+     */
     private String password;
+
+    /**
+     * 需要订阅的topic
+     */
+    private List<String> topics;
 
     public String getEndPoint() {
         return endPoint;
@@ -39,5 +58,13 @@ public class MqttInfo {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<String> getTopics() {
+        return topics;
+    }
+
+    public void setTopics(List<String> topics) {
+        this.topics = topics;
     }
 }
