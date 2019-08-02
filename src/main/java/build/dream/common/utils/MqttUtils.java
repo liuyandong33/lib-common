@@ -51,6 +51,25 @@ public class MqttUtils {
         return mqttInfo;
     }
 
+    public static MqttInfo obtainMqttInfo(Map<String, String> tokenInfos) {
+        MqttConfig mqttConfig = obtainMqttConfig();
+
+        String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
+
+        MqttInfo mqttInfo = new MqttInfo();
+        mqttInfo.setEndPoint(mqttConfig.getEndPoint());
+        mqttInfo.setClientId(clientId);
+        mqttInfo.setUserName("Token|" + mqttConfig.getAccessKeyId() + "|" + mqttConfig.getInstanceId());
+
+        StringBuilder password = new StringBuilder();
+        for (Map.Entry<String, String> tokenInfo : tokenInfos.entrySet()) {
+            password.append(tokenInfo.getKey()).append("|").append(tokenInfo.getValue()).append("|");
+        }
+        password.deleteCharAt(password.length() - 1);
+        mqttInfo.setPassword(password.toString());
+        return mqttInfo;
+    }
+
     public static void mqttConnect() {
         try {
             MqttConfig mqttConfig = obtainMqttConfig();
