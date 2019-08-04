@@ -141,3 +141,11 @@ CREATE TABLE oauth_token
     deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT DEFAULT 0 --是否删除，0-未删除，1-已删除'
 );
+
+DROP TABLE IF EXISTS config;
+CREATE TABLE config
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT, --ID
+    name TEXT, --name
+    value TEXT --value
+);
