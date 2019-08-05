@@ -1,4 +1,4 @@
-package build.dream.common.eleme;
+package build.dream.common.push;
 
 import build.dream.common.catering.domains.Pos;
 import build.dream.common.constants.Constants;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class ElemePushMessageThread implements Runnable {
+public class PushPosMessageThread implements Runnable {
     private List<Pos> androidPoses = new ArrayList<Pos>();
     private List<Pos> iosPosPoses = new ArrayList<Pos>();
     private List<Pos> windowsPoses = new ArrayList<Pos>();
@@ -30,7 +30,7 @@ public class ElemePushMessageThread implements Runnable {
     private int interval;
     private String message;
 
-    public ElemePushMessageThread(List<Pos> poses, String message, String uuid, int count, int interval) {
+    public PushPosMessageThread(List<Pos> poses, String title, String message, String uuid, int count, int interval) {
         for (Pos pos : poses) {
             String posType = pos.getType();
             if (Constants.POS_TYPE_ANDROID.equals(posType)) {
@@ -49,10 +49,10 @@ public class ElemePushMessageThread implements Runnable {
         if (CollectionUtils.isNotEmpty(androidPoses)) {
             List<String> androidPosDeviceIds = androidPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
             androidPushMessageModel = PushMessageModel.builder()
-                    .appKey("")
+                    .appKey(AliyunPushUtils.ANDROID_BUILD_DREAM_AERP_APP_KEY)
                     .target(AliyunPushUtils.TARGET_DEVICE)
                     .targetValue(StringUtils.join(androidPosDeviceIds, ","))
-                    .title("饿了么订单消息")
+                    .title(title)
                     .body(message)
                     .build();
         }
@@ -60,10 +60,10 @@ public class ElemePushMessageThread implements Runnable {
         if (CollectionUtils.isNotEmpty(iosPosPoses)) {
             List<String> iosPosDeviceIds = iosPosPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
             iosPushMessageModel = PushMessageModel.builder()
-                    .appKey("")
+                    .appKey(AliyunPushUtils.IOS_BUILD_DREAM_AERP_APP_KEY)
                     .target(AliyunPushUtils.TARGET_DEVICE)
                     .targetValue(StringUtils.join(iosPosDeviceIds, ","))
-                    .title("饿了么订单消息")
+                    .title(title)
                     .body(message)
                     .build();
         }

@@ -15,6 +15,10 @@ public class AliyunPushUtils {
     public static final String TARGET_ALIAS = "ALIAS";
     public static final String TARGET_TAG = "TAG";
     public static final String TARGET_ALL = "ALL";
+    public static final String ANDROID_BUILD_DREAM_AERP_APP_KEY = "27710843";
+    public static final String ANDROID_BUILD_DREAM_AERP_APP_SECRET = "0ac4c05333a4bfa494be3a1dc454e733";
+    public static final String IOS_BUILD_DREAM_AERP_APP_KEY = "27763041";
+    public static final String IOS_BUILD_DREAM_AERP_APP_SECRET = "2360603876ef84c862fa76567c0c4a4f";
 
 
     /**

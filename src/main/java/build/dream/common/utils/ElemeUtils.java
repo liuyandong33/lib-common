@@ -3,9 +3,11 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.catering.domains.Pos;
 import build.dream.common.constants.Constants;
-import build.dream.common.eleme.ElemePushMessageThread;
 import build.dream.common.exceptions.CustomException;
+import build.dream.common.models.eleme.ElemeMessageModel;
+import build.dream.common.push.PushPosMessageThread;
 import build.dream.common.saas.domains.ElemeToken;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -146,7 +148,7 @@ public class ElemeUtils {
         throw new CustomException(MapUtils.getString(errorMap, "message"));
     }
 
-    public static void pushMessage(BigInteger tenantId, BigInteger branchId, BigInteger orderId, Integer type, String uuid, int count, int interval) {
+    public static void pushMessage(BigInteger tenantId, BigInteger branchId, ElemeMessageModel elemeMessageModel, int count, int interval) {
         SearchModel searchModel = SearchModel.builder()
                 .autoSetDeletedFalse()
                 .equal(Pos.ColumnName.TENANT_ID, tenantId)
@@ -156,12 +158,6 @@ public class ElemeUtils {
         if (CollectionUtils.isEmpty(poses)) {
             return;
         }
-
-        Map<String, Object> bodyMap = new HashMap<String, Object>();
-        bodyMap.put("orderId", orderId);
-        bodyMap.put("type", type);
-        bodyMap.put("uuid", uuid);
-        String body = JacksonUtils.writeValueAsString(bodyMap);
-        new ElemePushMessageThread(poses, body, uuid, count, interval).start();
+        new PushPosMessageThread(poses, "饿了么消息", JacksonUtils.writeValueAsString(elemeMessageModel, JsonInclude.Include.NON_NULL), elemeMessageModel.getUuid(), count, interval).start();
     }
 }
