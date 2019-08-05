@@ -47,22 +47,22 @@ public class PushPosMessageThread implements Runnable {
         CommonRedisUtils.set(uuid, message);
 
         if (CollectionUtils.isNotEmpty(androidPoses)) {
-            List<String> androidPosDeviceIds = androidPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
+            List<String> cloudPushDeviceIds = androidPoses.stream().map(Pos::getCloudPushDeviceId).collect(Collectors.toList());
             androidPushMessageModel = PushMessageModel.builder()
                     .appKey(AliyunPushUtils.ANDROID_BUILD_DREAM_AERP_APP_KEY)
                     .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(StringUtils.join(androidPosDeviceIds, ","))
+                    .targetValue(StringUtils.join(cloudPushDeviceIds, ","))
                     .title(title)
                     .body(message)
                     .build();
         }
 
         if (CollectionUtils.isNotEmpty(iosPosPoses)) {
-            List<String> iosPosDeviceIds = iosPosPoses.stream().map(Pos::getDeviceId).collect(Collectors.toList());
+            List<String> cloudPushDeviceIds = iosPosPoses.stream().map(Pos::getCloudPushDeviceId).collect(Collectors.toList());
             iosPushMessageModel = PushMessageModel.builder()
                     .appKey(AliyunPushUtils.IOS_BUILD_DREAM_AERP_APP_KEY)
                     .target(AliyunPushUtils.TARGET_DEVICE)
-                    .targetValue(StringUtils.join(iosPosDeviceIds, ","))
+                    .targetValue(StringUtils.join(cloudPushDeviceIds, ","))
                     .title(title)
                     .body(message)
                     .build();
