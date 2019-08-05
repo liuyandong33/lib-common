@@ -44,6 +44,7 @@ public class PushPosMessageThread implements Runnable {
         this.uuid = uuid;
         this.count = count;
         this.interval = interval;
+        this.message = message;
         CommonRedisUtils.set(uuid, message);
 
         if (CollectionUtils.isNotEmpty(androidPoses)) {
