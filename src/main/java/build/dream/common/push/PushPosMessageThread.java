@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class PushPosMessageThread implements Runnable {
     private List<Pos> androidPoses = new ArrayList<Pos>();
-    private List<Pos> iosPosPoses = new ArrayList<Pos>();
+    private List<Pos> iosPoses = new ArrayList<Pos>();
     private List<Pos> windowsPoses = new ArrayList<Pos>();
 
     private PushMessageModel androidPushMessageModel;
@@ -36,7 +36,7 @@ public class PushPosMessageThread implements Runnable {
             if (Constants.POS_TYPE_ANDROID.equals(posType)) {
                 androidPoses.add(pos);
             } else if (Constants.POS_TYPE_IOS.equals(posType)) {
-                iosPosPoses.add(pos);
+                iosPoses.add(pos);
             } else if (Constants.POS_TYPE_WINDOWS.equals(posType)) {
                 windowsPoses.add(pos);
             }
@@ -58,8 +58,8 @@ public class PushPosMessageThread implements Runnable {
                     .build();
         }
 
-        if (CollectionUtils.isNotEmpty(iosPosPoses)) {
-            List<String> cloudPushDeviceIds = iosPosPoses.stream().map(Pos::getCloudPushDeviceId).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(iosPoses)) {
+            List<String> cloudPushDeviceIds = iosPoses.stream().map(Pos::getCloudPushDeviceId).collect(Collectors.toList());
             iosPushMessageModel = PushMessageModel.builder()
                     .appKey(AliyunPushUtils.IOS_BUILD_DREAM_AERP_APP_KEY)
                     .target(AliyunPushUtils.TARGET_DEVICE)
