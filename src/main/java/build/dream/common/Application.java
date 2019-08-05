@@ -198,7 +198,7 @@ public class Application {
             }
 
             String fieldName = field.getName();
-            String columnName = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            String columnName = NamingStrategyUtils.lowerCamelCaseToUnderscore(field.getName());
             fieldNameInnerClassCode.append("public static final String ").append(columnName.toUpperCase()).append(" = ").append("\"").append(fieldName).append("\";");
         }
         fieldNameInnerClassCode.append("}");
@@ -225,7 +225,7 @@ public class Application {
             }
 
             String fieldName = field.getName();
-            String columnName = NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+            String columnName = NamingStrategyUtils.lowerCamelCaseToUnderscore(field.getName());
             columnNameInnerClassCode.append("public static final String ").append(columnName.toUpperCase()).append(" = ").append("\"").append(columnName).append("\";");
         }
         columnNameInnerClassCode.append("}");
@@ -370,7 +370,7 @@ public class Application {
                     continue;
                 }
 
-                System.out.println("/**\n* " + columnNameCommentMap.get(columnName) + "*/\nprivate " + DATABASE_TYPE_JAVA_TYPE_MAP.get(columnType) + " " + NamingStrategyUtils.underscoreToCamelCase(columnName) + ";\n");
+                System.out.println("/**\n* " + columnNameCommentMap.get(columnName) + "*/\nprivate " + DATABASE_TYPE_JAVA_TYPE_MAP.get(columnType) + " " + NamingStrategyUtils.underscoreToLowerCamelCase(columnName) + ";\n");
             }
         } catch (Exception e) {
             if (e instanceof CustomException) {

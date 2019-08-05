@@ -190,7 +190,7 @@ public class DatabaseUtils {
         if (Objects.nonNull(column)) {
             return column.name();
         }
-        return NamingStrategyUtils.camelCaseToUnderscore(field.getName());
+        return NamingStrategyUtils.lowerCamelCaseToUnderscore(field.getName());
     }
 
     public static String generateUpdateSql(Class<?> domainClass) {
@@ -277,7 +277,7 @@ public class DatabaseUtils {
 
                 String fieldName = field.getName();
 
-                String underscoreName = NamingStrategyUtils.camelCaseToUnderscore(fieldName);
+                String underscoreName = NamingStrategyUtils.lowerCamelCaseToUnderscore(fieldName);
                 Column column = field.getAnnotation(Column.class);
                 if (Objects.nonNull(column)) {
                     alias.add(column.name() + " AS " + underscoreName);
@@ -306,8 +306,7 @@ public class DatabaseUtils {
             if (Objects.nonNull(table)) {
                 tableName = table.name();
             } else {
-                String simpleName = domainClass.getSimpleName();
-                tableName = NamingStrategyUtils.camelCaseToUnderscore(simpleName.substring(0, 1).toLowerCase() + simpleName.substring(1));
+                tableName = NamingStrategyUtils.upperCamelCaseToUnderscore(domainClass.getSimpleName());
             }
             DOMAIN_CLASS_TABLE_NAME_MAP.put(domainClass, tableName);
         }
