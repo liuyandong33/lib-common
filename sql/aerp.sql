@@ -149,3 +149,191 @@ CREATE TABLE config
     name TEXT, --name
     value TEXT --value
 );
+
+DROP TABLE IF EXISTS diet_order;
+CREATE TABLE diet_order
+(
+    id BIGINT PRIMARY KEY, --id
+    tenant_id BIGINT, --商户id
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店id
+    order_number VARCHAR(50), --订单号
+    order_type TINYINT, --订单类型，1-扫码点餐，2-饿了么订单，3-美团订单
+    order_status TINYINT, --订单状态，1-未生效订单，2-未处理订单，3-退单中订单，4-已处理订单，5-无效订单，6-已完订单
+    pay_status TINYINT, --订单付款状态，1-未付款，2-已付款
+    refund_status TINYINT, --订单退款状态，1-未申请退款，2-用户申请退款，3-店铺拒绝退款，4-客服仲裁中，5-退款失败，6-退款成功
+    total_amount DECIMAL(11, 3), --总金额
+    discount_amount DECIMAL(11, 3), --优惠金额
+    payable_amount DECIMAL(11, 3), --应付金额
+    paid_amount DECIMAL(11, 3), --实付金额
+    paid_type TINYINT, --支付类型，1-微信支付，2-支付宝支付
+    remark VARCHAR(100), --备注
+    delivery_address VARCHAR(255), --配送地址
+    delivery_longitude VARCHAR(20), --配送地址经度
+    delivery_latitude VARCHAR(20), --配送地址纬度
+    deliver_time DATETIME, --预计送达时间
+    active_time DATETIME, --订单生效时间
+    deliver_fee DECIMAL(11, 3), --配送费
+    telephone_number VARCHAR(20), --联系电话
+    day_serial_number VARCHAR(20), --当日流水号
+    consignee VARCHAR(20), --收货人姓名
+    invoiced TINYINT, --是否需要发票
+    invoice_type VARCHAR(10), --发票类型，personal-个人，company-企业
+    invoice VARCHAR(30), --发票抬头
+    vip_id BIGINT, --会员ID
+    local_id VARCHAR(50), --本地ID
+    local_created_time DATETIME, --本地创建时间
+    local_updated_time DATETIME, --本地最后更新时间
+    job_id VARCHAR(100), --失效订单任务ID
+    trigger_id VARCHAR(100), --失效订单任务触发器ID
+    created_time VARCHAR(20), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS diet_order_group;
+CREATE TABLE diet_order_group
+(
+    id BIGINT PRIMARY KEY, --id
+    tenant_id BIGINT, --商户ID
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店ID
+    diet_order_id BIGINT, --diet_order.id
+    `name` VARCHAR(20), --组名
+    `type` VARCHAR(20), --normal-正常的菜品，extra-配送费等，discount-赠品
+    local_id VARCHAR(50), --本地ID
+    local_diet_order_id VARCHAR(50), --本地订单ID，local_diet_order.local_id
+    local_created_time VARCHAR(255), --本地创建时间
+    local_updated_time VARCHAR(255), --本地最后更新时间
+    created_time VARCHAR(255), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除'
+);
+
+CREATE TABLE diet_order_detail
+(
+    id BIGINT PRIMARY KEY, --id
+    tenant_id BIGINT, --商户ID
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店ID
+    diet_order_id BIGINT, --订单ID
+    diet_order_group_id BIGINT, --订单组ID，diet_order_group.id
+    goods_type TINYINT, --商品类型，1-普通商品，2-套餐，3-套餐明细
+    goods_id BIGINT, --菜品ID
+    goods_name VARCHAR(20), --菜品名称
+    goods_specification_id BIGINT, --菜品规格ID
+    goods_specification_name VARCHAR(20), --菜品名称
+    package_id BIGINT, --套餐ID
+    package_group_id BIGINT, --套餐组ID
+    package_group_name VARCHAR(20), --套餐组名称
+    category_id BIGINT, --商品分类id
+    category_name VARCHAR(20), --商品分类名称
+    price DECIMAL(11, 3), --单价
+    attribute_increase DECIMAL(11, 3), --口味加价
+    quantity DECIMAL(11, 3), --数量
+    total_amount DECIMAL(11, 3), --总金额
+    discount_amount DECIMAL(11, 3), --优惠金额
+    payable_amount DECIMAL(11, 3), --应付金额
+    local_id VARCHAR(50), --本地ID
+    local_diet_order_id VARCHAR(50), --本地订单id，diet_order_id.local_id
+    local_diet_order_group_id VARCHAR(50), --本地订单组id，diet_order_group.local_id
+    local_created_time VARCHAR(20), --本地创建时间
+    local_updated_time VARCHAR(20), --本地最后更新时间
+    created_time VARCHAR(20), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS diet_order_detail_goods_attribute;
+CREATE TABLE diet_order_detail_goods_attribute
+(
+    id BIGINT PRIMARY KEY, --主键id
+    tenant_id BIGINT, --商户ID
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店ID
+    diet_order_id BIGINT, --订单详情ID
+    diet_order_group_id BIGINT, --订单组ID，diet_order_group.id
+    diet_order_detail_id BIGINT, --订单明细ID
+    goods_attribute_group_id BIGINT, --goods_attribute_group.id
+    goods_attribute_group_name VARCHAR(20), --口味组名称
+    goods_attribute_id BIGINT, --goods_attribute.id
+    goods_attribute_name VARCHAR(20), --口味名称
+    price DECIMAL(11, 3), --口味加价
+    local_id VARCHAR(50), --本地ID
+    local_diet_order_id VARCHAR(50), --本地订单id，diet_order_id.local_id
+    local_diet_order_group_id VARCHAR(50), --本地订单组id，diet_order_group.local_id
+    local_diet_order_detail_id VARCHAR(50), --本地订单详情id, diet_order_detail.local_id
+    local_created_time VARCHAR(20), --本地创建时间
+    local_updated_time VARCHAR(20), --本地最后更新时间
+    created_time VARCHAR(20), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS diet_order_activity;
+CREATE TABLE diet_order_activity
+(
+    id BIGINT PRIMARY KEY, --id
+    tenant_id BIGINT, --商户ID
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店ID
+    diet_order_id BIGINT, --diet_order.id
+    activity_id BIGINT, --活动id，activity.id
+    activity_name VARCHAR(20), --活动名称，activity.name
+    activity_type TINYINT, --活动类型，activity.type
+    amount DECIMAL(11, 3), --金额
+    local_id VARCHAR(50), --本地ID
+    local_diet_order_id VARCHAR(50), --本地订单ID，local_diet_order.local_id
+    local_created_time VARCHAR(20), --本地创建时间
+    local_updated_time VARCHAR(20), --本地最后更新时间
+    created_time VARCHAR(20), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除'
+);
+
+DROP TABLE IF EXISTS diet_order_payment;
+CREATE TABLE diet_order_payment
+(
+    id BIGINT PRIMARY KEY,  --id
+    tenant_id BIGINT, --商户ID
+    tenant_code VARCHAR(20), --商户编码
+    branch_id BIGINT, --门店ID
+    diet_order_id BIGINT, --diet_order.id
+    payment_id BIGINT, --支付方式id
+    payment_code VARCHAR(10), --支付方式编码
+    payment_name VARCHAR(10), --支付方式名称
+    paid_amount DECIMAL(11, 3), --支付的金额
+    occurrence_time VARCHAR(20), --发生时间
+    extra_info VARCHAR(255), --扩展信息，用于保存储值支付的兑换比例，微信支付、支付宝支付的支付场景
+    local_id VARCHAR(50), --本地ID
+    local_diet_order_id VARCHAR(50), --本地订单ID，local_diet_order.local_id
+    local_created_time VARCHAR(20), --本地创建时间
+    local_updated_time VARCHAR(20), --本地最后更新时间
+    created_time VARCHAR(20), --创建时间
+    created_user_id BIGINT, --创建人id
+    updated_time VARCHAR(20), --最后更新时间
+    updated_user_id BIGINT, --最后更新人id
+    updated_remark VARCHAR(255), --最后更新备注
+    deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
+    deleted TINYINT --是否删除，0-未删除，1-已删除
+);
