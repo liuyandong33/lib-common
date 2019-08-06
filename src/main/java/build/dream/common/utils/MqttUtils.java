@@ -22,7 +22,7 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import java.util.*;
 
 public class MqttUtils {
-    private static final String WPOS_MQTT_TOPIC = ConfigurationUtils.getConfiguration(Constants.WPOS_MQTT_TOPIC);
+    public static final String WPOS_MQTT_TOPIC = ConfigurationUtils.getConfiguration(Constants.WPOS_MQTT_TOPIC);
     private static final String MQ_AUTH_URL = "https://mqauth.aliyuncs.com";
     private static MqttClient mqttClient;
 
