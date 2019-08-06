@@ -18,6 +18,7 @@ public class Constants {
     public static final String SUCCESS = "SUCCESS";
     public static final String FAILURE = "FAILURE";
     public static final String FAIL = "FAIL";
+    public static final String PONG = "PONG";
 
     /**
      * 字符集相关常量
@@ -74,6 +75,7 @@ public class Constants {
     public static final String SERVICE_NAME_PORTAL = "portal";
     public static final String SERVICE_NAME_GATEWAY = "gateway";
     public static final String SERVICE_NAME_JOB = "job";
+    public static final String SERVICE_NAME_IOT = "iot";
 
     /**
      * 业态常量
@@ -1177,6 +1179,7 @@ public class Constants {
 
     public static final String RESOURCE_ID_CATERING = "catering";
     public static final String RESOURCE_ID_RETAIL = "retail";
+    public static final String RESOURCE_ID_IOT = "iot";
 
     public static final String POS_TYPE_ANDROID = "android";
     public static final String POS_TYPE_IOS = "ios";
