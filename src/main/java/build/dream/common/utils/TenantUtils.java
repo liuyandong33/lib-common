@@ -1,14 +1,11 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
-import build.dream.common.auth.CateringUserDetails;
-import build.dream.common.auth.IotUserDetails;
 import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.constants.Constants;
 import build.dream.common.saas.domains.Tenant;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 import scala.Tuple2;
 
 import java.math.BigInteger;
@@ -53,51 +50,19 @@ public class TenantUtils {
     }
 
     public static String obtainPublicKey() {
-        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
-        if (userDetails instanceof CateringUserDetails) {
-            return ((CateringUserDetails) userDetails).getPublicKey();
-        }
-
-        if (userDetails instanceof IotUserDetails) {
-            return ((IotUserDetails) userDetails).getPublicKey();
-        }
-        return null;
+        return WebSecurityUtils.obtainTenantUserDetails().getPublicKey();
     }
 
     public static String obtainPrivateKey() {
-        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
-        if (userDetails instanceof CateringUserDetails) {
-            return ((CateringUserDetails) userDetails).getPrivateKey();
-        }
-
-        if (userDetails instanceof IotUserDetails) {
-            return ((IotUserDetails) userDetails).getPrivateKey();
-        }
-        return null;
+        return WebSecurityUtils.obtainTenantUserDetails().getPrivateKey();
     }
 
     public static String obtainPartitionCode() {
-        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
-        if (userDetails instanceof CateringUserDetails) {
-            return ((CateringUserDetails) userDetails).getPartitionCode();
-        }
-
-        if (userDetails instanceof IotUserDetails) {
-            return ((IotUserDetails) userDetails).getPartitionCode();
-        }
-        return null;
+        return WebSecurityUtils.obtainTenantUserDetails().getPartitionCode();
     }
 
     public static String obtainBusiness() {
-        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
-        if (userDetails instanceof CateringUserDetails) {
-            return ((CateringUserDetails) userDetails).getBusiness();
-        }
-
-        if (userDetails instanceof IotUserDetails) {
-            return ((IotUserDetails) userDetails).getBusiness();
-        }
-        return null;
+        return WebSecurityUtils.obtainTenantUserDetails().getBusiness();
     }
 
     public static void cacheTenantInfo(Tenant tenant) {

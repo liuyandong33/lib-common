@@ -1,9 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.auth.AgentUserDetails;
-import build.dream.common.auth.CateringUserDetails;
-import build.dream.common.auth.IotUserDetails;
-import build.dream.common.auth.VipUserDetails;
+import build.dream.common.auth.*;
 import build.dream.common.constants.Constants;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.security.access.ConfigAttribute;
@@ -57,6 +54,10 @@ public class WebSecurityUtils {
 
     public static IotUserDetails obtainIotUserDetails() {
         return (IotUserDetails) obtainUserDetails();
+    }
+
+    public static TenantUserDetails obtainTenantUserDetails() {
+        return (TenantUserDetails) obtainUserDetails();
     }
 
     public static UserDetails obtainUserDetails() {
