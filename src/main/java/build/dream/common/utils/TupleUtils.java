@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import scala.*;
+import build.dream.common.tuples.*;
 
 public class TupleUtils {
     public static <T> Tuple1<T> buildTuple1(T t) {

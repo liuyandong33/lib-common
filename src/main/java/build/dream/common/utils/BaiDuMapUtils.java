@@ -2,9 +2,9 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.models.baidumap.GeoConvModel;
+import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
-import scala.Tuple2;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -57,7 +57,45 @@ public class Application {
         String user = "root";
         String password = "root";
         String tableName = "assemble_activity";
-        reverseJavaCode(url, driverClassName, user, password, tableName);
+//        reverseJavaCode(url, driverClassName, user, password, tableName);
+    }
+
+    public void generateTupleCode(int size) {
+        System.out.print("public class Tuple" + size + "<");
+        for (int index = 1; index <= size; index++) {
+            if (index == size) {
+                System.out.print("T" + index);
+                continue;
+            }
+            System.out.print("T" + index + ", ");
+        }
+        System.out.print("> {");
+        System.out.println();
+
+        for (int index = 1; index <= size; index++) {
+            System.out.println("private T" + index + " _" + index + ";");
+        }
+
+        System.out.print("public Tuple" + size + "(");
+        for (int index = 1; index <= size; index++) {
+            if (index == size) {
+                System.out.println("T" + index + " _" + index + ") {");
+                continue;
+            }
+
+            System.out.print("T" + index + " _" + index + ", ");
+        }
+        for (int index = 1; index <= size; index++) {
+            System.out.println("this._" + index + " = " + "_" + index + ";");
+        }
+
+        System.out.println("}");
+
+        for (int index = 1; index <= size; index++) {
+            System.out.println("public T" + index + " _" + index + "() {return _" + index + ";}");
+        }
+
+        System.out.println("}");
     }
 
     public static List<Class<?>> obtainAllClass(String packageName) throws ClassNotFoundException {

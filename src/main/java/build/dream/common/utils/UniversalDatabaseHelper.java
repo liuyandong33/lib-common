@@ -1,16 +1,16 @@
 package build.dream.common.utils;
 
-import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.annotations.Id;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.mappers.UniversalMapper;
+import build.dream.common.orm.GenerationStrategy;
 import build.dream.common.orm.IdGenerator;
+import build.dream.common.tuples.Tuple2;
+import build.dream.common.tuples.Tuple3;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.data.util.ReflectionUtils;
-import scala.Tuple2;
-import scala.Tuple3;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

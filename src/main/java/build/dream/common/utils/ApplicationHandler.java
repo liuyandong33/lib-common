@@ -9,6 +9,7 @@ import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
 import build.dream.common.functions.SuppressThrowFunction;
 import build.dream.common.functions.SuppressThrowNoReturnFunction;
+import build.dream.common.tuples.Tuple2;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.BigDecimalConverter;
@@ -26,7 +27,6 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.method.HandlerMethod;
-import scala.Tuple2;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;

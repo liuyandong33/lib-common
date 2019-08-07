@@ -1,8 +1,8 @@
 package build.dream.common.utils;
 
 import build.dream.common.mappers.UniversalMapper;
-import scala.Tuple2;
-import scala.Tuple3;
+import build.dream.common.tuples.Tuple2;
+import build.dream.common.tuples.Tuple3;
 
 import java.math.BigInteger;
 import java.util.List;
