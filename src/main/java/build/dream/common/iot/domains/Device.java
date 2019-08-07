@@ -1,12 +1,11 @@
 package build.dream.common.iot.domains;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.saas.domains.Tenant;
 
 import java.math.BigInteger;
 
 public class Device extends BasicDomain {
-    public static final String TABLE_NAME = "pos";
+    public static final String TABLE_NAME = "device";
     /**
      * 商户ID
      */
@@ -70,8 +69,8 @@ public class Device extends BasicDomain {
         }
     }
 
-    public static Tenant.Builder builder() {
-        return new Tenant.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
