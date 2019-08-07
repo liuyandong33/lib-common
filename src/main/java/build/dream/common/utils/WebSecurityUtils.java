@@ -1,8 +1,8 @@
 package build.dream.common.utils;
 
-import build.dream.common.auth.AbstractUserDetails;
 import build.dream.common.auth.AgentUserDetails;
-import build.dream.common.auth.TenantUserDetails;
+import build.dream.common.auth.CateringUserDetails;
+import build.dream.common.auth.IotUserDetails;
 import build.dream.common.auth.VipUserDetails;
 import build.dream.common.constants.Constants;
 import org.springframework.expression.ExpressionParser;
@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -42,8 +43,8 @@ public class WebSecurityUtils {
         return (LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>) expressionBasedFilterInvocationSecurityMetadataSourceClassProcessMapMethod.invoke(null, requestMap, expressionParser);
     }
 
-    public static TenantUserDetails obtainTenantUserDetails() {
-        return (TenantUserDetails) obtainUserDetails();
+    public static CateringUserDetails obtainCateringUserDetails() {
+        return (CateringUserDetails) obtainUserDetails();
     }
 
     public static VipUserDetails obtainVipUserDetails() {
@@ -54,9 +55,13 @@ public class WebSecurityUtils {
         return (AgentUserDetails) obtainUserDetails();
     }
 
-    public static AbstractUserDetails obtainUserDetails() {
+    public static IotUserDetails obtainIotUserDetails() {
+        return (IotUserDetails) obtainUserDetails();
+    }
+
+    public static UserDetails obtainUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        AbstractUserDetails abstractUserDetails = (AbstractUserDetails) authentication.getPrincipal();
-        return abstractUserDetails;
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails;
     }
 }

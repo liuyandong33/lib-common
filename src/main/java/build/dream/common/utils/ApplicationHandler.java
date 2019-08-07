@@ -4,7 +4,6 @@ import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.InstantiateObjectKey;
 import build.dream.common.api.ApiRest;
-import build.dream.common.auth.TenantUserDetails;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
@@ -1189,41 +1188,6 @@ public class ApplicationHandler {
             }
             return t;
         });
-    }
-
-    public static BigInteger obtainUserId() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getUserId();
-    }
-
-    public static BigInteger obtainTenantId() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getTenantId();
-    }
-
-    public static String obtainTenantCode() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getTenantCode();
-    }
-
-    public static BigInteger obtainBranchId() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getBranchId();
-    }
-
-    public static String obtainBranchCode() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getBranchCode();
-    }
-
-    public static String obtainPublicKey() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getPublicKey();
-    }
-
-    public static String obtainPrivateKey() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        return tenantUserDetails.getPrivateKey();
     }
 
     public static boolean isAjax() {

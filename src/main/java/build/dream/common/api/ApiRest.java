@@ -144,7 +144,7 @@ public class ApiRest implements Serializable, Cloneable {
     public static ApiRest fromJson(String jsonString, String datePattern) {
         ApiRest apiRest = JacksonUtils.readValue(jsonString, ApiRest.class, datePattern);
         if (apiRest.isEncrypted()) {
-            apiRest.decryptData(ApplicationHandler.obtainPrivateKey(), datePattern);
+            apiRest.decryptData(TenantUtils.obtainPrivateKey(), datePattern);
         }
 
         if (apiRest.isZipped()) {

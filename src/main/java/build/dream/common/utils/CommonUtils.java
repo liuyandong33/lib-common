@@ -8,13 +8,18 @@ import java.math.BigInteger;
 
 public class CommonUtils {
     public static String getServiceName(String business) {
-        String serviceName = null;
         if (Constants.BUSINESS_CATERING.equals(business)) {
-            serviceName = Constants.SERVICE_NAME_CATERING;
-        } else if (Constants.BUSINESS_RETAIL.equals(business)) {
-            serviceName = Constants.SERVICE_NAME_RETAIL;
+            return Constants.SERVICE_NAME_CATERING;
         }
-        return serviceName;
+
+        if (Constants.BUSINESS_RETAIL.equals(business)) {
+            return Constants.SERVICE_NAME_RETAIL;
+        }
+
+        if (Constants.BUSINESS_IOT.equals(business)) {
+            return Constants.SERVICE_NAME_IOT;
+        }
+        return null;
     }
 
     public static BigInteger getServiceSystemUserId(String partitionCode, String serviceName) {
@@ -84,14 +89,17 @@ public class CommonUtils {
     }
 
     public static String obtainApiServiceName(String clientType) {
-        String apiServiceName = null;
         if (Constants.CLIENT_TYPE_APP.equals(clientType)) {
-            apiServiceName = Constants.SERVICE_NAME_APPAPI;
-        } else if (Constants.CLIENT_TYPE_POS.equals(clientType)) {
-            apiServiceName = Constants.SERVICE_NAME_POSAPI;
-        } else if (Constants.CLIENT_TYPE_WEB.equals(clientType)) {
-            apiServiceName = Constants.SERVICE_NAME_WEBAPI;
+            return Constants.SERVICE_NAME_APPAPI;
         }
-        return apiServiceName;
+
+        if (Constants.CLIENT_TYPE_POS.equals(clientType)) {
+            return Constants.SERVICE_NAME_POSAPI;
+        }
+
+        if (Constants.CLIENT_TYPE_WEB.equals(clientType)) {
+            return Constants.SERVICE_NAME_WEBAPI;
+        }
+        return null;
     }
 }

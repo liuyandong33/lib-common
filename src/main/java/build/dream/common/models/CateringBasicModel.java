@@ -1,7 +1,7 @@
 package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
-import build.dream.common.auth.TenantUserDetails;
+import build.dream.common.auth.CateringUserDetails;
 import build.dream.common.saas.domains.Tenant;
 import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
@@ -40,19 +40,19 @@ public class CateringBasicModel extends BasicModel {
     private Integer _vipSharedType;
 
     public CateringBasicModel() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        BigInteger tenantId = tenantUserDetails.getTenantId();
+        CateringUserDetails cateringUserDetails = WebSecurityUtils.obtainCateringUserDetails();
+        BigInteger tenantId = cateringUserDetails.getTenantId();
         Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
-        this._userId = tenantUserDetails.getUserId();
+        this._userId = cateringUserDetails.getUserId();
         this._tenantId = tenantId;
-        this._tenantCode = tenantUserDetails.getTenantCode();
-        this._branchId = tenantUserDetails.getBranchId();
-        this._branchCode = tenantUserDetails.getBranchCode();
-        this._publicKey = tenantUserDetails.getPublicKey();
-        this._privateKey = tenantUserDetails.getPrivateKey();
-        this._partitionCode = tenantUserDetails.getPartitionCode();
-        this._clientType = tenantUserDetails.getClientType();
+        this._tenantCode = cateringUserDetails.getTenantCode();
+        this._branchId = cateringUserDetails.getBranchId();
+        this._branchCode = cateringUserDetails.getBranchCode();
+        this._publicKey = cateringUserDetails.getPublicKey();
+        this._privateKey = cateringUserDetails.getPrivateKey();
+        this._partitionCode = cateringUserDetails.getPartitionCode();
+        this._clientType = cateringUserDetails.getClientType();
         this._vipSharedType = tenant.getVipSharedType();
     }
 

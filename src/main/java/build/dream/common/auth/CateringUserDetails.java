@@ -2,7 +2,7 @@ package build.dream.common.auth;
 
 import java.math.BigInteger;
 
-public class TenantUserDetails extends AbstractUserDetails {
+public class CateringUserDetails extends AbstractUserDetails {
     private BigInteger userId;
     private BigInteger tenantId;
     private String tenantCode;

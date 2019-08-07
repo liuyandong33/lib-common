@@ -1,8 +1,7 @@
 package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
-import build.dream.common.auth.TenantUserDetails;
-import build.dream.common.models.BasicModel;
+import build.dream.common.auth.IotUserDetails;
 import build.dream.common.utils.WebSecurityUtils;
 
 import java.math.BigInteger;
@@ -33,15 +32,15 @@ public class IotBasicModel extends BasicModel {
     private String _partitionCode;
 
     public IotBasicModel() {
-        TenantUserDetails tenantUserDetails = WebSecurityUtils.obtainTenantUserDetails();
-        this._userId = tenantUserDetails.getUserId();
-        this._tenantId = tenantUserDetails.getTenantId();
-        this._tenantCode = tenantUserDetails.getTenantCode();
-        this._branchId = tenantUserDetails.getBranchId();
-        this._branchCode = tenantUserDetails.getBranchCode();
-        this._publicKey = tenantUserDetails.getPublicKey();
-        this._privateKey = tenantUserDetails.getPrivateKey();
-        this._partitionCode = tenantUserDetails.getPartitionCode();
+        IotUserDetails iotUserDetails = WebSecurityUtils.obtainIotUserDetails();
+        this._userId = iotUserDetails.getUserId();
+        this._tenantId = iotUserDetails.getTenantId();
+        this._tenantCode = iotUserDetails.getTenantCode();
+        this._branchId = iotUserDetails.getBranchId();
+        this._branchCode = iotUserDetails.getBranchCode();
+        this._publicKey = iotUserDetails.getPublicKey();
+        this._privateKey = iotUserDetails.getPrivateKey();
+        this._partitionCode = iotUserDetails.getPartitionCode();
     }
 
     public BigInteger obtainUserId() {

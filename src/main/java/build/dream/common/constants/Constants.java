@@ -82,6 +82,7 @@ public class Constants {
      */
     public static final String BUSINESS_CATERING = "1";
     public static final String BUSINESS_RETAIL = "2";
+    public static final String BUSINESS_IOT = "3";
 
     /**
      * 用户类型常量

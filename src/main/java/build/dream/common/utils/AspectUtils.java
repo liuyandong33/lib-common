@@ -100,7 +100,7 @@ public class AspectUtils {
 
         // 处理加密
         if (apiRestAction.encrypted()) {
-            apiRest.encryptData(Base64.decodeBase64(ApplicationHandler.obtainPublicKey()), datePattern);
+            apiRest.encryptData(Base64.decodeBase64(TenantUtils.obtainPublicKey()), datePattern);
         }
 
         // 处理签名
@@ -245,7 +245,7 @@ public class AspectUtils {
             String requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
             ApplicationJsonUtf8Encrypted applicationJsonUtf8Encrypted = AnnotationUtils.findAnnotation(targetMethod, ApplicationJsonUtf8Encrypted.class);
             if (Objects.nonNull(applicationJsonUtf8Encrypted)) {
-                byte[] publicKey = Base64.decodeBase64(ApplicationHandler.obtainPublicKey());
+                byte[] publicKey = Base64.decodeBase64(TenantUtils.obtainPublicKey());
                 requestBody = new String(RSAUtils.decryptByPublicKey(Base64.decodeBase64(requestBody), Base64.decodeBase64(publicKey), RSAUtils.PADDING_MODE_RSA_ECB_PKCS1PADDING), Constants.CHARSET_NAME_UTF_8);
             }
             return callApiRestAction(requestBody, modelClass, serviceClass, serviceMethodName, datePattern);
