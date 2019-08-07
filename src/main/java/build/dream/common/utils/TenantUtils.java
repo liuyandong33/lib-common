@@ -76,6 +76,18 @@ public class TenantUtils {
         return null;
     }
 
+    public static String obtainPartitionCode() {
+        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
+        if (userDetails instanceof CateringUserDetails) {
+            return ((CateringUserDetails) userDetails).getPartitionCode();
+        }
+
+        if (userDetails instanceof IotUserDetails) {
+            return ((IotUserDetails) userDetails).getPartitionCode();
+        }
+        return null;
+    }
+
     public static void cacheTenantInfo(Tenant tenant) {
         String tenantInfo = JacksonUtils.writeValueAsString(tenant);
         CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);
