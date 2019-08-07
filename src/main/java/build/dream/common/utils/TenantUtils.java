@@ -88,6 +88,18 @@ public class TenantUtils {
         return null;
     }
 
+    public static String obtainBusiness() {
+        UserDetails userDetails = WebSecurityUtils.obtainUserDetails();
+        if (userDetails instanceof CateringUserDetails) {
+            return ((CateringUserDetails) userDetails).getBusiness();
+        }
+
+        if (userDetails instanceof IotUserDetails) {
+            return ((IotUserDetails) userDetails).getBusiness();
+        }
+        return null;
+    }
+
     public static void cacheTenantInfo(Tenant tenant) {
         String tenantInfo = JacksonUtils.writeValueAsString(tenant);
         CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);

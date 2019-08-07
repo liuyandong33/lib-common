@@ -6,6 +6,7 @@ public class IotUserDetails extends AbstractUserDetails {
     private BigInteger userId;
     private BigInteger tenantId;
     private String tenantCode;
+    private String business;
     private String partitionCode;
     private BigInteger branchId;
     private String branchCode;
@@ -34,6 +35,14 @@ public class IotUserDetails extends AbstractUserDetails {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public String getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(String business) {
+        this.business = business;
     }
 
     public String getPartitionCode() {

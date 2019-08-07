@@ -7,6 +7,7 @@ public class CateringUserDetails extends AbstractUserDetails {
     private BigInteger tenantId;
     private String tenantCode;
     private String partitionCode;
+    private String business;
     private BigInteger branchId;
     private String branchCode;
     private String publicKey;
@@ -34,6 +35,14 @@ public class CateringUserDetails extends AbstractUserDetails {
 
     public void setTenantCode(String tenantCode) {
         this.tenantCode = tenantCode;
+    }
+
+    public String getBusiness() {
+        return business;
+    }
+
+    public void setBusiness(String business) {
+        this.business = business;
     }
 
     public String getPartitionCode() {
