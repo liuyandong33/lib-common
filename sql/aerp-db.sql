@@ -337,3 +337,21 @@ CREATE TABLE diet_order_payment
     deleted_time VARCHAR(20), --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00
     deleted TINYINT --是否删除，0-未删除，1-已删除
 );
+
+DROP TABLE IF EXISTS mqtt_info;
+CREATE TABLE mqtt_info
+(
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, --ID
+    end_point TEXT NOT NULL, --end point
+    client_id TEXT NOT NULL, --client id
+    user_name TEXT NOT NULL, --user name
+    password TEXT NOT NULL, --password
+    topic TEXT NOT NULL, --topic
+    created_time TEXT NOT NULL, --创建时间
+    created_user_id INTEGER NOT NULL, --创建人id
+    updated_time TEXT NOT NULL, --最后更新时间
+    updated_user_id INTEGER NOT NULL, --最后更新人id
+    updated_remark TEXT NOT NULL, --最后更新备注
+    deleted_time TEXT DEFAULT '1970-01-01 00:00:00', --删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted INTEGER DEFAULT 0 --是否删除，0-未删除，1-已删除'
+);
