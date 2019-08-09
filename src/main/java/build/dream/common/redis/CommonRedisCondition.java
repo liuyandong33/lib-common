@@ -13,11 +13,11 @@ public class CommonRedisCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         environment = context.getEnvironment();
-
-        if (containsProperty(Constants.COMMON_REDIS_HOST) && containsProperty(Constants.COMMON_REDIS_PORT) && containsProperty(Constants.COMMON_REDIS_PASSWORD)) {
+        if (containsProperty(Constants.COMMON_REDIS_HOST)
+                && containsProperty(Constants.COMMON_REDIS_PORT)
+                && containsProperty(Constants.COMMON_REDIS_PASSWORD)) {
             return true;
         }
-
         return false;
     }
 
