@@ -347,6 +347,7 @@ CREATE TABLE mqtt_info
     user_name TEXT NOT NULL, --user name
     password TEXT NOT NULL, --password
     topic TEXT NOT NULL, --topic
+    expire_time TEXT NOT NULL, --有效时间
     created_time TEXT NOT NULL, --创建时间
     created_user_id INTEGER NOT NULL, --创建人id
     updated_time TEXT NOT NULL, --最后更新时间
