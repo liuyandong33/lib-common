@@ -13,11 +13,11 @@ public class PartitionRedisCondition implements Condition {
     @Override
     public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
         environment = context.getEnvironment();
-
-        if (containsProperty(Constants.PARTITION_REDIS_HOST) && containsProperty(Constants.PARTITION_REDIS_PORT) && containsProperty(Constants.PARTITION_REDIS_PASSWORD)) {
+        if (containsProperty(Constants.PARTITION_REDIS_HOST)
+                && containsProperty(Constants.PARTITION_REDIS_PORT)
+                && containsProperty(Constants.PARTITION_REDIS_PASSWORD)) {
             return true;
         }
-
         return false;
     }
 
