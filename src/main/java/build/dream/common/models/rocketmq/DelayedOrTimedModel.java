@@ -3,14 +3,14 @@ package build.dream.common.models.rocketmq;
 import java.util.Map;
 
 public class DelayedOrTimedModel {
-    private Integer type;
+    private DelayedOrTimedType type;
     private Map<String, Object> data;
 
-    public Integer getType() {
+    public DelayedOrTimedType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(DelayedOrTimedType type) {
         this.type = type;
     }
 
