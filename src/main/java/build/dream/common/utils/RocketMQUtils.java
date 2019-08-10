@@ -23,107 +23,107 @@ public class RocketMQUtils {
         return rocketMQTemplate;
     }
 
-    public SendResult syncSend(String destination, Message<?> message) {
+    public static SendResult syncSend(String destination, Message<?> message) {
         return obtainRocketMQTemplate().syncSend(destination, message);
     }
 
-    public SendResult syncSend(String destination, Message<?> message, long timeout) {
+    public static SendResult syncSend(String destination, Message<?> message, long timeout) {
         return obtainRocketMQTemplate().syncSend(destination, message, timeout);
     }
 
-    public SendResult syncSend(String destination, Collection<Message<?>> messages, long timeout) {
+    public static SendResult syncSend(String destination, Collection<Message<?>> messages, long timeout) {
         return obtainRocketMQTemplate().syncSend(destination, messages, timeout);
     }
 
-    public SendResult syncSend(String destination, Message<?> message, long timeout, int delayLevel) {
+    public static SendResult syncSend(String destination, Message<?> message, long timeout, int delayLevel) {
         return obtainRocketMQTemplate().syncSend(destination, message, timeout, delayLevel);
     }
 
-    public SendResult syncSend(String destination, Object payload) {
+    public static SendResult syncSend(String destination, Object payload) {
         return obtainRocketMQTemplate().syncSend(destination, payload);
     }
 
-    public SendResult syncSend(String destination, Object payload, long timeout) {
+    public static SendResult syncSend(String destination, Object payload, long timeout) {
         return obtainRocketMQTemplate().syncSend(destination, payload, timeout);
     }
 
-    public SendResult syncSendOrderly(String destination, Message<?> message, String hashKey) {
+    public static SendResult syncSendOrderly(String destination, Message<?> message, String hashKey) {
         return obtainRocketMQTemplate().syncSendOrderly(destination, message, hashKey);
     }
 
-    public SendResult syncSendOrderly(String destination, Message<?> message, String hashKey, long timeout) {
+    public static SendResult syncSendOrderly(String destination, Message<?> message, String hashKey, long timeout) {
         return obtainRocketMQTemplate().syncSendOrderly(destination, message, hashKey, timeout);
     }
 
-    public SendResult syncSendOrderly(String destination, Object payload, String hashKey) {
+    public static SendResult syncSendOrderly(String destination, Object payload, String hashKey) {
         return obtainRocketMQTemplate().syncSendOrderly(destination, payload, hashKey);
     }
 
-    public SendResult syncSendOrderly(String destination, Object payload, String hashKey, long timeout) {
+    public static SendResult syncSendOrderly(String destination, Object payload, String hashKey, long timeout) {
         return obtainRocketMQTemplate().syncSendOrderly(destination, payload, hashKey, timeout);
     }
 
-    public void asyncSend(String destination, Message<?> message, SendCallback sendCallback, long timeout, int delayLevel) {
+    public static void asyncSend(String destination, Message<?> message, SendCallback sendCallback, long timeout, int delayLevel) {
         obtainRocketMQTemplate().asyncSend(destination, message, sendCallback, timeout, delayLevel);
     }
 
-    public void asyncSend(String destination, Message<?> message, SendCallback sendCallback, long timeout) {
+    public static void asyncSend(String destination, Message<?> message, SendCallback sendCallback, long timeout) {
         obtainRocketMQTemplate().asyncSend(destination, message, sendCallback, timeout);
     }
 
-    public void asyncSend(String destination, Message<?> message, SendCallback sendCallback) {
+    public static void asyncSend(String destination, Message<?> message, SendCallback sendCallback) {
         obtainRocketMQTemplate().asyncSend(destination, message, sendCallback);
     }
 
-    public void asyncSend(String destination, Object payload, SendCallback sendCallback, long timeout) {
+    public static void asyncSend(String destination, Object payload, SendCallback sendCallback, long timeout) {
         obtainRocketMQTemplate().asyncSend(destination, payload, sendCallback, timeout);
     }
 
-    public void asyncSend(String destination, Object payload, SendCallback sendCallback) {
+    public static void asyncSend(String destination, Object payload, SendCallback sendCallback) {
         obtainRocketMQTemplate().asyncSend(destination, payload, sendCallback);
     }
 
-    public void asyncSendOrderly(String destination, Message<?> message, String hashKey, SendCallback sendCallback, long timeout) {
+    public static void asyncSendOrderly(String destination, Message<?> message, String hashKey, SendCallback sendCallback, long timeout) {
         obtainRocketMQTemplate().asyncSendOrderly(destination, message, hashKey, sendCallback, timeout);
     }
 
-    public void asyncSendOrderly(String destination, Message<?> message, String hashKey, SendCallback sendCallback) {
+    public static void asyncSendOrderly(String destination, Message<?> message, String hashKey, SendCallback sendCallback) {
         obtainRocketMQTemplate().asyncSendOrderly(destination, message, hashKey, sendCallback);
     }
 
-    public void asyncSendOrderly(String destination, Object payload, String hashKey, SendCallback sendCallback) {
+    public static void asyncSendOrderly(String destination, Object payload, String hashKey, SendCallback sendCallback) {
         obtainRocketMQTemplate().asyncSendOrderly(destination, payload, hashKey, sendCallback);
     }
 
-    public void asyncSendOrderly(String destination, Object payload, String hashKey, SendCallback sendCallback, long timeout) {
+    public static void asyncSendOrderly(String destination, Object payload, String hashKey, SendCallback sendCallback, long timeout) {
         obtainRocketMQTemplate().asyncSendOrderly(destination, payload, hashKey, sendCallback, timeout);
     }
 
-    public void sendOneWay(String destination, Message<?> message) {
+    public static void sendOneWay(String destination, Message<?> message) {
         obtainRocketMQTemplate().sendOneWay(destination, message);
     }
 
-    public void sendOneWay(String destination, Object payload) {
+    public static void sendOneWay(String destination, Object payload) {
         obtainRocketMQTemplate().sendOneWay(destination, payload);
     }
 
-    public void sendOneWayOrderly(String destination, Message<?> message, String hashKey) {
+    public static void sendOneWayOrderly(String destination, Message<?> message, String hashKey) {
         obtainRocketMQTemplate().sendOneWayOrderly(destination, message, hashKey);
     }
 
-    public void sendOneWayOrderly(String destination, Object payload, String hashKey) {
+    public static void sendOneWayOrderly(String destination, Object payload, String hashKey) {
         obtainRocketMQTemplate().sendOneWayOrderly(destination, payload, hashKey);
     }
 
-    public TransactionSendResult sendMessageInTransaction(final String txProducerGroup, final String destination, final Message<?> message, final Object arg) throws MessagingException {
+    public static TransactionSendResult sendMessageInTransaction(final String txProducerGroup, final String destination, final Message<?> message, final Object arg) throws MessagingException {
         return obtainRocketMQTemplate().sendMessageInTransaction(txProducerGroup, destination, message, arg);
     }
 
-    public void removeTransactionMQProducer(String txProducerGroup) throws MessagingException {
+    public static void removeTransactionMQProducer(String txProducerGroup) throws MessagingException {
         obtainRocketMQTemplate().removeTransactionMQProducer(txProducerGroup);
     }
 
-    public boolean createAndStartTransactionMQProducer(String txProducerGroup, RocketMQLocalTransactionListener transactionListener, ExecutorService executorService, RPCHook rpcHook) throws MessagingException {
+    public static boolean createAndStartTransactionMQProducer(String txProducerGroup, RocketMQLocalTransactionListener transactionListener, ExecutorService executorService, RPCHook rpcHook) throws MessagingException {
         return obtainRocketMQTemplate().createAndStartTransactionMQProducer(txProducerGroup, transactionListener, executorService, rpcHook);
     }
 }
