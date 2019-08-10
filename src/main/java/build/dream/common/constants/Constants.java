@@ -1189,4 +1189,13 @@ public class Constants {
     public static final String KEY_WNS_ACCESS_TOKENS = "_wns_access_tokens";
 
     public static final String WPOS_MQTT_TOPIC = "wpos.mqtt.topic";
+
+    /**
+     * RocketMQ 延迟/定时操作类型
+     *
+     * @see #DELAYED_OR_TIMED_TYPE_DIET_ORDER_INVALID: 订单失效
+     * @see #DELAYED_OR_TIMED_TYPE_POS_MQTT_TOKEN_INVALID: POS MQTT Token 失效
+     */
+    public static final Integer DELAYED_OR_TIMED_TYPE_DIET_ORDER_INVALID = 1;
+    public static final Integer DELAYED_OR_TIMED_TYPE_POS_MQTT_TOKEN_INVALID = 2;
 }
