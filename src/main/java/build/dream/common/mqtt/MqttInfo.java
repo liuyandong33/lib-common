@@ -1,6 +1,6 @@
 package build.dream.common.mqtt;
 
-import java.util.List;
+import java.util.Date;
 
 public class MqttInfo {
     /**
@@ -27,6 +27,11 @@ public class MqttInfo {
      * 需要订阅的topic
      */
     private String topic;
+
+    /**
+     * 过期时间
+     */
+    private Date expireTime;
 
     public String getEndPoint() {
         return endPoint;
@@ -66,5 +71,13 @@ public class MqttInfo {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public Date getExpireTime() {
+        return expireTime;
+    }
+
+    public void setExpireTime(Date expireTime) {
+        this.expireTime = expireTime;
     }
 }
