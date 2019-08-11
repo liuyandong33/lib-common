@@ -20,9 +20,13 @@ public class MessageModel extends BasicModel {
      * 11-客服仲裁退单有效
      * 12-客服仲裁退单无效
      * 13-用户催单
+     * 100-POS MQTT Token 失效消息
      */
     @NotNull
     private Integer type;
+
+    @NotNull
+    private String uuid;
 
     public Integer getType() {
         return type;
@@ -30,5 +34,13 @@ public class MessageModel extends BasicModel {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 }

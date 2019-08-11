@@ -1,21 +1,18 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
-import build.dream.common.catering.domains.Pos;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
-import build.dream.common.models.eleme.ElemeMessageModel;
-import build.dream.common.push.PushPosMessageThread;
 import build.dream.common.saas.domains.ElemeToken;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.UUID;
 
 /**
  * Created by liuyandong on 2017/3/13.
@@ -146,18 +143,5 @@ public class ElemeUtils {
         }
 
         throw new CustomException(MapUtils.getString(errorMap, "message"));
-    }
-
-    public static void pushMessage(BigInteger tenantId, BigInteger branchId, ElemeMessageModel elemeMessageModel, int count, int interval) {
-        SearchModel searchModel = SearchModel.builder()
-                .autoSetDeletedFalse()
-                .equal(Pos.ColumnName.TENANT_ID, tenantId)
-                .equal(Pos.ColumnName.BRANCH_ID, branchId)
-                .build();
-        List<Pos> poses = DatabaseHelper.findAll(Pos.class, searchModel);
-        if (CollectionUtils.isEmpty(poses)) {
-            return;
-        }
-        new PushPosMessageThread(poses, "饿了么消息", JacksonUtils.writeValueAsString(elemeMessageModel, JsonInclude.Include.NON_NULL), elemeMessageModel.getUuid(), count, interval).start();
     }
 }
