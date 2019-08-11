@@ -41,4 +41,8 @@ public class PushUtils {
         mqttTokenInvalidMessageModel.setType(100);
         new PushPosMessageThread(poses, "饿了么消息", JacksonUtils.writeValueAsString(mqttTokenInvalidMessageModel, JsonInclude.Include.NON_NULL), uuid, count, interval).start();
     }
+
+    public static void handleReceipt(String uuid) {
+        CommonRedisUtils.del(uuid);
+    }
 }
