@@ -18,15 +18,15 @@ public class RocketMQUtils {
     }
 
 
-    public SendResult send(Message message) {
+    public static SendResult send(Message message) {
         return obtainProducerBean().send(message);
     }
 
-    public void sendOneway(Message message) {
+    public static void sendOneway(Message message) {
         obtainProducerBean().sendOneway(message);
     }
 
-    public void sendAsync(Message message, SendCallback sendCallback) {
+    public static void sendAsync(Message message, SendCallback sendCallback) {
         obtainProducerBean().sendAsync(message, sendCallback);
     }
 }
