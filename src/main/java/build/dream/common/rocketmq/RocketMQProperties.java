@@ -1,10 +1,5 @@
 package build.dream.common.rocketmq;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
-
-@Component
-@ConfigurationProperties(prefix = "rocketmq")
 public class RocketMQProperties {
     private String accessKey;
     private String secretKey;
