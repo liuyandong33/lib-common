@@ -1,11 +1,16 @@
 package build.dream.common.utils;
 
-import com.aliyun.openservices.ons.api.Message;
-import com.aliyun.openservices.ons.api.SendCallback;
-import com.aliyun.openservices.ons.api.SendResult;
+import build.dream.common.annotations.RocketMQMessageListener;
+import build.dream.common.rocketmq.RocketMQProperties;
+import com.aliyun.openservices.ons.api.*;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.core.env.Environment;
 
+import java.util.Collection;
 import java.util.Objects;
+import java.util.Properties;
 
 public class RocketMQUtils {
     private static ProducerBean producerBean;
@@ -28,5 +33,35 @@ public class RocketMQUtils {
 
     public static void sendAsync(Message message, SendCallback sendCallback) {
         obtainProducerBean().sendAsync(message, sendCallback);
+    }
+
+    public static ProducerBean buildProducer(RocketMQProperties rocketMQProperties) {
+        Properties properties = new Properties();
+        properties.setProperty(PropertyKeyConst.AccessKey, rocketMQProperties.getAccessKey());
+        properties.setProperty(PropertyKeyConst.SecretKey, rocketMQProperties.getSecretKey());
+        properties.setProperty(PropertyKeyConst.NAMESRV_ADDR, rocketMQProperties.getNameSrvAddr());
+        properties.setProperty(PropertyKeyConst.GROUP_ID, rocketMQProperties.getProducerGroupId());
+        ProducerBean producerBean = new ProducerBean();
+        producerBean.setProperties(properties);
+        return producerBean;
+    }
+
+    public static Consumer buildConsumer(RocketMQProperties rocketMQProperties, ApplicationContext applicationContext, Environment environment) {
+        Properties properties = new Properties();
+        properties.put(PropertyKeyConst.AccessKey, rocketMQProperties.getAccessKey());
+        properties.put(PropertyKeyConst.SecretKey, rocketMQProperties.getSecretKey());
+        properties.put(PropertyKeyConst.NAMESRV_ADDR, rocketMQProperties.getNameSrvAddr());
+        properties.put(PropertyKeyConst.GROUP_ID, rocketMQProperties.getConsumerGroupId());
+        Consumer consumer = ONSFactory.createConsumer(properties);
+
+        Collection<MessageListener> messageListeners = applicationContext.getBeansOfType(MessageListener.class).values();
+        for (MessageListener messageListener : messageListeners) {
+            RocketMQMessageListener rocketMQMessageListener = AnnotationUtils.findAnnotation(messageListener.getClass(), RocketMQMessageListener.class);
+            String topic = environment.resolvePlaceholders(rocketMQMessageListener.topic());
+            String subExpression = environment.resolvePlaceholders(rocketMQMessageListener.subExpression());
+            consumer.subscribe(topic, subExpression, messageListener);
+        }
+        consumer.start();
+        return consumer;
     }
 }

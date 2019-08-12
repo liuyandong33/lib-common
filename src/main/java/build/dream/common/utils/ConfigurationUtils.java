@@ -30,4 +30,8 @@ public class ConfigurationUtils {
         }
         return defaultValue;
     }
+
+    public static String resolvePlaceholders(String text) {
+        return obtainEnvironment().resolvePlaceholders(text);
+    }
 }
