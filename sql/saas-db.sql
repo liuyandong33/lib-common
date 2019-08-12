@@ -1103,7 +1103,8 @@ CREATE TABLE mqtt_config
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
     instance_id VARCHAR(50) NOT NULL COMMENT '实例ID',
-    end_point VARCHAR(50) NOT NULL COMMENT '连接点',
+    internal_end_point VARCHAR(50) NOT NULL COMMENT '内网连接点',
+    end_point VARCHAR(50) NOT NULL COMMENT '公网连接点',
     group_id VARCHAR(50) NOT NULL COMMENT 'group id',
     topic VARCHAR(50) NOT NULL COMMENT 'topic',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
