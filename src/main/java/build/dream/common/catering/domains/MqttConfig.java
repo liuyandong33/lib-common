@@ -9,7 +9,12 @@ public class MqttConfig extends BasicDomain {
     private String instanceId;
 
     /**
-     * 连接点
+     * 内网接入地址
+     */
+    private String internalEndPoint;
+
+    /**
+     * 公网接入地址
      */
     private String endPoint;
 
@@ -39,6 +44,14 @@ public class MqttConfig extends BasicDomain {
 
     public void setInstanceId(String instanceId) {
         this.instanceId = instanceId;
+    }
+
+    public String getInternalEndPoint() {
+        return internalEndPoint;
+    }
+
+    public void setInternalEndPoint(String internalEndPoint) {
+        this.internalEndPoint = internalEndPoint;
     }
 
     public String getEndPoint() {
@@ -131,6 +144,7 @@ public class MqttConfig extends BasicDomain {
 
     public static final class ColumnName extends BasicDomain.ColumnName {
         public static final String INSTANCE_ID = "instance_id";
+        public static final String INTERNAL_END_POINT = "internal_end_point";
         public static final String END_POINT = "end_point";
         public static final String GROUP_ID = "group_id";
         public static final String TOPIC = "topic";
@@ -140,6 +154,7 @@ public class MqttConfig extends BasicDomain {
 
     public static final class FieldName extends BasicDomain.FieldName {
         public static final String INSTANCE_ID = "instanceId";
+        public static final String INTERNAL_END_POINT = "internalEndPoint";
         public static final String END_POINT = "endPoint";
         public static final String GROUP_ID = "groupId";
         public static final String TOPIC = "topic";

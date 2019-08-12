@@ -46,6 +46,7 @@ public class MqttUtils {
         String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
 
         MqttInfo mqttInfo = new MqttInfo();
+        mqttInfo.setInternalEndPoint(mqttConfig.getInternalEndPoint());
         mqttInfo.setEndPoint(mqttConfig.getEndPoint());
         mqttInfo.setClientId(clientId);
         mqttInfo.setUserName("Signature|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());
@@ -62,6 +63,7 @@ public class MqttUtils {
         String clientId = mqttConfig.getGroupId() + "@@@" + UUID.randomUUID().toString();
 
         MqttInfo mqttInfo = new MqttInfo();
+        mqttInfo.setInternalEndPoint(mqttConfig.getInternalEndPoint());
         mqttInfo.setEndPoint(mqttConfig.getEndPoint());
         mqttInfo.setClientId(clientId);
         mqttInfo.setUserName("Token|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());

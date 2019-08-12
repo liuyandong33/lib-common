@@ -4,6 +4,10 @@ import java.util.Date;
 
 public class MqttInfo {
     /**
+     * 内网接入地址
+     */
+    private String internalEndPoint;
+    /**
      * 连接点
      */
     private String endPoint;
@@ -32,6 +36,14 @@ public class MqttInfo {
      * 过期时间
      */
     private Date expireTime;
+
+    public String getInternalEndPoint() {
+        return internalEndPoint;
+    }
+
+    public void setInternalEndPoint(String internalEndPoint) {
+        this.internalEndPoint = internalEndPoint;
+    }
 
     public String getEndPoint() {
         return endPoint;
