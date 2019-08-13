@@ -2,8 +2,8 @@ package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WebResponse;
-import build.dream.common.catering.domains.MqttConfig;
 import build.dream.common.constants.Constants;
+import build.dream.common.domains.saas.MqttConfig;
 import build.dream.common.models.mqtt.ApplyTokenModel;
 import build.dream.common.models.mqtt.QueryTokenModel;
 import build.dream.common.models.mqtt.RevokeTokenModel;

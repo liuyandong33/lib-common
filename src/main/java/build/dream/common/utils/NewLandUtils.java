@@ -4,7 +4,7 @@ import build.dream.common.beans.NewLandOrgInfo;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.newland.*;
-import build.dream.common.saas.domains.NewLandAccount;
+import build.dream.common.domains.saas.NewLandAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 

@@ -2,7 +2,7 @@ package build.dream.common.models;
 
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.CateringUserDetails;
-import build.dream.common.saas.domains.Tenant;
+import build.dream.common.domains.saas.Tenant;
 import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
 

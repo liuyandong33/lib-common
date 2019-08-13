@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.Tenant;
+import build.dream.common.domains.saas.Tenant;
 import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;

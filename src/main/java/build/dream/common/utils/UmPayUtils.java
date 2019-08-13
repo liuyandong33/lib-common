@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.umpay.*;
-import build.dream.common.saas.domains.UmPayAccount;
+import build.dream.common.domains.saas.UmPayAccount;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;

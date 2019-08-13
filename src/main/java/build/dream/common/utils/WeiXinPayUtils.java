@@ -8,7 +8,7 @@ import build.dream.common.beans.WeiXinDownloadBillResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.models.weixinpay.*;
-import build.dream.common.saas.domains.WeiXinPayAccount;
+import build.dream.common.domains.saas.WeiXinPayAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;

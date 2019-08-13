@@ -1,4 +1,4 @@
-package build.dream.common.domains.catering;
+package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 

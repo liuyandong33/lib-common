@@ -3,7 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.miya.*;
-import build.dream.common.saas.domains.MiyaAccount;
+import build.dream.common.domains.saas.MiyaAccount;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 

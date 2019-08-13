@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.catering.domains.Pos;
+import build.dream.common.domains.catering.Pos;
 import build.dream.common.models.push.MqttTokenInvalidMessageModel;
 import build.dream.common.models.push.OrderMessageModel;
 import build.dream.common.push.PushPosMessageThread;

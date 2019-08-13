@@ -4,7 +4,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.models.aggregatepay.ScanCodePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
-import build.dream.common.saas.domains.WeiXinPayAccount;
+import build.dream.common.domains.saas.WeiXinPayAccount;
 import org.dom4j.DocumentException;
 
 import java.math.BigDecimal;

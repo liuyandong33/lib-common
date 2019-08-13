@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.Agent;
+import build.dream.common.domains.saas.Agent;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 

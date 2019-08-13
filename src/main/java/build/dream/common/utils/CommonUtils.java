@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.saas.domains.Tenant;
+import build.dream.common.domains.saas.Tenant;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;

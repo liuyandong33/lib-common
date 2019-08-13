@@ -2,7 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.models.notify.SaveAsyncNotifyModel;
-import build.dream.common.saas.domains.AsyncNotify;
+import build.dream.common.domains.saas.AsyncNotify;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;

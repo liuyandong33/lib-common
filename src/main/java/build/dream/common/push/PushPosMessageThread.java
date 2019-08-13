@@ -1,6 +1,6 @@
 package build.dream.common.push;
 
-import build.dream.common.catering.domains.Pos;
+import build.dream.common.domains.catering.Pos;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunpush.PushMessageModel;
 import build.dream.common.utils.AliyunPushUtils;
