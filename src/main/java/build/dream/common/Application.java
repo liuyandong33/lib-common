@@ -2,8 +2,8 @@ package build.dream.common;
 
 import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.exceptions.CustomException;
 import build.dream.common.domains.saas.Tenant;
+import build.dream.common.exceptions.CustomException;
 import build.dream.common.utils.DatabaseUtils;
 import build.dream.common.utils.NamingStrategyUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
