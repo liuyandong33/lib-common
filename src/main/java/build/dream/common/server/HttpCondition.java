@@ -17,7 +17,6 @@ public class HttpCondition implements Condition {
                 && containsProperty(Constants.SERVER_SSL_KEY_STORE)
                 && containsProperty(Constants.SERVER_SSL_KEY_STORE_PASSWORD)
                 && containsProperty(Constants.SERVER_SSL_KEY_STORE_TYPE)
-                && containsProperty(Constants.SERVER_SSL_KEY_ALIAS)
                 && containsProperty(Constants.SERVER_HTTP_PORT)) {
             return true;
         }
