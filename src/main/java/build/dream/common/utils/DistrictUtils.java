@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class DistrictUtils {
     private static final Map<String, District> DISTRICT_MAP;
     private static final List<District> DISTRICTS;
     private static final Map<String, List<District>> DISTRICTS_MAP;
+    private static final List<District> PROVINCES;
 
     static {
         String districtsJson = null;
@@ -26,8 +28,12 @@ public class DistrictUtils {
         DISTRICTS = JacksonUtils.readValueAsList(districtsJson, District.class);
         DISTRICTS_MAP = DISTRICTS.stream().collect(Collectors.groupingBy(District::getPid));
         DISTRICT_MAP = new HashMap<String, District>();
+        PROVINCES = new ArrayList<District>();
         for (District district : DISTRICTS) {
             DISTRICT_MAP.put(district.getId(), district);
+            if ("0".equals(district.getPid())) {
+                PROVINCES.add(district);
+            }
         }
     }
 
@@ -37,5 +43,9 @@ public class DistrictUtils {
 
     public static List<District> obtainDistrictsByPid(String pid) {
         return DISTRICTS_MAP.get(pid);
+    }
+
+    public static List<District> obtainAllProvinces() {
+        return PROVINCES;
     }
 }
