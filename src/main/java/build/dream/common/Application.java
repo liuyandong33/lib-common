@@ -60,6 +60,48 @@ public class Application {
 //        reverseJavaCode(url, driverClassName, user, password, tableName);
     }
 
+    /**
+     * @param a: 补给站到家的距离
+     * @param b: 补给站可以补给的能量
+     * @param c: 初始能量
+     * @param d: 家到学校的距离
+     * @return
+     */
+    public static int test(int[] a, int[] b, int c, int d) {
+        if (c >= d) {
+            return 0;
+        }
+
+        int total = 0;
+        int position = 0;
+        for (int index = 0; index < a.length; index++) {
+            int end = obtainEnd(a, c, position);
+            int maxValue = obtainMaxValue(a, position, end);
+            c += maxValue;
+            total += 1;
+        }
+        return total;
+    }
+
+    public static int obtainEnd(int[] a, int b, int start) {
+        for (int index = start; index < a.length; index++) {
+            if (b < a[index] - a[start]) {
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    public static int obtainMaxValue(int[] b, int start, int end) {
+        int maxValue = 0;
+        for (int index = start; index < end; index++) {
+            if (maxValue < b[index]) {
+                maxValue = b[index];
+            }
+        }
+        return maxValue;
+    }
+
     public void generateTupleCode(int size) {
         System.out.print("public class Tuple" + size + "<");
         for (int index = 1; index <= size; index++) {
