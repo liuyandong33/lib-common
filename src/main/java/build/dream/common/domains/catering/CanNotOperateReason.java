@@ -45,6 +45,14 @@ public class CanNotOperateReason {
      */
     private String reason;
 
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
+    }
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -115,6 +123,79 @@ public class CanNotOperateReason {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public static class Builder {
+        private final CanNotOperateReason instance = new CanNotOperateReason();
+
+        public Builder id(BigInteger id) {
+            instance.setId(id);
+            return this;
+        }
+
+        public Builder tenantId(BigInteger tenantId) {
+            instance.setTenantId(tenantId);
+            return this;
+        }
+
+        public Builder tenantCode(String tenantCode) {
+            instance.setTenantCode(tenantCode);
+            return this;
+        }
+
+        public Builder branchId(BigInteger branchId) {
+            instance.setBranchId(branchId);
+            return this;
+        }
+
+        public Builder tableId(BigInteger tableId) {
+            instance.setTableId(tableId);
+            return this;
+        }
+
+        public Builder tableName(String tableName) {
+            instance.setTableName(tableName);
+            return this;
+        }
+
+        public Builder causeTableId(BigInteger causeTableId) {
+            instance.setCauseTableId(causeTableId);
+            return this;
+        }
+
+        public Builder causeTableName(String causeTableName) {
+            instance.setCauseTableName(causeTableName);
+            return this;
+        }
+
+        public Builder operateType(Integer operateType) {
+            instance.setOperateType(operateType);
+            return this;
+        }
+
+        public Builder reason(String reason) {
+            instance.setReason(reason);
+            return this;
+        }
+
+        public CanNotOperateReason build() {
+            CanNotOperateReason canNotOperateReason = new CanNotOperateReason();
+            canNotOperateReason.setId(instance.getId());
+            canNotOperateReason.setTenantId(instance.getTenantId());
+            canNotOperateReason.setTenantCode(instance.getTenantCode());
+            canNotOperateReason.setBranchId(instance.getBranchId());
+            canNotOperateReason.setTableId(instance.getTableId());
+            canNotOperateReason.setTableName(instance.getTableName());
+            canNotOperateReason.setCauseTableId(instance.getCauseTableId());
+            canNotOperateReason.setCauseTableName(instance.getCauseTableName());
+            canNotOperateReason.setOperateType(instance.getOperateType());
+            canNotOperateReason.setReason(instance.getReason());
+            return canNotOperateReason;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class ColumnName {
