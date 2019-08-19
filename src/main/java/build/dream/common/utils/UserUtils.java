@@ -30,7 +30,7 @@ public class UserUtils {
 
     public static List<SystemUser> batchGetUsers(List<BigInteger> userIds) {
         List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
-        return userInfos.stream().map(s -> JacksonUtils.readValue(s, SystemUser.class)).collect(Collectors.toList());
+        return userInfos.stream().map(userInfo -> JacksonUtils.readValue(userInfo, SystemUser.class)).collect(Collectors.toList());
     }
 
     public static void rejoinCacheUserInfos(List<SystemUser> systemUsers) {
