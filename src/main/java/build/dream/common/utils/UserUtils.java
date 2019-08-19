@@ -6,7 +6,6 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +30,7 @@ public class UserUtils {
 
     public static List<SystemUser> batchGetUsers(List<BigInteger> userIds) {
         List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
-        List<SystemUser> systemUsers = new ArrayList<SystemUser>();
-        userInfos.forEach(userInfo -> systemUsers.add(JacksonUtils.readValue(userInfo, SystemUser.class)));
-        return systemUsers;
+        return userInfos.stream().map(s -> JacksonUtils.readValue(s, SystemUser.class)).collect(Collectors.toList());
     }
 
     public static void rejoinCacheUserInfos(List<SystemUser> systemUsers) {
