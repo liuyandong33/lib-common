@@ -72,10 +72,17 @@ public class Application {
             return 0;
         }
 
+        if (c < a[0]) {
+            return -1;
+        }
+
         int total = 0;
         int position = 0;
         for (int index = 0; index < a.length; index++) {
             int end = obtainEnd(a, c, position);
+            if (end == -1) {
+                return -1;
+            }
             int maxValue = obtainMaxValue(a, position, end);
             c += maxValue;
             total += 1;
