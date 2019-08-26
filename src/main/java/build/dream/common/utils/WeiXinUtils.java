@@ -226,7 +226,7 @@ public class WeiXinUtils {
      */
     public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) {
         String url = WEI_XIN_API_URL + "/message/mass/send?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(sendMassMessageModel, false));
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(sendMassMessageModel, JsonInclude.Include.NON_NULL));
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
