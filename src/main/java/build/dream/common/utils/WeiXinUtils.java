@@ -241,13 +241,14 @@ public class WeiXinUtils {
      */
     private static WeiXinAccessToken obtainAccessToken(String appId) {
         String weiXinAccessTokenJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
-        if (StringUtils.isNotBlank(weiXinAccessTokenJson)) {
-            WeiXinAccessToken weiXinAccessToken = JacksonUtils.readValue(weiXinAccessTokenJson, WeiXinAccessToken.class);
-            if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 < weiXinAccessToken.getExpiresIn()) {
-                return weiXinAccessToken;
-            }
+        if (StringUtils.isBlank(weiXinAccessTokenJson)) {
+            return null;
         }
-        return null;
+        WeiXinAccessToken weiXinAccessToken = JacksonUtils.readValue(weiXinAccessTokenJson, WeiXinAccessToken.class);
+        if ((System.currentTimeMillis() - weiXinAccessToken.getFetchTime().getTime()) / 1000 >= weiXinAccessToken.getExpiresIn()) {
+            return null;
+        }
+        return weiXinAccessToken;
     }
 
     /**
@@ -258,24 +259,26 @@ public class WeiXinUtils {
      * @return
      */
     public static WeiXinAccessToken obtainAccessToken(String appId, String secret) {
-        WeiXinAccessToken weiXinAccessToken = null;
-        if (weiXinAccessToken == null) {
-            Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
-            obtainAccessTokenRequestParameters.put("appid", appId);
-            obtainAccessTokenRequestParameters.put("secret", secret);
-            obtainAccessTokenRequestParameters.put("grant_type", "client_credential");
-            String url = WEI_XIN_API_URL + "/cgi-bin/token";
-            WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainAccessTokenRequestParameters);
-
-            JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-            ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
-
-            weiXinAccessToken = new WeiXinAccessToken();
-            weiXinAccessToken.setAccessToken(resultJsonObject.getString("access_token"));
-            weiXinAccessToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
-            weiXinAccessToken.setFetchTime(new Date());
-//            CacheUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, JacksonUtils.writeValueAsString(weiXinAccessToken));
+        WeiXinAccessToken weiXinAccessToken = obtainAccessToken(appId);
+        if (Objects.nonNull(weiXinAccessToken)) {
+            return weiXinAccessToken;
         }
+
+        Map<String, String> obtainAccessTokenRequestParameters = new HashMap<String, String>();
+        obtainAccessTokenRequestParameters.put("appid", appId);
+        obtainAccessTokenRequestParameters.put("secret", secret);
+        obtainAccessTokenRequestParameters.put("grant_type", "client_credential");
+        String url = WEI_XIN_API_URL + "/cgi-bin/token";
+        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainAccessTokenRequestParameters);
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
+
+        weiXinAccessToken = new WeiXinAccessToken();
+        weiXinAccessToken.setAccessToken(MapUtils.getString(resultMap, "access_token"));
+        weiXinAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
+        weiXinAccessToken.setFetchTime(new Date());
+        CommonRedisUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, JacksonUtils.writeValueAsString(weiXinAccessToken));
         return weiXinAccessToken;
     }
 
