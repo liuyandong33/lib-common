@@ -7,7 +7,6 @@ import build.dream.common.domains.saas.WeiXinAuthorizerInfo;
 import build.dream.common.domains.saas.WeiXinAuthorizerToken;
 import build.dream.common.models.weixin.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import net.sf.json.JSONObject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -105,15 +104,15 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/sns/oauth2/access_token";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
 
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
-        weiXinOAuthToken.setAccessToken(resultJsonObject.getString("access_token"));
-        weiXinOAuthToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
-        weiXinOAuthToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
-        weiXinOAuthToken.setOpenId(resultJsonObject.getString("openid"));
-        weiXinOAuthToken.setScope(resultJsonObject.getString("scope"));
+        weiXinOAuthToken.setAccessToken(MapUtils.getString(resultMap, "access_token"));
+        weiXinOAuthToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
+        weiXinOAuthToken.setRefreshToken(MapUtils.getString(resultMap, "refresh_token"));
+        weiXinOAuthToken.setOpenId(MapUtils.getString(resultMap, "openid"));
+        weiXinOAuthToken.setScope(MapUtils.getString(resultMap, "scope"));
 
         return weiXinOAuthToken;
     }
@@ -138,15 +137,15 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/sns/oauth2/component/access_token";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
 
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        ValidateUtils.isTrue(!resultJsonObject.has("errcode"), resultJsonObject.optString("errmsg"));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
-        weiXinOAuthToken.setAccessToken(resultJsonObject.getString("access_token"));
-        weiXinOAuthToken.setExpiresIn(resultJsonObject.getInt("expires_in"));
-        weiXinOAuthToken.setRefreshToken(resultJsonObject.getString("refresh_token"));
-        weiXinOAuthToken.setOpenId(resultJsonObject.getString("openid"));
-        weiXinOAuthToken.setScope(resultJsonObject.getString("scope"));
+        weiXinOAuthToken.setAccessToken(MapUtils.getString(resultMap, "access_token"));
+        weiXinOAuthToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
+        weiXinOAuthToken.setRefreshToken(MapUtils.getString(resultMap, "refresh_token"));
+        weiXinOAuthToken.setOpenId(MapUtils.getString(resultMap, "openid"));
+        weiXinOAuthToken.setScope(MapUtils.getString(resultMap, "scope"));
 
         return weiXinOAuthToken;
     }
@@ -198,21 +197,19 @@ public class WeiXinUtils {
 
         String url = WEI_XIN_API_URL + "/sns/userinfo";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainUserInfoRequestParameters);
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        if (resultJsonObject.has("errcode")) {
-            ValidateUtils.isTrue(false, resultJsonObject.optString("errmsg"));
-        }
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinUserInfo weiXinUserInfo = new WeiXinUserInfo();
-        weiXinUserInfo.setOpenId(resultJsonObject.optString("openid"));
-        weiXinUserInfo.setNickname(resultJsonObject.optString("nickname"));
-        weiXinUserInfo.setSex(resultJsonObject.optInt("sex"));
-        weiXinUserInfo.setProvince(resultJsonObject.optString("province"));
-        weiXinUserInfo.setCity(resultJsonObject.optString("city"));
-        weiXinUserInfo.setCountry(resultJsonObject.optString("country"));
-        weiXinUserInfo.setHeadImgUrl(resultJsonObject.optString("headimgurl"));
-        weiXinUserInfo.setPrivilege(StringUtils.join(resultJsonObject.optJSONArray("privilege"), ","));
-        weiXinUserInfo.setUnionId(resultJsonObject.optString("unionid"));
+        weiXinUserInfo.setOpenId(MapUtils.getString(resultMap, "openid"));
+        weiXinUserInfo.setNickname(MapUtils.getString(resultMap, "nickname"));
+        weiXinUserInfo.setSex(MapUtils.getIntValue(resultMap, "sex"));
+        weiXinUserInfo.setProvince(MapUtils.getString(resultMap, "province"));
+        weiXinUserInfo.setCity(MapUtils.getString(resultMap, "city"));
+        weiXinUserInfo.setCountry(MapUtils.getString(resultMap, "country"));
+        weiXinUserInfo.setHeadImgUrl(MapUtils.getString(resultMap, "headimgurl"));
+        weiXinUserInfo.setPrivilege(MapUtils.getString(resultMap, "privilege"));
+        weiXinUserInfo.setUnionId(MapUtils.getString(resultMap, "unionid"));
 
         return weiXinUserInfo;
     }
@@ -317,12 +314,12 @@ public class WeiXinUtils {
 
         String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
         WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
-        ValidateUtils.isTrue(resultJsonObject.optInt("errcode") == 0, resultJsonObject.optString("errmsg"));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinJsapiTicket weiXinJsapiTicket = new WeiXinJsapiTicket();
-        weiXinJsapiTicket.setTicket(resultJsonObject.optString("ticket"));
-        weiXinJsapiTicket.setExpiresIn(resultJsonObject.optInt("expires_in"));
+        weiXinJsapiTicket.setTicket(MapUtils.getString(resultMap, "ticket"));
+        weiXinJsapiTicket.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
         weiXinJsapiTicket.setFetchTime(new Date());
         CommonRedisUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, JacksonUtils.writeValueAsString(weiXinJsapiTicket));
         return weiXinJsapiTicket;
