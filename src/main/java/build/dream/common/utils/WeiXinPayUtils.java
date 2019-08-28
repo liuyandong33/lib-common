@@ -251,7 +251,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_start", timeStart);
         ApplicationHandler.ifNotBlankPut(microPayRequestParameters, "time_expire", timeExpire);
         microPayRequestParameters.put("auth_code", authCode);
-        if (sceneInfoModel != null) {
+        if (Objects.nonNull(sceneInfoModel)) {
             microPayRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
@@ -359,7 +359,7 @@ public class WeiXinPayUtils {
             }
         }
 
-        if (sceneInfoModel != null) {
+        if (Objects.nonNull(sceneInfoModel)) {
             unifiedOrderRequestParameters.put("scene_info", GsonUtils.toJson(sceneInfoModel, false));
         }
 
@@ -561,7 +561,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "out_trade_no", outTradeNo);
         ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "out_refund_no", outRefundNo);
         ApplicationHandler.ifNotBlankPut(refundQueryRequestParameters, "refund_id", refundId);
-        if (offset != null) {
+        if (Objects.nonNull(offset)) {
             refundQueryRequestParameters.put("offset", String.valueOf(offset));
         }
 
@@ -1088,7 +1088,7 @@ public class WeiXinPayUtils {
         }
 
         querySubMchRequestParameters.put("page_index", pageIndex.toString());
-        if (pageSize != null) {
+        if (Objects.nonNull(pageSize)) {
             querySubMchRequestParameters.put("page_size", pageSize.toString());
         }
 

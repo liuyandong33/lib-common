@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 public class UniOrderModel extends BasicModel {
     private static final String[] ORDER_TYPES = {"0", "1"};
@@ -313,15 +314,15 @@ public class UniOrderModel extends BasicModel {
                 info.validateAndThrow();
             }
         }
-        if (receiverInfo != null) {
+        if (Objects.nonNull(receiverInfo)) {
             receiverInfo.validateAndThrow();
         }
 
-        if (termInfo != null) {
+        if (Objects.nonNull(termInfo)) {
             termInfo.validateAndThrow();
         }
 
-        if (riskInfo != null) {
+        if (Objects.nonNull(riskInfo)) {
             riskInfo.validateAndThrow();
         }
     }

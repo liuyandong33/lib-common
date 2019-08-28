@@ -144,16 +144,16 @@ public class CustomClientDetails implements ClientDetails {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((accessTokenValiditySeconds == null) ? 0 : accessTokenValiditySeconds);
-        result = prime * result + ((refreshTokenValiditySeconds == null) ? 0 : refreshTokenValiditySeconds);
-        result = prime * result + ((authorities == null) ? 0 : authorities.hashCode());
-        result = prime * result + ((authorizedGrantTypes == null) ? 0 : authorizedGrantTypes.hashCode());
-        result = prime * result + ((clientId == null) ? 0 : clientId.hashCode());
-        result = prime * result + ((clientSecret == null) ? 0 : clientSecret.hashCode());
-        result = prime * result + ((registeredRedirectUris == null) ? 0 : registeredRedirectUris.hashCode());
-        result = prime * result + ((resourceIds == null) ? 0 : resourceIds.hashCode());
-        result = prime * result + ((scope == null) ? 0 : scope.hashCode());
-        result = prime * result + ((additionalInformation == null) ? 0 : additionalInformation.hashCode());
+        result = prime * result + (Objects.isNull(accessTokenValiditySeconds) ? 0 : accessTokenValiditySeconds);
+        result = prime * result + (Objects.isNull(refreshTokenValiditySeconds) ? 0 : refreshTokenValiditySeconds);
+        result = prime * result + (Objects.isNull(authorities) ? 0 : authorities.hashCode());
+        result = prime * result + (Objects.isNull(authorizedGrantTypes) ? 0 : authorizedGrantTypes.hashCode());
+        result = prime * result + (Objects.isNull(clientId) ? 0 : clientId.hashCode());
+        result = prime * result + (Objects.isNull(clientSecret) ? 0 : clientSecret.hashCode());
+        result = prime * result + (Objects.isNull(registeredRedirectUris) ? 0 : registeredRedirectUris.hashCode());
+        result = prime * result + (Objects.isNull(resourceIds) ? 0 : resourceIds.hashCode());
+        result = prime * result + (Objects.isNull(scope) ? 0 : scope.hashCode());
+        result = prime * result + (Objects.isNull(additionalInformation) ? 0 : additionalInformation.hashCode());
         return result;
     }
 
@@ -162,78 +162,78 @@ public class CustomClientDetails implements ClientDetails {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (Objects.isNull(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
             return false;
         }
         CustomClientDetails other = (CustomClientDetails) obj;
-        if (accessTokenValiditySeconds == null) {
-            if (other.accessTokenValiditySeconds != null) {
+        if (Objects.isNull(accessTokenValiditySeconds)) {
+            if (Objects.nonNull(other.accessTokenValiditySeconds)) {
                 return false;
             }
         } else if (!accessTokenValiditySeconds.equals(other.accessTokenValiditySeconds)) {
             return false;
         }
-        if (refreshTokenValiditySeconds == null) {
-            if (other.refreshTokenValiditySeconds != null) {
+        if (Objects.isNull(refreshTokenValiditySeconds)) {
+            if (Objects.nonNull(other.refreshTokenValiditySeconds)) {
                 return false;
             }
         } else if (!refreshTokenValiditySeconds.equals(other.refreshTokenValiditySeconds)) {
             return false;
         }
-        if (authorities == null) {
-            if (other.authorities != null) {
+        if (Objects.isNull(authorities)) {
+            if (Objects.nonNull(other.authorities)) {
                 return false;
             }
         } else if (!authorities.equals(other.authorities)) {
             return false;
         }
-        if (authorizedGrantTypes == null) {
-            if (other.authorizedGrantTypes != null) {
+        if (Objects.isNull(authorizedGrantTypes)) {
+            if (Objects.nonNull(other.authorizedGrantTypes)) {
                 return false;
             }
         } else if (!authorizedGrantTypes.equals(other.authorizedGrantTypes)) {
             return false;
         }
-        if (clientId == null) {
-            if (other.clientId != null) {
+        if (Objects.isNull(clientId)) {
+            if (Objects.nonNull(other.clientId)) {
                 return false;
             }
         } else if (!clientId.equals(other.clientId)) {
             return false;
         }
-        if (clientSecret == null) {
-            if (other.clientSecret != null) {
+        if (Objects.isNull(clientSecret)) {
+            if (Objects.nonNull(other.clientSecret)) {
                 return false;
             }
         } else if (!clientSecret.equals(other.clientSecret)) {
             return false;
         }
-        if (registeredRedirectUris == null) {
-            if (other.registeredRedirectUris != null) {
+        if (Objects.isNull(registeredRedirectUris)) {
+            if (Objects.nonNull(other.registeredRedirectUris)) {
                 return false;
             }
         } else if (!registeredRedirectUris.equals(other.registeredRedirectUris)) {
             return false;
         }
-        if (resourceIds == null) {
-            if (other.resourceIds != null) {
+        if (Objects.isNull(resourceIds)) {
+            if (Objects.nonNull(other.resourceIds)) {
                 return false;
             }
         } else if (!resourceIds.equals(other.resourceIds)) {
             return false;
         }
-        if (scope == null) {
-            if (other.scope != null) {
+        if (Objects.isNull(scope)) {
+            if (Objects.nonNull(other.scope)) {
                 return false;
             }
         } else if (!scope.equals(other.scope)) {
             return false;
         }
-        if (additionalInformation == null) {
-            if (other.additionalInformation != null) {
+        if (Objects.isNull(additionalInformation)) {
+            if (Objects.nonNull(other.additionalInformation)) {
                 return false;
             }
         } else if (!additionalInformation.equals(other.additionalInformation)) {

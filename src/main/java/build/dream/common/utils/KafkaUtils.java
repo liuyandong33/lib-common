@@ -19,16 +19,13 @@ import org.springframework.kafka.support.converter.RecordMessageConverter;
 import org.springframework.messaging.Message;
 import org.springframework.util.concurrent.ListenableFuture;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class KafkaUtils {
     private static KafkaTemplate<String, String> kafkaTemplate;
 
     public static KafkaTemplate<String, String> obtainKafkaTemplate() {
-        if (kafkaTemplate == null) {
+        if (Objects.isNull(kafkaTemplate)) {
             kafkaTemplate = ApplicationHandler.getBean(KafkaTemplate.class);
         }
         return kafkaTemplate;

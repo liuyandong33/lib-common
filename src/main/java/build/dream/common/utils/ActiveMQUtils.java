@@ -5,12 +5,13 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.core.MessagePostProcessor;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class ActiveMQUtils {
     private static JmsMessagingTemplate jmsMessagingTemplate;
 
     private static JmsMessagingTemplate obtainJmsMessagingTemplate() {
-        if (jmsMessagingTemplate == null) {
+        if (Objects.isNull(jmsMessagingTemplate)) {
             jmsMessagingTemplate = ApplicationHandler.getBean(JmsMessagingTemplate.class);
         }
         return jmsMessagingTemplate;

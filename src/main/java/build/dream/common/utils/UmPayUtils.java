@@ -169,7 +169,7 @@ public class UmPayUtils {
         ApplicationHandler.ifNotBlankPut(activeScanCodeOrderParameters, "mer_priv", merPriv);
         ApplicationHandler.ifNotBlankPut(activeScanCodeOrderParameters, "user_ip", userIp);
         ApplicationHandler.ifNotBlankPut(activeScanCodeOrderParameters, "expand", expand);
-        if (expireTime != null) {
+        if (Objects.nonNull(expireTime)) {
             activeScanCodeOrderParameters.put("expire_time", String.valueOf(expireTime));
         }
         activeScanCodeOrderParameters.put("scancode_type", scanCodeType);
@@ -236,7 +236,7 @@ public class UmPayUtils {
         ApplicationHandler.ifNotBlankPut(passiveScanCodePayParameters, "mer_priv", merPriv);
         ApplicationHandler.ifNotBlankPut(passiveScanCodePayParameters, "user_ip", userIp);
         ApplicationHandler.ifNotBlankPut(passiveScanCodePayParameters, "expand", expand);
-        if (expireTime != null) {
+        if (Objects.nonNull(expireTime)) {
             passiveScanCodePayParameters.put("expire_time", String.valueOf(expireTime));
         }
         passiveScanCodePayParameters.put("auth_code", authCode);
@@ -299,7 +299,7 @@ public class UmPayUtils {
         publicNumberAndVerticalCodeParameters.put("amount", String.valueOf(amount));
         publicNumberAndVerticalCodeParameters.put("amt_type", amtType);
         ApplicationHandler.ifNotBlankPut(publicNumberAndVerticalCodeParameters, "user_ip", userIp);
-        if (expireTime != null) {
+        if (Objects.nonNull(expireTime)) {
             publicNumberAndVerticalCodeParameters.put("expire_time", String.valueOf(expireTime));
         }
         ApplicationHandler.ifNotBlankPut(publicNumberAndVerticalCodeParameters, "mer_priv", merPriv);

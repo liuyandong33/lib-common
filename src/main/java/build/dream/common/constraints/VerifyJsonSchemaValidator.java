@@ -2,11 +2,11 @@ package build.dream.common.constraints;
 
 import build.dream.common.utils.JacksonUtils;
 import build.dream.common.utils.JsonSchemaValidateUtils;
-import build.dream.common.utils.ObjectUtils;
 import build.dream.common.utils.ValidateUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJsonSchema, Object> {
     private String schemaFilePath = null;
@@ -18,7 +18,7 @@ public class VerifyJsonSchemaValidator implements ConstraintValidator<VerifyJson
 
     @Override
     public boolean isValid(Object object, ConstraintValidatorContext context) {
-        if (ObjectUtils.isNotNull(object)) {
+        if (Objects.nonNull(object)) {
             String json = JacksonUtils.writeValueAsString(object);
             if (!ValidateUtils.isJson(json)) {
                 return false;

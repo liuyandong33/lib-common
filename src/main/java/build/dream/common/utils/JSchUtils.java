@@ -6,6 +6,7 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 public class JSchUtils {
     public static Session createSession(String userName, String password, String ipAddress, int port) throws JSchException {
@@ -19,7 +20,7 @@ public class JSchUtils {
     }
 
     public static void disconnectSession(Session session) {
-        if (session != null) {
+        if (Objects.nonNull(session)) {
             session.disconnect();
         }
     }
@@ -29,7 +30,7 @@ public class JSchUtils {
     }
 
     public static void disconnectChannel(Channel channel) {
-        if (channel != null) {
+        if (Objects.nonNull(channel)) {
             channel.disconnect();
         }
     }

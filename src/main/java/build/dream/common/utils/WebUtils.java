@@ -85,7 +85,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -156,7 +156,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -211,7 +211,7 @@ public class WebUtils {
         HttpURLConnection httpURLConnection = null;
         try {
             httpURLConnection = buildHttpURLConnection(requestUrl, Constants.REQUEST_METHOD_POST, readTimeout, connectTimeout, sslSocketFactory, proxy);
-            if (headers == null) {
+            if (Objects.isNull(headers)) {
                 headers = new HashMap<String, String>();
             }
             headers.put(HttpHeaders.CONTENT_TYPE, "multipart/form-data;boundary=" + BOUNDARY + ";charset=" + charsetName);
@@ -229,7 +229,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -299,7 +299,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -369,7 +369,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -432,7 +432,7 @@ public class WebUtils {
                 headerFields = httpURLConnection.getHeaderFields();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -506,7 +506,7 @@ public class WebUtils {
                 httpURLConnection.disconnect();
             }
         } catch (Exception e) {
-            if (httpURLConnection != null) {
+            if (Objects.nonNull(httpURLConnection)) {
                 httpURLConnection.disconnect();
             }
             throw e;
@@ -530,7 +530,7 @@ public class WebUtils {
 
     public static HttpURLConnection buildHttpURLConnection(String requestUrl, String requestMethod, int readTimeout, int connectTimeout, SSLSocketFactory sslSocketFactory, Proxy proxy) throws IOException {
         HttpURLConnection httpURLConnection = null;
-        if (sslSocketFactory != null) {
+        if (Objects.nonNull(sslSocketFactory)) {
             HttpsURLConnection httpsURLConnection = (HttpsURLConnection) buildHttpURLConnection(requestUrl, proxy);
             httpsURLConnection.setSSLSocketFactory(sslSocketFactory);
             httpURLConnection = httpsURLConnection;
@@ -547,7 +547,7 @@ public class WebUtils {
     public static HttpURLConnection buildHttpURLConnection(String requestUrl, Proxy proxy) throws IOException {
         URL url = new URL(requestUrl);
         HttpURLConnection httpURLConnection = null;
-        if (proxy != null) {
+        if (Objects.nonNull(proxy)) {
             httpURLConnection = (HttpURLConnection) url.openConnection(proxy);
         } else {
             httpURLConnection = (HttpURLConnection) url.openConnection();

@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by liuyandong on 2017/7/24.
@@ -28,7 +29,7 @@ public class ProxyUtils {
      * @return
      */
     public static RestTemplate obtainRestTemplate() {
-        if (restTemplate == null) {
+        if (Objects.isNull(restTemplate)) {
             restTemplate = ApplicationHandler.getBean(RestTemplate.class);
         }
         return restTemplate;

@@ -15,10 +15,7 @@ import org.springframework.data.util.ReflectionUtils;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class UniversalDatabaseHelper {
     static {
@@ -27,7 +24,7 @@ public class UniversalDatabaseHelper {
 
     public static long insert(UniversalMapper universalMapper, Object domain) {
         Id idAnnotation = DatabaseUtils.obtainIdAnnotation(domain);
-        if (idAnnotation == null) {
+        if (Objects.isNull(idAnnotation)) {
             return universalMapper.insert(domain);
         }
 
@@ -48,7 +45,7 @@ public class UniversalDatabaseHelper {
     public static long insertAll(UniversalMapper universalMapper, List<? extends Object> domains) {
         Class<?> domainClass = domains.get(0).getClass();
         Id idAnnotation = DatabaseUtils.obtainIdAnnotation(domainClass);
-        if (idAnnotation == null) {
+        if (Objects.isNull(idAnnotation)) {
             return universalMapper.insertAll(domains);
         }
 

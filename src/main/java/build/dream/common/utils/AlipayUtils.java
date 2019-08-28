@@ -23,6 +23,7 @@ import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class AlipayUtils {
@@ -109,7 +110,7 @@ public class AlipayUtils {
         sortedRequestParameters.put("version", version);
         if (StringUtils.isNotBlank(topic)) {
             AlipayAsyncNotify alipayAsyncNotify = AnnotationUtils.findAnnotation(alipayBasicModel.getClass(), AlipayAsyncNotify.class);
-            if (alipayAsyncNotify != null) {
+            if (Objects.nonNull(alipayAsyncNotify)) {
                 sortedRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_ALIPAY, alipayAsyncNotify.uuidKey()));
             }
         }

@@ -6,11 +6,13 @@ import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.support.CorrelationData;
 
+import java.util.Objects;
+
 public class RabbitUtils {
     private static RabbitTemplate rabbitTemplate;
 
     private static RabbitTemplate obtainRabbitTemplate() {
-        if (rabbitTemplate == null) {
+        if (Objects.isNull(rabbitTemplate)) {
             rabbitTemplate = ApplicationHandler.getBean(RabbitTemplate.class);
         }
         return rabbitTemplate;

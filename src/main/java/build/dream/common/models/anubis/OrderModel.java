@@ -16,6 +16,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 public class OrderModel extends AnubisBasicModel {
     private static final Integer[] BOOLEAN_ITEMS = {0, 1};
@@ -693,7 +694,7 @@ public class OrderModel extends AnubisBasicModel {
 
         @Override
         public boolean validate() {
-            return super.validate() && ArrayUtils.contains(BOOLEAN_ITEMS, isNeedPackage) && ArrayUtils.contains(BOOLEAN_ITEMS, isAgentPurchase) && (isAgentPurchase == 1 ? agentPurchasePrice != null : true);
+            return super.validate() && ArrayUtils.contains(BOOLEAN_ITEMS, isNeedPackage) && ArrayUtils.contains(BOOLEAN_ITEMS, isAgentPurchase) && (isAgentPurchase == 1 ? Objects.nonNull(agentPurchasePrice) : true);
         }
 
         @Override

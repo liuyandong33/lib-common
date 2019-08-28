@@ -3,6 +3,7 @@ package build.dream.common.crypto;
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
+import java.util.Objects;
 
 public class BCrypt {
     private static final int GENSALT_DEFAULT_LOG2_ROUNDS = 10;
@@ -417,7 +418,7 @@ public class BCrypt {
         int rounds, off = 0;
         StringBuilder rs = new StringBuilder();
 
-        if (salt == null) {
+        if (Objects.isNull(salt)) {
             throw new IllegalArgumentException("salt cannot be null");
         }
 

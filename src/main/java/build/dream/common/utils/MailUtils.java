@@ -12,13 +12,14 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.InputStream;
 import java.security.GeneralSecurityException;
+import java.util.Objects;
 import java.util.Properties;
 
 public class MailUtils {
     private static JavaMailSender javaMailSender;
 
     private static JavaMailSender obtainJavaMailSender() {
-        if (javaMailSender == null) {
+        if (Objects.isNull(javaMailSender)) {
             javaMailSender = ApplicationHandler.getBean(JavaMailSender.class);
         }
         return javaMailSender;

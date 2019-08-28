@@ -4,6 +4,7 @@ import org.apache.commons.lang.ArrayUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.Objects;
 
 public class InListValidator implements ConstraintValidator<InList, String> {
     @Override
@@ -15,7 +16,7 @@ public class InListValidator implements ConstraintValidator<InList, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null) {
+        if (Objects.isNull(value)) {
             return true;
         } else {
             return ArrayUtils.contains(items, value);

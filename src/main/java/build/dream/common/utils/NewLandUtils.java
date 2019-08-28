@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class NewLandUtils {
@@ -237,7 +238,7 @@ public class NewLandUtils {
 
         Map<String, String> refundBarcodePayRequestParameters = buildCommonRequestParameters(refundBarcodePayModel);
         refundBarcodePayRequestParameters.put("orderNo", orderNo);
-        if (txnAmt != null) {
+        if (Objects.nonNull(txnAmt)) {
             refundBarcodePayRequestParameters.put("txnAmt", txnAmt.toString());
         }
         refundBarcodePayRequestParameters.put("signValue", generateSign(refundBarcodePayRequestParameters, secretKey, signType));

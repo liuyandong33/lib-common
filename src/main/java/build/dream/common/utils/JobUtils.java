@@ -8,12 +8,13 @@ import org.quartz.*;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class JobUtils {
     private static SchedulerFactoryBean schedulerFactoryBean;
 
     public static SchedulerFactoryBean obtainSchedulerFactoryBean() {
-        if (ObjectUtils.isNull(schedulerFactoryBean)) {
+        if (Objects.isNull(schedulerFactoryBean)) {
             schedulerFactoryBean = ApplicationHandler.getBean(SchedulerFactoryBean.class);
         }
         return schedulerFactoryBean;
@@ -52,13 +53,13 @@ public class JobUtils {
         JobBuilder jobBuilder = JobBuilder.newJob();
         jobBuilder.withIdentity(jobName, jobGroup);
         jobBuilder.ofType(jobClass);
-        if (ObjectUtils.isNotNull(jobDescription)) {
+        if (Objects.nonNull(jobDescription)) {
             jobBuilder.withDescription(jobDescription);
         }
-        if (ObjectUtils.isNotNull(durability)) {
+        if (Objects.nonNull(durability)) {
             jobBuilder.storeDurably(durability);
         }
-        if (ObjectUtils.isNotNull(shouldRecover)) {
+        if (Objects.nonNull(shouldRecover)) {
             jobBuilder.requestRecovery(shouldRecover);
         }
         if (MapUtils.isNotEmpty(jobDataMap)) {
@@ -68,15 +69,15 @@ public class JobUtils {
         JobDetail jobDetail = jobBuilder.build();
 
         SimpleScheduleBuilder simpleScheduleBuilder = SimpleScheduleBuilder.simpleSchedule();
-        if (interval != null) {
+        if (Objects.nonNull(interval)) {
             simpleScheduleBuilder.withIntervalInSeconds(interval);
         }
 
-        if (repeatCount != null) {
+        if (Objects.nonNull(repeatCount)) {
             simpleScheduleBuilder.withRepeatCount(repeatCount);
         }
 
-        if (ObjectUtils.isNotNull(misfireInstruction)) {
+        if (Objects.nonNull(misfireInstruction)) {
             switch (misfireInstruction) {
                 case SimpleTrigger.MISFIRE_INSTRUCTION_SMART_POLICY:
                     break;
@@ -104,16 +105,16 @@ public class JobUtils {
         if (StringUtils.isNotBlank(triggerDescription)) {
             triggerBuilder.withDescription(triggerDescription);
         }
-        if (startTime != null) {
+        if (Objects.nonNull(startTime)) {
             triggerBuilder.startAt(startTime);
         }
-        if (endTime != null) {
+        if (Objects.nonNull(endTime)) {
             triggerBuilder.endAt(endTime);
         }
-        if (ObjectUtils.isNotNull(priority)) {
+        if (Objects.nonNull(priority)) {
             triggerBuilder.withPriority(priority);
         }
-        if (ObjectUtils.isNotNull(calendarName)) {
+        if (Objects.nonNull(calendarName)) {
             triggerBuilder.modifiedByCalendar(calendarName);
         }
         Trigger trigger = triggerBuilder.build();
@@ -151,18 +152,18 @@ public class JobUtils {
         if (MapUtils.isNotEmpty(jobDataMap)) {
             jobBuilder.setJobData(jobDataMap);
         }
-        if (ObjectUtils.isNotNull(jobDescription)) {
+        if (Objects.nonNull(jobDescription)) {
             jobBuilder.withDescription(jobDescription);
         }
-        if (ObjectUtils.isNotNull(durability)) {
+        if (Objects.nonNull(durability)) {
             jobBuilder.storeDurably(durability);
         }
-        if (ObjectUtils.isNotNull(shouldRecover)) {
+        if (Objects.nonNull(shouldRecover)) {
             jobBuilder.requestRecovery(shouldRecover);
         }
         JobDetail jobDetail = jobBuilder.build();
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cronExpression);
-        if (ObjectUtils.isNotNull(misfireInstruction)) {
+        if (Objects.nonNull(misfireInstruction)) {
             switch (misfireInstruction) {
                 case CronTrigger.MISFIRE_INSTRUCTION_SMART_POLICY:
                     break;
@@ -184,16 +185,16 @@ public class JobUtils {
         if (StringUtils.isNotBlank(triggerDescription)) {
             triggerBuilder.withDescription(triggerDescription);
         }
-        if (ObjectUtils.isNotNull(startTime)) {
+        if (Objects.nonNull(startTime)) {
             triggerBuilder.startAt(startTime);
         }
-        if (ObjectUtils.isNotNull(endTime)) {
+        if (Objects.nonNull(endTime)) {
             triggerBuilder.endAt(endTime);
         }
-        if (ObjectUtils.isNotNull(priority)) {
+        if (Objects.nonNull(priority)) {
             triggerBuilder.withPriority(priority);
         }
-        if (ObjectUtils.isNotNull(calendarName)) {
+        if (Objects.nonNull(calendarName)) {
             triggerBuilder.modifiedByCalendar(calendarName);
         }
         Trigger trigger = triggerBuilder.build();

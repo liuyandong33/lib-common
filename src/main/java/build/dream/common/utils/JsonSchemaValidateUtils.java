@@ -13,6 +13,7 @@ import org.apache.commons.collections.MapUtils;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -22,26 +23,26 @@ public class JsonSchemaValidateUtils {
     private static ObjectMapper objectMapper = null;
 
     private static ObjectMapper obtainObjectMapper() {
-        if (objectMapper == null) {
+        if (Objects.isNull(objectMapper)) {
             objectMapper = new ObjectMapper();
         }
         return objectMapper;
     }
 
     public static JsonSchemaFactory obtainJsonSchemaFactory() {
-        if (jsonSchemaFactory == null) {
+        if (Objects.isNull(jsonSchemaFactory)) {
             jsonSchemaFactory = JsonSchemaFactory.getInstance();
         }
         return jsonSchemaFactory;
     }
 
     public static Map<String, JsonValidator> obtainValidators(String schemaFilePath) {
-        if (validatorsMap == null) {
+        if (Objects.isNull(validatorsMap)) {
             validatorsMap = new ConcurrentHashMap<String, Map<String, JsonValidator>>();
         }
 
         Map<String, JsonValidator> validators = validatorsMap.get(schemaFilePath);
-        if (validators == null) {
+        if (Objects.isNull(validators)) {
             try {
                 InputStream inputStream = JsonSchemaValidateUtils.class.getClassLoader().getResourceAsStream(schemaFilePath);
                 JsonSchema jsonSchema = obtainJsonSchemaFactory().getSchema(inputStream);

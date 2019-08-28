@@ -156,7 +156,7 @@ public class ApiRest implements Serializable, Cloneable {
                 clazz = Class.forName(apiRest.className);
             } catch (ClassNotFoundException e) {
             }
-            if (clazz != null) {
+            if (Objects.nonNull(clazz)) {
                 apiRest.setData(JacksonUtils.readValue(JacksonUtils.writeValueAsString(apiRest.data), clazz, datePattern));
             }
         }

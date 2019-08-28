@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 public class AlipayTradeAppPayModel extends AlipayBasicModel {
     @Length(max = 6)
@@ -292,7 +293,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        if (royaltyInfo != null) {
+        if (Objects.nonNull(royaltyInfo)) {
             ApplicationHandler.isTrue(royaltyInfo.validate(), "royaltyInfo");
             List<RoyaltyDetailInfo> royaltyDetailInfos = royaltyInfo.royaltyDetailInfos;
             for (RoyaltyDetailInfo royaltyDetailInfo : royaltyDetailInfos) {
@@ -300,15 +301,15 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             }
         }
 
-        if (extendParams != null) {
+        if (Objects.nonNull(extendParams)) {
             ApplicationHandler.isTrue(extendParams.validate(), "extendParams");
         }
 
-        if (subMerchant != null) {
+        if (Objects.nonNull(subMerchant)) {
             ApplicationHandler.isTrue(subMerchant.validate(), "subMerchant");
         }
 
-        if (settleInfo != null) {
+        if (Objects.nonNull(settleInfo)) {
             ApplicationHandler.isTrue(settleInfo.validate(), "settleInfo");
             List<SettleDetailInfo> settleDetailInfos = settleInfo.settleDetailInfos;
             for (SettleDetailInfo settleDetailInfo : settleDetailInfos) {
@@ -316,11 +317,11 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             }
         }
 
-        if (invoiceInfo != null) {
+        if (Objects.nonNull(invoiceInfo)) {
             ApplicationHandler.isTrue(invoiceInfo.validate(), "invoiceInfo");
         }
 
-        if (extUserInfo != null) {
+        if (Objects.nonNull(extUserInfo)) {
             ApplicationHandler.isTrue(extUserInfo.validate(), "extUserInfo");
         }
     }

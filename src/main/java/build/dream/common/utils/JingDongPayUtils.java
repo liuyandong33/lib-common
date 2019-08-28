@@ -13,6 +13,7 @@ import org.dom4j.Element;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class JingDongPayUtils {
@@ -30,7 +31,7 @@ public class JingDongPayUtils {
         for (Map.Entry<String, Object> entry : requestParameters.entrySet()) {
             String key = entry.getKey();
             Object value = entry.getValue();
-            if (value != null) {
+            if (Objects.nonNull(value)) {
                 signXml.append("<").append(key).append(">").append(value).append("</").append(key).append(">");
 
                 if ("version".equals(key) || "merchant".equals(key)) {

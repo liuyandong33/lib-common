@@ -6,6 +6,7 @@ import build.dream.common.domains.saas.AsyncNotify;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class NotifyUtils {
@@ -39,7 +40,7 @@ public class NotifyUtils {
         SearchModel searchModel = new SearchModel(true);
         searchModel.addSearchCondition(AsyncNotify.ColumnName.UUID, Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
         AsyncNotify asyncNotify = DatabaseHelper.find(AsyncNotify.class, searchModel);
-        if (asyncNotify == null) {
+        if (Objects.isNull(asyncNotify)) {
             asyncNotify = new AsyncNotify();
             asyncNotify.setUuid(uuid);
             asyncNotify.setTopic(topic);

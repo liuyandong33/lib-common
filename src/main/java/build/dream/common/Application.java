@@ -280,7 +280,7 @@ public class Application {
                 continue;
             }
 
-            if (field.getAnnotation(Transient.class) != null) {
+            if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                 continue;
             }
 
@@ -307,7 +307,7 @@ public class Application {
                 continue;
             }
 
-            if (field.getAnnotation(Transient.class) != null) {
+            if (Objects.nonNull(field.getAnnotation(Transient.class))) {
                 continue;
             }
 

@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Objects;
 
 public class AdvancedInfoModel extends BasicModel {
     @SerializedName(value = "use_condition", alternate = "useCondition")
@@ -70,10 +71,10 @@ public class AdvancedInfoModel extends BasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        if (useCondition != null) {
+        if (Objects.nonNull(useCondition)) {
             useCondition.validateAndThrow();
         }
-        if (abstractInfo != null) {
+        if (Objects.nonNull(abstractInfo)) {
             abstractInfo.validateAndThrow();
         }
         if (CollectionUtils.isNotEmpty(textImageList)) {

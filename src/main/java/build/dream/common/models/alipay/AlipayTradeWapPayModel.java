@@ -12,6 +12,7 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class AlipayTradeWapPayModel extends AlipayBasicModel {
     @Length(max = 128)
@@ -393,10 +394,10 @@ public class AlipayTradeWapPayModel extends AlipayBasicModel {
     @Override
     public boolean validate() {
         boolean isValidate = super.validate();
-        if (extendParamsModel != null && extendParamsModel.validate()) {
+        if (Objects.nonNull(extendParamsModel) && extendParamsModel.validate()) {
             return false;
         }
-        if (extUserInfoModel != null && extUserInfoModel.validate()) {
+        if (Objects.nonNull(extUserInfoModel) && extUserInfoModel.validate()) {
             return false;
         }
         return super.validate();
@@ -404,11 +405,11 @@ public class AlipayTradeWapPayModel extends AlipayBasicModel {
 
     @Override
     public void validateAndThrow() {
-        if (extendParamsModel != null) {
+        if (Objects.nonNull(extendParamsModel)) {
             ValidateUtils.isTrue(extendParamsModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extendParams"));
         }
 
-        if (extUserInfoModel != null) {
+        if (Objects.nonNull(extUserInfoModel)) {
             ValidateUtils.isTrue(extUserInfoModel.validate(), ApplicationHandler.obtainParameterErrorMessage("extUserInfo"));
         }
         super.validateAndThrow();

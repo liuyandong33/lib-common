@@ -9,10 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by liuyandong on 2017/3/13.
@@ -95,7 +92,7 @@ public class ElemeUtils {
         Long timestamp = System.currentTimeMillis() / 1000;
         metas.put("app_key", appKey);
         metas.put("timestamp", timestamp);
-        if (params == null) {
+        if (Objects.isNull(params)) {
             params = new HashMap<String, Object>();
         }
         String accessToken = obtainAccessToken(tenantId, branchId, elemeAccountType);

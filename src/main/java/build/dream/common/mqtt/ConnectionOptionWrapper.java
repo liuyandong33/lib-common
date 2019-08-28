@@ -5,6 +5,7 @@ import org.apache.commons.codec.digest.HmacUtils;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionOptionWrapper {
@@ -22,7 +23,7 @@ public class ConnectionOptionWrapper {
      * @param tokenData   客户端使用的 Token 参数，仅在 Token 鉴权模式下需要设置
      */
     public ConnectionOptionWrapper(String instanceId, String accessKeyId, Map<String, String> tokenData) {
-        if (tokenData != null) {
+        if (Objects.nonNull(tokenData)) {
             this.tokenData.putAll(tokenData);
         }
         mqttConnectOptions = new MqttConnectOptions();

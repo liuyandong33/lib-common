@@ -12,12 +12,13 @@ import org.elasticsearch.common.xcontent.XContentType;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ElasticsearchUtils {
     private static RestHighLevelClient restHighLevelClient;
 
     public static RestHighLevelClient obtainRestHighLevelClient() {
-        if (restHighLevelClient == null) {
+        if (Objects.isNull(restHighLevelClient)) {
             restHighLevelClient = ApplicationHandler.getBean(RestHighLevelClient.class);
         }
         return restHighLevelClient;

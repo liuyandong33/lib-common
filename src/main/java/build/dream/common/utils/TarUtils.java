@@ -10,6 +10,7 @@ import org.apache.commons.compress.compressors.gzip.GzipCompressorOutputStream;
 import org.apache.commons.io.IOUtils;
 
 import java.io.*;
+import java.util.Objects;
 
 public class TarUtils {
     public static String zipText(String text) {
@@ -61,7 +62,7 @@ public class TarUtils {
 
             while (true) {
                 TarArchiveEntry tarArchiveEntry = tarArchiveInputStream.getNextTarEntry();
-                if (tarArchiveEntry == null) {
+                if (Objects.isNull(tarArchiveEntry)) {
                     break;
                 }
 

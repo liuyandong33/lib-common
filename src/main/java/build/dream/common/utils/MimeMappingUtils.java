@@ -4,13 +4,14 @@ import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MimeMappingUtils {
     private static Map<String, String> MIME_MAPPINGS = null;
     private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
 
     public static Map<String, String> obtainMimeMappings() {
-        if (MIME_MAPPINGS != null) {
+        if (Objects.nonNull(MIME_MAPPINGS)) {
             return MIME_MAPPINGS;
         }
         MIME_MAPPINGS = new HashMap<String, String>();

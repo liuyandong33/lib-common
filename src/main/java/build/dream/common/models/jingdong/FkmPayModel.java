@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 public class FkmPayModel extends BasicModel {
     @NotNull
@@ -241,15 +242,15 @@ public class FkmPayModel extends BasicModel {
                 goodsInfo.validateAndThrow();
             }
         }
-        if (receiverInfo != null) {
+        if (Objects.nonNull(receiverInfo)) {
             receiverInfo.validateAndThrow();
         }
 
-        if (termInfo != null) {
+        if (Objects.nonNull(termInfo)) {
             termInfo.validateAndThrow();
         }
 
-        if (riskInfo != null) {
+        if (Objects.nonNull(riskInfo)) {
             riskInfo.validateAndThrow();
         }
     }

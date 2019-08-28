@@ -9,6 +9,7 @@ import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Length(max = 32)
@@ -226,7 +227,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
-        if (sceneInfoModel != null) {
+        if (Objects.nonNull(sceneInfoModel)) {
             ApplicationHandler.isTrue(sceneInfoModel.validate(), "sceneInfo");
         }
     }
@@ -253,10 +254,10 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
             if (!super.validate()) {
                 return false;
             }
-            if (storeInfoModel != null && !storeInfoModel.validate()) {
+            if (Objects.nonNull(storeInfoModel) && !storeInfoModel.validate()) {
                 return false;
             }
-            if (h5InfoModel != null && !h5InfoModel.validate()) {
+            if (Objects.nonNull(h5InfoModel) && !h5InfoModel.validate()) {
                 return false;
             }
             return true;
@@ -265,10 +266,10 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
         @Override
         public void validateAndThrow() {
             super.validateAndThrow();
-            if (storeInfoModel != null) {
+            if (Objects.nonNull(storeInfoModel)) {
                 storeInfoModel.validateAndThrow();
             }
-            if (h5InfoModel != null) {
+            if (Objects.nonNull(h5InfoModel)) {
                 h5InfoModel.validateAndThrow();
             }
         }

@@ -13,6 +13,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DingtalkUtils {
     private static final String DINGTALK_SERVICE_URL = "https://oapi.dingtalk.com";
@@ -175,7 +176,7 @@ public class DingtalkUtils {
             listDepartmentsRequestParameters.put("lang", lang);
         }
 
-        if (fetchChild != null) {
+        if (Objects.nonNull(fetchChild)) {
             listDepartmentsRequestParameters.put("fetch_child", fetchChild.toString());
         }
 
