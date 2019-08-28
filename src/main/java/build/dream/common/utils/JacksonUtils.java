@@ -32,7 +32,7 @@ public class JacksonUtils {
         }
 
         if (Objects.nonNull(module)) {
-            key += Objects.hashCode(module);
+            key += "@@@" + Objects.hashCode(module);
         }
 
         ObjectMapper objectMapper = objectMapperMap.get(key);
