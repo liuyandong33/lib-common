@@ -13,8 +13,6 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,8 +26,8 @@ public class WeiXinUtils {
         HEADERS.put("Content-Type", "application/json;charset=UTF-8");
     }
 
-    public static String generateComponentLoginPageUrl(String componentAppId, String preAuthCode, String redirectUri, String authType) throws UnsupportedEncodingException {
-        return COMPONENT_LOGIN_PAGE_URL + "?component_appid=" + componentAppId + "&pre_auth_code=" + preAuthCode + "&redirect_uri=" + URLEncoder.encode(redirectUri, Constants.CHARSET_NAME_UTF_8) + "&auth_type=" + authType;
+    public static String generateComponentLoginPageUrl(String componentAppId, String preAuthCode, String redirectUri, String authType) {
+        return COMPONENT_LOGIN_PAGE_URL + "?component_appid=" + componentAppId + "&pre_auth_code=" + preAuthCode + "&redirect_uri=" + UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8) + "&auth_type=" + authType;
     }
 
     public static String generateAuthorizeUrl(String appId, String scope, String redirectUri, String state) {
