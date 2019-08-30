@@ -1388,4 +1388,33 @@ public class WeiXinUtils {
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
+
+    /**
+     * 快速创建小程序
+     *
+     * @param componentAccessToken
+     * @param name
+     * @param code
+     * @param codeType
+     * @param legalPersonaWeChat
+     * @param legalPersonaName
+     * @param componentPhone
+     * @return
+     */
+    public static Map<String, Object> fastRegisterWeApp(String componentAccessToken, String name, String code, String codeType, String legalPersonaWeChat, String legalPersonaName, String componentPhone) {
+        String url = WEI_XIN_API_URL + "/cgi-bin/component/fastregisterweapp?action=create&component_access_token=" + componentAccessToken;
+        Map<String, Object> requestBody = new HashMap<String, Object>();
+        requestBody.put("name", name);
+        requestBody.put("code", code);
+        requestBody.put("code_type", codeType);
+        requestBody.put("legal_persona_wechat", legalPersonaWeChat);
+        requestBody.put("legal_persona_name", legalPersonaName);
+        requestBody.put("component_phone", componentPhone);
+
+        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        int errcode = MapUtils.getIntValue(resultMap, "errcode");
+        ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
+        return resultMap;
+    }
 }
