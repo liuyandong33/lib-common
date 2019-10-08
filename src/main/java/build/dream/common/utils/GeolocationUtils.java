@@ -71,7 +71,7 @@ public class GeolocationUtils {
         double dy = latitude1 - latitude2;
         double b = (latitude1 + latitude2) / 2.0;
         double lx = Math.toRadians(dx) * EARTH_RADIUS * Math.cos(Math.toRadians(b));
-        double ly = 6367000.0 * Math.toRadians(dy);
+        double ly = EARTH_RADIUS * Math.toRadians(dy);
         return Math.sqrt(lx * lx + ly * ly);
     }
 }
