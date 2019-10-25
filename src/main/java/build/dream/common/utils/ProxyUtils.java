@@ -3,11 +3,10 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.constants.Constants;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -18,21 +17,16 @@ import java.util.Objects;
  * Created by liuyandong on 2017/7/24.
  */
 public class ProxyUtils {
-    private static RestTemplate restTemplate;
+    private static MicroServiceCaller microServiceCaller;
     private static HttpHeaders applicationFormUrlEncodedHttpHeaders;
     private static HttpHeaders multipartHttpHeaders;
     private static HttpHeaders applicationJsonUtf8HttpHeaders;
 
-    /**
-     * 获取RestTemplate
-     *
-     * @return
-     */
-    public static RestTemplate obtainRestTemplate() {
-        if (Objects.isNull(restTemplate)) {
-            restTemplate = ApplicationHandler.getBean(RestTemplate.class);
+    public static MicroServiceCaller obtainMicroServiceCaller() {
+        if (Objects.isNull(microServiceCaller)) {
+            microServiceCaller = ApplicationHandler.getBean(MicroServiceCaller.class);
         }
-        return restTemplate;
+        return microServiceCaller;
     }
 
     /**
@@ -74,6 +68,14 @@ public class ProxyUtils {
         return applicationJsonUtf8HttpHeaders;
     }
 
+    public static String obtainApplicationName(String partitionCode, String serviceName) {
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        if (StringUtils.isBlank(partitionCode)) {
+            return deploymentEnvironment + "-" + serviceName;
+        }
+        return deploymentEnvironment + "-" + partitionCode + "-" + serviceName;
+    }
+
     /**
      * 拼接url
      *
@@ -84,14 +86,7 @@ public class ProxyUtils {
      * @return
      */
     public static String obtainUrl(String partitionCode, String serviceName, String controllerName, String actionName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
-        StringBuilder stringBuilder = new StringBuilder("http://");
-        stringBuilder.append(deploymentEnvironment).append("-");
-        if (StringUtils.isNotBlank(partitionCode)) {
-            stringBuilder.append(partitionCode).append("-");
-        }
-        stringBuilder.append(serviceName).append("/").append(controllerName).append("/").append(actionName);
-        return stringBuilder.toString();
+        return "http://" + obtainApplicationName(partitionCode, serviceName) + "/" + controllerName + "/" + actionName;
     }
 
     /**
@@ -172,7 +167,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doGetOriginalWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().getForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), String.class);
+        return obtainMicroServiceCaller().doGetOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -185,7 +180,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doGetOriginalWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().getForObject(obtainUrl(null, serviceName, controllerName, actionName, requestParameters), String.class);
+        return obtainMicroServiceCaller().doGetOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -199,7 +194,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestParameters), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -212,7 +207,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestParameters), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -227,7 +222,7 @@ public class ProxyUtils {
      * @throws IOException
      */
     public static String doPostOriginalWithRequestParametersAndFiles(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithRequestParametersAndFiles(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -241,7 +236,7 @@ public class ProxyUtils {
      * @throws IOException
      */
     public static String doPostOriginalWithRequestParametersAndFiles(String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildMultipartHttpEntity(requestParameters), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithRequestParametersAndFiles(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -255,7 +250,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithFormRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithFormRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -268,7 +263,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithFormRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithFormRequestBody(serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -282,7 +277,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -295,7 +290,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithJsonRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithJsonRequestBody(serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -310,7 +305,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(partitionCode, serviceName, controllerName, actionName, queryParams), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, queryParams, requestBody);
     }
 
     /**
@@ -324,7 +319,7 @@ public class ProxyUtils {
      * @return
      */
     public static String doPostOriginalWithJsonRequestBody(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
-        return obtainRestTemplate().postForObject(obtainUrl(null, serviceName, controllerName, actionName, queryParams), buildApplicationJsonUtf8HttpEntity(requestBody), String.class);
+        return obtainMicroServiceCaller().doPostOriginalWithJsonRequestBody(serviceName, controllerName, actionName, queryParams, requestBody);
     }
 
     /**
@@ -338,7 +333,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doGetWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return ApiRest.fromJson(doGetOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doGetWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -351,7 +346,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doGetWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return ApiRest.fromJson(doGetOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doGetWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -365,7 +360,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return ApiRest.fromJson(doPostOriginalWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doPostWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -378,7 +373,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return ApiRest.fromJson(doPostOriginalWithRequestParameters(serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doPostWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -393,7 +388,7 @@ public class ProxyUtils {
      * @throws IOException
      */
     public static ApiRest doPostWithRequestParametersAndFiles(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return ApiRest.fromJson(doPostOriginalWithRequestParametersAndFiles(partitionCode, serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doPostWithRequestParametersAndFiles(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -407,7 +402,7 @@ public class ProxyUtils {
      * @throws IOException
      */
     public static ApiRest doPostWithRequestParametersAndFiles(String serviceName, String controllerName, String actionName, Map<String, Object> requestParameters) throws IOException {
-        return ApiRest.fromJson(doPostOriginalWithRequestParametersAndFiles(serviceName, controllerName, actionName, requestParameters));
+        return obtainMicroServiceCaller().doPostWithRequestParametersAndFiles(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -421,7 +416,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithFormRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithFormRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody));
+        return obtainMicroServiceCaller().doPostWithFormRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -434,7 +429,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithFormRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithFormRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+        return obtainMicroServiceCaller().doPostWithFormRequestBody(serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -448,7 +443,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody));
+        return obtainMicroServiceCaller().doPostWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -461,7 +456,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+        return obtainMicroServiceCaller().doPostWithJsonRequestBody(serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -476,7 +471,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithJsonRequestBody(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, queryParams, requestBody));
+        return obtainMicroServiceCaller().doPostWithJsonRequestBody(partitionCode, serviceName, controllerName, actionName, requestBody);
     }
 
     /**
@@ -490,7 +485,7 @@ public class ProxyUtils {
      * @return
      */
     public static ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, queryParams, requestBody));
+        return obtainMicroServiceCaller().doPostWithJsonRequestBody(serviceName, controllerName, actionName, queryParams, requestBody);
     }
 
     /**
@@ -504,7 +499,7 @@ public class ProxyUtils {
      * @return
      */
     public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().getForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName, requestParameters), byte[].class);
+        return obtainMicroServiceCaller().doGetOrdinaryWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -517,7 +512,7 @@ public class ProxyUtils {
      * @return
      */
     public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().getForEntity(obtainUrl(null, serviceName, controllerName, actionName, requestParameters), byte[].class);
+        return obtainMicroServiceCaller().doGetOrdinaryWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -531,7 +526,7 @@ public class ProxyUtils {
      * @return
      */
     public static ResponseEntity<byte[]> doPostOrdinaryWithRequestParameters(String partitionCode, String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().postForEntity(obtainUrl(partitionCode, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestParameters), byte[].class);
+        return obtainMicroServiceCaller().doPostOrdinaryWithRequestParameters(partitionCode, serviceName, controllerName, actionName, requestParameters);
     }
 
     /**
@@ -544,16 +539,6 @@ public class ProxyUtils {
      * @return
      */
     public static ResponseEntity<byte[]> doPostOrdinaryWithRequestParameters(String serviceName, String controllerName, String actionName, Map<String, String> requestParameters) {
-        return obtainRestTemplate().postForEntity(obtainUrl(null, serviceName, controllerName, actionName), buildApplicationFormUrlEncodedHttpEntity(requestParameters), byte[].class);
-    }
-
-    /**
-     * GET 请求指定url
-     *
-     * @param url
-     * @return
-     */
-    public static ResponseEntity<byte[]> doGetOrdinaryWithRequestParameters(String url) {
-        return obtainRestTemplate().getForEntity(url, byte[].class);
+        return obtainMicroServiceCaller().doPostOrdinaryWithRequestParameters(serviceName, controllerName, actionName, requestParameters);
     }
 }
