@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.chinaeinv.InvoiceV3KpAsyncModel;
+import build.dream.common.tuples.Tuple2;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -20,6 +21,26 @@ public class ChinaeInvUtils {
         HEADERS.put("Content-Type", "application/json;charset=utf-8");
     }
 
+    public static String obtainUrl(String protocol, String host, int port, String path, Map<String, String> parameters) {
+        return protocol + "://" + host + ":" + port + path + "?" + WebUtils.buildQueryString(parameters);
+    }
+
+    public static String obtainUrl(String protocol, String host, int port, String path, Tuple2<String, String>... parameters) {
+        Map<String, String> map = new HashMap<String, String>();
+        for (Tuple2<String, String> parameter : parameters) {
+            map.put(parameter._1(), parameter._2());
+        }
+        return obtainUrl(protocol, host, port, path, map);
+    }
+
+    public static String obtainUrl(String path, Map<String, String> parameters) {
+        return obtainUrl(CHINAEINV_PROTOCOL, CHINAEINV_HOST, CHINAEINV_PORT, path, parameters);
+    }
+
+    public static String obtainUrl(String path, Tuple2<String, String>... parameters) {
+        return obtainUrl(CHINAEINV_PROTOCOL, CHINAEINV_HOST, CHINAEINV_PORT, path, parameters);
+    }
+
     public static Map<String, Object> invoiceV3KpAsync(InvoiceV3KpAsyncModel invoiceV3KpAsyncModel) {
         invoiceV3KpAsyncModel.validateAndThrow();
         String appCode = invoiceV3KpAsyncModel.getAppCode();
@@ -30,7 +51,7 @@ public class ChinaeInvUtils {
         byte[] privateKey = new byte[1024];
         String sign = Base64.encodeBase64String(SignatureUtils.sign(data, privateKey, SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
 
-        String url = CHINAEINV_PROTOCOL + "://" + CHINAEINV_HOST + ":" + CHINAEINV_PORT + PATH_INVOICE_API + "?appCode=" + appCode + "&cmdName=" + cmdName + "&sign=" + sign;
+        String url = obtainUrl(PATH_INVOICE_API, TupleUtils.buildTuple2("appCode", appCode), TupleUtils.buildTuple2("cmdName", cmdName), TupleUtils.buildTuple2("sign", sign));
 
         WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, body);
         return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
