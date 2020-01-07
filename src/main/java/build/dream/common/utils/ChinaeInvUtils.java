@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.domains.saas.OauthClientDetail;
 import build.dream.common.models.chinaeinv.InvoiceV3KpAsyncModel;
 import build.dream.common.tuples.Tuple2;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -84,5 +85,20 @@ public class ChinaeInvUtils {
 
         Map<String, Object> result = invoiceV3KpAsync(invoiceV3KpAsyncModel);
         System.out.println();
+
+        String clientSecretPlaintext = DigestUtils.md5Hex(UUID.randomUUID().toString());
+        OauthClientDetail oauthClientDetail = OauthClientDetail.builder()
+                .clientId(UUID.randomUUID().toString())
+                .clientSecret(BCryptUtils.encode(clientSecretPlaintext))
+                .resourceIds(Constants.RESOURCE_ID_CATERING)
+                .scope("all")
+                .authorizedGrantTypes("password,refresh_token")
+                .webServerRedirectUri("")
+                .authorities("")
+                .accessTokenValidity(60 * 60 * 24 * 30)
+                .refreshTokenValidity(60 * 60 * 24 * 37)
+                .additionalInformation("")
+                .autoApproveScope("false")
+                .build();
     }
 }
