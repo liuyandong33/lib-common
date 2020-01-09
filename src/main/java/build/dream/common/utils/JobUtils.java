@@ -1,14 +1,15 @@
 package build.dream.common.utils;
 
+import build.dream.common.api.ApiRest;
 import build.dream.common.models.job.ScheduleCronJobModel;
 import build.dream.common.models.job.ScheduleSimpleJobModel;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.*;
+import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class JobUtils {
     private static SchedulerFactoryBean schedulerFactoryBean;
@@ -223,5 +224,40 @@ public class JobUtils {
 
     public static void deleteJob(JobKey jobKey) throws SchedulerException {
         obtainScheduler().deleteJob(jobKey);
+    }
+
+    public static Set<TriggerKey> obtainAllTriggerKeys() throws SchedulerException {
+        Set<TriggerKey> triggerKeys = new HashSet<TriggerKey>();
+        Scheduler scheduler = obtainScheduler();
+        List<String> triggerGroupNames = scheduler.getTriggerGroupNames();
+        for (String triggerGroupName : triggerGroupNames) {
+            GroupMatcher groupMatcher = GroupMatcher.groupEquals(triggerGroupName);
+            triggerKeys.addAll(scheduler.getTriggerKeys(groupMatcher));
+        }
+        return triggerKeys;
+    }
+
+    public static Set<JobKey> obtainAllJobKeys() throws SchedulerException {
+        Set<JobKey> jobKeys = new HashSet<JobKey>();
+        Scheduler scheduler = obtainScheduler();
+        List<String> jobGroupNames = scheduler.getJobGroupNames();
+        for (String jobGroupName : jobGroupNames) {
+            GroupMatcher groupMatcher = GroupMatcher.groupEquals(jobGroupName);
+            jobKeys.addAll(scheduler.getJobKeys(groupMatcher));
+        }
+        return jobKeys;
+    }
+
+    public ApiRest deleteAllJobs() throws SchedulerException {
+        Set<TriggerKey> triggerKeys = obtainAllTriggerKeys();
+        for (TriggerKey triggerKey : triggerKeys) {
+            JobUtils.unscheduleJob(triggerKey);
+        }
+
+        Set<JobKey> jobKeys = obtainAllJobKeys();
+        for (JobKey jobKey : jobKeys) {
+            JobUtils.deleteJob(jobKey);
+        }
+        return ApiRest.builder().successful(true).build();
     }
 }
