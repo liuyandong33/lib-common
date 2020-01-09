@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.models.job.ScheduleCronJobModel;
 import build.dream.common.models.job.ScheduleSimpleJobModel;
 import org.apache.commons.collections.MapUtils;
@@ -248,7 +247,7 @@ public class JobUtils {
         return jobKeys;
     }
 
-    public ApiRest deleteAllJobs() throws SchedulerException {
+    public static void deleteAllJobs() throws SchedulerException {
         Set<TriggerKey> triggerKeys = obtainAllTriggerKeys();
         for (TriggerKey triggerKey : triggerKeys) {
             JobUtils.unscheduleJob(triggerKey);
@@ -258,6 +257,5 @@ public class JobUtils {
         for (JobKey jobKey : jobKeys) {
             JobUtils.deleteJob(jobKey);
         }
-        return ApiRest.builder().successful(true).build();
     }
 }
