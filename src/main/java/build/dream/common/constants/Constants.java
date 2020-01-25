@@ -76,6 +76,7 @@ public class Constants {
     public static final String SERVICE_NAME_GATEWAY = "gateway";
     public static final String SERVICE_NAME_JOB = "job";
     public static final String SERVICE_NAME_IOT = "iot";
+    public static final String SERVICE_NAME_AUTH = "auth";
 
     /**
      * 业态常量
