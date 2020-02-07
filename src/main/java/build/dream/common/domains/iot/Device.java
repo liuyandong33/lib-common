@@ -34,6 +34,16 @@ public class Device extends BasicDomain {
      */
     private Integer type;
 
+    /**
+     * 客户端ID
+     */
+    private String clientId;
+
+    /**
+     * 客户端秘钥
+     */
+    private String clientSecret;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -82,6 +92,22 @@ public class Device extends BasicDomain {
         this.type = type;
     }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Device> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -113,6 +139,16 @@ public class Device extends BasicDomain {
             return this;
         }
 
+        public Builder clientId(String clientId) {
+            instance.setClientId(clientId);
+            return this;
+        }
+
+        public Builder type(String clientSecret) {
+            instance.setClientSecret(clientSecret);
+            return this;
+        }
+
         @Override
         public Device build() {
             Device device = super.build();
@@ -122,6 +158,8 @@ public class Device extends BasicDomain {
             device.setName(instance.getName());
             device.setCode(instance.getCode());
             device.setType(instance.getType());
+            device.setClientId(instance.getClientId());
+            device.setClientSecret(instance.getClientSecret());
             return device;
         }
     }
@@ -137,6 +175,8 @@ public class Device extends BasicDomain {
         public static final String NAME = "name";
         public static final String CODE = "code";
         public static final String TYPE = "type";
+        public static final String CLIENT_ID = "client_id";
+        public static final String CLIENT_SECRET = "client_secret";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -146,5 +186,7 @@ public class Device extends BasicDomain {
         public static final String NAME = "name";
         public static final String CODE = "code";
         public static final String TYPE = "type";
+        public static final String CLIENT_ID = "clientId";
+        public static final String CLIENT_SECRET = "clientSecret";
     }
 }
