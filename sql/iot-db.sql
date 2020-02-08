@@ -57,6 +57,8 @@ CREATE TABLE device
     `type` TINYINT NOT NULL COMMENT '设备类型，1-温控设备',
     client_id VARCHAR(50) NOT NULL COMMENT '客户端ID',
     client_secret VARCHAR(50) NOT NULL COMMENT '客户端密码',
+    mqtt_client_id VARCHAR(100) NOT NULL COMMENT 'MQTT Client Id',
+    mqtt_token VARCHAR(1000) NOT NULL COMMENT 'MQTT Token',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
