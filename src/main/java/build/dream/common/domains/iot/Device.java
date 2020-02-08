@@ -44,6 +44,16 @@ public class Device extends BasicDomain {
      */
     private String clientSecret;
 
+    /**
+     * MQTT Client Id
+     */
+    private String mqttClientId;
+
+    /**
+     * MQTT Token
+     */
+    private String mqttToken;
+
     public BigInteger getTenantId() {
         return tenantId;
     }
@@ -108,6 +118,22 @@ public class Device extends BasicDomain {
         this.clientSecret = clientSecret;
     }
 
+    public String getMqttClientId() {
+        return mqttClientId;
+    }
+
+    public void setMqttClientId(String mqttClientId) {
+        this.mqttClientId = mqttClientId;
+    }
+
+    public String getMqttToken() {
+        return mqttToken;
+    }
+
+    public void setMqttToken(String mqttToken) {
+        this.mqttToken = mqttToken;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Device> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -144,8 +170,18 @@ public class Device extends BasicDomain {
             return this;
         }
 
-        public Builder type(String clientSecret) {
+        public Builder clientSecret(String clientSecret) {
             instance.setClientSecret(clientSecret);
+            return this;
+        }
+
+        public Builder mqttClientId(String mqttClientId) {
+            instance.setMqttClientId(mqttClientId);
+            return this;
+        }
+
+        public Builder mqttToken(String mqttToken) {
+            instance.setMqttToken(mqttToken);
             return this;
         }
 
@@ -160,6 +196,8 @@ public class Device extends BasicDomain {
             device.setType(instance.getType());
             device.setClientId(instance.getClientId());
             device.setClientSecret(instance.getClientSecret());
+            device.setMqttClientId(instance.getMqttClientId());
+            device.setMqttToken(instance.getMqttToken());
             return device;
         }
     }
@@ -177,6 +215,8 @@ public class Device extends BasicDomain {
         public static final String TYPE = "type";
         public static final String CLIENT_ID = "client_id";
         public static final String CLIENT_SECRET = "client_secret";
+        public static final String MQTT_CLIENT_ID = "mqtt_client_id";
+        public static final String MQTT_TOKEN = "mqtt_token";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -188,5 +228,7 @@ public class Device extends BasicDomain {
         public static final String TYPE = "type";
         public static final String CLIENT_ID = "clientId";
         public static final String CLIENT_SECRET = "clientSecret";
+        public static final String MQTT_CLIENT_ID = "mqttClientId";
+        public static final String MQTT_TOKEN = "mqttToken";
     }
 }

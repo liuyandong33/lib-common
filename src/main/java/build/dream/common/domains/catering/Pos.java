@@ -252,7 +252,7 @@ public class Pos extends BasicDomain {
         public static final String ONLINE = "online";
         public static final String CLOUD_PUSH_DEVICE_ID = "cloud_push_device_id";
         public static final String MQTT_CLIENT_ID = "mqtt_client_id";
-        public static final String mqtt_token = "mqtt_token";
+        public static final String MQTT_TOKEN = "mqtt_token";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -267,6 +267,6 @@ public class Pos extends BasicDomain {
         public static final String ONLINE = "online";
         public static final String CLOUD_PUSH_DEVICE_ID = "cloudPushDeviceId";
         public static final String MQTT_CLIENT_ID = "mqttClientId";
-        public static final String mqtt_token = "mqttToken";
+        public static final String MQTT_TOKEN = "mqttToken";
     }
 }
