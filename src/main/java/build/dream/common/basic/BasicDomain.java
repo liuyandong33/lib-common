@@ -5,7 +5,6 @@ import build.dream.common.annotations.InsertIgnore;
 import build.dream.common.annotations.UpdateIgnore;
 import build.dream.common.constants.Constants;
 import build.dream.common.orm.GenerationStrategy;
-import build.dream.common.orm.SnowflakeIdGenerator;
 import build.dream.common.utils.ObjectUtils;
 
 import java.io.Serializable;
@@ -15,7 +14,7 @@ import java.math.BigInteger;
 import java.util.Date;
 
 public class BasicDomain implements IdDomain<BigInteger>, Serializable, Cloneable {
-    @Id(strategy = GenerationStrategy.GENERATOR, idGeneratorClass = SnowflakeIdGenerator.class)
+    @Id(strategy = GenerationStrategy.MYCATSEQ_GLOBAL)
     @UpdateIgnore
     private BigInteger id;
 
