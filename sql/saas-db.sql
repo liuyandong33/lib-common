@@ -42,7 +42,7 @@ CREATE TABLE `system_user`
     email VARCHAR(20) NOT NULL COMMENT '邮箱',
     `login_name` VARCHAR(20) NOT NULL COMMENT '登录名',
     user_type TINYINT NOT NULL COMMENT '员工类型，1-商户主账号，2-商户员工，3-代理商',
-    `password` VARCHAR(50) NOT NULL COMMENT '登录密码',
+    `password` VARCHAR(100) NOT NULL COMMENT '登录密码',
     wei_xin_public_platform_open_id VARCHAR(50) NOT NULL COMMENT '微信公众平台open id',
     wei_xin_open_platform_open_id VARCHAR(50) NOT NULL COMMENT '微信开放平台open id',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
