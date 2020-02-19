@@ -91,6 +91,7 @@ public class Constants {
     public static final Integer USER_TYPE_TENANT = 1;
     public static final Integer USER_TYPE_TENANT_EMPLOYEE = 2;
     public static final Integer USER_TYPE_AGENT = 3;
+    public static final Integer USER_TYPE_ADMIN = 3;
 
     /**
      * 门店类型常量
@@ -780,8 +781,9 @@ public class Constants {
     public static final String BANK_CODE_BOB = "1032";
     public static final String BANK_CODE_NING_BO = "1056";
 
-    public static final String SEQUENCE_NAME_TENANT_CODE = "tenant_code";
-    public static final String SEQUENCE_NAME_AGENT_CODE = "agent_code";
+    public static final String SEQUENCE_NAME_TENANT_CODE = "TENANT_CODE";
+    public static final String SEQUENCE_NAME_AGENT_CODE = "AGENT_CODE";
+    public static final String SEQUENCE_NAME_ADMIN_CODE = "ADMIN_CODE";
 
     public static final String CHANNEL_TYPE_EXEC = "exec";
     public static final String CHANNEL_TYPE_SFTP = "sftp";
