@@ -91,7 +91,7 @@ public class Constants {
     public static final Integer USER_TYPE_TENANT = 1;
     public static final Integer USER_TYPE_TENANT_EMPLOYEE = 2;
     public static final Integer USER_TYPE_AGENT = 3;
-    public static final Integer USER_TYPE_ADMIN = 3;
+    public static final Integer USER_TYPE_ADMIN = 4;
 
     /**
      * 门店类型常量
