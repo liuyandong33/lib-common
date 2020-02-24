@@ -47,6 +47,11 @@ public class RefundModel extends WeiXinPayBasicModel {
     @NotNull
     private String operationCertificatePassword;
 
+    /**
+     * api_v3秘钥
+     */
+    private String apiV3Key;
+
     public String getTransactionId() {
         return transactionId;
     }
@@ -135,6 +140,14 @@ public class RefundModel extends WeiXinPayBasicModel {
         this.operationCertificatePassword = operationCertificatePassword;
     }
 
+    public String getApiV3Key() {
+        return apiV3Key;
+    }
+
+    public void setApiV3Key(String apiV3Key) {
+        this.apiV3Key = apiV3Key;
+    }
+
     @Override
     public void validateAndThrow() {
         super.validateAndThrow();
@@ -203,6 +216,11 @@ public class RefundModel extends WeiXinPayBasicModel {
             return this;
         }
 
+        public Builder apiV3Key(String apiV3Key) {
+            instance.setApiV3Key(apiV3Key);
+            return this;
+        }
+
         @Override
         public RefundModel build() {
             RefundModel refundModel = super.build();
@@ -217,6 +235,7 @@ public class RefundModel extends WeiXinPayBasicModel {
             refundModel.setTopic(instance.getTopic());
             refundModel.setOperationCertificate(instance.getOperationCertificate());
             refundModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
+            refundModel.setApiV3Key(instance.getApiV3Key());
             return refundModel;
         }
     }

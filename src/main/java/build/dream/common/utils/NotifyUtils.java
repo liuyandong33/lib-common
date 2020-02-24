@@ -2,11 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.AsyncNotify;
-import build.dream.common.models.notify.SaveAsyncNotifyModel;
-import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class NotifyUtils {
@@ -19,60 +15,6 @@ public class NotifyUtils {
      */
     public static String obtainNotifyUrl(String notifyType, String uuidKey) {
         return CommonUtils.getOutsideUrl(Constants.SERVICE_NAME_GATEWAY, "notify", "callback") + "/" + notifyType + "/" + uuidKey;
-    }
-
-    /**
-     * 保存异步通知
-     *
-     * @param saveAsyncNotifyModel
-     * @return
-     */
-    public static AsyncNotify saveAsyncNotify(SaveAsyncNotifyModel saveAsyncNotifyModel) {
-        String uuid = saveAsyncNotifyModel.getUuid();
-        String topic = saveAsyncNotifyModel.getTopic();
-        String alipayPublicKey = saveAsyncNotifyModel.getAlipayPublicKey();
-        String alipaySignType = saveAsyncNotifyModel.getAlipaySignType();
-        String weiXinPayApiKey = saveAsyncNotifyModel.getWeiXinPayApiKey();
-        String weiXinPaySignType = saveAsyncNotifyModel.getWeiXinPaySignType();
-
-        BigInteger userId = CommonUtils.getServiceSystemUserId();
-
-        SearchModel searchModel = new SearchModel(true);
-        searchModel.addSearchCondition(AsyncNotify.ColumnName.UUID, Constants.SQL_OPERATION_SYMBOL_EQUAL, uuid);
-        AsyncNotify asyncNotify = DatabaseHelper.find(AsyncNotify.class, searchModel);
-        if (Objects.isNull(asyncNotify)) {
-            asyncNotify = new AsyncNotify();
-            asyncNotify.setUuid(uuid);
-            asyncNotify.setTopic(topic);
-            if (StringUtils.isNotBlank(alipayPublicKey)) {
-                asyncNotify.setAlipayPublicKey(alipayPublicKey);
-            }
-            if (StringUtils.isNotBlank(alipaySignType)) {
-                asyncNotify.setAlipaySignType(alipaySignType);
-            }
-            asyncNotify.setNotifyResult(Constants.NOTIFY_RESULT_NOT_NOTIFY);
-            if (StringUtils.isNotBlank(weiXinPayApiKey)) {
-                asyncNotify.setWeiXinPayApiKey(weiXinPayApiKey);
-            }
-            if (StringUtils.isNotBlank(weiXinPaySignType)) {
-                asyncNotify.setWeiXinPaySignType(weiXinPaySignType);
-            }
-            asyncNotify.setCreatedUserId(userId);
-            asyncNotify.setUpdatedUserId(userId);
-            asyncNotify.setUpdatedRemark("保存异步通知！");
-            DatabaseHelper.insert(asyncNotify);
-        } else {
-            asyncNotify.setTopic(topic);
-            asyncNotify.setAlipayPublicKey(StringUtils.isNotBlank(alipayPublicKey) ? alipayPublicKey : Constants.VARCHAR_DEFAULT_VALUE);
-            asyncNotify.setAlipaySignType(StringUtils.isNotBlank(alipaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            asyncNotify.setWeiXinPayApiKey(StringUtils.isNotBlank(weiXinPayApiKey) ? weiXinPayApiKey : Constants.VARCHAR_DEFAULT_VALUE);
-            asyncNotify.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? weiXinPaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            asyncNotify.setUpdatedUserId(userId);
-            asyncNotify.setUpdatedRemark("修改异步通知！");
-            DatabaseHelper.update(asyncNotify);
-        }
-
-        return asyncNotify;
     }
 
     /**

@@ -1,21 +1,15 @@
 package build.dream.common.utils;
 
-import build.dream.common.api.ApiRest;
 import build.dream.common.beans.WeiXinBill;
 import build.dream.common.beans.WeiXinBillSummary;
 import build.dream.common.beans.WeiXinDownloadBillResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.WeiXinPayAccount;
-import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.models.weixinpay.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import javax.net.ssl.SSLSocketFactory;
 import java.math.BigInteger;
@@ -149,46 +143,6 @@ public class WeiXinPayUtils {
      */
     public static String callWeiXinPaySystemOriginal(String url, String finalData) {
         return OutUtils.doPostWithRequestBody(url, finalData, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_XML_UTF8);
-    }
-
-    /**
-     * 保存异步通知记录
-     *
-     * @param uuid
-     * @param topic
-     * @param weiXinPayApiKey
-     * @param weiXinPaySignType
-     */
-    private static void saveAsyncNotify(String uuid, String topic, String weiXinPayApiKey, String weiXinPaySignType) {
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
-        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
-            SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
-                    .uuid(uuid)
-                    .topic(topic)
-                    .weiXinPayApiKey(weiXinPayApiKey)
-                    .weiXinPaySignType(weiXinPaySignType)
-                    .build();
-
-            DataSourceTransactionManager dataSourceTransactionManager = ApplicationHandler.getBean(DataSourceTransactionManager.class);
-            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-            TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
-            try {
-                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
-                dataSourceTransactionManager.commit(transactionStatus);
-            } catch (Exception e) {
-                dataSourceTransactionManager.rollback(transactionStatus);
-                throw e;
-            }
-        } else {
-            Map<String, String> saveAsyncNotifyRequestParameters = new HashMap<String, String>();
-            saveAsyncNotifyRequestParameters.put("uuid", uuid);
-            saveAsyncNotifyRequestParameters.put("topic", topic);
-            saveAsyncNotifyRequestParameters.put("weiXinPayApiKey", weiXinPayApiKey);
-            saveAsyncNotifyRequestParameters.put("weiXinPaySignType", weiXinPaySignType);
-            ApiRest saveAsyncNotifyResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveAsyncNotify", saveAsyncNotifyRequestParameters);
-            ValidateUtils.isTrue(saveAsyncNotifyResult.isSuccessful(), saveAsyncNotifyResult.getError());
-        }
     }
 
     /**
@@ -480,6 +434,7 @@ public class WeiXinPayUtils {
         String topic = refundModel.getTopic();
         String operationCertificate = refundModel.getOperationCertificate();
         String operationCertificatePassword = refundModel.getOperationCertificatePassword();
+        String apiV3Key = refundModel.getApiV3Key();
 
         Map<String, String> refundRequestParameters = new HashMap<String, String>();
         refundRequestParameters.put("appid", appId);
@@ -501,8 +456,7 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
         if (StringUtils.isNotBlank(topic)) {
             refundRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_WEI_XIN_REFUND, "out_refund_no"));
-//            saveAsyncNotify(outRefundNo, topic, apiKey, Constants.MD5);
-            NotifyUtils.saveWeiXinRefundAsyncNotify(outRefundNo, topic, apiKey, Constants.MD5);
+            NotifyUtils.saveWeiXinRefundAsyncNotify(outRefundNo, topic, apiKey, Constants.MD5, apiV3Key);
         }
 
         String sign = generateSign(refundRequestParameters, apiKey, Constants.MD5);

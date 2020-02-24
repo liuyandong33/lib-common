@@ -399,38 +399,6 @@ public class AlipayUtils {
 
     /***************************************************************支付API结束***************************************************************/
 
-    private static void saveAsyncNotify(String uuid, String topic, String alipayPublicKey, String signType) {
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
-        if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
-            SaveAsyncNotifyModel saveAsyncNotifyModel = SaveAsyncNotifyModel.builder()
-                    .uuid(uuid)
-                    .topic(topic)
-                    .alipayPublicKey(alipayPublicKey)
-                    .alipaySignType(signType)
-                    .build();
-            DataSourceTransactionManager dataSourceTransactionManager = ApplicationHandler.getBean(DataSourceTransactionManager.class);
-            DefaultTransactionDefinition defaultTransactionDefinition = new DefaultTransactionDefinition();
-            defaultTransactionDefinition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-            TransactionStatus transactionStatus = dataSourceTransactionManager.getTransaction(defaultTransactionDefinition);
-            try {
-                NotifyUtils.saveAsyncNotify(saveAsyncNotifyModel);
-                dataSourceTransactionManager.commit(transactionStatus);
-            } catch (Exception e) {
-                dataSourceTransactionManager.rollback(transactionStatus);
-                throw e;
-            }
-        } else {
-            Map<String, String> saveAsyncNotifyRequestParameters = new HashMap<String, String>();
-            saveAsyncNotifyRequestParameters.put("uuid", uuid);
-            saveAsyncNotifyRequestParameters.put("topic", topic);
-            saveAsyncNotifyRequestParameters.put("alipayPublicKey", alipayPublicKey);
-            saveAsyncNotifyRequestParameters.put("alipaySignType", signType);
-
-            ApiRest saveAsyncNotifyResult = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "notify", "saveAsyncNotify", saveAsyncNotifyRequestParameters);
-            ValidateUtils.isTrue(saveAsyncNotifyResult.isSuccessful(), saveAsyncNotifyResult.getError());
-        }
-    }
-
     public static String generateAppToAppAuthorizeUrl(String appId, String redirectUri) {
         return ALIPAY_APP_TO_APP_AUTHORIZE_URL + "?app_id=" + appId + "&redirect_uri=" + UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8);
     }
