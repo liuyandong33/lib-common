@@ -171,7 +171,7 @@ public class Constants {
      * 支付场景常量
      *
      * @see #PAID_SCENE_WEI_XIN_MICROPAY: 微信付款码支付
-     * @see #PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT: 微信JSAPI支付
+     * @see #PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT: 微信公众号支付
      * @see #PAID_SCENE_WEI_XIN_NATIVE: 微信Native支付
      * @see #PAID_SCENE_WEI_XIN_APP: 微信APP支付
      * @see #PAID_SCENE_WEI_XIN_MWEB: 微信H5支付
@@ -260,6 +260,7 @@ public class Constants {
      * @see #KEY_ALIPAY_DEVELOPER_ACCOUNTS: 支付宝开发者账号
      * @see #KEY_NEW_LAND_ORG_INFOS: 新大陆机构信息
      * @see #KEY_UNION_PAY_ACCOUNTS: 银联支付账号
+     * @see #KEY_WEI_XIN_PAY_API_V3_KEYS: 微信支付api_v3秘钥
      */
     public static final String KEY_WEI_XIN_PAY_ACCOUNTS = "_wei_xin_pay_accounts";
     public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
@@ -271,6 +272,7 @@ public class Constants {
     public static final String KEY_ALIPAY_DEVELOPER_ACCOUNTS = "_alipay_developer_accounts";
     public static final String KEY_NEW_LAND_ORG_INFOS = "_new_land_org_infos";
     public static final String KEY_UNION_PAY_ACCOUNTS = "_union_pay_accounts";
+    public static final String KEY_WEI_XIN_PAY_API_V3_KEYS = "_wei_xin_pay_api_v3_keys";
 
     // 网络错误错误信息
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
