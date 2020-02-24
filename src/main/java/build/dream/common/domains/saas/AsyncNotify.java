@@ -30,6 +30,10 @@ public class AsyncNotify extends BasicDomain {
      */
     private String weiXinPaySignType = Constants.VARCHAR_DEFAULT_VALUE;
     /**
+     * 微信支付退款api_v3秘钥
+     */
+    private String weiXinPayApiV3Key = Constants.VARCHAR_DEFAULT_VALUE;
+    /**
      * 米雅key
      */
     private String miyaKey = Constants.VARCHAR_DEFAULT_VALUE;
@@ -98,6 +102,14 @@ public class AsyncNotify extends BasicDomain {
 
     public void setWeiXinPaySignType(String weiXinPaySignType) {
         this.weiXinPaySignType = weiXinPaySignType;
+    }
+
+    public String getWeiXinPayApiV3Key() {
+        return weiXinPayApiV3Key;
+    }
+
+    public void setWeiXinPayApiV3Key(String weiXinPayApiV3Key) {
+        this.weiXinPayApiV3Key = weiXinPayApiV3Key;
     }
 
     public String getMiyaKey() {
@@ -171,6 +183,11 @@ public class AsyncNotify extends BasicDomain {
             return this;
         }
 
+        public Builder weiXinPayApiV3Key(String weiXinPayApiV3Key) {
+            instance.setWeiXinPayApiV3Key(weiXinPayApiV3Key);
+            return this;
+        }
+
         public Builder miyaKey(String miyaKey) {
             instance.setMiyaKey(miyaKey);
             return this;
@@ -205,6 +222,7 @@ public class AsyncNotify extends BasicDomain {
             asyncNotify.setAlipaySignType(instance.getAlipaySignType());
             asyncNotify.setWeiXinPayApiKey(instance.getWeiXinPayApiKey());
             asyncNotify.setWeiXinPaySignType(instance.getWeiXinPaySignType());
+            asyncNotify.setWeiXinPayApiV3Key(instance.getWeiXinPayApiV3Key());
             asyncNotify.setMiyaKey(instance.getMiyaKey());
             asyncNotify.setUmPayPrivateKey(instance.getUmPayPrivateKey());
             asyncNotify.setUmPayPlatformCertificate(instance.getUmPayPlatformCertificate());
@@ -225,6 +243,7 @@ public class AsyncNotify extends BasicDomain {
         public static final String ALIPAY_SIGN_TYPE = "alipay_sign_type";
         public static final String WEI_XIN_PAY_API_KEY = "wei_xin_pay_api_key";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "wei_xin_pay_sign_type";
+        public static final String WEI_XIN_PAY_API_V3_KEY = "wei_xin_pay_api_v3_key";
         public static final String MIYA_KEY = "miya_key";
         public static final String UM_PAY_PRIVATE_KEY = "um_pay_private_key";
         public static final String UM_PAY_PLATFORM_CERTIFICATE = "um_pay_platform_certificate";
@@ -239,6 +258,7 @@ public class AsyncNotify extends BasicDomain {
         public static final String ALIPAY_SIGN_TYPE = "alipaySignType";
         public static final String WEI_XIN_PAY_API_KEY = "weiXinPayApiKey";
         public static final String WEI_XIN_PAY_SIGN_TYPE = "weiXinPaySignType";
+        public static final String WEI_XIN_PAY_API_V3_KEY = "weiXinPayApiV3Key";
         public static final String MIYA_KEY = "miyaKey";
         public static final String UM_PAY_PRIVATE_KEY = "umPayPrivateKey";
         public static final String UM_PAY_PLATFORM_CERTIFICATE = "umPayPlatformCertificate";

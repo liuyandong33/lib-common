@@ -1,8 +1,8 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.domains.saas.AsyncNotify;
+import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
@@ -104,12 +104,13 @@ public class NotifyUtils {
      * @param signType
      * @return
      */
-    public static AsyncNotify saveWeiXinRefundAsyncNotify(String uuid, String topic, String apiKey, String signType) {
+    public static AsyncNotify saveWeiXinRefundAsyncNotify(String uuid, String topic, String apiKey, String signType, String apiV3Key) {
         AsyncNotify asyncNotify = AsyncNotify.builder()
                 .uuid(uuid)
                 .topic(topic)
                 .weiXinPayApiKey(apiKey)
                 .weiXinPaySignType(signType)
+                .weiXinPayApiV3Key(apiV3Key)
                 .build();
         CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
         return asyncNotify;
