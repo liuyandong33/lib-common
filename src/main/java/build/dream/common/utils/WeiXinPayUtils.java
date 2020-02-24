@@ -46,6 +46,16 @@ public class WeiXinPayUtils {
     }
 
     /**
+     * 获取微信支付退款api_v3秘钥
+     *
+     * @param appId
+     * @return
+     */
+    public static String obtainApiV3Key(String appId) {
+        return CommonRedisUtils.get(appId);
+    }
+
+    /**
      * 生成签名
      *
      * @param callWeiXinSystemRequestParameters
