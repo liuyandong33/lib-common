@@ -12,15 +12,10 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import java.util.*;
 
 public class ChinaeInvUtils {
-    private static final Map<String, String> HEADERS = new HashMap<String, String>();
     private static final String CHINAEINV_PROTOCOL = "https";
     private static final String CHINAEINV_HOST = "www.chinaeinv.com";
     private static final int CHINAEINV_PORT = 943;
     private static final String PATH_INVOICE_API = "/api/invoiceApi.jspa";
-
-    static {
-        HEADERS.put("Content-Type", "application/json;charset=utf-8");
-    }
 
     public static String obtainUrl(String protocol, String host, int port, String path, Map<String, String> parameters) {
         return protocol + "://" + host + ":" + port + path + "?" + WebUtils.buildQueryString(parameters);
@@ -54,8 +49,8 @@ public class ChinaeInvUtils {
 
         String url = obtainUrl(PATH_INVOICE_API, TupleUtils.buildTuple2("appCode", appCode), TupleUtils.buildTuple2("cmdName", cmdName), TupleUtils.buildTuple2("sign", sign));
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, body);
-        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, body, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
     public static void main(String[] args) {

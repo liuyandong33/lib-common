@@ -1,7 +1,6 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.JDDJVenderInfo;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.JDDJToken;
 import build.dream.common.models.jddj.*;
@@ -73,9 +72,9 @@ public class JDDJUtils {
         requestParameters.put("sign", generateSign(requestParameters, appSecret));
 
         String url = ConfigurationUtils.getConfiguration(Constants.JDDJ_API_DOMAIN) + path;
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, requestParameters);
+        String result = OutUtils.doPostWithForm(url, requestParameters);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         int code = MapUtils.getIntValue(resultMap, "code");
         ValidateUtils.isTrue(code == 0, MapUtils.getString(resultMap, "msg"));

@@ -1,7 +1,6 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.SuningOAuthToken;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.models.suning.CommonParamsModel;
@@ -38,7 +37,6 @@ public class SuningUtils {
         headers.put("versionNo", commonParamsModel.getVersionNo());
         headers.put("signInfo", commonParamsModel.getSignInfo());
         headers.put("access_token", commonParamsModel.getAccessToken());
-        headers.put("Content-Type", "application/json;charset=utf-8");
         return headers;
     }
 
@@ -112,21 +110,20 @@ public class SuningUtils {
      * @return
      */
     public static SuningOAuthToken obtainOAuthToken(String code, String scope, String redirectUri, String state) {
-        Map<String, String> requestParameters = new HashMap<String, String>();
-        requestParameters.put("client_id", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY));
-        requestParameters.put("client_secret", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_SECRET));
-        requestParameters.put("code", code);
-        requestParameters.put("grant_type", "authorization_code");
-        requestParameters.put("redirect_uri", redirectUri);
+        Map<String, String> queryParams = new HashMap<String, String>();
+        queryParams.put("client_id", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY));
+        queryParams.put("client_secret", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_SECRET));
+        queryParams.put("code", code);
+        queryParams.put("grant_type", "authorization_code");
+        queryParams.put("redirect_uri", redirectUri);
         if (StringUtils.isNotBlank(scope)) {
-            requestParameters.put("scope", scope);
+            queryParams.put("scope", scope);
         }
 
         if (StringUtils.isNotBlank(state)) {
-            requestParameters.put("state", state);
+            queryParams.put("state", state);
         }
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(SU_NING_OAUTH_TOKEN_URL, requestParameters);
-        String result = webResponse.getResult();
+        String result = OutUtils.doGet(SU_NING_OAUTH_TOKEN_URL, queryParams);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         SuningOAuthToken suningOAuthToken = new SuningOAuthToken();
@@ -175,8 +172,7 @@ public class SuningUtils {
                 .build();
         generateSignInfo(commonParamsModel, body);
         Map<String, String> headers = buildHeaders(commonParamsModel);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(SU_NING_API_URL + "/" + appMethod, headers, body);
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithRequestBody(SU_NING_API_URL + "/" + appMethod, body, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8, headers);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         Map<String, Object> snResponseContent = MapUtils.getMap(resultMap, "sn_responseContent");

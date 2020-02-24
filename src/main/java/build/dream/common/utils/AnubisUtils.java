@@ -14,12 +14,6 @@ import java.util.Map;
 
 public class AnubisUtils {
     private static final String ANUBIS_SERVICE_URL = "https://open-anubis.ele.me/anubis-webapi/v2";
-    private static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "application/json;charset=utf-8");
-    }
-
     public static String generateSignature(String appId, String data, int salt, String accessToken) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("app_id=" + appId);
@@ -46,8 +40,7 @@ public class AnubisUtils {
         requestParameters.put("signature", signature);
 
         String url = ANUBIS_SERVICE_URL + "/get_access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        String result = webResponse.getResult();
+        String result = OutUtils.doGet(url, requestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int code = MapUtils.getIntValue(resultMap, "code");
         ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
@@ -88,8 +81,7 @@ public class AnubisUtils {
         requestBody.put("salt", salt);
         requestBody.put("signature", signature);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(ANUBIS_SERVICE_URL + path, HEADERS, JacksonUtils.writeValueAsString(requestBody, JsonInclude.Include.NON_NULL));
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithRequestBody(ANUBIS_SERVICE_URL + path, JacksonUtils.writeValueAsString(requestBody, JsonInclude.Include.NON_NULL), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         int code = MapUtils.getIntValue(resultMap, "code");

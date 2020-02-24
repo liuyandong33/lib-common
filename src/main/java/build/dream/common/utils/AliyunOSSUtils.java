@@ -1,16 +1,17 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public class OSSUtils {
+public class AliyunOSSUtils {
     public static Map<String, String> obtainPolicy(String accessId, String accessKey, String host, String dir, Date expiration, List<Object[]> conditions, Map<String, String> callback) {
         SimpleDateFormat simpleDateFormat = CustomDateUtils.buildISO8601SimpleDateFormat();
         Map<String, Object> policyMap = new HashMap<String, Object>();
@@ -28,5 +29,20 @@ public class OSSUtils {
         data.put("host", host);
         data.put("callback", Base64.encodeBase64String(JacksonUtils.writeValueAsString(callback).getBytes(Constants.CHARSET_UTF_8)));
         return data;
+    }
+
+    public static String putObject(String bucketName, String key, InputStream inputStream) {
+        String endpoint = "http://oss-cn-beijing.aliyuncs.com";
+        String accessKeyId = "LTAI13Q9MtL90vHh";
+        String accessKeySecret = "xL9bYrZ6MqyzYkAwjwGqQE4NGaDPlt";
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        ossClient.putObject("build-dream", "test.jpg", inputStream);
+        ossClient.shutdown();
+
+        return null;
+    }
+
+    public static void main(String[] args) {
+        InputStream inputStream = new ByteArrayInputStream(UUID.randomUUID().toString().getBytes());
     }
 }

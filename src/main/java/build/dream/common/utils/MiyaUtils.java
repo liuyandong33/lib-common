@@ -1,9 +1,8 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.miya.*;
 import build.dream.common.domains.saas.MiyaAccount;
+import build.dream.common.models.miya.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -11,12 +10,6 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class MiyaUtils {
-    public static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "text/xml");
-    }
-
     public static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
         String miyaAccountJson = CommonRedisUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(miyaAccountJson)) {
@@ -104,11 +97,11 @@ public class MiyaUtils {
         requestDomainRequestParameters.put("A8", generateSign(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey));
         String requestBody = buildRequestBody(requestDomainRequestParameters, dataDomainRequestParameters);
         String url = ConfigurationUtils.getConfiguration(Constants.MIYA_PAY_SERVICE_URL);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
-        Map<String, String> result = XmlUtils.xmlStringToMap(webResponse.getResult());
-        ValidateUtils.isTrue(Constants.SUCCESS.equals(result.get("C1")), result.get("C4"));
-        ValidateUtils.isTrue(verifySign(result, miyaKey), "签名验证未通过！");
-        return result;
+        String result = OutUtils.doPostWithRequestBody(url, requestBody, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_TEXT_XML);
+        Map<String, String> resultMap = XmlUtils.xmlStringToMap(result);
+        ValidateUtils.isTrue(Constants.SUCCESS.equals(resultMap.get("C1")), resultMap.get("C4"));
+        ValidateUtils.isTrue(verifySign(resultMap, miyaKey), "签名验证未通过！");
+        return resultMap;
     }
 
     /**

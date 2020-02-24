@@ -36,7 +36,6 @@ public class RongLianUtils {
 
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Accept", "application/json");
-        headers.put("Content-Type", "application/json;charset=utf-8");
         headers.put("Authorization", authorization);
 
         Map<String, Object> body = new HashMap<String, Object>();
@@ -45,8 +44,7 @@ public class RongLianUtils {
         body.put("templateId", templateId);
         body.put("datas", datas);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, headers, JacksonUtils.writeValueAsString(body));
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(body), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8, headers);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         String statusCode = MapUtils.getString(resultMap, "statusCode");
         ValidateUtils.isTrue("000000".equals(statusCode), "短信发送失败！");

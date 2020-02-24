@@ -22,7 +22,7 @@ public class DownloadBillModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
     /**
      * 微信分配的子商户公众账号ID
      */
@@ -72,12 +72,12 @@ public class DownloadBillModel extends BasicModel {
         this.mchId = mchId;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getSubAppId() {
@@ -149,8 +149,8 @@ public class DownloadBillModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -193,7 +193,7 @@ public class DownloadBillModel extends BasicModel {
             DownloadBillModel downloadBillModel = new DownloadBillModel();
             downloadBillModel.setAppId(instance.getAppId());
             downloadBillModel.setMchId(instance.getMchId());
-            downloadBillModel.setApiSecretKey(instance.getApiSecretKey());
+            downloadBillModel.setApiKey(instance.getApiKey());
             downloadBillModel.setSubAppId(instance.getSubAppId());
             downloadBillModel.setSubMchId(instance.getSubMchId());
             downloadBillModel.setAcceptanceModel(instance.isAcceptanceModel());

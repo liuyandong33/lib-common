@@ -1,10 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.NewLandOrgInfo;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.newland.*;
 import build.dream.common.domains.saas.NewLandAccount;
+import build.dream.common.models.newland.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -35,10 +34,8 @@ public class NewLandUtils {
         return JacksonUtils.readValue(newLandOrgInfoJson, NewLandOrgInfo.class);
     }
 
-    private static Map<String, String> buildHeaders(String charsetName) {
-        Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Type", "application/json;charset=" + charsetName);
-        return headers;
+    private static String buildContentType(String charsetName) {
+        return "application/json;charset=" + charsetName;
     }
 
     private static String generateSign(Map<String, String> requestParameters, String secretKey, String signType) {
@@ -122,8 +119,8 @@ public class NewLandUtils {
     public static Map<String, String> callNewLandSystem(Map<String, String> requestParameters, String charsetName, String apiName) {
         String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + apiName + ".json";
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(charsetName), GsonUtils.toJson(requestParameters), charsetName);
-        String result = UrlUtils.decode(webResponse.getResult(), Constants.CHARSET_NAME_UTF_8);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestParameters), charsetName, "");
+        result = UrlUtils.decode(result, Constants.CHARSET_NAME_UTF_8);
 
         Map<String, String> resultMap = JacksonUtils.readValueAsMap(result, String.class, String.class);
 

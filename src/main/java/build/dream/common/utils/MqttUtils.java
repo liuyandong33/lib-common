@@ -1,7 +1,6 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.MqttConfig;
 import build.dream.common.models.mqtt.ApplyTokenModel;
@@ -164,8 +163,8 @@ public class MqttUtils {
         applyTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
         applyTokenRequestParameters.put("proxyType", proxyType);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithForm(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(resources, String.class, Object.class);
         boolean success = MapUtils.getBooleanValue(resultMap, "success");
         ValidateUtils.isTrue(success, MapUtils.getString(resultMap, "message"));
         return MapUtils.getString(resultMap, "tokenData");
@@ -187,8 +186,8 @@ public class MqttUtils {
         queryTokenRequestParameters.put("signature", generateSignature(queryTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
         queryTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/query", queryTokenRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithForm(MQ_AUTH_URL + "/token/query", queryTokenRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return MapUtils.getBooleanValue(resultMap, "success");
     }
 
@@ -208,8 +207,8 @@ public class MqttUtils {
         revokeTokenRequestParameters.put("signature", generateSignature(revokeTokenRequestParameters, AliyunUtils.ACCESS_KEY_SECRET));
         revokeTokenRequestParameters.put("accessKey", AliyunUtils.ACCESS_KEY_ID);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(MQ_AUTH_URL + "/token/revoke", revokeTokenRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithForm(MQ_AUTH_URL + "/token/revoke", revokeTokenRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return MapUtils.getBooleanValue(resultMap, "success");
     }
 }

@@ -52,9 +52,9 @@ public class AliyunSmsUtils {
         }
         requestParameters.put("Signature", AliyunUtils.generateSignature(requestParameters, AliyunUtils.ACCESS_KEY_SECRET));
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.DY_SMS_API_URL, requestParameters);
+        String result = OutUtils.doPostWithForm(AliyunUtils.DY_SMS_API_URL, requestParameters);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         String code = MapUtils.getString(resultMap, "Code");
         ValidateUtils.isTrue(Constants.OK.equals(code), MapUtils.getString(resultMap, "Message"));
         return resultMap;

@@ -1,9 +1,8 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
-import build.dream.common.exceptions.CustomException;
 import build.dream.common.domains.saas.ElemeToken;
+import build.dream.common.exceptions.CustomException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.collections.MapUtils;
@@ -15,26 +14,18 @@ import java.util.*;
  * Created by liuyandong on 2017/3/13.
  */
 public class ElemeUtils {
-    public static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "application/json;charset=utf-8");
-    }
-
     public static String obtainTokenByCode(String code, String appKey, String appSecret, String redirectUrl) throws IOException {
-        Map<String, String> askTokenRequestParameters = new HashMap<String, String>();
-        askTokenRequestParameters.put("grant_type", "authorization_code");
-        askTokenRequestParameters.put("code", code);
-        askTokenRequestParameters.put("redirect_uri", redirectUrl);
-        askTokenRequestParameters.put("client_id", appKey);
+        Map<String, String> form = new HashMap<String, String>();
+        form.put("grant_type", "authorization_code");
+        form.put("code", code);
+        form.put("redirect_uri", redirectUrl);
+        form.put("client_id", appKey);
 
         Map<String, String> askTokenHeaders = new HashMap<String, String>();
-        askTokenHeaders.put("Content-Type", "Content-Type: application/x-www-form-urlencoded; charset=utf-8");
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
         String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
-        return webResponse.getResult();
+        return OutUtils.doPostWithForm(tokenUrl, form, askTokenHeaders, Constants.CHARSET_NAME_UTF_8);
     }
 
     public static String obtainTokenByRefreshToken(String refreshToken, String appKey, String appSecret) throws IOException {
@@ -43,12 +34,10 @@ public class ElemeUtils {
         askTokenRequestParameters.put("refresh_token", refreshToken);
 
         Map<String, String> askTokenHeaders = new HashMap<String, String>();
-        askTokenHeaders.put("Content-Type", "Content-Type: application/x-www-form-urlencoded; charset=utf-8");
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
         String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(tokenUrl, askTokenHeaders, askTokenRequestParameters);
-        return webResponse.getResult();
+        return OutUtils.doPostWithForm(tokenUrl, askTokenRequestParameters, askTokenHeaders, Constants.CHARSET_NAME_UTF_8);
     }
 
     public static boolean verifySignature(Map<String, Object> callbackMap, String appSecret) {
@@ -112,8 +101,7 @@ public class ElemeUtils {
     private static Map<String, Object> doCallElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String requestBody = buildRequestBody(tenantId, branchId, elemeAccountType, action, params);
         String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, requestBody);
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithRequestBody(url, requestBody, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return resultMap;
     }

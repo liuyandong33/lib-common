@@ -1,12 +1,29 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
+import build.dream.common.constants.Constants;
+import build.dream.common.domains.saas.UnionPayAccount;
 import build.dream.common.models.unionpay.FrontTransReqModel;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UnionPayUtils {
+    /**
+     * 获取银联支付账号
+     *
+     * @param tenantId
+     * @param branchId
+     * @return
+     */
+    public static UnionPayAccount obtainUnionPayAccount(String tenantId, String branchId) {
+        String unionPayAccountJson = CommonRedisUtils.hget(Constants.KEY_UNION_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        if (StringUtils.isBlank(unionPayAccountJson)) {
+            return null;
+        }
+        return JacksonUtils.readValue(unionPayAccountJson, UnionPayAccount.class);
+    }
+
     public static Map<String, Object> frontTransReq(FrontTransReqModel frontTransReqModel) {
         String version = frontTransReqModel.getVersion();
         String encoding = frontTransReqModel.getEncoding();
@@ -91,9 +108,9 @@ public class UnionPayUtils {
         requestParameters.put("termId", termId);
         requestParameters.put("userMac", userMac);
 
-        String url = "";
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String url = "https://gateway.test.95516.com/gateway/api/frontTransReq.do";
+        String result = OutUtils.doPostWithForm(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return resultMap;
     }
 }

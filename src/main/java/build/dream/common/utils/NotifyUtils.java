@@ -32,7 +32,7 @@ public class NotifyUtils {
         String topic = saveAsyncNotifyModel.getTopic();
         String alipayPublicKey = saveAsyncNotifyModel.getAlipayPublicKey();
         String alipaySignType = saveAsyncNotifyModel.getAlipaySignType();
-        String weiXinPayApiSecretKey = saveAsyncNotifyModel.getWeiXinPayApiSecretKey();
+        String weiXinPayApiKey = saveAsyncNotifyModel.getWeiXinPayApiKey();
         String weiXinPaySignType = saveAsyncNotifyModel.getWeiXinPaySignType();
 
         BigInteger userId = CommonUtils.getServiceSystemUserId();
@@ -51,8 +51,8 @@ public class NotifyUtils {
                 asyncNotify.setAlipaySignType(alipaySignType);
             }
             asyncNotify.setNotifyResult(Constants.NOTIFY_RESULT_NOT_NOTIFY);
-            if (StringUtils.isNotBlank(weiXinPayApiSecretKey)) {
-                asyncNotify.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
+            if (StringUtils.isNotBlank(weiXinPayApiKey)) {
+                asyncNotify.setWeiXinPayApiKey(weiXinPayApiKey);
             }
             if (StringUtils.isNotBlank(weiXinPaySignType)) {
                 asyncNotify.setWeiXinPaySignType(weiXinPaySignType);
@@ -65,7 +65,7 @@ public class NotifyUtils {
             asyncNotify.setTopic(topic);
             asyncNotify.setAlipayPublicKey(StringUtils.isNotBlank(alipayPublicKey) ? alipayPublicKey : Constants.VARCHAR_DEFAULT_VALUE);
             asyncNotify.setAlipaySignType(StringUtils.isNotBlank(alipaySignType) ? alipaySignType : Constants.VARCHAR_DEFAULT_VALUE);
-            asyncNotify.setWeiXinPayApiSecretKey(StringUtils.isNotBlank(weiXinPayApiSecretKey) ? weiXinPayApiSecretKey : Constants.VARCHAR_DEFAULT_VALUE);
+            asyncNotify.setWeiXinPayApiKey(StringUtils.isNotBlank(weiXinPayApiKey) ? weiXinPayApiKey : Constants.VARCHAR_DEFAULT_VALUE);
             asyncNotify.setWeiXinPaySignType(StringUtils.isNotBlank(weiXinPaySignType) ? weiXinPaySignType : Constants.VARCHAR_DEFAULT_VALUE);
             asyncNotify.setUpdatedUserId(userId);
             asyncNotify.setUpdatedRemark("修改异步通知！");
@@ -80,15 +80,15 @@ public class NotifyUtils {
      *
      * @param uuid
      * @param topic
-     * @param apiSecretKey
+     * @param apiKey
      * @param signType
      * @return
      */
-    public static AsyncNotify saveWeiXinPayAsyncNotify(String uuid, String topic, String apiSecretKey, String signType) {
+    public static AsyncNotify saveWeiXinPayAsyncNotify(String uuid, String topic, String apiKey, String signType) {
         AsyncNotify asyncNotify = AsyncNotify.builder()
                 .uuid(uuid)
                 .topic(topic)
-                .weiXinPayApiSecretKey(apiSecretKey)
+                .weiXinPayApiKey(apiKey)
                 .weiXinPaySignType(signType)
                 .build();
         CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);
@@ -100,15 +100,15 @@ public class NotifyUtils {
      *
      * @param uuid
      * @param topic
-     * @param apiSecretKey
+     * @param apiKey
      * @param signType
      * @return
      */
-    public static AsyncNotify saveWeiXinRefundAsyncNotify(String uuid, String topic, String apiSecretKey, String signType) {
+    public static AsyncNotify saveWeiXinRefundAsyncNotify(String uuid, String topic, String apiKey, String signType) {
         AsyncNotify asyncNotify = AsyncNotify.builder()
                 .uuid(uuid)
                 .topic(topic)
-                .weiXinPayApiSecretKey(apiSecretKey)
+                .weiXinPayApiKey(apiKey)
                 .weiXinPaySignType(signType)
                 .build();
         CommonRedisUtils.setex(uuid, JacksonUtils.writeValueAsString(asyncNotify), 1, TimeUnit.DAYS);

@@ -98,7 +98,7 @@ CREATE TABLE wei_xin_pay_account
     branch_id BIGINT NOT NULL COMMENT '门店id',
     app_id VARCHAR(50) NOT NULL COMMENT '微信公众平台app id',
     mch_id VARCHAR(50) NOT NULL COMMENT '微信支付商户号',
-    api_secret_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
+    api_key VARCHAR(50) NOT NULL COMMENT 'api 秘钥',
     sub_public_account_app_id VARCHAR(50) NOT NULL COMMENT '子商户的公众号app id',
     sub_open_platform_app_id VARCHAR(50) NOT NULL COMMENT '子商户的开放平台app id',
     sub_mini_program_app_id VARCHAR(50) NOT NULL COMMENT '子商户的小程序app id',
@@ -107,6 +107,7 @@ CREATE TABLE wei_xin_pay_account
     operation_certificate_password VARCHAR(20) NOT NULL COMMENT '操作证书密码',
     rsa_public_key VARCHAR(500) NOT NULL COMMENT 'rsa 公钥',
     acceptance_model TINYINT NOT NULL COMMENT '是否为受理关系',
+    api_v3_key VARCHAR(50) NOT NULL COMMENT 'api v3 秘钥',
     created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建用户id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
@@ -1117,3 +1118,23 @@ CREATE TABLE mqtt_config
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'mqtt 配置';
+
+DROP TABLE IF EXISTS union_pay_account;
+CREATE TABLE union_pay_account
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '主键id',
+    tenant_id BIGINT NOT NULL COMMENT '商户ID',
+    branch_id BIGINT NOT NULL COMMENT '门店ID',
+    mer_id VARCHAR(20) NOT NULL COMMENT '商户代码',
+    sub_mer_id VARCHAR(20) NOT NULL COMMENT '二级商户代码	',
+    sub_mer_abbr VARCHAR(20) NOT NULL COMMENT '二级商户简称',
+    sub_mer_name VARCHAR(20) NOT NULL COMMENT '二级商户名称',
+    encrypt_cert_id VARCHAR(20) NOT NULL COMMENT '加密证书ID',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '银联支付账号';

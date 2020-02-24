@@ -24,7 +24,7 @@ public class WeiXinPayBasicModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
     /**
      * 微信分配的子商户公众账号ID
      */
@@ -57,12 +57,12 @@ public class WeiXinPayBasicModel extends BasicModel {
         this.mchId = mchId;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getSubAppId() {
@@ -130,8 +130,8 @@ public class WeiXinPayBasicModel extends BasicModel {
             return (BT) this;
         }
 
-        public BT apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public BT apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return (BT) this;
         }
 
@@ -154,7 +154,7 @@ public class WeiXinPayBasicModel extends BasicModel {
             MT model = ObjectUtils.newInstance(modelClass);
             model.setAppId(instance.getAppId());
             model.setMchId(instance.getMchId());
-            model.setApiSecretKey(instance.getApiSecretKey());
+            model.setApiKey(instance.getApiKey());
             model.setSubAppId(instance.getSubAppId());
             model.setSubMchId(instance.getSubMchId());
             model.setAcceptanceModel(instance.isAcceptanceModel());

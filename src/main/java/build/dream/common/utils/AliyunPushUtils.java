@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunpush.*;
 import org.apache.commons.codec.binary.Base64;
@@ -44,11 +43,8 @@ public class AliyunPushUtils {
      * @return
      */
     public static Map<String, Object> callAliyunPushApi(Map<String, String> requestParameters) {
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(AliyunUtils.CLOUD_PUSH_API_URL, requestParameters);
-        String result = webResponse.getResult();
-
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
-        return resultMap;
+        String result = OutUtils.doPostWithForm(AliyunUtils.CLOUD_PUSH_API_URL, requestParameters);
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
     /**

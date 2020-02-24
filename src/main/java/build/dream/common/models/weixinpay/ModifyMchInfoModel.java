@@ -36,7 +36,7 @@ public class ModifyMchInfoModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     /**
      * 操作证书
@@ -81,12 +81,12 @@ public class ModifyMchInfoModel extends BasicModel {
         this.servicePhone = servicePhone;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -128,8 +128,8 @@ public class ModifyMchInfoModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -149,7 +149,7 @@ public class ModifyMchInfoModel extends BasicModel {
             modifyMchInfoModel.setSubMchId(instance.getSubMchId());
             modifyMchInfoModel.setMerchantShortName(instance.getMerchantShortName());
             modifyMchInfoModel.setServicePhone(instance.getServicePhone());
-            modifyMchInfoModel.setApiSecretKey(instance.getApiSecretKey());
+            modifyMchInfoModel.setApiKey(instance.getApiKey());
             modifyMchInfoModel.setOperationCertificate(instance.getOperationCertificate());
             modifyMchInfoModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return modifyMchInfoModel;

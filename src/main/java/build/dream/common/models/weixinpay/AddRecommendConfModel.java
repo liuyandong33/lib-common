@@ -14,7 +14,7 @@ public class AddRecommendConfModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     @NotNull
     private String operationCertificate;
@@ -46,12 +46,12 @@ public class AddRecommendConfModel extends BasicModel {
     @InList(value = {Constants.MD5, Constants.HMAC_SHA256})
     private String signType = Constants.MD5;
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -132,8 +132,8 @@ public class AddRecommendConfModel extends BasicModel {
     public static class Builder {
         private final AddRecommendConfModel instance = new AddRecommendConfModel();
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -179,7 +179,7 @@ public class AddRecommendConfModel extends BasicModel {
 
         public AddRecommendConfModel build() {
             AddRecommendConfModel addRecommendConfModel = new AddRecommendConfModel();
-            addRecommendConfModel.setApiSecretKey(instance.getApiSecretKey());
+            addRecommendConfModel.setApiKey(instance.getApiKey());
             addRecommendConfModel.setOperationCertificate(instance.getOperationCertificate());
             addRecommendConfModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             addRecommendConfModel.setMchId(instance.getMchId());

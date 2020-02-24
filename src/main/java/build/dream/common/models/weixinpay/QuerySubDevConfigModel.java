@@ -22,7 +22,7 @@ public class QuerySubDevConfigModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     @NotNull
     private String operationCertificate;
@@ -56,12 +56,12 @@ public class QuerySubDevConfigModel extends BasicModel {
         this.subMchId = subMchId;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -98,8 +98,8 @@ public class QuerySubDevConfigModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -118,7 +118,7 @@ public class QuerySubDevConfigModel extends BasicModel {
             querySubDevConfigModel.setAppId(instance.getAppId());
             querySubDevConfigModel.setMchId(instance.getMchId());
             querySubDevConfigModel.setSubMchId(instance.getSubMchId());
-            querySubDevConfigModel.setApiSecretKey(instance.getApiSecretKey());
+            querySubDevConfigModel.setApiKey(instance.getApiKey());
             querySubDevConfigModel.setOperationCertificate(instance.getOperationCertificate());
             querySubDevConfigModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return querySubDevConfigModel;

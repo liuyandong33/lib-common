@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.data.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,12 +12,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class DadaUtils {
-    private static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "application/json;charset=UTF-8");
-    }
-
     /**
      * 生成签名
      *
@@ -61,9 +54,9 @@ public class DadaUtils {
         callDadaApiRequestParameters.put("signature", signature);
 
         String url = ConfigurationUtils.getConfiguration(Constants.DADA_API_DOMAIN) + path;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(callDadaApiRequestParameters));
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(callDadaApiRequestParameters), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int code = MapUtils.getIntValue(resultMap, "code");
         ValidateUtils.isTrue(code == 0, MapUtils.getString(resultMap, "msg"));
         return resultMap;

@@ -24,8 +24,7 @@ public class WNSUtils {
         requestParameters.put("client_secret", clientSecret);
         requestParameters.put("scope", "notify.windows.com");
 
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(ACCESS_TOKEN_URL, requestParameters);
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithForm(ACCESS_TOKEN_URL, requestParameters);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         WNSAccessToken wnsAccessToken = new WNSAccessToken();

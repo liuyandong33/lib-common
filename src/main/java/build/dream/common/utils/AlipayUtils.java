@@ -82,7 +82,7 @@ public class AlipayUtils {
         return obtainAlipayAccount(tenantId.toString(), branchId.toString());
     }
 
-    public static String buildRequestBody(AlipayBasicModel alipayBasicModel, String method) {
+    public static Map<String, String> buildForm(AlipayBasicModel alipayBasicModel, String method) {
         String appId = alipayBasicModel.getAppId();
         String format = alipayBasicModel.getFormat();
         String returnUrl = alipayBasicModel.getReturnUrl();
@@ -132,21 +132,24 @@ public class AlipayUtils {
             sign = Base64.encodeBase64String(SignatureUtils.sign(data, Base64.decodeBase64(appPrivateKey), SignatureUtils.SIGNATURE_TYPE_SHA256_WITH_RSA));
         }
         sortedRequestParameters.put("sign", sign);
-        return WebUtils.buildRequestBody(sortedRequestParameters, charset);
+        return sortedRequestParameters;
+    }
+
+    public static String buildRequestBody(AlipayBasicModel alipayBasicModel, String method) {
+        return WebUtils.buildRequestBody(buildForm(alipayBasicModel, method), alipayBasicModel.getCharset());
     }
 
     public static Map<String, Object> callAlipayApi(AlipayBasicModel alipayBasicModel, String method) {
         alipayBasicModel.validateAndThrow();
-        String requestBody = buildRequestBody(alipayBasicModel, method);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(ALIPAY_GATEWAY_URL, null, requestBody);
-        String result = webResponse.getResult();
+        Map<String, String> form = buildForm(alipayBasicModel, method);
+        String charset = alipayBasicModel.getCharset();
+        String result = OutUtils.doPostWithForm(ALIPAY_GATEWAY_URL, form, null, charset);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         // 开始验签
         Map<String, Object> responseMap = MapUtils.getMap(resultMap, method.replaceAll("\\.", "_") + "_response");
         String alipayPublicKey = alipayBasicModel.getAlipayPublicKey();
         String signType = alipayBasicModel.getSignType();
-        String charset = alipayBasicModel.getCharset();
         ValidateUtils.isTrue(verifySign(GsonUtils.toJson(responseMap), signType, MapUtils.getString(resultMap, "sign"), charset, alipayPublicKey), "支付宝返回结果签名验证未通过！");
 
         String code = MapUtils.getString(responseMap, "code");

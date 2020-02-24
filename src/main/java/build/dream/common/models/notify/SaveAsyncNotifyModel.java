@@ -15,7 +15,7 @@ public class SaveAsyncNotifyModel extends BasicModel {
 
     private String alipaySignType;
 
-    private String weiXinPayApiSecretKey;
+    private String weiXinPayApiKey;
 
     private String weiXinPaySignType;
 
@@ -51,12 +51,12 @@ public class SaveAsyncNotifyModel extends BasicModel {
         this.alipaySignType = alipaySignType;
     }
 
-    public String getWeiXinPayApiSecretKey() {
-        return weiXinPayApiSecretKey;
+    public String getWeiXinPayApiKey() {
+        return weiXinPayApiKey;
     }
 
-    public void setWeiXinPayApiSecretKey(String weiXinPayApiSecretKey) {
-        this.weiXinPayApiSecretKey = weiXinPayApiSecretKey;
+    public void setWeiXinPayApiKey(String weiXinPayApiKey) {
+        this.weiXinPayApiKey = weiXinPayApiKey;
     }
 
     public String getWeiXinPaySignType() {
@@ -90,8 +90,8 @@ public class SaveAsyncNotifyModel extends BasicModel {
             return this;
         }
 
-        public Builder weiXinPayApiSecretKey(String weiXinPayApiSecretKey) {
-            instance.setWeiXinPayApiSecretKey(weiXinPayApiSecretKey);
+        public Builder weiXinPayApiKey(String weiXinPayApiKey) {
+            instance.setWeiXinPayApiKey(weiXinPayApiKey);
             return this;
         }
 
@@ -106,7 +106,7 @@ public class SaveAsyncNotifyModel extends BasicModel {
             saveAsyncNotifyModel.setTopic(instance.getTopic());
             saveAsyncNotifyModel.setAlipayPublicKey(instance.getAlipayPublicKey());
             saveAsyncNotifyModel.setAlipaySignType(instance.getAlipaySignType());
-            saveAsyncNotifyModel.setWeiXinPayApiSecretKey(instance.getWeiXinPayApiSecretKey());
+            saveAsyncNotifyModel.setWeiXinPayApiKey(instance.getWeiXinPayApiKey());
             saveAsyncNotifyModel.setWeiXinPaySignType(instance.getWeiXinPaySignType());
             return saveAsyncNotifyModel;
         }

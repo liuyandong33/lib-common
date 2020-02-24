@@ -259,6 +259,7 @@ public class Constants {
      * @see #KEY_ALIPAY_AUTHORIZER_INFOS: 支付宝授权信息
      * @see #KEY_ALIPAY_DEVELOPER_ACCOUNTS: 支付宝开发者账号
      * @see #KEY_NEW_LAND_ORG_INFOS: 新大陆机构信息
+     * @see #KEY_UNION_PAY_ACCOUNTS: 银联支付账号
      */
     public static final String KEY_WEI_XIN_PAY_ACCOUNTS = "_wei_xin_pay_accounts";
     public static final String KEY_ALIPAY_ACCOUNTS = "_alipay_accounts";
@@ -269,6 +270,7 @@ public class Constants {
     public static final String KEY_ALIPAY_AUTHORIZER_INFOS = "_alipay_authorizer_infos";
     public static final String KEY_ALIPAY_DEVELOPER_ACCOUNTS = "_alipay_developer_accounts";
     public static final String KEY_NEW_LAND_ORG_INFOS = "_new_land_org_infos";
+    public static final String KEY_UNION_PAY_ACCOUNTS = "_union_pay_accounts";
 
     // 网络错误错误信息
     public static final String NETWORK_ERROR_MESSAGE = "网络错误！";
@@ -1080,6 +1082,8 @@ public class Constants {
 
     public static final String CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8 = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String CONTENT_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
+    public static final String CONTENT_TYPE_APPLICATION_XML_UTF8 = "application/xml;charset=UTF-8";
+    public static final String CONTENT_TYPE_TEXT_XML = "text/xml";
     public static final String CONTENT_TYPE_MULTIPART_FORM_DATA_UTF8 = "multipart/form-data;boundary=" + WebUtils.BOUNDARY + ";charset=UTF-8";
 
     public static final String JDDJ_API_DOMAIN = "jddj.api.domain";

@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.dingtalk.CreateChatModel;
 import build.dream.common.models.dingtalk.ListDepartmentsModel;
@@ -17,11 +16,6 @@ import java.util.Objects;
 
 public class DingtalkUtils {
     private static final String DINGTALK_SERVICE_URL = "https://oapi.dingtalk.com";
-    private static final Map<String, String> HEADERS = new HashMap<String, String>();
-
-    static {
-        HEADERS.put("Content-Type", "application/json;charset=UTF-8");
-    }
 
     private static String obtainAccessToken(String appKey) {
         String tokenJson = CommonRedisUtils.hget(Constants.KEY_DINGTALK_TOKENS, appKey);
@@ -42,8 +36,8 @@ public class DingtalkUtils {
         obtainAccessTokenRequestParameters.put("appkey", appKey);
         obtainAccessTokenRequestParameters.put("appsecret", appSecret);
         String url = DINGTALK_SERVICE_URL + "/gettoken";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, obtainAccessTokenRequestParameters);
-        JSONObject resultJsonObject = JSONObject.fromObject(webResponse.getResult());
+        String result = OutUtils.doGet(url, obtainAccessTokenRequestParameters);
+        JSONObject resultJsonObject = JSONObject.fromObject(result);
         int errcode = resultJsonObject.getInt("errcode");
         ValidateUtils.isTrue(errcode == 0, resultJsonObject.optString("errmsg"));
 
@@ -81,9 +75,9 @@ public class DingtalkUtils {
         sendRequestBody.put("chatid", chatId);
         sendRequestBody.put("msg", msg);
         String url = DINGTALK_SERVICE_URL + "/chat/send?access_token=" + obtainAccessToken(appKey, appSecret);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(sendRequestBody));
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(sendRequestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
@@ -147,8 +141,8 @@ public class DingtalkUtils {
         createChatRequestBody.put("managementType", managementType);
 
         String url = DINGTALK_SERVICE_URL + "/chat/create?access_token=" + obtainAccessToken(appKey, appSecret);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, GsonUtils.toJson(createChatRequestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, GsonUtils.toJson(createChatRequestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
@@ -185,8 +179,8 @@ public class DingtalkUtils {
         }
 
         String url = DINGTALK_SERVICE_URL + "/department/list";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listDepartmentsRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, listDepartmentsRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
@@ -222,8 +216,8 @@ public class DingtalkUtils {
             listUserByPageRequestParameters.put("order", order);
         }
         String url = DINGTALK_SERVICE_URL + "/user/listbypage";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, listUserByPageRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, listUserByPageRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 

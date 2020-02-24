@@ -38,7 +38,7 @@ public class QuerySubMchModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     /**
      * 操作证书
@@ -99,12 +99,12 @@ public class QuerySubMchModel extends BasicModel {
         this.pageSize = pageSize;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -156,8 +156,8 @@ public class QuerySubMchModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -179,7 +179,7 @@ public class QuerySubMchModel extends BasicModel {
             querySubMchModel.setSubMchId(instance.getSubMchId());
             querySubMchModel.setPageIndex(instance.getPageIndex());
             querySubMchModel.setPageSize(instance.getPageSize());
-            querySubMchModel.setApiSecretKey(instance.getApiSecretKey());
+            querySubMchModel.setApiKey(instance.getApiKey());
             querySubMchModel.setOperationCertificate(instance.getOperationCertificate());
             querySubMchModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return querySubMchModel;

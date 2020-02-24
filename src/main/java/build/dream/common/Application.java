@@ -5,7 +5,9 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.domains.saas.Tenant;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.utils.DatabaseUtils;
+import build.dream.common.utils.JacksonUtils;
 import build.dream.common.utils.NamingStrategyUtils;
+import org.apache.commons.io.IOUtils;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
@@ -36,7 +38,7 @@ public class Application {
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DECIMAL, BigDecimal.class.getSimpleName());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, InterruptedException {
         /*String packageName = "build.dream.common.catering.domains";
         List<Class<?>> classes = obtainAllClass(packageName);
         for (Class<?> clazz : classes) {
@@ -58,6 +60,26 @@ public class Application {
         String password = "root";
         String tableName = "assemble_activity";
 //        reverseJavaCode(url, driverClassName, user, password, tableName);
+
+        System.out.println(new String(new byte[]{38, 61}));
+
+        Runtime runtime = Runtime.getRuntime();
+        Process process = runtime.exec("python3 /Users/liuyandong/Desktop/test.py");
+        process.waitFor();
+        String result = IOUtils.toString(process.getInputStream());
+
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
+        System.out.println();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<String, Object> entry : resultMap.entrySet()) {
+            stringBuilder.append("[").append(entry.getKey()).append(String.format("]%n"));
+            List<Map<String, String>> value = (List<Map<String, String>>) entry.getValue();
+            for (Map<String, String> map : value) {
+                stringBuilder.append(map.get("key")).append("=").append(map.get("value")).append(String.format("%n"));
+            }
+        }
+        System.out.println(stringBuilder.toString());
     }
 
     /**

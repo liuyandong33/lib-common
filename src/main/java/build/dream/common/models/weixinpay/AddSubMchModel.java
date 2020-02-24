@@ -59,7 +59,7 @@ public class AddSubMchModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     @NotNull
     private String operationCertificate;
@@ -173,12 +173,12 @@ public class AddSubMchModel extends BasicModel {
         this.merchantRemark = merchantRemark;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -265,8 +265,8 @@ public class AddSubMchModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -295,7 +295,7 @@ public class AddSubMchModel extends BasicModel {
             addSubMchModel.setContactWeChatIdType(instance.getContactWeChatIdType());
             addSubMchModel.setContactWeChatId(instance.getContactWeChatId());
             addSubMchModel.setMerchantRemark(instance.getMerchantRemark());
-            addSubMchModel.setApiSecretKey(instance.getApiSecretKey());
+            addSubMchModel.setApiKey(instance.getApiKey());
             addSubMchModel.setOperationCertificate(instance.getOperationCertificate());
             addSubMchModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return addSubMchModel;

@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -46,8 +45,8 @@ public class ArtificialIntelligenceUtils {
         headers.put("date", date);
         headers.put("Authorization", authorization);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody("", headers, body);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody("", body, Constants.CHARSET_NAME_UTF_8, contentType, headers);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errno = MapUtils.getIntValue(resultMap, "errno");
         ValidateUtils.isTrue(errno == 0, MapUtils.getString(resultMap, "err_msg"));
         return resultMap;

@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.models.cuba.FindMdmCustomerModel;
 import build.dream.common.models.cuba.GetCustomerFormMdmModel;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -55,7 +54,7 @@ public class CubaUtils {
 
         requestParameters.put("taxCode", taxCode);
         requestParameters.put("cipherText", generateCipherText(signedMap, key));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters("https://cuba.cosmoplat.com/cuba/service/plat/mdm/gateway/findMdmCustomer", requestParameters);
-        return JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithForm("https://cuba.cosmoplat.com/cuba/service/plat/mdm/gateway/findMdmCustomer", requestParameters);
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 }

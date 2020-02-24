@@ -29,7 +29,7 @@ public class WeiXinPayAccount extends BasicDomain {
     /**
      * api 秘钥
      */
-    private String apiSecretKey;
+    private String apiKey;
     /**
      * 子商户的公众号app id
      */
@@ -58,10 +58,16 @@ public class WeiXinPayAccount extends BasicDomain {
      * rsa 公钥
      */
     private String rsaPublicKey = Constants.VARCHAR_DEFAULT_VALUE;
+
     /**
      * 是否为受理关系
      */
     private boolean acceptanceModel;
+
+    /**
+     * api_v3 秘钥
+     */
+    private String apiV3Key;
 
     public BigInteger getTenantId() {
         return tenantId;
@@ -95,12 +101,12 @@ public class WeiXinPayAccount extends BasicDomain {
         this.mchId = mchId;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getSubPublicAccountAppId() {
@@ -167,6 +173,14 @@ public class WeiXinPayAccount extends BasicDomain {
         this.acceptanceModel = acceptanceModel;
     }
 
+    public String getApiV3Key() {
+        return apiV3Key;
+    }
+
+    public void setApiV3Key(String apiV3Key) {
+        this.apiV3Key = apiV3Key;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, WeiXinPayAccount> {
         public Builder tenantId(BigInteger tenantId) {
             instance.setTenantId(tenantId);
@@ -188,8 +202,8 @@ public class WeiXinPayAccount extends BasicDomain {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -233,6 +247,11 @@ public class WeiXinPayAccount extends BasicDomain {
             return this;
         }
 
+        public Builder apiV3Key(String apiV3Key) {
+            instance.setApiV3Key(apiV3Key);
+            return this;
+        }
+
         @Override
         public WeiXinPayAccount build() {
             WeiXinPayAccount weiXinPayAccount = super.build();
@@ -240,7 +259,7 @@ public class WeiXinPayAccount extends BasicDomain {
             weiXinPayAccount.setBranchId(instance.getBranchId());
             weiXinPayAccount.setAppId(instance.getAppId());
             weiXinPayAccount.setMchId(instance.getMchId());
-            weiXinPayAccount.setApiSecretKey(instance.getApiSecretKey());
+            weiXinPayAccount.setApiKey(instance.getApiKey());
             weiXinPayAccount.setSubPublicAccountAppId(instance.getSubPublicAccountAppId());
             weiXinPayAccount.setSubOpenPlatformAppId(instance.getSubOpenPlatformAppId());
             weiXinPayAccount.setSubMiniProgramAppId(instance.getSubMiniProgramAppId());
@@ -249,6 +268,7 @@ public class WeiXinPayAccount extends BasicDomain {
             weiXinPayAccount.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             weiXinPayAccount.setRsaPublicKey(instance.getRsaPublicKey());
             weiXinPayAccount.setAcceptanceModel(instance.isAcceptanceModel());
+            weiXinPayAccount.setApiV3Key(instance.getApiV3Key());
             return weiXinPayAccount;
         }
     }
@@ -262,7 +282,7 @@ public class WeiXinPayAccount extends BasicDomain {
         public static final String BRANCH_ID = "branch_id";
         public static final String APP_ID = "app_id";
         public static final String MCH_ID = "mch_id";
-        public static final String API_SECRET_KEY = "api_secret_key";
+        public static final String API_KEY = "apiKey";
         public static final String SUB_PUBLIC_ACCOUNT_APP_ID = "sub_public_account_app_id";
         public static final String SUB_OPEN_PLATFORM_APP_ID = "sub_open_platform_app_id";
         public static final String SUB_MINI_PROGRAM_APP_ID = "sub_mini_program_app_id";
@@ -271,6 +291,7 @@ public class WeiXinPayAccount extends BasicDomain {
         public static final String OPERATION_CERTIFICATE_PASSWORD = "operation_certificate_password";
         public static final String RSA_PUBLIC_KEY = "rsa_public_key";
         public static final String ACCEPTANCE_MODEL = "acceptance_model";
+        public static final String API_V3_KEY = "api_v3_key";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -278,7 +299,7 @@ public class WeiXinPayAccount extends BasicDomain {
         public static final String BRANCH_ID = "branchId";
         public static final String APP_ID = "appId";
         public static final String MCH_ID = "mchId";
-        public static final String API_SECRET_KEY = "apiSecretKey";
+        public static final String API_KEY = "apiKey";
         public static final String SUB_PUBLIC_ACCOUNT_APP_ID = "subPublicAccountAppId";
         public static final String SUB_OPEN_PLATFORM_APP_ID = "subOpenPlatformAppId";
         public static final String SUB_MINI_PROGRAM_APP_ID = "subMiniProgramAppId";
@@ -287,5 +308,6 @@ public class WeiXinPayAccount extends BasicDomain {
         public static final String OPERATION_CERTIFICATE_PASSWORD = "operationCertificatePassword";
         public static final String RSA_PUBLIC_KEY = "rsaPublicKey";
         public static final String ACCEPTANCE_MODEL = "acceptanceModel";
+        public static final String API_V3_KEY = "apiV3Key";
     }
 }

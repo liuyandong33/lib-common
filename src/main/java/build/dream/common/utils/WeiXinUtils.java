@@ -100,9 +100,9 @@ public class WeiXinUtils {
         obtainOAuthTokenRequestParameters.put("grant_type", "authorization_code");
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
+        String result = OutUtils.doGet(url, obtainOAuthTokenRequestParameters);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
@@ -133,9 +133,9 @@ public class WeiXinUtils {
         obtainOAuthTokenRequestParameters.put("component_access_token", componentAccessToken);
 
         String url = WEI_XIN_API_URL + "/sns/oauth2/component/access_token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainOAuthTokenRequestParameters);
+        String result = OutUtils.doGet(url, obtainOAuthTokenRequestParameters);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinOAuthToken weiXinOAuthToken = new WeiXinOAuthToken();
@@ -194,8 +194,8 @@ public class WeiXinUtils {
         }
 
         String url = WEI_XIN_API_URL + "/sns/userinfo";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainUserInfoRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, obtainUserInfoRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinUserInfo weiXinUserInfo = new WeiXinUserInfo();
@@ -221,8 +221,8 @@ public class WeiXinUtils {
      */
     public static Map<String, Object> sendMassMessage(String accessToken, SendMassMessageModel sendMassMessageModel) {
         String url = WEI_XIN_API_URL + "/message/mass/send?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, HEADERS, JacksonUtils.writeValueAsString(sendMassMessageModel, JsonInclude.Include.NON_NULL));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(sendMassMessageModel, JsonInclude.Include.NON_NULL), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -264,9 +264,9 @@ public class WeiXinUtils {
         obtainAccessTokenRequestParameters.put("secret", secret);
         obtainAccessTokenRequestParameters.put("grant_type", "client_credential");
         String url = WEI_XIN_API_URL + "/cgi-bin/token";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainAccessTokenRequestParameters);
+        String result = OutUtils.doGet(url, obtainAccessTokenRequestParameters);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         weiXinAccessToken = new WeiXinAccessToken();
@@ -311,8 +311,8 @@ public class WeiXinUtils {
         obtainJsapiTicketRequestParameters.put("type", type);
 
         String url = WEI_XIN_API_URL + "/cgi-bin/ticket/getticket";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, obtainJsapiTicketRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, obtainJsapiTicketRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinJsapiTicket weiXinJsapiTicket = new WeiXinJsapiTicket();
@@ -382,8 +382,8 @@ public class WeiXinUtils {
         body.put("card", card);
 
         String url = WEI_XIN_API_URL + "/card/create?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(groupon, JsonInclude.Include.NON_NULL));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(groupon, JsonInclude.Include.NON_NULL), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
@@ -447,8 +447,8 @@ public class WeiXinUtils {
             body.put("color", color);
         }
         String _url = WEI_XIN_API_URL + "/cgi-bin/message/template/send?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(_url, JacksonUtils.writeValueAsString(body));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(_url, JacksonUtils.writeValueAsString(body), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
 
@@ -489,8 +489,8 @@ public class WeiXinUtils {
         requestBody.put("component_appid", componentAppId);
         requestBody.put("component_appsecret", componentAppSecret);
         requestBody.put("component_verify_ticket", componentVerifyTicket);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         ComponentAccessToken componentAccessToken = new ComponentAccessToken();
@@ -528,8 +528,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_create_preauthcode?component_access_token=" + componentAccessToken.getComponentAccessToken();
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return MapUtils.getString(resultMap, "pre_auth_code");
@@ -548,8 +548,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorization_code", authorizationCode);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         Map<String, Object> authorizationInfo = MapUtils.getMap(resultMap, "authorization_info");
@@ -616,8 +616,8 @@ public class WeiXinUtils {
     public static Map<String, Object> createMenu(String accessToken, CreateMenuModel createMenuModel) {
         createMenuModel.validateAndThrow();
         String url = WEI_XIN_API_URL + "/cgi-bin/menu/create?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(createMenuModel, JsonInclude.Include.NON_NULL));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(createMenuModel, JsonInclude.Include.NON_NULL), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -636,8 +636,8 @@ public class WeiXinUtils {
         requestBody.put("business", addPoiModel);
 
         String url = WEI_XIN_API_URL + "/cgi-bin/poi/addpoi?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody, JsonInclude.Include.NON_NULL));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody, JsonInclude.Include.NON_NULL), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -656,8 +656,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         Map<String, Object> authorizerInfo = MapUtils.getMap(resultMap, "authorizer_info");
@@ -711,9 +711,9 @@ public class WeiXinUtils {
         requestBody.put("component_appid", componentAppId);
         requestBody.put("authorizer_appid", authorizerAppId);
         requestBody.put("authorizer_refresh_token", authorizerRefreshToken);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
 
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
 
         WeiXinAuthorizerToken weiXinAuthorizerToken = new WeiXinAuthorizerToken();
@@ -748,8 +748,8 @@ public class WeiXinUtils {
      */
     public static Map<String, Object> sendCustomMessage(String accessToken, String message) {
         String url = WEI_XIN_API_URL + "/cgi-bin/message/custom/send?access_token=" + accessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, message);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, message, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -766,8 +766,8 @@ public class WeiXinUtils {
         }
         String url = WEI_XIN_API_URL + "/cgi-bin/user/get";
 
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         if (resultMap.containsKey("errcode")) {
             ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
@@ -789,8 +789,8 @@ public class WeiXinUtils {
 
         String url = WEI_XIN_API_URL + "/cgi-bin/user/info";
 
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         if (resultMap.containsKey("errcode")) {
             ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
@@ -807,8 +807,8 @@ public class WeiXinUtils {
 
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("user_list", userList);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
 
         if (resultMap.containsKey("errcode")) {
             ValidateUtils.isTrue(false, MapUtils.getString(resultMap, "errmsg"));
@@ -833,8 +833,8 @@ public class WeiXinUtils {
         getAccountBasicInfoRequestParameters.put("access_token", MapUtils.getString(authorizerAccessToken, "authorizerAccessToken"));
 
         String url = WEI_XIN_API_URL + "/cgi-bin/account/getaccountbasicinfo";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, null, getAccountBasicInfoRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, null, getAccountBasicInfoRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -853,8 +853,8 @@ public class WeiXinUtils {
         getTemplateDraftListRequestParameters.put("access_token", componentAccessToken.getComponentAccessToken());
 
         String url = WEI_XIN_API_URL + "/wxa/gettemplatedraftlist";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, getTemplateDraftListRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, getTemplateDraftListRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -872,8 +872,8 @@ public class WeiXinUtils {
         getTemplateListRequestParameters.put("access_token", componentAccessToken.getComponentAccessToken());
 
         String url = WEI_XIN_API_URL + "/wxa/gettemplatelist";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, getTemplateListRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, getTemplateListRequestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -893,8 +893,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("draft_id", draftId);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -914,8 +914,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("template_id", templateId);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -937,8 +937,8 @@ public class WeiXinUtils {
         requestBody.put("ext_json", extJson);
         requestBody.put("user_version", userVersion);
         requestBody.put("user_desc", userDesc);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -964,8 +964,8 @@ public class WeiXinUtils {
         }
 
         String url = WEI_XIN_API_URL + "/wxa/modify_domain?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -979,8 +979,8 @@ public class WeiXinUtils {
         }
 
         String url = WEI_XIN_API_URL + "/wxa/setwebviewdomain?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -994,8 +994,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("wechatid", weChatId);
         String url = WEI_XIN_API_URL + "/wxa/bind_tester?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1011,8 +1011,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("wechatid", weChatId);
         String url = WEI_XIN_API_URL + "/wxa/unbind_tester?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1028,8 +1028,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("action", action);
         String url = WEI_XIN_API_URL + "/wxa/memberauth?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1042,8 +1042,8 @@ public class WeiXinUtils {
      */
     public static Map<String, Object> getWxAmpLink(String authorizerAccessToken) {
         String url = WEI_XIN_API_URL + "/cgi-bin/wxopen/wxamplinkget?access_token=" + authorizerAccessToken;
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, null);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, null, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1065,8 +1065,8 @@ public class WeiXinUtils {
         requestBody.put("notify_users", notifyUsers);
         requestBody.put("show_profile", showProfile);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1084,8 +1084,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("appid", appId);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(MapUtils.getIntValue(resultMap, "errcode") == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1141,8 +1141,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/api_add_template?access_token=" + accessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("template_id_short", templateIdShort);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1158,8 +1158,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/get_all_private_template";
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("access_token", accessToken);
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return (List<Map<String, Object>>) resultMap.get("template_list");
     }
@@ -1189,8 +1189,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("industry_id1", industryId1);
         requestBody.put("industry_id2", industryId2);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1205,8 +1205,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/get_industry";
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("access_token", accessToken);
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1222,8 +1222,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/template/del_private_template?access_token=" + accessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("template_id", templateId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1240,8 +1240,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/tags/create?access_token=" + accessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("name", name);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1256,8 +1256,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/tags/get";
         Map<String, String> requestParameters = new HashMap<String, String>();
         requestParameters.put("access_token", accessToken);
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doGet(url, requestParameters);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1279,8 +1279,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("tag", tag);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1301,8 +1301,8 @@ public class WeiXinUtils {
 
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("tag", tag);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1326,8 +1326,8 @@ public class WeiXinUtils {
             requestBody.put("next_openid", nextOpenId);
         }
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1345,8 +1345,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("openid_list", openIdList);
         requestBody.put("tagid", tagId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1365,8 +1365,8 @@ public class WeiXinUtils {
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("openid_list", openIdList);
         requestBody.put("tagid", tagId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
@@ -1383,8 +1383,8 @@ public class WeiXinUtils {
         String url = WEI_XIN_API_URL + "/cgi-bin/tags/getidlist?access_token=" + accessToken;
         Map<String, Object> requestBody = new HashMap<String, Object>();
         requestBody.put("openid", openId);
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         ValidateUtils.isTrue(!resultMap.containsKey("errcode"), MapUtils.getString(resultMap, "errmsg"));
         return resultMap;
     }
@@ -1411,8 +1411,8 @@ public class WeiXinUtils {
         requestBody.put("legal_persona_name", legalPersonaName);
         requestBody.put("component_phone", componentPhone);
 
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody));
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestBody), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         int errcode = MapUtils.getIntValue(resultMap, "errcode");
         ValidateUtils.isTrue(errcode == 0, MapUtils.getString(resultMap, "errmsg"));
         return resultMap;

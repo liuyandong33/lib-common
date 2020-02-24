@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jpush.CodesModel;
 import build.dream.common.models.jpush.PushModel;
@@ -22,7 +21,6 @@ public class JPushUtils {
     public static Map<String, String> buildHeaders(String appKey, String masterSecret) {
         Map<String, String> headers = new HashMap<String, String>();
         headers.put("Authorization", "Basic " + Base64.encodeBase64String((appKey + ":" + masterSecret).getBytes(Constants.CHARSET_UTF_8)));
-        headers.put("Content-Type", Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
         return headers;
     }
 
@@ -36,9 +34,8 @@ public class JPushUtils {
      * @return
      */
     public static Map<String, Object> callJPushApi(String appKey, String masterSecret, String url, String requestBody) {
-        WebResponse webResponse = OutUtils.doPostWithRequestBody(url, buildHeaders(appKey, masterSecret), requestBody);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        return resultMap;
+        String result = OutUtils.doPostWithRequestBody(url, requestBody, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8, buildHeaders(appKey, masterSecret));
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
     /**
@@ -51,9 +48,8 @@ public class JPushUtils {
      * @return
      */
     public static Map<String, Object> callJPushApi(String appKey, String masterSecret, String url, Map<String, String> requestParameters) {
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, buildHeaders(appKey, masterSecret), requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
-        return resultMap;
+        String result = OutUtils.doGet(url, requestParameters, buildHeaders(appKey, masterSecret));
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
     /**

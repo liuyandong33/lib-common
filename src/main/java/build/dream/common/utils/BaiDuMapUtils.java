@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.models.baidumap.GeoConvModel;
 import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
@@ -34,8 +33,7 @@ public class BaiDuMapUtils {
         }
 
         String url = "http://api.map.baidu.com/geoconv/v1/";
-        WebResponse webResponse = OutUtils.doGetWithRequestParameters(url, requestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(webResponse.getResult(), String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(OutUtils.doGet(url, requestParameters), String.class, Object.class);
 
         int status = MapUtils.getIntValue(resultMap, "status");
         ValidateUtils.isTrue(status == 0, MapUtils.getString(resultMap, "message"));

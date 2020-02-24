@@ -28,7 +28,7 @@ public class AddSubDevConfigModel extends BasicModel {
      * api 秘钥
      */
     @NotNull
-    private String apiSecretKey;
+    private String apiKey;
 
     @NotNull
     private String operationCertificate;
@@ -78,12 +78,12 @@ public class AddSubDevConfigModel extends BasicModel {
         this.subAppId = subAppId;
     }
 
-    public String getApiSecretKey() {
-        return apiSecretKey;
+    public String getApiKey() {
+        return apiKey;
     }
 
-    public void setApiSecretKey(String apiSecretKey) {
-        this.apiSecretKey = apiSecretKey;
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
     public String getOperationCertificate() {
@@ -141,8 +141,8 @@ public class AddSubDevConfigModel extends BasicModel {
             return this;
         }
 
-        public Builder apiSecretKey(String apiSecretKey) {
-            instance.setApiSecretKey(apiSecretKey);
+        public Builder apiKey(String apiKey) {
+            instance.setApiKey(apiKey);
             return this;
         }
 
@@ -163,7 +163,7 @@ public class AddSubDevConfigModel extends BasicModel {
             addSubDevConfigModel.setSubMchId(instance.getSubMchId());
             addSubDevConfigModel.setJsApiPath(instance.getJsApiPath());
             addSubDevConfigModel.setSubAppId(instance.getSubAppId());
-            addSubDevConfigModel.setApiSecretKey(instance.getApiSecretKey());
+            addSubDevConfigModel.setApiKey(instance.getApiKey());
             addSubDevConfigModel.setOperationCertificate(instance.getOperationCertificate());
             addSubDevConfigModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             return addSubDevConfigModel;

@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.beeleme.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -41,8 +40,7 @@ public class BeElemeUtils {
         }
 
         requestParameters.put("sign", generateSignature(requestParameters));
-        WebResponse webResponse = OutUtils.doPostWithRequestParameters(BE_ELE_ME_SERVICE_URL, requestParameters);
-        String result = webResponse.getResult();
+        String result = OutUtils.doPostWithForm(BE_ELE_ME_SERVICE_URL, requestParameters);
         return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 
