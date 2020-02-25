@@ -299,58 +299,6 @@ CREATE TABLE wei_xin_public_account
     deleted TINYINT DEFAULT 0 NOT NULL COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT = '微信公众号';
 
-DROP TABLE IF EXISTS app_privilege;
-CREATE TABLE app_privilege
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
-    privilege_name VARCHAR(20) NOT NULL COMMENT '权限名称',
-    access_mode TINYINT NOT NULL COMMENT '访问方式，1-GET，2-POST，3-签名GET，4-签名POST',
-    service_name VARCHAR(50) NOT NULL COMMENT '服务名称',
-    controller_name VARCHAR(50) NOT NULL COMMENT 'controller name',
-    action_name VARCHAR(50) NOT NULL COMMENT 'action name',
-    parent_id BIGINT NOT NULL COMMENT '父级权限ID',
-    remark VARCHAR(255) NOT NULL COMMENT '备注',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建人id',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT 'APP权限';
-
-DROP TABLE IF EXISTS app_role;
-CREATE TABLE app_role
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建人id',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT 'app 角色';
-
-DROP TABLE IF EXISTS user_app_role_r;
-CREATE TABLE user_app_role_r
-(
-    user_id BIGINT NOT NULL COMMENT 'user id',
-    app_role_id BIGINT NOT NULL COMMENT 'app role id',
-    PRIMARY KEY (user_id, app_role_id)
-) COMMENT '用户与app角色中间表';
-
-DROP TABLE IF EXISTS app_role_privilege_r;
-CREATE TABLE app_role_privilege_r
-(
-    app_role_id BIGINT NOT NULL COMMENT 'role id',
-    privilege_id BIGINT NOT NULL COMMENT 'privilege id',
-    PRIMARY KEY (app_role_id, privilege_id)
-) COMMENT 'app 角色与app权限关联表';
-
 DROP TABLE IF EXISTS wei_xin_public_platform_application;
 CREATE TABLE wei_xin_public_platform_application
 (
@@ -461,6 +409,27 @@ CREATE TABLE tenant_goods
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-为删除，1-已删除'
 ) COMMENT '商户产品表';
 
+DROP TABLE IF EXISTS app_privilege;
+CREATE TABLE app_privilege
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
+    privilege_code VARCHAR(20) NOT NULL COMMENT '权限编码',
+    privilege_name VARCHAR(20) NOT NULL COMMENT '权限名称',
+    access_mode TINYINT NOT NULL COMMENT '访问方式，1-GET，2-POST，3-签名GET，4-签名POST',
+    service_name VARCHAR(50) NOT NULL COMMENT '服务名称',
+    controller_name VARCHAR(50) NOT NULL COMMENT 'controller name',
+    action_name VARCHAR(50) NOT NULL COMMENT 'action name',
+    parent_id BIGINT NOT NULL COMMENT '父级权限ID',
+    remark VARCHAR(255) NOT NULL COMMENT '备注',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT 'APP权限';
+
 DROP TABLE IF EXISTS pos_privilege;
 CREATE TABLE pos_privilege
 (
@@ -480,38 +449,6 @@ CREATE TABLE pos_privilege
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT 'POS权限';
-
-DROP TABLE IF EXISTS pos_role;
-CREATE TABLE pos_role
-(
-    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    role_code VARCHAR(20) NOT NULL COMMENT '权限编码',
-    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
-    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
-    created_user_id BIGINT NOT NULL COMMENT '创建人id',
-    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
-    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
-    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
-    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
-    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT 'pos角色';
-
-DROP TABLE IF EXISTS user_pos_role_r;
-CREATE TABLE user_pos_role_r
-(
-    user_id BIGINT NOT NULL COMMENT 'user id',
-    pos_role_id BIGINT NOT NULL COMMENT 'pos role id',
-    PRIMARY KEY (user_id, pos_role_id)
-) COMMENT '用户与pos角色中间表';
-
-DROP TABLE IF EXISTS pos_role_privilege_r;
-CREATE TABLE pos_role_privilege_r
-(
-    pos_role_id BIGINT NOT NULL COMMENT 'background id',
-    privilege_id BIGINT NOT NULL COMMENT 'privilege id',
-    PRIMARY KEY (pos_role_id, privilege_id)
-) COMMENT 'pos角色与pos权限中间表';
 
 DROP TABLE IF EXISTS background_privilege;
 CREATE TABLE background_privilege
@@ -533,12 +470,11 @@ CREATE TABLE background_privilege
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '后台权限';
 
-DROP TABLE IF EXISTS background_role;
-CREATE TABLE background_role
+DROP TABLE IF EXISTS tenant_role;
+CREATE TABLE tenant_role
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     tenant_id BIGINT NOT NULL COMMENT '商户ID',
-    role_code VARCHAR(20) NOT NULL COMMENT '权限编码',
     role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
@@ -547,23 +483,39 @@ CREATE TABLE background_role
     updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
-) COMMENT '后台角色';
+) COMMENT '商户角色';
 
-DROP TABLE IF EXISTS user_background_role_r;
-CREATE TABLE user_background_role_r
+DROP TABLE IF EXISTS user_tenant_role_r;
+CREATE TABLE user_tenant_role_r
 (
-    user_id BIGINT NOT NULL COMMENT 'user id',
-    background_role_id BIGINT NOT NULL COMMENT 'pos role id',
-    PRIMARY KEY (user_id, background_role_id)
-) COMMENT '用户与后台角色中间表';
+    user_id BIGINT NOT NULL COMMENT 'system_user.id',
+    role_id BIGINT NOT NULL COMMENT 'tenant_role.id',
+    PRIMARY KEY (user_id, role_id)
+) COMMENT '用户与app角色中间表';
 
-DROP TABLE IF EXISTS background_role_privilege_r;
-CREATE TABLE background_role_privilege_r
+DROP TABLE IF EXISTS tenant_role_app_privilege_r;
+CREATE TABLE tenant_role_app_privilege_r
 (
-    background_role_id BIGINT NOT NULL COMMENT 'background id',
-    privilege_id BIGINT NOT NULL COMMENT 'privilege id',
-    PRIMARY KEY (background_role_id, privilege_id)
-) COMMENT '后台角色与后台权限中间表';
+    role_id BIGINT NOT NULL COMMENT 'tenant_role.id',
+    privilege_id BIGINT NOT NULL COMMENT 'app_privilege.id',
+    PRIMARY KEY (role_id, privilege_id)
+) COMMENT '商户角色与app权限关联表';
+
+DROP TABLE IF EXISTS tenant_role_pos_privilege_r;
+CREATE TABLE tenant_role_pos_privilege_r
+(
+    role_id BIGINT NOT NULL COMMENT 'tenant_role.id',
+    privilege_id BIGINT NOT NULL COMMENT 'pos_privilege.id',
+    PRIMARY KEY (role_id, privilege_id)
+) COMMENT '商户角色与pos权限关联表';
+
+DROP TABLE IF EXISTS tenant_role_background_privilege_r;
+CREATE TABLE tenant_role_background_privilege_r
+(
+    role_id BIGINT NOT NULL COMMENT 'tenant_role.id',
+    privilege_id BIGINT NOT NULL COMMENT 'background_privilege.id',
+    PRIMARY KEY (role_id, privilege_id)
+) COMMENT '商户角色与后台权限关联表';
 
 DROP TABLE IF EXISTS bank_account;
 CREATE TABLE bank_account
