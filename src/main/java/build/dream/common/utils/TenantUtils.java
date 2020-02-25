@@ -109,4 +109,19 @@ public class TenantUtils {
             CommonRedisUtils.hmset(Constants.KEY_JDDJ_VENDER_INFOS, jddjVenderInfos);
         }
     }
+
+    public static BigInteger obtainGoodsTypeId(String business) {
+        if (Constants.BUSINESS_CATERING.equals(business)) {
+            return Constants.BIG_INTEGER_ONE;
+        }
+
+        if (Constants.BUSINESS_RETAIL.equals(business)) {
+            return Constants.BIG_INTEGER_TWO;
+        }
+
+        if (Constants.BUSINESS_IOT.equals(business)) {
+            return Constants.BIG_INTEGER_THREE;
+        }
+        return Constants.BIG_INTEGER_ZERO;
+    }
 }
