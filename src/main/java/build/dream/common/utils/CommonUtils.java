@@ -1,7 +1,6 @@
 package build.dream.common.utils;
 
 import build.dream.common.constants.Constants;
-import build.dream.common.domains.saas.Tenant;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigInteger;
@@ -74,20 +73,6 @@ public class CommonUtils {
         return Constants.HTTP + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
-    public static Tenant obtainTenantInfo(String tenantId, String tenantCode) {
-        String tenantInfo = null;
-        if (StringUtils.isNotBlank(tenantId)) {
-            tenantInfo = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, tenantId);
-        } else if (StringUtils.isNotBlank(tenantCode)) {
-            tenantInfo = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, tenantCode);
-        }
-
-        if (StringUtils.isNotBlank(tenantInfo)) {
-            return JacksonUtils.readValue(tenantInfo, Tenant.class);
-        }
-        return null;
-    }
-
     public static String obtainApiServiceName(String clientType) {
         if (Constants.CLIENT_TYPE_APP.equals(clientType)) {
             return Constants.SERVICE_NAME_APPAPI;
@@ -99,6 +84,10 @@ public class CommonUtils {
 
         if (Constants.CLIENT_TYPE_WEB.equals(clientType)) {
             return Constants.SERVICE_NAME_WEBAPI;
+        }
+
+        if (Constants.CLIENT_TYPE_O2O.equals(clientType)) {
+            return Constants.SERVICE_NAME_O2OAPI;
         }
         return null;
     }
