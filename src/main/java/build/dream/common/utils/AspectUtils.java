@@ -47,11 +47,11 @@ public class AspectUtils {
         ApiRest apiRest = null;
         Throwable throwable = null;
         try {
-            String contentType = httpServletRequest.getContentType();
             String method = httpServletRequest.getMethod();
             if (Constants.REQUEST_METHOD_GET.equals(method)) {
                 apiRest = callApiRestAction(requestParameters, proceedingJoinPoint, apiRestAction);
             } else if (Constants.REQUEST_METHOD_POST.equals(method)) {
+                String contentType = httpServletRequest.getContentType();
                 if (Constants.CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8.equals(contentType)) {
                     apiRest = callApiRestAction(requestParameters, proceedingJoinPoint, apiRestAction);
                 } else if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
