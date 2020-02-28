@@ -17,7 +17,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class JacksonUtils {
-    private static ConcurrentHashMap<String, ObjectMapper> objectMapperMap = new ConcurrentHashMap<String, ObjectMapper>();
+    private static Map<String, ObjectMapper> objectMapperMap = new ConcurrentHashMap<String, ObjectMapper>();
     public static SimpleModule simpleModule;
 
     static {
