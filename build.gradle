@@ -17,7 +17,6 @@ buildscript {
 }
 
 apply plugin: "java"
-//apply plugin: "scala"
 apply plugin: "org.springframework.boot"
 apply plugin: "io.spring.dependency-management"
 apply plugin: "idea"
@@ -73,8 +72,8 @@ dependencies {
     compile("mysql:mysql-connector-java:6.0.6")
     compile("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0")
     compile("com.aliyun.openservices:ons-client:1.8.2.Final")
-    compile 'com.aliyun.oss:aliyun-sdk-oss:3.8.0'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '4.3.1'
+    compile("com.aliyun.oss:aliyun-sdk-oss:3.8.0")
+    compile("com.squareup.okhttp3:okhttp-urlconnection:4.3.1")
 }
 
 task makeJar(type: Jar) {
