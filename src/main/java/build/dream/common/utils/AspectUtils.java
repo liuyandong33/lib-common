@@ -7,6 +7,7 @@ import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.exceptions.Error;
 import build.dream.common.models.BasicModel;
+import build.dream.common.models.OAuthBasicModel;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -55,7 +56,7 @@ public class AspectUtils {
                     apiRest = callApiRestAction(requestParameters, proceedingJoinPoint, apiRestAction);
                 } else if (Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8.equals(contentType)) {
                     requestBody = ApplicationHandler.getRequestBody(httpServletRequest, Constants.CHARSET_NAME_UTF_8);
-                    apiRest = callApiRestAction(requestBody, proceedingJoinPoint, apiRestAction, obtainTargetMethod(proceedingJoinPoint));
+                    apiRest = callApiRestAction(requestParameters, requestBody, proceedingJoinPoint, apiRestAction, obtainTargetMethod(proceedingJoinPoint));
                 }
             } else {
                 throw new CustomException(ErrorConstants.INVALID_REQUEST);
@@ -127,19 +128,31 @@ public class AspectUtils {
         String datePattern = apiRestAction.datePattern();
         if (Objects.nonNull(modelClass) && Objects.nonNull(serviceClass) && StringUtils.isNotBlank(serviceMethodName)) {
             BasicModel model = buildModel(modelClass, requestParameters, datePattern);
+            if (model instanceof OAuthBasicModel) {
+                OAuthBasicModel oAuthBasicModel = (OAuthBasicModel) model;
+                oAuthBasicModel.set$id(requestParameters.get("id"));
+                oAuthBasicModel.set$timestamp(requestParameters.get("timestamp"));
+                oAuthBasicModel.set$accessToken(requestParameters.get("accessToken"));
+            }
             model.validateAndThrow();
             return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
         }
         return callApiRestAction(proceedingJoinPoint);
     }
 
-    public static ApiRest callApiRestAction(String requestBody, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction, Method targetMethod) throws Throwable {
+    public static ApiRest callApiRestAction(Map<String, String> requestParameters, String requestBody, ProceedingJoinPoint proceedingJoinPoint, ApiRestAction apiRestAction, Method targetMethod) throws Throwable {
         Class<? extends BasicModel> modelClass = apiRestAction.modelClass();
         Class<?> serviceClass = apiRestAction.serviceClass();
         String serviceMethodName = apiRestAction.serviceMethodName();
         String datePattern = apiRestAction.datePattern();
         if (Objects.nonNull(modelClass) && Objects.nonNull(serviceClass) && StringUtils.isNotBlank(serviceMethodName)) {
             BasicModel model = buildModel(modelClass, requestBody, datePattern);
+            if (model instanceof OAuthBasicModel) {
+                OAuthBasicModel oAuthBasicModel = (OAuthBasicModel) model;
+                oAuthBasicModel.set$id(requestParameters.get("id"));
+                oAuthBasicModel.set$timestamp(requestParameters.get("timestamp"));
+                oAuthBasicModel.set$accessToken(requestParameters.get("accessToken"));
+            }
             model.validateAndThrow();
             return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
         }
