@@ -132,7 +132,7 @@ public class AspectUtils {
                 OAuthBasicModel oAuthBasicModel = (OAuthBasicModel) model;
                 oAuthBasicModel.set$id(requestParameters.get("id"));
                 oAuthBasicModel.set$timestamp(requestParameters.get("timestamp"));
-                oAuthBasicModel.set$accessToken(requestParameters.get("accessToken"));
+                oAuthBasicModel.set$accessToken(requestParameters.get("access_token"));
             }
             model.validateAndThrow();
             return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
@@ -151,7 +151,7 @@ public class AspectUtils {
                 OAuthBasicModel oAuthBasicModel = (OAuthBasicModel) model;
                 oAuthBasicModel.set$id(requestParameters.get("id"));
                 oAuthBasicModel.set$timestamp(requestParameters.get("timestamp"));
-                oAuthBasicModel.set$accessToken(requestParameters.get("accessToken"));
+                oAuthBasicModel.set$accessToken(requestParameters.get("access_token"));
             }
             model.validateAndThrow();
             return callApiRestAction(modelClass, serviceClass, serviceMethodName, model);
