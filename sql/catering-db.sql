@@ -1014,6 +1014,7 @@ BEGIN
         CASE config_name
             WHEN 'vip_num' THEN SET `max_value` = 10000;
             WHEN 'goods_num' THEN SET `max_value` = 20000;
+            WHEN 'vip_type_num' THEN SET max_value = 10;
         END CASE;
         INSERT INTO tenant_config(tenant_id, tenant_code, `name`, current_value, `max_value`) VALUES (tid, tcode, config_name, increment, `max_value`);
     ELSE
