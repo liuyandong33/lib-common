@@ -2,7 +2,7 @@ package build.dream.common.models.rocketmq;
 
 import java.util.Map;
 
-public class DelayedOrTimedModel {
+public class DelayedMessageModel {
     private DelayedOrTimedType type;
     private Map<String, Object> data;
 
