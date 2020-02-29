@@ -52,4 +52,41 @@ public class MqConfig {
     public void setRoutingKey(String routingKey) {
         this.routingKey = routingKey;
     }
+
+    public static class Builder {
+        private final MqConfig instance = new MqConfig();
+
+        public Builder mqType(String mqType) {
+            instance.setMqType(mqType);
+            return this;
+        }
+
+        public Builder topic(String topic) {
+            instance.setTopic(topic);
+            return this;
+        }
+
+        public Builder exchange(String exchange) {
+            instance.setExchange(exchange);
+            return this;
+        }
+
+        public Builder routingKey(String routingKey) {
+            instance.setRoutingKey(routingKey);
+            return this;
+        }
+
+        public MqConfig build() {
+            MqConfig mqConfig = new MqConfig();
+            mqConfig.setMqType(instance.getMqType());
+            mqConfig.setTopic(instance.getTopic());
+            mqConfig.setExchange(instance.getExchange());
+            mqConfig.setRoutingKey(instance.getRoutingKey());
+            return mqConfig;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 }
