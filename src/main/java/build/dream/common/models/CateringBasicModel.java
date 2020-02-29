@@ -8,7 +8,7 @@ import build.dream.common.utils.WebSecurityUtils;
 
 import java.math.BigInteger;
 
-public class CateringBasicModel extends BasicModel {
+public class CateringBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
     private BigInteger _userId;
 
