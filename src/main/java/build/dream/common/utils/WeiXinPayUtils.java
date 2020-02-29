@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.beans.WeiXinBill;
 import build.dream.common.beans.WeiXinBillSummary;
 import build.dream.common.beans.WeiXinDownloadBillResponse;
@@ -260,7 +261,7 @@ public class WeiXinPayUtils {
         String timeStart = unifiedOrderModel.getTimeStart();
         String timeExpire = unifiedOrderModel.getTimeExpire();
         String goodsTag = unifiedOrderModel.getGoodsTag();
-        String topic = unifiedOrderModel.getTopic();
+        MqConfig mqConfig = unifiedOrderModel.getMqConfig();
         String tradeType = unifiedOrderModel.getTradeType();
         String productId = unifiedOrderModel.getProductId();
         String limitPay = unifiedOrderModel.getLimitPay();
@@ -338,8 +339,7 @@ public class WeiXinPayUtils {
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultCode), unifiedOrderResult.get("err_code_des"));
 
         // 保存异步通知
-//        saveAsyncNotify(outTradeNo, topic, apiKey, signType);
-        NotifyUtils.saveWeiXinPayAsyncNotify(outTradeNo, topic, apiKey, signType);
+        NotifyUtils.saveWeiXinPayAsyncNotify(outTradeNo, mqConfig, apiKey, signType);
 
         Map<String, String> data = new HashMap<String, String>();
         if (Constants.WEI_XIN_PAY_TRADE_TYPE_APP.equals(tradeType)) {
@@ -441,7 +441,7 @@ public class WeiXinPayUtils {
         String refundFeeType = refundModel.getRefundFeeType();
         String refundDesc = refundModel.getRefundDesc();
         String refundAccount = refundModel.getRefundAccount();
-        String topic = refundModel.getTopic();
+        MqConfig mqConfig = refundModel.getMqConfig();
         String operationCertificate = refundModel.getOperationCertificate();
         String operationCertificatePassword = refundModel.getOperationCertificatePassword();
         String apiV3Key = refundModel.getApiV3Key();
@@ -464,9 +464,9 @@ public class WeiXinPayUtils {
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_fee_type", refundFeeType);
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_desc", refundDesc);
         ApplicationHandler.ifNotBlankPut(refundRequestParameters, "refund_account", refundAccount);
-        if (StringUtils.isNotBlank(topic)) {
+        if (Objects.nonNull(mqConfig)) {
             refundRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_WEI_XIN_REFUND, "out_refund_no"));
-            NotifyUtils.saveWeiXinRefundAsyncNotify(outRefundNo, topic, apiKey, Constants.MD5, apiV3Key);
+            NotifyUtils.saveWeiXinRefundAsyncNotify(outRefundNo, mqConfig, apiKey, Constants.MD5, apiV3Key);
         }
 
         String sign = generateSign(refundRequestParameters, apiKey, Constants.MD5);

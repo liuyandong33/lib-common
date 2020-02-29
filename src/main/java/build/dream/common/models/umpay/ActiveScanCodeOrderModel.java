@@ -1,5 +1,6 @@
 package build.dream.common.models.umpay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.utils.CustomDateUtils;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 public class ActiveScanCodeOrderModel extends UmPayBasicModel {
     @NotNull
-    private String topic;
+    private MqConfig mqConfig;
 
     @Length(max = 8)
     private String goodsId;
@@ -51,12 +52,12 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
     @InList(value = {Constants.UM_PAY_SCAN_CODE_TYPE_WECHAT, Constants.UM_PAY_SCAN_CODE_TYPE_ALIPAY})
     private String scanCodeType;
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getGoodsId() {
@@ -148,8 +149,8 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
     }
 
     public static class Builder extends UmPayBasicModel.Builder<Builder, ActiveScanCodeOrderModel> {
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -211,7 +212,7 @@ public class ActiveScanCodeOrderModel extends UmPayBasicModel {
         @Override
         public ActiveScanCodeOrderModel build() {
             ActiveScanCodeOrderModel activeScanCodeOrderModel = super.build();
-            activeScanCodeOrderModel.setTopic(instance.getTopic());
+            activeScanCodeOrderModel.setMqConfig(instance.getMqConfig());
             activeScanCodeOrderModel.setGoodsId(instance.getGoodsId());
             activeScanCodeOrderModel.setGoodsInf(instance.getGoodsInf());
             activeScanCodeOrderModel.setOrderId(instance.getOrderId());

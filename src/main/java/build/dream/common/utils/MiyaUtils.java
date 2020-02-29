@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.MiyaAccount;
 import build.dream.common.models.miya.*;
@@ -312,7 +313,7 @@ public class MiyaUtils {
         String b3 = prepareOrderModel.getB3();
         String b4 = prepareOrderModel.getB4();
         String b5 = prepareOrderModel.getB5();
-        String topic = prepareOrderModel.getTopic();
+        MqConfig mqConfig = prepareOrderModel.getMqConfig();
 
         Map<String, String> requestDomainRequestParameters = new HashMap<String, String>();
         requestDomainRequestParameters.put("A1", "A");
@@ -330,8 +331,8 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B3", b3);
         dataDomainRequestParameters.put("B4", b4);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B5", b5);
-        if (StringUtils.isNotBlank(topic)) {
-            NotifyUtils.saveMiyaAsyncNotify(b1, topic, miyaKey);
+        if (Objects.nonNull(mqConfig)) {
+            NotifyUtils.saveMiyaAsyncNotify(b1, mqConfig, miyaKey);
             dataDomainRequestParameters.put("B13", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_MIYA, "C5"));
         }
         return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
@@ -360,7 +361,7 @@ public class MiyaUtils {
         String b5 = createOrderModel.getB5();
         String b11 = createOrderModel.getB11();
         String b12 = createOrderModel.getB12();
-        String topic = createOrderModel.getTopic();
+        MqConfig mqConfig = createOrderModel.getMqConfig();
         String b14 = createOrderModel.getB14();
         String b16 = createOrderModel.getB16();
         String b17 = createOrderModel.getB17();
@@ -390,7 +391,7 @@ public class MiyaUtils {
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B17", b17);
         ApplicationHandler.ifNotBlankPut(dataDomainRequestParameters, "B18", b18);
 
-        NotifyUtils.saveMiyaAsyncNotify(b1, topic, miyaKey);
+        NotifyUtils.saveMiyaAsyncNotify(b1, mqConfig, miyaKey);
         return callMiyaSystem(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey);
     }
 }

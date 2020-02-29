@@ -1,5 +1,6 @@
 package build.dream.common.models.umpay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.utils.CustomDateUtils;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 public class PublicNumberAndVerticalCodeModel extends UmPayBasicModel {
     @NotNull
-    private String topic;
+    private MqConfig mqConfig;
 
     /**
      * 商户唯一订单号，订单号码支持数字、英文字母、-、_、*、+、#，其他字符将不支持。
@@ -84,12 +85,12 @@ public class PublicNumberAndVerticalCodeModel extends UmPayBasicModel {
     @InList(value = {"Y", "N"})
     private String isPublicNumber;
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getOrderId() {
@@ -181,8 +182,8 @@ public class PublicNumberAndVerticalCodeModel extends UmPayBasicModel {
     }
 
     public static class Builder extends UmPayBasicModel.Builder<Builder, PublicNumberAndVerticalCodeModel> {
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -244,7 +245,7 @@ public class PublicNumberAndVerticalCodeModel extends UmPayBasicModel {
         @Override
         public PublicNumberAndVerticalCodeModel build() {
             PublicNumberAndVerticalCodeModel publicNumberAndVerticalCodeModel = super.build();
-            publicNumberAndVerticalCodeModel.setTopic(instance.getTopic());
+            publicNumberAndVerticalCodeModel.setMqConfig(instance.getMqConfig());
             publicNumberAndVerticalCodeModel.setOrderId(instance.getOrderId());
             publicNumberAndVerticalCodeModel.setMerDate(instance.getMerDate());
             publicNumberAndVerticalCodeModel.setAmount(instance.getAmount());

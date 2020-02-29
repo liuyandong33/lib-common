@@ -1,5 +1,6 @@
 package build.dream.common.models.data;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.NotifyUtils;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -80,7 +81,7 @@ public class AddOrderModel extends DadaBasicModel {
 
     @NotNull
     @JsonIgnore
-    private String topic;
+    private MqConfig mqConfig;
 
     /**
      * 收货人手机号（手机号和座机号必填一项）
@@ -249,12 +250,12 @@ public class AddOrderModel extends DadaBasicModel {
         this.callback = callback;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getReceiverPhone() {
@@ -420,8 +421,8 @@ public class AddOrderModel extends DadaBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -508,7 +509,7 @@ public class AddOrderModel extends DadaBasicModel {
             addOrderModel.setReceiverLat(instance.getReceiverLat());
             addOrderModel.setReceiverLng(instance.getReceiverLng());
             addOrderModel.setCallback(instance.getCallback());
-            addOrderModel.setTopic(instance.getTopic());
+            addOrderModel.setMqConfig(instance.getMqConfig());
             addOrderModel.setReceiverPhone(instance.getReceiverPhone());
             addOrderModel.setReceiverTel(instance.getReceiverTel());
             addOrderModel.setTips(instance.getTips());

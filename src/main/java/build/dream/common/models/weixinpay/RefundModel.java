@@ -1,5 +1,6 @@
 package build.dream.common.models.weixinpay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.utils.ApplicationHandler;
 import build.dream.common.utils.ValidateUtils;
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +35,7 @@ public class RefundModel extends WeiXinPayBasicModel {
 
     private String refundAccount;
 
-    private String topic;
+    private MqConfig mqConfig;
 
     /**
      * 操作证书
@@ -116,12 +117,12 @@ public class RefundModel extends WeiXinPayBasicModel {
         this.refundAccount = refundAccount;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getOperationCertificate() {
@@ -201,8 +202,8 @@ public class RefundModel extends WeiXinPayBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -232,7 +233,7 @@ public class RefundModel extends WeiXinPayBasicModel {
             refundModel.setRefundFeeType(instance.getRefundFeeType());
             refundModel.setRefundDesc(instance.getRefundDesc());
             refundModel.setRefundAccount(instance.getRefundAccount());
-            refundModel.setTopic(instance.getTopic());
+            refundModel.setMqConfig(instance.getMqConfig());
             refundModel.setOperationCertificate(instance.getOperationCertificate());
             refundModel.setOperationCertificatePassword(instance.getOperationCertificatePassword());
             refundModel.setApiV3Key(instance.getApiV3Key());

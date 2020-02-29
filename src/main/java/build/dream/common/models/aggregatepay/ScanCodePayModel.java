@@ -1,5 +1,6 @@
 package build.dream.common.models.aggregatepay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.models.BasicModel;
 
 import javax.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class ScanCodePayModel extends BasicModel {
     private Integer totalAmount;
 
     @NotNull
-    private String topic;
+    private MqConfig mqConfig;
 
     @NotNull
     private String ipAddress;
@@ -88,12 +89,12 @@ public class ScanCodePayModel extends BasicModel {
         this.totalAmount = totalAmount;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getIpAddress() {
@@ -142,8 +143,8 @@ public class ScanCodePayModel extends BasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -161,7 +162,7 @@ public class ScanCodePayModel extends BasicModel {
             scanCodePayModel.setAuthCode(instance.getAuthCode());
             scanCodePayModel.setSubject(instance.getSubject());
             scanCodePayModel.setTotalAmount(instance.getTotalAmount());
-            scanCodePayModel.setTopic(instance.getTopic());
+            scanCodePayModel.setMqConfig(instance.getMqConfig());
             scanCodePayModel.setIpAddress(instance.getIpAddress());
             return scanCodePayModel;
         }

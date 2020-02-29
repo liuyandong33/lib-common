@@ -1,5 +1,6 @@
 package build.dream.common.models.alipay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
@@ -63,7 +64,7 @@ public class AlipayBasicModel extends BasicModel {
     private String version = Constants.ALIPAY_API_VERSION_1_0;
 
     @JsonIgnore
-    private String topic;
+    private MqConfig mqConfig;
 
     @Length(max = 40)
     @JsonIgnore
@@ -137,12 +138,12 @@ public class AlipayBasicModel extends BasicModel {
         this.version = version;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getAppAuthToken() {
@@ -224,8 +225,8 @@ public class AlipayBasicModel extends BasicModel {
             return (BT) this;
         }
 
-        public BT topic(String topic) {
-            instance.setTopic(topic);
+        public BT mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return (BT) this;
         }
 
@@ -258,7 +259,7 @@ public class AlipayBasicModel extends BasicModel {
             model.setSignType(instance.getSignType());
             model.setTimestamp(instance.getTimestamp());
             model.setVersion(instance.getVersion());
-            model.setTopic(instance.getTopic());
+            model.setMqConfig(instance.getMqConfig());
             model.setAppAuthToken(instance.getAppAuthToken());
             model.setAuthToken(instance.getAuthToken());
             model.setAppPrivateKey(instance.getAppPrivateKey());

@@ -1,5 +1,6 @@
 package build.dream.common.models.notify;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.models.BasicModel;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +10,7 @@ public class SaveAsyncNotifyModel extends BasicModel {
     private String uuid;
 
     @NotNull
-    private String topic;
+    private MqConfig mqConfig;
 
     private String alipayPublicKey;
 
@@ -27,12 +28,12 @@ public class SaveAsyncNotifyModel extends BasicModel {
         this.uuid = uuid;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getAlipayPublicKey() {
@@ -75,8 +76,8 @@ public class SaveAsyncNotifyModel extends BasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -103,7 +104,7 @@ public class SaveAsyncNotifyModel extends BasicModel {
         public SaveAsyncNotifyModel build() {
             SaveAsyncNotifyModel saveAsyncNotifyModel = new SaveAsyncNotifyModel();
             saveAsyncNotifyModel.setUuid(instance.getUuid());
-            saveAsyncNotifyModel.setTopic(instance.getTopic());
+            saveAsyncNotifyModel.setMqConfig(instance.getMqConfig());
             saveAsyncNotifyModel.setAlipayPublicKey(instance.getAlipayPublicKey());
             saveAsyncNotifyModel.setAlipaySignType(instance.getAlipaySignType());
             saveAsyncNotifyModel.setWeiXinPayApiKey(instance.getWeiXinPayApiKey());

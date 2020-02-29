@@ -1,10 +1,11 @@
 package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 
 public class AsyncNotify extends BasicDomain {
-    public static final String TABLE_NAME = "notify_record";
+    public static final String TABLE_NAME = "async_notify";
     /**
      * 唯一ID
      */
@@ -12,7 +13,7 @@ public class AsyncNotify extends BasicDomain {
     /**
      * 消息队列主题
      */
-    private String topic;
+    private MqConfig mqConfig;
     /**
      * 支付宝公钥
      */
@@ -64,12 +65,12 @@ public class AsyncNotify extends BasicDomain {
         this.uuid = uuid;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getAlipayPublicKey() {
@@ -158,8 +159,8 @@ public class AsyncNotify extends BasicDomain {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -217,7 +218,7 @@ public class AsyncNotify extends BasicDomain {
         public AsyncNotify build() {
             AsyncNotify asyncNotify = super.build();
             asyncNotify.setUuid(instance.getUuid());
-            asyncNotify.setTopic(instance.getTopic());
+            asyncNotify.setMqConfig(instance.getMqConfig());
             asyncNotify.setAlipayPublicKey(instance.getAlipayPublicKey());
             asyncNotify.setAlipaySignType(instance.getAlipaySignType());
             asyncNotify.setWeiXinPayApiKey(instance.getWeiXinPayApiKey());

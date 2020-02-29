@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.UmPayAccount;
 import build.dream.common.models.umpay.*;
@@ -136,7 +137,7 @@ public class UmPayUtils {
         String privateKey = activeScanCodeOrderModel.getPrivateKey();
         String platformCertificate = activeScanCodeOrderModel.getPlatformCertificate();
 
-        String topic = activeScanCodeOrderModel.getTopic();
+        MqConfig mqConfig = activeScanCodeOrderModel.getMqConfig();
         String goodsId = activeScanCodeOrderModel.getGoodsId();
         String goodsInf = activeScanCodeOrderModel.getGoodsInf();
         String orderId = activeScanCodeOrderModel.getOrderId();
@@ -175,7 +176,7 @@ public class UmPayUtils {
         activeScanCodeOrderParameters.put("sign", generateSign(activeScanCodeOrderParameters, privateKey, signType));
         activeScanCodeOrderParameters.put("sign_type", signType);
 
-        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
+        NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, activeScanCodeOrderParameters);
@@ -200,7 +201,7 @@ public class UmPayUtils {
         String privateKey = passiveScanCodePayModel.getPrivateKey();
         String platformCertificate = passiveScanCodePayModel.getPlatformCertificate();
 
-        String topic = passiveScanCodePayModel.getTopic();
+        MqConfig mqConfig = passiveScanCodePayModel.getMqConfig();
         String goodsId = passiveScanCodePayModel.getGoodsId();
         String goodsInf = passiveScanCodePayModel.getGoodsInf();
         String orderId = passiveScanCodePayModel.getOrderId();
@@ -243,7 +244,7 @@ public class UmPayUtils {
         passiveScanCodePayParameters.put("sign", generateSign(passiveScanCodePayParameters, privateKey, signType));
         passiveScanCodePayParameters.put("sign_type", signType);
 
-        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
+        NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, passiveScanCodePayParameters);
@@ -269,7 +270,7 @@ public class UmPayUtils {
         String privateKey = publicNumberAndVerticalCodeModel.getPrivateKey();
         String platformCertificate = publicNumberAndVerticalCodeModel.getPlatformCertificate();
 
-        String topic = publicNumberAndVerticalCodeModel.getTopic();
+        MqConfig mqConfig = publicNumberAndVerticalCodeModel.getMqConfig();
         String orderId = publicNumberAndVerticalCodeModel.getOrderId();
         String merDate = publicNumberAndVerticalCodeModel.getMerDate();
         Integer amount = publicNumberAndVerticalCodeModel.getAmount();
@@ -307,7 +308,7 @@ public class UmPayUtils {
         publicNumberAndVerticalCodeParameters.put("sign", generateSign(publicNumberAndVerticalCodeParameters, privateKey, signType));
         publicNumberAndVerticalCodeParameters.put("sign_type", signType);
 
-        NotifyUtils.saveUmPayAsyncNotify(orderId, topic, privateKey, platformCertificate);
+        NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
         String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, publicNumberAndVerticalCodeParameters);

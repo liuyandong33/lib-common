@@ -1,10 +1,11 @@
 package build.dream.common.utils;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
+import build.dream.common.domains.saas.WeiXinPayAccount;
 import build.dream.common.models.aggregatepay.ScanCodePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
-import build.dream.common.domains.saas.WeiXinPayAccount;
 import org.dom4j.DocumentException;
 
 import java.math.BigDecimal;
@@ -19,7 +20,7 @@ public class AggregatePayUtils {
         String authCode = scanCodePayModel.getAuthCode();
         String subject = scanCodePayModel.getSubject();
         int totalAmount = scanCodePayModel.getTotalAmount();
-        String topic = scanCodePayModel.getTopic();
+        MqConfig mqConfig = scanCodePayModel.getMqConfig();
         String ipAddress = scanCodePayModel.getIpAddress();
 
         Map<String, ? extends Object> result = null;
@@ -41,7 +42,7 @@ public class AggregatePayUtils {
             result = WeiXinPayUtils.microPay(microPayModel);
         } else if (channelType == Constants.CHANNEL_TYPE_ALIPAY) {
             AlipayTradePayModel alipayTradePayModel = AlipayTradePayModel.builder()
-                    .topic(topic)
+                    .mqConfig(mqConfig)
                     .outTradeNo(outTradeNo)
                     .authCode(authCode)
                     .scene(Constants.SCENE_BAR_CODE)

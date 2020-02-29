@@ -1,5 +1,6 @@
 package build.dream.common.models.miya;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constraints.InList;
 import org.hibernate.validator.constraints.Length;
 
@@ -63,8 +64,7 @@ public class CreateOrderModel extends MiyaBasicModel {
      * 通知地址，接收异步通知回调地址
      */
     @NotNull
-    @Length(max = 100)
-    private String topic;
+    private MqConfig mqConfig;
 
     /**
      * 用户ip，用户终端 ip。微信 H5、APP支付必填
@@ -154,12 +154,12 @@ public class CreateOrderModel extends MiyaBasicModel {
         this.b12 = b12;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getB14() {
@@ -235,8 +235,8 @@ public class CreateOrderModel extends MiyaBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -270,7 +270,7 @@ public class CreateOrderModel extends MiyaBasicModel {
             createOrderModel.setB5(instance.getB5());
             createOrderModel.setB11(instance.getB11());
             createOrderModel.setB12(instance.getB12());
-            createOrderModel.setTopic(instance.getTopic());
+            createOrderModel.setMqConfig(instance.getMqConfig());
             createOrderModel.setB14(instance.getB14());
             createOrderModel.setB16(instance.getB16());
             createOrderModel.setB17(instance.getB17());

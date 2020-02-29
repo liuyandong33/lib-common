@@ -1,27 +1,20 @@
 package build.dream.common.utils;
 
 import build.dream.common.annotations.AlipayAsyncNotify;
-import build.dream.common.api.ApiRest;
 import build.dream.common.beans.AlipayAccount;
-import build.dream.common.beans.WebResponse;
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
-import build.dream.common.models.alipay.*;
-import build.dream.common.models.notify.SaveAsyncNotifyModel;
 import build.dream.common.domains.saas.AlipayAuthorizerInfo;
 import build.dream.common.domains.saas.AlipayDeveloperAccount;
+import build.dream.common.models.alipay.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TreeMap;
@@ -90,7 +83,7 @@ public class AlipayUtils {
         String signType = alipayBasicModel.getSignType();
         String timestamp = alipayBasicModel.getTimestamp();
         String version = alipayBasicModel.getVersion();
-        String topic = alipayBasicModel.getTopic();
+        MqConfig mqConfig = alipayBasicModel.getMqConfig();
         String appAuthToken = alipayBasicModel.getAppAuthToken();
         String authToken = alipayBasicModel.getAuthToken();
         String appPrivateKey = alipayBasicModel.getAppPrivateKey();
@@ -108,7 +101,7 @@ public class AlipayUtils {
         sortedRequestParameters.put("sign_type", signType);
         sortedRequestParameters.put("timestamp", timestamp);
         sortedRequestParameters.put("version", version);
-        if (StringUtils.isNotBlank(topic)) {
+        if (Objects.nonNull(mqConfig)) {
             AlipayAsyncNotify alipayAsyncNotify = AnnotationUtils.findAnnotation(alipayBasicModel.getClass(), AlipayAsyncNotify.class);
             if (Objects.nonNull(alipayAsyncNotify)) {
                 sortedRequestParameters.put("notify_url", NotifyUtils.obtainNotifyUrl(Constants.NOTIFY_TYPE_ALIPAY, alipayAsyncNotify.uuidKey()));

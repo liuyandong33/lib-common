@@ -1,5 +1,6 @@
 package build.dream.common.models.anubis;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ApplicationHandler;
@@ -42,7 +43,7 @@ public class OrderModel extends AnubisBasicModel {
 
     @NotNull
     @JsonIgnore
-    private String topic;
+    private MqConfig mqConfig;
 
     @NotNull
     @SerializedName(value = "order_type", alternate = "orderType")
@@ -152,12 +153,12 @@ public class OrderModel extends AnubisBasicModel {
         this.notifyUrl = notifyUrl;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public Integer getOrderType() {
@@ -724,8 +725,8 @@ public class OrderModel extends AnubisBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -830,7 +831,7 @@ public class OrderModel extends AnubisBasicModel {
             orderModel.setPartnerRemark(instance.getPartnerRemark());
             orderModel.setPartnerOrderCode(instance.getPartnerOrderCode());
             orderModel.setNotifyUrl(instance.getNotifyUrl());
-            orderModel.setTopic(instance.getTopic());
+            orderModel.setMqConfig(instance.getMqConfig());
             orderModel.setOrderType(instance.getOrderType());
             orderModel.setChainStoreCode(instance.getChainStoreCode());
             orderModel.setTransportInfo(instance.getTransportInfo());

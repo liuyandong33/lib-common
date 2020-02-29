@@ -1,5 +1,6 @@
 package build.dream.common.models.umpay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.utils.CustomDateUtils;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 public class PassiveScanCodePayModel extends UmPayBasicModel {
     @NotNull
-    private String topic;
+    private MqConfig mqConfig;
 
     /**
      * 商品号
@@ -98,12 +99,12 @@ public class PassiveScanCodePayModel extends UmPayBasicModel {
     @InList(value = {Constants.UM_PAY_SCAN_CODE_TYPE_WECHAT, Constants.UM_PAY_SCAN_CODE_TYPE_ALIPAY})
     private String scanCodeType;
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getGoodsId() {
@@ -211,8 +212,8 @@ public class PassiveScanCodePayModel extends UmPayBasicModel {
     }
 
     public static class Builder extends UmPayBasicModel.Builder<Builder, PassiveScanCodePayModel> {
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -284,7 +285,7 @@ public class PassiveScanCodePayModel extends UmPayBasicModel {
         @Override
         public PassiveScanCodePayModel build() {
             PassiveScanCodePayModel passiveScanCodePayModel = super.build();
-            passiveScanCodePayModel.setTopic(instance.getTopic());
+            passiveScanCodePayModel.setMqConfig(instance.getMqConfig());
             passiveScanCodePayModel.setGoodsId(instance.getGoodsId());
             passiveScanCodePayModel.setGoodsInf(instance.getGoodsInf());
             passiveScanCodePayModel.setOrderId(instance.getOrderId());

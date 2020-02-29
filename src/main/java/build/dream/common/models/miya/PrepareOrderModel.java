@@ -1,5 +1,6 @@
 package build.dream.common.models.miya;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constraints.InList;
 import org.hibernate.validator.constraints.Length;
 
@@ -45,11 +46,7 @@ public class PrepareOrderModel extends MiyaBasicModel {
     @Length(max = 20480)
     private String b5;
 
-    /**
-     * 通知地址，接收异步通知回调地址
-     */
-    @Length(max = 100)
-    private String topic;
+    private MqConfig mqConfig;
 
     public String getA10() {
         return a10;
@@ -99,12 +96,12 @@ public class PrepareOrderModel extends MiyaBasicModel {
         this.b5 = b5;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public static class Builder extends MiyaBasicModel.Builder<Builder, PrepareOrderModel> {
@@ -128,8 +125,8 @@ public class PrepareOrderModel extends MiyaBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -142,7 +139,7 @@ public class PrepareOrderModel extends MiyaBasicModel {
             prepareOrderModel.setB3(instance.getB3());
             prepareOrderModel.setB4(instance.getB4());
             prepareOrderModel.setB5(instance.getB5());
-            prepareOrderModel.setTopic(instance.getTopic());
+            prepareOrderModel.setMqConfig(instance.getMqConfig());
             return prepareOrderModel;
         }
     }

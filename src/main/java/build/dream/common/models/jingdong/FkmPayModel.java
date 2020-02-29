@@ -1,5 +1,6 @@
 package build.dream.common.models.jingdong;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import org.apache.commons.collections.CollectionUtils;
@@ -54,8 +55,7 @@ public class FkmPayModel extends BasicModel {
     @Length(max = 256)
     private String note;
 
-    @Length(max = 256)
-    private String topic;
+    private MqConfig mqConfig;
 
     @Length(max = 3)
     private String orderGoodsNum;
@@ -170,12 +170,12 @@ public class FkmPayModel extends BasicModel {
         this.note = note;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getOrderGoodsNum() {

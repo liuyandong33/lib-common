@@ -169,7 +169,7 @@ public class DadaUtils {
      * @return
      */
     public static Map<String, Object> addOrder(AddOrderModel addOrderModel) {
-        NotifyUtils.saveDadaOrderAsyncNotify(addOrderModel.getOriginId(), addOrderModel.getTopic());
+        NotifyUtils.saveDadaOrderAsyncNotify(addOrderModel.getOriginId(), addOrderModel.getMqConfig());
         return callDadaApi(addOrderModel, "/api/order/addOrder");
     }
 
@@ -180,7 +180,7 @@ public class DadaUtils {
      * @return
      */
     public static Map<String, Object> reAddOrder(ReAddOrderModel reAddOrderModel) {
-        NotifyUtils.saveDadaOrderAsyncNotify(reAddOrderModel.getOriginId(), reAddOrderModel.getTopic());
+        NotifyUtils.saveDadaOrderAsyncNotify(reAddOrderModel.getOriginId(), reAddOrderModel.getMqConfig());
         return callDadaApi(reAddOrderModel, "/api/order/reAddOrder");
     }
 

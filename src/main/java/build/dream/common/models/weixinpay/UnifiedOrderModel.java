@@ -1,5 +1,6 @@
 package build.dream.common.models.weixinpay;
 
+import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
 import build.dream.common.constraints.InList;
 import build.dream.common.models.BasicModel;
@@ -54,7 +55,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
 
     @NotNull
     @Length(max = 256)
-    private String topic;
+    private MqConfig mqConfig;
 
     private String tradeType;
 
@@ -168,12 +169,12 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
         this.goodsTag = goodsTag;
     }
 
-    public String getTopic() {
-        return topic;
+    public MqConfig getMqConfig() {
+        return mqConfig;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public void setMqConfig(MqConfig mqConfig) {
+        this.mqConfig = mqConfig;
     }
 
     public String getTradeType() {
@@ -424,8 +425,8 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
             return this;
         }
 
-        public Builder topic(String topic) {
-            instance.setTopic(topic);
+        public Builder mqConfig(MqConfig mqConfig) {
+            instance.setMqConfig(mqConfig);
             return this;
         }
 
@@ -474,7 +475,7 @@ public class UnifiedOrderModel extends WeiXinPayBasicModel {
             unifiedOrderModel.setTimeStart(instance.getTimeStart());
             unifiedOrderModel.setTimeExpire(instance.getTimeExpire());
             unifiedOrderModel.setGoodsTag(instance.getGoodsTag());
-            unifiedOrderModel.setTopic(instance.getTopic());
+            unifiedOrderModel.setMqConfig(instance.getMqConfig());
             unifiedOrderModel.setTradeType(instance.getTradeType());
             unifiedOrderModel.setProductId(instance.getProductId());
             unifiedOrderModel.setLimitPay(instance.getLimitPay());

@@ -96,7 +96,7 @@ public class AnubisUtils {
      * @return
      */
     public static Map<String, Object> order(OrderModel orderModel) {
-        NotifyUtils.saveAnubisOrderAsyncNotify(orderModel.getPartnerOrderCode(), orderModel.getTopic());
+        NotifyUtils.saveAnubisOrderAsyncNotify(orderModel.getPartnerOrderCode(), orderModel.getMqConfig());
         return callAnubisApi(orderModel, "/order");
     }
 
