@@ -18,6 +18,10 @@ public class OauthClientDetailUtils {
         }
     }
 
+    public static void cacheOauthClientDetail(OauthClientDetail oauthClientDetail) {
+        CommonRedisUtils.hset(RedisKeys.KEY_OAUTH_CLIENT_DETAILS, oauthClientDetail.getClientId(), JacksonUtils.writeValueAsString(oauthClientDetail));
+    }
+
     public static OauthClientDetail obtainOauthClientDetail(String clientId) {
         String oauthClientDetailJson = CommonRedisUtils.hget(RedisKeys.KEY_OAUTH_CLIENT_DETAILS, clientId);
         if (StringUtils.isNotBlank(oauthClientDetailJson)) {
