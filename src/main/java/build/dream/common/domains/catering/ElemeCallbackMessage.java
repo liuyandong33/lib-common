@@ -3,29 +3,28 @@ package build.dream.common.domains.catering;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class ElemeCallbackMessage extends BasicDomain {
     public static final String TABLE_NAME = "eleme_callback_message";
-    private BigInteger tenantId;
+    private Long tenantId;
     private String tenantCode;
-    private BigInteger branchId;
+    private Long branchId;
     private String orderId = Constants.VARCHAR_DEFAULT_VALUE;
     private String requestId;
     private Integer type;
-    private BigInteger appId;
+    private Long appId;
     private String message;
-    private BigInteger shopId;
+    private Long shopId;
     private Date timestamp;
     private String signature;
-    private BigInteger userId;
+    private Long userId;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -37,11 +36,11 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -69,11 +68,11 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.type = type;
     }
 
-    public BigInteger getAppId() {
+    public Long getAppId() {
         return appId;
     }
 
-    public void setAppId(BigInteger appId) {
+    public void setAppId(Long appId) {
         this.appId = appId;
     }
 
@@ -85,11 +84,11 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.message = message;
     }
 
-    public BigInteger getShopId() {
+    public Long getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Long shopId) {
         this.shopId = shopId;
     }
 
@@ -109,11 +108,11 @@ public class ElemeCallbackMessage extends BasicDomain {
         this.signature = signature;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

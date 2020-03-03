@@ -3,8 +3,6 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = SaleDetail.FieldName.TENANT_ID, columnName = SaleDetail.ColumnName.TENANT_ID)
@@ -13,7 +11,7 @@ public class SaleDetail extends BasicDomain {
     /**
      * sale.id
      */
-    private BigInteger saleId;
+    private Long saleId;
     /**
      * 销售时间
      */
@@ -21,7 +19,7 @@ public class SaleDetail extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -29,11 +27,11 @@ public class SaleDetail extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 产品ID，goods.id
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 产品名称，goods.name
      */
@@ -41,7 +39,7 @@ public class SaleDetail extends BasicDomain {
     /**
      * 商品规格ID，goodsSpecification.id
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 商品规格名称，goodsSpecification.name
      */
@@ -49,7 +47,7 @@ public class SaleDetail extends BasicDomain {
     /**
      * 商品分类ID
      */
-    private BigInteger categoryId;
+    private Long categoryId;
     /**
      * 商品分类名称
      */
@@ -57,33 +55,33 @@ public class SaleDetail extends BasicDomain {
     /**
      * 单价
      */
-    private BigDecimal price;
+    private Double price;
     /**
      * 总数量
      */
-    private BigDecimal quantity;
+    private Double quantity;
     /**
      * 总金额
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount;
+    private Double discountAmount;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount;
+    private Double payableAmount;
     /**
      * 优惠分摊金额
      */
-    private BigDecimal discountShare;
+    private Double discountShare;
 
-    public BigInteger getSaleId() {
+    public Long getSaleId() {
         return saleId;
     }
 
-    public void setSaleId(BigInteger saleId) {
+    public void setSaleId(Long saleId) {
         this.saleId = saleId;
     }
 
@@ -95,11 +93,11 @@ public class SaleDetail extends BasicDomain {
         this.saleTime = saleTime;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -111,19 +109,19 @@ public class SaleDetail extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -135,11 +133,11 @@ public class SaleDetail extends BasicDomain {
         this.goodsName = goodsName;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
@@ -151,11 +149,11 @@ public class SaleDetail extends BasicDomain {
         this.goodsSpecificationName = goodsSpecificationName;
     }
 
-    public BigInteger getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(BigInteger categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -167,56 +165,56 @@ public class SaleDetail extends BasicDomain {
         this.categoryName = categoryName;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getPayableAmount() {
+    public Double getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(BigDecimal payableAmount) {
+    public void setPayableAmount(Double payableAmount) {
         this.payableAmount = payableAmount;
     }
 
-    public BigDecimal getDiscountShare() {
+    public Double getDiscountShare() {
         return discountShare;
     }
 
-    public void setDiscountShare(BigDecimal discountShare) {
+    public void setDiscountShare(Double discountShare) {
         this.discountShare = discountShare;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, SaleDetail> {
-        public Builder saleId(BigInteger saleId) {
+        public Builder saleId(Long saleId) {
             instance.setSaleId(saleId);
             return this;
         }
@@ -226,7 +224,7 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -236,12 +234,12 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
@@ -251,7 +249,7 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }
@@ -261,7 +259,7 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder categoryId(BigInteger categoryId) {
+        public Builder categoryId(Long categoryId) {
             instance.setCategoryId(categoryId);
             return this;
         }
@@ -271,32 +269,32 @@ public class SaleDetail extends BasicDomain {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Double price) {
             instance.setPrice(price);
             return this;
         }
 
-        public Builder quantity(BigDecimal quantity) {
+        public Builder quantity(Double quantity) {
             instance.setQuantity(quantity);
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder discountAmount(BigDecimal discountAmount) {
+        public Builder discountAmount(Double discountAmount) {
             instance.setDiscountAmount(discountAmount);
             return this;
         }
 
-        public Builder payableAmount(BigDecimal payableAmount) {
+        public Builder payableAmount(Double payableAmount) {
             instance.setPayableAmount(payableAmount);
             return this;
         }
 
-        public Builder discountShare(BigDecimal discountShare) {
+        public Builder discountShare(Double discountShare) {
             instance.setDiscountShare(discountShare);
             return this;
         }

@@ -3,7 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class SaleFlow extends BasicDomain {
@@ -11,7 +10,7 @@ public class SaleFlow extends BasicDomain {
     /**
      * 订单id
      */
-    private BigInteger orderId;
+    private Long orderId;
     /**
      * 销售流水类型，1-商户流水，2-代理商流水
      */
@@ -19,16 +18,16 @@ public class SaleFlow extends BasicDomain {
     /**
      * 商户id
      */
-    private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long tenantId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 门店id
      */
-    private BigInteger branchId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long branchId = Constants.BIGINT_DEFAULT_VALUE;
     ;
     /**
      * 代理商id
      */
-    private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long agentId = Constants.BIGINT_DEFAULT_VALUE;
     ;
     /**
      * 流水产生时间
@@ -37,7 +36,7 @@ public class SaleFlow extends BasicDomain {
     /**
      * 商品id
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 商品名称
      */
@@ -45,7 +44,7 @@ public class SaleFlow extends BasicDomain {
     /**
      * 商品规格id
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 商品规格名称
      */
@@ -59,11 +58,11 @@ public class SaleFlow extends BasicDomain {
      */
     private Integer paidType;
 
-    public BigInteger getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(BigInteger orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -75,27 +74,27 @@ public class SaleFlow extends BasicDomain {
         this.type = type;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 
@@ -107,11 +106,11 @@ public class SaleFlow extends BasicDomain {
         this.occurrenceTime = occurrenceTime;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -123,11 +122,11 @@ public class SaleFlow extends BasicDomain {
         this.goodsName = goodsName;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
@@ -156,7 +155,7 @@ public class SaleFlow extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, SaleFlow> {
-        public Builder orderId(BigInteger orderId) {
+        public Builder orderId(Long orderId) {
             instance.setOrderId(orderId);
             return this;
         }
@@ -166,17 +165,17 @@ public class SaleFlow extends BasicDomain {
             return this;
         }
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder agentId(BigInteger agentId) {
+        public Builder agentId(Long agentId) {
             instance.setAgentId(agentId);
             return this;
         }
@@ -186,7 +185,7 @@ public class SaleFlow extends BasicDomain {
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
@@ -196,7 +195,7 @@ public class SaleFlow extends BasicDomain {
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }

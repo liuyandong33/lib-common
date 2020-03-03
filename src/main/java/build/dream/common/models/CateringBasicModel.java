@@ -6,20 +6,18 @@ import build.dream.common.domains.saas.Tenant;
 import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
 
-import java.math.BigInteger;
-
 public class CateringBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private BigInteger _userId;
+    private Long _userId;
 
     @InstantiateObjectIgnore
-    private BigInteger _tenantId;
+    private Long _tenantId;
 
     @InstantiateObjectIgnore
     private String _tenantCode;
 
     @InstantiateObjectIgnore
-    private BigInteger _branchId;
+    private Long _branchId;
 
     @InstantiateObjectIgnore
     private String _branchCode;
@@ -41,7 +39,7 @@ public class CateringBasicModel extends OAuthBasicModel {
 
     public CateringBasicModel() {
         CateringUserDetails cateringUserDetails = WebSecurityUtils.obtainCateringUserDetails();
-        BigInteger tenantId = cateringUserDetails.getTenantId();
+        Long tenantId = cateringUserDetails.getTenantId();
         Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
         this._userId = cateringUserDetails.getUserId();
@@ -56,11 +54,11 @@ public class CateringBasicModel extends OAuthBasicModel {
         this._vipSharedType = tenant.getVipSharedType();
     }
 
-    public BigInteger obtainUserId() {
+    public Long obtainUserId() {
         return _userId;
     }
 
-    public BigInteger obtainTenantId() {
+    public Long obtainTenantId() {
         return _tenantId;
     }
 
@@ -68,7 +66,7 @@ public class CateringBasicModel extends OAuthBasicModel {
         return _tenantCode;
     }
 
-    public BigInteger obtainBranchId() {
+    public Long obtainBranchId() {
         return _branchId;
     }
 

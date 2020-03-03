@@ -13,8 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -30,12 +28,12 @@ public class Application {
     static {
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.TINYINT, Integer.class.getSimpleName());
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.INTEGER, Integer.class.getSimpleName());
-        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.BIGINT, BigInteger.class.getSimpleName());
-        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.FLOAT, BigDecimal.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.BIGINT, Long.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.FLOAT, Double.class.getSimpleName());
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.VARCHAR, String.class.getSimpleName());
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DATE, Date.class.getSimpleName());
         DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.TIMESTAMP, Date.class.getSimpleName());
-        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DECIMAL, BigDecimal.class.getSimpleName());
+        DATABASE_TYPE_JAVA_TYPE_MAP.put(Types.DECIMAL, Double.class.getSimpleName());
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {

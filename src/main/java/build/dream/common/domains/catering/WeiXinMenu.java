@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = WeiXinMenu.FieldName.TENANT_ID, columnName = WeiXinMenu.ColumnName.TENANT_ID)
 public class WeiXinMenu extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_menu";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -19,7 +17,7 @@ public class WeiXinMenu extends BasicDomain {
     /**
      * 父级菜单ID
      */
-    private BigInteger parentId;
+    private Long parentId;
     /**
      * 菜单名称
      */
@@ -49,11 +47,11 @@ public class WeiXinMenu extends BasicDomain {
      */
     private String miniProgramAppId;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -65,11 +63,11 @@ public class WeiXinMenu extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(BigInteger parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -130,7 +128,7 @@ public class WeiXinMenu extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, WeiXinMenu> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -140,7 +138,7 @@ public class WeiXinMenu extends BasicDomain {
             return this;
         }
 
-        public Builder parentId(BigInteger parentId) {
+        public Builder parentId(Long parentId) {
             instance.setParentId(parentId);
             return this;
         }

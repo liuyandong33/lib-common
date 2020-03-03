@@ -4,8 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = DietOrder.FieldName.TENANT_ID, columnName = DietOrder.ColumnName.TENANT_ID)
@@ -14,7 +12,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -22,7 +20,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 订单号
      */
@@ -46,19 +44,19 @@ public class DietOrder extends BasicDomain {
     /**
      * 总金额
      */
-    private BigDecimal totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 实付金额
      */
-    private BigDecimal paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 支付类型，1-微信支付，2-支付宝支付，3-饿了么线上支付，4-美团线上支付
      */
@@ -90,7 +88,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 配送费
      */
-    private BigDecimal deliverFee = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double deliverFee = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 联系电话
      */
@@ -118,7 +116,7 @@ public class DietOrder extends BasicDomain {
     /**
      * 会员ID
      */
-    private BigInteger vipId;
+    private Long vipId;
     /**
      * 本地ID
      */
@@ -142,11 +140,11 @@ public class DietOrder extends BasicDomain {
      */
     private String triggerId = Constants.VARCHAR_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -158,11 +156,11 @@ public class DietOrder extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -206,35 +204,35 @@ public class DietOrder extends BasicDomain {
         this.refundStatus = refundStatus;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getPayableAmount() {
+    public Double getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(BigDecimal payableAmount) {
+    public void setPayableAmount(Double payableAmount) {
         this.payableAmount = payableAmount;
     }
 
-    public BigDecimal getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -294,11 +292,11 @@ public class DietOrder extends BasicDomain {
         this.activeTime = activeTime;
     }
 
-    public BigDecimal getDeliverFee() {
+    public Double getDeliverFee() {
         return deliverFee;
     }
 
-    public void setDeliverFee(BigDecimal deliverFee) {
+    public void setDeliverFee(Double deliverFee) {
         this.deliverFee = deliverFee;
     }
 
@@ -350,11 +348,11 @@ public class DietOrder extends BasicDomain {
         this.invoice = invoice;
     }
 
-    public BigInteger getVipId() {
+    public Long getVipId() {
         return vipId;
     }
 
-    public void setVipId(BigInteger vipId) {
+    public void setVipId(Long vipId) {
         this.vipId = vipId;
     }
 
@@ -399,7 +397,7 @@ public class DietOrder extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, DietOrder> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -409,7 +407,7 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
@@ -439,22 +437,22 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder discountAmount(BigDecimal discountAmount) {
+        public Builder discountAmount(Double discountAmount) {
             instance.setDiscountAmount(discountAmount);
             return this;
         }
 
-        public Builder payableAmount(BigDecimal payableAmount) {
+        public Builder payableAmount(Double payableAmount) {
             instance.setPayableAmount(payableAmount);
             return this;
         }
 
-        public Builder paidAmount(BigDecimal paidAmount) {
+        public Builder paidAmount(Double paidAmount) {
             instance.setPaidAmount(paidAmount);
             return this;
         }
@@ -494,7 +492,7 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
-        public Builder deliverFee(BigDecimal deliverFee) {
+        public Builder deliverFee(Double deliverFee) {
             instance.setDeliverFee(deliverFee);
             return this;
         }
@@ -529,7 +527,7 @@ public class DietOrder extends BasicDomain {
             return this;
         }
 
-        public Builder vipId(BigInteger vipId) {
+        public Builder vipId(Long vipId) {
             instance.setVipId(vipId);
             return this;
         }

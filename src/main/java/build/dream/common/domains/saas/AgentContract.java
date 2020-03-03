@@ -2,7 +2,6 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class AgentContract extends BasicDomain {
@@ -14,7 +13,7 @@ public class AgentContract extends BasicDomain {
     /**
      * 代理商ID
      */
-    private BigInteger agentId;
+    private Long agentId;
     /**
      * 开始时间
      */
@@ -36,11 +35,11 @@ public class AgentContract extends BasicDomain {
         this.contractNumber = contractNumber;
     }
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 
@@ -74,7 +73,7 @@ public class AgentContract extends BasicDomain {
             return this;
         }
 
-        public Builder agentId(BigInteger agentId) {
+        public Builder agentId(Long agentId) {
             instance.setAgentId(agentId);
             return this;
         }

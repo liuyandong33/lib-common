@@ -3,8 +3,6 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = BranchTable.FieldName.TENANT_ID, columnName = BranchTable.ColumnName.TENANT_ID)
 public class BranchTable extends BasicDomain {
     public static final String TABLE_NAME = "branch_table";
@@ -12,7 +10,7 @@ public class BranchTable extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编码
@@ -22,12 +20,12 @@ public class BranchTable extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 桌台区域ID
      */
-    private BigInteger tableAreaId;
+    private Long tableAreaId;
 
     /**
      * 桌台编号
@@ -49,11 +47,11 @@ public class BranchTable extends BasicDomain {
      */
     private Integer dinnersNumber;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -65,19 +63,19 @@ public class BranchTable extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getTableAreaId() {
+    public Long getTableAreaId() {
         return tableAreaId;
     }
 
-    public void setTableAreaId(BigInteger tableAreaId) {
+    public void setTableAreaId(Long tableAreaId) {
         this.tableAreaId = tableAreaId;
     }
 
@@ -114,7 +112,7 @@ public class BranchTable extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, BranchTable> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -124,12 +122,12 @@ public class BranchTable extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder tableAreaId(BigInteger tableAreaId) {
+        public Builder tableAreaId(Long tableAreaId) {
             instance.setTableAreaId(tableAreaId);
             return this;
         }

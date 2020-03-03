@@ -4,20 +4,18 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.IotUserDetails;
 import build.dream.common.utils.WebSecurityUtils;
 
-import java.math.BigInteger;
-
 public class IotBasicModel extends BasicModel {
     @InstantiateObjectIgnore
-    private BigInteger _userId;
+    private Long _userId;
 
     @InstantiateObjectIgnore
-    private BigInteger _tenantId;
+    private Long _tenantId;
 
     @InstantiateObjectIgnore
     private String _tenantCode;
 
     @InstantiateObjectIgnore
-    private BigInteger _branchId;
+    private Long _branchId;
 
     @InstantiateObjectIgnore
     private String _branchCode;
@@ -43,11 +41,11 @@ public class IotBasicModel extends BasicModel {
         this._partitionCode = iotUserDetails.getPartitionCode();
     }
 
-    public BigInteger obtainUserId() {
+    public Long obtainUserId() {
         return _userId;
     }
 
-    public BigInteger obtainTenantId() {
+    public Long obtainTenantId() {
         return _tenantId;
     }
 
@@ -55,7 +53,7 @@ public class IotBasicModel extends BasicModel {
         return _tenantCode;
     }
 
-    public BigInteger obtainBranchId() {
+    public Long obtainBranchId() {
         return _branchId;
     }
 

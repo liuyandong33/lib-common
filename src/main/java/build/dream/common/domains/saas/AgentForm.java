@@ -2,8 +2,6 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class AgentForm extends BasicDomain {
     /**
      * 代理商名称
@@ -56,7 +54,7 @@ public class AgentForm extends BasicDomain {
     /**
      * 审核用户ID
      */
-    private BigInteger verifyUserId;
+    private Long verifyUserId;
     /**
      * 驳回原因
      */
@@ -158,11 +156,11 @@ public class AgentForm extends BasicDomain {
         this.address = address;
     }
 
-    public BigInteger getVerifyUserId() {
+    public Long getVerifyUserId() {
         return verifyUserId;
     }
 
-    public void setVerifyUserId(BigInteger verifyUserId) {
+    public void setVerifyUserId(Long verifyUserId) {
         this.verifyUserId = verifyUserId;
     }
 
@@ -235,7 +233,7 @@ public class AgentForm extends BasicDomain {
             return this;
         }
 
-        public Builder verifyUserId(BigInteger verifyUserId) {
+        public Builder verifyUserId(Long verifyUserId) {
             instance.setVerifyUserId(verifyUserId);
             return this;
         }

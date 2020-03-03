@@ -1,7 +1,5 @@
 package build.dream.common.beans;
 
-import java.math.BigInteger;
-
 public class AlipayAccount {
     /**
      * APPID
@@ -24,9 +22,9 @@ public class AlipayAccount {
      */
     private String signType;
 
-    private BigInteger tenantId;
+    private Long tenantId;
 
-    private BigInteger branchId;
+    private Long branchId;
 
     private String appAuthToken;
 
@@ -70,19 +68,19 @@ public class AlipayAccount {
         this.signType = signType;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 

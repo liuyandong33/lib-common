@@ -3,8 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-
 /**
  * Created by liuyandong on 2017/7/20.
  */
@@ -13,11 +11,11 @@ public class WeiXinPayAccount extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 微信公众平台app id
      */
@@ -69,19 +67,19 @@ public class WeiXinPayAccount extends BasicDomain {
      */
     private String apiV3Key;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -182,12 +180,12 @@ public class WeiXinPayAccount extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, WeiXinPayAccount> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }

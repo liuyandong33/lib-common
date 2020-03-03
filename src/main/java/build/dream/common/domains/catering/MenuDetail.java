@@ -3,16 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Menu.FieldName.TENANT_ID, columnName = Menu.ColumnName.TENANT_ID)
 public class MenuDetail extends BasicDomain {
     public static final String TABLE_NAME = "menu_detail";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编码
@@ -22,33 +19,33 @@ public class MenuDetail extends BasicDomain {
     /**
      * 菜牌ID
      */
-    private BigInteger menuId;
+    private Long menuId;
 
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 商品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
 
     /**
      * 商品单位ID
      */
-    private BigInteger goodsUnitId;
+    private Long goodsUnitId;
 
     /**
      * 售价
      */
-    private BigDecimal price;
+    private Double price;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -60,48 +57,48 @@ public class MenuDetail extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getMenuId() {
+    public Long getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(BigInteger menuId) {
+    public void setMenuId(Long menuId) {
         this.menuId = menuId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public BigInteger getGoodsUnitId() {
+    public Long getGoodsUnitId() {
         return goodsUnitId;
     }
 
-    public void setGoodsUnitId(BigInteger goodsUnitId) {
+    public void setGoodsUnitId(Long goodsUnitId) {
         this.goodsUnitId = goodsUnitId;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, MenuDetail> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -111,27 +108,27 @@ public class MenuDetail extends BasicDomain {
             return this;
         }
 
-        public Builder menuId(BigInteger menuId) {
+        public Builder menuId(Long menuId) {
             instance.setMenuId(menuId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }
 
-        public Builder goodsUnitId(BigInteger goodsUnitId) {
+        public Builder goodsUnitId(Long goodsUnitId) {
             instance.setGoodsUnitId(goodsUnitId);
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Double price) {
             instance.setPrice(price);
             return this;
         }

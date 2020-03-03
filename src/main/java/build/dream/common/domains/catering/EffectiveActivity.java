@@ -1,7 +1,5 @@
 package build.dream.common.domains.catering;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.sql.Time;
 import java.util.Date;
 
@@ -9,11 +7,11 @@ public class EffectiveActivity {
     /**
      * 活动ID
      */
-    private BigInteger activityId;
+    private Long activityId;
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,7 +19,7 @@ public class EffectiveActivity {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 活动名称
      */
@@ -53,7 +51,7 @@ public class EffectiveActivity {
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 商品名称
      */
@@ -61,7 +59,7 @@ public class EffectiveActivity {
     /**
      * 商品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 商品规格名称
      */
@@ -69,15 +67,15 @@ public class EffectiveActivity {
     /**
      * 单价
      */
-    private BigDecimal price;
+    private Double price;
     /**
      * 购买数量，买赠活动专用
      */
-    private BigDecimal buyQuantity;
+    private Double buyQuantity;
     /**
      * 赠送商品ID，买赠活动专用
      */
-    private BigInteger giveGoodsId;
+    private Long giveGoodsId;
     /**
      * 赠送商品名称，买赠活动专用
      */
@@ -85,7 +83,7 @@ public class EffectiveActivity {
     /**
      * 赠送商品规格ID，买赠活动专用
      */
-    private BigInteger giveGoodsSpecificationId;
+    private Long giveGoodsSpecificationId;
     /**
      * 正式商品规格名称，买赠活动专用
      */
@@ -93,15 +91,15 @@ public class EffectiveActivity {
     /**
      * 赠送商品价格，买赠活动专用
      */
-    private BigDecimal givePrice;
+    private Double givePrice;
     /**
      * 赠送数量，买赠活动专用
      */
-    private BigDecimal giveQuantity;
+    private Double giveQuantity;
     /**
      * 商品分类ID，买A赠B活动与特价商品活动专用，买A赠B活动中赠品对应的分类的ID，特价商品活动中特价商品对应的分类ID
      */
-    private BigInteger categoryId;
+    private Long categoryId;
     /**
      * 商品分类ID，买A赠B活动与特价商品活动专用，买A赠B活动中赠品对应的分类的名称，特价商品活动中特价商品对应的分类名称
      */
@@ -109,7 +107,7 @@ public class EffectiveActivity {
     /**
      * 总金额，整单满减活动、支付促销专用
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
     /**
      * 优惠方式，1-特价，2-折扣，整单满减活动、特价商品活动、支付促销专用
      */
@@ -117,33 +115,33 @@ public class EffectiveActivity {
     /**
      * 折扣率，整单满减活动、特价商品活动、支付促销专用
      */
-    private BigDecimal discountRate;
+    private Double discountRate;
     /**
      * 优惠金额，整单满减活动、支付促销专用
      */
-    private BigDecimal discountAmount;
+    private Double discountAmount;
     /**
      * 特价金额，特价商品活动专用
      */
-    private BigDecimal specialPrice;
+    private Double specialPrice;
     /**
      * 支付方式，1-微信支付，2-支付宝支付，3-现金支付，支付促销专用
      */
     private Integer paidType;
 
-    public BigInteger getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(BigInteger activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -155,11 +153,11 @@ public class EffectiveActivity {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -219,11 +217,11 @@ public class EffectiveActivity {
         this.status = status;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -235,11 +233,11 @@ public class EffectiveActivity {
         this.goodsName = goodsName;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
@@ -251,27 +249,27 @@ public class EffectiveActivity {
         this.goodsSpecificationName = goodsSpecificationName;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public BigDecimal getBuyQuantity() {
+    public Double getBuyQuantity() {
         return buyQuantity;
     }
 
-    public void setBuyQuantity(BigDecimal buyQuantity) {
+    public void setBuyQuantity(Double buyQuantity) {
         this.buyQuantity = buyQuantity;
     }
 
-    public BigInteger getGiveGoodsId() {
+    public Long getGiveGoodsId() {
         return giveGoodsId;
     }
 
-    public void setGiveGoodsId(BigInteger giveGoodsId) {
+    public void setGiveGoodsId(Long giveGoodsId) {
         this.giveGoodsId = giveGoodsId;
     }
 
@@ -283,11 +281,11 @@ public class EffectiveActivity {
         this.giveGoodsName = giveGoodsName;
     }
 
-    public BigInteger getGiveGoodsSpecificationId() {
+    public Long getGiveGoodsSpecificationId() {
         return giveGoodsSpecificationId;
     }
 
-    public void setGiveGoodsSpecificationId(BigInteger giveGoodsSpecificationId) {
+    public void setGiveGoodsSpecificationId(Long giveGoodsSpecificationId) {
         this.giveGoodsSpecificationId = giveGoodsSpecificationId;
     }
 
@@ -299,27 +297,27 @@ public class EffectiveActivity {
         this.giveGoodsSpecificationName = giveGoodsSpecificationName;
     }
 
-    public BigDecimal getGivePrice() {
+    public Double getGivePrice() {
         return givePrice;
     }
 
-    public void setGivePrice(BigDecimal givePrice) {
+    public void setGivePrice(Double givePrice) {
         this.givePrice = givePrice;
     }
 
-    public BigDecimal getGiveQuantity() {
+    public Double getGiveQuantity() {
         return giveQuantity;
     }
 
-    public void setGiveQuantity(BigDecimal giveQuantity) {
+    public void setGiveQuantity(Double giveQuantity) {
         this.giveQuantity = giveQuantity;
     }
 
-    public BigInteger getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(BigInteger categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -331,11 +329,11 @@ public class EffectiveActivity {
         this.categoryName = categoryName;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -347,27 +345,27 @@ public class EffectiveActivity {
         this.discountType = discountType;
     }
 
-    public BigDecimal getDiscountRate() {
+    public Double getDiscountRate() {
         return discountRate;
     }
 
-    public void setDiscountRate(BigDecimal discountRate) {
+    public void setDiscountRate(Double discountRate) {
         this.discountRate = discountRate;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getSpecialPrice() {
+    public Double getSpecialPrice() {
         return specialPrice;
     }
 
-    public void setSpecialPrice(BigDecimal specialPrice) {
+    public void setSpecialPrice(Double specialPrice) {
         this.specialPrice = specialPrice;
     }
 

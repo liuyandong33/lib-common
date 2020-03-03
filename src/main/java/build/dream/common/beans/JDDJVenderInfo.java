@@ -1,20 +1,18 @@
 package build.dream.common.beans;
 
-import java.math.BigInteger;
-
 public class JDDJVenderInfo {
-    private BigInteger tenantId;
+    private Long tenantId;
     private String tenantCode;
     private String partitionCode;
     private String venderId;
     private String appKey;
     private String appSecret;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -61,7 +59,7 @@ public class JDDJVenderInfo {
     public static class Builder {
         private final JDDJVenderInfo instance = new JDDJVenderInfo();
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

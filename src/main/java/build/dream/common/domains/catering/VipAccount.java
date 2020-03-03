@@ -3,16 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = VipAccount.FieldName.TENANT_ID, columnName = VipAccount.ColumnName.TENANT_ID)
 public class VipAccount extends BasicDomain {
     public static final String TABLE_NAME = "vip_account";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -20,42 +17,42 @@ public class VipAccount extends BasicDomain {
     /**
      * 门店id
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 会员类型ID
      */
-    private BigInteger vipTypeId;
+    private Long vipTypeId;
     /**
      * 会员分组Id
      */
-    private BigInteger vipGroupId;
+    private Long vipGroupId;
 
     /**
      * 会员ID
      */
-    private BigInteger vipId;
+    private Long vipId;
     /**
      * 会员积分
      */
-    private BigDecimal point;
+    private Double point;
     /**
      * 累计积分
      */
-    private BigDecimal accumulativePoint;
+    private Double accumulativePoint;
     /**
      * 余额
      */
-    private BigDecimal balance;
+    private Double balance;
     /**
      * 累计充值金额
      */
-    private BigDecimal accumulativeRecharge;
+    private Double accumulativeRecharge;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -67,72 +64,72 @@ public class VipAccount extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getVipTypeId() {
+    public Long getVipTypeId() {
         return vipTypeId;
     }
 
-    public void setVipTypeId(BigInteger vipTypeId) {
+    public void setVipTypeId(Long vipTypeId) {
         this.vipTypeId = vipTypeId;
     }
 
-    public BigInteger getVipGroupId() {
+    public Long getVipGroupId() {
         return vipGroupId;
     }
 
-    public void setVipGroupId(BigInteger vipGroupId) {
+    public void setVipGroupId(Long vipGroupId) {
         this.vipGroupId = vipGroupId;
     }
 
-    public BigInteger getVipId() {
+    public Long getVipId() {
         return vipId;
     }
 
-    public void setVipId(BigInteger vipId) {
+    public void setVipId(Long vipId) {
         this.vipId = vipId;
     }
 
-    public BigDecimal getPoint() {
+    public Double getPoint() {
         return point;
     }
 
-    public void setPoint(BigDecimal point) {
+    public void setPoint(Double point) {
         this.point = point;
     }
 
-    public BigDecimal getAccumulativePoint() {
+    public Double getAccumulativePoint() {
         return accumulativePoint;
     }
 
-    public void setAccumulativePoint(BigDecimal accumulativePoint) {
+    public void setAccumulativePoint(Double accumulativePoint) {
         this.accumulativePoint = accumulativePoint;
     }
 
-    public BigDecimal getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public BigDecimal getAccumulativeRecharge() {
+    public Double getAccumulativeRecharge() {
         return accumulativeRecharge;
     }
 
-    public void setAccumulativeRecharge(BigDecimal accumulativeRecharge) {
+    public void setAccumulativeRecharge(Double accumulativeRecharge) {
         this.accumulativeRecharge = accumulativeRecharge;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, VipAccount> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -142,42 +139,42 @@ public class VipAccount extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder vipTypeId(BigInteger vipTypeId) {
+        public Builder vipTypeId(Long vipTypeId) {
             instance.setVipTypeId(vipTypeId);
             return this;
         }
 
-        public Builder vipGroupId(BigInteger vipGroupId) {
+        public Builder vipGroupId(Long vipGroupId) {
             instance.setVipGroupId(vipGroupId);
             return this;
         }
 
-        public Builder vipId(BigInteger vipId) {
+        public Builder vipId(Long vipId) {
             instance.setVipId(vipId);
             return this;
         }
 
-        public Builder point(BigDecimal point) {
+        public Builder point(Double point) {
             instance.setPoint(point);
             return this;
         }
 
-        public Builder accumulativePoint(BigDecimal accumulativePoint) {
+        public Builder accumulativePoint(Double accumulativePoint) {
             instance.setAccumulativePoint(accumulativePoint);
             return this;
         }
 
-        public Builder balance(BigDecimal balance) {
+        public Builder balance(Double balance) {
             instance.setBalance(balance);
             return this;
         }
 
-        public Builder accumulativeRecharge(BigDecimal accumulativeRecharge) {
+        public Builder accumulativeRecharge(Double accumulativeRecharge) {
             instance.setAccumulativeRecharge(accumulativeRecharge);
             return this;
         }

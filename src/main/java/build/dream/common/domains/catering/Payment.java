@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Payment.FieldName.TENANT_ID, columnName = Payment.ColumnName.TENANT_ID)
 public class Payment extends BasicDomain {
     public static final String TABLE_NAME = "payment";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -19,7 +17,7 @@ public class Payment extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 支付方式编码
      */
@@ -33,11 +31,11 @@ public class Payment extends BasicDomain {
      */
     private Integer status;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -49,11 +47,11 @@ public class Payment extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -82,7 +80,7 @@ public class Payment extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Payment> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -92,7 +90,7 @@ public class Payment extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }

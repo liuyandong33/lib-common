@@ -3,8 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-
 public class PosPrivilege extends BasicDomain {
     public static final String TABLE_NAME = "pos_privilege";
     /**
@@ -30,7 +28,7 @@ public class PosPrivilege extends BasicDomain {
     /**
      * 父级权限ID
      */
-    private BigInteger parentId;
+    private Long parentId;
     /**
      * 备注
      */
@@ -76,11 +74,11 @@ public class PosPrivilege extends BasicDomain {
         this.actionName = actionName;
     }
 
-    public BigInteger getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(BigInteger parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 
@@ -118,7 +116,7 @@ public class PosPrivilege extends BasicDomain {
             return this;
         }
 
-        public Builder parentId(BigInteger parentId) {
+        public Builder parentId(Long parentId) {
             instance.setParentId(parentId);
             return this;
         }

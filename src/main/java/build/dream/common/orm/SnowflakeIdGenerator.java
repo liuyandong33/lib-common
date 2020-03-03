@@ -7,7 +7,6 @@ import build.dream.common.utils.CustomDateUtils;
 import build.dream.common.utils.DatabaseUtils;
 import build.dream.common.utils.ValidateUtils;
 
-import java.math.BigInteger;
 import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +15,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
+public class SnowflakeIdGenerator implements IdGenerator<Long> {
     // 开始时间2019-01-01 00:00:00
     private long twepoch = CustomDateUtils.parse("2019-01-01 00:00:00", Constants.DEFAULT_DATE_PATTERN).getTime();
 
@@ -111,7 +110,7 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
     }
 
     @Override
-    public synchronized BigInteger nextId() {
+    public synchronized Long nextId() {
         long timestamp = timeGen();
         if (timestamp < lastTimestamp) {
             throw new RuntimeException("Clock moved backwards. Refusing to generate id for " + (lastTimestamp - timestamp) + " milliseconds");
@@ -125,12 +124,12 @@ public class SnowflakeIdGenerator implements IdGenerator<BigInteger> {
             sequence = 0;
         }
         lastTimestamp = timestamp;
-        return BigInteger.valueOf(((timestamp - twepoch) << timestampLeftShift) | (dataCenterId << dataCenterIdShift) | (workerId << workerIdShift) | sequence);
+        return ((timestamp - twepoch) << timestampLeftShift) | (dataCenterId << dataCenterIdShift) | (workerId << workerIdShift) | sequence;
     }
 
     @Override
-    public List<BigInteger> nextManyIds(int number) {
-        List<BigInteger> ids = new ArrayList<BigInteger>(number);
+    public List<Long> nextManyIds(int number) {
+        List<Long> ids = new ArrayList<Long>(number);
         for (int index = 0; index < number; index++) {
             ids.add(nextId());
         }

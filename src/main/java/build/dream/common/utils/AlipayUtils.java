@@ -13,7 +13,6 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.annotation.AnnotationUtils;
 
-import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Objects;
@@ -71,7 +70,7 @@ public class AlipayUtils {
      * @param branchId
      * @return
      */
-    public static AlipayAccount obtainAlipayAccount(BigInteger tenantId, BigInteger branchId) {
+    public static AlipayAccount obtainAlipayAccount(Long tenantId, Long branchId) {
         return obtainAlipayAccount(tenantId.toString(), branchId.toString());
     }
 

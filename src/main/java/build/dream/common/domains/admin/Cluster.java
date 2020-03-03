@@ -2,14 +2,13 @@ package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class Cluster extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 集群名称
      */
@@ -19,11 +18,11 @@ public class Cluster extends BasicDomain {
      */
     private Integer type;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -46,7 +45,7 @@ public class Cluster extends BasicDomain {
     public static class Builder {
         private final Cluster instance = new Cluster();
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -61,7 +60,7 @@ public class Cluster extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
+        public Builder id(Long id) {
             instance.setId(id);
             return this;
         }
@@ -71,7 +70,7 @@ public class Cluster extends BasicDomain {
             return this;
         }
 
-        public Builder createdUserId(BigInteger createdUserId) {
+        public Builder createdUserId(Long createdUserId) {
             instance.setCreatedUserId(createdUserId);
             return this;
         }
@@ -81,7 +80,7 @@ public class Cluster extends BasicDomain {
             return this;
         }
 
-        public Builder updatedUserId(BigInteger updatedUserId) {
+        public Builder updatedUserId(Long updatedUserId) {
             instance.setUpdatedUserId(updatedUserId);
             return this;
         }

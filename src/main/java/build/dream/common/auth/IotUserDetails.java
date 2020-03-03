@@ -1,25 +1,23 @@
 package build.dream.common.auth;
 
-import java.math.BigInteger;
-
 public class IotUserDetails extends TenantUserDetails {
-    private BigInteger userId;
-    private BigInteger branchId;
+    private Long userId;
+    private Long branchId;
     private String branchCode;
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 

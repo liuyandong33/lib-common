@@ -13,7 +13,6 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.net.ssl.SSLSocketFactory;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -42,7 +41,7 @@ public class WeiXinPayUtils {
      * @param branchId
      * @return
      */
-    public static WeiXinPayAccount obtainWeiXinPayAccount(BigInteger tenantId, BigInteger branchId) {
+    public static WeiXinPayAccount obtainWeiXinPayAccount(Long tenantId, Long branchId) {
         return obtainWeiXinPayAccount(tenantId.toString(), branchId.toString());
     }
 

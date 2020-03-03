@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
     @NotNull
@@ -35,7 +34,7 @@ public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
     @NotNull
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000.00")
-    private BigDecimal amount;
+    private Double amount;
 
     @Length(max = 32)
     @JsonProperty(value = "payee_user_id")
@@ -93,11 +92,11 @@ public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
         this.orderTitle = orderTitle;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -159,7 +158,7 @@ public class AlipayFundCouponOrderDisburseModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder amount(BigDecimal amount) {
+        public Builder amount(Double amount) {
             instance.setAmount(amount);
             return this;
         }

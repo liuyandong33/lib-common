@@ -1,17 +1,15 @@
 package build.dream.common.domains.catering;
 
-import java.math.BigInteger;
-
 public class CanNotOperateReason {
     public static final String TABLE_NAME = "can_not_operate_reason";
     /**
      * id
      */
-    private BigInteger id;
+    private Long id;
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -19,11 +17,11 @@ public class CanNotOperateReason {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 表id
      */
-    private BigInteger tableId;
+    private Long tableId;
     /**
      * 表名
      */
@@ -31,7 +29,7 @@ public class CanNotOperateReason {
     /**
      * 导致不能删除的表id
      */
-    private BigInteger causeTableId;
+    private Long causeTableId;
     /**
      * 导致不能删除的表名字
      */
@@ -45,19 +43,19 @@ public class CanNotOperateReason {
      */
     private String reason;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -69,19 +67,19 @@ public class CanNotOperateReason {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getTableId() {
+    public Long getTableId() {
         return tableId;
     }
 
-    public void setTableId(BigInteger tableId) {
+    public void setTableId(Long tableId) {
         this.tableId = tableId;
     }
 
@@ -93,11 +91,11 @@ public class CanNotOperateReason {
         this.tableName = tableName;
     }
 
-    public BigInteger getCauseTableId() {
+    public Long getCauseTableId() {
         return causeTableId;
     }
 
-    public void setCauseTableId(BigInteger causeTableId) {
+    public void setCauseTableId(Long causeTableId) {
         this.causeTableId = causeTableId;
     }
 
@@ -128,12 +126,12 @@ public class CanNotOperateReason {
     public static class Builder {
         private final CanNotOperateReason instance = new CanNotOperateReason();
 
-        public Builder id(BigInteger id) {
+        public Builder id(Long id) {
             instance.setId(id);
             return this;
         }
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -143,12 +141,12 @@ public class CanNotOperateReason {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder tableId(BigInteger tableId) {
+        public Builder tableId(Long tableId) {
             instance.setTableId(tableId);
             return this;
         }
@@ -158,7 +156,7 @@ public class CanNotOperateReason {
             return this;
         }
 
-        public Builder causeTableId(BigInteger causeTableId) {
+        public Builder causeTableId(Long causeTableId) {
             instance.setCauseTableId(causeTableId);
             return this;
         }

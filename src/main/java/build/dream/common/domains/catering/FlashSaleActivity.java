@@ -2,15 +2,13 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 public class FlashSaleActivity extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编号
@@ -20,7 +18,7 @@ public class FlashSaleActivity extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 秒杀活动名称
@@ -50,7 +48,7 @@ public class FlashSaleActivity extends BasicDomain {
     /**
      * 限购数量
      */
-    private BigDecimal limitQuantity;
+    private Double limitQuantity;
 
     /**
      * 生效前显示时间
@@ -65,7 +63,7 @@ public class FlashSaleActivity extends BasicDomain {
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 商品名称
@@ -80,28 +78,28 @@ public class FlashSaleActivity extends BasicDomain {
     /**
      * 商品原价
      */
-    private BigDecimal originalPrice;
+    private Double originalPrice;
 
     /**
      * 秒杀价
      */
-    private BigDecimal flashSalePrice;
+    private Double flashSalePrice;
 
     /**
      * 秒杀库存
      */
-    private BigDecimal flashSaleStock;
+    private Double flashSaleStock;
 
     /**
      * 活动说明
      */
     private String description;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -113,11 +111,11 @@ public class FlashSaleActivity extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -161,11 +159,11 @@ public class FlashSaleActivity extends BasicDomain {
         this.limited = limited;
     }
 
-    public BigDecimal getLimitQuantity() {
+    public Double getLimitQuantity() {
         return limitQuantity;
     }
 
-    public void setLimitQuantity(BigDecimal limitQuantity) {
+    public void setLimitQuantity(Double limitQuantity) {
         this.limitQuantity = limitQuantity;
     }
 
@@ -185,11 +183,11 @@ public class FlashSaleActivity extends BasicDomain {
         this.timeUnit = timeUnit;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -209,27 +207,27 @@ public class FlashSaleActivity extends BasicDomain {
         this.imageUrl = imageUrl;
     }
 
-    public BigDecimal getOriginalPrice() {
+    public Double getOriginalPrice() {
         return originalPrice;
     }
 
-    public void setOriginalPrice(BigDecimal originalPrice) {
+    public void setOriginalPrice(Double originalPrice) {
         this.originalPrice = originalPrice;
     }
 
-    public BigDecimal getFlashSalePrice() {
+    public Double getFlashSalePrice() {
         return flashSalePrice;
     }
 
-    public void setFlashSalePrice(BigDecimal flashSalePrice) {
+    public void setFlashSalePrice(Double flashSalePrice) {
         this.flashSalePrice = flashSalePrice;
     }
 
-    public BigDecimal getFlashSaleStock() {
+    public Double getFlashSaleStock() {
         return flashSaleStock;
     }
 
-    public void setFlashSaleStock(BigDecimal flashSaleStock) {
+    public void setFlashSaleStock(Double flashSaleStock) {
         this.flashSaleStock = flashSaleStock;
     }
 
@@ -242,7 +240,7 @@ public class FlashSaleActivity extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, FlashSaleActivity> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -252,7 +250,7 @@ public class FlashSaleActivity extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
@@ -282,7 +280,7 @@ public class FlashSaleActivity extends BasicDomain {
             return this;
         }
 
-        public Builder limitQuantity(BigDecimal limitQuantity) {
+        public Builder limitQuantity(Double limitQuantity) {
             instance.setLimitQuantity(limitQuantity);
             return this;
         }
@@ -297,7 +295,7 @@ public class FlashSaleActivity extends BasicDomain {
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
@@ -312,17 +310,17 @@ public class FlashSaleActivity extends BasicDomain {
             return this;
         }
 
-        public Builder originalPrice(BigDecimal originalPrice) {
+        public Builder originalPrice(Double originalPrice) {
             instance.setOriginalPrice(originalPrice);
             return this;
         }
 
-        public Builder flashSalePrice(BigDecimal flashSalePrice) {
+        public Builder flashSalePrice(Double flashSalePrice) {
             instance.setFlashSalePrice(flashSalePrice);
             return this;
         }
 
-        public Builder flashSaleStock(BigDecimal flashSaleStock) {
+        public Builder flashSaleStock(Double flashSaleStock) {
             instance.setFlashSaleStock(flashSaleStock);
             return this;
         }

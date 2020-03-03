@@ -7,14 +7,13 @@ import build.dream.common.push.PushPosMessageThread;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.collections.CollectionUtils;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 public class PushUtils {
-    public static void pushOrderMessage(BigInteger tenantId, BigInteger branchId, OrderMessageModel elemeMessageModel, int count, int interval) {
+    public static void pushOrderMessage(Long tenantId, Long branchId, OrderMessageModel elemeMessageModel, int count, int interval) {
         SearchModel searchModel = SearchModel.builder()
                 .autoSetDeletedFalse()
                 .equal(Pos.ColumnName.TENANT_ID, tenantId)

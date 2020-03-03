@@ -2,14 +2,12 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class TenantConfig extends BasicDomain {
     public static final String TABLE_NAME = "tenant_config";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -27,11 +25,11 @@ public class TenantConfig extends BasicDomain {
      */
     private Integer maxValue;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -68,7 +66,7 @@ public class TenantConfig extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, TenantConfig> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

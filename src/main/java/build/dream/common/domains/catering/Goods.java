@@ -5,15 +5,13 @@ import build.dream.common.annotations.Transient;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Goods.FieldName.TENANT_ID, columnName = Goods.ColumnName.TENANT_ID)
 public class Goods extends BasicDomain {
     public static final String TABLE_NAME = "goods";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,7 +19,7 @@ public class Goods extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 商品名称
      */
@@ -33,7 +31,7 @@ public class Goods extends BasicDomain {
     /**
      * 商品分类ID
      */
-    private BigInteger categoryId;
+    private Long categoryId;
 
     @Transient
     private String categoryName;
@@ -44,11 +42,11 @@ public class Goods extends BasicDomain {
 
     private boolean stocked;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -60,11 +58,11 @@ public class Goods extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -84,11 +82,11 @@ public class Goods extends BasicDomain {
         this.type = type;
     }
 
-    public BigInteger getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(BigInteger categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -117,12 +115,12 @@ public class Goods extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Goods> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
@@ -142,7 +140,7 @@ public class Goods extends BasicDomain {
             return this;
         }
 
-        public Builder categoryId(BigInteger categoryId) {
+        public Builder categoryId(Long categoryId) {
             instance.setCategoryId(categoryId);
             return this;
         }

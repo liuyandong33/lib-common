@@ -8,7 +8,6 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBasicModel {
     @NotNull
@@ -57,16 +56,16 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
 
     @DecimalMin(value = "1")
     @DecimalMax(value = "999")
-    private BigDecimal amount;
+    private Double amount;
 
     @DecimalMin(value = "1")
     @DecimalMax(value = "10000000")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @DecimalMin(value = "0.01")
     @JsonProperty(value = "floor_amount")
-    private BigDecimal floorAmount;
+    private Double floorAmount;
 
     @Length(max = 1024)
     @JsonProperty(value = "rule_conf")
@@ -148,27 +147,27 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
         this.voucherQuantity = voucherQuantity;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getFloorAmount() {
+    public Double getFloorAmount() {
         return floorAmount;
     }
 
-    public void setFloorAmount(BigDecimal floorAmount) {
+    public void setFloorAmount(Double floorAmount) {
         this.floorAmount = floorAmount;
     }
 
@@ -235,17 +234,17 @@ public class AlipayMarketingCashLessVoucherTemplateCreateModel extends AlipayBas
             return this;
         }
 
-        public Builder amount(BigDecimal amount) {
+        public Builder amount(Double amount) {
             instance.setAmount(amount);
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder floorAmount(BigDecimal floorAmount) {
+        public Builder floorAmount(Double floorAmount) {
             instance.setFloorAmount(floorAmount);
             return this;
         }

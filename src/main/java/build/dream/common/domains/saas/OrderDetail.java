@@ -3,19 +3,16 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public class OrderDetail extends BasicDomain {
     public static final String TABLE_NAME = "order_detail";
     /**
      * 订单ID
      */
-    private BigInteger orderInfoId;
+    private Long orderInfoId;
     /**
      * 产品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 产品名称
      */
@@ -23,7 +20,7 @@ public class OrderDetail extends BasicDomain {
     /**
      * 产品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 产品规格名称
      */
@@ -31,41 +28,41 @@ public class OrderDetail extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long branchId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 单价
      */
-    private BigDecimal price;
+    private Double price;
     /**
      * 总金额
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount;
+    private Double discountAmount;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount;
+    private Double payableAmount;
     /**
      * 数量
      */
     private Integer quantity;
 
-    public BigInteger getOrderInfoId() {
+    public Long getOrderInfoId() {
         return orderInfoId;
     }
 
-    public void setOrderInfoId(BigInteger orderInfoId) {
+    public void setOrderInfoId(Long orderInfoId) {
         this.orderInfoId = orderInfoId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -77,11 +74,11 @@ public class OrderDetail extends BasicDomain {
         this.goodsName = goodsName;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
@@ -93,43 +90,43 @@ public class OrderDetail extends BasicDomain {
         this.goodsSpecificationName = goodsSpecificationName;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getPayableAmount() {
+    public Double getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(BigDecimal payableAmount) {
+    public void setPayableAmount(Double payableAmount) {
         this.payableAmount = payableAmount;
     }
 
@@ -142,12 +139,12 @@ public class OrderDetail extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OrderDetail> {
-        public Builder orderInfoId(BigInteger orderInfoId) {
+        public Builder orderInfoId(Long orderInfoId) {
             instance.setOrderInfoId(orderInfoId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
@@ -157,7 +154,7 @@ public class OrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }
@@ -167,27 +164,27 @@ public class OrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Double price) {
             instance.setPrice(price);
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder discountAmount(BigDecimal discountAmount) {
+        public Builder discountAmount(Double discountAmount) {
             instance.setDiscountAmount(discountAmount);
             return this;
         }
 
-        public Builder payableAmount(BigDecimal payableAmount) {
+        public Builder payableAmount(Double payableAmount) {
             instance.setPayableAmount(payableAmount);
             return this;
         }

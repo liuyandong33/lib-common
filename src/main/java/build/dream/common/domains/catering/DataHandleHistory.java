@@ -2,7 +2,6 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class DataHandleHistory extends BasicDomain {
@@ -10,7 +9,7 @@ public class DataHandleHistory extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -18,7 +17,7 @@ public class DataHandleHistory extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 数据签名
      */

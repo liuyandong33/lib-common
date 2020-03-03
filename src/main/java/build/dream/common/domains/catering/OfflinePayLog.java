@@ -2,14 +2,12 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class OfflinePayLog extends BasicDomain {
     public static final String TABLE_NAME = "offline_pay_log";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -17,12 +15,12 @@ public class OfflinePayLog extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * offline_pay_record.id
      */
-    private BigInteger offlinePayRecordId;
+    private Long offlinePayRecordId;
 
     /**
      * 日志类型，1-支付，2-查询，3-退款，4-支付回调，5-退款回调
@@ -34,11 +32,11 @@ public class OfflinePayLog extends BasicDomain {
      */
     private String channelResult;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -50,19 +48,19 @@ public class OfflinePayLog extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getOfflinePayRecordId() {
+    public Long getOfflinePayRecordId() {
         return offlinePayRecordId;
     }
 
-    public void setOfflinePayRecordId(BigInteger offlinePayRecordId) {
+    public void setOfflinePayRecordId(Long offlinePayRecordId) {
         this.offlinePayRecordId = offlinePayRecordId;
     }
 
@@ -83,7 +81,7 @@ public class OfflinePayLog extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayLog> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -93,12 +91,12 @@ public class OfflinePayLog extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder offlinePayRecordId(BigInteger offlinePayRecordId) {
+        public Builder offlinePayRecordId(Long offlinePayRecordId) {
             instance.setOfflinePayRecordId(offlinePayRecordId);
             return this;
         }

@@ -4,16 +4,13 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = FullReductionActivity.FieldName.TENANT_ID, columnName = FullReductionActivity.ColumnName.TENANT_ID)
 public class FullReductionActivity extends BasicDomain {
     public static final String TABLE_NAME = "full_reduction_activity";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -21,11 +18,11 @@ public class FullReductionActivity extends BasicDomain {
     /**
      * 活动id
      */
-    private BigInteger activityId;
+    private Long activityId;
     /**
      * 总金额
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
     /**
      * 优惠方式，1-按金额优惠，2-按折扣率优惠
      */
@@ -33,17 +30,17 @@ public class FullReductionActivity extends BasicDomain {
     /**
      * 折扣率
      */
-    private BigDecimal discountRate = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double discountRate = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 折扣金额
      */
-    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -55,19 +52,19 @@ public class FullReductionActivity extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(BigInteger activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -79,24 +76,24 @@ public class FullReductionActivity extends BasicDomain {
         this.discountType = discountType;
     }
 
-    public BigDecimal getDiscountRate() {
+    public Double getDiscountRate() {
         return discountRate;
     }
 
-    public void setDiscountRate(BigDecimal discountRate) {
+    public void setDiscountRate(Double discountRate) {
         this.discountRate = discountRate;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, FullReductionActivity> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -106,12 +103,12 @@ public class FullReductionActivity extends BasicDomain {
             return this;
         }
 
-        public Builder activityId(BigInteger activityId) {
+        public Builder activityId(Long activityId) {
             instance.setActivityId(activityId);
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
@@ -121,12 +118,12 @@ public class FullReductionActivity extends BasicDomain {
             return this;
         }
 
-        public Builder discountRate(BigDecimal discountRate) {
+        public Builder discountRate(Double discountRate) {
             instance.setDiscountRate(discountRate);
             return this;
         }
 
-        public Builder discountAmount(BigDecimal discountAmount) {
+        public Builder discountAmount(Double discountAmount) {
             instance.setDiscountAmount(discountAmount);
             return this;
         }

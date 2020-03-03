@@ -1,20 +1,18 @@
 package build.dream.common.auth;
 
-import java.math.BigInteger;
-
 public class VipUserDetails extends AbstractUserDetails {
-    private BigInteger tenantId;
+    private Long tenantId;
     private String tenantCode;
     private String partitionCode;
-    private BigInteger vipId;
+    private Long vipId;
     private String publicKey;
     private String privateKey;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -34,11 +32,11 @@ public class VipUserDetails extends AbstractUserDetails {
         this.partitionCode = partitionCode;
     }
 
-    public BigInteger getVipId() {
+    public Long getVipId() {
         return vipId;
     }
 
-    public void setVipId(BigInteger vipId) {
+    public void setVipId(Long vipId) {
         this.vipId = vipId;
     }
 

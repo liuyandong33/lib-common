@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = OfflinePayRecord.FieldName.TENANT_ID, columnName = OfflinePayRecord.ColumnName.TENANT_ID)
 public class OfflinePayRecord extends BasicDomain {
     public static final String TABLE_NAME = "offline_pay_record";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -19,11 +17,11 @@ public class OfflinePayRecord extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 用户ID
      */
-    private BigInteger userId;
+    private Long userId;
     /**
      * 支付场景，1-微信付款码支付，2-微信公众号支付，3-微信网页支付，4-微信APP支付，5-微信H5支付，6-微信小程序支付，7-支付宝手机网站支付，8-支付宝电脑网站支付支付，9-支付宝APP支付，10-支付宝当面付
      */
@@ -66,11 +64,11 @@ public class OfflinePayRecord extends BasicDomain {
      */
     private Integer refundStatus;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -82,19 +80,19 @@ public class OfflinePayRecord extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -179,7 +177,7 @@ public class OfflinePayRecord extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, OfflinePayRecord> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -189,12 +187,12 @@ public class OfflinePayRecord extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder userId(BigInteger userId) {
+        public Builder userId(Long userId) {
             instance.setUserId(userId);
             return this;
         }

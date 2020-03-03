@@ -2,8 +2,6 @@ package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class Host extends BasicDomain {
     /**
      * 主机类型，1-真机，2-虚拟机
@@ -12,7 +10,7 @@ public class Host extends BasicDomain {
     /**
      * 宿主机ID
      */
-    private BigInteger parentId;
+    private Long parentId;
     /**
      * 主机名称
      */
@@ -57,11 +55,11 @@ public class Host extends BasicDomain {
         this.type = type;
     }
 
-    public BigInteger getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(BigInteger parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 

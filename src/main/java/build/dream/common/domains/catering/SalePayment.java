@@ -3,8 +3,6 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = SalePayment.FieldName.TENANT_ID, columnName = SalePayment.ColumnName.TENANT_ID)
@@ -13,7 +11,7 @@ public class SalePayment extends BasicDomain {
     /**
      * sale id
      */
-    private BigInteger saleId;
+    private Long saleId;
     /**
      * 销售时间
      */
@@ -21,7 +19,7 @@ public class SalePayment extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -29,11 +27,11 @@ public class SalePayment extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 支付方式id
      */
-    private BigInteger paymentId;
+    private Long paymentId;
     /**
      * 支付方式编码
      */
@@ -45,13 +43,13 @@ public class SalePayment extends BasicDomain {
     /**
      * 支付金额
      */
-    private BigDecimal paidAmount;
+    private Double paidAmount;
 
-    public BigInteger getSaleId() {
+    public Long getSaleId() {
         return saleId;
     }
 
-    public void setSaleId(BigInteger saleId) {
+    public void setSaleId(Long saleId) {
         this.saleId = saleId;
     }
 
@@ -63,11 +61,11 @@ public class SalePayment extends BasicDomain {
         this.saleTime = saleTime;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -79,19 +77,19 @@ public class SalePayment extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getPaymentId() {
+    public Long getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(BigInteger paymentId) {
+    public void setPaymentId(Long paymentId) {
         this.paymentId = paymentId;
     }
 
@@ -111,16 +109,16 @@ public class SalePayment extends BasicDomain {
         this.paymentName = paymentName;
     }
 
-    public BigDecimal getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, SalePayment> {
-        public Builder saleId(BigInteger saleId) {
+        public Builder saleId(Long saleId) {
             instance.setSaleId(saleId);
             return this;
         }
@@ -130,7 +128,7 @@ public class SalePayment extends BasicDomain {
             return this;
         }
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -140,12 +138,12 @@ public class SalePayment extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder paymentId(BigInteger paymentId) {
+        public Builder paymentId(Long paymentId) {
             instance.setPaymentId(paymentId);
             return this;
         }
@@ -160,7 +158,7 @@ public class SalePayment extends BasicDomain {
             return this;
         }
 
-        public Builder paidAmount(BigDecimal paidAmount) {
+        public Builder paidAmount(Double paidAmount) {
             instance.setPaidAmount(paidAmount);
             return this;
         }

@@ -15,7 +15,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,16 +65,16 @@ public class OrderModel extends AnubisBasicModel {
     @NotNull
     @SerializedName(value = "order_total_amount", alternate = "orderTotalAmount")
     @JsonProperty(value = "order_total_amount")
-    private BigDecimal orderTotalAmount;
+    private Double orderTotalAmount;
 
     @NotNull
     @SerializedName(value = "order_actual_amount", alternate = "orderActualAmount")
     @JsonProperty(value = "order_actual_amount")
-    private BigDecimal orderActualAmount;
+    private Double orderActualAmount;
 
     @SerializedName(value = "order_weight", alternate = "orderWeight")
     @JsonProperty(value = "order_weight")
-    private BigDecimal orderWeight;
+    private Double orderWeight;
 
     @Length(max = 255)
     @SerializedName(value = "order_remark", alternate = "orderRemark")
@@ -103,7 +102,7 @@ public class OrderModel extends AnubisBasicModel {
 
     @SerializedName(value = "require_payment_pay", alternate = "requirePaymentPay")
     @JsonProperty(value = "require_payment_pay")
-    private BigDecimal requirePaymentPay;
+    private Double requirePaymentPay;
 
     @SerializedName(value = "require_receive_time", alternate = "requireReceiveTime")
     @JsonProperty(value = "require_receive_time")
@@ -193,27 +192,27 @@ public class OrderModel extends AnubisBasicModel {
         this.orderAddTime = orderAddTime;
     }
 
-    public BigDecimal getOrderTotalAmount() {
+    public Double getOrderTotalAmount() {
         return orderTotalAmount;
     }
 
-    public void setOrderTotalAmount(BigDecimal orderTotalAmount) {
+    public void setOrderTotalAmount(Double orderTotalAmount) {
         this.orderTotalAmount = orderTotalAmount;
     }
 
-    public BigDecimal getOrderActualAmount() {
+    public Double getOrderActualAmount() {
         return orderActualAmount;
     }
 
-    public void setOrderActualAmount(BigDecimal orderActualAmount) {
+    public void setOrderActualAmount(Double orderActualAmount) {
         this.orderActualAmount = orderActualAmount;
     }
 
-    public BigDecimal getOrderWeight() {
+    public Double getOrderWeight() {
         return orderWeight;
     }
 
-    public void setOrderWeight(BigDecimal orderWeight) {
+    public void setOrderWeight(Double orderWeight) {
         this.orderWeight = orderWeight;
     }
 
@@ -265,11 +264,11 @@ public class OrderModel extends AnubisBasicModel {
         this.isAgentPayment = isAgentPayment;
     }
 
-    public BigDecimal getRequirePaymentPay() {
+    public Double getRequirePaymentPay() {
         return requirePaymentPay;
     }
 
-    public void setRequirePaymentPay(BigDecimal requirePaymentPay) {
+    public void setRequirePaymentPay(Double requirePaymentPay) {
         this.requirePaymentPay = requirePaymentPay;
     }
 
@@ -589,11 +588,11 @@ public class OrderModel extends AnubisBasicModel {
 
         @NotNull
         @SerializedName(value = "item_price", alternate = "itemPrice")
-        private BigDecimal itemPrice;
+        private Double itemPrice;
 
         @NotNull
         @SerializedName(value = "item_actual_price", alternate = "itemActualPrice")
-        private BigDecimal itemActualPrice;
+        private Double itemActualPrice;
 
         @SerializedName(value = "item_size", alternate = "itemSize")
         private Integer itemSize;
@@ -611,7 +610,7 @@ public class OrderModel extends AnubisBasicModel {
         private Integer isAgentPurchase;
 
         @SerializedName(value = "agent_purchase_price", alternate = "agentPurchasePrice")
-        private BigDecimal agentPurchasePrice;
+        private Double agentPurchasePrice;
 
         public String getItemId() {
             return itemId;
@@ -637,19 +636,19 @@ public class OrderModel extends AnubisBasicModel {
             this.itemQuantity = itemQuantity;
         }
 
-        public BigDecimal getItemPrice() {
+        public Double getItemPrice() {
             return itemPrice;
         }
 
-        public void setItemPrice(BigDecimal itemPrice) {
+        public void setItemPrice(Double itemPrice) {
             this.itemPrice = itemPrice;
         }
 
-        public BigDecimal getItemActualPrice() {
+        public Double getItemActualPrice() {
             return itemActualPrice;
         }
 
-        public void setItemActualPrice(BigDecimal itemActualPrice) {
+        public void setItemActualPrice(Double itemActualPrice) {
             this.itemActualPrice = itemActualPrice;
         }
 
@@ -685,11 +684,11 @@ public class OrderModel extends AnubisBasicModel {
             this.isAgentPurchase = isAgentPurchase;
         }
 
-        public BigDecimal getAgentPurchasePrice() {
+        public Double getAgentPurchasePrice() {
             return agentPurchasePrice;
         }
 
-        public void setAgentPurchasePrice(BigDecimal agentPurchasePrice) {
+        public void setAgentPurchasePrice(Double agentPurchasePrice) {
             this.agentPurchasePrice = agentPurchasePrice;
         }
 
@@ -750,17 +749,17 @@ public class OrderModel extends AnubisBasicModel {
             return this;
         }
 
-        public Builder orderTotalAmount(BigDecimal orderTotalAmount) {
+        public Builder orderTotalAmount(Double orderTotalAmount) {
             instance.setOrderTotalAmount(orderTotalAmount);
             return this;
         }
 
-        public Builder orderActualAmount(BigDecimal orderActualAmount) {
+        public Builder orderActualAmount(Double orderActualAmount) {
             instance.setOrderActualAmount(orderActualAmount);
             return this;
         }
 
-        public Builder orderWeight(BigDecimal orderWeight) {
+        public Builder orderWeight(Double orderWeight) {
             instance.setOrderWeight(orderWeight);
             return this;
         }
@@ -795,7 +794,7 @@ public class OrderModel extends AnubisBasicModel {
             return this;
         }
 
-        public Builder requirePaymentPay(BigDecimal requirePaymentPay) {
+        public Builder requirePaymentPay(Double requirePaymentPay) {
             instance.setRequirePaymentPay(requirePaymentPay);
             return this;
         }

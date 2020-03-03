@@ -3,9 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public class OrderInfo extends BasicDomain {
     public static final String TABLE_NAME = "order_info";
     /**
@@ -23,27 +20,27 @@ public class OrderInfo extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long tenantId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 代理商ID
      */
-    private BigInteger agentId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long agentId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 总金额
      */
-    private BigDecimal totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double totalAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 优惠金额
      */
-    private BigDecimal discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double discountAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double payableAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 实付金额
      */
-    private BigDecimal paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double paidAmount = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 付款类型，1-微信支付，2-支付宝支付
      */
@@ -73,51 +70,51 @@ public class OrderInfo extends BasicDomain {
         this.orderStatus = orderStatus;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getDiscountAmount() {
+    public Double getDiscountAmount() {
         return discountAmount;
     }
 
-    public void setDiscountAmount(BigDecimal discountAmount) {
+    public void setDiscountAmount(Double discountAmount) {
         this.discountAmount = discountAmount;
     }
 
-    public BigDecimal getPayableAmount() {
+    public Double getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(BigDecimal payableAmount) {
+    public void setPayableAmount(Double payableAmount) {
         this.payableAmount = payableAmount;
     }
 
-    public BigDecimal getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -145,32 +142,32 @@ public class OrderInfo extends BasicDomain {
             return this;
         }
 
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
 
-        public Builder agentId(BigInteger agentId) {
+        public Builder agentId(Long agentId) {
             instance.setAgentId(agentId);
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder discountAmount(BigDecimal discountAmount) {
+        public Builder discountAmount(Double discountAmount) {
             instance.setDiscountAmount(discountAmount);
             return this;
         }
 
-        public Builder payableAmount(BigDecimal payableAmount) {
+        public Builder payableAmount(Double payableAmount) {
             instance.setPayableAmount(payableAmount);
             return this;
         }
 
-        public Builder paidAmount(BigDecimal paidAmount) {
+        public Builder paidAmount(Double paidAmount) {
             instance.setPaidAmount(paidAmount);
             return this;
         }

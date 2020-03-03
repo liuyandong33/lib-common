@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = Vip.FieldName.TENANT_ID, columnName = Vip.ColumnName.TENANT_ID)
@@ -13,7 +12,7 @@ public class Vip extends BasicDomain {
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,7 +20,7 @@ public class Vip extends BasicDomain {
     /**
      * 门店id
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 会员编号
      */
@@ -59,11 +58,11 @@ public class Vip extends BasicDomain {
      */
     private String userCardCode = Constants.VARCHAR_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -75,11 +74,11 @@ public class Vip extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -156,7 +155,7 @@ public class Vip extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Vip> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -166,7 +165,7 @@ public class Vip extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }

@@ -2,14 +2,12 @@ package build.dream.common.domains.iot;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class Device extends BasicDomain {
     public static final String TABLE_NAME = "device";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -17,7 +15,7 @@ public class Device extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 设备名称
@@ -54,11 +52,11 @@ public class Device extends BasicDomain {
      */
     private String mqttToken;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -70,11 +68,11 @@ public class Device extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -135,7 +133,7 @@ public class Device extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Device> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -145,7 +143,7 @@ public class Device extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }

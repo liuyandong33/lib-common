@@ -5,8 +5,6 @@ import build.dream.common.utils.WebUtils;
 
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.security.cert.X509Certificate;
 import java.util.Date;
@@ -399,112 +397,6 @@ public class Constants {
     public static final String WEI_XIN_TICKET_TYPE_WX_CARD = "wx_card";
 
     /**
-     * BigDecimal 常量
-     */
-    public static final BigDecimal BIG_DECIMAL_ONE_HUNDRED = BigDecimal.valueOf(100L);
-    public static final BigDecimal BIG_DECIMAL_TWO_HUNDRED = BigDecimal.valueOf(200L);
-    public static final BigDecimal BIG_DECIMAL_THREE_HUNDRED = BigDecimal.valueOf(300L);
-    public static final BigDecimal BIG_DECIMAL_FOUR_HUNDRED = BigDecimal.valueOf(400L);
-    public static final BigDecimal BIG_DECIMAL_FIVE_HUNDRED = BigDecimal.valueOf(500L);
-    public static final BigDecimal BIG_DECIMAL_SIX_HUNDRED = BigDecimal.valueOf(600L);
-    public static final BigDecimal BIG_DECIMAL_SEVEN_HUNDRED = BigDecimal.valueOf(700L);
-    public static final BigDecimal BIG_DECIMAL_EIGHT_HUNDRED = BigDecimal.valueOf(800L);
-    public static final BigDecimal BIG_DECIMAL_NINE_HUNDRED = BigDecimal.valueOf(900L);
-    public static final BigDecimal BIG_DECIMAL_ONE_THOUSAND = BigDecimal.valueOf(1000L);
-    public static final BigDecimal BIG_DECIMAL_TWO_THOUSAND = BigDecimal.valueOf(2000L);
-    public static final BigDecimal BIG_DECIMAL_THREE_THOUSAND = BigDecimal.valueOf(3000L);
-    public static final BigDecimal BIG_DECIMAL_FOUR_THOUSAND = BigDecimal.valueOf(4000L);
-    public static final BigDecimal BIG_DECIMAL_FIVE_THOUSAND = BigDecimal.valueOf(5000L);
-    public static final BigDecimal BIG_DECIMAL_SIX_THOUSAND = BigDecimal.valueOf(6000L);
-    public static final BigDecimal BIG_DECIMAL_SEVEN_THOUSAND = BigDecimal.valueOf(7000L);
-    public static final BigDecimal BIG_DECIMAL_EIGHT_THOUSAND = BigDecimal.valueOf(8000L);
-    public static final BigDecimal BIG_DECIMAL_NINE_THOUSAND = BigDecimal.valueOf(9000L);
-    public static final BigDecimal BIG_DECIMAL_TEN_THOUSAND = BigDecimal.valueOf(10000L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_ONE = BigDecimal.valueOf(-1L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_TWO = BigDecimal.valueOf(-2L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_THREE = BigDecimal.valueOf(-3L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_FOUR = BigDecimal.valueOf(-4L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_FIVE = BigDecimal.valueOf(-5L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_SIX = BigDecimal.valueOf(-6L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_SEVEN = BigDecimal.valueOf(-7L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_EIGHT = BigDecimal.valueOf(-8L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_NINE = BigDecimal.valueOf(-9L);
-    public static final BigDecimal BIG_DECIMAL_MINUS_TEN = BigDecimal.valueOf(-10L);
-    public static final BigDecimal BIG_DECIMAL_ZERO = BigDecimal.valueOf(0);
-    public static final BigDecimal BIG_DECIMAL_ONE = BigDecimal.valueOf(1L);
-    public static final BigDecimal BIG_DECIMAL_TWO = BigDecimal.valueOf(2L);
-    public static final BigDecimal BIG_DECIMAL_THREE = BigDecimal.valueOf(3L);
-    public static final BigDecimal BIG_DECIMAL_FOUR = BigDecimal.valueOf(4L);
-    public static final BigDecimal BIG_DECIMAL_FIVE = BigDecimal.valueOf(5L);
-    public static final BigDecimal BIG_DECIMAL_SIX = BigDecimal.valueOf(6L);
-    public static final BigDecimal BIG_DECIMAL_SEVEN = BigDecimal.valueOf(7L);
-    public static final BigDecimal BIG_DECIMAL_EIGHT = BigDecimal.valueOf(8L);
-    public static final BigDecimal BIG_DECIMAL_NINE = BigDecimal.valueOf(9L);
-    public static final BigDecimal BIG_DECIMAL_TEN = BigDecimal.valueOf(10L);
-    public static final BigDecimal BIG_DECIMAL_TWENTY = BigDecimal.valueOf(20L);
-    public static final BigDecimal BIG_DECIMAL_THIRTY = BigDecimal.valueOf(30L);
-    public static final BigDecimal BIG_DECIMAL_FORTY = BigDecimal.valueOf(40L);
-    public static final BigDecimal BIG_DECIMAL_FIFTY = BigDecimal.valueOf(50L);
-    public static final BigDecimal BIG_DECIMAL_SIXTY = BigDecimal.valueOf(60L);
-    public static final BigDecimal BIG_DECIMAL_SEVENTY = BigDecimal.valueOf(70L);
-    public static final BigDecimal BIG_DECIMAL_EIGHTY = BigDecimal.valueOf(80L);
-    public static final BigDecimal BIG_DECIMAL_NINETY = BigDecimal.valueOf(90L);
-    public static final BigDecimal BIG_DECIMAL_E = BigDecimal.valueOf(Math.E);
-    public static final BigDecimal BIG_DECIMAL_PI = BigDecimal.valueOf(Math.PI);
-
-    /**
-     * BigInteger 常量
-     */
-    public static final BigInteger BIG_INTEGER_ONE_HUNDRED = BigInteger.valueOf(100L);
-    public static final BigInteger BIG_INTEGER_TWO_HUNDRED = BigInteger.valueOf(200L);
-    public static final BigInteger BIG_INTEGER_THREE_HUNDRED = BigInteger.valueOf(300L);
-    public static final BigInteger BIG_INTEGER_FOUR_HUNDRED = BigInteger.valueOf(400L);
-    public static final BigInteger BIG_INTEGER_FIVE_HUNDRED = BigInteger.valueOf(500L);
-    public static final BigInteger BIG_INTEGER_SIX_HUNDRED = BigInteger.valueOf(600L);
-    public static final BigInteger BIG_INTEGER_SEVEN_HUNDRED = BigInteger.valueOf(700L);
-    public static final BigInteger BIG_INTEGER_EIGHT_HUNDRED = BigInteger.valueOf(800L);
-    public static final BigInteger BIG_INTEGER_NINE_HUNDRED = BigInteger.valueOf(900L);
-    public static final BigInteger BIG_INTEGER_ONE_THOUSAND = BigInteger.valueOf(1000L);
-    public static final BigInteger BIG_INTEGER_TWO_THOUSAND = BigInteger.valueOf(2000L);
-    public static final BigInteger BIG_INTEGER_THREE_THOUSAND = BigInteger.valueOf(3000L);
-    public static final BigInteger BIG_INTEGER_FOUR_THOUSAND = BigInteger.valueOf(4000L);
-    public static final BigInteger BIG_INTEGER_FIVE_THOUSAND = BigInteger.valueOf(5000L);
-    public static final BigInteger BIG_INTEGER_SIX_THOUSAND = BigInteger.valueOf(6000L);
-    public static final BigInteger BIG_INTEGER_SEVEN_THOUSAND = BigInteger.valueOf(7000L);
-    public static final BigInteger BIG_INTEGER_EIGHT_THOUSAND = BigInteger.valueOf(8000L);
-    public static final BigInteger BIG_INTEGER_NINE_THOUSAND = BigInteger.valueOf(9000L);
-    public static final BigInteger BIG_INTEGER_TEN_THOUSAND = BigInteger.valueOf(10000L);
-    public static final BigInteger BIG_INTEGER_MINUS_ONE = BigInteger.valueOf(-1L);
-    public static final BigInteger BIG_INTEGER_MINUS_TWO = BigInteger.valueOf(-2L);
-    public static final BigInteger BIG_INTEGER_MINUS_THREE = BigInteger.valueOf(-3L);
-    public static final BigInteger BIG_INTEGER_MINUS_FOUR = BigInteger.valueOf(-4L);
-    public static final BigInteger BIG_INTEGER_MINUS_FIVE = BigInteger.valueOf(-5L);
-    public static final BigInteger BIG_INTEGER_MINUS_SIX = BigInteger.valueOf(-6L);
-    public static final BigInteger BIG_INTEGER_MINUS_SEVEN = BigInteger.valueOf(-7L);
-    public static final BigInteger BIG_INTEGER_MINUS_EIGHT = BigInteger.valueOf(-8L);
-    public static final BigInteger BIG_INTEGER_MINUS_NINE = BigInteger.valueOf(-9L);
-    public static final BigInteger BIG_INTEGER_MINUS_TEN = BigInteger.valueOf(-10L);
-    public static final BigInteger BIG_INTEGER_ZERO = BigInteger.valueOf(0);
-    public static final BigInteger BIG_INTEGER_ONE = BigInteger.valueOf(1L);
-    public static final BigInteger BIG_INTEGER_TWO = BigInteger.valueOf(2L);
-    public static final BigInteger BIG_INTEGER_THREE = BigInteger.valueOf(3L);
-    public static final BigInteger BIG_INTEGER_FOUR = BigInteger.valueOf(4L);
-    public static final BigInteger BIG_INTEGER_FIVE = BigInteger.valueOf(5L);
-    public static final BigInteger BIG_INTEGER_SIX = BigInteger.valueOf(6L);
-    public static final BigInteger BIG_INTEGER_SEVEN = BigInteger.valueOf(7L);
-    public static final BigInteger BIG_INTEGER_EIGHT = BigInteger.valueOf(8L);
-    public static final BigInteger BIG_INTEGER_NINE = BigInteger.valueOf(9L);
-    public static final BigInteger BIG_INTEGER_TEN = BigInteger.valueOf(10L);
-    public static final BigInteger BIG_INTEGER_TWENTY = BigInteger.valueOf(20L);
-    public static final BigInteger BIG_INTEGER_THIRTY = BigInteger.valueOf(30L);
-    public static final BigInteger BIG_INTEGER_FORTY = BigInteger.valueOf(40L);
-    public static final BigInteger BIG_INTEGER_FIFTY = BigInteger.valueOf(50L);
-    public static final BigInteger BIG_INTEGER_SIXTY = BigInteger.valueOf(60L);
-    public static final BigInteger BIG_INTEGER_SEVENTY = BigInteger.valueOf(70L);
-    public static final BigInteger BIG_INTEGER_EIGHTY = BigInteger.valueOf(80L);
-    public static final BigInteger BIG_INTEGER_NINETY = BigInteger.valueOf(90L);
-
-    /**
      * 字母常量
      */
     public static final String UPPER_CASE_A = "A";
@@ -581,8 +473,8 @@ public class Constants {
      */
     public static final int TINYINT_DEFAULT_VALUE = 0;
     public static final int INT_DEFAULT_VALUE = 0;
-    public static final BigInteger BIGINT_DEFAULT_VALUE = BigInteger.ZERO;
-    public static final BigDecimal DECIMAL_DEFAULT_VALUE = BigDecimal.ZERO;
+    public static final Long BIGINT_DEFAULT_VALUE = 0L;
+    public static final Double DECIMAL_DEFAULT_VALUE = 0D;
     public static final Date DATETIME_DEFAULT_VALUE = CustomDateUtils.parse("1970-01-01 00:00:00", DEFAULT_DATE_PATTERN);
     public static final String VARCHAR_DEFAULT_VALUE = "";
 

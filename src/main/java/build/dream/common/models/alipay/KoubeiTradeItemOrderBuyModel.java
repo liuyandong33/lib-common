@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
@@ -45,7 +44,7 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "999999999")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @Length(max = 512)
     @JsonProperty(value = "promo_params")
@@ -111,11 +110,11 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
         this.timeout = timeout;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -171,7 +170,7 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
@@ -217,12 +216,12 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
         @JsonProperty(value = "original_price")
-        private BigDecimal originalPrice;
+        private Double originalPrice;
 
         @NotNull
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
-        private BigDecimal price;
+        private Double price;
 
         @NotNull
         @Min(value = 1)
@@ -237,19 +236,19 @@ public class KoubeiTradeItemOrderBuyModel extends AlipayBasicModel {
             this.skuId = skuId;
         }
 
-        public BigDecimal getOriginalPrice() {
+        public Double getOriginalPrice() {
             return originalPrice;
         }
 
-        public void setOriginalPrice(BigDecimal originalPrice) {
+        public void setOriginalPrice(Double originalPrice) {
             this.originalPrice = originalPrice;
         }
 
-        public BigDecimal getPrice() {
+        public Double getPrice() {
             return price;
         }
 
-        public void setPrice(BigDecimal price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
 

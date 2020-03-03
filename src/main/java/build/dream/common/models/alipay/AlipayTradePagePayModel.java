@@ -10,7 +10,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class AlipayTradePagePayModel extends AlipayBasicModel {
     private static final String[] GOODS_TYPES = {"0", "1"};
@@ -32,7 +31,7 @@ public class AlipayTradePagePayModel extends AlipayBasicModel {
     @DecimalMax(value = "100000000")
     @SerializedName(value = "total_amount", alternate = "totalAmount")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @NotNull
     @Length(max = 256)
@@ -98,11 +97,11 @@ public class AlipayTradePagePayModel extends AlipayBasicModel {
         this.productCode = productCode;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -221,7 +220,7 @@ public class AlipayTradePagePayModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }

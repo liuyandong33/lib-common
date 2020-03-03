@@ -7,7 +7,6 @@ import build.dream.common.models.newland.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -22,7 +21,7 @@ public class NewLandUtils {
         return JacksonUtils.readValue(newLandAccountJson, NewLandAccount.class);
     }
 
-    public static NewLandAccount obtainNewLandAccount(BigInteger tenantId, BigInteger branchId) {
+    public static NewLandAccount obtainNewLandAccount(Long tenantId, Long branchId) {
         return obtainNewLandAccount(tenantId.toString(), branchId.toString());
     }
 

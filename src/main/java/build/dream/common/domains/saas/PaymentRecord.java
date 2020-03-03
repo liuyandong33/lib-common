@@ -2,8 +2,6 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 public class PaymentRecord extends BasicDomain {
@@ -19,15 +17,15 @@ public class PaymentRecord extends BasicDomain {
     /**
      * 订单总额
      */
-    private BigDecimal totalAmount;
+    private Double totalAmount;
     /**
      * 应付金额
      */
-    private BigDecimal payableAmount;
+    private Double payableAmount;
     /**
      * 实际付款金额
      */
-    private BigDecimal paidAmount;
+    private Double paidAmount;
     /**
      * 支付类型，1-微信支付，2-支付宝支付
      */
@@ -39,7 +37,7 @@ public class PaymentRecord extends BasicDomain {
     /**
      * 提交用户id
      */
-    private BigInteger submitUserId;
+    private Long submitUserId;
     /**
      * 订单付款状态，1-未付款，2-已付款
      */
@@ -77,27 +75,27 @@ public class PaymentRecord extends BasicDomain {
         this.orderNumber = orderNumber;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getPayableAmount() {
+    public Double getPayableAmount() {
         return payableAmount;
     }
 
-    public void setPayableAmount(BigDecimal payableAmount) {
+    public void setPayableAmount(Double payableAmount) {
         this.payableAmount = payableAmount;
     }
 
-    public BigDecimal getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -117,11 +115,11 @@ public class PaymentRecord extends BasicDomain {
         this.submitTime = submitTime;
     }
 
-    public BigInteger getSubmitUserId() {
+    public Long getSubmitUserId() {
         return submitUserId;
     }
 
-    public void setSubmitUserId(BigInteger submitUserId) {
+    public void setSubmitUserId(Long submitUserId) {
         this.submitUserId = submitUserId;
     }
 
@@ -176,17 +174,17 @@ public class PaymentRecord extends BasicDomain {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder payableAmount(BigDecimal payableAmount) {
+        public Builder payableAmount(Double payableAmount) {
             instance.setPayableAmount(payableAmount);
             return this;
         }
 
-        public Builder paidAmount(BigDecimal paidAmount) {
+        public Builder paidAmount(Double paidAmount) {
             instance.setPaidAmount(paidAmount);
             return this;
         }
@@ -201,7 +199,7 @@ public class PaymentRecord extends BasicDomain {
             return this;
         }
 
-        public Builder submitUserId(BigInteger submitUserId) {
+        public Builder submitUserId(Long submitUserId) {
             instance.setSubmitUserId(submitUserId);
             return this;
         }

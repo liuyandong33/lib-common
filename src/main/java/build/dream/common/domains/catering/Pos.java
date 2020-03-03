@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Pos.FieldName.TENANT_ID, columnName = Pos.ColumnName.TENANT_ID)
 public class Pos extends BasicDomain {
     public static final String TABLE_NAME = "pos";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -19,7 +17,7 @@ public class Pos extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 门店编号
      */
@@ -27,7 +25,7 @@ public class Pos extends BasicDomain {
     /**
      * 用户ID
      */
-    private BigInteger userId;
+    private Long userId;
     /**
      * 设备ID，mac地址
      */
@@ -60,11 +58,11 @@ public class Pos extends BasicDomain {
      */
     private String mqttToken;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -76,11 +74,11 @@ public class Pos extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -92,11 +90,11 @@ public class Pos extends BasicDomain {
         this.branchCode = branchCode;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -157,7 +155,7 @@ public class Pos extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Pos> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -167,7 +165,7 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
@@ -177,7 +175,7 @@ public class Pos extends BasicDomain {
             return this;
         }
 
-        public Builder userId(BigInteger userId) {
+        public Builder userId(Long userId) {
             instance.setUserId(userId);
             return this;
         }

@@ -3,9 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public class GoodsSpecification extends BasicDomain {
     public static final String TABLE_NAME = "goods_specification";
     /**
@@ -15,7 +12,7 @@ public class GoodsSpecification extends BasicDomain {
     /**
      * 产品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 是否允许商户购买
      */
@@ -31,11 +28,11 @@ public class GoodsSpecification extends BasicDomain {
     /**
      * 商户价格
      */
-    private BigDecimal tenantPrice = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double tenantPrice = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 代理商价格
      */
-    private BigDecimal agentPrice = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double agentPrice = Constants.DECIMAL_DEFAULT_VALUE;
 
     public String getName() {
         return name;
@@ -45,11 +42,11 @@ public class GoodsSpecification extends BasicDomain {
         this.name = name;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -77,19 +74,19 @@ public class GoodsSpecification extends BasicDomain {
         this.renewalTime = renewalTime;
     }
 
-    public BigDecimal getTenantPrice() {
+    public Double getTenantPrice() {
         return tenantPrice;
     }
 
-    public void setTenantPrice(BigDecimal tenantPrice) {
+    public void setTenantPrice(Double tenantPrice) {
         this.tenantPrice = tenantPrice;
     }
 
-    public BigDecimal getAgentPrice() {
+    public Double getAgentPrice() {
         return agentPrice;
     }
 
-    public void setAgentPrice(BigDecimal agentPrice) {
+    public void setAgentPrice(Double agentPrice) {
         this.agentPrice = agentPrice;
     }
 
@@ -99,7 +96,7 @@ public class GoodsSpecification extends BasicDomain {
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
@@ -119,12 +116,12 @@ public class GoodsSpecification extends BasicDomain {
             return this;
         }
 
-        public Builder tenantPrice(BigDecimal tenantPrice) {
+        public Builder tenantPrice(Double tenantPrice) {
             instance.setTenantPrice(tenantPrice);
             return this;
         }
 
-        public Builder agentPrice(BigDecimal agentPrice) {
+        public Builder agentPrice(Double agentPrice) {
             instance.setAgentPrice(agentPrice);
             return this;
         }

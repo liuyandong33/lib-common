@@ -8,13 +8,12 @@ import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class TenantUtils {
-    public static Tenant obtainTenantInfo(BigInteger tenantId) {
+    public static Tenant obtainTenantInfo(Long tenantId) {
         String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
         if (StringUtils.isBlank(tenantInfoJson)) {
             return null;
@@ -30,7 +29,7 @@ public class TenantUtils {
         return JacksonUtils.readValue(tenantInfoJson, Tenant.class);
     }
 
-    public static void updateTenantInfo(BigInteger tenantId, BigInteger userId, Tuple2<String, String>... fields) {
+    public static void updateTenantInfo(Long tenantId, Long userId, Tuple2<String, String>... fields) {
         Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>();
         updateTenantInfoRequestParameters.put("id", tenantId.toString());
         updateTenantInfoRequestParameters.put("userId", userId.toString());
@@ -41,7 +40,7 @@ public class TenantUtils {
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
     }
 
-    public static void updateTenantInfo(BigInteger tenantId, BigInteger userId, Map<String, String> fields) {
+    public static void updateTenantInfo(Long tenantId, Long userId, Map<String, String> fields) {
         Map<String, String> updateTenantInfoRequestParameters = new HashMap<String, String>(fields);
         updateTenantInfoRequestParameters.put("id", tenantId.toString());
         updateTenantInfoRequestParameters.put("userId", userId.toString());
@@ -75,7 +74,7 @@ public class TenantUtils {
         Map<String, String> tenantInfos = new HashMap<String, String>();
         Map<String, String> jddjVenderInfos = new HashMap<String, String>();
         for (Tenant tenant : tenants) {
-            BigInteger tenantId = tenant.getId();
+            Long tenantId = tenant.getId();
             String tenantCode = tenant.getCode();
             String tenantInfo = JacksonUtils.writeValueAsString(tenant);
             tenantInfos.put("_id_" + tenantId, tenantInfo);
@@ -110,18 +109,18 @@ public class TenantUtils {
         }
     }
 
-    public static BigInteger obtainGoodsTypeId(String business) {
+    public static Long obtainGoodsTypeId(String business) {
         if (Constants.BUSINESS_CATERING.equals(business)) {
-            return Constants.BIG_INTEGER_ONE;
+            return 1L;
         }
 
         if (Constants.BUSINESS_RETAIL.equals(business)) {
-            return Constants.BIG_INTEGER_TWO;
+            return 2L;
         }
 
         if (Constants.BUSINESS_IOT.equals(business)) {
-            return Constants.BIG_INTEGER_THREE;
+            return 3L;
         }
-        return Constants.BIG_INTEGER_ZERO;
+        return 0L;
     }
 }

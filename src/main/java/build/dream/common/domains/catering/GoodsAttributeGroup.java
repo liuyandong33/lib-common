@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = GoodsAttributeGroup.FieldName.TENANT_ID, columnName = GoodsAttributeGroup.ColumnName.TENANT_ID)
 public class GoodsAttributeGroup extends BasicDomain {
     public static final String TABLE_NAME = "goods_attribute_group";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编码
@@ -21,23 +19,23 @@ public class GoodsAttributeGroup extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 属性组名称
      */
     private String name;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -49,19 +47,19 @@ public class GoodsAttributeGroup extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -74,7 +72,7 @@ public class GoodsAttributeGroup extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, GoodsAttributeGroup> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -84,12 +82,12 @@ public class GoodsAttributeGroup extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }

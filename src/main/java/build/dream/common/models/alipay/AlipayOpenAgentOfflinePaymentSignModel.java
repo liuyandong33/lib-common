@@ -6,7 +6,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
     @NotNull
@@ -22,7 +21,7 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
     @NotNull
     @DecimalMin(value = "0.38")
     @DecimalMax(value = "3")
-    private BigDecimal rate;
+    private Double rate;
 
     @Length(max = 32)
     @JsonProperty(value = "business_license_no")
@@ -43,11 +42,11 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
         this.batchNo = batchNo;
     }
 
-    public BigDecimal getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(BigDecimal rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
@@ -81,7 +80,7 @@ public class AlipayOpenAgentOfflinePaymentSignModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder rate(BigDecimal rate) {
+        public Builder rate(Double rate) {
             instance.setRate(rate);
             return this;
         }

@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 
 import java.io.IOException;
-import java.math.BigInteger;
 
-public class CustomJsonSerializer extends JsonSerializer<BigInteger> {
-    private static final BigInteger JS_LONG_MAX_VALUE = BigInteger.valueOf(999999999999999L);
+public class CustomJsonSerializer extends JsonSerializer<Long> {
+    private static final Long JS_LONG_MAX_VALUE = 999999999999999L;
 
     @Override
-    public void serialize(BigInteger value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
-        if (value.compareTo(JS_LONG_MAX_VALUE) > 0) {
+    public void serialize(Long value, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+        if (value > JS_LONG_MAX_VALUE) {
             jsonGenerator.writeString(value.toString());
             return;
         }
@@ -21,7 +20,7 @@ public class CustomJsonSerializer extends JsonSerializer<BigInteger> {
     }
 
     @Override
-    public Class<BigInteger> handledType() {
-        return BigInteger.class;
+    public Class<Long> handledType() {
+        return Long.class;
     }
 }

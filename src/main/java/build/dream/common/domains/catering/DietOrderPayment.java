@@ -4,8 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = DietOrderPayment.FieldName.TENANT_ID, columnName = DietOrderPayment.ColumnName.TENANT_ID)
@@ -14,7 +12,7 @@ public class DietOrderPayment extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -22,15 +20,15 @@ public class DietOrderPayment extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * diet_order.id
      */
-    private BigInteger dietOrderId;
+    private Long dietOrderId;
     /**
      * 支付方式id
      */
-    private BigInteger paymentId;
+    private Long paymentId;
     /**
      * 支付方式编码
      */
@@ -42,7 +40,7 @@ public class DietOrderPayment extends BasicDomain {
     /**
      * 支付金额
      */
-    private BigDecimal paidAmount;
+    private Double paidAmount;
     /**
      * 发生时间
      */
@@ -68,11 +66,11 @@ public class DietOrderPayment extends BasicDomain {
      */
     private Date localUpdatedTime = Constants.DATETIME_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -84,27 +82,27 @@ public class DietOrderPayment extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getDietOrderId() {
+    public Long getDietOrderId() {
         return dietOrderId;
     }
 
-    public void setDietOrderId(BigInteger dietOrderId) {
+    public void setDietOrderId(Long dietOrderId) {
         this.dietOrderId = dietOrderId;
     }
 
-    public BigInteger getPaymentId() {
+    public Long getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(BigInteger paymentId) {
+    public void setPaymentId(Long paymentId) {
         this.paymentId = paymentId;
     }
 
@@ -124,11 +122,11 @@ public class DietOrderPayment extends BasicDomain {
         this.paymentName = paymentName;
     }
 
-    public BigDecimal getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(BigDecimal paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -181,7 +179,7 @@ public class DietOrderPayment extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, DietOrderPayment> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -191,17 +189,17 @@ public class DietOrderPayment extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder dietOrderId(BigInteger dietOrderId) {
+        public Builder dietOrderId(Long dietOrderId) {
             instance.setDietOrderId(dietOrderId);
             return this;
         }
 
-        public Builder paymentId(BigInteger paymentId) {
+        public Builder paymentId(Long paymentId) {
             instance.setPaymentId(paymentId);
             return this;
         }
@@ -216,7 +214,7 @@ public class DietOrderPayment extends BasicDomain {
             return this;
         }
 
-        public Builder paidAmount(BigDecimal paidAmount) {
+        public Builder paidAmount(Double paidAmount) {
             instance.setPaidAmount(paidAmount);
             return this;
         }

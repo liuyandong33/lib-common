@@ -8,7 +8,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class AlipayTradeRefundModel extends AlipayBasicModel {
@@ -24,7 +23,7 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
     @JsonProperty(value = "refund_amount")
-    private BigDecimal refundAmount;
+    private Double refundAmount;
 
     @JsonProperty(value = "refund_currency")
     private String refundCurrency;
@@ -75,11 +74,11 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         this.tradeNo = tradeNo;
     }
 
-    public BigDecimal getRefundAmount() {
+    public Double getRefundAmount() {
         return refundAmount;
     }
 
-    public void setRefundAmount(BigDecimal refundAmount) {
+    public void setRefundAmount(Double refundAmount) {
         this.refundAmount = refundAmount;
     }
 
@@ -166,7 +165,7 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder refundAmount(BigDecimal refundAmount) {
+        public Builder refundAmount(Double refundAmount) {
             instance.setRefundAmount(refundAmount);
             return this;
         }
@@ -265,10 +264,10 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         private String goodsName;
 
         @NotNull
-        private BigDecimal quantity;
+        private Double quantity;
 
         @NotNull
-        private BigDecimal price;
+        private Double price;
 
         @Length(max = 24)
         @JsonProperty(value = "goods_category")
@@ -309,19 +308,19 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
             this.goodsName = goodsName;
         }
 
-        public BigDecimal getQuantity() {
+        public Double getQuantity() {
             return quantity;
         }
 
-        public void setQuantity(BigDecimal quantity) {
+        public void setQuantity(Double quantity) {
             this.quantity = quantity;
         }
 
-        public BigDecimal getPrice() {
+        public Double getPrice() {
             return price;
         }
 
-        public void setPrice(BigDecimal price) {
+        public void setPrice(Double price) {
             this.price = price;
         }
 
@@ -379,7 +378,7 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
         @JsonProperty(value = "trans_in")
         private String transIn;
 
-        private BigDecimal amount;
+        private Double amount;
 
         @Min(value = 1)
         @Max(value = 100)
@@ -429,11 +428,11 @@ public class AlipayTradeRefundModel extends AlipayBasicModel {
             this.transIn = transIn;
         }
 
-        public BigDecimal getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(BigDecimal amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
 

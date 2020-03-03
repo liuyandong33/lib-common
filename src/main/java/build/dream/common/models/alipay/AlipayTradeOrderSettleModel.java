@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
@@ -106,7 +105,7 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
 
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
-        private BigDecimal amount;
+        private Double amount;
 
         @Min(value = 1)
         @Max(value = 100)
@@ -132,11 +131,11 @@ public class AlipayTradeOrderSettleModel extends AlipayBasicModel {
             this.transIn = transIn;
         }
 
-        public BigDecimal getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(BigDecimal amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
 

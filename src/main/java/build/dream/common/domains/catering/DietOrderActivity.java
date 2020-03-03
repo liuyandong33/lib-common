@@ -4,8 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = DietOrderActivity.FieldName.TENANT_ID, columnName = DietOrderActivity.ColumnName.TENANT_ID)
@@ -14,7 +12,7 @@ public class DietOrderActivity extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -22,15 +20,15 @@ public class DietOrderActivity extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * diet_order.id
      */
-    private BigInteger dietOrderId;
+    private Long dietOrderId;
     /**
      * 活动id
      */
-    private BigInteger activityId;
+    private Long activityId;
     /**
      * 活动名称
      */
@@ -42,7 +40,7 @@ public class DietOrderActivity extends BasicDomain {
     /**
      * 金额
      */
-    private BigDecimal amount;
+    private Double amount;
     /**
      * 本地ID
      */
@@ -60,11 +58,11 @@ public class DietOrderActivity extends BasicDomain {
      */
     private Date localUpdatedTime = Constants.DATETIME_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -76,27 +74,27 @@ public class DietOrderActivity extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getDietOrderId() {
+    public Long getDietOrderId() {
         return dietOrderId;
     }
 
-    public void setDietOrderId(BigInteger dietOrderId) {
+    public void setDietOrderId(Long dietOrderId) {
         this.dietOrderId = dietOrderId;
     }
 
-    public BigInteger getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(BigInteger activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 
@@ -116,11 +114,11 @@ public class DietOrderActivity extends BasicDomain {
         this.activityType = activityType;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -157,7 +155,7 @@ public class DietOrderActivity extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, DietOrderActivity> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -167,17 +165,17 @@ public class DietOrderActivity extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder dietOrderId(BigInteger dietOrderId) {
+        public Builder dietOrderId(Long dietOrderId) {
             instance.setDietOrderId(dietOrderId);
             return this;
         }
 
-        public Builder activityId(BigInteger activityId) {
+        public Builder activityId(Long activityId) {
             instance.setActivityId(activityId);
             return this;
         }
@@ -192,7 +190,7 @@ public class DietOrderActivity extends BasicDomain {
             return this;
         }
 
-        public Builder amount(BigDecimal amount) {
+        public Builder amount(Double amount) {
             instance.setAmount(amount);
             return this;
         }

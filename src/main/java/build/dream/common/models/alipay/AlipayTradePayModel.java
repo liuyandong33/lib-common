@@ -11,7 +11,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 @AlipayAsyncNotify(uuidKey = "out_trade_no")
@@ -48,12 +47,12 @@ public class AlipayTradePayModel extends AlipayBasicModel {
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @DecimalMin(value = "0.01")
     @DecimalMax(value = "100000000")
     @JsonProperty(value = "discountable_amount")
-    private BigDecimal discountableAmount;
+    private Double discountableAmount;
 
     @Length(max = 128)
     private String body;
@@ -136,19 +135,19 @@ public class AlipayTradePayModel extends AlipayBasicModel {
         this.sellerId = sellerId;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
-    public BigDecimal getDiscountableAmount() {
+    public Double getDiscountableAmount() {
         return discountableAmount;
     }
 
-    public void setDiscountableAmount(BigDecimal discountableAmount) {
+    public void setDiscountableAmount(Double discountableAmount) {
         this.discountableAmount = discountableAmount;
     }
 
@@ -350,12 +349,12 @@ public class AlipayTradePayModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
 
-        public Builder discountableAmount(BigDecimal discountableAmount) {
+        public Builder discountableAmount(Double discountableAmount) {
             instance.setDiscountableAmount(discountableAmount);
             return this;
         }

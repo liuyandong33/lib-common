@@ -3,16 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Coupon.FieldName.TENANT_ID, columnName = Coupon.ColumnName.TENANT_ID)
 public class Coupon extends BasicDomain {
     public static final String TABLE_NAME = "coupon";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -20,7 +17,7 @@ public class Coupon extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 卡券名称
      */
@@ -32,13 +29,13 @@ public class Coupon extends BasicDomain {
     /**
      * 代金券面值
      */
-    private BigDecimal faceValue;
+    private Double faceValue;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -50,11 +47,11 @@ public class Coupon extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
@@ -74,16 +71,16 @@ public class Coupon extends BasicDomain {
         this.type = type;
     }
 
-    public BigDecimal getFaceValue() {
+    public Double getFaceValue() {
         return faceValue;
     }
 
-    public void setFaceValue(BigDecimal faceValue) {
+    public void setFaceValue(Double faceValue) {
         this.faceValue = faceValue;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Coupon> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -93,7 +90,7 @@ public class Coupon extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
@@ -108,7 +105,7 @@ public class Coupon extends BasicDomain {
             return this;
         }
 
-        public Builder faceValue(BigDecimal faceValue) {
+        public Builder faceValue(Double faceValue) {
             instance.setFaceValue(faceValue);
             return this;
         }

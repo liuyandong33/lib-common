@@ -1,25 +1,23 @@
 package build.dream.common.auth;
 
-import java.math.BigInteger;
-
 public class AgentUserDetails extends AbstractUserDetails {
-    private BigInteger userId;
-    private BigInteger agentId;
+    private Long userId;
+    private Long agentId;
     private String agentCode;
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 

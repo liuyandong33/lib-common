@@ -14,7 +14,6 @@ import org.springframework.data.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.math.BigInteger;
 import java.util.*;
 
 public class UniversalDatabaseHelper {
@@ -79,7 +78,7 @@ public class UniversalDatabaseHelper {
         return universalMapper.delete(DatabaseUtils.obtainTableName(domainClass), deleteModel);
     }
 
-    public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, BigInteger id, BigInteger userId, String updatedRemark) {
+    public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, Long id, Long userId, String updatedRemark) {
         UpdateModel updateModel = UpdateModel.builder()
                 .autoSetDeletedFalse()
                 .addSearchCondition(BasicDomain.ColumnName.ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, id)
@@ -91,7 +90,7 @@ public class UniversalDatabaseHelper {
         return universalMapper.universalUpdate(DatabaseUtils.obtainTableName(domainClass), updateModel);
     }
 
-    public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, BigInteger userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
+    public static long markedDelete(UniversalMapper universalMapper, Class<?> domainClass, Long userId, String updatedRemark, Tuple3<String, String, Object>... searchConditions) {
         UpdateModel updateModel = new UpdateModel(true);
         for (Tuple3<String, String, Object> searchCondition : searchConditions) {
             updateModel.addSearchCondition(searchCondition._1(), searchCondition._2(), searchCondition._3());

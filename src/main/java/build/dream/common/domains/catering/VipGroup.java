@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = VipGroup.FieldName.TENANT_ID, columnName = VipGroup.ColumnName.TENANT_ID)
 public class VipGroup extends BasicDomain {
     public static final String TABLE_NAME = "vip_group";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,11 +19,11 @@ public class VipGroup extends BasicDomain {
      */
     private String name;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -46,7 +44,7 @@ public class VipGroup extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, VipGroup> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

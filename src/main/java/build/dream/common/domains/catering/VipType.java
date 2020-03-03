@@ -4,16 +4,13 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = VipType.FieldName.TENANT_ID, columnName = VipType.ColumnName.TENANT_ID)
 public class VipType extends BasicDomain {
     public static final String TABLE_NAME = "vip_type";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,11 +18,11 @@ public class VipType extends BasicDomain {
     /**
      * 门店id
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 会员分组ID
      */
-    private BigInteger vipGroupId;
+    private Long vipGroupId;
     /**
      * '会员类型名称'
      */
@@ -37,7 +34,7 @@ public class VipType extends BasicDomain {
     /**
      * 折扣率
      */
-    private BigDecimal discountRate = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double discountRate = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 是否启用积分
      */
@@ -47,11 +44,11 @@ public class VipType extends BasicDomain {
      */
     private Integer bonusCoefficient;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -63,19 +60,19 @@ public class VipType extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getVipGroupId() {
+    public Long getVipGroupId() {
         return vipGroupId;
     }
 
-    public void setVipGroupId(BigInteger vipGroupId) {
+    public void setVipGroupId(Long vipGroupId) {
         this.vipGroupId = vipGroupId;
     }
 
@@ -95,11 +92,11 @@ public class VipType extends BasicDomain {
         this.discountPolicy = discountPolicy;
     }
 
-    public BigDecimal getDiscountRate() {
+    public Double getDiscountRate() {
         return discountRate;
     }
 
-    public void setDiscountRate(BigDecimal discountRate) {
+    public void setDiscountRate(Double discountRate) {
         this.discountRate = discountRate;
     }
 
@@ -120,7 +117,7 @@ public class VipType extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, VipType> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -130,12 +127,12 @@ public class VipType extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder vipGroupId(BigInteger vipGroupId) {
+        public Builder vipGroupId(Long vipGroupId) {
             instance.setVipGroupId(vipGroupId);
             return this;
         }
@@ -150,7 +147,7 @@ public class VipType extends BasicDomain {
             return this;
         }
 
-        public Builder discountRate(BigDecimal discountRate) {
+        public Builder discountRate(Double discountRate) {
             instance.setDiscountRate(discountRate);
             return this;
         }

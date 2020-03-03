@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
     @Length(max = 10)
@@ -23,10 +22,10 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
     private String appChannel;
 
     @NotNull
-    private BigDecimal x;
+    private Double x;
 
     @NotNull
-    private BigDecimal y;
+    private Double y;
 
     @JsonProperty(value = "page_no")
     private Integer pageNo;
@@ -74,19 +73,19 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
         this.appChannel = appChannel;
     }
 
-    public BigDecimal getX() {
+    public Double getX() {
         return x;
     }
 
-    public void setX(BigDecimal x) {
+    public void setX(Double x) {
         this.x = x;
     }
 
-    public BigDecimal getY() {
+    public Double getY() {
         return y;
     }
 
-    public void setY(BigDecimal y) {
+    public void setY(Double y) {
         this.y = y;
     }
 
@@ -143,12 +142,12 @@ public class KoubeiMarketingDataNearMallQueryModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder x(BigDecimal x) {
+        public Builder x(Double x) {
             instance.setX(x);
             return this;
         }
 
-        public Builder y(BigDecimal y) {
+        public Builder y(Double y) {
             instance.setY(y);
             return this;
         }

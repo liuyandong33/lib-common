@@ -1,6 +1,5 @@
 package build.dream.common.utils;
 
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +27,7 @@ public class SerialNumberGenerator {
         return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + sequenceName;
     }
 
-    public static String generatorTodaySequenceName(BigInteger tenantId, BigInteger branchId, String sequenceName) {
+    public static String generatorTodaySequenceName(Long tenantId, Long branchId, String sequenceName) {
         return new SimpleDateFormat("yyyyMMdd").format(new Date()) + "_" + tenantId + "_" + branchId + "@" + sequenceName;
     }
 }

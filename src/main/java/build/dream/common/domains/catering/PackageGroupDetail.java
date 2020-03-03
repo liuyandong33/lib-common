@@ -4,15 +4,13 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = PackageGroupDetail.FieldName.TENANT_ID, columnName = PackageGroupDetail.ColumnName.TENANT_ID)
 public class PackageGroupDetail extends BasicDomain {
     public static final String TABLE_NAME = "package_group_detail";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -20,33 +18,33 @@ public class PackageGroupDetail extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 套餐ID
      */
-    private BigInteger packageId;
+    private Long packageId;
     /**
      * 套餐组ID
      */
-    private BigInteger packageGroupId;
+    private Long packageGroupId;
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 商品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 数量
      */
     private Integer quantity = Constants.INT_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -58,43 +56,43 @@ public class PackageGroupDetail extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getPackageId() {
+    public Long getPackageId() {
         return packageId;
     }
 
-    public void setPackageId(BigInteger packageId) {
+    public void setPackageId(Long packageId) {
         this.packageId = packageId;
     }
 
-    public BigInteger getPackageGroupId() {
+    public Long getPackageGroupId() {
         return packageGroupId;
     }
 
-    public void setPackageGroupId(BigInteger packageGroupId) {
+    public void setPackageGroupId(Long packageGroupId) {
         this.packageGroupId = packageGroupId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
@@ -107,7 +105,7 @@ public class PackageGroupDetail extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, PackageGroupDetail> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -117,27 +115,27 @@ public class PackageGroupDetail extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder packageId(BigInteger packageId) {
+        public Builder packageId(Long packageId) {
             instance.setPackageId(packageId);
             return this;
         }
 
-        public Builder packageGroupId(BigInteger packageGroupId) {
+        public Builder packageGroupId(Long packageGroupId) {
             instance.setPackageGroupId(packageGroupId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }

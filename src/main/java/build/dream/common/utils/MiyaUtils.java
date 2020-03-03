@@ -7,7 +7,6 @@ import build.dream.common.models.miya.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
 import java.util.*;
 
 public class MiyaUtils {
@@ -19,7 +18,7 @@ public class MiyaUtils {
         return JacksonUtils.readValue(miyaAccountJson, MiyaAccount.class);
     }
 
-    public static MiyaAccount obtainMiyaAccount(BigInteger tenantId, BigInteger branchId) {
+    public static MiyaAccount obtainMiyaAccount(Long tenantId, Long branchId) {
         return obtainMiyaAccount(tenantId.toString(), branchId.toString());
     }
 

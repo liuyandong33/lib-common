@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +21,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
     @DecimalMax(value = "100000000")
     @SerializedName(value = "total_amount", alternate = "totalAmount")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @Length(max = 16)
     @SerializedName(value = "seller_id", alternate = "sellerId")
@@ -122,11 +121,11 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
         this.timeoutExpress = timeoutExpress;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -399,7 +398,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
         @NotNull
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
-        private BigDecimal amount;
+        private Double amount;
 
         @Length(max = 1000)
         private String desc;
@@ -465,11 +464,11 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             this.transIn = transIn;
         }
 
-        public BigDecimal getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(BigDecimal amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
 
@@ -623,7 +622,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
         @NotNull
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
-        private BigDecimal amount;
+        private Double amount;
 
         public String getTransInType() {
             return transInType;
@@ -649,11 +648,11 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             this.summaryDimension = summaryDimension;
         }
 
-        public BigDecimal getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(BigDecimal amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
     }
@@ -823,7 +822,7 @@ public class AlipayTradeAppPayModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }

@@ -5,14 +5,13 @@ import build.dream.common.utils.DatabaseUtils;
 import org.apache.commons.lang3.Validate;
 
 import javax.sql.DataSource;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
+public class OracleSequenceIdGenerator implements IdGenerator<Long> {
     private DataSource dataSource;
 
     public OracleSequenceIdGenerator() {
@@ -20,7 +19,7 @@ public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
     }
 
     @Override
-    public BigInteger nextId() {
+    public Long nextId() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -29,7 +28,7 @@ public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
             preparedStatement = connection.prepareStatement("SELECT id_sequence.nextval FROM DUAL;");
             resultSet = preparedStatement.executeQuery();
             Validate.isTrue(resultSet.next(), "生成ID失败！");
-            return BigInteger.valueOf(resultSet.getLong(1));
+            return resultSet.getLong(1);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -40,7 +39,7 @@ public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
     }
 
     @Override
-    public List<BigInteger> nextManyIds(int number) {
+    public List<Long> nextManyIds(int number) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -50,9 +49,9 @@ public class OracleSequenceIdGenerator implements IdGenerator<BigInteger> {
             preparedStatement.setInt(1, number);
             resultSet = preparedStatement.executeQuery();
 
-            List<BigInteger> ids = new ArrayList<BigInteger>(number);
+            List<Long> ids = new ArrayList<Long>(number);
             while (resultSet.next()) {
-                ids.add(BigInteger.valueOf(resultSet.getLong(1)));
+                ids.add(resultSet.getLong(1));
             }
             return ids;
         } catch (Exception e) {

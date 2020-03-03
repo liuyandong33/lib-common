@@ -12,7 +12,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import javax.crypto.Cipher;
-import java.math.BigInteger;
 import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.util.*;
@@ -40,7 +39,7 @@ public class UmPayUtils {
      * @param branchId
      * @return
      */
-    public static UmPayAccount obtainUmPayAccount(BigInteger tenantId, BigInteger branchId) {
+    public static UmPayAccount obtainUmPayAccount(Long tenantId, Long branchId) {
         return obtainUmPayAccount(tenantId.toString(), branchId.toString());
     }
 

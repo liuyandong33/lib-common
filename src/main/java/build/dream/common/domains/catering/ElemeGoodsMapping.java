@@ -2,13 +2,11 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class ElemeGoodsMapping extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编号
@@ -18,33 +16,33 @@ public class ElemeGoodsMapping extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 饿了么商品ID
      */
-    private BigInteger elemeGoodsId;
+    private Long elemeGoodsId;
 
     /**
      * 饿了么规格ID
      */
-    private BigInteger elemeSpecId;
+    private Long elemeSpecId;
 
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 商品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -56,48 +54,48 @@ public class ElemeGoodsMapping extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getElemeGoodsId() {
+    public Long getElemeGoodsId() {
         return elemeGoodsId;
     }
 
-    public void setElemeGoodsId(BigInteger elemeGoodsId) {
+    public void setElemeGoodsId(Long elemeGoodsId) {
         this.elemeGoodsId = elemeGoodsId;
     }
 
-    public BigInteger getElemeSpecId() {
+    public Long getElemeSpecId() {
         return elemeSpecId;
     }
 
-    public void setElemeSpecId(BigInteger elemeSpecId) {
+    public void setElemeSpecId(Long elemeSpecId) {
         this.elemeSpecId = elemeSpecId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, ElemeGoodsMapping> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -107,27 +105,27 @@ public class ElemeGoodsMapping extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder elemeGoodsId(BigInteger elemeGoodsId) {
+        public Builder elemeGoodsId(Long elemeGoodsId) {
             instance.setElemeGoodsId(elemeGoodsId);
             return this;
         }
 
-        public Builder elemeSpecId(BigInteger elemeSpecId) {
+        public Builder elemeSpecId(Long elemeSpecId) {
             instance.setElemeSpecId(elemeSpecId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }

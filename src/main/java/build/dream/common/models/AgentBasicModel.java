@@ -4,14 +4,12 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.AgentUserDetails;
 import build.dream.common.utils.WebSecurityUtils;
 
-import java.math.BigInteger;
-
 public class AgentBasicModel extends BasicModel {
     @InstantiateObjectIgnore
-    private BigInteger _userId;
+    private Long _userId;
 
     @InstantiateObjectIgnore
-    private BigInteger _agentId;
+    private Long _agentId;
 
     @InstantiateObjectIgnore
     private String _agentCode;
@@ -23,11 +21,11 @@ public class AgentBasicModel extends BasicModel {
         this._agentCode = agentUserDetails.getAgentCode();
     }
 
-    public BigInteger obtainUserId() {
+    public Long obtainUserId() {
         return _userId;
     }
 
-    public BigInteger obtainAgentId() {
+    public Long obtainAgentId() {
         return _agentId;
     }
 

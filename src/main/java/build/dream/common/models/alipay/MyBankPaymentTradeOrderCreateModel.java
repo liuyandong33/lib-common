@@ -9,7 +9,6 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
@@ -41,7 +40,7 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
     @DecimalMin(value = "1")
     @DecimalMax(value = "100000000")
     @JsonProperty(value = "total_amount")
-    private BigDecimal totalAmount;
+    private Double totalAmount;
 
     @Length(max = 16)
     @JsonProperty(value = "currency_code")
@@ -109,11 +108,11 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
         this.evCode = evCode;
     }
 
-    public BigDecimal getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(BigDecimal totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
@@ -191,7 +190,7 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalAmount(BigDecimal totalAmount) {
+        public Builder totalAmount(Double totalAmount) {
             instance.setTotalAmount(totalAmount);
             return this;
         }
@@ -259,7 +258,7 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "99999999999")
         @JsonProperty(value = "goods_price")
-        private BigDecimal goodsPrice;
+        private Double goodsPrice;
 
         public String getGoodsName() {
             return goodsName;
@@ -269,11 +268,11 @@ public class MyBankPaymentTradeOrderCreateModel extends AlipayBasicModel {
             this.goodsName = goodsName;
         }
 
-        public BigDecimal getGoodsPrice() {
+        public Double getGoodsPrice() {
             return goodsPrice;
         }
 
-        public void setGoodsPrice(BigDecimal goodsPrice) {
+        public void setGoodsPrice(Double goodsPrice) {
             this.goodsPrice = goodsPrice;
         }
     }

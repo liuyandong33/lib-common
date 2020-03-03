@@ -2,7 +2,6 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class RequireGoodsOrder extends BasicDomain {
@@ -10,7 +9,7 @@ public class RequireGoodsOrder extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户号
@@ -20,11 +19,11 @@ public class RequireGoodsOrder extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 配送中心ID
      */
-    private BigInteger distributionCenterId;
+    private Long distributionCenterId;
 
     /**
      * 单据编号
@@ -34,12 +33,12 @@ public class RequireGoodsOrder extends BasicDomain {
     /**
      * 制单人
      */
-    private BigInteger originatorUserId;
+    private Long originatorUserId;
 
     /**
      * 审核人
      */
-    private BigInteger auditorUserId;
+    private Long auditorUserId;
 
     /**
      * 审核时间
@@ -56,11 +55,11 @@ public class RequireGoodsOrder extends BasicDomain {
      */
     private Integer status;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -72,19 +71,19 @@ public class RequireGoodsOrder extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getDistributionCenterId() {
+    public Long getDistributionCenterId() {
         return distributionCenterId;
     }
 
-    public void setDistributionCenterId(BigInteger distributionCenterId) {
+    public void setDistributionCenterId(Long distributionCenterId) {
         this.distributionCenterId = distributionCenterId;
     }
 
@@ -96,19 +95,19 @@ public class RequireGoodsOrder extends BasicDomain {
         this.orderNumber = orderNumber;
     }
 
-    public BigInteger getOriginatorUserId() {
+    public Long getOriginatorUserId() {
         return originatorUserId;
     }
 
-    public void setOriginatorUserId(BigInteger originatorUserId) {
+    public void setOriginatorUserId(Long originatorUserId) {
         this.originatorUserId = originatorUserId;
     }
 
-    public BigInteger getAuditorUserId() {
+    public Long getAuditorUserId() {
         return auditorUserId;
     }
 
-    public void setAuditorUserId(BigInteger auditorUserId) {
+    public void setAuditorUserId(Long auditorUserId) {
         this.auditorUserId = auditorUserId;
     }
 
@@ -137,7 +136,7 @@ public class RequireGoodsOrder extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, RequireGoodsOrder> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -147,12 +146,12 @@ public class RequireGoodsOrder extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder distributionCenterId(BigInteger distributionCenterId) {
+        public Builder distributionCenterId(Long distributionCenterId) {
             instance.setDistributionCenterId(distributionCenterId);
             return this;
         }
@@ -162,12 +161,12 @@ public class RequireGoodsOrder extends BasicDomain {
             return this;
         }
 
-        public Builder originatorUserId(BigInteger originatorUserId) {
+        public Builder originatorUserId(Long originatorUserId) {
             instance.setOriginatorUserId(originatorUserId);
             return this;
         }
 
-        public Builder auditorUserId(BigInteger auditorUserId) {
+        public Builder auditorUserId(Long auditorUserId) {
             instance.setAuditorUserId(auditorUserId);
             return this;
         }

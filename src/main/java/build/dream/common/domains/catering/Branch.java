@@ -6,7 +6,6 @@ import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 import build.dream.common.utils.JacksonUtils;
 
-import java.math.BigInteger;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.List;
@@ -17,7 +16,7 @@ public class Branch extends BasicDomain {
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -89,7 +88,7 @@ public class Branch extends BasicDomain {
     /**
      * 饿了么门店id
      */
-    private BigInteger shopId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long shopId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 微餐厅状态，1-正常，2-禁用
      */
@@ -109,7 +108,7 @@ public class Branch extends BasicDomain {
     /**
      * 会员分组ID
      */
-    private BigInteger vipGroupId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long vipGroupId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 营业时间
      */
@@ -125,11 +124,11 @@ public class Branch extends BasicDomain {
      */
     private String dadaOriginShopId = Constants.VARCHAR_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -269,11 +268,11 @@ public class Branch extends BasicDomain {
         this.elemeAccountType = elemeAccountType;
     }
 
-    public BigInteger getShopId() {
+    public Long getShopId() {
         return shopId;
     }
 
-    public void setShopId(BigInteger shopId) {
+    public void setShopId(Long shopId) {
         this.shopId = shopId;
     }
 
@@ -309,11 +308,11 @@ public class Branch extends BasicDomain {
         this.poiName = poiName;
     }
 
-    public BigInteger getVipGroupId() {
+    public Long getVipGroupId() {
         return vipGroupId;
     }
 
-    public void setVipGroupId(BigInteger vipGroupId) {
+    public void setVipGroupId(Long vipGroupId) {
         this.vipGroupId = vipGroupId;
     }
 
@@ -368,7 +367,7 @@ public class Branch extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Branch> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -458,7 +457,7 @@ public class Branch extends BasicDomain {
             return this;
         }
 
-        public Builder shopId(BigInteger shopId) {
+        public Builder shopId(Long shopId) {
             instance.setShopId(shopId);
             return this;
         }
@@ -483,7 +482,7 @@ public class Branch extends BasicDomain {
             return this;
         }
 
-        public Builder vipGroupId(BigInteger vipGroupId) {
+        public Builder vipGroupId(Long vipGroupId) {
             instance.setVipGroupId(vipGroupId);
             return this;
         }

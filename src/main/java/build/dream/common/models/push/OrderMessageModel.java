@@ -1,17 +1,16 @@
 package build.dream.common.models.push;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigInteger;
 
 public class OrderMessageModel extends MessageModel {
     @NotNull
-    private BigInteger orderId;
+    private Long orderId;
 
-    public BigInteger getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(BigInteger orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 }

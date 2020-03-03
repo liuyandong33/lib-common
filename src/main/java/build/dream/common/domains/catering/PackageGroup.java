@@ -4,15 +4,13 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = PackageGroup.FieldName.TENANT_ID, columnName = PackageGroup.ColumnName.TENANT_ID)
 public class PackageGroup extends BasicDomain {
     public static final String TABLE_NAME = "package_group";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -20,11 +18,11 @@ public class PackageGroup extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 套餐ID
      */
-    private BigInteger packageId;
+    private Long packageId;
     /**
      * 套餐组名称
      */
@@ -38,11 +36,11 @@ public class PackageGroup extends BasicDomain {
      */
     private Integer optionalQuantity = Constants.INT_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -54,19 +52,19 @@ public class PackageGroup extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getPackageId() {
+    public Long getPackageId() {
         return packageId;
     }
 
-    public void setPackageId(BigInteger packageId) {
+    public void setPackageId(Long packageId) {
         this.packageId = packageId;
     }
 
@@ -95,7 +93,7 @@ public class PackageGroup extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, PackageGroup> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -105,12 +103,12 @@ public class PackageGroup extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder packageId(BigInteger packageId) {
+        public Builder packageId(Long packageId) {
             instance.setPackageId(packageId);
             return this;
         }

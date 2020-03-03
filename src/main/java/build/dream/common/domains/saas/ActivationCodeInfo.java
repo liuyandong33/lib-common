@@ -3,7 +3,6 @@ package build.dream.common.domains.saas;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class ActivationCodeInfo extends BasicDomain {
@@ -11,15 +10,15 @@ public class ActivationCodeInfo extends BasicDomain {
     /**
      * 代理商id
      */
-    private BigInteger agentId;
+    private Long agentId;
     /**
      * 购买激活码订单id
      */
-    private BigInteger orderId;
+    private Long orderId;
     /**
      * 使用激活码订单id
      */
-    private BigInteger useOrderId = Constants.BIGINT_DEFAULT_VALUE;
+    private Long useOrderId = Constants.BIGINT_DEFAULT_VALUE;
     /**
      * 使用时间
      */
@@ -43,33 +42,33 @@ public class ActivationCodeInfo extends BasicDomain {
     /**
      * 商品id
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 商品规格id
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 
-    public BigInteger getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(BigInteger orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
-    public BigInteger getUseOrderId() {
+    public Long getUseOrderId() {
         return useOrderId;
     }
 
-    public void setUseOrderId(BigInteger useOrderId) {
+    public void setUseOrderId(Long useOrderId) {
         this.useOrderId = useOrderId;
     }
 
@@ -113,34 +112,34 @@ public class ActivationCodeInfo extends BasicDomain {
         this.activationCode = activationCode;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, ActivationCodeInfo> {
-        public Builder agentId(BigInteger agentId) {
+        public Builder agentId(Long agentId) {
             instance.setAgentId(agentId);
             return this;
         }
 
-        public Builder orderId(BigInteger orderId) {
+        public Builder orderId(Long orderId) {
             instance.setOrderId(orderId);
             return this;
         }
 
-        public Builder useOrderId(BigInteger useOrderId) {
+        public Builder useOrderId(Long useOrderId) {
             instance.setUseOrderId(useOrderId);
             return this;
         }
@@ -170,12 +169,12 @@ public class ActivationCodeInfo extends BasicDomain {
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }

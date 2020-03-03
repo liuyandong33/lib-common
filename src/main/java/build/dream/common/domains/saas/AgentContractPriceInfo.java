@@ -2,77 +2,74 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 public class AgentContractPriceInfo extends BasicDomain {
     public static final String TABLE_NAME = "agent_contract_price_info";
     /**
      * 代理商合同ID
      */
-    private BigInteger agentContractId;
+    private Long agentContractId;
     /**
      * 产品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 产品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
     /**
      * 合同价格
      */
-    private BigDecimal contractPrice;
+    private Double contractPrice;
 
-    public BigInteger getAgentContractId() {
+    public Long getAgentContractId() {
         return agentContractId;
     }
 
-    public void setAgentContractId(BigInteger agentContractId) {
+    public void setAgentContractId(Long agentContractId) {
         this.agentContractId = agentContractId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public BigDecimal getContractPrice() {
+    public Double getContractPrice() {
         return contractPrice;
     }
 
-    public void setContractPrice(BigDecimal contractPrice) {
+    public void setContractPrice(Double contractPrice) {
         this.contractPrice = contractPrice;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, AgentContractPriceInfo> {
-        public Builder agentContractId(BigInteger agentContractId) {
+        public Builder agentContractId(Long agentContractId) {
             instance.setAgentContractId(agentContractId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }
 
-        public Builder contractPrice(BigDecimal contractPrice) {
+        public Builder contractPrice(Double contractPrice) {
             instance.setContractPrice(contractPrice);
             return this;
         }

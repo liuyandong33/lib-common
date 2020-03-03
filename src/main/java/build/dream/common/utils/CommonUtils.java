@@ -3,8 +3,6 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
-
 public class CommonUtils {
     public static String getServiceName(String business) {
         if (Constants.BUSINESS_CATERING.equals(business)) {
@@ -21,15 +19,15 @@ public class CommonUtils {
         return null;
     }
 
-    public static BigInteger getServiceSystemUserId(String partitionCode, String serviceName) {
+    public static Long getServiceSystemUserId(String partitionCode, String serviceName) {
         String userId = ConfigurationUtils.getConfiguration(partitionCode + "." + serviceName + ".user.id");
         if (StringUtils.isNotBlank(userId)) {
-            return BigInteger.valueOf(Long.valueOf(userId));
+            return Long.valueOf(Long.valueOf(userId));
         }
         return null;
     }
 
-    public static BigInteger getServiceSystemUserId() {
+    public static Long getServiceSystemUserId() {
         String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
         String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
         return getServiceSystemUserId(partitionCode, serviceName);

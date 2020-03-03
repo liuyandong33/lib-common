@@ -1,20 +1,18 @@
 package build.dream.common.auth;
 
-import java.math.BigInteger;
-
 public abstract class TenantUserDetails extends AbstractUserDetails {
-    private BigInteger tenantId;
+    private Long tenantId;
     private String tenantCode;
     private String partitionCode;
     private String business;
     private String publicKey;
     private String privateKey;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 

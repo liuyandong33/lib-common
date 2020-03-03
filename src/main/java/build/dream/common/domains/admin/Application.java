@@ -2,7 +2,6 @@ package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class Application extends BasicDomain {
@@ -33,11 +32,11 @@ public class Application extends BasicDomain {
     /**
      * 部署用户ID
      */
-    private BigInteger deployedUserId;
+    private Long deployedUserId;
     /**
      * 服务器ID
      */
-    private BigInteger serverId;
+    private Long serverId;
 
     public String getPartitionCode() {
         return partitionCode;
@@ -87,19 +86,19 @@ public class Application extends BasicDomain {
         this.deployedTime = deployedTime;
     }
 
-    public BigInteger getDeployedUserId() {
+    public Long getDeployedUserId() {
         return deployedUserId;
     }
 
-    public void setDeployedUserId(BigInteger deployedUserId) {
+    public void setDeployedUserId(Long deployedUserId) {
         this.deployedUserId = deployedUserId;
     }
 
-    public BigInteger getServerId() {
+    public Long getServerId() {
         return serverId;
     }
 
-    public void setServerId(BigInteger serverId) {
+    public void setServerId(Long serverId) {
         this.serverId = serverId;
     }
 
@@ -136,17 +135,17 @@ public class Application extends BasicDomain {
             return this;
         }
 
-        public Builder deployedUserId(BigInteger deployedUserId) {
+        public Builder deployedUserId(Long deployedUserId) {
             instance.setDeployedUserId(deployedUserId);
             return this;
         }
 
-        public Builder serverId(BigInteger serverId) {
+        public Builder serverId(Long serverId) {
             instance.setServerId(serverId);
             return this;
         }
 
-        public Builder id(BigInteger id) {
+        public Builder id(Long id) {
             instance.setId(id);
             return this;
         }
@@ -156,7 +155,7 @@ public class Application extends BasicDomain {
             return this;
         }
 
-        public Builder createdUserId(BigInteger createdUserId) {
+        public Builder createdUserId(Long createdUserId) {
             instance.setCreatedUserId(createdUserId);
             return this;
         }
@@ -166,7 +165,7 @@ public class Application extends BasicDomain {
             return this;
         }
 
-        public Builder updatedUserId(BigInteger updatedUserId) {
+        public Builder updatedUserId(Long updatedUserId) {
             instance.setUpdatedUserId(updatedUserId);
             return this;
         }

@@ -4,7 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = DietOrderDeliveryState.FieldName.TENANT_ID, columnName = DietOrderDeliveryState.ColumnName.TENANT_ID)
@@ -13,7 +12,7 @@ public class DietOrderDeliveryState extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -21,11 +20,11 @@ public class DietOrderDeliveryState extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * diet_order.id
      */
-    private BigInteger dietOrderId;
+    private Long dietOrderId;
     /**
      * 订单号
      */
@@ -79,11 +78,11 @@ public class DietOrderDeliveryState extends BasicDomain {
      */
     private Date pushTime;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -95,19 +94,19 @@ public class DietOrderDeliveryState extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getDietOrderId() {
+    public Long getDietOrderId() {
         return dietOrderId;
     }
 
-    public void setDietOrderId(BigInteger dietOrderId) {
+    public void setDietOrderId(Long dietOrderId) {
         this.dietOrderId = dietOrderId;
     }
 
@@ -216,7 +215,7 @@ public class DietOrderDeliveryState extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, DietOrderDeliveryState> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -226,12 +225,12 @@ public class DietOrderDeliveryState extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder dietOrderId(BigInteger dietOrderId) {
+        public Builder dietOrderId(Long dietOrderId) {
             instance.setDietOrderId(dietOrderId);
             return this;
         }

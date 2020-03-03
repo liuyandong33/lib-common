@@ -1,16 +1,15 @@
 package build.dream.common.domains.catering;
 
-import java.math.BigInteger;
 import java.sql.Time;
 
 public class BusinessTime {
     public static final String TABLE_NAME = "business_time";
-    private BigInteger id;
+    private Long id;
 
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户号
@@ -20,7 +19,7 @@ public class BusinessTime {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 星期标记，素数原理
@@ -37,19 +36,19 @@ public class BusinessTime {
      */
     private Time endTime;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -61,11 +60,11 @@ public class BusinessTime {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 

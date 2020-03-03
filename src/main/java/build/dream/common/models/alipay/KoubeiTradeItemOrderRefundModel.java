@@ -8,7 +8,6 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import java.util.List;
 
 public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
@@ -106,7 +105,7 @@ public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
         @NotNull
         @DecimalMin(value = "0.01")
         @DecimalMax(value = "999999999")
-        private BigDecimal amount;
+        private Double amount;
 
         public String getItemOrderNo() {
             return itemOrderNo;
@@ -116,11 +115,11 @@ public class KoubeiTradeItemOrderRefundModel extends AlipayBasicModel {
             this.itemOrderNo = itemOrderNo;
         }
 
-        public BigDecimal getAmount() {
+        public Double getAmount() {
             return amount;
         }
 
-        public void setAmount(BigDecimal amount) {
+        public void setAmount(Double amount) {
             this.amount = amount;
         }
     }

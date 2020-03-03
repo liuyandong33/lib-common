@@ -3,7 +3,6 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.sql.Time;
 import java.util.Date;
 
@@ -13,7 +12,7 @@ public class Activity extends BasicDomain {
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -51,11 +50,11 @@ public class Activity extends BasicDomain {
      */
     private Integer status;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -132,7 +131,7 @@ public class Activity extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Activity> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

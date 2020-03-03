@@ -7,7 +7,6 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 
 public class AlipayOfflineMarketShopCreateModel extends AlipayBasicModel {
     @NotNull
@@ -98,7 +97,7 @@ public class AlipayOfflineMarketShopCreateModel extends AlipayBasicModel {
     @DecimalMin(value = "1")
     @DecimalMax(value = "99999")
     @JsonProperty(value = "avg_price")
-    private BigDecimal avgPrice;
+    private Double avgPrice;
 
     @NotNull
     @Length(max = 16)
@@ -333,11 +332,11 @@ public class AlipayOfflineMarketShopCreateModel extends AlipayBasicModel {
         this.valueAdded = valueAdded;
     }
 
-    public BigDecimal getAvgPrice() {
+    public Double getAvgPrice() {
         return avgPrice;
     }
 
-    public void setAvgPrice(BigDecimal avgPrice) {
+    public void setAvgPrice(Double avgPrice) {
         this.avgPrice = avgPrice;
     }
 

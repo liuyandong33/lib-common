@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = BuyGiveActivity.FieldName.TENANT_ID, columnName = BuyGiveActivity.ColumnName.TENANT_ID)
 public class BuyGiveActivity extends BasicDomain {
     public static final String TABLE_NAME = "buy_give_activity";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -19,15 +17,15 @@ public class BuyGiveActivity extends BasicDomain {
     /**
      * 活动id
      */
-    private BigInteger activityId;
+    private Long activityId;
     /**
      * 购买商品id
      */
-    private BigInteger buyGoodsId;
+    private Long buyGoodsId;
     /**
      * 购买商品规格id
      */
-    private BigInteger buyGoodsSpecificationId;
+    private Long buyGoodsSpecificationId;
     /**
      * 购买数量
      */
@@ -35,21 +33,21 @@ public class BuyGiveActivity extends BasicDomain {
     /**
      * 赠送商品id
      */
-    private BigInteger giveGoodsId;
+    private Long giveGoodsId;
     /**
      * 赠送商品规格id
      */
-    private BigInteger giveGoodsSpecificationId;
+    private Long giveGoodsSpecificationId;
     /**
      * 赠送数量
      */
     private Integer giveQuantity;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -61,27 +59,27 @@ public class BuyGiveActivity extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getActivityId() {
+    public Long getActivityId() {
         return activityId;
     }
 
-    public void setActivityId(BigInteger activityId) {
+    public void setActivityId(Long activityId) {
         this.activityId = activityId;
     }
 
-    public BigInteger getBuyGoodsId() {
+    public Long getBuyGoodsId() {
         return buyGoodsId;
     }
 
-    public void setBuyGoodsId(BigInteger buyGoodsId) {
+    public void setBuyGoodsId(Long buyGoodsId) {
         this.buyGoodsId = buyGoodsId;
     }
 
-    public BigInteger getBuyGoodsSpecificationId() {
+    public Long getBuyGoodsSpecificationId() {
         return buyGoodsSpecificationId;
     }
 
-    public void setBuyGoodsSpecificationId(BigInteger buyGoodsSpecificationId) {
+    public void setBuyGoodsSpecificationId(Long buyGoodsSpecificationId) {
         this.buyGoodsSpecificationId = buyGoodsSpecificationId;
     }
 
@@ -93,19 +91,19 @@ public class BuyGiveActivity extends BasicDomain {
         this.buyQuantity = buyQuantity;
     }
 
-    public BigInteger getGiveGoodsId() {
+    public Long getGiveGoodsId() {
         return giveGoodsId;
     }
 
-    public void setGiveGoodsId(BigInteger giveGoodsId) {
+    public void setGiveGoodsId(Long giveGoodsId) {
         this.giveGoodsId = giveGoodsId;
     }
 
-    public BigInteger getGiveGoodsSpecificationId() {
+    public Long getGiveGoodsSpecificationId() {
         return giveGoodsSpecificationId;
     }
 
-    public void setGiveGoodsSpecificationId(BigInteger giveGoodsSpecificationId) {
+    public void setGiveGoodsSpecificationId(Long giveGoodsSpecificationId) {
         this.giveGoodsSpecificationId = giveGoodsSpecificationId;
     }
 
@@ -118,7 +116,7 @@ public class BuyGiveActivity extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, BuyGiveActivity> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -128,17 +126,17 @@ public class BuyGiveActivity extends BasicDomain {
             return this;
         }
 
-        public Builder activityId(BigInteger activityId) {
+        public Builder activityId(Long activityId) {
             instance.setActivityId(activityId);
             return this;
         }
 
-        public Builder buyGoodsId(BigInteger buyGoodsId) {
+        public Builder buyGoodsId(Long buyGoodsId) {
             instance.setBuyGoodsId(buyGoodsId);
             return this;
         }
 
-        public Builder buyGoodsSpecificationId(BigInteger buyGoodsSpecificationId) {
+        public Builder buyGoodsSpecificationId(Long buyGoodsSpecificationId) {
             instance.setBuyGoodsSpecificationId(buyGoodsSpecificationId);
             return this;
         }
@@ -148,12 +146,12 @@ public class BuyGiveActivity extends BasicDomain {
             return this;
         }
 
-        public Builder giveGoodsId(BigInteger giveGoodsId) {
+        public Builder giveGoodsId(Long giveGoodsId) {
             instance.setGiveGoodsId(giveGoodsId);
             return this;
         }
 
-        public Builder giveGoodsSpecificationId(BigInteger giveGoodsSpecificationId) {
+        public Builder giveGoodsSpecificationId(Long giveGoodsSpecificationId) {
             instance.setGiveGoodsSpecificationId(giveGoodsSpecificationId);
             return this;
         }

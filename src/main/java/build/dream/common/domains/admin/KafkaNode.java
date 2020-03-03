@@ -2,14 +2,13 @@ package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class KafkaNode extends BasicDomain {
     /**
      * 集群ID
      */
-    private BigInteger clusterId;
+    private Long clusterId;
     /**
      * 主机名称
      */
@@ -35,11 +34,11 @@ public class KafkaNode extends BasicDomain {
      */
     private String kafkaHome;
 
-    public BigInteger getClusterId() {
+    public Long getClusterId() {
         return clusterId;
     }
 
-    public void setClusterId(BigInteger clusterId) {
+    public void setClusterId(Long clusterId) {
         this.clusterId = clusterId;
     }
 
@@ -94,7 +93,7 @@ public class KafkaNode extends BasicDomain {
     public static class Builder {
         private final KafkaNode instance = new KafkaNode();
 
-        public Builder clusterId(BigInteger clusterId) {
+        public Builder clusterId(Long clusterId) {
             instance.setClusterId(clusterId);
             return this;
         }
@@ -129,7 +128,7 @@ public class KafkaNode extends BasicDomain {
             return this;
         }
 
-        public Builder id(BigInteger id) {
+        public Builder id(Long id) {
             instance.setId(id);
             return this;
         }
@@ -139,7 +138,7 @@ public class KafkaNode extends BasicDomain {
             return this;
         }
 
-        public Builder createdUserId(BigInteger createdUserId) {
+        public Builder createdUserId(Long createdUserId) {
             instance.setCreatedUserId(createdUserId);
             return this;
         }
@@ -149,7 +148,7 @@ public class KafkaNode extends BasicDomain {
             return this;
         }
 
-        public Builder updatedUserId(BigInteger updatedUserId) {
+        public Builder updatedUserId(Long updatedUserId) {
             instance.setUpdatedUserId(updatedUserId);
             return this;
         }

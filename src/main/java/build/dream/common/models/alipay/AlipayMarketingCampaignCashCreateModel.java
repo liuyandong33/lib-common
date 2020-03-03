@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
 
 public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
     @NotNull
@@ -22,7 +21,7 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
     @DecimalMin(value = "1.00")
     @DecimalMax(value = "10000000.00")
     @JsonProperty(value = "total_money")
-    private BigDecimal totalMoney;
+    private Double totalMoney;
 
     @NotNull
     @Min(value = 1)
@@ -69,11 +68,11 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
         this.prizeType = prizeType;
     }
 
-    public BigDecimal getTotalMoney() {
+    public Double getTotalMoney() {
         return totalMoney;
     }
 
-    public void setTotalMoney(BigDecimal totalMoney) {
+    public void setTotalMoney(Double totalMoney) {
         this.totalMoney = totalMoney;
     }
 
@@ -136,7 +135,7 @@ public class AlipayMarketingCampaignCashCreateModel extends AlipayBasicModel {
             return this;
         }
 
-        public Builder totalMoney(BigDecimal totalMoney) {
+        public Builder totalMoney(Double totalMoney) {
             instance.setTotalMoney(totalMoney);
             return this;
         }

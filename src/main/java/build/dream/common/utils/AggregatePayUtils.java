@@ -8,7 +8,6 @@ import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
 import org.dom4j.DocumentException;
 
-import java.math.BigDecimal;
 import java.util.Map;
 
 public class AggregatePayUtils {
@@ -47,7 +46,7 @@ public class AggregatePayUtils {
                     .authCode(authCode)
                     .scene(Constants.SCENE_BAR_CODE)
                     .subject(subject)
-                    .totalAmount(BigDecimal.valueOf(totalAmount).divide(Constants.BIG_DECIMAL_ONE_HUNDRED))
+                    .totalAmount(Double.valueOf(totalAmount) / 100)
                     .build();
             result = AlipayUtils.alipayTradePay(alipayTradePayModel);
         }

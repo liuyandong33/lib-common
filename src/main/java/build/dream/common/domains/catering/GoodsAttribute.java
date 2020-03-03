@@ -4,16 +4,13 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = GoodsAttribute.FieldName.TENANT_ID, columnName = GoodsAttribute.ColumnName.TENANT_ID)
 public class GoodsAttribute extends BasicDomain {
     public static final String TABLE_NAME = "goods_attribute";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -21,15 +18,15 @@ public class GoodsAttribute extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
     /**
      * 商品属性组ID
      */
-    private BigInteger goodsAttributeGroupId;
+    private Long goodsAttributeGroupId;
     /**
      * 属性名称
      */
@@ -37,13 +34,13 @@ public class GoodsAttribute extends BasicDomain {
     /**
      * 加价
      */
-    private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double price = Constants.DECIMAL_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -55,27 +52,27 @@ public class GoodsAttribute extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsAttributeGroupId() {
+    public Long getGoodsAttributeGroupId() {
         return goodsAttributeGroupId;
     }
 
-    public void setGoodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+    public void setGoodsAttributeGroupId(Long goodsAttributeGroupId) {
         this.goodsAttributeGroupId = goodsAttributeGroupId;
     }
 
@@ -87,16 +84,16 @@ public class GoodsAttribute extends BasicDomain {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, GoodsAttribute> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -106,17 +103,17 @@ public class GoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+        public Builder goodsAttributeGroupId(Long goodsAttributeGroupId) {
             instance.setGoodsAttributeGroupId(goodsAttributeGroupId);
             return this;
         }
@@ -126,7 +123,7 @@ public class GoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Double price) {
             instance.setPrice(price);
             return this;
         }

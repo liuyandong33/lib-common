@@ -3,15 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = WeiXinMemberCard.FieldName.TENANT_ID, columnName = WeiXinMemberCard.ColumnName.TENANT_ID)
 public class WeiXinMemberCard extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_member_card";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * app id
      */
@@ -29,11 +27,11 @@ public class WeiXinMemberCard extends BasicDomain {
      */
     private String showQrCodeUrl;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -70,7 +68,7 @@ public class WeiXinMemberCard extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, WeiXinMemberCard> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

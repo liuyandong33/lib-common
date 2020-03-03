@@ -4,8 +4,6 @@ import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 import build.dream.common.constants.Constants;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 @ShardingColumn(fieldName = DietOrderDetailGoodsAttribute.FieldName.TENANT_ID, columnName = DietOrderDetailGoodsAttribute.ColumnName.TENANT_ID)
@@ -14,7 +12,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -22,23 +20,23 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * diet_order.id
      */
-    private BigInteger dietOrderId;
+    private Long dietOrderId;
     /**
      * 订单组id
      */
-    private BigInteger dietOrderGroupId;
+    private Long dietOrderGroupId;
     /**
      * 餐厅订单明细ID，diet_order_detail.id
      */
-    private BigInteger dietOrderDetailId;
+    private Long dietOrderDetailId;
     /**
      * 口味组ID，goods_attribute_group.id
      */
-    private BigInteger goodsAttributeGroupId;
+    private Long goodsAttributeGroupId;
     /**
      * 口味组名称，goods_attribute_group.name
      */
@@ -46,7 +44,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     /**
      * 口味ID，goods_attribute.id
      */
-    private BigInteger goodsAttributeId;
+    private Long goodsAttributeId;
     /**
      * 口味名称，goods_attribute.name
      */
@@ -54,7 +52,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     /**
      * 口味加价，goods_attribute.price
      */
-    private BigDecimal price = Constants.DECIMAL_DEFAULT_VALUE;
+    private Double price = Constants.DECIMAL_DEFAULT_VALUE;
     /**
      * 本地ID
      */
@@ -80,11 +78,11 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
      */
     private Date localUpdatedTime = Constants.DATETIME_DEFAULT_VALUE;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -96,43 +94,43 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getDietOrderId() {
+    public Long getDietOrderId() {
         return dietOrderId;
     }
 
-    public void setDietOrderId(BigInteger dietOrderId) {
+    public void setDietOrderId(Long dietOrderId) {
         this.dietOrderId = dietOrderId;
     }
 
-    public BigInteger getDietOrderGroupId() {
+    public Long getDietOrderGroupId() {
         return dietOrderGroupId;
     }
 
-    public void setDietOrderGroupId(BigInteger dietOrderGroupId) {
+    public void setDietOrderGroupId(Long dietOrderGroupId) {
         this.dietOrderGroupId = dietOrderGroupId;
     }
 
-    public BigInteger getDietOrderDetailId() {
+    public Long getDietOrderDetailId() {
         return dietOrderDetailId;
     }
 
-    public void setDietOrderDetailId(BigInteger dietOrderDetailId) {
+    public void setDietOrderDetailId(Long dietOrderDetailId) {
         this.dietOrderDetailId = dietOrderDetailId;
     }
 
-    public BigInteger getGoodsAttributeGroupId() {
+    public Long getGoodsAttributeGroupId() {
         return goodsAttributeGroupId;
     }
 
-    public void setGoodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+    public void setGoodsAttributeGroupId(Long goodsAttributeGroupId) {
         this.goodsAttributeGroupId = goodsAttributeGroupId;
     }
 
@@ -144,11 +142,11 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         this.goodsAttributeGroupName = goodsAttributeGroupName;
     }
 
-    public BigInteger getGoodsAttributeId() {
+    public Long getGoodsAttributeId() {
         return goodsAttributeId;
     }
 
-    public void setGoodsAttributeId(BigInteger goodsAttributeId) {
+    public void setGoodsAttributeId(Long goodsAttributeId) {
         this.goodsAttributeId = goodsAttributeId;
     }
 
@@ -160,11 +158,11 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
         this.goodsAttributeName = goodsAttributeName;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -217,7 +215,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, DietOrderDetailGoodsAttribute> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -227,27 +225,27 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder dietOrderId(BigInteger dietOrderId) {
+        public Builder dietOrderId(Long dietOrderId) {
             instance.setDietOrderId(dietOrderId);
             return this;
         }
 
-        public Builder dietOrderGroupId(BigInteger dietOrderGroupId) {
+        public Builder dietOrderGroupId(Long dietOrderGroupId) {
             instance.setDietOrderGroupId(dietOrderGroupId);
             return this;
         }
 
-        public Builder dietOrderDetailId(BigInteger dietOrderDetailId) {
+        public Builder dietOrderDetailId(Long dietOrderDetailId) {
             instance.setDietOrderDetailId(dietOrderDetailId);
             return this;
         }
 
-        public Builder goodsAttributeGroupId(BigInteger goodsAttributeGroupId) {
+        public Builder goodsAttributeGroupId(Long goodsAttributeGroupId) {
             instance.setGoodsAttributeGroupId(goodsAttributeGroupId);
             return this;
         }
@@ -257,7 +255,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder goodsAttributeId(BigInteger goodsAttributeId) {
+        public Builder goodsAttributeId(Long goodsAttributeId) {
             instance.setGoodsAttributeId(goodsAttributeId);
             return this;
         }
@@ -267,7 +265,7 @@ public class DietOrderDetailGoodsAttribute extends BasicDomain {
             return this;
         }
 
-        public Builder price(BigDecimal price) {
+        public Builder price(Double price) {
             instance.setPrice(price);
             return this;
         }

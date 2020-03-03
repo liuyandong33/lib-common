@@ -3,15 +3,13 @@ package build.dream.common.domains.iot;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = Branch.FieldName.TENANT_ID, columnName = Branch.ColumnName.TENANT_ID)
 public class Branch extends BasicDomain {
     public static final String TABLE_NAME = "branch";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编码
      */
@@ -77,11 +75,11 @@ public class Branch extends BasicDomain {
      */
     private String contactPhone;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -214,7 +212,7 @@ public class Branch extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, Branch> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

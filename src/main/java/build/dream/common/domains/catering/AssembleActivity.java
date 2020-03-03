@@ -2,15 +2,13 @@ package build.dream.common.domains.catering;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 public class AssembleActivity extends BasicDomain {
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编码
@@ -20,12 +18,12 @@ public class AssembleActivity extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 商品名称
@@ -65,7 +63,7 @@ public class AssembleActivity extends BasicDomain {
     /**
      * 限购数量
      */
-    private BigDecimal limitQuantity;
+    private Double limitQuantity;
 
     /**
      * 成团人数
@@ -90,22 +88,22 @@ public class AssembleActivity extends BasicDomain {
     /**
      * 原价
      */
-    private BigDecimal originalPrice;
+    private Double originalPrice;
 
     /**
      * 拼团价
      */
-    private BigDecimal assemblePrice;
+    private Double assemblePrice;
 
     /**
      * 拼团库存
      */
-    private BigDecimal assembleStock;
+    private Double assembleStock;
 
     /**
      * 剩余库存
      */
-    private BigDecimal surplusStock;
+    private Double surplusStock;
 
     /**
      * 活动说明
@@ -115,7 +113,7 @@ public class AssembleActivity extends BasicDomain {
     /**
      * 拼团实付金额
      */
-    private BigDecimal paymentAmount;
+    private Double paymentAmount;
 
     /**
      * 成团团数

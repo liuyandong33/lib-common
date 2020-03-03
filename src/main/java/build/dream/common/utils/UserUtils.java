@@ -5,7 +5,6 @@ import build.dream.common.domains.saas.SystemUser;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,7 +18,7 @@ public class UserUtils {
         return JacksonUtils.readValue(userInfoJson, SystemUser.class);
     }
 
-    public static SystemUser obtainUserInfo(BigInteger userId) {
+    public static SystemUser obtainUserInfo(Long userId) {
         return obtainUserInfo(userId.toString());
     }
 
@@ -27,7 +26,7 @@ public class UserUtils {
         CommonRedisUtils.hset(Constants.KEY_USER_INFOS, systemUser.getId().toString(), JacksonUtils.writeValueAsString(systemUser));
     }
 
-    public static List<SystemUser> batchGetUsers(List<BigInteger> userIds) {
+    public static List<SystemUser> batchGetUsers(List<Long> userIds) {
         List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
         return userInfos.stream().map(userInfo -> JacksonUtils.readValue(userInfo, SystemUser.class)).collect(Collectors.toList());
     }

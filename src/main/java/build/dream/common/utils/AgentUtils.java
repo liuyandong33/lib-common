@@ -5,13 +5,12 @@ import build.dream.common.domains.saas.Agent;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AgentUtils {
-    public static Agent obtainAgentInfo(BigInteger agentId) {
+    public static Agent obtainAgentInfo(Long agentId) {
         String agentInfoJson = CommonRedisUtils.hget(Constants.KEY_AGENT_INFOS, "_id_" + agentId);
         if (StringUtils.isBlank(agentInfoJson)) {
             return null;

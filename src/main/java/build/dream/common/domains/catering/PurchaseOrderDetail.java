@@ -3,16 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = PurchaseOrderDetail.FieldName.TENANT_ID, columnName = PurchaseOrderDetail.ColumnName.TENANT_ID)
 public class PurchaseOrderDetail extends BasicDomain {
     public static final String TABLE_NAME = "purchase_order_detail";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
 
     /**
      * 商户编号
@@ -22,43 +19,43 @@ public class PurchaseOrderDetail extends BasicDomain {
     /**
      * 门店ID
      */
-    private BigInteger branchId;
+    private Long branchId;
 
     /**
      * 进货单ID
      */
-    private BigInteger purchaseOrderId;
+    private Long purchaseOrderId;
 
     /**
      * 商品ID
      */
-    private BigInteger goodsId;
+    private Long goodsId;
 
     /**
      * 商品规格ID
      */
-    private BigInteger goodsSpecificationId;
+    private Long goodsSpecificationId;
 
     /**
      * 商品单位ID
      */
-    private BigInteger unitId;
+    private Long unitId;
 
     /**
      * 进货价
      */
-    private BigDecimal purchasePrice;
+    private Double purchasePrice;
 
     /**
      * 进货数量
      */
-    private BigDecimal quantity;
+    private Double quantity;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -70,64 +67,64 @@ public class PurchaseOrderDetail extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getPurchaseOrderId() {
+    public Long getPurchaseOrderId() {
         return purchaseOrderId;
     }
 
-    public void setPurchaseOrderId(BigInteger purchaseOrderId) {
+    public void setPurchaseOrderId(Long purchaseOrderId) {
         this.purchaseOrderId = purchaseOrderId;
     }
 
-    public BigInteger getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(BigInteger goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
-    public BigInteger getGoodsSpecificationId() {
+    public Long getGoodsSpecificationId() {
         return goodsSpecificationId;
     }
 
-    public void setGoodsSpecificationId(BigInteger goodsSpecificationId) {
+    public void setGoodsSpecificationId(Long goodsSpecificationId) {
         this.goodsSpecificationId = goodsSpecificationId;
     }
 
-    public BigInteger getUnitId() {
+    public Long getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(BigInteger unitId) {
+    public void setUnitId(Long unitId) {
         this.unitId = unitId;
     }
 
-    public BigDecimal getPurchasePrice() {
+    public Double getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(BigDecimal purchasePrice) {
+    public void setPurchasePrice(Double purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 
-    public BigDecimal getQuantity() {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(BigDecimal quantity) {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, PurchaseOrderDetail> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -137,37 +134,37 @@ public class PurchaseOrderDetail extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder purchaseOrderId(BigInteger purchaseOrderId) {
+        public Builder purchaseOrderId(Long purchaseOrderId) {
             instance.setPurchaseOrderId(purchaseOrderId);
             return this;
         }
 
-        public Builder goodsId(BigInteger goodsId) {
+        public Builder goodsId(Long goodsId) {
             instance.setGoodsId(goodsId);
             return this;
         }
 
-        public Builder goodsSpecificationId(BigInteger goodsSpecificationId) {
+        public Builder goodsSpecificationId(Long goodsSpecificationId) {
             instance.setGoodsSpecificationId(goodsSpecificationId);
             return this;
         }
 
-        public Builder unitId(BigInteger unitId) {
+        public Builder unitId(Long unitId) {
             instance.setUnitId(unitId);
             return this;
         }
 
-        public Builder purchasePrice(BigDecimal purchasePrice) {
+        public Builder purchasePrice(Double purchasePrice) {
             instance.setPurchasePrice(purchasePrice);
             return this;
         }
 
-        public Builder quantity(BigDecimal quantity) {
+        public Builder quantity(Double quantity) {
             instance.setQuantity(quantity);
             return this;
         }

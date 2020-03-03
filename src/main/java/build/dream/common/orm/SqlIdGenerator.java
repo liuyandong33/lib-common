@@ -5,14 +5,13 @@ import build.dream.common.utils.DatabaseUtils;
 import org.apache.commons.lang3.Validate;
 
 import javax.sql.DataSource;
-import java.math.BigInteger;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SqlIdGenerator implements IdGenerator<BigInteger> {
+public class SqlIdGenerator implements IdGenerator<Long> {
     private DataSource dataSource;
 
     public SqlIdGenerator() {
@@ -20,7 +19,7 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
     }
 
     @Override
-    public BigInteger nextId() {
+    public Long nextId() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -29,7 +28,7 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
             preparedStatement = connection.prepareStatement("SELECT RAND() * 10000;");
             resultSet = preparedStatement.executeQuery();
             Validate.isTrue(resultSet.next(), "生成ID失败！");
-            return BigInteger.valueOf(resultSet.getLong(0));
+            return resultSet.getLong(0);
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
@@ -40,8 +39,8 @@ public class SqlIdGenerator implements IdGenerator<BigInteger> {
     }
 
     @Override
-    public List<BigInteger> nextManyIds(int number) {
-        List<BigInteger> ids = new ArrayList<BigInteger>(number);
+    public List<Long> nextManyIds(int number) {
+        List<Long> ids = new ArrayList<Long>(number);
         for (int index = 0; index < number; index++) {
             ids.add(nextId());
         }

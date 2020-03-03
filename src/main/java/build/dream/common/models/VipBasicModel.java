@@ -6,11 +6,9 @@ import build.dream.common.domains.saas.Tenant;
 import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
 
-import java.math.BigInteger;
-
 public class VipBasicModel extends BasicModel {
     @InstantiateObjectIgnore
-    private BigInteger _tenantId;
+    private Long _tenantId;
 
     @InstantiateObjectIgnore
     private String _tenantCode;
@@ -31,11 +29,11 @@ public class VipBasicModel extends BasicModel {
     private Integer _vipSharedType;
 
     @InstantiateObjectIgnore
-    private BigInteger _vipId;
+    private Long _vipId;
 
     public VipBasicModel() {
         VipUserDetails vipUserDetails = WebSecurityUtils.obtainVipUserDetails();
-        BigInteger tenantId = vipUserDetails.getTenantId();
+        Long tenantId = vipUserDetails.getTenantId();
         Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
         this._tenantId = tenantId;
@@ -48,7 +46,7 @@ public class VipBasicModel extends BasicModel {
         this._vipId = vipUserDetails.getVipId();
     }
 
-    public BigInteger obtainTenantId() {
+    public Long obtainTenantId() {
         return _tenantId;
     }
 
@@ -76,7 +74,7 @@ public class VipBasicModel extends BasicModel {
         return this._vipSharedType;
     }
 
-    public BigInteger obtainVipId() {
+    public Long obtainVipId() {
         return this._vipId;
     }
 }

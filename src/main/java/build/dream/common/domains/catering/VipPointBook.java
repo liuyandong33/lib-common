@@ -3,16 +3,13 @@ package build.dream.common.domains.catering;
 import build.dream.common.annotations.ShardingColumn;
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 @ShardingColumn(fieldName = VipPointBook.FieldName.TENANT_ID, columnName = VipPointBook.ColumnName.TENANT_ID)
 public class VipPointBook extends BasicDomain {
     public static final String TABLE_NAME = "vip_point_book";
     /**
      * 商户id
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 商户编号
      */
@@ -20,15 +17,15 @@ public class VipPointBook extends BasicDomain {
     /**
      * 门店id
      */
-    private BigInteger branchId;
+    private Long branchId;
     /**
      * 会员分组Id
      */
-    private BigInteger vipGroupId;
+    private Long vipGroupId;
     /**
      * 会员ID
      */
-    private BigInteger vipId;
+    private Long vipId;
     /**
      * 1-消费赠送积分，2-积分扣减，3-注册赠送积分，4-会员生日赠送积分
      */
@@ -36,17 +33,17 @@ public class VipPointBook extends BasicDomain {
     /**
      * 变动数量
      */
-    private BigDecimal changeAmount;
+    private Double changeAmount;
     /**
      * 积分余额
      */
-    private BigDecimal pointBalance;
+    private Double pointBalance;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -58,27 +55,27 @@ public class VipPointBook extends BasicDomain {
         this.tenantCode = tenantCode;
     }
 
-    public BigInteger getBranchId() {
+    public Long getBranchId() {
         return branchId;
     }
 
-    public void setBranchId(BigInteger branchId) {
+    public void setBranchId(Long branchId) {
         this.branchId = branchId;
     }
 
-    public BigInteger getVipGroupId() {
+    public Long getVipGroupId() {
         return vipGroupId;
     }
 
-    public void setVipGroupId(BigInteger vipGroupId) {
+    public void setVipGroupId(Long vipGroupId) {
         this.vipGroupId = vipGroupId;
     }
 
-    public BigInteger getVipId() {
+    public Long getVipId() {
         return vipId;
     }
 
-    public void setVipId(BigInteger vipId) {
+    public void setVipId(Long vipId) {
         this.vipId = vipId;
     }
 
@@ -90,24 +87,24 @@ public class VipPointBook extends BasicDomain {
         this.type = type;
     }
 
-    public BigDecimal getChangeAmount() {
+    public Double getChangeAmount() {
         return changeAmount;
     }
 
-    public void setChangeAmount(BigDecimal changeAmount) {
+    public void setChangeAmount(Double changeAmount) {
         this.changeAmount = changeAmount;
     }
 
-    public BigDecimal getPointBalance() {
+    public Double getPointBalance() {
         return pointBalance;
     }
 
-    public void setPointBalance(BigDecimal pointBalance) {
+    public void setPointBalance(Double pointBalance) {
         this.pointBalance = pointBalance;
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, VipPointBook> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }
@@ -117,17 +114,17 @@ public class VipPointBook extends BasicDomain {
             return this;
         }
 
-        public Builder branchId(BigInteger branchId) {
+        public Builder branchId(Long branchId) {
             instance.setBranchId(branchId);
             return this;
         }
 
-        public Builder vipGroupId(BigInteger vipGroupId) {
+        public Builder vipGroupId(Long vipGroupId) {
             instance.setVipGroupId(vipGroupId);
             return this;
         }
 
-        public Builder vipId(BigInteger vipId) {
+        public Builder vipId(Long vipId) {
             instance.setVipId(vipId);
             return this;
         }
@@ -137,12 +134,12 @@ public class VipPointBook extends BasicDomain {
             return this;
         }
 
-        public Builder changeAmount(BigDecimal changeAmount) {
+        public Builder changeAmount(Double changeAmount) {
             instance.setChangeAmount(changeAmount);
             return this;
         }
 
-        public Builder pointBalance(BigDecimal pointBalance) {
+        public Builder pointBalance(Double pointBalance) {
             instance.setPointBalance(pointBalance);
             return this;
         }

@@ -2,14 +2,12 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class WeiXinPublicAccount extends BasicDomain {
     public static final String TABLE_NAME = "wei_xin_public_account";
     /**
      * 商户ID
      */
-    private BigInteger tenantId;
+    private Long tenantId;
     /**
      * 公众号名称
      */
@@ -27,11 +25,11 @@ public class WeiXinPublicAccount extends BasicDomain {
      */
     private String originalId;
 
-    public BigInteger getTenantId() {
+    public Long getTenantId() {
         return tenantId;
     }
 
-    public void setTenantId(BigInteger tenantId) {
+    public void setTenantId(Long tenantId) {
         this.tenantId = tenantId;
     }
 
@@ -68,7 +66,7 @@ public class WeiXinPublicAccount extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, WeiXinPublicAccount> {
-        public Builder tenantId(BigInteger tenantId) {
+        public Builder tenantId(Long tenantId) {
             instance.setTenantId(tenantId);
             return this;
         }

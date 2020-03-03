@@ -2,8 +2,6 @@ package build.dream.common.domains.saas;
 
 import build.dream.common.basic.BasicDomain;
 
-import java.math.BigInteger;
-
 public class Tenant extends BasicDomain {
     public static final String TABLE_NAME = "tenant";
     /**
@@ -73,7 +71,7 @@ public class Tenant extends BasicDomain {
     /**
      * 代理商ID
      */
-    private BigInteger agentId;
+    private Long agentId;
     /**
      * 商户使用的支付通道类型，0-原生支付，3-米雅，4-新大陆，5-联动
      */
@@ -81,7 +79,7 @@ public class Tenant extends BasicDomain {
     /**
      * 达达商户ID
      */
-    private BigInteger dadaSourceId;
+    private Long dadaSourceId;
 
     /**
      * 京东到家商家ID
@@ -226,11 +224,11 @@ public class Tenant extends BasicDomain {
         this.vipSharedType = vipSharedType;
     }
 
-    public BigInteger getAgentId() {
+    public Long getAgentId() {
         return agentId;
     }
 
-    public void setAgentId(BigInteger agentId) {
+    public void setAgentId(Long agentId) {
         this.agentId = agentId;
     }
 
@@ -242,11 +240,11 @@ public class Tenant extends BasicDomain {
         this.usedChannelType = usedChannelType;
     }
 
-    public BigInteger getDadaSourceId() {
+    public Long getDadaSourceId() {
         return dadaSourceId;
     }
 
-    public void setDadaSourceId(BigInteger dadaSourceId) {
+    public void setDadaSourceId(Long dadaSourceId) {
         this.dadaSourceId = dadaSourceId;
     }
 
@@ -355,7 +353,7 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
-        public Builder agentId(BigInteger agentId) {
+        public Builder agentId(Long agentId) {
             instance.setAgentId(agentId);
             return this;
         }
@@ -365,7 +363,7 @@ public class Tenant extends BasicDomain {
             return this;
         }
 
-        public Builder dadaSourceId(BigInteger dadaSourceId) {
+        public Builder dadaSourceId(Long dadaSourceId) {
             instance.setDadaSourceId(dadaSourceId);
             return this;
         }

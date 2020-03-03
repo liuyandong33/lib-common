@@ -1,27 +1,26 @@
 package build.dream.common.domains.admin;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 public class ProductionConfiguration {
-    private BigInteger id;
+    private Long id;
     private String deploymentEnvironment;
     private String partitionCode;
     private String serviceName;
     private String configurationKey;
     private String configurationValue;
     private Date createTime;
-    private BigInteger createUserId;
+    private Long createUserId;
     private Date lastUpdateTime;
-    private BigInteger lastUpdateUserId;
+    private Long lastUpdateUserId;
     private String lastUpdateRemark;
     private boolean deleted;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,11 +72,11 @@ public class ProductionConfiguration {
         this.createTime = createTime;
     }
 
-    public BigInteger getCreateUserId() {
+    public Long getCreateUserId() {
         return createUserId;
     }
 
-    public void setCreateUserId(BigInteger createUserId) {
+    public void setCreateUserId(Long createUserId) {
         this.createUserId = createUserId;
     }
 
@@ -89,11 +88,11 @@ public class ProductionConfiguration {
         this.lastUpdateTime = lastUpdateTime;
     }
 
-    public BigInteger getLastUpdateUserId() {
+    public Long getLastUpdateUserId() {
         return lastUpdateUserId;
     }
 
-    public void setLastUpdateUserId(BigInteger lastUpdateUserId) {
+    public void setLastUpdateUserId(Long lastUpdateUserId) {
         this.lastUpdateUserId = lastUpdateUserId;
     }
 
