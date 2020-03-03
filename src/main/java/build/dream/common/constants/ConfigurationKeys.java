@@ -30,4 +30,12 @@ public class ConfigurationKeys {
      * 主域名
      */
     public static final String HOME_URL = "home.url";
+
+    /**
+     * 饿了么配置key
+     */
+    public static final String ELEME_APP_ID = "eleme.app.id";
+    public static final String ELEME_APP_KEY = "eleme.app.key";
+    public static final String ELEME_APP_SECRET = "eleme.app.secret";
+    public static final String ELEME_SERVICE_URL = "eleme.service.url";
 }

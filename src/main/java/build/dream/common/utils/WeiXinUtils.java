@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.*;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.WeiXinAuthorizerInfo;
 import build.dream.common.domains.saas.WeiXinAuthorizerToken;
@@ -1091,7 +1092,7 @@ public class WeiXinUtils {
     }
 
     public static WeiXinAuthorizerInfo obtainWeiXinPublicAccount(String tenantId) {
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        String serviceName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SERVICE_NAME);
         if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
             SearchModel searchModel = new SearchModel(true);
             searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.TENANT_ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, tenantId);
@@ -1107,27 +1108,27 @@ public class WeiXinUtils {
     }
 
     public static List<WeiXinAuthorizerInfo> obtainWeiXinMiniPrograms(String tenantId) {
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        String serviceName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SERVICE_NAME);
         if (Constants.SERVICE_NAME_PLATFORM.equals(serviceName)) {
             SearchModel searchModel = new SearchModel(true);
             searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.TENANT_ID, Constants.SQL_OPERATION_SYMBOL_EQUAL, tenantId);
             searchModel.addSearchCondition(WeiXinAuthorizerInfo.ColumnName.AUTHORIZER_TYPE, Constants.SQL_OPERATION_SYMBOL_EQUAL, Constants.AUTHORIZER_TYPE_MINI_PROGRAM);
             return DatabaseHelper.findAll(WeiXinAuthorizerInfo.class, searchModel);
-        } else {
-            Map<String, String> requestParameters = new HashMap<String, String>();
-            requestParameters.put("tenantId", tenantId);
-            ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinMiniPrograms", requestParameters);
-            ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-
-            List<Map<String, Object>> data = (List<Map<String, Object>>) apiRest.getData();
-
-            List<WeiXinAuthorizerInfo> weiXinAuthorizerInfos = new ArrayList<WeiXinAuthorizerInfo>();
-            for (Map<String, Object> map : data) {
-                WeiXinAuthorizerInfo weiXinAuthorizerInfo = ApplicationHandler.buildObject(WeiXinAuthorizerInfo.class, map);
-                weiXinAuthorizerInfos.add(weiXinAuthorizerInfo);
-            }
-            return weiXinAuthorizerInfos;
         }
+
+        Map<String, String> requestParameters = new HashMap<String, String>();
+        requestParameters.put("tenantId", tenantId);
+        ApiRest apiRest = ProxyUtils.doGetWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "obtainWeiXinMiniPrograms", requestParameters);
+        ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
+
+        List<Map<String, Object>> data = (List<Map<String, Object>>) apiRest.getData();
+
+        List<WeiXinAuthorizerInfo> weiXinAuthorizerInfos = new ArrayList<WeiXinAuthorizerInfo>();
+        for (Map<String, Object> map : data) {
+            WeiXinAuthorizerInfo weiXinAuthorizerInfo = ApplicationHandler.buildObject(WeiXinAuthorizerInfo.class, map);
+            weiXinAuthorizerInfos.add(weiXinAuthorizerInfo);
+        }
+        return weiXinAuthorizerInfos;
     }
 
     /**

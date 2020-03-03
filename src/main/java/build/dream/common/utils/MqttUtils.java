@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.domains.saas.MqttConfig;
 import build.dream.common.models.mqtt.ApplyTokenModel;
@@ -26,8 +27,8 @@ public class MqttUtils {
     private static MqttClient mqttClient;
 
     public static MqttConfig obtainMqttConfig() {
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        String partitionCode = ConfigurationUtils.getConfiguration(ConfigurationKeys.PARTITION_CODE);
+        String serviceName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SERVICE_NAME);
 
         Map<String, String> obtainMqttConfigRequestParameters = new HashMap<String, String>();
         obtainMqttConfigRequestParameters.put("partitionCode", partitionCode);

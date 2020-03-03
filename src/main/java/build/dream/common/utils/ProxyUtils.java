@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -69,7 +70,7 @@ public class ProxyUtils {
     }
 
     public static String obtainApplicationName(String partitionCode, String serviceName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         if (StringUtils.isBlank(partitionCode)) {
             return deploymentEnvironment + "-" + serviceName;
         }

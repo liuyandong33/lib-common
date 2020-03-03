@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.KafkaFixedTimeSendResult;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import org.apache.commons.collections.MapUtils;
 import org.apache.kafka.clients.consumer.OffsetAndMetadata;
@@ -138,7 +139,7 @@ public class KafkaUtils {
         fixedTimeSendRequestParameters.put("topic", topic);
         fixedTimeSendRequestParameters.put("data", data);
         fixedTimeSendRequestParameters.put("sendTime", CustomDateUtils.format(sendTime, Constants.DEFAULT_DATE_PATTERN));
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        String partitionCode = ConfigurationUtils.getConfiguration(ConfigurationKeys.PARTITION_CODE);
         ApiRest fixedTimeSendResult = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "kafka", "fixedTimeSend", fixedTimeSendRequestParameters);
         ValidateUtils.isTrue(fixedTimeSendResult.isSuccessful(), fixedTimeSendResult.getError());
 
@@ -159,7 +160,7 @@ public class KafkaUtils {
         Map<String, String> cancelFixedTimeSendRequestParameters = new HashMap<String, String>();
         cancelFixedTimeSendRequestParameters.put("jobId", jobId);
         cancelFixedTimeSendRequestParameters.put("triggerId", triggerId);
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
+        String partitionCode = ConfigurationUtils.getConfiguration(ConfigurationKeys.PARTITION_CODE);
         ApiRest cancelFixedTimeSendResult = ProxyUtils.doPostWithRequestParameters(partitionCode, Constants.SERVICE_NAME_JOB, "kafka", "cancelFixedTimeSend", cancelFixedTimeSendRequestParameters);
         ValidateUtils.isTrue(cancelFixedTimeSendResult.isSuccessful(), cancelFixedTimeSendResult.getError());
     }

@@ -4,6 +4,7 @@ import build.dream.common.annotations.DateFormat;
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.annotations.InstantiateObjectKey;
 import build.dream.common.api.ApiRest;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.constants.HttpHeaders;
@@ -826,7 +827,7 @@ public class ApplicationHandler {
     }
 
     public static String obtainParameterErrorMessage(String parameterName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         if (Constants.WWW.equals(deploymentEnvironment)) {
             return Constants.API_PARAMETER_ERROR_MESSAGE;
         }

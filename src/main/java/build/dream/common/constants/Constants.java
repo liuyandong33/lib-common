@@ -55,10 +55,6 @@ public class Constants {
     public static final String ISO8601_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String GMT = "GMT";
 
-    public static final String DEPLOYMENT_ENVIRONMENT = "deployment.environment";
-    public static final String PARTITION_CODE = "partition.code";
-    public static final String SERVICE_NAME = "service.name";
-
     /**
      * 服务名称常量
      */
@@ -197,20 +193,7 @@ public class Constants {
     // 所有支付场景
     public static final Integer[] PAID_SCENES = {PAID_SCENE_WEI_XIN_MICROPAY, PAID_SCENE_WEI_XIN_JSAPI_PUBLIC_ACCOUNT, PAID_SCENE_WEI_XIN_NATIVE, PAID_SCENE_WEI_XIN_APP, PAID_SCENE_WEI_XIN_MWEB, PAID_SCENE_WEI_XIN_JSAPI_MINI_PROGRAM, PAID_SCENE_ALIPAY_MOBILE_WEBSITE, PAID_SCENE_ALIPAY_PC_WEBSITE, PAID_SCENE_ALIPAY_APP, PAID_SCENE_ALIPAY_FAC_TO_FACE};
 
-    /**
-     * 商户公钥Redis key
-     */
-    public static final String KEY_TENANT_PUBLIC_KEYS = "_tenant_public_keys";
 
-
-    /**
-     * 饿了么配置key
-     */
-    public static final String ELEME_APP_ID = "eleme.app.id";
-    public static final String ELEME_APP_KEY = "eleme.app.key";
-    public static final String ELEME_APP_SECRET = "eleme.app.secret";
-    public static final String ELEME_SERVICE_URL = "eleme.service.url";
-    public static final String KEY_ELEME_TOKENS = "_eleme_tokens";
     public static final String ELEME_TOKEN = "_eleme_token";
 
     /**

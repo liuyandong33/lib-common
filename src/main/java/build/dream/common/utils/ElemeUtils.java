@@ -1,6 +1,8 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.ElemeToken;
 import build.dream.common.exceptions.CustomException;
 import org.apache.commons.codec.binary.Base64;
@@ -24,7 +26,7 @@ public class ElemeUtils {
         Map<String, String> askTokenHeaders = new HashMap<String, String>();
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
-        String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
+        String tokenUrl = ConfigurationUtils.getConfiguration(ConfigurationKeys.ELEME_SERVICE_URL) + "/token";
         return OutUtils.doPostWithForm(tokenUrl, form, askTokenHeaders, Constants.CHARSET_NAME_UTF_8);
     }
 
@@ -36,7 +38,7 @@ public class ElemeUtils {
         Map<String, String> askTokenHeaders = new HashMap<String, String>();
         askTokenHeaders.put("Authorization", "Basic " + Base64.encodeBase64String(String.format("%s:%s", appKey, appSecret).getBytes(Constants.CHARSET_NAME_UTF_8)));
 
-        String tokenUrl = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/token";
+        String tokenUrl = ConfigurationUtils.getConfiguration(ConfigurationKeys.ELEME_SERVICE_URL) + "/token";
         return OutUtils.doPostWithForm(tokenUrl, askTokenRequestParameters, askTokenHeaders, Constants.CHARSET_NAME_UTF_8);
     }
 
@@ -54,9 +56,9 @@ public class ElemeUtils {
     public static String obtainAccessToken(String tenantId, String branchId, Integer elemeAccountType) {
         String tokenJson = null;
         if (elemeAccountType == Constants.ELEME_ACCOUNT_TYPE_CHAIN_ACCOUNT) {
-            tokenJson = CommonRedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId);
+            tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId);
         } else if (elemeAccountType == Constants.ELEME_ACCOUNT_TYPE_INDEPENDENT_ACCOUNT) {
-            tokenJson = CommonRedisUtils.hget(Constants.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
+            tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_ELEME_TOKENS, Constants.ELEME_TOKEN + "_" + tenantId + "_" + branchId);
         }
         ValidateUtils.notNull(tokenJson, "未检索到访问令牌！");
         ElemeToken elemeToken = JacksonUtils.readValue(tokenJson, ElemeToken.class);
@@ -75,8 +77,8 @@ public class ElemeUtils {
     }
 
     public static String buildRequestBody(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
-        String appKey = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_KEY);
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.ELEME_APP_SECRET);
+        String appKey = ConfigurationUtils.getConfiguration(ConfigurationKeys.ELEME_APP_KEY);
+        String appSecret = ConfigurationUtils.getConfiguration(ConfigurationKeys.ELEME_APP_SECRET);
         Map<String, Object> metas = new HashMap<String, Object>();
         Long timestamp = System.currentTimeMillis() / 1000;
         metas.put("app_key", appKey);
@@ -100,7 +102,7 @@ public class ElemeUtils {
 
     private static Map<String, Object> doCallElemeSystem(String tenantId, String branchId, Integer elemeAccountType, String action, Map<String, Object> params) {
         String requestBody = buildRequestBody(tenantId, branchId, elemeAccountType, action, params);
-        String url = ConfigurationUtils.getConfiguration(Constants.ELEME_SERVICE_URL) + "/api/v1/";
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.ELEME_SERVICE_URL) + "/api/v1/";
         String result = OutUtils.doPostWithRequestBody(url, requestBody, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         return resultMap;

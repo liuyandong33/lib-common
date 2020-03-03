@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import org.apache.commons.lang.StringUtils;
 
@@ -28,8 +29,8 @@ public class CommonUtils {
     }
 
     public static Long getServiceSystemUserId() {
-        String partitionCode = ConfigurationUtils.getConfiguration(Constants.PARTITION_CODE);
-        String serviceName = ConfigurationUtils.getConfiguration(Constants.SERVICE_NAME);
+        String partitionCode = ConfigurationUtils.getConfiguration(ConfigurationKeys.PARTITION_CODE);
+        String serviceName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SERVICE_NAME);
         return getServiceSystemUserId(partitionCode, serviceName);
     }
 
@@ -52,22 +53,22 @@ public class CommonUtils {
     }
 
     public static String getServiceDomain(String partitionCode, String serviceName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName;
     }
 
     public static String getServiceDomain(String serviceName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + serviceName;
     }
 
     public static String getUrl(String partitionCode, String serviceName, String controllerName, String actionName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + partitionCode + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
     public static String getUrl(String serviceName, String controllerName, String actionName) {
-        String deploymentEnvironment = ConfigurationUtils.getConfiguration(Constants.DEPLOYMENT_ENVIRONMENT);
+        String deploymentEnvironment = ConfigurationUtils.getConfiguration(ConfigurationKeys.DEPLOYMENT_ENVIRONMENT);
         return Constants.HTTP + deploymentEnvironment + "-" + serviceName + "/" + controllerName + "/" + actionName;
     }
 
