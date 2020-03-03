@@ -148,3 +148,31 @@ CREATE TABLE server
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '服务器';
+
+DROP TABLE IF EXISTS jvm_operation;
+CREATE TABLE jvm_operation
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    xms VARCHAR(20) NOT NULL COMMENT 'JVM启动时申请的初始Heap值，默认为操作系统物理内存的1/64但小于1G。默认当空余堆内存大于70%时，JVM会减小heap的大小到-Xms指定的大小，可通过-XX:MaxHeapFreeRation=来指定这个比列。Server端JVM最好将-Xms和-Xmx设为相同值，避免每次垃圾回收完成后JVM重新分配内存；开发测试机JVM可以保留默认值。(例如：-Xms4g)',
+    xmx VARCHAR(20) NOT NULL COMMENT 'JVM可申请的最大Heap值，默认值为物理内存的1/4但小于1G，默认当空余堆内存小于40%时，JVM会增大Heap到-Xmx指定的大小，可通过-XX:MinHeapFreeRation=来指定这个比列。最佳设值应该视物理内存大小及计算机内其他内存开销而定。(例如：-Xmx4g)',
+    xmn VARCHAR(20) NOT NULL COMMENT 'Java Heap Young区大小。整个堆大小=年轻代大小 + 年老代大小 + 持久代大小(相对于HotSpot 类型的虚拟机来说)。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。(例如：-Xmn2g)',
+    xss VARCHAR(20) NOT NULL COMMENT 'Java每个线程的Stack大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。根据应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。(例如：-Xss1024K)',
+    xx_perm_size VARCHAR(20) NOT NULL COMMENT '持久代（方法区）的初始内存大小。（例如：-XX:PermSize=64m）',
+    xx_max_perm_size VARCHAR(20) NOT NULL COMMENT '持久代（方法区）的最大内存大小。（例如：-XX:MaxPermSize=512m）',
+    xx_use_serial_gc VARCHAR(20) NOT NULL COMMENT '串行（SerialGC）是jvm的默认GC方式，一般适用于小型应用和单处理器，算法比较简单，GC效率也较高，但可能会给应用带来停顿。',
+    xx_use_parallel_gc VARCHAR(20) NOT NULL COMMENT '并行（ParallelGC）是指多个线程并行执行GC，一般适用于多处理器系统中，可以提高GC的效率，但算法复杂，系统消耗较大。（配合使用：-XX:ParallelGCThreads=8，并行收集器的线程数，此值最好配置与处理器数目相等）',
+    xx_parallel_gc_threads VARCHAR(20) NOT NULL COMMENT '并行收集器的线程数，此值最好配置与处理器数目相等',
+    xx_use_par_new_gc VARCHAR(20) NOT NULL COMMENT '设置年轻代为并行收集，JKD5.0以上，JVM会根据系统配置自行设置，所以无需设置此值。',
+    xx_use_parallel_old_gc VARCHAR(20) NOT NULL COMMENT '设置年老代为并行收集，JKD6.0出现的参数选项。',
+    xx_use_conc_mark_sweep_gc VARCHAR(20) NOT NULL COMMENT '并发（ConcMarkSweepGC）是指GC运行时，对应用程序运行几乎没有影响（也会造成停顿，不过很小而已），GC和app两者的线程在并发执行，这样可以最大限度不影响app的运行。',
+    xx_use_cms_compact_at_full_collection VARCHAR(20) NOT NULL COMMENT '在Full GC的时候，对老年代进行压缩整理。因为CMS是不会移动内存的，因此非常容易产生内存碎片。因此增加这个参数就可以在FullGC后对内存进行压缩整理，消除内存碎片。当然这个操作也有一定缺点，就是会增加CPU开销与GC时间，所以可以通过-XX:CMSFullGCsBeforeCompaction=3 这个参数来控制多少次Full GC以后进行一次碎片整理。',
+    xx_cms_initiating_occupancy_fraction VARCHAR(20) NOT NULL COMMENT '代表老年代使用空间达到80%后，就进行Full GC。CMS收集器在进行垃圾收集时，和应用程序一起工作，所以，不能等到老年代几乎完全被填满了再进行收集，这样会影响并发的应用线程的空间使用，从而再次触发不必要的Full GC。',
+    xx_max_tenuring_threshold VARCHAR(20) NOT NULL COMMENT '垃圾的最大年龄，代表对象在Survivor区经过10次复制以后才进入老年代。如果设置为0，则年轻代对象不经过Survivor区，直接进入老年代。',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT = 'JVM内存参数';
