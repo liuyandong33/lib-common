@@ -4,6 +4,7 @@ import build.dream.common.annotations.AlipayAsyncNotify;
 import build.dream.common.beans.AlipayAccount;
 import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.AlipayAuthorizerInfo;
 import build.dream.common.domains.saas.AlipayDeveloperAccount;
 import build.dream.common.models.alipay.*;
@@ -41,7 +42,7 @@ public class AlipayUtils {
      * @return
      */
     public static AlipayDeveloperAccount obtainAlipayDeveloperAccount(String appId) {
-        String alipayDeveloperAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_DEVELOPER_ACCOUNTS, appId);
+        String alipayDeveloperAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_ALIPAY_DEVELOPER_ACCOUNTS, appId);
         if (StringUtils.isBlank(alipayDeveloperAccountJson)) {
             return null;
         }
@@ -56,7 +57,7 @@ public class AlipayUtils {
      * @return
      */
     public static AlipayAccount obtainAlipayAccount(String tenantId, String branchId) {
-        String alipayAccountJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_ACCOUNTS, tenantId + "_" + branchId);
+        String alipayAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_ALIPAY_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(alipayAccountJson)) {
             return null;
         }
@@ -429,7 +430,7 @@ public class AlipayUtils {
      * @return
      */
     public static AlipayAuthorizerInfo obtainAlipayAuthorizerInfo(String tenantId, String branchId) {
-        String alipayAuthorizerInfoJson = CommonRedisUtils.hget(Constants.KEY_ALIPAY_AUTHORIZER_INFOS, tenantId + "_" + branchId);
+        String alipayAuthorizerInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_ALIPAY_AUTHORIZER_INFOS, tenantId + "_" + branchId);
         if (StringUtils.isNotBlank(alipayAuthorizerInfoJson)) {
             return JacksonUtils.readValue(alipayAuthorizerInfoJson, AlipayAuthorizerInfo.class);
         }

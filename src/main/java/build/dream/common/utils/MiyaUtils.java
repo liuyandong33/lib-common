@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.MiyaAccount;
 import build.dream.common.models.miya.*;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -11,7 +12,7 @@ import java.util.*;
 
 public class MiyaUtils {
     public static MiyaAccount obtainMiyaAccount(String tenantId, String branchId) {
-        String miyaAccountJson = CommonRedisUtils.hget(Constants.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
+        String miyaAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_MIYA_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(miyaAccountJson)) {
             return null;
         }

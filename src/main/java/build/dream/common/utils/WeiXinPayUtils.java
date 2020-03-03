@@ -5,6 +5,7 @@ import build.dream.common.beans.WeiXinBill;
 import build.dream.common.beans.WeiXinBillSummary;
 import build.dream.common.beans.WeiXinDownloadBillResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.WeiXinPayAccount;
 import build.dream.common.models.weixinpay.*;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -27,7 +28,7 @@ public class WeiXinPayUtils {
      * @return
      */
     public static WeiXinPayAccount obtainWeiXinPayAccount(String tenantId, String branchId) {
-        String weiXinPayAccountJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        String weiXinPayAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_PAY_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(weiXinPayAccountJson)) {
             return null;
         }

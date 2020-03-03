@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.MqConfig;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.UmPayAccount;
 import build.dream.common.models.umpay.*;
 import org.apache.commons.codec.binary.Base64;
@@ -25,7 +26,7 @@ public class UmPayUtils {
      * @return
      */
     public static UmPayAccount obtainUmPayAccount(String tenantId, String branchId) {
-        String umPayAccountJson = CommonRedisUtils.hget(Constants.KEY_UM_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        String umPayAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_UM_PAY_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(umPayAccountJson)) {
             return null;
         }

@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.beans.NewLandOrgInfo;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.NewLandAccount;
 import build.dream.common.models.newland.*;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,7 +15,7 @@ import java.util.TreeMap;
 
 public class NewLandUtils {
     public static NewLandAccount obtainNewLandAccount(String tenantId, String branchId) {
-        String newLandAccountJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
+        String newLandAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_NEW_LAND_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(newLandAccountJson)) {
             return null;
         }
@@ -26,7 +27,7 @@ public class NewLandUtils {
     }
 
     public static NewLandOrgInfo obtainNewLandOrgInfo(String orgNo) {
-        String newLandOrgInfoJson = CommonRedisUtils.hget(Constants.KEY_NEW_LAND_ORG_INFOS, orgNo);
+        String newLandOrgInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_NEW_LAND_ORG_INFOS, orgNo);
         if (StringUtils.isBlank(newLandOrgInfoJson)) {
             return null;
         }

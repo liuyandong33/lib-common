@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.UnionPayAccount;
 import build.dream.common.models.unionpay.FrontTransReqModel;
 import org.apache.commons.lang.StringUtils;
@@ -17,7 +17,7 @@ public class UnionPayUtils {
      * @return
      */
     public static UnionPayAccount obtainUnionPayAccount(String tenantId, String branchId) {
-        String unionPayAccountJson = CommonRedisUtils.hget(Constants.KEY_UNION_PAY_ACCOUNTS, tenantId + "_" + branchId);
+        String unionPayAccountJson = CommonRedisUtils.hget(RedisKeys.KEY_UNION_PAY_ACCOUNTS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(unionPayAccountJson)) {
             return null;
         }
