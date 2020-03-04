@@ -148,4 +148,9 @@ public class ConfigurationKeys {
      */
     public static final String ANUBIS_APP_ID = "anubis.app.id";
     public static final String ANUBIS_APP_SECRET = "anubis.app.secret";
+
+    // RestTemplate 连接超时时间
+    public static final String REST_TEMPLATE_CONNECT_TIMEOUT = "rest.template.connect.timeout";
+    // RestTemplate 读取超时时间
+    public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
 }

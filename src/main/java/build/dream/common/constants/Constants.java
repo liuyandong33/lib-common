@@ -445,11 +445,6 @@ public class Constants {
     // 支付方式
     public static final String[] PAYMENT_CODES = new String[]{PAYMENT_CODE_HYJF, PAYMENT_CODE_HYQB, PAYMENT_CODE_WX, PAYMENT_CODE_ALIPAY, PAYMENT_CODE_CASH};
 
-    // RestTemplate 连接超时时间
-    public static final String REST_TEMPLATE_CONNECT_TIMEOUT = "rest.template.connect.timeout";
-    // RestTemplate 读取超时时间
-    public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
-
     public static final String NEW_LAND_PAY_API_NAME_SDK_BARCODE_PAY = "sdkBarcodePay";
     public static final String NEW_LAND_PAY_API_NAME_SDK_BARCODE_POS_PAY = "sdkBarcodePosPay";
     public static final String NEW_LAND_PAY_API_NAME_SDK_REFUND_BARCODE_PAY = "sdkRefundBarcodePay";
