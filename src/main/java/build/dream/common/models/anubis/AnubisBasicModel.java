@@ -1,6 +1,6 @@
 package build.dream.common.models.anubis;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ConfigurationUtils;
 import build.dream.common.utils.ObjectUtils;
@@ -14,11 +14,11 @@ import java.lang.reflect.Type;
 public class AnubisBasicModel extends BasicModel {
     @NotNull
     @JsonIgnore
-    private String appId = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_ID);
+    private String appId = ConfigurationUtils.getConfiguration(ConfigurationKeys.ANUBIS_APP_ID);
 
     @NotNull
     @JsonIgnore
-    private String appSecret = ConfigurationUtils.getConfiguration(Constants.ANUBIS_APP_SECRET);
+    private String appSecret = ConfigurationUtils.getConfiguration(ConfigurationKeys.ANUBIS_APP_SECRET);
 
     @NotNull
     @JsonIgnore

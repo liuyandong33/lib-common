@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.Agent;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class AgentUtils {
     public static Agent obtainAgentInfo(Long agentId) {
-        String agentInfoJson = CommonRedisUtils.hget(Constants.KEY_AGENT_INFOS, "_id_" + agentId);
+        String agentInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_AGENT_INFOS, "_id_" + agentId);
         if (StringUtils.isBlank(agentInfoJson)) {
             return null;
         }
@@ -19,7 +19,7 @@ public class AgentUtils {
     }
 
     public static Agent obtainAgentInfo(String agentCode) {
-        String agentInfoJson = CommonRedisUtils.hget(Constants.KEY_AGENT_INFOS, "_code_" + agentCode);
+        String agentInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_AGENT_INFOS, "_code_" + agentCode);
         if (StringUtils.isBlank(agentInfoJson)) {
             return null;
         }
@@ -28,8 +28,8 @@ public class AgentUtils {
 
     public static void cacheAgentInfo(Agent agent) {
         String agentInfo = JacksonUtils.writeValueAsString(agent);
-        CommonRedisUtils.hset(Constants.KEY_AGENT_INFOS, "_id_" + agent.getId(), agentInfo);
-        CommonRedisUtils.hset(Constants.KEY_AGENT_INFOS, "_code_" + agent.getCode(), agentInfo);
+        CommonRedisUtils.hset(RedisKeys.KEY_AGENT_INFOS, "_id_" + agent.getId(), agentInfo);
+        CommonRedisUtils.hset(RedisKeys.KEY_AGENT_INFOS, "_code_" + agent.getCode(), agentInfo);
     }
 
     public static void rejoinCacheAgentInfos(List<Agent> agents) {
@@ -40,9 +40,9 @@ public class AgentUtils {
             agentInfos.put("_code_" + agent.getCode(), agentInfo);
         }
 
-        CommonRedisUtils.del(Constants.KEY_AGENT_INFOS);
+        CommonRedisUtils.del(RedisKeys.KEY_AGENT_INFOS);
         if (MapUtils.isNotEmpty(agentInfos)) {
-            CommonRedisUtils.hmset(Constants.KEY_AGENT_INFOS, agentInfos);
+            CommonRedisUtils.hmset(RedisKeys.KEY_AGENT_INFOS, agentInfos);
         }
     }
 }

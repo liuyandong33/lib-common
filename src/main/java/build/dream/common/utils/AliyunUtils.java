@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.HmacUtils;
@@ -11,8 +12,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class AliyunUtils {
-    public static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_ID);
-    public static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(Constants.ALIYUN_ACCESS_KEY_SECRET);
+    public static final String ACCESS_KEY_ID = ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIYUN_ACCESS_KEY_ID);
+    public static final String ACCESS_KEY_SECRET = ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIYUN_ACCESS_KEY_SECRET);
     public static final String DY_SMS_API_URL = "https://dysmsapi.aliyuncs.com";
     public static final String DY_PLS_API_URL = "https://dyplsapi.aliyuncs.com";
     public static final String CLOUD_PUSH_API_URL = "http://cloudpush.aliyuncs.com";

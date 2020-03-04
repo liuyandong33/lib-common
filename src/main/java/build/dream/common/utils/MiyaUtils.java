@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.MqConfig;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.MiyaAccount;
@@ -97,7 +98,7 @@ public class MiyaUtils {
     private static Map<String, String> callMiyaSystem(Map<String, String> requestDomainRequestParameters, Map<String, String> dataDomainRequestParameters, String miyaKey) {
         requestDomainRequestParameters.put("A8", generateSign(requestDomainRequestParameters, dataDomainRequestParameters, miyaKey));
         String requestBody = buildRequestBody(requestDomainRequestParameters, dataDomainRequestParameters);
-        String url = ConfigurationUtils.getConfiguration(Constants.MIYA_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.MIYA_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithRequestBody(url, requestBody, Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_TEXT_XML);
         Map<String, String> resultMap = XmlUtils.xmlStringToMap(result);
         ValidateUtils.isTrue(Constants.SUCCESS.equals(resultMap.get("C1")), resultMap.get("C4"));

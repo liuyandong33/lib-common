@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.data.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -53,7 +54,7 @@ public class DadaUtils {
         String signature = generateSignature(callDadaApiRequestParameters, appSecret);
         callDadaApiRequestParameters.put("signature", signature);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.DADA_API_DOMAIN) + path;
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.DADA_API_DOMAIN) + path;
         String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(callDadaApiRequestParameters), Constants.CHARSET_NAME_UTF_8, Constants.CONTENT_TYPE_APPLICATION_JSON_UTF8);
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);

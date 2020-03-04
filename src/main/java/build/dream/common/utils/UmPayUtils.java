@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.MqConfig;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.UmPayAccount;
@@ -178,7 +179,7 @@ public class UmPayUtils {
 
         NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, activeScanCodeOrderParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -246,7 +247,7 @@ public class UmPayUtils {
 
         NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, passiveScanCodePayParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -310,7 +311,7 @@ public class UmPayUtils {
 
         NotifyUtils.saveUmPayAsyncNotify(orderId, mqConfig, privateKey, platformCertificate);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, publicNumberAndVerticalCodeParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -355,7 +356,7 @@ public class UmPayUtils {
         merOrderInfoQueryParameters.put("sign", generateSign(merOrderInfoQueryParameters, privateKey, signType));
         merOrderInfoQueryParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, merOrderInfoQueryParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -398,7 +399,7 @@ public class UmPayUtils {
         merCancelParameters.put("sign", generateSign(merCancelParameters, privateKey, signType));
         merCancelParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, merCancelParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -445,7 +446,7 @@ public class UmPayUtils {
         merRefundParameters.put("sign", generateSign(merRefundParameters, privateKey, signType));
         merRefundParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, merRefundParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -484,7 +485,7 @@ public class UmPayUtils {
         merRefundQueryParameters.put("sign", generateSign(merRefundQueryParameters, privateKey, signType));
         merRefundQueryParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, merRefundQueryParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -531,7 +532,7 @@ public class UmPayUtils {
         refundInfoReplenishParameters.put("sign", generateSign(refundInfoReplenishParameters, privateKey, signType));
         refundInfoReplenishParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, refundInfoReplenishParameters);
         Map<String, String> resultMap = parseResult(result);
         ValidateUtils.isTrue(verifySign(resultMap, platformCertificate), "联动支付相应数据验签失败！");
@@ -565,7 +566,7 @@ public class UmPayUtils {
         downloadSettleFileParameters.put("sign", generateSign(downloadSettleFileParameters, privateKey, signType));
         downloadSettleFileParameters.put("sign_type", signType);
 
-        String url = ConfigurationUtils.getConfiguration(Constants.UM_PAY_SERVICE_URL);
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.UM_PAY_SERVICE_URL);
         String result = OutUtils.doPostWithForm(url, downloadSettleFileParameters);
         String[] lines = result.split("\r\n");
         Map<String, String> header = new HashMap<String, String>();

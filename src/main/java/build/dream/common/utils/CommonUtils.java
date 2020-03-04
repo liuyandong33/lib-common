@@ -35,12 +35,12 @@ public class CommonUtils {
     }
 
     public static String getOutsideServiceDomain(String partitionCode, String serviceName) {
-        String homeUrl = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
+        String homeUrl = ConfigurationUtils.getConfiguration(ConfigurationKeys.HOME_URL);
         return homeUrl + "/" + partitionCode + "-" + serviceName;
     }
 
     public static String getOutsideServiceDomain(String serviceName) {
-        String domainName = ConfigurationUtils.getConfiguration(Constants.HOME_URL);
+        String domainName = ConfigurationUtils.getConfiguration(ConfigurationKeys.HOME_URL);
         return domainName + "/" + serviceName;
     }
 

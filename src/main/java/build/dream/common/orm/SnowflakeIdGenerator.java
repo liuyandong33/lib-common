@@ -1,5 +1,6 @@
 package build.dream.common.orm;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.utils.ConfigurationUtils;
@@ -64,19 +65,19 @@ public class SnowflakeIdGenerator implements IdGenerator<Long> {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            String url = ConfigurationUtils.getConfiguration(Constants.SNOWFLAKE_ID_CONFIG_DATABASE_URL);
+            String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_URL);
             ValidateUtils.notBlank(url, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String username = ConfigurationUtils.getConfiguration(Constants.SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME);
+            String username = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME);
             ValidateUtils.notBlank(username, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String password = ConfigurationUtils.getConfiguration(Constants.SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD);
+            String password = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD);
             ValidateUtils.notBlank(password, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String driverClassName = ConfigurationUtils.getConfiguration(Constants.SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME);
+            String driverClassName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME);
             ValidateUtils.notBlank(driverClassName, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String applicationName = ConfigurationUtils.getConfiguration(Constants.SPRING_APPLICATION_NAME);
+            String applicationName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SPRING_APPLICATION_NAME);
             ValidateUtils.notBlank(applicationName, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
             Class.forName(driverClassName);

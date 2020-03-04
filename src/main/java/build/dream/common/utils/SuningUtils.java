@@ -1,7 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.SuningOAuthToken;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.exceptions.CustomException;
 import build.dream.common.models.suning.CommonParamsModel;
 import build.dream.common.models.suning.SuningBasicModel;
@@ -66,7 +68,7 @@ public class SuningUtils {
      * @return
      */
     public static String obtainAccessToken(String tenantId, String branchId) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_SU_NING_TOKENS, tenantId + "_" + branchId);
+        String tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_SU_NING_TOKENS, tenantId + "_" + branchId);
         if (StringUtils.isBlank(tokenJson)) {
             return null;
         }
@@ -87,7 +89,7 @@ public class SuningUtils {
     public static String generateAuthorizeUrl(String scope, String redirectUri, String state, String itemcode) {
         StringBuilder authorizeUrl = new StringBuilder(SU_NING_AUTHORIZE_URL);
         authorizeUrl.append("?client_id=");
-        authorizeUrl.append(ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY));
+        authorizeUrl.append(ConfigurationUtils.getConfiguration(ConfigurationKeys.SU_NING_APP_KEY));
         authorizeUrl.append("&response_type=code");
         authorizeUrl.append("&redirect_uri=").append(redirectUri);
         if (StringUtils.isNotBlank(scope)) {
@@ -111,8 +113,8 @@ public class SuningUtils {
      */
     public static SuningOAuthToken obtainOAuthToken(String code, String scope, String redirectUri, String state) {
         Map<String, String> queryParams = new HashMap<String, String>();
-        queryParams.put("client_id", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY));
-        queryParams.put("client_secret", ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_SECRET));
+        queryParams.put("client_id", ConfigurationUtils.getConfiguration(ConfigurationKeys.SU_NING_APP_KEY));
+        queryParams.put("client_secret", ConfigurationUtils.getConfiguration(ConfigurationKeys.SU_NING_APP_SECRET));
         queryParams.put("code", code);
         queryParams.put("grant_type", "authorization_code");
         queryParams.put("redirect_uri", redirectUri);
@@ -165,8 +167,8 @@ public class SuningUtils {
                 .appMethod(appMethod)
                 .appRequestTime(new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date()))
                 .format("json")
-                .appKey(ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_KEY))
-                .appSecret(ConfigurationUtils.getConfiguration(Constants.SU_NING_APP_SECRET))
+                .appKey(ConfigurationUtils.getConfiguration(ConfigurationKeys.SU_NING_APP_KEY))
+                .appSecret(ConfigurationUtils.getConfiguration(ConfigurationKeys.SU_NING_APP_SECRET))
                 .versionNo(Constants.SU_NING_VERSION_NO_V_1_2)
                 .accessToken(obtainAccessToken(tenantId, branchId))
                 .build();

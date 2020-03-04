@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.annotations.AlipayAsyncNotify;
 import build.dream.common.beans.AlipayAccount;
 import build.dream.common.beans.MqConfig;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.AlipayAuthorizerInfo;
@@ -398,7 +399,7 @@ public class AlipayUtils {
 
     public static String generatePublicAppAuthorizeUrl(String appId, String scope, String redirectUri, String state) {
         StringBuilder publicAppAuthorizeUrl = new StringBuilder();
-        publicAppAuthorizeUrl.append(ConfigurationUtils.getConfiguration(Constants.ALIPAY_PUBLIC_APP_AUTHORIZE_URL));
+        publicAppAuthorizeUrl.append(ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIPAY_PUBLIC_APP_AUTHORIZE_URL));
         publicAppAuthorizeUrl.append("?app_id=").append(appId);
         publicAppAuthorizeUrl.append("&scope=").append(scope);
         publicAppAuthorizeUrl.append("&redirect_uri=").append(UrlUtils.encode(redirectUri, Constants.CHARSET_NAME_UTF_8));

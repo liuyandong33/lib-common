@@ -1,7 +1,9 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.JDDJVenderInfo;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.JDDJToken;
 import build.dream.common.models.jddj.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,7 +17,7 @@ import java.util.TreeMap;
 
 public class JDDJUtils {
     public static String obtainToken(String venderId) {
-        String token = CommonRedisUtils.hget(Constants.KEY_JDDJ_TOKENS, venderId);
+        String token = CommonRedisUtils.hget(RedisKeys.KEY_JDDJ_TOKENS, venderId);
         if (StringUtils.isBlank(token)) {
             return null;
         }
@@ -47,7 +49,7 @@ public class JDDJUtils {
      * @return
      */
     public static JDDJVenderInfo obtainJDDJVenderInfo(String appKey) {
-        String venderInfoJson = CommonRedisUtils.hget(Constants.KEY_JDDJ_VENDER_INFOS, appKey);
+        String venderInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_JDDJ_VENDER_INFOS, appKey);
         if (StringUtils.isBlank(venderInfoJson)) {
             return null;
         }
@@ -71,7 +73,7 @@ public class JDDJUtils {
         requestParameters.put("jd_param_json", JacksonUtils.writeValueAsString(jddjBasicModel, JsonInclude.Include.NON_NULL));
         requestParameters.put("sign", generateSign(requestParameters, appSecret));
 
-        String url = ConfigurationUtils.getConfiguration(Constants.JDDJ_API_DOMAIN) + path;
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.JDDJ_API_DOMAIN) + path;
         String result = OutUtils.doPostWithForm(url, requestParameters);
 
         Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);

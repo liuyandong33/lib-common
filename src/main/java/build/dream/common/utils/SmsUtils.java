@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.sms.SmsHelper;
 import build.dream.common.sms.SmsHelperFactory;
@@ -12,9 +13,9 @@ public class SmsUtils {
     /**
      * 短信通道配置
      */
-    private static final String SMS_CHANNEL = ConfigurationUtils.getConfiguration(Constants.SMS_CHANNEL);
+    private static final String SMS_CHANNEL = ConfigurationUtils.getConfiguration(ConfigurationKeys.SMS_CHANNEL);
     private static final SmsHelper SMS_HELPER = SmsHelperFactory.buildSmsSender(SMS_CHANNEL);
-    private static final String VERIFICATION_CODE_TIMEOUT = ConfigurationUtils.getConfiguration(Constants.VERIFICATION_CODE_TIMEOUT);
+    private static final String VERIFICATION_CODE_TIMEOUT = ConfigurationUtils.getConfiguration(ConfigurationKeys.VERIFICATION_CODE_TIMEOUT);
 
     /**
      * 验证短信通道配置

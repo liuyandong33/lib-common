@@ -37,4 +37,46 @@ public class RedisKeys {
     public static final String KEY_NEW_LAND_ORG_INFOS = "_new_land_org_infos";
     public static final String KEY_UNION_PAY_ACCOUNTS = "_union_pay_accounts";
     public static final String KEY_WEI_XIN_PAY_API_V3_KEYS = "_wei_xin_pay_api_v3_keys";
+
+    /**
+     * 钉钉开放平台token redis key
+     */
+    public static final String KEY_DINGTALK_TOKENS = "_dingtalk_tokens";
+
+    public static final String KEY_WNS_ACCESS_TOKENS = "_wns_access_tokens";
+
+    // 微信 access_toke Redis key
+    public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
+    // 微信 jsapi_ticket Redis key
+    public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
+
+    public static final String KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS = "_wei_xin_component_verify_tickets";
+    public static final String KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS = "_wei_xin_component_access_tokens";
+    // 微信授权token Redis key
+    public static final String KEY_WEI_XIN_AUTHORIZER_TOKENS = "wei_xin_authorizer_tokens";
+
+    /**
+     * 代理商信息 Redis key
+     */
+    public static final String KEY_AGENT_INFOS = "_agent_infos";
+
+    /**
+     * 商户信息Redis key
+     */
+    public static final String KEY_TENANT_INFOS = "_tenant_infos";
+
+    public static final String KEY_JDDJ_TOKENS = "_jddj_tokens";
+    public static final String KEY_JDDJ_CODES = "_jddj_codes";
+    public static final String KEY_JDDJ_VENDER_INFOS = "_jddj_vender_infos";
+
+    public static final String KEY_BATCH_PROCESSING_INFOS = "_batch_processing_infos";
+
+    /**
+     * 用户信息Redis key
+     */
+    public static final String KEY_USER_INFOS = "_user_infos";
+
+    public static final String KEY_SU_NING_TOKENS = "_su_ning_tokens";
+
+    public static final String KEY_ANUBIS_TOKENS = "_anubis_tokens";
 }

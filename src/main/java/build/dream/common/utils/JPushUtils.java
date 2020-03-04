@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.jpush.CodesModel;
 import build.dream.common.models.jpush.PushModel;
@@ -12,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class JPushUtils {
-    private static final String APP_KEY = ConfigurationUtils.getConfiguration(Constants.JPUSH_APP_KEY);
-    private static final String MASTER_SECRET = ConfigurationUtils.getConfiguration(Constants.JPUSH_MASTER_SECRET);
-    private static final String JPUSH_PUSH_SERVICE_URL = ConfigurationUtils.getConfiguration(Constants.JPUSH_PUSH_SERVICE_URL);
-    private static final String JPUSH_SMS_SERVICE_URL = ConfigurationUtils.getConfiguration(Constants.JPUSH_SMS_SERVICE_URL);
-    public static final String SIGN_ID = ConfigurationUtils.getConfiguration(Constants.JPUSH_SMS_SIGN_ID);
+    private static final String APP_KEY = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_APP_KEY);
+    private static final String MASTER_SECRET = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_MASTER_SECRET);
+    private static final String JPUSH_PUSH_SERVICE_URL = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_PUSH_SERVICE_URL);
+    private static final String JPUSH_SMS_SERVICE_URL = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_SMS_SERVICE_URL);
+    public static final String SIGN_ID = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_SMS_SIGN_ID);
 
     public static Map<String, String> buildHeaders(String appKey, String masterSecret) {
         Map<String, String> headers = new HashMap<String, String>();

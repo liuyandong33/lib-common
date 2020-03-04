@@ -1,6 +1,6 @@
 package build.dream.common.sms;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.models.jpush.CodesModel;
 import build.dream.common.models.jpush.ValidCodeModel;
 import build.dream.common.utils.CommonRedisUtils;
@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class JPushSmsHelper implements SmsHelper {
-    private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.JPUSH_SMS_API_VERIFICATION_CODE_TEMP_ID);
-    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.JPUSH_SMS_API_AGENT_ACCOUNT_TEMP_ID);
+    private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_SMS_API_VERIFICATION_CODE_TEMP_ID);
+    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(ConfigurationKeys.JPUSH_SMS_API_AGENT_ACCOUNT_TEMP_ID);
 
     @Override
     public void sendVerificationCode(String phoneNumber) {

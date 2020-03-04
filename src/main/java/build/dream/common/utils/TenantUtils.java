@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.api.ApiRest;
 import build.dream.common.beans.JDDJVenderInfo;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.Tenant;
 import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
@@ -14,7 +15,7 @@ import java.util.Map;
 
 public class TenantUtils {
     public static Tenant obtainTenantInfo(Long tenantId) {
-        String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_id_" + tenantId);
+        String tenantInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_TENANT_INFOS, "_id_" + tenantId);
         if (StringUtils.isBlank(tenantInfoJson)) {
             return null;
         }
@@ -22,7 +23,7 @@ public class TenantUtils {
     }
 
     public static Tenant obtainTenantInfo(String tenantCode) {
-        String tenantInfoJson = CommonRedisUtils.hget(Constants.KEY_TENANT_INFOS, "_code_" + tenantCode);
+        String tenantInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_TENANT_INFOS, "_code_" + tenantCode);
         if (StringUtils.isBlank(tenantInfoJson)) {
             return null;
         }
@@ -66,8 +67,8 @@ public class TenantUtils {
 
     public static void cacheTenantInfo(Tenant tenant) {
         String tenantInfo = JacksonUtils.writeValueAsString(tenant);
-        CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);
-        CommonRedisUtils.hset(Constants.KEY_TENANT_INFOS, "_code_" + tenant.getCode(), tenantInfo);
+        CommonRedisUtils.hset(RedisKeys.KEY_TENANT_INFOS, "_id_" + tenant.getId(), tenantInfo);
+        CommonRedisUtils.hset(RedisKeys.KEY_TENANT_INFOS, "_code_" + tenant.getCode(), tenantInfo);
     }
 
     public static void rejoinCacheTenantInfos(List<Tenant> tenants) {
@@ -98,14 +99,14 @@ public class TenantUtils {
                     .build();
             jddjVenderInfos.put(jddjAppKey, JacksonUtils.writeValueAsString(jddjVenderInfo));
         }
-        CommonRedisUtils.del(Constants.KEY_TENANT_INFOS);
+        CommonRedisUtils.del(RedisKeys.KEY_TENANT_INFOS);
         if (MapUtils.isNotEmpty(tenantInfos)) {
-            CommonRedisUtils.hmset(Constants.KEY_TENANT_INFOS, tenantInfos);
+            CommonRedisUtils.hmset(RedisKeys.KEY_TENANT_INFOS, tenantInfos);
         }
 
-        CommonRedisUtils.del(Constants.KEY_JDDJ_VENDER_INFOS);
+        CommonRedisUtils.del(RedisKeys.KEY_JDDJ_VENDER_INFOS);
         if (MapUtils.isNotEmpty(jddjVenderInfos)) {
-            CommonRedisUtils.hmset(Constants.KEY_JDDJ_VENDER_INFOS, jddjVenderInfos);
+            CommonRedisUtils.hmset(RedisKeys.KEY_JDDJ_VENDER_INFOS, jddjVenderInfos);
         }
     }
 

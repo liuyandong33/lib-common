@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.BatchProcessingInfo;
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class BatchProcessingUtils {
     public static List<BatchProcessingInfo> obtainBatchProcessingInfos(long timestamp) {
-        String value = CommonRedisUtils.hget(Constants.KEY_BATCH_PROCESSING_INFOS, "_" + timestamp / 1000);
+        String value = CommonRedisUtils.hget(RedisKeys.KEY_BATCH_PROCESSING_INFOS, "_" + timestamp / 1000);
         if (StringUtils.isBlank(value)) {
             return null;
         }
@@ -34,7 +34,7 @@ public class BatchProcessingUtils {
 
     public static void addBatchProcessingInfo(long timestamp, BatchProcessingInfo batchProcessingInfo) {
         String field = "_" + timestamp / 1000;
-        CommonRedisUtils.hset(Constants.KEY_BATCH_PROCESSING_INFOS, field, field);
+        CommonRedisUtils.hset(RedisKeys.KEY_BATCH_PROCESSING_INFOS, field, field);
         CommonRedisUtils.sadd(field, JacksonUtils.writeValueAsString(batchProcessingInfo));
     }
 }

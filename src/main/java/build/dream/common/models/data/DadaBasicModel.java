@@ -1,5 +1,6 @@
 package build.dream.common.models.data;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.BasicModel;
 import build.dream.common.utils.ConfigurationUtils;
@@ -13,11 +14,11 @@ import java.lang.reflect.Type;
 public class DadaBasicModel extends BasicModel {
     @NotNull
     @JsonIgnore
-    private String appKey = ConfigurationUtils.getConfiguration(Constants.DADA_APP_KEY);
+    private String appKey = ConfigurationUtils.getConfiguration(ConfigurationKeys.DADA_APP_KEY);
 
     @NotNull
     @JsonIgnore
-    private String appSecret = ConfigurationUtils.getConfiguration(Constants.DADA_APP_SECRET);
+    private String appSecret = ConfigurationUtils.getConfiguration(ConfigurationKeys.DADA_APP_SECRET);
 
     @NotNull
     @JsonIgnore

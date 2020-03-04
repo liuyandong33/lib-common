@@ -1,6 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.NewLandOrgInfo;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.NewLandAccount;
@@ -117,7 +118,7 @@ public class NewLandUtils {
     }
 
     public static Map<String, String> callNewLandSystem(Map<String, String> requestParameters, String charsetName, String apiName) {
-        String url = ConfigurationUtils.getConfiguration(Constants.NEW_LAND_PAY_SERVICE_URL) + "/" + apiName + ".json";
+        String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.NEW_LAND_PAY_SERVICE_URL) + "/" + apiName + ".json";
 
         String result = OutUtils.doPostWithRequestBody(url, JacksonUtils.writeValueAsString(requestParameters), charsetName, "");
         result = UrlUtils.decode(result, Constants.CHARSET_NAME_UTF_8);

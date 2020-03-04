@@ -2,6 +2,7 @@ package build.dream.common.utils;
 
 import build.dream.common.annotations.ApiRestAction;
 import build.dream.common.api.ApiRest;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.ErrorConstants;
 import build.dream.common.exceptions.CustomException;
@@ -22,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AspectUtils {
     private static Map<Class<?>, Object> serviceMap = new ConcurrentHashMap<Class<?>, Object>();
-    private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(Constants.PLATFORM_PRIVATE_KEY);
+    private static final String PLATFORM_PRIVATE_KEY = ConfigurationUtils.getConfiguration(ConfigurationKeys.PLATFORM_PRIVATE_KEY);
 
     private static Object obtainService(Class<?> serviceClass) {
         Object service = serviceMap.get(serviceClass);

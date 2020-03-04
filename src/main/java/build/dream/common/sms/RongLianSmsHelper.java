@@ -1,5 +1,6 @@
 package build.dream.common.sms;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.ronglian.SendSmsModel;
 import build.dream.common.utils.CommonRedisUtils;
@@ -13,8 +14,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RongLianSmsHelper implements SmsHelper {
-    private static final String VERIFICATION_CODE_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID);
-    private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID);
+    private static final String VERIFICATION_CODE_TEMPLATE_ID = ConfigurationUtils.getConfiguration(ConfigurationKeys.RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID);
+    private static final String AGENT_ACCOUNT_TEMPLATE_ID = ConfigurationUtils.getConfiguration(ConfigurationKeys.RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID);
 
     @Override
     public void sendVerificationCode(String phoneNumber) {

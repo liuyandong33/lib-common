@@ -274,7 +274,6 @@ public class Constants {
     // 中转支付宝授权地址
     public static final String TRANSFER_ALIPAY_AUTHORIZE_URL = "transfer.alipay.authorize.url";
 
-    public static final String ALIPAY_PUBLIC_APP_AUTHORIZE_URL = "alipay.public.app.authorize.url";
 
     // authorization_code
     public static final String AUTHORIZATION_CODE = "authorization_code";
@@ -337,11 +336,6 @@ public class Constants {
 
     public static final String SCENE_BAR_CODE = "bar_code";
     public static final String SCENE_WAVE_CODE = "wave_code";
-
-    // 微信 access_toke Redis key
-    public static final String KEY_WEI_XIN_ACCESS_TOKENS = "_wei_xin_access_tokens";
-    // 微信 jsapi_ticket Redis key
-    public static final String KEY_WEI_XIN_JSAPI_TICKETS = "_wei_xin_jsapi_tickets";
 
     // snsapi_base
     public static final String SNSAPI_BASE = "snsapi_base";
@@ -421,9 +415,6 @@ public class Constants {
     public static final int DEVICE_TYPE_ANDROID = 1;
     public static final int DEVICE_TYPE_IOS = 2;
 
-    // 域名配置key
-    public static final String HOME_URL = "home.url";
-
     /**
      * 数据库默认值
      */
@@ -441,39 +432,6 @@ public class Constants {
     // cdata 模式
     public static final String CDATA_FORMAT = "<![CDATA[%s]]>";
 
-    /**
-     * 商户信息Redis key
-     */
-    public static final String KEY_TENANT_INFOS = "_tenant_infos";
-
-    /**
-     * 用户信息Redis key
-     */
-    public static final String KEY_USER_INFOS = "_user_infos";
-
-    /**
-     * 代理商信息 Redis key
-     */
-    public static final String KEY_AGENT_INFOS = "_agent_infos";
-
-    /**
-     * 极光推送相关配置
-     */
-    public static final String JPUSH_APP_KEY = "jpush.app.key";
-    public static final String JPUSH_MASTER_SECRET = "jpush.master.secret";
-    public static final String JPUSH_PUSH_SERVICE_URL = "jpush.push.service.url";
-    public static final String JPUSH_SMS_SERVICE_URL = "jpush.sms.service.url";
-    public static final String JPUSH_SMS_SIGN_ID = "jpush.sms.sign.id";
-    public static final String JPUSH_SMS_API_VERIFICATION_CODE_TEMP_ID = "jpush.sms.api.verification.code.temp.id";
-    public static final String JPUSH_SMS_API_AGENT_ACCOUNT_TEMP_ID = "jpush.sms.api.agent.account.temp.id";
-
-    /**
-     * 钉钉开放平台相关配置
-     */
-    public static final String KEY_DINGTALK_TOKENS = "_dingtalk_tokens";
-    public static final String DINGTALK_APP_KEY = "dingtalk.app.key";
-    public static final String DINGTALK_APP_SECRET = "dingtalk.app.secret";
-
     // 支付方式编码，会员积分
     public static final String PAYMENT_CODE_HYJF = "HYJF";
     // 支付方式编码，会员钱包
@@ -487,19 +445,11 @@ public class Constants {
     // 支付方式
     public static final String[] PAYMENT_CODES = new String[]{PAYMENT_CODE_HYJF, PAYMENT_CODE_HYQB, PAYMENT_CODE_WX, PAYMENT_CODE_ALIPAY, PAYMENT_CODE_CASH};
 
-    // 代理服务器主机名
-    public static final String PROXY_SERVER_HOST_NAME = "proxy.server.host.name";
-    // 代理服务器端口号
-    public static final String PROXY_SERVER_PORT = "proxy.server.port";
-
     // RestTemplate 连接超时时间
     public static final String REST_TEMPLATE_CONNECT_TIMEOUT = "rest.template.connect.timeout";
     // RestTemplate 读取超时时间
     public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
 
-    // 米雅接口地址
-    public static final String MIYA_PAY_SERVICE_URL = "miya.pay.service.url";
-    public static final String NEW_LAND_PAY_SERVICE_URL = "new.lang.pay.service.url";
     public static final String NEW_LAND_PAY_API_NAME_SDK_BARCODE_PAY = "sdkBarcodePay";
     public static final String NEW_LAND_PAY_API_NAME_SDK_BARCODE_POS_PAY = "sdkBarcodePosPay";
     public static final String NEW_LAND_PAY_API_NAME_SDK_REFUND_BARCODE_PAY = "sdkRefundBarcodePay";
@@ -530,14 +480,8 @@ public class Constants {
     public static final String NOVEMBER = "November";
     public static final String DECEMBER = "December";
 
-    public static final String KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS = "_wei_xin_component_verify_tickets";
-    public static final String KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS = "_wei_xin_component_access_tokens";
-
     // 基本数据类型
     public static final Class<?>[] BASIC_DATA_TYPES = {byte.class, short.class, int.class, long.class, float.class, double.class, char.class, boolean.class};
-
-    // 微信授权token Redis key
-    public static final String KEY_WEI_XIN_AUTHORIZER_TOKENS = "wei_xin_authorizer_tokens";
 
     /**
      * 微信授权类型常量
@@ -567,10 +511,6 @@ public class Constants {
 
     public static final String RESPONSE_CONTENT = "response_content";
 
-    public static final String ANUBIS_APP_ID = "anubis.app.id";
-    public static final String ANUBIS_APP_SECRET = "anubis.app.secret";
-    public static final String KEY_ANUBIS_TOKENS = "_anubis_tokens";
-
     public static final String MAIL_SMTP_HOST = "mail.smtp.host";
     public static final String MAIL_SMTP_PORT = "mail.smtp.port";
     public static final String MAIL_SMTP_SSL_ENABLE = "mail.smtp.ssl.enable";
@@ -583,14 +523,6 @@ public class Constants {
     public static final String MAIL_SMTP_STARTTLS_ENABLE = "mail.smtp.starttls.enable";
     public static final String MAIL_SMTP_STARTTLS_REQUIRED = "mail.smtp.starttls.required";
 
-    public static final String ALIYUN_ACCESS_KEY_ID = "aliyun.access.key.id";
-    public static final String ALIYUN_ACCESS_KEY_SECRET = "aliyun.access.key.secret";
-    public static final String ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE = "aliyun.sms.api.verification.code.template.code";
-    public static final String ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE = "aliyun.sms.api.agent.account.template.code";
-    public static final String ALIYUN_SMS_API_SIGN_NAME = "aliyun.sms.api.sign.name";
-
-    public static final String PLATFORM_PUBLIC_KEY = "platform.public.key";
-    public static final String PLATFORM_PRIVATE_KEY = "platform.private.key";
     public static final String PUBLIC_KEY = "publicKey";
     public static final String PRIVATE_KEY = "privateKey";
 
@@ -686,7 +618,6 @@ public class Constants {
     public static final String JING_DONG_PAY_VERSION = "V2.0";
 
     public static final String CLIENT_TYPE = "clientType";
-    public static final String LOG_STACK_INFO = "log.stack.info";
 
     public static final String TLS = "TLS";
     public static final String PKCS12 = "PKCS12";
@@ -735,12 +666,6 @@ public class Constants {
     public static final String PARTITION_STRING_REDIS_TEMPLATE = "partitionStringRedisTemplate";
     public static final String COMMON_REDIS_CONNECTION_FACTORY = "commonRedisConnectionFactory";
     public static final String PARTITION_REDIS_CONNECTION_FACTORY = "partitionRedisConnectionFactory";
-
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_URL = "snowflake.id.config.database.url";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME = "snowflake.id.config.database.username";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD = "snowflake.id.config.database.password";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME = "snowflake.id.config.database.driver-class-name";
-    public static final String SPRING_APPLICATION_NAME = "spring.application.name";
 
     public static final String DATABASE_PRODUCT_NAME_MYSQL = "MySQL";
     public static final String DATABASE_PRODUCT_NAME_ORACLE = "Oracle";
@@ -878,8 +803,6 @@ public class Constants {
     public static final String UM_PAY_SCAN_CODE_TYPE_WECHAT = "WECHAT";
     public static final String UM_PAY_SCAN_CODE_TYPE_ALIPAY = "ALIPAY";
 
-    public static final String UM_PAY_SERVICE_URL = "um.pay.service.url";
-
     /**
      * 微信下载对账单类型
      *
@@ -905,8 +828,6 @@ public class Constants {
      */
     public static final String LIMIT_PAY_NO_CREDIT = "no_credit";
 
-    public static final String KEY_BATCH_PROCESSING_INFOS = "_batch_processing_infos";
-
     /**
      * 回调类型
      *
@@ -926,17 +847,11 @@ public class Constants {
     public static final String NOTIFY_TYPE_DADA_ORDER_CALLBACK = "dadaOrderCallback";
     public static final String NOTIFY_TYPE_ANUBIS_ORDER_CALLBACK = "anubisOrderCallback";
 
-    public static final String DADA_APP_KEY = "dada.app.key";
-    public static final String DADA_APP_SECRET = "dada.app.secret";
-    public static final String DADA_API_DOMAIN = "dada.api.domain";
-
     public static final String CONTENT_TYPE_APPLICATION_FORM_URLENCODED_UTF8 = "application/x-www-form-urlencoded;charset=UTF-8";
     public static final String CONTENT_TYPE_APPLICATION_JSON_UTF8 = "application/json;charset=UTF-8";
     public static final String CONTENT_TYPE_APPLICATION_XML_UTF8 = "application/xml;charset=UTF-8";
     public static final String CONTENT_TYPE_TEXT_XML = "text/xml";
     public static final String CONTENT_TYPE_MULTIPART_FORM_DATA_UTF8 = "multipart/form-data;boundary=" + WebUtils.BOUNDARY + ";charset=UTF-8";
-
-    public static final String JDDJ_API_DOMAIN = "jddj.api.domain";
 
     /**
      * 京东到家消息类型
@@ -989,14 +904,7 @@ public class Constants {
     public static final int DJSW_TYPE_ORDER_PAYMENT_SUCCESS = 22;
     public static final int DJSW_TYPE_OFFLINE_VIP_POINTS_CHANGE = 23;
 
-    public static final String KEY_JDDJ_TOKENS = "_jddj_tokens";
-    public static final String KEY_JDDJ_CODES = "_jddj_codes";
-    public static final String KEY_JDDJ_VENDER_INFOS = "_jddj_vender_infos";
-
-    public static final String SU_NING_APP_KEY = "su.ning.app.key";
-    public static final String SU_NING_APP_SECRET = "su.ning.app.secret";
     public static final String SU_NING_VERSION_NO_V_1_2 = "v1.2";
-    public static final String KEY_SU_NING_TOKENS = "_su_ning_tokens";
 
     /**
      * 代理商申请单状态
@@ -1009,17 +917,16 @@ public class Constants {
     public static final int AGENT_FORM_STATUS_NOT_AUDITED = 2;
     public static final int AGENT_FORM_STATUS_NOT_REJECTED = 3;
 
-    public static final String RONG_LIAN_ACCOUNT_SID = "rong.lian.account.sid";
-    public static final String RONG_LIAN_AUTH_TOKEN = "rong.lian.auth.token";
-    public static final String RONG_LIAN_APP_ID = "rong.lian.app.id";
-    public static final String RONG_LIAN_VERIFICATION_CODE_TEMPLATE_ID = "rong.lian.verification.code.template.id";
-    public static final String RONG_LIAN_AGENT_ACCOUNT_TEMPLATE_ID = "rong.lian.agent.account.template.id";
-
-    public static final String VERIFICATION_CODE_TIMEOUT = "verification.code.timeout";
+    /**
+     * 短信通道
+     *
+     * @see #SMS_CHANNEL_ALIYUN: 阿里云
+     * @see #SMS_CHANNEL_RONG_LIAN: 荣联
+     * @see #SMS_CHANNEL_JPUSH: jpush
+     */
     public static final String SMS_CHANNEL_ALIYUN = "ALIYUN";
     public static final String SMS_CHANNEL_RONG_LIAN = "RONG_LIAN";
     public static final String SMS_CHANNEL_JPUSH = "JPUSH";
-    public static final String SMS_CHANNEL = "sms.channel";
 
     public static final String COMMON_REDIS_HOST = "common.redis.host";
     public static final String COMMON_REDIS_PORT = "common.redis.port";
@@ -1042,10 +949,6 @@ public class Constants {
     public static final String POS_TYPE_ANDROID = "android";
     public static final String POS_TYPE_IOS = "ios";
     public static final String POS_TYPE_WINDOWS = "windows";
-
-    public static final String KEY_WNS_ACCESS_TOKENS = "_wns_access_tokens";
-
-    public static final String WPOS_MQTT_TOPIC = "wpos.mqtt.topic";
 
     public static final String MQ_TYPE_KAFKA = "kafka";
     public static final String MQ_TYPE_ROCKETMQ = "rocketmq";

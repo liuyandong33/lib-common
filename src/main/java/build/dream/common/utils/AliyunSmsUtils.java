@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunsms.SendSmsModel;
 import org.apache.commons.collections.MapUtils;
@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class AliyunSmsUtils {
-    public static final String SIGN_NAME = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_SIGN_NAME);
+    public static final String SIGN_NAME = ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIYUN_SMS_API_SIGN_NAME);
 
     /**
      * 发送短信

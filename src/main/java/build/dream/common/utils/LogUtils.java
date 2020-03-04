@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.ConfigurationKeys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class LogUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogUtils.class);
-    private static final boolean LOG_STACK_INFO = Boolean.parseBoolean(ConfigurationUtils.getConfiguration(Constants.LOG_STACK_INFO));
+    private static final boolean LOG_STACK_INFO = Boolean.parseBoolean(ConfigurationUtils.getConfiguration(ConfigurationKeys.LOG_STACK_INFO));
 
     public static void info(String message) {
         LOGGER.info(message);

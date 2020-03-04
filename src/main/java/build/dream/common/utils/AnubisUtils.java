@@ -1,7 +1,7 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.models.anubis.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class AnubisUtils {
     private static final String ANUBIS_SERVICE_URL = "https://open-anubis.ele.me/anubis-webapi/v2";
+
     public static String generateSignature(String appId, String data, int salt, String accessToken) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("app_id=" + appId);
@@ -46,12 +47,12 @@ public class AnubisUtils {
         ValidateUtils.isTrue(code == 200, MapUtils.getString(resultMap, "msg"));
 
         Map<String, Object> tokenMap = MapUtils.getMap(resultMap, "data");
-        CommonRedisUtils.hset(Constants.KEY_ANUBIS_TOKENS, appId, GsonUtils.toJson(tokenMap));
+        CommonRedisUtils.hset(RedisKeys.KEY_ANUBIS_TOKENS, appId, JacksonUtils.writeValueAsString(tokenMap));
         return MapUtils.getString(tokenMap, "access_token");
     }
 
     public static String obtainAccessToken(String appId, String appSecret) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_ANUBIS_TOKENS, appId);
+        String tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_ANUBIS_TOKENS, appId);
         if (StringUtils.isBlank(tokenJson)) {
             return getAccessToken(appId, appSecret);
         }

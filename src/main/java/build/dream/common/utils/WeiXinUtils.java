@@ -4,6 +4,7 @@ import build.dream.common.api.ApiRest;
 import build.dream.common.beans.*;
 import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.WeiXinAuthorizerInfo;
 import build.dream.common.domains.saas.WeiXinAuthorizerToken;
 import build.dream.common.models.weixin.*;
@@ -236,7 +237,7 @@ public class WeiXinUtils {
      * @return
      */
     private static WeiXinAccessToken obtainAccessToken(String appId) {
-        String weiXinAccessTokenJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId);
+        String weiXinAccessTokenJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_ACCESS_TOKENS, appId);
         if (StringUtils.isBlank(weiXinAccessTokenJson)) {
             return null;
         }
@@ -274,7 +275,7 @@ public class WeiXinUtils {
         weiXinAccessToken.setAccessToken(MapUtils.getString(resultMap, "access_token"));
         weiXinAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
         weiXinAccessToken.setFetchTime(new Date());
-        CommonRedisUtils.hset(Constants.KEY_WEI_XIN_ACCESS_TOKENS, appId, JacksonUtils.writeValueAsString(weiXinAccessToken));
+        CommonRedisUtils.hset(RedisKeys.KEY_WEI_XIN_ACCESS_TOKENS, appId, JacksonUtils.writeValueAsString(weiXinAccessToken));
         return weiXinAccessToken;
     }
 
@@ -286,7 +287,7 @@ public class WeiXinUtils {
      * @return
      */
     private static WeiXinJsapiTicket obtainJsapiTicket(String appId, String type) {
-        String weiXinJsapiTicketJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
+        String weiXinJsapiTicketJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId);
         if (StringUtils.isBlank(weiXinJsapiTicketJson)) {
             return null;
         }
@@ -320,7 +321,7 @@ public class WeiXinUtils {
         weiXinJsapiTicket.setTicket(MapUtils.getString(resultMap, "ticket"));
         weiXinJsapiTicket.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
         weiXinJsapiTicket.setFetchTime(new Date());
-        CommonRedisUtils.hset(Constants.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, JacksonUtils.writeValueAsString(weiXinJsapiTicket));
+        CommonRedisUtils.hset(RedisKeys.KEY_WEI_XIN_JSAPI_TICKETS + "_" + type, appId, JacksonUtils.writeValueAsString(weiXinJsapiTicket));
         return weiXinJsapiTicket;
     }
 
@@ -463,7 +464,7 @@ public class WeiXinUtils {
      * @return
      */
     private static ComponentAccessToken obtainComponentAccessToken(String componentAppId) {
-        String componentAccessTokenJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
+        String componentAccessTokenJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId);
         if (StringUtils.isBlank(componentAccessTokenJson)) {
             return null;
         }
@@ -483,7 +484,7 @@ public class WeiXinUtils {
      * @return
      */
     private static ComponentAccessToken apiComponentToken(String componentAppId, String componentAppSecret) {
-        String componentVerifyTicket = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
+        String componentVerifyTicket = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_COMPONENT_VERIFY_TICKETS, componentAppId);
         ValidateUtils.notBlank(componentVerifyTicket, "component_verify_ticket 不存在！");
         String url = WEI_XIN_API_URL + "/cgi-bin/component/api_component_token";
         Map<String, Object> requestBody = new HashMap<String, Object>();
@@ -498,7 +499,7 @@ public class WeiXinUtils {
         componentAccessToken.setComponentAccessToken(MapUtils.getString(resultMap, "component_access_token"));
         componentAccessToken.setExpiresIn(MapUtils.getIntValue(resultMap, "expires_in"));
         componentAccessToken.setFetchTime(new Date());
-        CommonRedisUtils.hset(Constants.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, JacksonUtils.writeValueAsString(componentAccessToken));
+        CommonRedisUtils.hset(RedisKeys.KEY_WEI_XIN_COMPONENT_ACCESS_TOKENS, componentAppId, JacksonUtils.writeValueAsString(componentAccessToken));
         return componentAccessToken;
     }
 
@@ -578,7 +579,7 @@ public class WeiXinUtils {
         saveWeiXinAuthorizerTokenRequestParameters.put("userId", CommonUtils.getServiceSystemUserId().toString());
         ApiRest apiRest = ProxyUtils.doPostWithRequestParameters(Constants.SERVICE_NAME_PLATFORM, "weiXin", "saveWeiXinAuthorizerToken", saveWeiXinAuthorizerTokenRequestParameters);
         ValidateUtils.isTrue(apiRest.isSuccessful(), apiRest.getError());
-        CommonRedisUtils.hset(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, JacksonUtils.writeValueAsString(weiXinAuthorizerToken));
+        CommonRedisUtils.hset(RedisKeys.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId, JacksonUtils.writeValueAsString(weiXinAuthorizerToken));
         return weiXinAuthorizerToken;
     }
 
@@ -590,7 +591,7 @@ public class WeiXinUtils {
      * @return
      */
     public static WeiXinAuthorizerToken obtainWeiXinAuthorizerToken(String componentAppId, String authorizerAppId) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
+        String tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(tokenJson, "授权信息不存在！");
         return JacksonUtils.readValue(tokenJson, WeiXinAuthorizerToken.class);
     }
@@ -826,7 +827,7 @@ public class WeiXinUtils {
      * @return
      */
     public static Map<String, Object> getAccountBasicInfo(String componentAppId, String authorizerAppId) {
-        String authorizerAccessTokenJson = CommonRedisUtils.hget(Constants.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
+        String authorizerAccessTokenJson = CommonRedisUtils.hget(RedisKeys.KEY_WEI_XIN_AUTHORIZER_TOKENS, componentAppId + "_" + authorizerAppId);
         ValidateUtils.notBlank(authorizerAccessTokenJson, "未查询到 authorizer_access_token！");
 
         Map<String, Object> authorizerAccessToken = JacksonUtils.readValueAsMap(authorizerAccessTokenJson, String.class, Object.class);

@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.SystemUser;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class UserUtils {
     public static SystemUser obtainUserInfo(String userId) {
-        String userInfoJson = CommonRedisUtils.hget(Constants.KEY_USER_INFOS, userId);
+        String userInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_USER_INFOS, userId);
         if (StringUtils.isBlank(userInfoJson)) {
             return null;
         }
@@ -23,19 +23,19 @@ public class UserUtils {
     }
 
     public static void cacheUserInfo(SystemUser systemUser) {
-        CommonRedisUtils.hset(Constants.KEY_USER_INFOS, systemUser.getId().toString(), JacksonUtils.writeValueAsString(systemUser));
+        CommonRedisUtils.hset(RedisKeys.KEY_USER_INFOS, systemUser.getId().toString(), JacksonUtils.writeValueAsString(systemUser));
     }
 
     public static List<SystemUser> batchGetUsers(List<Long> userIds) {
-        List<String> userInfos = CommonRedisUtils.hmget(Constants.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
+        List<String> userInfos = CommonRedisUtils.hmget(RedisKeys.KEY_USER_INFOS, userIds.stream().map(userId -> userId.toString()).collect(Collectors.toList()));
         return userInfos.stream().map(userInfo -> JacksonUtils.readValue(userInfo, SystemUser.class)).collect(Collectors.toList());
     }
 
     public static void rejoinCacheUserInfos(List<SystemUser> systemUsers) {
         Map<String, String> userInfos = systemUsers.stream().collect(Collectors.toMap(systemUser -> systemUser.getId().toString(), systemUser -> JacksonUtils.writeValueAsString(systemUser)));
-        CommonRedisUtils.del(Constants.KEY_USER_INFOS);
+        CommonRedisUtils.del(RedisKeys.KEY_USER_INFOS);
         if (MapUtils.isNotEmpty(userInfos)) {
-            CommonRedisUtils.hmset(Constants.KEY_USER_INFOS, userInfos);
+            CommonRedisUtils.hmset(RedisKeys.KEY_USER_INFOS, userInfos);
         }
     }
 }

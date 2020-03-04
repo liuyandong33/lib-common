@@ -1,5 +1,6 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.okhttp.DoPostWithRequestBodyModel;
 import build.dream.common.models.out.*;
@@ -18,8 +19,8 @@ public class OutUtils {
     private static Proxy proxy;
 
     static {
-        String hostName = ConfigurationUtils.getConfiguration(Constants.PROXY_SERVER_HOST_NAME);
-        String port = ConfigurationUtils.getConfiguration(Constants.PROXY_SERVER_PORT);
+        String hostName = ConfigurationUtils.getConfiguration(ConfigurationKeys.PROXY_SERVER_HOST_NAME);
+        String port = ConfigurationUtils.getConfiguration(ConfigurationKeys.PROXY_SERVER_PORT);
         if (StringUtils.isNotBlank(hostName) && StringUtils.isNotBlank(port)) {
             SocketAddress socketAddress = new InetSocketAddress(hostName, Integer.parseInt(port));
             proxy = new Proxy(Proxy.Type.HTTP, socketAddress);

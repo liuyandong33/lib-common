@@ -1,6 +1,8 @@
 package build.dream.common.utils;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import build.dream.common.models.dingtalk.CreateChatModel;
 import build.dream.common.models.dingtalk.ListDepartmentsModel;
 import build.dream.common.models.dingtalk.ListUserByPageModel;
@@ -18,7 +20,7 @@ public class DingtalkUtils {
     private static final String DINGTALK_SERVICE_URL = "https://oapi.dingtalk.com";
 
     private static String obtainAccessToken(String appKey) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_DINGTALK_TOKENS, appKey);
+        String tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_DINGTALK_TOKENS, appKey);
         if (StringUtils.isBlank(tokenJson)) {
             return null;
         }
@@ -46,7 +48,7 @@ public class DingtalkUtils {
         tokenMap.put("access_token", accessToken);
         tokenMap.put("expires_in", resultJsonObject.getLong("expires_in"));
         tokenMap.put("fetch_time", System.currentTimeMillis());
-//        CommonRedisUtils.hset(Constants.KEY_DINGTALK_TOKENS, appKey, GsonUtils.toJson(tokenMap));
+        CommonRedisUtils.hset(RedisKeys.KEY_DINGTALK_TOKENS, appKey, JacksonUtils.writeValueAsString(tokenMap));
         return accessToken;
     }
 
@@ -92,8 +94,8 @@ public class DingtalkUtils {
      * @return
      */
     public static Map<String, Object> send(String chatId, String content) {
-        String appKey = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_KEY);
-        String appSecret = ConfigurationUtils.getConfiguration(Constants.DINGTALK_APP_SECRET);
+        String appKey = ConfigurationUtils.getConfiguration(ConfigurationKeys.DINGTALK_APP_KEY);
+        String appSecret = ConfigurationUtils.getConfiguration(ConfigurationKeys.DINGTALK_APP_SECRET);
 
         Map<String, Object> text = new HashMap<String, Object>();
         text.put("content", content);

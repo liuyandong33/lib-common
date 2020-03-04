@@ -1,5 +1,6 @@
 package build.dream.common.sms;
 
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunsms.SendSmsModel;
 import build.dream.common.utils.*;
@@ -13,8 +14,8 @@ public class AliyunSmsHelper implements SmsHelper {
     /**
      * 阿里云短信服务配置
      */
-    private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
-    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(Constants.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
+    private static final String VERIFICATION_CODE_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIYUN_SMS_API_VERIFICATION_CODE_TEMPLATE_CODE);
+    private static final String AGENT_ACCOUNT_TEMPLATE_CODE = ConfigurationUtils.getConfiguration(ConfigurationKeys.ALIYUN_SMS_API_AGENT_ACCOUNT_TEMPLATE_CODE);
 
     @Override
     public void sendVerificationCode(String phoneNumber) {

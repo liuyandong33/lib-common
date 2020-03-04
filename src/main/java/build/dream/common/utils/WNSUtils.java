@@ -1,8 +1,7 @@
 package build.dream.common.utils;
 
 import build.dream.common.beans.WNSAccessToken;
-import build.dream.common.beans.WebResponse;
-import build.dream.common.constants.Constants;
+import build.dream.common.constants.RedisKeys;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,7 +12,7 @@ public class WNSUtils {
     private static final String ACCESS_TOKEN_URL = "https://login.live.com/accesstoken.srf";
 
     public static WNSAccessToken obtainAccessToken(String clientId, String clientSecret) {
-        String tokenJson = CommonRedisUtils.hget(Constants.KEY_WNS_ACCESS_TOKENS, clientId);
+        String tokenJson = CommonRedisUtils.hget(RedisKeys.KEY_WNS_ACCESS_TOKENS, clientId);
         if (StringUtils.isNotBlank(tokenJson)) {
             return JacksonUtils.readValue(tokenJson, WNSAccessToken.class);
         }

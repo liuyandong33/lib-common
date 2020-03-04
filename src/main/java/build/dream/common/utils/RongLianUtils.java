@@ -1,6 +1,6 @@
 package build.dream.common.utils;
 
-import build.dream.common.beans.WebResponse;
+import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.ronglian.SendSmsModel;
 import org.apache.commons.codec.binary.Base64;
@@ -13,9 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RongLianUtils {
-    public static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_ACCOUNT_SID);
-    public static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_AUTH_TOKEN);
-    public static final String APP_ID = ConfigurationUtils.getConfiguration(Constants.RONG_LIAN_APP_ID);
+    public static final String ACCOUNT_SID = ConfigurationUtils.getConfiguration(ConfigurationKeys.RONG_LIAN_ACCOUNT_SID);
+    public static final String AUTH_TOKEN = ConfigurationUtils.getConfiguration(ConfigurationKeys.RONG_LIAN_AUTH_TOKEN);
+    public static final String APP_ID = ConfigurationUtils.getConfiguration(ConfigurationKeys.RONG_LIAN_APP_ID);
     private static final String BASE_URL = "https://app.cloopen.com:8883";
 
     public static Map<String, Object> sendSms(SendSmsModel sendSmsModel) {
