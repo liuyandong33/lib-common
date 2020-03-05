@@ -826,7 +826,7 @@ public class ApplicationHandler {
     }
 
     public static String obtainParameterErrorMessage(String parameterName) {
-        if (EnvironmentUtils.isProd()) {
+        if (EnvironmentUtils.isProduction()) {
             return Constants.API_PARAMETER_ERROR_MESSAGE;
         }
         return String.format(Constants.PARAMETER_ERROR_MESSAGE_PATTERN, parameterName);
