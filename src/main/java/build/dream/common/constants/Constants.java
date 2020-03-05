@@ -40,9 +40,7 @@ public class Constants {
     /**
      * 配置文件名称常量
      */
-    public static final String PRODUCTION_PROPERTIES = "production.properties";
-    public static final String TEST_PROPERTIES = "test.properties";
-    public static final String DEVELOPMENT_PROPERTIES = "development.properties";
+    public static final String DEV_PROPERTIES = "dev.properties";
     public static final String DISTRICTS_JSON = "districts.json";
 
     public static final String HTTP = "http://";
@@ -283,10 +281,10 @@ public class Constants {
     /**
      * 部署环境
      */
-    public static final String WWW = "www";
+    public static final String PROD = "prod";
     public static final String BETA = "beta";
     public static final String TEST = "test";
-    public static final String DEVELOPMENT = "development";
+    public static final String DEV = "dev";
 
     /**
      * 智慧餐厅状态

@@ -40,7 +40,7 @@ public class PropertyUtils {
 
     public static void loadProperties() throws IOException {
         properties = new Properties();
-        InputStream inputStream = PropertyUtils.class.getClassLoader().getResourceAsStream(Constants.DEVELOPMENT_PROPERTIES);
+        InputStream inputStream = PropertyUtils.class.getClassLoader().getResourceAsStream(Constants.DEV_PROPERTIES);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Constants.CHARSET_UTF_8);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
         properties.load(bufferedReader);
