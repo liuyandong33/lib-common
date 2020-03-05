@@ -86,6 +86,16 @@ public class JavaOperation extends BasicDomain {
      */
     private String xxMaxTenuringThreshold;
 
+    /**
+     *
+     */
+    private String xxMaxHeapFreeRation;
+
+    /**
+     *
+     */
+    private String xxMinHeapFreeRation;
+
     public String getXms() {
         return xms;
     }
@@ -206,6 +216,22 @@ public class JavaOperation extends BasicDomain {
         this.xxMaxTenuringThreshold = xxMaxTenuringThreshold;
     }
 
+    public String getXxMaxHeapFreeRation() {
+        return xxMaxHeapFreeRation;
+    }
+
+    public void setXxMaxHeapFreeRation(String xxMaxHeapFreeRation) {
+        this.xxMaxHeapFreeRation = xxMaxHeapFreeRation;
+    }
+
+    public String getXxMinHeapFreeRation() {
+        return xxMinHeapFreeRation;
+    }
+
+    public void setXxMinHeapFreeRation(String xxMinHeapFreeRation) {
+        this.xxMinHeapFreeRation = xxMinHeapFreeRation;
+    }
+
     public String buildJavaOpts() {
         List<String> javaOpts = new ArrayList<String>();
         if (StringUtils.isNotBlank(xms)) {
@@ -266,6 +292,14 @@ public class JavaOperation extends BasicDomain {
 
         if (StringUtils.isNotBlank(xxMaxTenuringThreshold)) {
             javaOpts.add("-XX:+MaxTenuringThreshold=" + xxMaxTenuringThreshold);
+        }
+
+        if (StringUtils.isNotBlank(xxMaxHeapFreeRation)) {
+            javaOpts.add("-XX:MaxHeapFreeRation=" + xxMaxHeapFreeRation);
+        }
+
+        if (StringUtils.isNotBlank(xxMinHeapFreeRation)) {
+            javaOpts.add("-XX:MinHeapFreeRation=" + xxMinHeapFreeRation);
         }
         return StringUtils.join(javaOpts, " ");
     }
