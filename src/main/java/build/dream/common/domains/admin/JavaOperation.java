@@ -347,6 +347,31 @@ public class JavaOperation extends BasicDomain {
             return this;
         }
 
+        public Builder xxUseSerialGc(boolean xxUseSerialGc) {
+            instance.setXxUseSerialGc(xxUseSerialGc);
+            return this;
+        }
+
+        public Builder xxUseParallelGc(boolean xxUseParallelGc) {
+            instance.setXxUseParallelGc(xxUseParallelGc);
+            return this;
+        }
+
+        public Builder xxParallelGcThreads(String xxParallelGcThreads) {
+            instance.setXxParallelGcThreads(xxParallelGcThreads);
+            return this;
+        }
+
+        public Builder xxUseParNewGc(boolean xxUseParNewGc) {
+            instance.setXxUseParNewGc(xxUseParNewGc);
+            return this;
+        }
+
+        public Builder xxUseParallelOldGc(boolean xxUseParallelOldGc) {
+            instance.setXxUseParallelOldGc(xxUseParallelOldGc);
+            return this;
+        }
+
         public JavaOperation build() {
             JavaOperation javaOperation = super.build();
             javaOperation.setAppId(instance.getAppId());
@@ -354,6 +379,10 @@ public class JavaOperation extends BasicDomain {
             javaOperation.setXmx(instance.getXmx());
             javaOperation.setXmn(instance.getXmn());
             javaOperation.setXxPermSize(instance.getXxPermSize());
+            javaOperation.setXxUseSerialGc(instance.isXxUseSerialGc());
+            javaOperation.setXxParallelGcThreads(instance.getXxParallelGcThreads());
+            javaOperation.setXxUseParNewGc(instance.isXxUseParNewGc());
+            javaOperation.setXxUseParallelOldGc(instance.isXxUseParallelOldGc());
             return javaOperation;
         }
     }
@@ -369,6 +398,11 @@ public class JavaOperation extends BasicDomain {
         public static final String XMN = "xmn";
         public static final String XX_PERM_SIZE = "XX_PERM_SIZE";
         public static final String XX_MAX_PERM_SIZE = "xx_max_perm_size";
+        public static final String XX_USE_SERIAL_GC = "xx_use_serial_gc";
+        public static final String XX_USE_PARALLEL_GC = "xx_use_parallel_gc";
+        public static final String XX_PARALLEL_GC_THREADS = "xx_parallel_gc_threads";
+        public static final String XX_USE_PAR_NEW_GC = "xx_use_par_new_gc";
+        public static final String XX_USE_PARALLEL_OLD_GC = "xx_use_parallel_old_gc";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -378,5 +412,10 @@ public class JavaOperation extends BasicDomain {
         public static final String XMN = "xmn";
         public static final String XX_PERM_SIZE = "xxPermSize";
         public static final String XX_MAX_PERM_SIZE = "xxMaxPermSize";
+        public static final String XX_USE_SERIAL_GC = "xxUseSerialGc";
+        public static final String XX_USE_PARALLEL_GC = "xxUseParallelGc";
+        public static final String XX_PARALLEL_GC_THREADS = "xxParallelGcThreads";
+        public static final String XX_USE_PAR_NEW_GC = "xxUseParNewGc";
+        public static final String XX_USE_PARALLEL_OLD_GC = "xxUseParallelOldGc";
     }
 }
