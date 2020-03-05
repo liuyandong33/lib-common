@@ -8,6 +8,10 @@ import java.util.List;
 
 public class JavaOperation extends BasicDomain {
     /**
+     * 应用ID
+     */
+    private Long appId;
+    /**
      * JVM启动时申请的初始Heap值，默认为操作系统物理内存的1/64但小于1G。默认当空余堆内存大于70%时，JVM会减小heap的大小到-Xms指定的大小，
      * 可通过-XX:MaxHeapFreeRation=来指定这个比列。Server端JVM最好将-Xms和-Xmx设为相同值，避免每次垃圾回收完成后JVM重新分配内存；开发测试机JVM可以保留默认值。(例如：-Xms4g)
      */
@@ -95,6 +99,14 @@ public class JavaOperation extends BasicDomain {
      *
      */
     private String xxMinHeapFreeRation;
+
+    public Long getAppId() {
+        return appId;
+    }
+
+    public void setAppId(Long appId) {
+        this.appId = appId;
+    }
 
     public String getXms() {
         return xms;
@@ -302,5 +314,69 @@ public class JavaOperation extends BasicDomain {
             javaOpts.add("-XX:MinHeapFreeRation=" + xxMinHeapFreeRation);
         }
         return StringUtils.join(javaOpts, " ");
+    }
+
+    public static class Builder extends BasicDomain.Builder<Builder, JavaOperation> {
+        public Builder appId(Long appId) {
+            instance.setAppId(appId);
+            return this;
+        }
+
+        public Builder xms(String xms) {
+            instance.setXms(xms);
+            return this;
+        }
+
+        public Builder xmx(String xmx) {
+            instance.setXmx(xmx);
+            return this;
+        }
+
+        public Builder xmn(String xmn) {
+            instance.setXmn(xmn);
+            return this;
+        }
+
+        public Builder xxPermSize(String xxPermSize) {
+            instance.setXxPermSize(xxPermSize);
+            return this;
+        }
+
+        public Builder xxMaxPermSize(String xxMaxPermSize) {
+            instance.setXxMaxPermSize(xxMaxPermSize);
+            return this;
+        }
+
+        public JavaOperation build() {
+            JavaOperation javaOperation = super.build();
+            javaOperation.setAppId(instance.getAppId());
+            javaOperation.setXms(instance.getXms());
+            javaOperation.setXmx(instance.getXmx());
+            javaOperation.setXmn(instance.getXmn());
+            javaOperation.setXxPermSize(instance.getXxPermSize());
+            return javaOperation;
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String APP_ID = "app_id";
+        public static final String XMS = "xms";
+        public static final String XMX = "xmx";
+        public static final String XMN = "xmn";
+        public static final String XX_PERM_SIZE = "XX_PERM_SIZE";
+        public static final String XX_MAX_PERM_SIZE = "xx_max_perm_size";
+    }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String APP_ID = "appId";
+        public static final String XMS = "xms";
+        public static final String XMX = "xmx";
+        public static final String XMN = "xmn";
+        public static final String XX_PERM_SIZE = "xxPermSize";
+        public static final String XX_MAX_PERM_SIZE = "xxMaxPermSize";
     }
 }

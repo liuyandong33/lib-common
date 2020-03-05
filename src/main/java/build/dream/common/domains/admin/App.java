@@ -4,7 +4,7 @@ import build.dream.common.basic.BasicDomain;
 
 import java.util.Date;
 
-public class Application extends BasicDomain {
+public class App extends BasicDomain {
     /**
      * 分区码
      */
@@ -36,7 +36,7 @@ public class Application extends BasicDomain {
     /**
      * 服务器ID
      */
-    private Long serverId;
+    private Long hostId;
 
     public String getPartitionCode() {
         return partitionCode;
@@ -94,17 +94,15 @@ public class Application extends BasicDomain {
         this.deployedUserId = deployedUserId;
     }
 
-    public Long getServerId() {
-        return serverId;
+    public Long getHostId() {
+        return hostId;
     }
 
-    public void setServerId(Long serverId) {
-        this.serverId = serverId;
+    public void setHostId(Long hostId) {
+        this.hostId = hostId;
     }
 
-    public static class Builder {
-        private final Application instance = new Application();
-
+    public static class Builder extends BasicDomain.Builder<Builder, App> {
         public Builder partitionCode(String partitionCode) {
             instance.setPartitionCode(partitionCode);
             return this;
@@ -140,70 +138,22 @@ public class Application extends BasicDomain {
             return this;
         }
 
-        public Builder serverId(Long serverId) {
-            instance.setServerId(serverId);
+        public Builder hostId(Long hostId) {
+            instance.setHostId(hostId);
             return this;
         }
 
-        public Builder id(Long id) {
-            instance.setId(id);
-            return this;
-        }
-
-        public Builder createdTime(Date createdTime) {
-            instance.setCreatedTime(createdTime);
-            return this;
-        }
-
-        public Builder createdUserId(Long createdUserId) {
-            instance.setCreatedUserId(createdUserId);
-            return this;
-        }
-
-        public Builder updatedTime(Date updatedTime) {
-            instance.setUpdatedTime(updatedTime);
-            return this;
-        }
-
-        public Builder updatedUserId(Long updatedUserId) {
-            instance.setUpdatedUserId(updatedUserId);
-            return this;
-        }
-
-        public Builder updatedRemark(String updatedRemark) {
-            instance.setUpdatedRemark(updatedRemark);
-            return this;
-        }
-
-        public Builder deletedTime(Date deletedTime) {
-            instance.setDeletedTime(deletedTime);
-            return this;
-        }
-
-        public Builder deleted(boolean deleted) {
-            instance.setDeleted(deleted);
-            return this;
-        }
-
-        public Application build() {
-            Application application = new Application();
-            application.setPartitionCode(instance.getPartitionCode());
-            application.setDeploymentEnvironment(instance.getDeploymentEnvironment());
-            application.setServiceName(instance.getServiceName());
-            application.setType(instance.getType());
-            application.setVersion(instance.getVersion());
-            application.setDeployedTime(instance.getDeployedTime());
-            application.setDeployedUserId(instance.getDeployedUserId());
-            application.setServerId(instance.getServerId());
-            application.setId(instance.getId());
-            application.setCreatedTime(instance.getCreatedTime());
-            application.setCreatedUserId(instance.getCreatedUserId());
-            application.setUpdatedTime(instance.getUpdatedTime());
-            application.setUpdatedUserId(instance.getUpdatedUserId());
-            application.setUpdatedRemark(instance.getUpdatedRemark());
-            application.setDeletedTime(instance.getDeletedTime());
-            application.setDeleted(instance.isDeleted());
-            return application;
+        public App build() {
+            App app = super.build();
+            app.setPartitionCode(instance.getPartitionCode());
+            app.setDeploymentEnvironment(instance.getDeploymentEnvironment());
+            app.setServiceName(instance.getServiceName());
+            app.setType(instance.getType());
+            app.setVersion(instance.getVersion());
+            app.setDeployedTime(instance.getDeployedTime());
+            app.setDeployedUserId(instance.getDeployedUserId());
+            app.setHostId(instance.getHostId());
+            return app;
         }
     }
 
@@ -219,7 +169,7 @@ public class Application extends BasicDomain {
         public static final String VERSION = "version";
         public static final String DEPLOYED_TIME = "deployed_time";
         public static final String DEPLOYED_USER_ID = "deployed_user_id";
-        public static final String SERVER_ID = "server_id";
+        public static final String HOST_ID = "host_id";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -230,6 +180,6 @@ public class Application extends BasicDomain {
         public static final String VERSION = "version";
         public static final String DEPLOYED_TIME = "deployedTime";
         public static final String DEPLOYED_USER_ID = "deployedUserId";
-        public static final String SERVER_ID = "serverId";
+        public static final String HOST_ID = "hostId";
     }
 }
