@@ -15,34 +15,23 @@ import java.util.Properties;
 public class PropertyUtils {
     private static Properties properties = null;
 
-    public static String getProperty(String key) throws IOException {
-        return getProperties().getProperty(key);
+    public static String getProperty(String key) {
+        return ApplicationHandler.callMethodSuppressThrow(() -> getProperties().getProperty(key));
     }
 
-    public static String getPropertySafe(String key) {
-        try {
-            return getProperty(key);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public static String getProperty(String key, String defaultValue) {
+        return ApplicationHandler.callMethodSuppressThrow(() -> getProperties().getProperty(key, defaultValue));
     }
 
-    public static String getProperty(String key, String defaultValue) throws IOException {
-        return getProperties().getProperty(key, defaultValue);
-    }
-
-    public static Properties getProperties() throws IOException {
+    private static Properties getProperties() throws IOException {
         if (Objects.isNull(properties)) {
             loadProperties();
         }
         return properties;
     }
 
-    public static void loadProperties() throws IOException {
+    private static void loadProperties() throws IOException {
         properties = new Properties();
-        if (!EnvironmentUtils.isDevelopment()) {
-            return;
-        }
         InputStream inputStream = PropertyUtils.class.getClassLoader().getResourceAsStream(Constants.DEVELOPMENT_PROPERTIES);
         InputStreamReader inputStreamReader = new InputStreamReader(inputStream, Constants.CHARSET_UTF_8);
         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);

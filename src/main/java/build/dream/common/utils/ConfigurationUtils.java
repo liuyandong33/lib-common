@@ -16,7 +16,7 @@ public class ConfigurationUtils {
     }
 
     public static String getConfiguration(String configurationKey) {
-        String configurationValue = PropertyUtils.getPropertySafe(configurationKey);
+        String configurationValue = PropertyUtils.getProperty(configurationKey);
         if (StringUtils.isNotBlank(configurationValue)) {
             return configurationValue;
         }
