@@ -372,6 +372,36 @@ public class JavaOperation extends BasicDomain {
             return this;
         }
 
+        public Builder xxUseConcMarkSweepGc(boolean xxUseConcMarkSweepGc) {
+            instance.setXxUseConcMarkSweepGc(xxUseConcMarkSweepGc);
+            return this;
+        }
+
+        public Builder xxUseCmsCompactAtFullCollection(boolean xxUseCmsCompactAtFullCollection) {
+            instance.setXxUseCmsCompactAtFullCollection(xxUseCmsCompactAtFullCollection);
+            return this;
+        }
+
+        public Builder xxCmsInitiatingOccupancyFraction(String xxCmsInitiatingOccupancyFraction) {
+            instance.setXxCmsInitiatingOccupancyFraction(xxCmsInitiatingOccupancyFraction);
+            return this;
+        }
+
+        public Builder xxMaxTenuringThreshold(String xxMaxTenuringThreshold) {
+            instance.setXxMaxTenuringThreshold(xxMaxTenuringThreshold);
+            return this;
+        }
+
+        public Builder xxMaxHeapFreeRation(String xxMaxHeapFreeRation) {
+            instance.setXxMaxHeapFreeRation(xxMaxHeapFreeRation);
+            return this;
+        }
+
+        public Builder xxMinHeapFreeRation(String xxMinHeapFreeRation) {
+            instance.setXxMinHeapFreeRation(xxMinHeapFreeRation);
+            return this;
+        }
+
         public JavaOperation build() {
             JavaOperation javaOperation = super.build();
             javaOperation.setAppId(instance.getAppId());
@@ -383,6 +413,12 @@ public class JavaOperation extends BasicDomain {
             javaOperation.setXxParallelGcThreads(instance.getXxParallelGcThreads());
             javaOperation.setXxUseParNewGc(instance.isXxUseParNewGc());
             javaOperation.setXxUseParallelOldGc(instance.isXxUseParallelOldGc());
+            javaOperation.setXxUseConcMarkSweepGc(instance.isXxUseConcMarkSweepGc());
+            javaOperation.setXxUseCmsCompactAtFullCollection(instance.isXxUseCmsCompactAtFullCollection());
+            javaOperation.setXxCmsInitiatingOccupancyFraction(instance.getXxCmsInitiatingOccupancyFraction());
+            javaOperation.setXxMaxTenuringThreshold(instance.getXxMaxTenuringThreshold());
+            javaOperation.setXxMaxHeapFreeRation(instance.getXxMaxHeapFreeRation());
+            javaOperation.setXxMinHeapFreeRation(instance.getXxMinHeapFreeRation());
             return javaOperation;
         }
     }
@@ -403,6 +439,12 @@ public class JavaOperation extends BasicDomain {
         public static final String XX_PARALLEL_GC_THREADS = "xx_parallel_gc_threads";
         public static final String XX_USE_PAR_NEW_GC = "xx_use_par_new_gc";
         public static final String XX_USE_PARALLEL_OLD_GC = "xx_use_parallel_old_gc";
+        public static final String XX_USE_CONC_MARK_SWEEP_GC = "xx_use_conc_mark_sweep_gc";
+        public static final String XX_USE_CMS_COMPACT_AT_FULL_COLLECTION = "xx_use_cms_compact_at_full_collection";
+        public static final String XX_CMS_INITIATING_OCCUPANCY_FRACTION = "xx_cms_initiating_occupancy_fraction";
+        public static final String XX_MAX_TENURING_THRESHOLD = "xx_max_tenuring_threshold";
+        public static final String XX_MAX_HEAP_FREE_RATION = "xx_max_heap_free_ration";
+        public static final String XX_MIN_HEAP_FREE_RATION = "xx_min_heap_free_ration";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -417,5 +459,11 @@ public class JavaOperation extends BasicDomain {
         public static final String XX_PARALLEL_GC_THREADS = "xxParallelGcThreads";
         public static final String XX_USE_PAR_NEW_GC = "xxUseParNewGc";
         public static final String XX_USE_PARALLEL_OLD_GC = "xxUseParallelOldGc";
+        public static final String XX_USE_CONC_MARK_SWEEP_GC = "xxUseConcMarkSweepGc";
+        public static final String XX_USE_CMS_COMPACT_AT_FULL_COLLECTION = "xxUseCmsCompactAtFullCollection";
+        public static final String XX_CMS_INITIATING_OCCUPANCY_FRACTION = "xxCmsInitiatingOccupancyFraction";
+        public static final String XX_MAX_TENURING_THRESHOLD = "xxMaxTenuringThreshold";
+        public static final String XX_MAX_HEAP_FREE_RATION = "xxMaxHeapFreeRation";
+        public static final String XX_MIN_HEAP_FREE_RATION = "xxMinHeapFreeRation";
     }
 }
