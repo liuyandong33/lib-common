@@ -79,4 +79,9 @@ public class RedisKeys {
     public static final String KEY_SU_NING_TOKENS = "_su_ning_tokens";
 
     public static final String KEY_ANUBIS_TOKENS = "_anubis_tokens";
+
+    /**
+     * rsa key pair redis key
+     */
+    public static final String KEY_RSA_KEY_PAIRS = "_rsa_key_pairs";
 }
