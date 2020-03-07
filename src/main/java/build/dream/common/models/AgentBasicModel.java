@@ -4,7 +4,7 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.AgentUserDetails;
 import build.dream.common.utils.WebSecurityUtils;
 
-public class AgentBasicModel extends BasicModel {
+public class AgentBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
     private Long _userId;
 

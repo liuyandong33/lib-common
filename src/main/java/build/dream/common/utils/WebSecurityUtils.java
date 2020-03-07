@@ -60,6 +60,14 @@ public class WebSecurityUtils {
         return (TenantUserDetails) obtainUserDetails();
     }
 
+    public static OpUserDetails obtainOpUserDetails() {
+        return (OpUserDetails) obtainUserDetails();
+    }
+
+    public static DevOpsUserDetails obtainDevOpsUserDetails() {
+        return (DevOpsUserDetails) obtainUserDetails();
+    }
+
     public static UserDetails obtainUserDetails() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
