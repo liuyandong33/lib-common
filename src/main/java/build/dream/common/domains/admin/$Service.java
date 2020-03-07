@@ -1,8 +1,10 @@
 package build.dream.common.domains.admin;
 
+import build.dream.common.annotations.Table;
 import build.dream.common.basic.BasicDomain;
 
-public class Service extends BasicDomain {
+@Table(name = "service")
+public class $Service extends BasicDomain {
     private Long appId;
     /**
      * 名字
@@ -51,7 +53,7 @@ public class Service extends BasicDomain {
         this.programVersion = programVersion;
     }
 
-    public static class Builder extends BasicDomain.Builder<Builder, Service> {
+    public static class Builder extends BasicDomain.Builder<Builder, $Service> {
         public Builder appId(Long appId) {
             instance.setAppId(appId);
             return this;
@@ -72,8 +74,8 @@ public class Service extends BasicDomain {
             return this;
         }
 
-        public Service build() {
-            Service service = super.build();
+        public $Service build() {
+            $Service service = super.build();
             service.setAppId(instance.getAppId());
             service.setName(instance.getName());
             service.setProgramName(instance.getProgramName());

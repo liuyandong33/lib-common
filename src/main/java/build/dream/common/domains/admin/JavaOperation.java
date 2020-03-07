@@ -10,7 +10,7 @@ public class JavaOperation extends BasicDomain {
     /**
      * 应用ID
      */
-    private Long appId;
+    private Long serviceId;
     /**
      * JVM启动时申请的初始Heap值，默认为操作系统物理内存的1/64但小于1G。默认当空余堆内存大于70%时，JVM会减小heap的大小到-Xms指定的大小，
      * 可通过-XX:MaxHeapFreeRation=来指定这个比列。Server端JVM最好将-Xms和-Xmx设为相同值，避免每次垃圾回收完成后JVM重新分配内存；开发测试机JVM可以保留默认值。(例如：-Xms4g)
@@ -100,12 +100,12 @@ public class JavaOperation extends BasicDomain {
      */
     private String xxMinHeapFreeRation;
 
-    public Long getAppId() {
-        return appId;
+    public Long getServiceId() {
+        return serviceId;
     }
 
-    public void setAppId(Long appId) {
-        this.appId = appId;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getXms() {
@@ -317,8 +317,8 @@ public class JavaOperation extends BasicDomain {
     }
 
     public static class Builder extends BasicDomain.Builder<Builder, JavaOperation> {
-        public Builder appId(Long appId) {
-            instance.setAppId(appId);
+        public Builder serviceId(Long serviceId) {
+            instance.setServiceId(serviceId);
             return this;
         }
 
@@ -404,7 +404,7 @@ public class JavaOperation extends BasicDomain {
 
         public JavaOperation build() {
             JavaOperation javaOperation = super.build();
-            javaOperation.setAppId(instance.getAppId());
+            javaOperation.setServiceId(instance.getServiceId());
             javaOperation.setXms(instance.getXms());
             javaOperation.setXmx(instance.getXmx());
             javaOperation.setXmn(instance.getXmn());
@@ -428,7 +428,7 @@ public class JavaOperation extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String APP_ID = "app_id";
+        public static final String SERVICE_ID = "serviceId";
         public static final String XMS = "xms";
         public static final String XMX = "xmx";
         public static final String XMN = "xmn";
@@ -448,7 +448,7 @@ public class JavaOperation extends BasicDomain {
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
-        public static final String APP_ID = "appId";
+        public static final String SERVICE_ID = "service_id";
         public static final String XMS = "xms";
         public static final String XMX = "xmx";
         public static final String XMN = "xmn";
