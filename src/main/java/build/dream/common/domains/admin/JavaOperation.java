@@ -410,6 +410,7 @@ public class JavaOperation extends BasicDomain {
             javaOperation.setXmn(instance.getXmn());
             javaOperation.setXxPermSize(instance.getXxPermSize());
             javaOperation.setXxUseSerialGc(instance.isXxUseSerialGc());
+            javaOperation.setXxUseParallelGc(instance.isXxUseParallelGc());
             javaOperation.setXxParallelGcThreads(instance.getXxParallelGcThreads());
             javaOperation.setXxUseParNewGc(instance.isXxUseParNewGc());
             javaOperation.setXxUseParallelOldGc(instance.isXxUseParallelOldGc());
