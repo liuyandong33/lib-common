@@ -79,11 +79,18 @@ public class Constants {
 
     /**
      * 用户类型常量
+     *
+     * @see #USER_TYPE_TENANT: 商户
+     * @see #USER_TYPE_TENANT_EMPLOYEE: 商户员工
+     * @see #USER_TYPE_AGENT: 代理商
+     * @see #USER_TYPE_OP: 运营
+     * @see #USER_TYPE_DEV_OPS: 运维
      */
     public static final Integer USER_TYPE_TENANT = 1;
     public static final Integer USER_TYPE_TENANT_EMPLOYEE = 2;
     public static final Integer USER_TYPE_AGENT = 3;
-    public static final Integer USER_TYPE_ADMIN = 4;
+    public static final Integer USER_TYPE_OP = 4;
+    public static final Integer USER_TYPE_DEV_OPS = 5;
 
     /**
      * 门店类型常量
