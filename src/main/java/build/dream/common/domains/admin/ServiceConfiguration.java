@@ -43,7 +43,7 @@ public class ServiceConfiguration extends BasicDomain {
         }
 
         public Builder configurationValue(String configurationValue) {
-            instance.setConfigurationKey(configurationValue);
+            instance.setConfigurationValue(configurationValue);
             return this;
         }
 
