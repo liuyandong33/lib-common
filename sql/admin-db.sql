@@ -169,6 +169,8 @@ CREATE TABLE java_operation
     xx_use_cms_compact_at_full_collection VARCHAR(20) NOT NULL COMMENT '在Full GC的时候，对老年代进行压缩整理。因为CMS是不会移动内存的，因此非常容易产生内存碎片。因此增加这个参数就可以在FullGC后对内存进行压缩整理，消除内存碎片。当然这个操作也有一定缺点，就是会增加CPU开销与GC时间，所以可以通过-XX:CMSFullGCsBeforeCompaction=3 这个参数来控制多少次Full GC以后进行一次碎片整理。',
     xx_cms_initiating_occupancy_fraction VARCHAR(20) NOT NULL COMMENT '代表老年代使用空间达到80%后，就进行Full GC。CMS收集器在进行垃圾收集时，和应用程序一起工作，所以，不能等到老年代几乎完全被填满了再进行收集，这样会影响并发的应用线程的空间使用，从而再次触发不必要的Full GC。',
     xx_max_tenuring_threshold VARCHAR(20) NOT NULL COMMENT '垃圾的最大年龄，代表对象在Survivor区经过10次复制以后才进入老年代。如果设置为0，则年轻代对象不经过Survivor区，直接进入老年代。',
+    xx_max_heap_free_ration VARCHAR(20) NOT NULL COMMENT '',
+    xx_min_heap_free_ration VARCHAR(20) NOT NULL COMMENT '',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

@@ -428,7 +428,7 @@ public class JavaOperation extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String SERVICE_ID = "serviceId";
+        public static final String SERVICE_ID = "service_id";
         public static final String XMS = "xms";
         public static final String XMX = "xmx";
         public static final String XMN = "xmn";
@@ -448,7 +448,7 @@ public class JavaOperation extends BasicDomain {
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
-        public static final String SERVICE_ID = "service_id";
+        public static final String SERVICE_ID = "serviceId";
         public static final String XMS = "xms";
         public static final String XMX = "xmx";
         public static final String XMN = "xmn";
