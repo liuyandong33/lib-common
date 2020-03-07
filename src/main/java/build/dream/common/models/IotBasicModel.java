@@ -4,7 +4,7 @@ import build.dream.common.annotations.InstantiateObjectIgnore;
 import build.dream.common.auth.IotUserDetails;
 import build.dream.common.utils.WebSecurityUtils;
 
-public class IotBasicModel extends BasicModel {
+public class IotBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
     private Long _userId;
 

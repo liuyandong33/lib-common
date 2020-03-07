@@ -3,7 +3,7 @@ package build.dream.common.models;
 import build.dream.common.annotations.InstantiateObjectIgnore;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public class DeviceBasicModel extends BasicModel {
+public class DeviceBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
     private String _clientId;
 

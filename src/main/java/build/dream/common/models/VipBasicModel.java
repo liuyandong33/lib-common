@@ -6,7 +6,7 @@ import build.dream.common.domains.saas.Tenant;
 import build.dream.common.utils.TenantUtils;
 import build.dream.common.utils.WebSecurityUtils;
 
-public class VipBasicModel extends BasicModel {
+public class VipBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
     private Long _tenantId;
 
