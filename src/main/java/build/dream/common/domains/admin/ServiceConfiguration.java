@@ -2,17 +2,17 @@ package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
 
-public class AppConfiguration extends BasicDomain {
-    private Long appId;
+public class ServiceConfiguration extends BasicDomain {
+    private Long serviceId;
     private String configurationKey;
     private String configurationValue;
 
-    public Long getAppId() {
-        return appId;
+    public Long getServiceId() {
+        return serviceId;
     }
 
-    public void setAppId(Long appId) {
-        this.appId = appId;
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public String getConfigurationKey() {
@@ -31,9 +31,9 @@ public class AppConfiguration extends BasicDomain {
         this.configurationValue = configurationValue;
     }
 
-    public static class Builder extends BasicDomain.Builder<Builder, AppConfiguration> {
-        public Builder appId(Long appId) {
-            instance.setAppId(appId);
+    public static class Builder extends BasicDomain.Builder<Builder, ServiceConfiguration> {
+        public Builder serviceId(Long serviceId) {
+            instance.setServiceId(serviceId);
             return this;
         }
 
@@ -47,12 +47,12 @@ public class AppConfiguration extends BasicDomain {
             return this;
         }
 
-        public AppConfiguration build() {
-            AppConfiguration appConfiguration = super.build();
-            appConfiguration.setAppId(instance.getAppId());
-            appConfiguration.setConfigurationKey(instance.getConfigurationKey());
-            appConfiguration.setConfigurationValue(instance.getConfigurationValue());
-            return appConfiguration;
+        public ServiceConfiguration build() {
+            ServiceConfiguration serviceConfiguration = super.build();
+            serviceConfiguration.setServiceId(instance.getServiceId());
+            serviceConfiguration.setConfigurationKey(instance.getConfigurationKey());
+            serviceConfiguration.setConfigurationValue(instance.getConfigurationValue());
+            return serviceConfiguration;
         }
     }
 
@@ -61,13 +61,13 @@ public class AppConfiguration extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String APP_ID = "app_id";
+        public static final String SERVICE_ID = "service_id";
         public static final String CONFIGURATION_KEY = "configuration_key";
         public static final String CONFIGURATION_VALUE = "configuration_value";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
-        public static final String APP_ID = "appId";
+        public static final String SERVICE_ID = "serviceId";
         public static final String CONFIGURATION_KEY = "configurationKey";
         public static final String CONFIGURATION_VALUE = "configurationValue";
     }
