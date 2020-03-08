@@ -1131,3 +1131,63 @@ CREATE TABLE union_pay_account
     deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '银联支付账号';
+
+DROP TABLE IF EXISTS op_role;
+CREATE TABLE op_role
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '运营系统角色';
+
+DROP TABLE IF EXISTS user_op_role_r;
+CREATE TABLE user_op_role_r
+(
+    user_id BIGINT NOT NULL COMMENT 'system_user.id',
+    role_id BIGINT NOT NULL COMMENT 'op_role.id',
+    PRIMARY KEY (user_id, role_id)
+) COMMENT '用户与运营系统角色中间表';
+
+DROP TABLE IF EXISTS op_role_op_privilege_r;
+CREATE TABLE op_role_op_privilege_r
+(
+    role_id BIGINT NOT NULL COMMENT 'op_role.id',
+    privilege_id BIGINT NOT NULL COMMENT 'op_privilege.id',
+    PRIMARY KEY (role_id, privilege_id)
+) COMMENT '运营系统角色与运营系统权限关联表';
+
+DROP TABLE IF EXISTS dev_ops_role;
+CREATE TABLE dev_ops_role
+(
+    id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+    role_name VARCHAR(20) NOT NULL COMMENT '角色名称',
+    created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
+    created_user_id BIGINT NOT NULL COMMENT '创建人id',
+    updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
+    updated_user_id BIGINT NOT NULL COMMENT '最后更新人id',
+    updated_remark VARCHAR(255) NOT NULL COMMENT '最后更新备注',
+    deleted_time DATETIME NOT NULL DEFAULT '1970-01-01 00:00:00' COMMENT '删除时间，只有当 deleted = 1 时有意义，默认值为1970-01-01 00:00:00',
+    deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
+) COMMENT '运维系统角色';
+
+DROP TABLE IF EXISTS user_dev_ops_role_r;
+CREATE TABLE user_dev_ops_role_r
+(
+    user_id BIGINT NOT NULL COMMENT 'system_user.id',
+    role_id BIGINT NOT NULL COMMENT 'dev_ops_role.id',
+    PRIMARY KEY (user_id, role_id)
+) COMMENT '用户与运维系统角色中间表';
+
+DROP TABLE IF EXISTS dev_ops_role_op_privilege_r;
+CREATE TABLE dev_ops_role_op_privilege_r
+(
+    role_id BIGINT NOT NULL COMMENT 'dev_ops_role.id',
+    privilege_id BIGINT NOT NULL COMMENT 'dev_ops_privilege.id',
+    PRIMARY KEY (role_id, privilege_id)
+) COMMENT '运维系统角色与运维系统权限关联表';
