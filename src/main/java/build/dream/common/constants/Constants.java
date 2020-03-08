@@ -602,6 +602,7 @@ public class Constants {
     public static final String CLIENT_TYPE_POS = "POS";
     public static final String CLIENT_TYPE_WEB = "WEB";
     public static final String CLIENT_TYPE_O2O = "O2O";
+    public static final String CLIENT_TYPE_AGENT = "AGENT";
     public static final String CLIENT_TYPE_OP = "OP";
     public static final String CLIENT_TYPE_DEV_OPS = "DEV_OPS";
 
