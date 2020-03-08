@@ -63,6 +63,9 @@ public class Constants {
     public static final String SERVICE_NAME_APPAPI = "appapi";
     public static final String SERVICE_NAME_WEBAPI = "webapi";
     public static final String SERVICE_NAME_O2OAPI = "o2oapi";
+    public static final String SERVICE_NAME_AGENT_API = "agentapi";
+    public static final String SERVICE_NAME_OP_API = "opapi";
+    public static final String SERVICE_NAME_DEV_OPS_API = "devopsapi";
     public static final String SERVICE_NAME_O2O = "o2o";
     public static final String SERVICE_NAME_PORTAL = "portal";
     public static final String SERVICE_NAME_GATEWAY = "gateway";
