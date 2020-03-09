@@ -26,7 +26,7 @@ public class ServiceNode extends BasicDomain {
     /**
      * 进程ID
      */
-    private Integer pid;
+    private String pid;
 
     public Long getServiceId() {
         return serviceId;
@@ -60,11 +60,11 @@ public class ServiceNode extends BasicDomain {
         this.status = status;
     }
 
-    public Integer getPid() {
+    public String getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(String pid) {
         this.pid = pid;
     }
 
@@ -89,7 +89,7 @@ public class ServiceNode extends BasicDomain {
             return this;
         }
 
-        public Builder pid(Integer pid) {
+        public Builder pid(String pid) {
             instance.setPid(pid);
             return this;
         }

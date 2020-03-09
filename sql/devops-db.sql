@@ -200,7 +200,7 @@ CREATE TABLE service_node
     host_id BIGINT NOT NULL COMMENT '主机ID',
     port INT NOT NULL COMMENT '端口号',
     status TINYINT NOT NULL COMMENT '状态，1-运行中，2-已停止',
-    pid INT NOT NULL COMMENT '进程ID',
+    pid VARCHAR(20) NOT NULL COMMENT '进程ID',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
