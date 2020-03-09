@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `host`;
 CREATE TABLE `host`
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'id',
-    `type` INT NOT NULL COMMENT '主机类型，1-真机，2-虚拟机',
+    `type` INT NOT NULL COMMENT '主机类型，1-物理机，2-虚拟机',
     parent_id BIGINT NOT NULL COMMENT '宿主机id',
     `name` VARCHAR(20) NOT NULL COMMENT '主机名称',
     ip_address VARCHAR(20) NOT NULL COMMENT 'ip 地址',

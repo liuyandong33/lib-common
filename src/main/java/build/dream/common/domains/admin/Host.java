@@ -1,10 +1,11 @@
 package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
+import build.dream.common.domains.saas.Tenant;
 
 public class Host extends BasicDomain {
     /**
-     * 主机类型，1-真机，2-虚拟机
+     * 主机类型，1-物理机，2-虚拟机
      */
     private Integer type;
     /**
@@ -125,5 +126,103 @@ public class Host extends BasicDomain {
 
     public void setMemorySize(Integer memorySize) {
         this.memorySize = memorySize;
+    }
+
+    public static class Builder extends BasicDomain.Builder<Builder, Host> {
+        public Builder type(Integer type) {
+            instance.setType(type);
+            return this;
+        }
+
+        public Builder parentId(Long parentId) {
+            instance.setParentId(parentId);
+            return this;
+        }
+
+        public Builder name(String name) {
+            instance.setName(name);
+            return this;
+        }
+
+        public Builder ipAddress(String ipAddress) {
+            instance.setIpAddress(ipAddress);
+            return this;
+        }
+
+        public Builder sshPort(Integer sshPort) {
+            instance.setSshPort(sshPort);
+            return this;
+        }
+
+        public Builder userName(String userName) {
+            instance.setUserName(userName);
+            return this;
+        }
+
+        public Builder password(String password) {
+            instance.setPassword(password);
+            return this;
+        }
+
+        public Builder diskSize(Integer diskSize) {
+            instance.setDiskSize(diskSize);
+            return this;
+        }
+
+        public Builder cpuCoreQuantity(Integer cpuCoreQuantity) {
+            instance.setCpuCoreQuantity(cpuCoreQuantity);
+            return this;
+        }
+
+        public Builder memorySize(Integer memorySize) {
+            instance.setMemorySize(memorySize);
+            return this;
+        }
+
+        @Override
+        public Host build() {
+            Host host = super.build();
+            host.setType(instance.getType());
+            host.setParentId(instance.getParentId());
+            host.setName(instance.getName());
+            host.setIpAddress(instance.getIpAddress());
+            host.setUserName(instance.getUserName());
+            host.setSshPort(instance.getSshPort());
+            host.setPassword(instance.getPassword());
+            host.setDiskSize(instance.getDiskSize());
+            host.setCpuCoreQuantity(instance.getCpuCoreQuantity());
+            host.setMemorySize(instance.getMemorySize());
+            return host;
+        }
+    }
+
+    public static Tenant.Builder builder() {
+        return new Tenant.Builder();
+    }
+
+    public static final class ColumnName extends BasicDomain.ColumnName {
+        public static final String TYPE = "type";
+        public static final String PARENT_ID = "parent_id";
+        public static final String NAME = "name";
+        public static final String IP_ADDRESS = "ip_address";
+        public static final String SSH_PORT = "ssh_port";
+        public static final String USER_NAME = "user_name";
+        public static final String PASSWORD = "password";
+        public static final String DISK_SIZE = "disk_size";
+        public static final String CPU_CORE_QUANTITY = "cpu_core_quantity";
+        public static final String MEMORY_SIZE = "memory_size";
+    }
+
+    public static final class FieldName extends BasicDomain.FieldName {
+        public static final String TYPE = "type";
+        public static final String PARENT_ID = "parentId";
+        public static final String NAME = "name";
+        public static final String IP_ADDRESS = "ipAddress";
+        public static final String SSH_PORT = "sshPort";
+        public static final String USER_NAME = "userName";
+        public static final String PASSWORD = "password";
+        public static final String DISK_SIZE = "diskSize";
+        public static final String CPU_CORE_QUANTITY = "cpuCoreQuantity";
+        public static final String MEMORY_SIZE = "memorySize";
     }
 }
