@@ -21,6 +21,8 @@ public class $Service extends BasicDomain {
      */
     private String programVersion;
 
+    private String healthCheckPath;
+
     public Long getAppId() {
         return appId;
     }
@@ -53,6 +55,14 @@ public class $Service extends BasicDomain {
         this.programVersion = programVersion;
     }
 
+    public String getHealthCheckPath() {
+        return healthCheckPath;
+    }
+
+    public void setHealthCheckPath(String healthCheckPath) {
+        this.healthCheckPath = healthCheckPath;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, $Service> {
         public Builder appId(Long appId) {
             instance.setAppId(appId);
@@ -74,12 +84,18 @@ public class $Service extends BasicDomain {
             return this;
         }
 
+        public Builder healthCheckPath(String healthCheckPath) {
+            instance.setHealthCheckPath(healthCheckPath);
+            return this;
+        }
+
         public $Service build() {
             $Service service = super.build();
             service.setAppId(instance.getAppId());
             service.setName(instance.getName());
             service.setProgramName(instance.getProgramName());
             service.setProgramVersion(instance.getProgramVersion());
+            service.setHealthCheckPath(instance.getHealthCheckPath());
             return service;
         }
     }
@@ -93,6 +109,7 @@ public class $Service extends BasicDomain {
         public static final String NAME = "name";
         public static final String PROGRAM_NAME = "program_name";
         public static final String PROGRAM_VERSION = "program_version";
+        public static final String HEALTH_CHECK_PATH = "health_check_path";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -100,5 +117,6 @@ public class $Service extends BasicDomain {
         public static final String NAME = "name";
         public static final String PROGRAM_NAME = "programName";
         public static final String PROGRAM_VERSION = "programVersion";
+        public static final String HEALTH_CHECK_PATH = "healthCheckPath";
     }
 }
