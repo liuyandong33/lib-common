@@ -1,7 +1,6 @@
 package build.dream.common.domains.admin;
 
 import build.dream.common.basic.BasicDomain;
-import build.dream.common.domains.saas.Tenant;
 
 public class Host extends BasicDomain {
     /**
@@ -196,8 +195,8 @@ public class Host extends BasicDomain {
         }
     }
 
-    public static Tenant.Builder builder() {
-        return new Tenant.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
