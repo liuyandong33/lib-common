@@ -68,6 +68,7 @@ CREATE TABLE `host`
     disk_size INT NOT NULL COMMENT '硬盘大小，单位GB',
     cpu_core_quantity INT NOT NULL COMMENT 'CPU 核心数量',
     memory_size INT NOT NULL COMMENT '内存大小，单位B',
+    status TINYINT NOT NULL COMMENT '状态，1-运行中，2-已停止',
     created_time DATETIME DEFAULT NOW() NOT NULL COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',

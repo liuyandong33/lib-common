@@ -48,6 +48,11 @@ public class Host extends BasicDomain {
      */
     private Integer memorySize;
 
+    /**
+     * 状态，1-运行中，2-已停止
+     */
+    private Integer status;
+
     public Integer getType() {
         return type;
     }
@@ -128,6 +133,14 @@ public class Host extends BasicDomain {
         this.memorySize = memorySize;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public static class Builder extends BasicDomain.Builder<Builder, Host> {
         public Builder type(Integer type) {
             instance.setType(type);
@@ -179,6 +192,11 @@ public class Host extends BasicDomain {
             return this;
         }
 
+        public Builder status(Integer status) {
+            instance.setStatus(status);
+            return this;
+        }
+
         @Override
         public Host build() {
             Host host = super.build();
@@ -192,6 +210,7 @@ public class Host extends BasicDomain {
             host.setDiskSize(instance.getDiskSize());
             host.setCpuCoreQuantity(instance.getCpuCoreQuantity());
             host.setMemorySize(instance.getMemorySize());
+            host.setStatus(instance.getStatus());
             return host;
         }
     }
@@ -211,6 +230,7 @@ public class Host extends BasicDomain {
         public static final String DISK_SIZE = "disk_size";
         public static final String CPU_CORE_QUANTITY = "cpu_core_quantity";
         public static final String MEMORY_SIZE = "memory_size";
+        public static final String STATUS = "status";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -224,5 +244,6 @@ public class Host extends BasicDomain {
         public static final String DISK_SIZE = "diskSize";
         public static final String CPU_CORE_QUANTITY = "cpuCoreQuantity";
         public static final String MEMORY_SIZE = "memorySize";
+        public static final String STATUS = "status";
     }
 }
