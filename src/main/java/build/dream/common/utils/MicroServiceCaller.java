@@ -398,7 +398,7 @@ public class MicroServiceCaller {
      */
     @HystrixCommand(fallbackMethod = "doPostWithFormRequestBodyFallback")
     public ApiRest doPostWithFormRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithFormRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+        return ApiRest.fromJson(doPostOriginalWithFormRequestBody(serviceName, controllerName, actionName, requestBody));
     }
 
     public ApiRest doPostWithFormRequestBodyFallback(String serviceName, String controllerName, String actionName, String requestBody) {
@@ -435,7 +435,7 @@ public class MicroServiceCaller {
      */
     @HystrixCommand(fallbackMethod = "doPostWithJsonRequestBodyFallback")
     public ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, requestBody));
+        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, controllerName, actionName, requestBody));
     }
 
     public ApiRest doPostWithJsonRequestBodyFallback(String serviceName, String controllerName, String actionName, String requestBody) {
@@ -474,7 +474,7 @@ public class MicroServiceCaller {
      */
     @HystrixCommand(fallbackMethod = "doPostWithJsonRequestBodyFallback")
     public ApiRest doPostWithJsonRequestBody(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
-        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, serviceName, controllerName, actionName, queryParams, requestBody));
+        return ApiRest.fromJson(doPostOriginalWithJsonRequestBody(serviceName, controllerName, actionName, queryParams, requestBody));
     }
 
     public ApiRest doPostWithJsonRequestBodyFallback(String serviceName, String controllerName, String actionName, Map<String, String> queryParams, String requestBody) {
