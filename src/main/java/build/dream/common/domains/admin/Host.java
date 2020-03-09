@@ -3,6 +3,7 @@ package build.dream.common.domains.admin;
 import build.dream.common.basic.BasicDomain;
 
 public class Host extends BasicDomain {
+    public static final String TABLE_NAME = "host";
     /**
      * 主机类型，1-物理机，2-虚拟机
      */
