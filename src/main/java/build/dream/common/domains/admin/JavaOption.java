@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JavaOperation extends BasicDomain {
+public class JavaOption extends BasicDomain {
     /**
      * 应用ID
      */
@@ -316,7 +316,7 @@ public class JavaOperation extends BasicDomain {
         return StringUtils.join(javaOpts, " ");
     }
 
-    public static class Builder extends BasicDomain.Builder<Builder, JavaOperation> {
+    public static class Builder extends BasicDomain.Builder<Builder, JavaOption> {
         public Builder serviceId(Long serviceId) {
             instance.setServiceId(serviceId);
             return this;
@@ -402,25 +402,25 @@ public class JavaOperation extends BasicDomain {
             return this;
         }
 
-        public JavaOperation build() {
-            JavaOperation javaOperation = super.build();
-            javaOperation.setServiceId(instance.getServiceId());
-            javaOperation.setXms(instance.getXms());
-            javaOperation.setXmx(instance.getXmx());
-            javaOperation.setXmn(instance.getXmn());
-            javaOperation.setXxPermSize(instance.getXxPermSize());
-            javaOperation.setXxUseSerialGc(instance.isXxUseSerialGc());
-            javaOperation.setXxUseParallelGc(instance.isXxUseParallelGc());
-            javaOperation.setXxParallelGcThreads(instance.getXxParallelGcThreads());
-            javaOperation.setXxUseParNewGc(instance.isXxUseParNewGc());
-            javaOperation.setXxUseParallelOldGc(instance.isXxUseParallelOldGc());
-            javaOperation.setXxUseConcMarkSweepGc(instance.isXxUseConcMarkSweepGc());
-            javaOperation.setXxUseCmsCompactAtFullCollection(instance.isXxUseCmsCompactAtFullCollection());
-            javaOperation.setXxCmsInitiatingOccupancyFraction(instance.getXxCmsInitiatingOccupancyFraction());
-            javaOperation.setXxMaxTenuringThreshold(instance.getXxMaxTenuringThreshold());
-            javaOperation.setXxMaxHeapFreeRation(instance.getXxMaxHeapFreeRation());
-            javaOperation.setXxMinHeapFreeRation(instance.getXxMinHeapFreeRation());
-            return javaOperation;
+        public JavaOption build() {
+            JavaOption javaOption = super.build();
+            javaOption.setServiceId(instance.getServiceId());
+            javaOption.setXms(instance.getXms());
+            javaOption.setXmx(instance.getXmx());
+            javaOption.setXmn(instance.getXmn());
+            javaOption.setXxPermSize(instance.getXxPermSize());
+            javaOption.setXxUseSerialGc(instance.isXxUseSerialGc());
+            javaOption.setXxUseParallelGc(instance.isXxUseParallelGc());
+            javaOption.setXxParallelGcThreads(instance.getXxParallelGcThreads());
+            javaOption.setXxUseParNewGc(instance.isXxUseParNewGc());
+            javaOption.setXxUseParallelOldGc(instance.isXxUseParallelOldGc());
+            javaOption.setXxUseConcMarkSweepGc(instance.isXxUseConcMarkSweepGc());
+            javaOption.setXxUseCmsCompactAtFullCollection(instance.isXxUseCmsCompactAtFullCollection());
+            javaOption.setXxCmsInitiatingOccupancyFraction(instance.getXxCmsInitiatingOccupancyFraction());
+            javaOption.setXxMaxTenuringThreshold(instance.getXxMaxTenuringThreshold());
+            javaOption.setXxMaxHeapFreeRation(instance.getXxMaxHeapFreeRation());
+            javaOption.setXxMinHeapFreeRation(instance.getXxMinHeapFreeRation());
+            return javaOption;
         }
     }
 

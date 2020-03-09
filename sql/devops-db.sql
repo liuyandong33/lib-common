@@ -128,8 +128,8 @@ CREATE TABLE server
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '是否删除，0-未删除，1-已删除'
 ) COMMENT '服务器';
 
-DROP TABLE IF EXISTS java_operation;
-CREATE TABLE java_operation
+DROP TABLE IF EXISTS java_option;
+CREATE TABLE java_option
 (
     id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
     service_id BIGINT NOT NULL COMMENT '服务ID',
