@@ -46,7 +46,7 @@ public class Host extends BasicDomain {
     /**
      * 内存大小，单位B
      */
-    private Integer memorySize;
+    private Long memorySize;
 
     /**
      * 状态，1-运行中，2-已停止
@@ -125,11 +125,11 @@ public class Host extends BasicDomain {
         this.cpuCoreQuantity = cpuCoreQuantity;
     }
 
-    public Integer getMemorySize() {
+    public Long getMemorySize() {
         return memorySize;
     }
 
-    public void setMemorySize(Integer memorySize) {
+    public void setMemorySize(Long memorySize) {
         this.memorySize = memorySize;
     }
 
@@ -187,7 +187,7 @@ public class Host extends BasicDomain {
             return this;
         }
 
-        public Builder memorySize(Integer memorySize) {
+        public Builder memorySize(Long memorySize) {
             instance.setMemorySize(memorySize);
             return this;
         }
