@@ -8,89 +8,89 @@ import build.dream.common.utils.WebSecurityUtils;
 
 public class CateringBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private Long _userId;
+    private Long $userId;
 
     @InstantiateObjectIgnore
-    private Long _tenantId;
+    private Long $tenantId;
 
     @InstantiateObjectIgnore
-    private String _tenantCode;
+    private String $tenantCode;
 
     @InstantiateObjectIgnore
-    private Long _branchId;
+    private Long $branchId;
 
     @InstantiateObjectIgnore
-    private String _branchCode;
+    private String $branchCode;
 
     @InstantiateObjectIgnore
-    private String _publicKey;
+    private String $publicKey;
 
     @InstantiateObjectIgnore
-    private String _privateKey;
+    private String $privateKey;
 
     @InstantiateObjectIgnore
-    private String _partitionCode;
+    private String $partitionCode;
 
     @InstantiateObjectIgnore
-    private String _clientType;
+    private String $clientType;
 
     @InstantiateObjectIgnore
-    private Integer _vipSharedType;
+    private Integer $vipSharedType;
 
     public CateringBasicModel() {
         CateringUserDetails cateringUserDetails = WebSecurityUtils.obtainCateringUserDetails();
         Long tenantId = cateringUserDetails.getTenantId();
         Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
-        this._userId = cateringUserDetails.getUserId();
-        this._tenantId = tenantId;
-        this._tenantCode = cateringUserDetails.getTenantCode();
-        this._branchId = cateringUserDetails.getBranchId();
-        this._branchCode = cateringUserDetails.getBranchCode();
-        this._publicKey = cateringUserDetails.getPublicKey();
-        this._privateKey = cateringUserDetails.getPrivateKey();
-        this._partitionCode = cateringUserDetails.getPartitionCode();
-        this._clientType = cateringUserDetails.getClientType();
-        this._vipSharedType = tenant.getVipSharedType();
+        this.$userId = cateringUserDetails.getUserId();
+        this.$tenantId = tenantId;
+        this.$tenantCode = cateringUserDetails.getTenantCode();
+        this.$branchId = cateringUserDetails.getBranchId();
+        this.$branchCode = cateringUserDetails.getBranchCode();
+        this.$publicKey = cateringUserDetails.getPublicKey();
+        this.$privateKey = cateringUserDetails.getPrivateKey();
+        this.$partitionCode = cateringUserDetails.getPartitionCode();
+        this.$clientType = cateringUserDetails.getClientType();
+        this.$vipSharedType = tenant.getVipSharedType();
     }
 
     public Long obtainUserId() {
-        return _userId;
+        return $userId;
     }
 
     public Long obtainTenantId() {
-        return _tenantId;
+        return $tenantId;
     }
 
     public String obtainTenantCode() {
-        return _tenantCode;
+        return $tenantCode;
     }
 
     public Long obtainBranchId() {
-        return _branchId;
+        return $branchId;
     }
 
     public String obtainBranchCode() {
-        return _branchCode;
+        return $branchCode;
     }
 
     public String obtainPublicKey() {
-        return _publicKey;
+        return $publicKey;
     }
 
     public String obtainPrivateKey() {
-        return _privateKey;
+        return $privateKey;
     }
 
     public String obtainPartitionCode() {
-        return _partitionCode;
+        return $partitionCode;
     }
 
     public String obtainClientType() {
-        return this._clientType;
+        return this.$clientType;
     }
 
     public Integer obtainVipSharedType() {
-        return this._vipSharedType;
+        return this.$vipSharedType;
     }
 }

@@ -5,13 +5,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 public class DeviceBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private String _clientId;
+    private String $clientId;
 
     public DeviceBasicModel() {
-        this._clientId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        this.$clientId = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     }
 
     public String obtainClientId() {
-        return _clientId;
+        return $clientId;
     }
 }

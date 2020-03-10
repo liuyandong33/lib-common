@@ -6,30 +6,30 @@ import build.dream.common.utils.WebSecurityUtils;
 
 public class AgentBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private Long _userId;
+    private Long $userId;
 
     @InstantiateObjectIgnore
-    private Long _agentId;
+    private Long $agentId;
 
     @InstantiateObjectIgnore
-    private String _agentCode;
+    private String $agentCode;
 
     public AgentBasicModel() {
         AgentUserDetails agentUserDetails = WebSecurityUtils.obtainAgentUserDetails();
-        this._userId = agentUserDetails.getUserId();
-        this._agentId = agentUserDetails.getAgentId();
-        this._agentCode = agentUserDetails.getAgentCode();
+        this.$userId = agentUserDetails.getUserId();
+        this.$agentId = agentUserDetails.getAgentId();
+        this.$agentCode = agentUserDetails.getAgentCode();
     }
 
     public Long obtainUserId() {
-        return _userId;
+        return $userId;
     }
 
     public Long obtainAgentId() {
-        return _agentId;
+        return $agentId;
     }
 
     public String obtainAgentCode() {
-        return _agentCode;
+        return $agentCode;
     }
 }

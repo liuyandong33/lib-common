@@ -8,73 +8,73 @@ import build.dream.common.utils.WebSecurityUtils;
 
 public class VipBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private Long _tenantId;
+    private Long $tenantId;
 
     @InstantiateObjectIgnore
-    private String _tenantCode;
+    private String $tenantCode;
 
     @InstantiateObjectIgnore
-    private String _publicKey;
+    private String $publicKey;
 
     @InstantiateObjectIgnore
-    private String _privateKey;
+    private String $privateKey;
 
     @InstantiateObjectIgnore
-    private String _partitionCode;
+    private String $partitionCode;
 
     @InstantiateObjectIgnore
-    private String _clientType;
+    private String $clientType;
 
     @InstantiateObjectIgnore
-    private Integer _vipSharedType;
+    private Integer $vipSharedType;
 
     @InstantiateObjectIgnore
-    private Long _vipId;
+    private Long $vipId;
 
     public VipBasicModel() {
         VipUserDetails vipUserDetails = WebSecurityUtils.obtainVipUserDetails();
         Long tenantId = vipUserDetails.getTenantId();
         Tenant tenant = TenantUtils.obtainTenantInfo(tenantId);
 
-        this._tenantId = tenantId;
-        this._tenantCode = vipUserDetails.getTenantCode();
-        this._publicKey = vipUserDetails.getPublicKey();
-        this._privateKey = vipUserDetails.getPrivateKey();
-        this._partitionCode = vipUserDetails.getPartitionCode();
-        this._clientType = vipUserDetails.getClientType();
-        this._vipSharedType = tenant.getVipSharedType();
-        this._vipId = vipUserDetails.getVipId();
+        this.$tenantId = tenantId;
+        this.$tenantCode = vipUserDetails.getTenantCode();
+        this.$publicKey = vipUserDetails.getPublicKey();
+        this.$privateKey = vipUserDetails.getPrivateKey();
+        this.$partitionCode = vipUserDetails.getPartitionCode();
+        this.$clientType = vipUserDetails.getClientType();
+        this.$vipSharedType = tenant.getVipSharedType();
+        this.$vipId = vipUserDetails.getVipId();
     }
 
     public Long obtainTenantId() {
-        return _tenantId;
+        return $tenantId;
     }
 
     public String obtainTenantCode() {
-        return _tenantCode;
+        return $tenantCode;
     }
 
     public String obtainPublicKey() {
-        return _publicKey;
+        return $publicKey;
     }
 
     public String obtainPrivateKey() {
-        return _privateKey;
+        return $privateKey;
     }
 
     public String obtainPartitionCode() {
-        return _partitionCode;
+        return $partitionCode;
     }
 
     public String obtainClientType() {
-        return this._clientType;
+        return this.$clientType;
     }
 
     public Integer obtainVipSharedType() {
-        return this._vipSharedType;
+        return this.$vipSharedType;
     }
 
     public Long obtainVipId() {
-        return this._vipId;
+        return this.$vipId;
     }
 }

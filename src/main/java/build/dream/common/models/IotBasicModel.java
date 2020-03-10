@@ -6,70 +6,70 @@ import build.dream.common.utils.WebSecurityUtils;
 
 public class IotBasicModel extends OAuthBasicModel {
     @InstantiateObjectIgnore
-    private Long _userId;
+    private Long $userId;
 
     @InstantiateObjectIgnore
-    private Long _tenantId;
+    private Long $tenantId;
 
     @InstantiateObjectIgnore
-    private String _tenantCode;
+    private String $tenantCode;
 
     @InstantiateObjectIgnore
-    private Long _branchId;
+    private Long $branchId;
 
     @InstantiateObjectIgnore
-    private String _branchCode;
+    private String $branchCode;
 
     @InstantiateObjectIgnore
-    private String _publicKey;
+    private String $publicKey;
 
     @InstantiateObjectIgnore
-    private String _privateKey;
+    private String $privateKey;
 
     @InstantiateObjectIgnore
-    private String _partitionCode;
+    private String $partitionCode;
 
     public IotBasicModel() {
         IotUserDetails iotUserDetails = WebSecurityUtils.obtainIotUserDetails();
-        this._userId = iotUserDetails.getUserId();
-        this._tenantId = iotUserDetails.getTenantId();
-        this._tenantCode = iotUserDetails.getTenantCode();
-        this._branchId = iotUserDetails.getBranchId();
-        this._branchCode = iotUserDetails.getBranchCode();
-        this._publicKey = iotUserDetails.getPublicKey();
-        this._privateKey = iotUserDetails.getPrivateKey();
-        this._partitionCode = iotUserDetails.getPartitionCode();
+        this.$userId = iotUserDetails.getUserId();
+        this.$tenantId = iotUserDetails.getTenantId();
+        this.$tenantCode = iotUserDetails.getTenantCode();
+        this.$branchId = iotUserDetails.getBranchId();
+        this.$branchCode = iotUserDetails.getBranchCode();
+        this.$publicKey = iotUserDetails.getPublicKey();
+        this.$privateKey = iotUserDetails.getPrivateKey();
+        this.$partitionCode = iotUserDetails.getPartitionCode();
     }
 
     public Long obtainUserId() {
-        return _userId;
+        return $userId;
     }
 
     public Long obtainTenantId() {
-        return _tenantId;
+        return $tenantId;
     }
 
     public String obtainTenantCode() {
-        return _tenantCode;
+        return $tenantCode;
     }
 
     public Long obtainBranchId() {
-        return _branchId;
+        return $branchId;
     }
 
     public String obtainBranchCode() {
-        return _branchCode;
+        return $branchCode;
     }
 
     public String obtainPublicKey() {
-        return _publicKey;
+        return $publicKey;
     }
 
     public String obtainPrivateKey() {
-        return _privateKey;
+        return $privateKey;
     }
 
     public String obtainPartitionCode() {
-        return _partitionCode;
+        return $partitionCode;
     }
 }
