@@ -182,7 +182,7 @@ CREATE TABLE service
     app_id BIGINT NOT NULL COMMENT '应用ID',
     name VARCHAR(50) NOT NULL COMMENT '应用名称',
     program_name VARCHAR(50) NOT NULL COMMENT '程序名称',
-    program_Version VARCHAR(50) NOT NULL COMMENT '程序版本',
+    program_version VARCHAR(50) NOT NULL COMMENT '程序版本',
     health_check_path VARCHAR(255) NOT NULL COMMENT '健康检查路径',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
