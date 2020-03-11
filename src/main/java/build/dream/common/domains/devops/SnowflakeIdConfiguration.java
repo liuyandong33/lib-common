@@ -23,6 +23,11 @@ public class SnowflakeIdConfiguration {
      */
     private String applicationName;
 
+    /**
+     * 描述
+     */
+    private String description;
+
     public Integer getWorkerId() {
         return workerId;
     }
@@ -55,6 +60,14 @@ public class SnowflakeIdConfiguration {
         this.applicationName = applicationName;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public static class Builder {
         private SnowflakeIdConfiguration instance = new SnowflakeIdConfiguration();
 
@@ -78,12 +91,18 @@ public class SnowflakeIdConfiguration {
             return this;
         }
 
+        public Builder description(String description) {
+            instance.setDescription(description);
+            return this;
+        }
+
         public SnowflakeIdConfiguration build() {
             SnowflakeIdConfiguration snowflakeIdConfiguration = new SnowflakeIdConfiguration();
             snowflakeIdConfiguration.setWorkerId(instance.getWorkerId());
             snowflakeIdConfiguration.setDataCenterId(instance.getDataCenterId());
             snowflakeIdConfiguration.setIpAddress(instance.getIpAddress());
             snowflakeIdConfiguration.setApplicationName(instance.getApplicationName());
+            snowflakeIdConfiguration.setDescription(instance.getDescription());
             return snowflakeIdConfiguration;
         }
     }
@@ -97,6 +116,7 @@ public class SnowflakeIdConfiguration {
         public static final String DATA_CENTER_ID = "data_center_id";
         public static final String IP_ADDRESS = "ip_address";
         public static final String APPLICATION_NAME = "application_name";
+        public static final String DESCRIPTION = "description";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
@@ -104,5 +124,6 @@ public class SnowflakeIdConfiguration {
         public static final String DATA_CENTER_ID = "dataCenterId";
         public static final String IP_ADDRESS = "ipAddress";
         public static final String APPLICATION_NAME = "applicationName";
+        public static final String DESCRIPTION = "description";
     }
 }
