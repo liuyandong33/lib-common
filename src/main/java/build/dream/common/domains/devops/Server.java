@@ -1,14 +1,10 @@
-package build.dream.common.domains.admin;
+package build.dream.common.domains.devops;
 
 import build.dream.common.basic.BasicDomain;
 
 import java.util.Date;
 
-public class ZookeeperNode extends BasicDomain {
-    /**
-     * 集群ID
-     */
-    private Long clusterId;
+public class Server extends BasicDomain {
     /**
      * 主机名称
      */
@@ -29,18 +25,6 @@ public class ZookeeperNode extends BasicDomain {
      * 密码
      */
     private String password;
-    /**
-     * zookeeper 主目录
-     */
-    private String zookeeperHome;
-
-    public Long getClusterId() {
-        return clusterId;
-    }
-
-    public void setClusterId(Long clusterId) {
-        this.clusterId = clusterId;
-    }
 
     public String getHostName() {
         return hostName;
@@ -82,21 +66,8 @@ public class ZookeeperNode extends BasicDomain {
         this.password = password;
     }
 
-    public String getZookeeperHome() {
-        return zookeeperHome;
-    }
-
-    public void setZookeeperHome(String zookeeperHome) {
-        this.zookeeperHome = zookeeperHome;
-    }
-
     public static class Builder {
-        private final ZookeeperNode instance = new ZookeeperNode();
-
-        public Builder clusterId(Long clusterId) {
-            instance.setClusterId(clusterId);
-            return this;
-        }
+        private final Server instance = new Server();
 
         public Builder hostName(String hostName) {
             instance.setHostName(hostName);
@@ -108,7 +79,7 @@ public class ZookeeperNode extends BasicDomain {
             return this;
         }
 
-        public Builder sshPort(Integer sshPort) {
+        public Builder sshPort(int sshPort) {
             instance.setSshPort(sshPort);
             return this;
         }
@@ -120,11 +91,6 @@ public class ZookeeperNode extends BasicDomain {
 
         public Builder password(String password) {
             instance.setPassword(password);
-            return this;
-        }
-
-        public Builder zookeeperHome(String zookeeperHome) {
-            instance.setZookeeperHome(zookeeperHome);
             return this;
         }
 
@@ -168,24 +134,22 @@ public class ZookeeperNode extends BasicDomain {
             return this;
         }
 
-        public ZookeeperNode build() {
-            ZookeeperNode zookeeperNode = new ZookeeperNode();
-            zookeeperNode.setClusterId(instance.getClusterId());
-            zookeeperNode.setHostName(instance.getHostName());
-            zookeeperNode.setIpAddress(instance.getIpAddress());
-            zookeeperNode.setSshPort(instance.getSshPort());
-            zookeeperNode.setUserName(instance.getUserName());
-            zookeeperNode.setPassword(instance.getPassword());
-            zookeeperNode.setZookeeperHome(instance.getZookeeperHome());
-            zookeeperNode.setId(instance.getId());
-            zookeeperNode.setCreatedTime(instance.getCreatedTime());
-            zookeeperNode.setCreatedUserId(instance.getCreatedUserId());
-            zookeeperNode.setUpdatedTime(instance.getUpdatedTime());
-            zookeeperNode.setUpdatedUserId(instance.getUpdatedUserId());
-            zookeeperNode.setUpdatedRemark(instance.getUpdatedRemark());
-            zookeeperNode.setDeletedTime(instance.getDeletedTime());
-            zookeeperNode.setDeleted(instance.isDeleted());
-            return zookeeperNode;
+        public Server build() {
+            Server server = new Server();
+            server.setHostName(instance.getHostName());
+            server.setIpAddress(instance.getIpAddress());
+            server.setSshPort(instance.getSshPort());
+            server.setUserName(instance.getUserName());
+            server.setPassword(instance.getPassword());
+            server.setId(instance.getId());
+            server.setCreatedTime(instance.getCreatedTime());
+            server.setCreatedUserId(instance.getCreatedUserId());
+            server.setUpdatedTime(instance.getUpdatedTime());
+            server.setUpdatedUserId(instance.getUpdatedUserId());
+            server.setUpdatedRemark(instance.getUpdatedRemark());
+            server.setDeletedTime(instance.getDeletedTime());
+            server.setDeleted(instance.isDeleted());
+            return server;
         }
     }
 
@@ -194,22 +158,18 @@ public class ZookeeperNode extends BasicDomain {
     }
 
     public static final class ColumnName extends BasicDomain.ColumnName {
-        public static final String CLUSTER_ID = "cluster_id";
         public static final String HOST_NAME = "host_name";
         public static final String IP_ADDRESS = "ip_address";
         public static final String SSH_PORT = "ssh_port";
         public static final String USER_NAME = "user_name";
-        public static final String PASSWORD = "password";
-        public static final String ZOOKEEPER_HOME = "zookeeper_home";
+        public static final String password = "password";
     }
 
     public static final class FieldName extends BasicDomain.FieldName {
-        public static final String CLUSTER_ID = "clusterId";
         public static final String HOST_NAME = "hostName";
         public static final String IP_ADDRESS = "ipAddress";
         public static final String SSH_PORT = "sshPort";
         public static final String USER_NAME = "userName";
-        public static final String PASSWORD = "password";
-        public static final String ZOOKEEPER_HOME = "zookeeperHome";
+        public static final String password = "password";
     }
 }

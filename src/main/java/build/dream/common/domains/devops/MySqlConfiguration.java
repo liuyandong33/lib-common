@@ -1,4 +1,4 @@
-package build.dream.common.domains.admin;
+package build.dream.common.domains.devops;
 
 import build.dream.common.basic.BasicDomain;
 

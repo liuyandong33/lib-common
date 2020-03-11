@@ -1,14 +1,13 @@
-package build.dream.common.domains.admin;
+package build.dream.common.domains.devops;
 
 import java.util.Date;
 
-public class ProductionConfiguration {
+public class LogbackConfiguration {
     private Long id;
     private String deploymentEnvironment;
     private String partitionCode;
     private String serviceName;
-    private String configurationKey;
-    private String configurationValue;
+    private String content;
     private Date createTime;
     private Long createUserId;
     private Date lastUpdateTime;
@@ -48,20 +47,12 @@ public class ProductionConfiguration {
         this.serviceName = serviceName;
     }
 
-    public String getConfigurationKey() {
-        return configurationKey;
+    public String getContent() {
+        return content;
     }
 
-    public void setConfigurationKey(String configurationKey) {
-        this.configurationKey = configurationKey;
-    }
-
-    public String getConfigurationValue() {
-        return configurationValue;
-    }
-
-    public void setConfigurationValue(String configurationValue) {
-        this.configurationValue = configurationValue;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Date getCreateTime() {

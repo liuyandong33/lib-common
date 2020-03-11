@@ -65,16 +65,16 @@ public class SnowflakeIdGenerator implements IdGenerator<Long> {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_URL);
+            String url = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIGURATION_DATABASE_URL);
             ValidateUtils.notBlank(url, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String username = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME);
+            String username = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIGURATION_DATABASE_USERNAME);
             ValidateUtils.notBlank(username, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String password = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD);
+            String password = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIGURATION_DATABASE_PASSWORD);
             ValidateUtils.notBlank(password, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
-            String driverClassName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME);
+            String driverClassName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SNOWFLAKE_ID_CONFIGURATION_DATABASE_DRIVER_CLASS_NAME);
             ValidateUtils.notBlank(driverClassName, "雪花ID生成器初始化失败（未检索到相关配置）！");
 
             String applicationName = ConfigurationUtils.getConfiguration(ConfigurationKeys.SPRING_APPLICATION_NAME);
@@ -83,7 +83,7 @@ public class SnowflakeIdGenerator implements IdGenerator<Long> {
             Class.forName(driverClassName);
 
             connection = DriverManager.getConnection(url, username, password);
-            preparedStatement = connection.prepareStatement("SELECT * FROM snowflake_id_config WHERE ip_address = ? AND application_name = ?");
+            preparedStatement = connection.prepareStatement("SELECT * FROM snowflake_id_configuration WHERE ip_address = ? AND application_name = ?");
 
             String ipAddress = InetAddress.getLocalHost().getHostAddress();
             preparedStatement.setString(1, ipAddress);

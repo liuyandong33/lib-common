@@ -42,10 +42,10 @@ public class ConfigurationKeys {
     /**
      * 雪花算法初始化配置
      */
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_URL = "snowflake.id.config.database.url";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_USERNAME = "snowflake.id.config.database.username";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_PASSWORD = "snowflake.id.config.database.password";
-    public static final String SNOWFLAKE_ID_CONFIG_DATABASE_DRIVER_CLASS_NAME = "snowflake.id.config.database.driver-class-name";
+    public static final String SNOWFLAKE_ID_CONFIGURATION_DATABASE_URL = "snowflake.id.configuration.database.url";
+    public static final String SNOWFLAKE_ID_CONFIGURATION_DATABASE_USERNAME = "snowflake.id.configuration.database.username";
+    public static final String SNOWFLAKE_ID_CONFIGURATION_DATABASE_PASSWORD = "snowflake.id.configuration.database.password";
+    public static final String SNOWFLAKE_ID_CONFIGURATION_DATABASE_DRIVER_CLASS_NAME = "snowflake.id.configuration.database.driver-class-name";
 
     /**
      * 荣联短信平台配置
