@@ -2,7 +2,7 @@ package build.dream.common.domains.devops;
 
 import build.dream.common.basic.BasicDomain;
 
-public class SnowflakeIdConfiguration extends BasicDomain {
+public class SnowflakeIdConfiguration {
     /**
      * work id
      */
@@ -55,7 +55,9 @@ public class SnowflakeIdConfiguration extends BasicDomain {
         this.applicationName = applicationName;
     }
 
-    public static class Builder extends BasicDomain.Builder<Builder, SnowflakeIdConfiguration> {
+    public static class Builder {
+        private SnowflakeIdConfiguration instance = new SnowflakeIdConfiguration();
+
         public Builder workerId(Integer workerId) {
             instance.setWorkerId(workerId);
             return this;
@@ -77,7 +79,7 @@ public class SnowflakeIdConfiguration extends BasicDomain {
         }
 
         public SnowflakeIdConfiguration build() {
-            SnowflakeIdConfiguration snowflakeIdConfiguration = super.build();
+            SnowflakeIdConfiguration snowflakeIdConfiguration = new SnowflakeIdConfiguration();
             snowflakeIdConfiguration.setWorkerId(instance.getWorkerId());
             snowflakeIdConfiguration.setDataCenterId(instance.getDataCenterId());
             snowflakeIdConfiguration.setIpAddress(instance.getIpAddress());
