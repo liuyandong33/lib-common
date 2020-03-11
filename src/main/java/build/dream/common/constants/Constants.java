@@ -291,7 +291,7 @@ public class Constants {
     /**
      * 部署环境
      */
-    public static final String PRODUCTION = "Production";
+    public static final String PRODUCTION = "production";
     public static final String BETA = "beta";
     public static final String TEST = "test";
     public static final String DEVELOPMENT = "development";
