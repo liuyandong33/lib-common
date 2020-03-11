@@ -188,7 +188,7 @@ CREATE TABLE service
     deployment_environment VARCHAR(255) NOT NULL COMMENT '部署环境，development-开发环境, test-测试环境, beta-beta环境, production-生成环境',
     partition_code VARCHAR(20) NOT NULL COMMENT '分区码',
     service_name VARCHAR(255) NOT NULL COMMENT '服务名称',
-    zookeeper_connect_string VARCHAR(255) COMMENT 'zookeeper 连接字符串',
+    zookeeper_connect_string VARCHAR(255) NOT NULL COMMENT 'zookeeper 连接字符串',
     created_time DATETIME NOT NULL DEFAULT NOW() COMMENT '创建时间',
     created_user_id BIGINT NOT NULL COMMENT '创建人id',
     updated_time DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW() COMMENT '最后更新时间',
