@@ -3,6 +3,7 @@ package build.dream.common.domains.devops;
 import build.dream.common.basic.BasicDomain;
 
 public class App extends BasicDomain {
+    public static final String TABLE_NAME = "app";
     /**
      * 应用名称
      */

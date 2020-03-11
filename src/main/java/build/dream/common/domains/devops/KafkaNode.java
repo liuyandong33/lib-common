@@ -5,6 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.util.Date;
 
 public class KafkaNode extends BasicDomain {
+    public static final String TABLE_NAME = "kafka_node";
     /**
      * 集群ID
      */

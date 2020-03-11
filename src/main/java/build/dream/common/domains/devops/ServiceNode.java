@@ -3,6 +3,7 @@ package build.dream.common.domains.devops;
 import build.dream.common.basic.BasicDomain;
 
 public class ServiceNode extends BasicDomain {
+    public static final String TABLE_NAME = "service_node";
     /**
      * 服务ID
      */

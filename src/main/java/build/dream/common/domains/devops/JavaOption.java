@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JavaOption extends BasicDomain {
+    public static final String TABLE_NAME = "java_option";
     /**
      * 应用ID
      */

@@ -5,6 +5,7 @@ import build.dream.common.basic.BasicDomain;
 
 @Table(name = "service")
 public class $Service extends BasicDomain {
+    public static final String TABLE_NAME = "service";
     private Long appId;
     /**
      * 名字

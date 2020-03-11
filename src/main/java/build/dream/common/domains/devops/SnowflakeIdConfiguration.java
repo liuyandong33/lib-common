@@ -3,6 +3,7 @@ package build.dream.common.domains.devops;
 import build.dream.common.basic.BasicDomain;
 
 public class SnowflakeIdConfiguration {
+    public static final String TABLE_NAME = "snowflake_id_configuration";
     /**
      * work id
      */

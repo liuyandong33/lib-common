@@ -5,6 +5,7 @@ import build.dream.common.basic.BasicDomain;
 import java.util.Date;
 
 public class Cluster extends BasicDomain {
+    public static final String TABLE_NAME = "cluster";
     /**
      * 商户ID
      */
