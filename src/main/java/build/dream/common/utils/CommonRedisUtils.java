@@ -8,6 +8,7 @@ import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.types.Expiration;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -2450,5 +2451,18 @@ public class CommonRedisUtils {
      */
     public static void restore(byte[] key, long ttlInMillis, byte[] serializedValue) {
         RedisUtils.restore(obtainRedisTemplate(), key, ttlInMillis, serializedValue);
+    }
+
+    /**
+     * SET
+     *
+     * @param key
+     * @param value
+     * @param expiration
+     * @param setOption
+     * @return
+     */
+    public static Boolean set(byte[] key, byte[] value, Expiration expiration, RedisStringCommands.SetOption setOption) {
+        return RedisUtils.set(obtainRedisTemplate(), key, value, expiration, setOption);
     }
 }

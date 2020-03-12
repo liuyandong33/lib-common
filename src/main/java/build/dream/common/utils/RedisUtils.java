@@ -5,6 +5,7 @@ import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.connection.RedisZSetCommands;
 import org.springframework.data.redis.connection.SortParameters;
 import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.core.types.Expiration;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -2478,5 +2479,19 @@ public class RedisUtils {
             connection.restore(key, ttlInMillis, serializedValue);
             return null;
         });
+    }
+
+    /**
+     * SET
+     *
+     * @param redisTemplate
+     * @param key
+     * @param value
+     * @param expiration
+     * @param setOption
+     * @return
+     */
+    public static Boolean set(RedisTemplate<String, String> redisTemplate, byte[] key, byte[] value, Expiration expiration, RedisStringCommands.SetOption setOption) {
+        return redisTemplate.execute((RedisCallback<Boolean>) redisConnection -> redisConnection.set(key, value, expiration, setOption));
     }
 }
