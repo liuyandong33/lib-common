@@ -22,6 +22,13 @@ public class $Service extends BasicDomain {
      */
     private String programVersion;
 
+    /**
+     * 服务端口
+     */
+    private Integer port;
+    /**
+     * 健康检查路径
+     */
     private String healthCheckPath;
 
     /**
@@ -79,6 +86,14 @@ public class $Service extends BasicDomain {
 
     public void setProgramVersion(String programVersion) {
         this.programVersion = programVersion;
+    }
+
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
     }
 
     public String getHealthCheckPath() {
@@ -150,6 +165,11 @@ public class $Service extends BasicDomain {
             return this;
         }
 
+        public Builder port(Integer port) {
+            instance.setPort(port);
+            return this;
+        }
+
         public Builder healthCheckPath(String healthCheckPath) {
             instance.setHealthCheckPath(healthCheckPath);
             return this;
@@ -186,6 +206,7 @@ public class $Service extends BasicDomain {
             service.setName(instance.getName());
             service.setProgramName(instance.getProgramName());
             service.setProgramVersion(instance.getProgramVersion());
+            service.setPort(instance.getPort());
             service.setHealthCheckPath(instance.getHealthCheckPath());
             service.setPartitioned(instance.isPartitioned());
             service.setDeploymentEnvironment(instance.getDeploymentEnvironment());
@@ -205,6 +226,7 @@ public class $Service extends BasicDomain {
         public static final String NAME = "name";
         public static final String PROGRAM_NAME = "program_name";
         public static final String PROGRAM_VERSION = "program_version";
+        public static final String PORT = "port";
         public static final String HEALTH_CHECK_PATH = "health_check_path";
         public static final String PARTITIONED = "partitioned";
         public static final String DEPLOYMENT_ENVIRONMENT = "deployment_environment";
@@ -218,6 +240,7 @@ public class $Service extends BasicDomain {
         public static final String NAME = "name";
         public static final String PROGRAM_NAME = "programName";
         public static final String PROGRAM_VERSION = "programVersion";
+        public static final String PORT = "port";
         public static final String HEALTH_CHECK_PATH = "healthCheckPath";
         public static final String PARTITIONED = "partitioned";
         public static final String DEPLOYMENT_ENVIRONMENT = "deploymentEnvironment";
