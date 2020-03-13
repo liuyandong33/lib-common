@@ -11,29 +11,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.zip.ZipInputStream;
 
 public class DistrictUtils {
     private static final Map<String, District> DISTRICT_MAP;
-    private static final List<District> DISTRICTS;
     private static final Map<String, List<District>> DISTRICTS_MAP;
     private static final List<District> PROVINCES;
 
     static {
-        String districtsJson = null;
-        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(Constants.DISTRICTS_JSON)) {
-            districtsJson = IOUtils.toString(inputStream, Constants.CHARSET_UTF_8);
+        try (InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(Constants.DISTRICTS);
+             ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
+            zipInputStream.getNextEntry();
+            List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
+            DISTRICTS_MAP = districts.stream().collect(Collectors.groupingBy(District::getPid));
+            DISTRICT_MAP = new HashMap<String, District>();
+            PROVINCES = new ArrayList<District>();
+            for (District district : districts) {
+                DISTRICT_MAP.put(district.getId(), district);
+                if ("0".equals(district.getPid())) {
+                    PROVINCES.add(district);
+                }
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        DISTRICTS = JacksonUtils.readValueAsList(districtsJson, District.class);
-        DISTRICTS_MAP = DISTRICTS.stream().collect(Collectors.groupingBy(District::getPid));
-        DISTRICT_MAP = new HashMap<String, District>();
-        PROVINCES = new ArrayList<District>();
-        for (District district : DISTRICTS) {
-            DISTRICT_MAP.put(district.getId(), district);
-            if ("0".equals(district.getPid())) {
-                PROVINCES.add(district);
-            }
         }
     }
 
