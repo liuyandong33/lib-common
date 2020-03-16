@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,23 +20,19 @@ public class DistrictUtils {
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             zipInputStream.getNextEntry();
             List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
-            Map<String, String> districtMap = new HashMap<String, String>();
             List<District> provinces = new ArrayList<District>();
             for (District district : districts) {
-                districtMap.put(district.getId(), JacksonUtils.writeValueAsString(district));
+                CommonRedisUtils.hset(RedisKeys.KEY_DISTRICTS, district.getId(), JacksonUtils.writeValueAsString(district));
                 if ("0".equals(district.getPid())) {
                     provinces.add(district);
                 }
             }
 
             Map<String, List<District>> districtsMap = districts.stream().collect(Collectors.groupingBy(District::getPid));
-            Map<String, String> map = new HashMap<String, String>();
             for (Map.Entry<String, List<District>> entry : districtsMap.entrySet()) {
-                map.put(entry.getKey(), JacksonUtils.writeValueAsString(entry.getValue()));
+                CommonRedisUtils.hset(RedisKeys.KEY_PID_DISTRICTS, entry.getKey(), JacksonUtils.writeValueAsString(entry.getValue()));
             }
             CommonRedisUtils.set(RedisKeys.KEY_PROVINCES, JacksonUtils.writeValueAsString(provinces));
-            CommonRedisUtils.hmset(RedisKeys.KEY_DISTRICTS, districtMap);
-            CommonRedisUtils.hmset(RedisKeys.KEY_PID_DISTRICTS, map);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
