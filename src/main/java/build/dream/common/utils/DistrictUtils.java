@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +22,8 @@ public class DistrictUtils {
             zipInputStream.getNextEntry();
 
             CommonRedisUtils.del(RedisKeys.KEY_DISTRICTS, RedisKeys.KEY_PROVINCES, RedisKeys.KEY_PID_DISTRICTS);
-            List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
-            List<District> provinces = new ArrayList<District>();
 
+            List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
             Map<String, String> tempMap = new HashMap<String, String>();
             for (District district : districts) {
                 tempMap.put(district.getId(), JacksonUtils.writeValueAsString(district));
@@ -33,19 +31,23 @@ public class DistrictUtils {
                     CommonRedisUtils.hmset(RedisKeys.KEY_DISTRICTS, tempMap);
                     tempMap.clear();
                 }
-                if ("0".equals(district.getPid())) {
-                    provinces.add(district);
-                }
             }
             if (MapUtils.isNotEmpty(tempMap)) {
                 CommonRedisUtils.hmset(RedisKeys.KEY_DISTRICTS, tempMap);
+                tempMap.clear();
             }
 
             Map<String, List<District>> districtsMap = districts.stream().collect(Collectors.groupingBy(District::getPid));
             for (Map.Entry<String, List<District>> entry : districtsMap.entrySet()) {
-                CommonRedisUtils.hset(RedisKeys.KEY_PID_DISTRICTS, entry.getKey(), JacksonUtils.writeValueAsString(entry.getValue()));
+                tempMap.put(entry.getKey(), JacksonUtils.writeValueAsString(entry.getValue()));
+                if (tempMap.size() == 500) {
+                    CommonRedisUtils.hmset(RedisKeys.KEY_PID_DISTRICTS, tempMap);
+                    tempMap.clear();
+                }
             }
-            CommonRedisUtils.set(RedisKeys.KEY_PROVINCES, JacksonUtils.writeValueAsString(provinces));
+            if (MapUtils.isNotEmpty(tempMap)) {
+                CommonRedisUtils.hmset(RedisKeys.KEY_PID_DISTRICTS, tempMap);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -68,6 +70,6 @@ public class DistrictUtils {
     }
 
     public static List<District> obtainAllProvinces() {
-        return JacksonUtils.readValueAsList(CommonRedisUtils.get(RedisKeys.KEY_PROVINCES), District.class);
+        return obtainDistrictsByPid("0");
     }
 }
