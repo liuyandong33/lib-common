@@ -3,12 +3,14 @@ package build.dream.common.utils;
 import build.dream.common.beans.District;
 import build.dream.common.constants.Constants;
 import build.dream.common.constants.RedisKeys;
+import org.apache.commons.collections.MapUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,11 +25,20 @@ public class DistrictUtils {
             CommonRedisUtils.del(RedisKeys.KEY_DISTRICTS, RedisKeys.KEY_PROVINCES, RedisKeys.KEY_PID_DISTRICTS);
             List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
             List<District> provinces = new ArrayList<District>();
+
+            Map<String, String> tempMap = new HashMap<String, String>();
             for (District district : districts) {
-                CommonRedisUtils.hset(RedisKeys.KEY_DISTRICTS, district.getId(), JacksonUtils.writeValueAsString(district));
+                tempMap.put(district.getId(), JacksonUtils.writeValueAsString(district));
+                if (tempMap.size() == 10000) {
+                    CommonRedisUtils.hmset(RedisKeys.KEY_DISTRICTS, tempMap);
+                    tempMap.clear();
+                }
                 if ("0".equals(district.getPid())) {
                     provinces.add(district);
                 }
+            }
+            if (MapUtils.isNotEmpty(tempMap)) {
+                CommonRedisUtils.hmset(RedisKeys.KEY_DISTRICTS, tempMap);
             }
 
             Map<String, List<District>> districtsMap = districts.stream().collect(Collectors.groupingBy(District::getPid));
