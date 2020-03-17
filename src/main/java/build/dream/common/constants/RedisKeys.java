@@ -85,7 +85,6 @@ public class RedisKeys {
      */
     public static final String KEY_RSA_KEY_PAIRS = "_rsa_key_pairs";
 
-    public static final String KEY_PROVINCES = "_provinces";
     public static final String KEY_DISTRICTS = "_districts";
     public static final String KEY_PID_DISTRICTS = "_pid_districts";
 }

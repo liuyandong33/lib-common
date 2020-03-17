@@ -21,7 +21,7 @@ public class DistrictUtils {
              ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             zipInputStream.getNextEntry();
 
-            CommonRedisUtils.del(RedisKeys.KEY_DISTRICTS, RedisKeys.KEY_PROVINCES, RedisKeys.KEY_PID_DISTRICTS);
+            CommonRedisUtils.del(RedisKeys.KEY_DISTRICTS, RedisKeys.KEY_PID_DISTRICTS);
 
             List<District> districts = JacksonUtils.readValueAsList(IOUtils.toString(zipInputStream, Constants.CHARSET_UTF_8), District.class);
             Map<String, String> tempMap = new HashMap<String, String>();
