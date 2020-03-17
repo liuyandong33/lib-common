@@ -1,15 +1,21 @@
 package build.dream.common.utils;
 
+import org.springframework.util.ReflectionUtils;
+
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
 import java.lang.management.RuntimeMXBean;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class JvmUtils {
     private static MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
     private static RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
+    private static Map<String, Method> methodMap = new HashMap<String, Method>();
 
     public static int getProcessId() {
         String name = getName();
@@ -98,5 +104,15 @@ public class JvmUtils {
 
     public static void gc() {
         memoryMXBean.gc();
+    }
+
+    public static Object call(String methodName) {
+        Method method = methodMap.get(methodName);
+        if (Objects.isNull(method)) {
+            method = ReflectionUtils.findMethod(JvmUtils.class, methodName);
+            methodMap.put(methodName, method);
+        }
+        ValidateUtils.notNull(method, "方法不存在！");
+        return ReflectionUtils.invokeMethod(method, null);
     }
 }
