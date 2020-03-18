@@ -9,9 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.zip.ZipInputStream;
 
@@ -39,7 +37,9 @@ public class DistrictUtils {
 
             Map<String, List<District>> districtsMap = districts.stream().collect(Collectors.groupingBy(District::getPid));
             for (Map.Entry<String, List<District>> entry : districtsMap.entrySet()) {
-                tempMap.put(entry.getKey(), JacksonUtils.writeValueAsString(entry.getValue()));
+                List<District> value = entry.getValue();
+                Collections.sort(value, Comparator.comparing(District::getId));
+                tempMap.put(entry.getKey(), JacksonUtils.writeValueAsString(value));
                 if (tempMap.size() == 500) {
                     CommonRedisUtils.hmset(RedisKeys.KEY_PID_DISTRICTS, tempMap);
                     tempMap.clear();
