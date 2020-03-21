@@ -960,4 +960,7 @@ public class Constants {
     public static final String MQ_TYPE_KAFKA = "kafka";
     public static final String MQ_TYPE_ROCKETMQ = "rocketmq";
     public static final String MQ_TYPE_RABBITMQ = "rabbitmq";
+
+    public static final String BD09LL = "bd09ll";
+    public static final String GCJ02 = "gcj02";
 }

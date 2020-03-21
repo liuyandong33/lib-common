@@ -1,10 +1,12 @@
 package build.dream.common.utils;
 
 import build.dream.common.models.baidumap.GeoConvModel;
+import build.dream.common.models.baidumap.LocationIpModel;
 import build.dream.common.tuples.Tuple2;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,5 +47,25 @@ public class BaiDuMapUtils {
             tuple2s.add(TupleUtils.buildTuple2(MapUtils.getDoubleValue(map, "x"), MapUtils.getDoubleValue(map, "y")));
         }
         return tuple2s;
+    }
+
+    public static Map<String, Object> locationIp(LocationIpModel locationIpModel) throws IOException {
+        String ip = locationIpModel.getIp();
+        String ak = locationIpModel.getAk();
+        String sn = locationIpModel.getSn();
+        String coor = locationIpModel.getCoor();
+        Map<String, String> queryParams = new HashMap<String, String>();
+        if (StringUtils.isNotBlank(ip)) {
+            queryParams.put("ip", ip);
+        }
+        queryParams.put("ak", ak);
+        if (StringUtils.isNotBlank(sn)) {
+            queryParams.put("sn", sn);
+        }
+        if (StringUtils.isNotBlank(coor)) {
+            queryParams.put("coor", coor);
+        }
+        String result = OkHttpUtils.doGet("http://api.map.baidu.com/location/ip", queryParams);
+        return JacksonUtils.readValueAsMap(result, String.class, Object.class);
     }
 }
