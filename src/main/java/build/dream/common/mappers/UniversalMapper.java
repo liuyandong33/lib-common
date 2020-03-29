@@ -41,4 +41,6 @@ public interface UniversalMapper {
     List<Map<String, Object>> executeQuery(Map<String, Object> parameters);
 
     Map<String, Object> executeUniqueResultQuery(Map<String, Object> parameters);
+
+    long truncateTable(@Param("tableName") String tableName);
 }

@@ -250,4 +250,8 @@ public class UniversalDatabaseHelper {
             throw new RuntimeException(e);
         }
     }
+
+    public static long truncateTable(UniversalMapper universalMapper, String tableName) {
+        return universalMapper.truncateTable(tableName);
+    }
 }

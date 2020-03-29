@@ -183,4 +183,8 @@
     <select id="executeUniqueResultQuery" parameterType="java.util.Map" resultType="build.dream.common.utils.UnderscoreToCamelCaseMap">
         ${sql}
     </select>
+
+    <update id="truncateTable">
+        TRUNCATE TABLE ${tableName};
+    </update>
 </mapper>

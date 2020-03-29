@@ -130,4 +130,8 @@ public class DatabaseHelper {
     public static <T> T callMapperMethod(Class<?> mapperClass, String methodName, List<Tuple2<Class<?>, Object>> parameterAndTypes) {
         return UniversalDatabaseHelper.callMapperMethod(mapperClass, obtainMapper(mapperClass), methodName, parameterAndTypes);
     }
+
+    public static long truncateTable(String tableName) {
+        return UniversalDatabaseHelper.truncateTable(obtainUniversalMapper(), tableName);
+    }
 }
