@@ -28,9 +28,15 @@ public class ApiRest implements Serializable, Cloneable {
     private boolean encrypted;
 
     public ApiRest() {
-        id = UUID.randomUUID().toString();
-        successful = false;
-        timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
+        this(true);
+    }
+
+    public ApiRest(boolean initialize) {
+        if (initialize) {
+            id = UUID.randomUUID().toString();
+            successful = false;
+            timestamp = new SimpleDateFormat(Constants.DEFAULT_DATE_PATTERN).format(new Date());
+        }
     }
 
     public ApiRest(Throwable throwable) {
@@ -340,7 +346,7 @@ public class ApiRest implements Serializable, Cloneable {
         }
 
         public ApiRest build() {
-            ApiRest apiRest = new ApiRest();
+            ApiRest apiRest = new ApiRest(false);
             apiRest.setSuccessful(instance.isSuccessful());
             apiRest.setData(instance.getData());
             apiRest.setClassName(instance.getClassName());
