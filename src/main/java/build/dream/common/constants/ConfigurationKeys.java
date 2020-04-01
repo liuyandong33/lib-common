@@ -153,4 +153,15 @@ public class ConfigurationKeys {
     public static final String REST_TEMPLATE_CONNECT_TIMEOUT = "rest.template.connect.timeout";
     // RestTemplate 读取超时时间
     public static final String REST_TEMPLATE_READ_TIMEOUT = "rest.template.read.timeout";
+
+    public static final String DATASOURCE_HIKARI_LOG_JDBC_URL = "datasource.hikari.log.jdbc-url";
+    public static final String DATASOURCE_HIKARI_LOG_USERNAME = "datasource.hikari.log.username";
+    public static final String DATASOURCE_HIKARI_LOG_PASSWORD = "datasource.hikari.log.password";
+    public static final String DATASOURCE_HIKARI_LOG_DRIVER_CLASS_NAME = "datasource.hikari.log.driver-class-name";
+    public static final String DATASOURCE_HIKARI_LOG_AUTO_COMMIT = "datasource.hikari.log.auto-commit";
+    public static final String DATASOURCE_HIKARI_LOG_MINIMUM_IDLE = "datasource.hikari.log.minimum-idle";
+    public static final String DATASOURCE_HIKARI_LOG_MAXIMUM_POOL_SIZE = "datasource.hikari.log.maximum-pool-size";
+    public static final String DATASOURCE_HIKARI_LOG_IDLE_TIMEOUT = "datasource.hikari.log.idle-timeout";
+    public static final String DATASOURCE_HIKARI_LOG_MAX_LIFETIME = "datasource.hikari.log.max-lifetime";
+    public static final String DATASOURCE_HIKARI_LOG_CONNECTION_TIMEOUT = "datasource.hikari.log.connection-timeout";
 }
