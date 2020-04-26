@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AgentUtils {
+    private AgentUtils() {
+        throw new AssertionError("No build.dream.common.utils.AgentUtils instances for you!");
+    }
+
     public static Agent obtainAgentInfo(Long agentId) {
         String agentInfoJson = CommonRedisUtils.hget(RedisKeys.KEY_AGENT_INFOS, "_id_" + agentId);
         if (StringUtils.isBlank(agentInfoJson)) {

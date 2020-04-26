@@ -15,6 +15,10 @@ public class AESUtils {
     public static final String ALGORITHM_AES_CBC_NOPADDING = "AES/CBC/NoPadding";
     public static final String PROVIDER_NAME_BC = "BC";
 
+    private AESUtils() {
+        throw new AssertionError("No build.dream.common.utils.AESUtils instances for you!");
+    }
+
     public static byte[] encrypt(byte[] data, byte[] aesKey, String algorithm, String providerName) {
         try {
             SecretKey secretKey = new SecretKeySpec(aesKey, KEY_ALGORITHM);

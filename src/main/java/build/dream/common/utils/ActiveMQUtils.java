@@ -10,6 +10,10 @@ import java.util.Objects;
 public class ActiveMQUtils {
     private static JmsMessagingTemplate jmsMessagingTemplate;
 
+    private ActiveMQUtils() {
+        throw new AssertionError("No build.dream.common.utils.ActiveMQUtils instances for you!");
+    }
+
     private static JmsMessagingTemplate obtainJmsMessagingTemplate() {
         if (Objects.isNull(jmsMessagingTemplate)) {
             jmsMessagingTemplate = ApplicationHandler.getBean(JmsMessagingTemplate.class);
