@@ -20,6 +20,10 @@ import java.util.*;
 public class WeiXinPayUtils {
     private static final String WEI_XIN_PAY_API_URL = "https://api.mch.weixin.qq.com";
 
+    private WeiXinPayUtils() {
+        throw new AssertionError("No build.dream.common.utils.WeiXinPayUtils instances for you!");
+    }
+
     /**
      * 获取微信支付账号
      *

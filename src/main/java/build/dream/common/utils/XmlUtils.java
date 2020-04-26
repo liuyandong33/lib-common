@@ -12,19 +12,16 @@ import java.util.List;
 import java.util.Map;
 
 public class XmlUtils {
+    private XmlUtils() {
+        throw new AssertionError("No build.dream.common.utils.XmlUtils instances for you!");
+    }
+
     public static Map<String, String> xmlStringToMap(String xmlString) {
-        return ApplicationHandler.callMethodSuppressThrow(() -> {
-            Document document = DocumentHelper.parseText(xmlString);
-            return xmlDocumentToMap(document);
-        });
+        return ApplicationHandler.callMethodSuppressThrow(() -> xmlDocumentToMap(DocumentHelper.parseText(xmlString)));
     }
 
     public static Map<String, String> xmlInputStreamToMap(InputStream inputStream) {
-        return ApplicationHandler.callMethodSuppressThrow(() -> {
-            SAXReader saxReader = new SAXReader();
-            Document document = saxReader.read(inputStream);
-            return xmlDocumentToMap(document);
-        });
+        return ApplicationHandler.callMethodSuppressThrow(() -> xmlDocumentToMap(new SAXReader().read(inputStream)));
     }
 
     private static Map<String, String> xmlDocumentToMap(Document document) {

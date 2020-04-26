@@ -6,12 +6,15 @@ import build.dream.common.domains.saas.WeiXinPayAccount;
 import build.dream.common.models.aggregatepay.ScanCodePayModel;
 import build.dream.common.models.alipay.AlipayTradePayModel;
 import build.dream.common.models.weixinpay.MicroPayModel;
-import org.dom4j.DocumentException;
 
 import java.util.Map;
 
 public class AggregatePayUtils {
-    public static Map<String, ? extends Object> scanCodePay(ScanCodePayModel scanCodePayModel) throws DocumentException {
+    private AggregatePayUtils() {
+        throw new AssertionError("No build.dream.common.utils.AggregatePayUtils instances for you!");
+    }
+
+    public static Map<String, ? extends Object> scanCodePay(ScanCodePayModel scanCodePayModel) {
         String tenantId = scanCodePayModel.getTenantId();
         String branchId = scanCodePayModel.getBranchId();
         int channelType = scanCodePayModel.getChannelType();

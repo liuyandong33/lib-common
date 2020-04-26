@@ -24,6 +24,10 @@ public class AlipayUtils {
     private static final String ALIPAY_GATEWAY_URL = "https://openapi.alipay.com/gateway.do";
     private static final String ALIPAY_APP_TO_APP_AUTHORIZE_URL = "https://openauth.alipay.com/oauth2/appToAppAuth.htm";
 
+    private AlipayUtils() {
+        throw new AssertionError("No build.dream.common.utils.AlipayUtils instances for you!");
+    }
+
     public static boolean verifySign(String originalString, String signType, String sign, String charset, String alipayPublicKey) {
         byte[] data = originalString.getBytes(Charset.forName(charset));
         if (Constants.RSA.equals(signType)) {
