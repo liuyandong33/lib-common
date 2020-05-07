@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.web.access.expression.ExpressionBasedFilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -20,8 +21,18 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 
 public class WebSecurityUtils {
+    private static TokenStore tokenStore;
+
+    public static TokenStore obtainTokenStore() {
+        if (Objects.isNull(tokenStore)) {
+            tokenStore = ApplicationHandler.getBean(TokenStore.class);
+        }
+        return tokenStore;
+    }
+
     public static void authorize(String loginName) {
         HttpServletRequest httpServletRequest = ApplicationHandler.getHttpServletRequest();
         WebApplicationContext webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(httpServletRequest.getServletContext());
@@ -75,8 +86,10 @@ public class WebSecurityUtils {
     }
 
     public static UserDetails obtainUserDetails() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userDetails;
+        return (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    public static UserDetails obtainUserDetails(String token) {
+        return (UserDetails) obtainTokenStore().readAuthentication(token).getPrincipal();
     }
 }
