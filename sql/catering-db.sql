@@ -957,7 +957,7 @@ CREATE TABLE pos
     branch_id BIGINT NOT NULL COMMENT '门店ID',
     branch_code VARCHAR(20) NOT NULL COMMENT '门店编码',
     user_id BIGINT NOT NULL COMMENT '用户ID',
-    device_id VARCHAR(50) NOT NULL COMMENT '阿里云推送服务设备ID',
+    device_id VARCHAR(50) NOT NULL COMMENT '设备ID，mac地址',
     type VARCHAR(10) NOT NULL COMMENT 'pos 类型，安卓-android，苹果-ios',
     version VARCHAR(10) NOT NULL COMMENT 'pos 版本号',
     online TINYINT NOT NULL COMMENT '是否在线，1-在线，0-不在线',
