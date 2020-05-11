@@ -165,7 +165,7 @@ public class MqttUtils {
         applyTokenRequestParameters.put("proxyType", proxyType);
 
         String result = OutUtils.doPostWithForm(MQ_AUTH_URL + "/token/apply", applyTokenRequestParameters);
-        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(resources, String.class, Object.class);
+        Map<String, Object> resultMap = JacksonUtils.readValueAsMap(result, String.class, Object.class);
         boolean success = MapUtils.getBooleanValue(resultMap, "success");
         ValidateUtils.isTrue(success, MapUtils.getString(resultMap, "message"));
         return MapUtils.getString(resultMap, "tokenData");
