@@ -5,16 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by liuyandong on 2017/7/7.
  */
 public class LogUtils {
-    private static final Logger LOGGER = LoggerFactory.getLogger(LogUtils.class);
+    private static final Map<String, Logger> LOGGER_MAP = new ConcurrentHashMap<String, Logger>();
     private static final boolean LOG_STACK_INFO = Boolean.parseBoolean(ConfigurationUtils.getConfiguration(ConfigurationKeys.LOG_STACK_INFO));
     private static final String HOST_NAME;
     private static final String HOST_ADDRESS;
@@ -25,12 +23,21 @@ public class LogUtils {
         HOST_ADDRESS = inetAddress.getHostAddress();
     }
 
+    private static Logger obtainLogger(String name) {
+        Logger logger = LOGGER_MAP.get(name);
+        if (Objects.isNull(logger)) {
+            logger = LoggerFactory.getLogger(name);
+            LOGGER_MAP.put(name, logger);
+        }
+        return logger;
+    }
+
     public static void info(String message) {
-        LOGGER.info(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).info(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
     }
 
     public static void warn(String message) {
-        LOGGER.info(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).info(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
     }
 
     /**
@@ -45,7 +52,7 @@ public class LogUtils {
      */
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters, String body) {
         if (LOG_STACK_INFO) {
-            LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s-%s",
+            obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s-%s",
                     HOST_NAME,
                     HOST_ADDRESS,
                     errorMessage,
@@ -58,7 +65,7 @@ public class LogUtils {
                     body));
             return;
         }
-        LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s",
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s",
                 HOST_NAME,
                 HOST_ADDRESS,
                 errorMessage,
@@ -81,9 +88,9 @@ public class LogUtils {
      */
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, Map<String, String> parameters) {
         if (LOG_STACK_INFO) {
-            LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s", HOST_NAME, HOST_ADDRESS, errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters));
+            obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s", HOST_NAME, HOST_ADDRESS, errorMessage, className, methodName, obtainStackInfos(throwable), throwable.getClass().getName(), throwable.getMessage(), parameters));
         } else {
-            LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s", HOST_NAME, HOST_ADDRESS, errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), parameters));
+            obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s", HOST_NAME, HOST_ADDRESS, errorMessage, className, methodName, throwable.getClass().getName(), throwable.getMessage(), parameters));
         }
     }
 
@@ -98,7 +105,7 @@ public class LogUtils {
      */
     public static void error(String errorMessage, String className, String methodName, Throwable throwable, String body) {
         if (LOG_STACK_INFO) {
-            LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s",
+            obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s-%s",
                     HOST_NAME,
                     HOST_ADDRESS,
                     errorMessage,
@@ -110,7 +117,7 @@ public class LogUtils {
                     body));
             return;
         }
-        LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s",
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s",
                 HOST_NAME,
                 HOST_ADDRESS,
                 errorMessage,
@@ -131,7 +138,7 @@ public class LogUtils {
      */
     public static void error(String errorMessage, String className, String methodName, Throwable throwable) {
         if (LOG_STACK_INFO) {
-            LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s-%s",
+            obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s-%s",
                     errorMessage,
                     className,
                     methodName,
@@ -140,7 +147,7 @@ public class LogUtils {
                     throwable.getMessage()));
             return;
         }
-        LOGGER.error(String.format("%s-%s-%s:%s.%s-%s-%s",
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s:%s.%s-%s-%s",
                 errorMessage,
                 className,
                 methodName,
@@ -154,7 +161,7 @@ public class LogUtils {
      * @param message：错误信息
      */
     public static void error(String message) {
-        LOGGER.error(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
+        obtainLogger(new Exception().getStackTrace()[1].getClassName()).error(String.format("%s-%s-%s", HOST_NAME, HOST_ADDRESS, message));
     }
 
     public static String obtainStackInfos(Throwable throwable) {
