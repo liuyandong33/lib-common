@@ -171,9 +171,8 @@ public class AspectUtils {
     private static ApiRest transformResult(Object result) {
         if (result instanceof String) {
             return ApiRest.fromJson(result.toString());
-        } else {
-            return (ApiRest) result;
         }
+        return (ApiRest) result;
     }
 
     private static ApiRest callApiRestAction(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
