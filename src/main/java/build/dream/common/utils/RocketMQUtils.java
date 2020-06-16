@@ -4,13 +4,12 @@ import build.dream.common.annotations.RocketMQMessageListener;
 import build.dream.common.rocketmq.RocketMQProperties;
 import com.aliyun.openservices.ons.api.*;
 import com.aliyun.openservices.ons.api.bean.ProducerBean;
+import com.aliyun.openservices.ons.api.bean.Subscription;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.env.Environment;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Properties;
+import java.util.*;
 
 public class RocketMQUtils {
     private static ProducerBean producerBean;
@@ -63,5 +62,23 @@ public class RocketMQUtils {
         }
         consumer.start();
         return consumer;
+    }
+
+    public static Map<Subscription, MessageListener> buildSubscriptionTable(ApplicationContext applicationContext) {
+        Environment environment = applicationContext.getEnvironment();
+        Collection<MessageListener> messageListeners = applicationContext.getBeansOfType(MessageListener.class).values();
+
+        Map<Subscription, MessageListener> subscriptionTable = new HashMap<Subscription, MessageListener>();
+        for (MessageListener messageListener : messageListeners) {
+            RocketMQMessageListener rocketMQMessageListener = AnnotationUtils.findAnnotation(messageListener.getClass(), RocketMQMessageListener.class);
+            String topic = environment.resolvePlaceholders(rocketMQMessageListener.topic());
+            String subExpression = environment.resolvePlaceholders(rocketMQMessageListener.subExpression());
+
+            Subscription subscription = new Subscription();
+            subscription.setTopic(topic);
+            subscription.setExpression(subExpression);
+            subscriptionTable.put(subscription, messageListener);
+        }
+        return subscriptionTable;
     }
 }
