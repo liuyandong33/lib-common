@@ -74,6 +74,11 @@ dependencies {
     compile("com.aliyun.openservices:ons-client:1.8.2.Final")
     compile("com.aliyun.oss:aliyun-sdk-oss:3.8.0")
     compile("com.squareup.okhttp3:okhttp-urlconnection:4.3.1")
+
+    compile 'com.uniedp.cloud:edp-cloud-core:2.1.8'
+
+    compile 'com.google.protobuf:protobuf-java:2.5.0'
+    compile 'com.aliyun.openservices:aliyun-log-logback-appender:0.1.15'
 }
 
 task makeJar(type: Jar) {
@@ -122,5 +127,19 @@ publishing {
             }
             artifactId projectName
         }
+    }
+}
+
+processResources {
+    def properties = [:]
+
+    def env = "development"
+    if (project.hasProperty("deployment.environment")) {
+        env = project.property("deployment.environment")
+    }
+
+    properties.put("env", env)
+    filesMatching(["application.properties", "bootstrap.properties", "logback.xml"]) {
+        expand(properties)
     }
 }
