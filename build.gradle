@@ -133,13 +133,19 @@ publishing {
 processResources {
     def properties = [:]
 
-    def env = "development"
-    if (project.hasProperty("deployment.environment")) {
-        env = project.property("deployment.environment")
+    def _env = "development"
+    if (project.hasProperty("env")) {
+        env = project.property("env")
     }
 
-    properties.put("env", env)
-    filesMatching(["application.properties", "bootstrap.properties", "logback.xml"]) {
+    def partitionCode = ''
+    if (project.hasProperty("partition.code")) {
+        env = project.property("partition.code")
+    }
+
+    properties.put("env", _env)
+    properties.put("partitionCode", partitionCode)
+    filesMatching(["application.properties", "bootstrap.properties"]) {
         expand(properties)
     }
 }
