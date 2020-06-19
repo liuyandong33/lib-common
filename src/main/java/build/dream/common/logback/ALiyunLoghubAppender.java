@@ -4,7 +4,6 @@ import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.utils.PropertyUtils;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
-import ch.qos.logback.core.encoder.Encoder;
 import com.aliyun.openservices.log.logback.LoghubAppender;
 import org.apache.commons.lang3.StringUtils;
 
