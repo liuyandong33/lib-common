@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="database" class="build.dream.common.logback.DatabaseAppender"></appender>
+
+    <appender name="async" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <appender-ref ref="database"></appender-ref>
+    </appender>
+
+    <!-- 开发环境下的日志配置 -->
+    <springProfile name="development">
+        <root level="INFO">
+            <appender-ref ref="console"></appender-ref>
+        </root>
+    </springProfile>
+
+    <!-- 测试环境下的日志配置 -->
+    <springProfile name="test">
+        <root level="INFO">
+            <appender-ref ref="async"></appender-ref>
+        </root>
+    </springProfile>
+
+    <!-- Beta环境下的日志配置 -->
+    <springProfile name="beta">
+        <root level="INFO">
+            <appender-ref ref="async"></appender-ref>
+        </root>
+    </springProfile>
+
+    <!-- Beta环境下的日志配置 -->
+    <springProfile name="production">
+        <root level="INFO">
+            <appender-ref ref="async"></appender-ref>
+        </root>
+    </springProfile>
+</configuration>
