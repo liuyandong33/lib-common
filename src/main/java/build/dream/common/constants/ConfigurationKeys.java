@@ -164,4 +164,25 @@ public class ConfigurationKeys {
     public static final String DATASOURCE_HIKARI_LOG_IDLE_TIMEOUT = "datasource.hikari.log.idle-timeout";
     public static final String DATASOURCE_HIKARI_LOG_MAX_LIFETIME = "datasource.hikari.log.max-lifetime";
     public static final String DATASOURCE_HIKARI_LOG_CONNECTION_TIMEOUT = "datasource.hikari.log.connection-timeout";
+
+    public static final String ALIYUN_LOGBACK_ENDPOINT = "aliyun.logback.endpoint";
+    public static final String ALIYUN_LOGBACK_ACCESS_KEY_ID = "aliyun.logback.access-key-id";
+    public static final String ALIYUN_LOGBACK_ACCESS_KEY_SECRET = "aliyun.logback.access-key-secret";
+    public static final String ALIYUN_LOGBACK_PROJECT = "aliyun.logback.project";
+    public static final String ALIYUN_LOGBACK_LOG_STORE = "aliyun.logback.log-store";
+    public static final String ALIYUN_LOGBACK_TOPIC = "aliyun.logback.topic";
+    public static final String ALIYUN_LOGBACK_SOURCE = "aliyun.logback.source";
+
+    public static final String ALIYUN_LOGBACK_TOTAL_SIZE_IN_BYTES = "aliyun.logback.total-size-in-bytes";
+    public static final String ALIYUN_LOGBACK_MAX_BLOCK_MS = "aliyun.logback.max-block-ms";
+    public static final String ALIYUN_LOGBACK_IO_THREAD_COUNT = "aliyun.logback.io-thread-count";
+    public static final String ALIYUN_LOGBACK_BATCH_SIZE_THRESHOLD_IN_BYTES = "aliyun.logback.batch-size-threshold-in-bytes";
+    public static final String ALIYUN_LOGBACK_BATCH_COUNT_THRESHOLD = "aliyun.logback.batch-count-threshold";
+    public static final String ALIYUN_LOGBACK_LINGER_MS = "aliyun.logback.linger-ms";
+    public static final String ALIYUN_LOGBACK_RETRIES = "aliyun.logback.retries";
+    public static final String ALIYUN_LOGBACK_BASE_RETRY_BACKOFF_MS = "aliyun.logback.base-retry-backoff-ms";
+    public static final String ALIYUN_LOGBACK_MAX_RETRY_BACKOFF_MS = "aliyun.logback.max-retry-backoff-ms";
+    public static final String ALIYUN_LOGBACK_ENCODER_PATTERN = "aliyun.logback.encoder.pattern";
+    public static final String ALIYUN_LOGBACK_TIME_FORMAT = "aliyun.logback.encoder.time-format";
+    public static final String ALIYUN_LOGBACK_TIME_ZONE = "aliyun.logback.encoder.time-zone";
 }
