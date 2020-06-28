@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 import build.dream.common.utils.JacksonUtils;
 import build.dream.common.utils.OkHttpUtils;
 import okhttp3.Response;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,7 +23,7 @@ import java.util.Map;
 
 public class Crawler {
     public static void main(String[] args) {
-        //华北地区
+        /*//华北地区
         obtainProvinceData("11", "北京市");
         obtainProvinceData("12", "天津市");
         obtainProvinceData("13", "河北省");
@@ -63,7 +64,34 @@ public class Crawler {
         obtainProvinceData("62", "甘肃省");
         obtainProvinceData("63", "青海省");
         obtainProvinceData("64", "宁夏回族自治区");
-        obtainProvinceData("65", "新疆维吾尔自治区");
+        obtainProvinceData("65", "新疆维吾尔自治区");*/
+
+        obtainIpAddresses();
+    }
+
+    public static void obtainIpAddresses() {
+        try {
+            Document document = Jsoup.parse(new URL("http://ip.yqie.com/cn/shandong/qingdao/"), 600000);
+
+            Elements elements = document.getElementsByTag("tbody").get(0).getElementsByTag("tr");
+            for (int index = 1; index < elements.size(); index++) {
+                Element element = elements.get(index);
+                Elements tdElements = element.getElementsByTag("td");
+                String startIp = tdElements.get(1).text();
+                String endIp = tdElements.get(2).text();
+
+                String[] startArray = startIp.split("\\.");
+                long start = (Long.parseLong(startArray[0]) << 24) | (Long.parseLong(startArray[1]) << 16) | (Long.parseLong(startArray[2]) << 8) | (Long.parseLong(startArray[3]));
+
+                String[] endArray = endIp.split("\\.");
+                long end = (Long.parseLong(endArray[0]) << 24) | (Long.parseLong(endArray[1]) << 16) | (Long.parseLong(endArray[2]) << 8) | (Long.parseLong(endArray[3]));
+
+                String address = tdElements.get(3).text();
+                System.out.println(start + "-" + end + "," + address);
+            }
+        } catch (Exception e) {
+            obtainIpAddresses();
+        }
     }
 
     public static void obtainProvinceData(String provinceId, String provinceName) {
@@ -145,7 +173,13 @@ public class Crawler {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("pid", pid);
                 map.put("id", elements.get(0).text());
-                map.put("name", elements.get(1).text());
+
+                String name = elements.get(1).text();
+                if (StringUtils.isNumeric(name)) {
+                    name = elements.get(2).text();
+                }
+
+                map.put("name", name);
                 list.add(map);
             }
             return list;
@@ -173,7 +207,13 @@ public class Crawler {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("pid", pid);
                 map.put("id", elements.get(0).text());
-                map.put("name", elements.get(2).text());
+
+                String name = elements.get(1).text();
+                if (StringUtils.isNumeric(name)) {
+                    name = elements.get(2).text();
+                }
+
+                map.put("name", name);
                 list.add(map);
             }
             System.out.println(JacksonUtils.writeValueAsString(list));
@@ -185,7 +225,7 @@ public class Crawler {
                     return new ArrayList<Map<String, String>>();
                 }
             }
-            return getData(pid, pageName);
+            return getVillageData(pid, pageName);
         }
     }
 

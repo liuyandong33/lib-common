@@ -575,6 +575,11 @@ public class Constants {
 
     public static final String CHANNEL_TYPE_EXEC = "exec";
     public static final String CHANNEL_TYPE_SFTP = "sftp";
+    public static final String PREFERRED_AUTHENTICATIONS = "PreferredAuthentications";
+    public static final String STRICT_HOST_KEY_CHECKING = "StrictHostKeyChecking";
+    public static final String NO = "no";
+    public static final String YES = "yes";
+    public static final String PASSWORD = "password";
 
     public static final Integer ACCESS_MODE_GET = 1;
     public static final Integer ACCESS_MODE_POST = 2;
