@@ -1,3 +1,4 @@
+/*
 package build.dream.common.logback;
 
 import build.dream.common.constants.ConfigurationKeys;
@@ -95,3 +96,4 @@ public class ALiyunLoghubAppender extends LoghubAppender<ILoggingEvent> {
         }
     }
 }
+*/
