@@ -79,6 +79,9 @@ dependencies {
 
     compile 'com.google.protobuf:protobuf-java:2.5.0'
     compile 'com.aliyun.openservices:aliyun-log-logback-appender:0.1.15'
+
+    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-config', version: '2.2.1.RELEASE'
+    compile group: 'com.alibaba.cloud', name: 'spring-cloud-starter-alibaba-nacos-discovery', version: '2.2.1.RELEASE'
 }
 
 task makeJar(type: Jar) {

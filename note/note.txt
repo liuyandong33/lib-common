@@ -116,4 +116,92 @@ public static final BigInteger BIG_INTEGER_SEVENTY = BigInteger.valueOf(70L);
 public static final BigInteger BIG_INTEGER_EIGHTY = BigInteger.valueOf(80L);
 public static final BigInteger BIG_INTEGER_NINETY = BigInteger.valueOf(90L);
 
-http://api.map.baidu.com/location/ip?ak=Y1Vyhde9A2BDG67FIxjIAzTG9RnpvPXG&ip=39.88.72.120&coor=gcj02
+if (nums[0] <= 0 && nums[length - 1] >= 0) { // 优化1: 整个数组同符号，则无解
+        for (let i = 0; i < length - 2;) {
+          if (nums[i] > 0) break; // 优化2: 最左值为正数则一定无解
+          let first = i + 1
+          let last = length - 1
+          do {
+            if (first >= last || nums[i] * nums[last] > 0) break // 两人选相遇，或者三人同符号，则退出
+            let result = nums[i] + nums[first] + nums[last]
+            if (result === 0) { // 如果可以组队
+              res.push([nums[i], nums[first], nums[last]])
+            }
+            if (result <= 0 ) { // 实力太弱，把菜鸟那边右移一位
+              while (first < last && nums[first] === nums[++first]){} // 如果相等就跳过
+            } else { // 实力太强，把大神那边右移一位
+              while (first < last && nums[last] === nums[--last]) {}
+            }
+          } while (first < last)
+          while (nums[i] === nums[++i]) {}
+        }
+      }
+      return res
+
+120.42194444444445, 36.13611111111111
+
+{
+    "status": "success",
+    "message": null,
+    "data": {
+        "scope": null,
+        "accessToken": null,
+        "tokenType": null,
+        "expiresIn": null,
+        "tokenId": "MTAuMTM1LjEyMi42Mw==|NTZkMmNiY2U5MjBlODViZGMyMjEzZDM0OTdlYWVhYTU3YjgwOTUwOTAxMDliNDBhYWIwZTVmY2QyMmEzYTdhMA==|vKKBPcKJ5oKmzEgkQDw7Ib7kk14=",
+        "uucUserInfoTO": {
+            "userId": 3,
+            "uucUserId": "20190923190223397-DE37-F061B4222",
+            "displayName": "刘艳东",
+            "loginName": "19037726",
+            "mobile": "19862208388",
+            "mail": "liuyandong.cosmo@haier.com"
+        },
+        "error": null,
+        "errorDesc": null
+    }
+}
+
+aa = {
+    "1": {
+        "id": 337,
+        "grabType": 1,
+        "demand": 2121
+    },
+    "2": {
+        "id": 337,
+        "grabType": 1,
+        "demand": 2121
+    }
+}
+
+deletedIds = {1: 0, 2: 3, };
+
+
+if (aa[index + ""]) {
+    deletedIds.var
+}
+
+https://blog.csdn.net/caiyqn/article/details/106262563
+
+cat << EOF >> /etc/yum.repos.d/openstack.repo
+[openstack-rocky]
+name=openstack-rocky
+baseurl=https://mirrors.aliyun.com/centos/7/cloud/x86_64/openstack-rocky/
+enabled=1
+gpgcheck=0
+
+[qume-kvm]
+name=qemu-kvm
+baseurl= https://mirrors.aliyun.com/centos/7/virt/x86_64/kvm-common/
+enabled=1
+gpgcheck=0
+EOF
+
+yum -y install openstack-swift-proxy  openstack-swift-account openstack-swift-container openstack-swift-object
+
+<dependency>
+    <groupId>com.xuxueli</groupId>
+    <artifactId>xxl-job-core</artifactId>
+    <version>2.1.2</version>
+</dependency>
