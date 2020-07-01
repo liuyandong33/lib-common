@@ -205,3 +205,14 @@ yum -y install openstack-swift-proxy  openstack-swift-account openstack-swift-co
     <artifactId>xxl-job-core</artifactId>
     <version>2.1.2</version>
 </dependency>
+
+./redis-trib.rb create --replicas 1 127.0.0.1:6380 127.0.0.1:6381 127.0.0.1:6382 127.0.0.1:6383 127.0.0.1:6384 127.0.0.1:6385
+
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7001/redis.conf
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7002/redis.conf
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7003/redis.conf
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7004/redis.conf
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7005/redis.conf
+/usr/local/redis/redis-5.0.0/src/redis-server /usr/local/redis/redis-5.0.0/redis-cluster-conf/7006/redis.conf
+
+/usr/local/redis/redis-5.0.0/src/redis-cli --cluster create 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 --cluster-replicas 1
