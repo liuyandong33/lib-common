@@ -9,6 +9,7 @@ import build.dream.common.constants.RedisKeys;
 import build.dream.common.domains.saas.WeiXinPayAccount;
 import build.dream.common.models.weixinpay.*;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -84,7 +85,7 @@ public class WeiXinPayUtils {
         }
 
         if (Constants.HMAC_SHA256.equals(signType)) {
-            return HmacUtils.hmacSha256Hex(weiXinPayKey, stringSignTemp.toString()).toUpperCase();
+            return new HmacUtils(HmacAlgorithms.HMAC_SHA_256, weiXinPayKey).hmacHex(stringSignTemp.toString()).toUpperCase();
         }
         return null;
     }

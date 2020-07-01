@@ -4,6 +4,7 @@ import build.dream.common.constants.Constants;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 
 import java.io.ByteArrayInputStream;
@@ -19,7 +20,7 @@ public class AliyunOSSUtils {
         policyMap.put("conditions", conditions);
 
         String policy = Base64.encodeBase64String(JacksonUtils.writeValueAsString(policyMap).getBytes(Constants.CHARSET_UTF_8));
-        String signature = Base64.encodeBase64String(HmacUtils.hmacSha1(accessKey.getBytes(Constants.CHARSET_UTF_8), policy.getBytes(Constants.CHARSET_UTF_8)));
+        String signature = Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessKey).hmac(policy));
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("accessId", accessId);

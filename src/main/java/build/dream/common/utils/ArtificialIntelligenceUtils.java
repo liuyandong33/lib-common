@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.http.MediaType;
@@ -16,7 +17,7 @@ public class ArtificialIntelligenceUtils {
         String bodyMd5 = Base64.encodeBase64String(DigestUtils.md5(body));
         String stringToSign = method + "\n" + accept + "\n" + bodyMd5 + "\n" + contentType + "\n" + date + "\n";
 
-        String signature = Base64.encodeBase64String(HmacUtils.hmacSha1(accessKey, stringToSign));
+        String signature = Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessKey).hmac(stringToSign));
         return signature;
     }
 

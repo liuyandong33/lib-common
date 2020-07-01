@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.constants.Constants;
 import build.dream.common.models.aliyunpush.*;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -33,7 +34,7 @@ public class AliyunPushUtils {
         for (Map.Entry<String, String> entry : sortedRequestParameters.entrySet()) {
             pairs.add(UrlUtils.encode(entry.getKey(), Constants.CHARSET_NAME_UTF_8) + "=" + UrlUtils.encode(entry.getValue(), Constants.CHARSET_NAME_UTF_8));
         }
-        return Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, StringUtils.join(pairs, "&")));
+        return Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessKeySecret).hmac(StringUtils.join(pairs, "&")));
     }
 
     /**

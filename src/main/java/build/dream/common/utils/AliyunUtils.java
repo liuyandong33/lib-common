@@ -3,6 +3,7 @@ package build.dream.common.utils;
 import build.dream.common.constants.ConfigurationKeys;
 import build.dream.common.constants.Constants;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -38,6 +39,6 @@ public class AliyunUtils {
         stringBuilder.append(UrlUtils.encode("/", Constants.CHARSET_NAME_UTF_8));
         stringBuilder.append("&");
         stringBuilder.append(UrlUtils.encode(StringUtils.join(requestParameterPairs, "&"), Constants.CHARSET_NAME_UTF_8));
-        return Base64.encodeBase64String(HmacUtils.hmacSha1(accessSecret + "&", stringBuilder.toString()));
+        return Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessSecret + "&").hmac(stringBuilder.toString()));
     }
 }

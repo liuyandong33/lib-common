@@ -1,6 +1,7 @@
 package build.dream.common.mqtt;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 
@@ -54,7 +55,7 @@ public class ConnectionOptionWrapper {
     public ConnectionOptionWrapper(String instanceId, String accessKeyId, String accessKeySecret, String clientId) {
         mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setUserName("Signature|" + accessKeyId + "|" + instanceId);
-        mqttConnectOptions.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, clientId)).toCharArray());
+        mqttConnectOptions.setPassword(Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessKeySecret).hmac(clientId)).toCharArray());
         mqttConnectOptions.setCleanSession(true);
         mqttConnectOptions.setKeepAliveInterval(90);
         mqttConnectOptions.setAutomaticReconnect(true);

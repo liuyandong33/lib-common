@@ -10,6 +10,7 @@ import build.dream.common.models.mqtt.RevokeTokenModel;
 import build.dream.common.mqtt.ConnectionOptionWrapper;
 import build.dream.common.mqtt.MqttInfo;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.HmacAlgorithms;
 import org.apache.commons.codec.digest.HmacUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
@@ -50,7 +51,7 @@ public class MqttUtils {
         mqttInfo.setEndPoint(mqttConfig.getEndPoint());
         mqttInfo.setClientId(clientId);
         mqttInfo.setUserName("Signature|" + AliyunUtils.ACCESS_KEY_ID + "|" + mqttConfig.getInstanceId());
-        mqttInfo.setPassword(Base64.encodeBase64String(HmacUtils.hmacSha1(AliyunUtils.ACCESS_KEY_SECRET, clientId)));
+        mqttInfo.setPassword(Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, AliyunUtils.ACCESS_KEY_SECRET).hmac(clientId)));
         mqttInfo.setTopic(mqttConfig.getTopic());
         return mqttInfo;
     }
@@ -135,7 +136,7 @@ public class MqttUtils {
         for (Map.Entry<String, String> entry : sortedMap.entrySet()) {
             pairs.add(entry.getKey() + "=" + entry.getValue());
         }
-        return Base64.encodeBase64String(HmacUtils.hmacSha1(accessKeySecret, StringUtils.join(pairs, "&")));
+        return Base64.encodeBase64String(new HmacUtils(HmacAlgorithms.HMAC_SHA_1, accessKeySecret).hmac(StringUtils.join(pairs, "&")));
     }
 
     /**
